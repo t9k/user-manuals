@@ -39,6 +39,8 @@
 
     * [安全管理](module/security-management.md)
 
+    * [集群管理](module/cluster-management.md)
+
     * [工具](module/tools/index.md)
         * [Image Builder](module/tools/imagebuilder.md)
         * [Image Runner](module/tools/imagerunner.md)
