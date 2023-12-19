@@ -1,0 +1,19 @@
+[book]
+authors = ["TensorStack Authors"]
+language = "zh-cn"
+multilingual = false
+src = "src"
+title = "TensorStack AI 平台用户手册"
+
+[output.html]
+curly-quotes = true
+additional-css = ["theme/custom.css"]
+
+[preprocessor.tabulate]
+command = "./util-tabulate.sh"
+
+[preprocessor.embed]
+command = "./util-embed.sh"
+
+[preprocessor.releaselink]
+command = "./util-releaselink.sh"

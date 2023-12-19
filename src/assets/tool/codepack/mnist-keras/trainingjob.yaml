@@ -1,0 +1,51 @@
+apiVersion: batch.tensorstack.dev/v1beta1
+kind: TensorFlowTrainingJob
+metadata:
+  name: codepack-example
+spec:
+  scheduler:
+    t9kScheduler:
+      queue: default
+      priority: 50
+  runPolicy:
+    cleanUpPolicy: Unfinished
+    backoffLimit: 20           # 所有Pod最多共重启20次
+  tensorboardSpec:
+    trainingLogFilesets:
+      - t9k://pvc/codepack-example/mnist-keras/log
+    image: tsz.io/t9k/tensorflow-2.7.0:cpu
+  replicaSpecs:
+    - type: worker
+      replicas: 4
+      restartPolicy: OnFailure
+      template:
+        spec:
+          securityContext:
+            runAsUser: 1000
+          containers:
+            - command:
+                - python
+                - main.py
+                - "--no_cuda"
+                - "--log_dir"
+                - "log"
+                - "--save_path"
+                - "saved-model"
+              workingDir: /mnt/mnist-keras/
+              imagePullPolicy: IfNotPresent
+              image: tsz.io/t9k/tensorflow-2.7.0:cpu
+              name: tensorflow
+              resources:
+                requests:
+                  cpu: 2000m
+                  memory: 2Gi
+                limits:
+                  cpu: 4000m
+                  memory: 4Gi
+              volumeMounts:
+                - mountPath: /mnt
+                  name: data
+          volumes:
+            - name: data
+              persistentVolumeClaim:
+                claimName: codepack-example
