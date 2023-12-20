@@ -1,3 +1,14 @@
+/* screen shot */
+figure.screenshot {
+    margin: 20px auto;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+img.screenshot {
+    box-shadow: 0px 0px 10px rgba(0,0,0,.5);
+}
+
 :root {
     --content-max-width: 880px;
 }

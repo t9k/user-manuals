@@ -6,8 +6,9 @@ src = "src"
 title = "TensorStack AI 平台用户手册"
 
 [output.html]
+additional-css = ["theme/sidebar.css", "theme/custom.css"]
+additional-js = ["theme/sidebar.js"]
 curly-quotes = true
-additional-css = ["theme/custom.css"]
 
 [preprocessor.tabulate]
 command = "./util-tabulate.sh"

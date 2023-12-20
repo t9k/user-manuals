@@ -1,7 +1,3 @@
----
-title: CRD References
----
-
 # CRD References
 
 * [Project](./project.md)

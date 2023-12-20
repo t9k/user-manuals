@@ -1,0 +1,137 @@
+# XGBoostTrainingJob
+
+XGBoostTrainingJob 是服务于 [XGBoost:octicons-link-external-16:](https://xgboost.readthedocs.io/en/latest/){target=_blank} 分布式计算框架的 T9k Job。
+
+您可以较为方便地使用 XGBoostTrainingJob 为 XGBoost 计算程序提供训练环境，并监控训练进程。
+
+## 创建 XGBoostTrainingJob
+
+下面是一个基本的 XGBoostTrainingJob 配置示例：
+
+```yaml
+apiVersion: batch.tensorstack.dev/v1beta1
+kind: XGBoostTrainingJob
+metadata:
+  name: training-iris-xgb
+spec:
+  replicaSpecs:
+    - type: master
+      replicas: 1
+      restartPolicy: OnFailure
+      template:
+        spec:
+          containers:
+            - name: xgboost
+              image: registry.tensorstack.cn/t9kmirror/xgboost-dist-iris:1.1
+              command:
+                - python3
+                - /mnt/main.py
+                - --job_type=Train
+                - --xgboost_parameter=objective:multi:softprob,num_class:3
+                - --n_estimators=10
+                - --learning_rate=0.1
+                - --model_path=/mnt/xgboost_model/
+                - --model_storage_type=local
+    - type: worker
+      replicas: 2
+      restartPolicy: OnFailure
+      template:
+          containers:
+            - name: xgboost
+              image: registry.tensorstack.cn/t9kmirror/xgboost-dist-iris:1.1
+              command:
+                - python3
+                - /mnt/main.py
+                - --job_type=Train
+                - --xgboost_parameter=objective:multi:softprob,num_class:3
+                - --n_estimators=10
+                - --learning_rate=0.1
+                - --model_path=/mnt/xgboost_model/
+                - --model_storage_type=local
+```
+
+在该例中：
+
+* 创建 1 个 `master` 副本和 2 个 `worker` 副本（由 `spec.replicaSpecs[*].replicas` 字段和 `spec.replicaSpecs[*].type` 字段指定）。
+* 每个副本使用 `registry.tensorstack.cn/t9kmirror/xgboost-dist-iris:1.1` 镜像，执行命令 `python3 /mnt/main.py --job_type=Train --xgboost_parameter=objective:multi:softprob,num_class:3 --n_estimators=10 --learning_rate=0.1 --model_path=/mnt/xgboost_model/ --model_storage_type=local`（由 `spec.replicaSpecs[*].template` 字段指定，此处的填写方式参考 [PodTemplate:octicons-link-external-16:](https://kubernetes.io/docs/concepts/workloads/pods/#pod-templates){target=_blank}）。
+* 当副本失败后，会自动重启（由 `spec.replicaSpecs[*].restartPolicy` 字段指定）。
+
+!!! note "注意"
+    XGBoostTrainingJob 的 `template` 字段必须包含 `name` 为 `xgboost` 的容器，以便控制器识别训练使用的主容器。
+
+    XGBoostTrainingJob 的副本中 `master` 是必不可少的，如果缺少 `master` 将无法训练。
+
+    XGBoostTrainingJob 中执行的脚本应使用 XGBoost 分布式训练框架，否则可能达不到训练效果。
+
+## 成功和失败
+
+在 XGBoost 分布式训练框架中，副本有 2 种类型：Master 和 Worker，其中 Master 是主节点。当分布式训练的主节点成功结束时，XGBoost 分布式训练成功；反之，当分布式训练的主节点执行失败时，XGBoost 分布式训练失败。
+
+但是主节点的失败有时可能是因为环境因素导致的，比如集群网络断连、集群节点崩溃等等，此类原因导致的失败应该被允许自动恢复。针对这一情况，XGBoostTrainingJob 允许副本重启（请参阅[重启机制](#重启机制)），并设定了重启次数限制（由 `spec.runPolicy.backoffLimit` 字段指定），当副本重启次数达到上限后，如果主节点再次失败，则训练失败。此外，XGBoostTrainingJob 可以设置最长执行时间（由 `spec.runPolicy.activeDeadlineSeconds` 字段指定），当超过这个执行时间后，训练失败。
+
+如果 XGBoostTrainingJob 在没有超过重启次数和没有超过最长执行时间的情况下成功完成了主节点的运行，则训练成功。
+
+## 重启机制
+
+XGBoostTrainingJob 的 `spec.replicaSpec[*].template` 字段使用 [PodTemplate:octicons-link-external-16:](https://kubernetes.io/docs/concepts/workloads/pods/#pod-templates){target=_blank} 的规范填写，但是 Pod 的重启策略并不能满足 XGBoostTrainingJob 的需求，所以 XGBoostTrainingJob 使用 `spec.replicaSpec[*].restartPolicy` 字段覆盖 `spec.replicaSpec[*].template` 中指定的重启策略。
+
+可选的重启策略有以下四种：
+
+* `Never`：不重启
+* `OnFailure`：失败后重启
+* `Always`：总是重启
+* `ExitCode`：特殊退出码重启
+
+使用 `Never` 重启策略时，Job 的副本失败后不会重启。如果需要调试代码错误，可以选择此策略，便于从副本中读取训练日志。
+
+`ExitCode` 是一种比较特殊的重启策略，它将失败进程的返回值分为两类：一类是由于系统环境原因或用户操作导致的错误，此类错误可以通过重启解决；另一类是代码错误或者其他不可自动恢复的错误。可重启的退出码包括：
+
+* 130（128+2）：使用 `Control+C` 终止容器运行。
+* 137（128+9）：容器接收到 `SIGKILL` 信号。
+* 143（128+15）：容器接收到 `SIGTERM` 信号。
+* 138：用户可以自定义这个返回值的含义。如果用户希望程序在某处退出并重启，可以在代码中写入这个返回值。
+
+### 重启次数限制
+
+如果因为某种原因（例如代码错误或者环境错误并且长时间没有修复），XGBoostTrainingJob 不断地失败重启却无法解决问题，这会导致集群资源的浪费。用户可以通过设置 `spec.runPolicy.backoffLimit` 字段来设置副本的最大重启次数。重启次数为所有副本共享，即所有副本重启次数累计达到此数值后，副本将不能再次重启。
+
+## 清除策略
+
+在训练结束后，可能有些副本仍处于运行状态。这些运行的副本仍然会占用集群资源，XGBoostTrainingJob 提供清除策略，在训练结束后删除这些训练节点。
+
+XGBoostTrainingJob 提供以下三种策略：
+
+* `None`：不删除副本。
+* `All`：删除所有副本。
+* `Unfinished`：只删除未结束的副本。
+
+!!! tip "提示"
+    已结束的副本不会继续消耗集群资源，因此在一定程度上，`Unfinished` 策略比 `All` 策略更优。但这并不总是适用，由于一个项目的资源配额的计算不考虑 Pod 是否已经结束，对于资源紧张的项目，如果确定不需要通过日志来调试 Job，则可以使用 `All` 策略。
+    
+    `None` 策略主要用于训练脚本调试阶段。如果需要从副本中读取训练日志，则可以选用此策略。但由于这些副本可能占用资源并影响后续训练，建议您在调试完毕后手动删除这些副本或删除整个 XGBoostTrainingJob。
+
+## 调度器
+
+目前 XGBoostTrainingJob 支持使用以下两种调度器：
+
+1. Kubernetes 的[默认调度器:octicons-link-external-16:](https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler){target=_blank}
+2. [T9k Scheduler 调度器](../../cluster/scheduling/index.md)
+
+调度器通过 `spec.scheduler` 字段设置：
+
+* 不设置 `spec.scheduler` 字段，则默认使用 Kubernetes 的默认调度器。
+* 设置 `spec.scheduler.t9kScheduler` 字段，则使用 T9k Scheduler 调度器。
+
+在下面的示例中，XGBoostTrainingJob 启用 T9k Scheduler 调度器，将副本插入 `default` 队列中等待调度，其优先级为 50。
+
+```yaml
+...
+spec:
+  scheduler:
+    t9kScheduler:
+      queue: default
+      priority: 50
+```
+
+!!! info "信息"
+    队列和优先级都是 T9k Scheduler 的概念，具体含义请参阅 [T9k Scheduler](../../cluster/scheduling/index.md)。

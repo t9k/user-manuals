@@ -19,16 +19,16 @@ spec:
   template:
     spec:
       containers:
-      - image: t9kpublic/tensorflow-2.11.0-notebook-cpu:latest
+      - image: t9kpublic/tensorflow-2.14.0-notebook-cpu:latest
         name: tensorflow
   type: jupyter
 ```
 
-在该例中，`template` 字段定义所要创建的 Pod 的规约，指示 Pod 运行一个 `tensorflow` 容器，该容器运行的镜像是 `t9kpublic/tensorflow-2.11.0-notebook-cpu:latest`，这是一个[预先编译好的镜像](#预先编译好的镜像)。
+在该例中，`template` 字段定义所要创建的 Pod 的规约，指示 Pod 运行一个 `tensorflow` 容器，该容器运行的镜像是 `t9kpublic/tensorflow-2.14.0-notebook-cpu:latest`，这是一个[预先编译好的镜像](#预先编译好的镜像)。
 
 ## 预先编译好的镜像
 
-模型构建模块提供了一些预先编译好的镜像，与 JupyterLab 原生镜像相比内置了更丰富的工具包，请参阅[Notebook 标准镜像列表](../../reference/image/notebook-standard-image-list.md)。
+模型构建模块提供了一些预先编译好的镜像，与 JupyterLab 原生镜像相比内置了更丰富的工具包，请参阅[Notebook 标准镜像列表](../../references/standard-images.md#notebook-标准镜像列表)。
 
 在这些镜像中：
 
@@ -119,7 +119,7 @@ Notebook 提供空闲资源回收的支持，在检测到 Notebook 处于空闲�
     
 !!! question "如果有非上述场景的任务运行，同时不希望 Notebook 空闲超时被回收，如何保持 Notebook 活跃？"
 
-    * 参考[使用 Jupyter Notebook](../../guide/develop-and-test-model/use-notebook.md#使用-jupyter-notebook) 创建 `active.ipynb` 文件并执行以下代码块：
+    * 参考[使用 Jupyter Notebook](../../tasks/develop-and-test-model/use-notebook.md#使用-jupyter-notebook) 创建 `active.ipynb` 文件并执行以下代码块：
       
       ```
       import time
@@ -129,12 +129,3 @@ Notebook 提供空闲资源回收的支持，在检测到 Notebook 处于空闲�
       ```
     
     如果您的任务运行完成，您可以手动停止该代码块的执行，以恢复空闲资源回收的功能。
-
-
-<aside class="note warning">
-
-<h1>CA Key Age</h1>
-
-Note that rotating CA certificates is non-trivial and it is recommended to create a long-lived CA or use a long-lived root/offline CA with a short lived intermediary CA
-
-</aside>
