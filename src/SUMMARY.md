@@ -49,7 +49,7 @@
 
     * [工具](modules/tools/index.md)
         * [Image Builder](modules/tools/imagebuilder.md)
-        * [Image Runner](modules/tools/imagerunner.md)
+        * [Pod](modules/tools/pod.md)
 
 * [任务](tasks/index.md)
     * [使用模型构建模块](tasks/model-building.md)

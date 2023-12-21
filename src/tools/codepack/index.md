@@ -6,14 +6,14 @@ Codepack 以简洁明了的形式定义在平台上开发、运行、部署一�
 
 <html>
 <head>
-  <link rel="stylesheet" type="text/css" href="../../assets/tool/codepack/asciinema-player.css" />
+  <link rel="stylesheet" type="text/css" href="../../assets/tools/codepack/asciinema-player.css" />
 </head>
 <body>
   <div id="player" style="width: 80%;"></div>
-  <script src="../../assets/tool/codepack/asciinema-player.min.js"></script>
+  <script src="../../assets/tools/codepack/asciinema-player.min.js"></script>
   <script>
     AsciinemaPlayer.create(
-      '../../assets/tool/codepack/506308.cast',
+      '../../assets/tools/codepack/506308.cast',
       document.getElementById('player'),
       { cols: 80, rows: 27, autoPlay: true }
     );

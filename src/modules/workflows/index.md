@@ -9,7 +9,7 @@ AI 应用由很多基础计算步骤构成，具有很大灵活性，在不同�
 工作流模块提供了 [WorkflowTemplate](./workflow/workflowtemplate.md)、[WorkflowRun](./workflow/workflowrun.md)、[CronWorkflowRun](./workflow/cronworkflowrun.md) 等自定义扩展资源，以及控制台、服务器、操作器等组件。整体架构如下图所示：
 
 <figure> 
-<img alt="architecture" src="../../assets/module/workflow/architecture.drawio.svg"/>
+<img alt="architecture" src="../../assets/modules/workflow/architecture.drawio.svg"/>
 </figure>
 
 其中：
@@ -23,5 +23,5 @@ AI 应用由很多基础计算步骤构成，具有很大灵活性，在不同�
 如下图所示，Workflow 可以将分布式并行作业、非并行作业组合在一起成为复合作业，而且复合作业中可以嵌套复合作业，并通过 T9k 调度器进行计算资源的匹配，最终完成复杂的多步骤计算。
 
 <figure> 
-<img alt="workflow-and-jobs" src="../../assets/module/workflow/workflow-and-jobs.png"/>
+<img alt="workflow-and-jobs" src="../../assets/modules/workflow/workflow-and-jobs.png"/>
 </figure>

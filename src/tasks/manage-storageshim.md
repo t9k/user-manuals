@@ -61,7 +61,7 @@ s3cmd -c s3cfg ls s3://<my-bucket>
 最后点击**创建 Secret**：
 
 <figure class="screenshot">
-  <img alt="create-pvc-s3cfg.png" src="../assets/guide/manage-auxiliary-resources/use-pvc-over-s3/create-pvc-s3cfg.png" class="screenshot"/>
+  <img alt="create-pvc-s3cfg.png" src="../assets/tasks/manage-auxiliary-resources/use-pvc-over-s3/create-pvc-s3cfg.png" class="screenshot"/>
 </figure>
 
 #### 通过命令行工具
@@ -102,19 +102,19 @@ kubectl -n <project> get secret <s3cfg-secret> \
 进入模型构建控制台，选择左侧导航菜单的**存储 > 持久卷**，点击上方的 S3，然后点击右上角的**创建 StorageShim**：
 
 <figure class="screenshot">
-  <img alt="view-storageshim.png" src="../assets/guide/manage-auxiliary-resources/use-pvc-over-s3/view-storageshim.png" class="screenshot"/>
+  <img alt="view-storageshim.png" src="../assets/tasks/manage-auxiliary-resources/use-pvc-over-s3/view-storageshim.png" class="screenshot"/>
 </figure>
 
 输入持久卷名称、S3 URI（`s3://<your-bucket>`），然后选择 S3 Secret 名称，最后点击右上角的**创建 StorageShim** 完成创建：
 
 <figure class="screenshot">
-  <img alt="create-storageshim.png" src="../assets/guide/manage-auxiliary-resources/use-pvc-over-s3/create-storageshim.png" class="screenshot"/>
+  <img alt="create-storageshim.png" src="../assets/tasks/manage-auxiliary-resources/use-pvc-over-s3/create-storageshim.png" class="screenshot"/>
 </figure>
 
 在 S3 标签页查看新创建的 StorageShim：
 
 <figure class="screenshot">
-  <img alt="new-storageshim.png" src="../assets/guide/manage-auxiliary-resources/use-pvc-over-s3/new-storageshim.png" class="screenshot"/>
+  <img alt="new-storageshim.png" src="../assets/tasks/manage-auxiliary-resources/use-pvc-over-s3/new-storageshim.png" class="screenshot"/>
 </figure>
 
 #### 通过命令行工具

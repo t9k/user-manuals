@@ -14,25 +14,25 @@ ConfigMap 是一种以键值对的形式存储非机密信息的 Kubernetes 资�
 进入模型构建控制台之后，选择一个 Project 点击 **Enter** 进入 Project 主页面。
 
 <figure class="screenshot">
-  <img alt="building-console" src="../assets/guide/manage-auxiliary-resources/building-console.png" class="screenshot"/>
+  <img alt="building-console" src="../assets/tasks/manage-auxiliary-resources/building-console.png" class="screenshot"/>
 </figure>
 
 在 Project 主页面左侧导航栏（或右侧卡片）中点击 **Auxiliary&nbsp;> ConfigMaps** 进入 ConfigMap 管理页面。
 
 <figure class="screenshot">
-  <img alt="project-page-configmap" src="../assets/guide/manage-auxiliary-resources/project-page-configmap.png" class="screenshot"/>
+  <img alt="project-page-configmap" src="../assets/tasks/manage-auxiliary-resources/project-page-configmap.png" class="screenshot"/>
 </figure>
 
 点击 ConfigMap 管理页面右上角的 **Create ConfigMap** 进入 ConfigMap 创建页面。
 
 <figure class="screenshot">
-  <img alt="configmap-table" src="../assets/guide/manage-auxiliary-resources/configmap-table.png" class="screenshot"/>
+  <img alt="configmap-table" src="../assets/tasks/manage-auxiliary-resources/configmap-table.png" class="screenshot"/>
 </figure>
 
 在 ConfigMap 创建页面分别填写 ConfigMap 名称、标签和所要存储的数据（或者直接在右侧的编辑框内直接编辑完整的 ConfigMap），然后点击 **Create ConfigMap** 创建 ConfigMap。
 
 <figure class="screenshot">
-  <img alt="create-configmap" src="../assets/guide/manage-auxiliary-resources/create-configmap.png" class="screenshot"/>
+  <img alt="create-configmap" src="../assets/tasks/manage-auxiliary-resources/create-configmap.png" class="screenshot"/>
 </figure>
 
 您也可以点击左上角的 **Loading an existing ConfigMap** 加载已经存在 ConfigMap。
@@ -42,5 +42,5 @@ ConfigMap 是一种以键值对的形式存储非机密信息的 Kubernetes 资�
 进入 ConfigMap 管理页面后，在列表中勾选所要删除的 ConfigMap，点击右上角的 **Delete**。
 
 <figure class="screenshot">
-  <img alt="delete-configmap" src="../assets/guide/manage-auxiliary-resources/delete-configmap.png" class="screenshot"/>
+  <img alt="delete-configmap" src="../assets/tasks/manage-auxiliary-resources/delete-configmap.png" class="screenshot"/>
 </figure>

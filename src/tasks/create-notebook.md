@@ -14,13 +14,13 @@
 在模型构建控制台的左侧导航菜单中点击**存储 > 持久卷** 进入持久卷申领（PersistentVolumeClaim）管理页面。然后点击右上角的**创建 PersistentVolumeClaim** 进入创建页面：
 
 <figure class="screenshot">
-  <img alt="pvc-manage" src="../assets/guide/develop-and-test-model/create-notebook/pvc-manage.png" class="screenshot"/>
+  <img alt="pvc-manage" src="../assets/tasks/develop-and-test-model/create-notebook/pvc-manage.png" class="screenshot"/>
 </figure>
 
 在持久卷申领创建页面，**名称**填写 `create-notebook`，其他参数保持默认值，然后点击**创建 PersistentVolumeClaim** 进行创建：
 
 <figure class="screenshot">
-  <img alt="pvc-create-filled" src="../assets/guide/develop-and-test-model/create-notebook/pvc-create-filled.png" class="screenshot"/>
+  <img alt="pvc-create-filled" src="../assets/tasks/develop-and-test-model/create-notebook/pvc-create-filled.png" class="screenshot"/>
 </figure>
 
 ## 创建标准的 Notebook
@@ -28,7 +28,7 @@
 在模型构建控制台的左侧导航菜单中点击**构建 > Notebook** 进入 Notebook 管理页面，然后点击右上角的**创建 Notebook** 进入创建页面：
 
 <figure class="screenshot">
-  <img alt="notebook-manage" src="../assets/guide/develop-and-test-model/create-notebook/notebook-manage.png" class="screenshot"/>
+  <img alt="notebook-manage" src="../assets/tasks/develop-and-test-model/create-notebook/notebook-manage.png" class="screenshot"/>
 </figure>
 
 在 Notebook 创建页面，如下填写各个参数：
@@ -40,7 +40,7 @@
 其他参数保持默认值。完成之后，点击**创建 Notebook** 进行创建。
 
 <figure class="screenshot">
-  <img alt="notebook-create-filled" src="../assets/guide/develop-and-test-model/create-notebook/notebook-create-filled.png" class="screenshot"/>
+  <img alt="notebook-create-filled" src="../assets/tasks/develop-and-test-model/create-notebook/notebook-create-filled.png" class="screenshot"/>
 </figure>
 
 !!! info "信息"
@@ -49,7 +49,7 @@
 回到 Notebook 管理页面查看新创建的 Notebook：
 
 <figure class="screenshot">
-  <img alt="notebook-created" src="../assets/guide/develop-and-test-model/create-notebook/notebook-created.png" class="screenshot"/>
+  <img alt="notebook-created" src="../assets/tasks/develop-and-test-model/create-notebook/notebook-created.png" class="screenshot"/>
 </figure>
 
 如果 Notebook 被分配到的节点中已经有了对应的 Notebook 镜像，那么 Notebook 通常能在 10 秒内运行；否则，可能需要几分钟来拉取镜像。Notebook 运行后，您可以[使用 Notebook](./use-notebook.md)。
@@ -59,7 +59,7 @@
 创建 Notebook 时，点击 **Advanced** 展开高级功能的设置：
 
 <figure class="screenshot">
-  <img alt="notebook-advanced" src="../assets/guide/develop-and-test-model/create-notebook/notebook-advanced.png" class="screenshot"/>
+  <img alt="notebook-advanced" src="../assets/tasks/develop-and-test-model/create-notebook/notebook-advanced.png" class="screenshot"/>
 </figure>
 
 ### 使用默认调度器设置资源
@@ -74,7 +74,7 @@
 * `GPU value`：可选，GPU 扩展资源的份数，其具体含义受 GPU 扩展资源的类型的影响。如 1 份 `tensorstack.dev/nvidia-gpu` 等于 1 个 NVIDIA GPU；30 份 `tensorstack.dev/nvidia-gpu-percent` 等于 1 个 NVIDIA GPU 30% 的计算能力。
 
 <figure class="screenshot">
-  <img alt="notebook-advanced-default" src="../assets/guide/develop-and-test-model/create-notebook/notebook-advanced-default.png" class="screenshot"/>
+  <img alt="notebook-advanced-default" src="../assets/tasks/develop-and-test-model/create-notebook/notebook-advanced-default.png" class="screenshot"/>
 </figure>
 
 !!! info "资源请求和上限"
@@ -91,7 +91,7 @@
 * `优先级`：可选，默认值是 0。代表任务在队列内部的优先级。当发生资源抢占时，优先级数字较小的工作负载会比同一个队列中的其他负载优先被驱逐。
 
 <figure class="screenshot">
-  <img alt="notebook-advanced-t9k" src="../assets/guide/develop-and-test-model/create-notebook/notebook-advanced-t9k.png" class="screenshot"/>
+  <img alt="notebook-advanced-t9k" src="../assets/tasks/develop-and-test-model/create-notebook/notebook-advanced-t9k.png" class="screenshot"/>
 </figure>
 
 ### 添加额外的存储卷
@@ -99,7 +99,7 @@
 可以为 Notebook 绑定额外的数据卷。如下图所示：
 
 <figure class="screenshot">
-  <img alt="notebook-dataVolume" src="../assets/guide/develop-and-test-model/create-notebook/notebook-dataVolume.png" class="screenshot"/>
+  <img alt="notebook-dataVolume" src="../assets/tasks/develop-and-test-model/create-notebook/notebook-dataVolume.png" class="screenshot"/>
 </figure>
 
 每绑定一个数据卷需要填写如下参数：
@@ -120,7 +120,7 @@ Notebook 的 SSH 服务只允许通过密钥对进行验证，因此您需要上
 在模型构建控制台的左侧导航菜单中点击**辅助 > Secret**，然后点击右上角的**创建 Secret** 进入的创建页面：
 
 <figure class="screenshot">
-  <img alt="secret-create" src="../assets/guide/develop-and-test-model/create-notebook/secret-create.png" class="screenshot"/>
+  <img alt="secret-create" src="../assets/tasks/develop-and-test-model/create-notebook/secret-create.png" class="screenshot"/>
 </figure>
 
 在 Secret 创建页面，选择类型为 **SSH Public Key**，填写名称并上传公钥。最后点击**创建 Secret** 进行创建：
@@ -129,7 +129,7 @@ Notebook 的 SSH 服务只允许通过密钥对进行验证，因此您需要上
     如果您没有生成过密钥对，或者不知道从哪里获取公钥，那么您可以参阅 [SSH 文档](https://www.ssh.com/academy/ssh/keygen)或者 [Windows 文档](https://learn.microsoft.com/zh-cn/windows-server/administration/openssh/openssh_keymanagement#user-key-generation)。
 
 <figure class="screenshot">
-  <img alt="secret-create-ssh" src="../assets/guide/develop-and-test-model/create-notebook/secret-create-ssh.png" class="screenshot"/>
+  <img alt="secret-create-ssh" src="../assets/tasks/develop-and-test-model/create-notebook/secret-create-ssh.png" class="screenshot"/>
 </figure>
 
 ### 创建支持 SSH 连接的 Notebook
@@ -140,7 +140,7 @@ Notebook 的 SSH 服务只允许通过密钥对进行验证，因此您需要上
 * `SSH 公钥`：用来验证登录者身份，Notebook 的 SSH 服务只允许通过公钥进行身份认证。这里是一个可多选的选择框，请选择您想添加的所有 Secret 后点击网页的其他空白位置。
 
 <figure class="screenshot">
-  <img alt="notebook-ssh" src="../assets/guide/develop-and-test-model/create-notebook/notebook-ssh.png" class="screenshot"/>
+  <img alt="notebook-ssh" src="../assets/tasks/develop-and-test-model/create-notebook/notebook-ssh.png" class="screenshot"/>
 </figure>
 
 !!! info "信息"

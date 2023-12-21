@@ -44,7 +44,7 @@
 队列 A 和 B 的优先级相同，资源配额及使用情况如下图所示：
 
 <figure>
-  <img alt="share" src="../../assets/module/cluster/share.drawio.svg">
+  <img alt="share" src="../../assets/modules/cluster/share.drawio.svg">
 </figure>
 
 | 队列名称 | 资源占比                  | 主导资源占比 |

@@ -15,19 +15,19 @@
 从模型构建控制台进入 Notebook 列表，点击右上角的**创建 Notebook**。
 
 <figure class="screenshot">
-  <img alt="notebook-table" src="../assets/guide/run-hyperparameter-optimization/notebook-table.png" class="screenshot"/>
+  <img alt="notebook-table" src="../assets/tasks/run-hyperparameter-optimization/notebook-table.png" class="screenshot"/>
 </figure>
 
 创建 Notebook 时，在**存储卷**选择前面创建的 PVC 的名称 `autotune-mnist-keras`。
 
 <figure class="screenshot">
-  <img alt="create-notebook" src="../assets/guide/run-hyperparameter-optimization/create-notebook.png" class="screenshot"/>
+  <img alt="create-notebook" src="../assets/tasks/run-hyperparameter-optimization/create-notebook.png" class="screenshot"/>
 </figure>
 
 创建完成之后，点击 **CONNECT** 进入 Notebook。
 
 <figure class="screenshot">
-  <img alt="after-creating-notebook" src="../assets/guide/run-hyperparameter-optimization/after-creating-notebook.png" class="screenshot"/>
+  <img alt="after-creating-notebook" src="../assets/tasks/run-hyperparameter-optimization/after-creating-notebook.png" class="screenshot"/>
 </figure>
 
 ### 在 Notebook 中编辑训练脚本
@@ -335,7 +335,7 @@ if task_index == 0:
 在 Notebook 中创建文件 `main.py`，写入上述脚本并保存文件。
 
 <figure class="screenshot">
-  <img alt="notebook-detail" src="../assets/guide/run-hyperparameter-optimization/notebook-detail.png" class="screenshot"/>
+  <img alt="notebook-detail" src="../assets/tasks/run-hyperparameter-optimization/notebook-detail.png" class="screenshot"/>
 </figure>
 
 创建 `download_dataset.py` 文件，写入以下脚本并执行来下载实验数据。
@@ -348,11 +348,11 @@ _, _ = tf.keras.datasets.mnist.load_data(os.path.join(os.getcwd(), 'mnist.npz'))
 ```
 
 <figure class="screenshot">
-  <img alt="notebook-download-script" src="../assets/guide/run-hyperparameter-optimization/notebook-download-script.png" class="screenshot"/>
+  <img alt="notebook-download-script" src="../assets/tasks/run-hyperparameter-optimization/notebook-download-script.png" class="screenshot"/>
 </figure>
 
 <figure class="screenshot">
-  <img alt="download-data" src="../assets/guide/run-hyperparameter-optimization/download-data.png" class="screenshot"/>
+  <img alt="download-data" src="../assets/tasks/run-hyperparameter-optimization/download-data.png" class="screenshot"/>
 </figure>
 
 ## 准备数据库
@@ -364,13 +364,13 @@ _, _ = tf.keras.datasets.mnist.load_data(os.path.join(os.getcwd(), 'mnist.npz'))
 AIMD 的实验数据是以文件夹形式管理的，所以您首先需要在实验管理控制台点击右上角的 **+** 新建一个文件夹。
 
 <figure class="screenshot">
-  <img alt="create-aimd-folder" src="../assets/guide/run-hyperparameter-optimization/create-aimd-folder.png" class="screenshot"/>
+  <img alt="create-aimd-folder" src="../assets/tasks/run-hyperparameter-optimization/create-aimd-folder.png" class="screenshot"/>
 </figure>
 
 右键文件夹，点击 **Copy folder ID** 来获取该文件夹的 ID。
 
 <figure class="screenshot">
-  <img alt="folder-id" src="../assets/guide/run-hyperparameter-optimization/folder-id.png" class="screenshot"/>
+  <img alt="folder-id" src="../assets/tasks/run-hyperparameter-optimization/folder-id.png" class="screenshot"/>
 </figure>
 
 !!! info "信息"
@@ -386,19 +386,19 @@ AIMD 的实验数据是以文件夹形式管理的，所以您首先需要在实
 您需要按照[生成 API Key](../api-key/generate-api-key.md) 教程中的步骤，在安全控制台中生成一个 API Key，其中必须勾选 AIMD 选项。
 
 <figure class="screenshot">
-  <img alt="create-apikey" src="../assets/guide/run-hyperparameter-optimization/create-apikey.png" class="screenshot"/>
+  <img alt="create-apikey" src="../assets/tasks/run-hyperparameter-optimization/create-apikey.png" class="screenshot"/>
 </figure>
 
 生成 API Key 之后，点击 **:material-content-copy:** 复制该 API Key。
 
 <figure class="screenshot">
-  <img alt="after-creating-apikey" src="../assets/guide/run-hyperparameter-optimization/after-creating-apikey.png" class="screenshot"/>
+  <img alt="after-creating-apikey" src="../assets/tasks/run-hyperparameter-optimization/after-creating-apikey.png" class="screenshot"/>
 </figure>
 
 然后，您需要按照[管理 Secret](../manage-auxiliary-resources/manage-secret.md) 教程中的步骤，在模型构建控制台中将所复制的 API Key 存入名为 `aimd` 的 Secret 中，以方便后续实验使用。
 
 <figure class="screenshot">
-  <img alt="create-apikey-secret" src="../assets/guide/run-hyperparameter-optimization/create-apikey-secret.png" class="screenshot"/>
+  <img alt="create-apikey-secret" src="../assets/tasks/run-hyperparameter-optimization/create-apikey-secret.png" class="screenshot"/>
 </figure>
 
 ## 开始实验
@@ -406,13 +406,13 @@ AIMD 的实验数据是以文件夹形式管理的，所以您首先需要在实
 在模型构建控制台的 AutoTune 列表页面，点击右上角的**创建 AutoTuneExperiment** 进入 AutoTuneExperiment 创建页面。
 
 <figure class="screenshot">
-  <img alt="autotune-table" src="../assets/guide/run-hyperparameter-optimization/autotune-table.png" class="screenshot"/>
+  <img alt="autotune-table" src="../assets/tasks/run-hyperparameter-optimization/autotune-table.png" class="screenshot"/>
 </figure>
 
 接下来填写 AutoTuneExperiment 创建表单，按照下图填写 AutoTuneExperiment 配置：
 
 <figure class="screenshot">
-  <img alt="create-autotune" src="../assets/guide/run-hyperparameter-optimization/create-autotune.png" class="screenshot"/>
+  <img alt="create-autotune" src="../assets/tasks/run-hyperparameter-optimization/create-autotune.png" class="screenshot"/>
 </figure>
 
 在此例中，实验绑定了准备过程中创建的名为 `autotune-mnist-keras` 的 PVC，其中存有在 Notebook 中编辑的训练脚本；使用了名为 `aimd` 的存有 API Key 的 Secret；填入了前面创建的 AIMD Folder 的 ID。
@@ -484,17 +484,17 @@ AIMD 的实验数据是以文件夹形式管理的，所以您首先需要在实
 您可以在 AutoTune 列表页面看到已创建的 AutoTuneExperiment，点击 **CONNECT** 进入实验详情页面。
 
 <figure class="screenshot">
-  <img alt="after-creating-autotune" src="../assets/guide/run-hyperparameter-optimization/after-creating-autotune.png" class="screenshot"/>
+  <img alt="after-creating-autotune" src="../assets/tasks/run-hyperparameter-optimization/after-creating-autotune.png" class="screenshot"/>
 </figure>
 
 下图为实验详情页面，您可以在该页面查看实验基本信息、各试验的参数与结果，以及查看试验之间的对比。
 
 <figure class="screenshot">
-  <img alt="autotune-detail" src="../assets/guide/run-hyperparameter-optimization/autotune-detail.png" class="screenshot"/>
+  <img alt="autotune-detail" src="../assets/tasks/run-hyperparameter-optimization/autotune-detail.png" class="screenshot"/>
 </figure>
 
 <figure class="screenshot">
-  <img alt="trial-detail" src="../assets/guide/run-hyperparameter-optimization/trial-detail.png" class="screenshot"/>
+  <img alt="trial-detail" src="../assets/tasks/run-hyperparameter-optimization/trial-detail.png" class="screenshot"/>
 </figure>
 
 ## 下一步
