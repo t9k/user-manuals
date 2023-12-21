@@ -2,12 +2,12 @@
 
 ## 概述
 
-TensorStack AI 平台支持用户在多个环节使用 [S3 协议:octicons-link-external-16:](https://en.wikipedia.org/wiki/Amazon_S3)的存储服务。本教程演示如何使用平台提供的 StorageShim 通过 PVC 的形式使用 S3。
+TensorStack AI 平台支持用户在多个环节使用 [S3 协议](https://en.wikipedia.org/wiki/Amazon_S3)的存储服务。本教程演示如何使用平台提供的 StorageShim 通过 PVC 的形式使用 S3。
 
 本教程涉及如下基本概念：
 
-* **[S3（Simple Storage Service）:octicons-link-external-16:](https://aws.amazon.com/cn/s3/)**提供可扩展、安全、高可用的对象存储服务，可以存储和检索任意数量和类型的数据，包括文档、图片、视频、音频等。更多详细信息请参阅[附录](#附录)。
-* **[PVC（PersistentVolumeClaim）:octicons-link-external-16:](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)**是 Kubernetes 提供的一种声明式的存储卷请求，用于向 Kubernetes 集群申请持久化存储卷。PVC 使应用程序与存储资源解耦，提高了存储资源的管理和使用效率。
+* **[S3（Simple Storage Service）](https://aws.amazon.com/cn/s3/)**提供可扩展、安全、高可用的对象存储服务，可以存储和检索任意数量和类型的数据，包括文档、图片、视频、音频等。更多详细信息请参阅[附录](#附录)。
+* **[PVC（PersistentVolumeClaim）](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)**是 Kubernetes 提供的一种声明式的存储卷请求，用于向 Kubernetes 集群申请持久化存储卷。PVC 使应用程序与存储资源解耦，提高了存储资源的管理和使用效率。
 * **T9k StorageShim** 提供了把 S3 服务转换为 PVC 的能力，让用户能够以 Kubernetes 原生的方式使用 S3。
 
 ## 详细过程
@@ -61,7 +61,7 @@ s3cmd -c s3cfg ls s3://<my-bucket>
 最后点击**创建 Secret**：
 
 <figure class="screenshot">
-  <img alt="create-pvc-s3cfg.png" src="../../assets/guide/manage-auxiliary-resources/use-pvc-over-s3/create-pvc-s3cfg.png" class="screenshot"/>
+  <img alt="create-pvc-s3cfg.png" src="../assets/guide/manage-auxiliary-resources/use-pvc-over-s3/create-pvc-s3cfg.png" class="screenshot"/>
 </figure>
 
 #### 通过命令行工具
@@ -102,19 +102,19 @@ kubectl -n <project> get secret <s3cfg-secret> \
 进入模型构建控制台，选择左侧导航菜单的**存储 > 持久卷**，点击上方的 S3，然后点击右上角的**创建 StorageShim**：
 
 <figure class="screenshot">
-  <img alt="view-storageshim.png" src="../../assets/guide/manage-auxiliary-resources/use-pvc-over-s3/view-storageshim.png" class="screenshot"/>
+  <img alt="view-storageshim.png" src="../assets/guide/manage-auxiliary-resources/use-pvc-over-s3/view-storageshim.png" class="screenshot"/>
 </figure>
 
 输入持久卷名称、S3 URI（`s3://<your-bucket>`），然后选择 S3 Secret 名称，最后点击右上角的**创建 StorageShim** 完成创建：
 
 <figure class="screenshot">
-  <img alt="create-storageshim.png" src="../../assets/guide/manage-auxiliary-resources/use-pvc-over-s3/create-storageshim.png" class="screenshot"/>
+  <img alt="create-storageshim.png" src="../assets/guide/manage-auxiliary-resources/use-pvc-over-s3/create-storageshim.png" class="screenshot"/>
 </figure>
 
 在 S3 标签页查看新创建的 StorageShim：
 
 <figure class="screenshot">
-  <img alt="new-storageshim.png" src="../../assets/guide/manage-auxiliary-resources/use-pvc-over-s3/new-storageshim.png" class="screenshot"/>
+  <img alt="new-storageshim.png" src="../assets/guide/manage-auxiliary-resources/use-pvc-over-s3/new-storageshim.png" class="screenshot"/>
 </figure>
 
 #### 通过命令行工具
@@ -213,7 +213,7 @@ s3cmd setacl --acl-public s3://my-bucket-name/path/to/remote/file
 
 ### 对象存储（object storage）
 
-[对象存储:octicons-link-external-16:](https://en.wikipedia.org/wiki/Object_storage)是一种将数据存储为对象的数据存储架构，这与文件系统将数据作为文件层次结构进行管理不同。 每个对象通常包括数据本身（object）、元数据（metadata）和全局唯一标识符（object key）。
+[对象存储](https://en.wikipedia.org/wiki/Object_storage)是一种将数据存储为对象的数据存储架构，这与文件系统将数据作为文件层次结构进行管理不同。 每个对象通常包括数据本身（object）、元数据（metadata）和全局唯一标识符（object key）。
 
 对象存储是存储海量非结构化数据（例如图像、视频和文档）的不错选择，例如大规模机器学习中使用的海量训练数据、特征、模型等。
 

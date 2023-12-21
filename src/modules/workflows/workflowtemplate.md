@@ -4,7 +4,7 @@ WorkflowTemplate 用于在 Kubernetes 中有序、高效、方便地组织运行
 
 ## 创建 WorkflowTemplate
 
-下面的 WorkflowTemplate 示例创建并运行一个 [Kubernetes Pod:octicons-link-external-16:](https://kubernetes.io/zh/docs/concepts/workloads/pods/){target=_blank}。
+下面的 WorkflowTemplate 示例创建并运行一个 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh/docs/concepts/workloads/pods/">Kubernetes Pod</a>。
 
 ```yaml
 apiVersion: batch.tensorstack.dev/v1beta1
@@ -70,7 +70,7 @@ spec:
         args: ["echo Hello World!"]
 ```
 
-`spec.pod` 中可以填写的字段与 [Kubernetes Pod:octicons-link-external-16:](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#podspec-v1-core){target=_blank} 相同。
+`spec.pod` 中可以填写的字段与 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#podspec-v1-core">Kubernetes Pod</a> 相同。
 
 ### SeqPod WorkflowTemplate
 
@@ -165,7 +165,7 @@ spec:
           print("Hello from Python!")
 ```
 
-如果 `script` 脚本的开头不包含以 `#!` 开头的字符串（[shebang:octicons-link-external-16:](https://en.wikipedia.org/wiki/Shebang_(Unix)){target=_blank}），以下字符串会被自动添加到 `script` 脚本的开头：
+如果 `script` 脚本的开头不包含以 `#!` 开头的字符串（<a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Shebang_(Unix)">shebang</a>），以下字符串会被自动添加到 `script` 脚本的开头：
 
 ```bash
 #!/bin/bash
@@ -179,7 +179,7 @@ set -e # Immediately exit if any command exited with non-zero status.
 * `/t9k/workspaces`：用于挂载 [workspaces](#指定工作空间)，您可以通过 `$(workspaces.<workspaceName>.path)` 来使用该路径。
 * `/t9k/results`：用于存储 [results](#输出结果)，您可以通过 `$(results.<resultName>.path)` 来使用该路径。
 * `/t9k/tools`：用于保证 SeqPod 中 `steps` 顺序执行的辅助工具，与用户无关。
-* `/t9k/termination`：用于写入 Pod 的 [termination message:octicons-link-external-16:](https://kubernetes.io/docs/tasks/debug-application-cluster/determine-reason-pod-failure/#writing-and-reading-a-termination-message){target=_blank}，与用户无关。
+* `/t9k/termination`：用于写入 Pod 的 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/tasks/debug-application-cluster/determine-reason-pod-failure/#writing-and-reading-a-termination-message">termination message</a>，与用户无关。
 
 ### Resource WorkflowTemplate
 
@@ -221,7 +221,7 @@ spec:
 * `successRules`：如果所创建的资源满足该条件，本 WorkflowTemplate 视为成功。
 * `failureRules`：如果所创建的资源满足该条件，本 WorkflowTemplate 视为失败。
 
-`fieldSelector` 的写法与 [Kubernetes 标签选择器:octicons-link-external-16:](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/){target=_blank}的语法相同但更强大，除了标签之外还能应用到资源的任意字段，支持的运算符有 `>`、`<`、`==`、`!=`、`in`、`notin` 等，多个需要同时满足的条件可以用逗号连接。例如，以下都是合法的 `fieldSelector`：
+`fieldSelector` 的写法与 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/">Kubernetes 标签选择器</a>的语法相同但更强大，除了标签之外还能应用到资源的任意字段，支持的运算符有 `>`、`<`、`==`、`!=`、`in`、`notin` 等，多个需要同时满足的条件可以用逗号连接。例如，以下都是合法的 `fieldSelector`：
 
 * `status.succeeded>0`
 * `status.succeeded > 0`
@@ -266,7 +266,7 @@ spec:
 
 !!! note "注意"
 
-    创建 Resource WorkflowTemplate 对应的 WorkflowRun 时需要提供一个 [Service Account:octicons-link-external-16:](https://kubernetes.io/docs/reference/kubernetes-api/authentication-resources/service-account-v1/){target=_blank}，使得 WorkflowRun 具有在 Kubernetes 中创建该 Resource 的权限。例如：
+    创建 Resource WorkflowTemplate 对应的 WorkflowRun 时需要提供一个 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/kubernetes-api/authentication-resources/service-account-v1/">Service Account</a>，使得 WorkflowRun 具有在 Kubernetes 中创建该 Resource 的权限。例如：
 
     ```yaml
     apiVersion: batch.tensorstack.dev/v1beta1
@@ -722,7 +722,7 @@ spec:
 
 ## 失败处理
 
-对于 Pod/SeqPod/Resource WorkflowTemplate，一个 WorkflowRun 只对应一次运行，即使失败也不会重启。也就是说，一个 WorkflowRun 对应产生的 Pod 的 `spec` 中 [`restartPolicy`:octicons-link-external-16:](https://kubernetes.io/zh/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy){target=_blank} 永远是 `Never`。
+对于 Pod/SeqPod/Resource WorkflowTemplate，一个 WorkflowRun 只对应一次运行，即使失败也不会重启。也就是说，一个 WorkflowRun 对应产生的 Pod 的 `spec` 中 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy">`restartPolicy`</a> 永远是 `Never`。
 
 对于 DAG WorkflowTemplate，DAG 的每个节点都有可能会失败，我们使用 `retries` 字段来控制节点的重启。
 

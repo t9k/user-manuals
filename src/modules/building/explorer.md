@@ -29,11 +29,11 @@ Explorer 会自动以多种方式展示和管理数据，目前支持文件浏�
 
 ### 文件浏览器
   
-使用第三方软件 [File Browser:octicons-link-external-16:](https://github.com/filebrowser/filebrowser){target=_blank} 提供文件管理器形式的界面，支持文件系统浏览、文件上传、文件下载、基本的文件编辑等功能。
+使用第三方软件 <a target="_blank" rel="noopener noreferrer" href="https://github.com/filebrowser/filebrowser">File Browser</a> 提供文件管理器形式的界面，支持文件系统浏览、文件上传、文件下载、基本的文件编辑等功能。
 
 ### 代码编辑器
 
-使用第三方软件 [VS Code:octicons-link-external-16:](https://github.com/cdr/code-server){target=_blank} 提供云端集成开发环境（IDE）的支持。开发者可以方便地运行网页版 VS Code，进行远程项目开发。
+使用第三方软件 <a target="_blank" rel="noopener noreferrer" href="https://github.com/cdr/code-server">VS Code</a> 提供云端集成开发环境（IDE）的支持。开发者可以方便地运行网页版 VS Code，进行远程项目开发。
 
 ## 资源回收
 

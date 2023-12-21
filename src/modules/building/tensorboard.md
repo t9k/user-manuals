@@ -3,9 +3,9 @@
 TensorBoard 是 TensorFlow 提供的一种可视化机器学习过程和结果的工具，功能强大且广泛应用于多种框架。
 
 !!! abstract "延伸阅读"
-    * [TensorBoard 官方教程:octicons-link-external-16:](https://www.tensorflow.org/tensorboard/get_started){target=_blank}  
-    * [使用 TensorBoard 可视化 PyTorch 模型:octicons-link-external-16:](https://pytorch.org/docs/stable/tensorboard.html){target=_blank}  
-    * [使用 TensorBoard 可视化 Keras 模型:octicons-link-external-16:](https://keras.io/api/callbacks/tensorboard/){target=_blank}
+    * <a target="_blank" rel="noopener noreferrer" href="https://www.tensorflow.org/tensorboard/get_started">TensorBoard 官方教程</a>  
+    * <a target="_blank" rel="noopener noreferrer" href="https://pytorch.org/docs/stable/tensorboard.html">使用 TensorBoard 可视化 PyTorch 模型</a>  
+    * <a target="_blank" rel="noopener noreferrer" href="https://keras.io/api/callbacks/tensorboard/">使用 TensorBoard 可视化 Keras 模型</a>
 
 您可以使用本产品在集群中一键部署 TensorBoard，可视化训练模型。
 
@@ -48,7 +48,7 @@ FileSet 的格式为 `t9k://storage-type/storage-identity/path`，由下列四�
 !!! info "信息"
     创建 MinIO Secret 的方法请参阅[管理 Secret](../../tasks/manage-auxiliary-resources/manage-secret.md)。
 
-    MinIO 的相关介绍（比如 Bucket 的含义）请参阅[官方介绍:octicons-link-external-16:](https://min.io/){target=_blank}。
+    MinIO 的相关介绍（比如 Bucket 的含义）请参阅<a target="_blank" rel="noopener noreferrer" href="https://min.io/">官方介绍</a>。
 
 ## TrainingJob 自动创建 TensorBoard
 

@@ -1,6 +1,6 @@
 # MPIJob
 
-[OpenMPI:octicons-link-external-16:](https://www.open-mpi.org/){target=_blank} 是一个开源的 MPI（Message Passing Interface）协议的实现项目。
+<a target="_blank" rel="noopener noreferrer" href="https://www.open-mpi.org/">OpenMPI</a> 是一个开源的 MPI（Message Passing Interface）协议的实现项目。
 
 MPIJob 是一种使用 OpenMPI 进行分布式计算的 T9k Job，此资源让您能够方便地在集群环境中使用 OpenMPI 进行训练。
 
@@ -53,7 +53,7 @@ spec:
 在该例中：
 
 * 创建 5 个执行副本（由 `spec.worker.replicas` 字段指定）。
-* `spec.worker.template` 字段沿用 [PodTemplate:octicons-link-external-16:](https://kubernetes.io/docs/concepts/workloads/pods/#pod-templates){target=_blank} 的规约，配置执行副本和启动副本的环境。每个执行副本包含一个名为 `mpi-worker` 的容器（为了确定用于执行 MPI 进程的容器，执行副本定义中必须有一个名为 `mpi-worker` 的容器）。`mpi-worker` 容器创建后执行 `sshd` 命令并等待启动副本连接，所以此容器会忽略 `PodTemplate` 定义中的 `command` 和 `args` 字段（因此该例中没有填写这两个字段）。
+* `spec.worker.template` 字段沿用 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/workloads/pods/#pod-templates">PodTemplate</a> 的规约，配置执行副本和启动副本的环境。每个执行副本包含一个名为 `mpi-worker` 的容器（为了确定用于执行 MPI 进程的容器，执行副本定义中必须有一个名为 `mpi-worker` 的容器）。`mpi-worker` 容器创建后执行 `sshd` 命令并等待启动副本连接，所以此容器会忽略 `PodTemplate` 定义中的 `command` 和 `args` 字段（因此该例中没有填写这两个字段）。
 * 在执行副本准备完毕后，启动副本向执行副本发送启动命令，令执行副本创建 3 个 MPI 进程，这些进程分别执行 `./random_walk 20 40 2`（由 `spec.worker.cmd` 字段指定）命令。
 * 在训练过程中不使用 Infiniband 进行通信（由 `spec.mca.btl` 字段指定）。
 * 在训练结束后自动清除副本（由 `spec.runPolicy.cleanUpWorkers` 字段指定）来释放集群资源。
@@ -158,10 +158,10 @@ status:
 ```
 ## 运行 Horovod 训练脚本
 
-使用 [Horovod:octicons-link-external-16:](https://horovod.ai/){target=_blank} 框架的分布式训练脚本也可以使用 MPIJob 进行训练。
+使用 <a target="_blank" rel="noopener noreferrer" href="https://horovod.ai/">Horovod</a> 框架的分布式训练脚本也可以使用 MPIJob 进行训练。
 
 !!! info "信息"
-    Horovod 框架的分布式训练脚本一般使用 `horovodrun` 命令启动；而由于 Horovod 是基于 OpenMPI 实现的，所以也可以使用 `mpirun` 命令启动。两条命令的关系为：`horovodrun` 命令等同于 `mpirun -bind-to none -map-by slot -x NCCL_DEBUG=INFO -x LD_LIBRARY_PATH -x PATH -mca pml ob1 -mca btl ^openib`。具体信息请参阅 [Horovod With MPI:octicons-link-external-16:](https://github.com/horovod/horovod/blob/master/docs/mpi.rst){target=_blank}。
+    Horovod 框架的分布式训练脚本一般使用 `horovodrun` 命令启动；而由于 Horovod 是基于 OpenMPI 实现的，所以也可以使用 `mpirun` 命令启动。两条命令的关系为：`horovodrun` 命令等同于 `mpirun -bind-to none -map-by slot -x NCCL_DEBUG=INFO -x LD_LIBRARY_PATH -x PATH -mca pml ob1 -mca btl ^openib`。具体信息请参阅 <a target="_blank" rel="noopener noreferrer" href="https://github.com/horovod/horovod/blob/master/docs/mpi.rst">Horovod With MPI</a>。
 
 在 MPIJob 中需要执行以下操作：
 
@@ -194,7 +194,7 @@ spec:
 
 目前 MPIJob 支持使用以下两种调度器：
 
-1. Kubernetes 的[默认调度器:octicons-link-external-16:](https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler)
+1. Kubernetes 的[默认调度器](https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler)
 2. [T9k Scheduler](../../cluster/scheduling/index.md)
 
 调度策略通过 `spec.scheduler` 字段设置：

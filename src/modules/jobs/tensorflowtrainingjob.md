@@ -1,6 +1,6 @@
 # TensorFlowTrainingJob
 
-TensorFlowTrainingJob 是服务于 [TensorFlow:octicons-link-external-16:](https://www.tensorflow.org/guide/distributed_training){target=_blank} 分布式训练框架的 T9k Job。  
+TensorFlowTrainingJob 是服务于 <a target="_blank" rel="noopener noreferrer" href="https://www.tensorflow.org/guide/distributed_training">TensorFlow</a> 分布式训练框架的 T9k Job。  
 
 您可以较为方便地使用 TensorFlowTrainingJob 为 TensorFlow 训练脚本提供训练环境，并监控训练进程。
 
@@ -38,7 +38,7 @@ spec:
 在该例中：
 
 * 创建 4 个副本（由 `spec.replicaSpecs[*].replicas` 字段指定），副本的角色为 `worker`（由 `spec.replicaSpecs[*].type` 字段指定）。
-* 每个副本使用 `tensorflow/tensorflow:2.11.0` 镜像，执行命令 `python dist_mnist.py`（由 `spec.replicaSpecs[*].template` 字段指定，此处的填写方式参考 [PodTemplate:octicons-link-external-16:](https://kubernetes.io/docs/concepts/workloads/pods/#pod-templates){target=_blank}）。
+* 每个副本使用 `tensorflow/tensorflow:2.11.0` 镜像，执行命令 `python dist_mnist.py`（由 `spec.replicaSpecs<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/workloads/pods/#pod-templates">*].template` 字段指定，此处的填写方式参考 [PodTemplate</a>）。
 * 当副本失败后，会自动重启（由 `spec.replicaSpecs[*].restartPolicy` 字段指定）。
 
 !!! note "注意"
@@ -62,7 +62,7 @@ spec:
 
 ## 重启机制
 
-TensorFlowTrainingJob 的 `spec.replicaSpec[*].template` 字段使用 [PodTemplate:octicons-link-external-16:](https://kubernetes.io/docs/concepts/workloads/pods/#pod-templates){target=_blank} 的规范填写，但是 Pod 的重启策略并不能完全满足 TensorFlowTrainingJob 的需求，所以 TensorFlowTrainingJob 使用 `spec.replicaSpec[*].restartPolicy` 字段覆盖 `spec.replicaSpec[*].template` 中指定的重启策略。
+TensorFlowTrainingJob 的 `spec.replicaSpec<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/workloads/pods/#pod-templates">*].template` 字段使用 [PodTemplate</a> 的规范填写，但是 Pod 的重启策略并不能完全满足 TensorFlowTrainingJob 的需求，所以 TensorFlowTrainingJob 使用 `spec.replicaSpec[*].restartPolicy` 字段覆盖 `spec.replicaSpec[*].template` 中指定的重启策略。
 
 可选的重启策略有以下四种：
 
@@ -103,7 +103,7 @@ TensorFlowTrainingJob 提供以下三种策略：
 
 目前 TensorFlowTrainingJob 支持使用以下两种调度器：
 
-1. Kubernetes 的[默认调度器:octicons-link-external-16:](https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler){target=_blank}
+1. Kubernetes 的<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler">默认调度器</a>
 2. [T9k Scheduler 调度器](../../cluster/scheduling/index.md)
 
 调度器通过 `spec.scheduler` 字段设置：

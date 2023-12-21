@@ -1,6 +1,6 @@
 # 作业
 
-作业（Job）是一类统一协调多个计算节点（replica）共同完成一项任务的 Kubernetes 资源。为了与 Kubernetes 原生的 [Job:octicons-link-external-16:](https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/job/){target=_blank} 资源作区分，后文称本平台的 Job 为 T9k Job。
+作业（Job）是一类统一协调多个计算节点（replica）共同完成一项任务的 Kubernetes 资源。为了与 Kubernetes 原生的 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/job/">Job</a> 资源作区分，后文称本平台的 Job 为 T9k Job。
 
 根据所要完成的任务不同，T9k Job 分为以下几种资源：
 
@@ -14,24 +14,24 @@
 
     * [PyTorchTrainingJob](./pytorchtrainingjob.md)
 
-        PyTorchTrainingJob 是服务于 [PyTorch:octicons-link-external-16:](https://pytorch.org/){target=_blank} 分布式训练框架的 TrainingJob。
+        PyTorchTrainingJob 是服务于 <a target="_blank" rel="noopener noreferrer" href="https://pytorch.org/">PyTorch</a> 分布式训练框架的 TrainingJob。
 
     * [TensorFlowTrainingJob](./tensorflowtrainingjob.md)
 
-        TensorFlowTrainingJob 是服务于 [TensorFlow:octicons-link-external-16:](https://www.tensorflow.org/guide/distributed_training){target=_blank} 分布式训练框架的 TrainingJob。
+        TensorFlowTrainingJob 是服务于 <a target="_blank" rel="noopener noreferrer" href="https://www.tensorflow.org/guide/distributed_training">TensorFlow</a> 分布式训练框架的 TrainingJob。
 
     * [XGBoostTrainingJob](./xgboosttrainingjob.md)
 
-        XGBoostTrainingJob 是服务于 [XGBoost:octicons-link-external-16:](https://xgboost.readthedocs.io/en/latest/){target=_blank} 分布式计算框架的 TrainingJob。  
+        XGBoostTrainingJob 是服务于 <a target="_blank" rel="noopener noreferrer" href="https://xgboost.readthedocs.io/en/latest/">XGBoost</a> 分布式计算框架的 TrainingJob。  
 
     * [ColossalAIJob](./colossalaijob.md)
 
-        ColossalAIJob 是服务于 [ColossalAI:octicons-link-external-16:](https://colossalai.org/){target=_blank} 分布式训练框架的 T9k Job。
+        ColossalAIJob 是服务于 <a target="_blank" rel="noopener noreferrer" href="https://colossalai.org/">ColossalAI</a> 分布式训练框架的 T9k Job。
 
     * [DeepSpeedJob](./deepspeedjob.md)
 
-        DeepSpeedJob 是服务于 [DeepSpeed:octicons-link-external-16:](https://www.deepspeed.ai/){target=_blank} 分布式训练框架的 T9k Job。
+        DeepSpeedJob 是服务于 <a target="_blank" rel="noopener noreferrer" href="https://www.deepspeed.ai/">DeepSpeed</a> 分布式训练框架的 T9k Job。
 
 * [MPIJob](./mpijob.md)
 
-    [OpenMPI:octicons-link-external-16:](https://www.open-mpi.org/){target=_blank} 是一个开源的 MPI（Message Passing Interface）协议的实现项目。MPIJob 使您能够方便地在集群环境中使用 OpenMPI 进行训练。
+    <a target="_blank" rel="noopener noreferrer" href="https://www.open-mpi.org/">OpenMPI</a> 是一个开源的 MPI（Message Passing Interface）协议的实现项目。MPIJob 使您能够方便地在集群环境中使用 OpenMPI 进行训练。

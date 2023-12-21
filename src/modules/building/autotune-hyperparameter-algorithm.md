@@ -11,7 +11,7 @@ AutoTuneExperiment 在调参过程中需要使用超参数调优算法对超参�
 
 ### HyperOpt 类算法
 
-HyperOpt 是一个用于超参数调优的 Python 库，其中主要包含三种超参数调优算法：`Random`、`Anneal` 和 `TPE`。三种算法之间的区别以及算法的使用方法请参阅 [HyperOpt 文档:octicons-link-external-16:](https://hyperopt.github.io/hyperopt/){target=_blank}。
+HyperOpt 是一个用于超参数调优的 Python 库，其中主要包含三种超参数调优算法：`Random`、`Anneal` 和 `TPE`。三种算法之间的区别以及算法的使用方法请参阅 <a target="_blank" rel="noopener noreferrer" href="https://hyperopt.github.io/hyperopt/">HyperOpt 文档</a>。
 
 算法支持使用的搜索方法有：`choice`、`randint`、`loguniform` 和 `qloguniform`。
 
@@ -31,7 +31,7 @@ HyperOpt 是一个用于超参数调优的 Python 库，其中主要包含三种
 
 ### Evolution
 
-进化算法（Evolution）是受生物进化启发得到的一种优化算法。进化算法的详细介绍请参阅 [Evolutionary algorithm WIKI 文档:octicons-link-external-16:](https://en.wikipedia.org/wiki/Evolutionary_algorithm){target=_blank}。
+进化算法（Evolution）是受生物进化启发得到的一种优化算法。进化算法的详细介绍请参阅 <a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Evolutionary_algorithm">Evolutionary algorithm WIKI 文档</a>。
 
 下面是 AutoTuneExperiment 使用此算法的一个示例（示例中的 `classArgs` 字段包含当前算法所有参数，有些参数在实际使用中可以选择不指定）：
 
@@ -84,7 +84,7 @@ Batch 是一种最简单的选参算法，此算法只支持一种超参数的�
 
 ### MetisTuner
 
-Metis 算法的详细介绍请参阅论文 [*Metis: Robustly Optimizing Tail Latencies of Cloud Systems*:octicons-link-external-16:](https://www.microsoft.com/en-us/research/publication/metis-robustly-tuning-tail-latencies-cloud-systems/){target=_blank}。
+Metis 算法的详细介绍请参阅论文 <a target="_blank" rel="noopener noreferrer" href="https://www.microsoft.com/en-us/research/publication/metis-robustly-tuning-tail-latencies-cloud-systems/">*Metis: Robustly Optimizing Tail Latencies of Cloud Systems*</a>。
 
 算法支持使用的搜索方法有：`choice`、`randint`、`uniform` 和 `quniform`。
 
@@ -108,7 +108,7 @@ Metis 算法的详细介绍请参阅论文 [*Metis: Robustly Optimizing Tail Lat
 
 ### GPTuner
 
-GPT 是一种能够极大减少超参数优化步骤的贝叶斯优化算法。算法的详细介绍请参阅 [NNI GPTuner 文档:octicons-link-external-16:](https://nni.readthedocs.io/en/stable/Tuner/GPTuner.html){target=_blank}。
+GPT 是一种能够极大减少超参数优化步骤的贝叶斯优化算法。算法的详细介绍请参阅 <a target="_blank" rel="noopener noreferrer" href="https://nni.readthedocs.io/en/stable/Tuner/GPTuner.html">NNI GPTuner 文档</a>。
 
 算法支持使用的搜索方法有：`randint`、`uniform`、`quniform`、`loguniform`、`qloguniform` 和数字形式的 `choice`。
 
@@ -135,7 +135,7 @@ GPT 是一种能够极大减少超参数优化步骤的贝叶斯优化算法。�
 
 ### PPOTuner
 
-PPO 算法继承了 [OpenAI 中 ppo2:octicons-link-external-16:](https://github.com/openai/baselines/tree/master/baselines/ppo2){target=_blank} 的主要逻辑，并适应 NAS 场景。
+PPO 算法继承了 <a target="_blank" rel="noopener noreferrer" href="https://github.com/openai/baselines/tree/master/baselines/ppo2">OpenAI 中 ppo2</a> 的主要逻辑，并适应 NAS 场景。
 
 算法支持使用的搜索方法有：`layer_choice` 和 `input_choice`。下面是一个搜索空间设置的示例：
 
@@ -175,7 +175,7 @@ PPO 算法继承了 [OpenAI 中 ppo2:octicons-link-external-16:](https://github.
 
 ### PBTTuner
 
-PBT 算法得自 [*Population Based Training of Neural Networks*:octicons-link-external-16:](https://arxiv.org/abs/1711.09846){target=_blank}。
+PBT 算法得自 <a target="_blank" rel="noopener noreferrer" href="https://arxiv.org/abs/1711.09846">*Population Based Training of Neural Networks*</a>。
 
 下面是 AutoTuneExperiment 使用此算法的一个示例（示例中的 `classArgs` 字段包含当前算法所有参数，有些参数在实际使用中可以选择不指定）：
 
@@ -198,7 +198,7 @@ PBT 算法得自 [*Population Based Training of Neural Networks*:octicons-link-e
 
 ### Medianstop
 
-Medianstop 算法的逻辑是：如果在某一步 `S`，当前运行的实验的最佳观测值比所有已经完成的训练的第 S 步前的观测值的中位数差，则停止此次训练。此策略出自论文 [*Google Vizier: A Service for Black-Box Optimization*:octicons-link-external-16:](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/46180.pdf){target=_blank} 。
+Medianstop 算法的逻辑是：如果在某一步 `S`，当前运行的实验的最佳观测值比所有已经完成的训练的第 S 步前的观测值的中位数差，则停止此次训练。此策略出自论文 <a target="_blank" rel="noopener noreferrer" href="https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/46180.pdf">*Google Vizier: A Service for Black-Box Optimization*</a> 。
 
 下面是 AutoTuneExperiment 使用此算法的一个示例（示例中的 `classArgs` 字段包含当前算法所有参数，有些参数在实际使用中可以选择不指定）：
 
@@ -218,7 +218,7 @@ Medianstop 算法的逻辑是：如果在某一步 `S`，当前运行的实验�
 
 ### Curvefitting
 
-Curvefitting 算法使用学习曲线拟合算法来预测未来的学习曲线性能。其逻辑是：如果在某一步，当前训练的预测结果是收敛的并且比历史上的最佳结果差，则停止此次训练。Curvefitting 算法的详细介绍请参阅 [NNI Curvefitting 文档:octicons-link-external-16:](https://nni.readthedocs.io/en/latest/Assessor/CurvefittingAssessor.html){target=_blank}。
+Curvefitting 算法使用学习曲线拟合算法来预测未来的学习曲线性能。其逻辑是：如果在某一步，当前训练的预测结果是收敛的并且比历史上的最佳结果差，则停止此次训练。Curvefitting 算法的详细介绍请参阅 <a target="_blank" rel="noopener noreferrer" href="https://nni.readthedocs.io/en/latest/Assessor/CurvefittingAssessor.html">NNI Curvefitting 文档</a>。
 
 下面是 AutoTuneExperiment 使用此算法的一个示例（示例中的 `classArgs` 字段包含当前算法所有参数，有些参数在实际使用中可以选择不指定）：
 

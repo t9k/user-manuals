@@ -4,7 +4,7 @@ CronWorkflowRun 用于方便地定时执行 [WorkflowRun](./workflowrun.md)，�
 
 !!! info "什么是 cron"
 
-    [cron:octicons-link-external-16:](https://en.wikipedia.org/wiki/Cron){target=_blank} 是一种书写定时计划的格式，用一个字符串指定何时触发任务的执行，通常由以空格分隔的 5 个部分组成：
+    <a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Cron">cron</a> 是一种书写定时计划的格式，用一个字符串指定何时触发任务的执行，通常由以空格分隔的 5 个部分组成：
 
     ```bash
     # ┌───────────── minute (0 - 59)
@@ -26,7 +26,7 @@ CronWorkflowRun 用于方便地定时执行 [WorkflowRun](./workflowrun.md)，�
 
     注意 `*/n` 表示每隔 n 个时间单位执行一次，在某个时间单位多次执行可以用逗号连接（例如 `1,2,3`）。
 
-    为了更方便地创建 cron 表达式，可以使用第三方网页工具，例如 [crontab.guru:octicons-link-external-16:](https://crontab.guru){target=_blank}。
+    为了更方便地创建 cron 表达式，可以使用第三方网页工具，例如 <a target="_blank" rel="noopener noreferrer" href="https://crontab.guru">crontab.guru</a>。
 
 
 ## 创建 CronWorkflowRun

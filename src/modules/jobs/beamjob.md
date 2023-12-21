@@ -1,6 +1,6 @@
 # BeamJob
 
-BeamJob 用于在集群中通过 [Apache Beam Python SDK:octicons-link-external-16:](https://beam.apache.org/documentation/sdks/python/){target=_blank} 运行分布式计算任务，并提供多种底层计算引擎，目前支持 [Apache Flink:octicons-link-external-16:](https://flink.apache.org/){target=_blank}，未来会支持 [Apache Spark:octicons-link-external-16:](https://spark.apache.org/){target=_blank}。
+BeamJob 用于在集群中通过 <a target="_blank" rel="noopener noreferrer" href="https://beam.apache.org/documentation/sdks/python/">Apache Beam Python SDK</a> 运行分布式计算任务，并提供多种底层计算引擎，目前支持 <a target="_blank" rel="noopener noreferrer" href="https://flink.apache.org/">Apache Flink</a>，未来会支持 <a target="_blank" rel="noopener noreferrer" href="https://spark.apache.org/">Apache Spark</a>。
 
 ## 创建 BeamJob
 
@@ -60,7 +60,7 @@ spec:
 在该例中：
 
 * 您需要准备好一个名为 `mypvc` 的 PVC，并将名为 `input.txt` 的输入文件存放在 PVC 的根路径下。
-* `flinkClusterTemplate` 字段描述了所要创建的 Flink 集群，其中包含 1 个 [Job Manager:octicons-link-external-16:](https://nightlies.apache.org/flink/flink-docs-release-1.11/concepts/flink-architecture.html#jobmanager) 和 2 个 [Task Manager:octicons-link-external-16:](https://nightlies.apache.org/flink/flink-docs-release-1.11/concepts/flink-architecture.html#taskmanagers){target=_blank}{target=_blank}，所使用的 Flink 版本为 1.10.1。
+* `flinkClusterTemplate` 字段描述了所要创建的 Flink 集群，其中包含 1 个 <a target="_blank" rel="noopener noreferrer" href="https://nightlies.apache.org/flink/flink-docs-release-1.11/concepts/flink-architecture.html#jobmanager) 和 2 个 [Task Manager](https://nightlies.apache.org/flink/flink-docs-release-1.11/concepts/flink-architecture.html#taskmanagers">Job Manager</a>{target=_blank}，所使用的 Flink 版本为 1.10.1。
 * `jobTemplate` 字段描述了用户如何将所要运行的任务提交给 Flink 集群，其中所使用的 Apache Beam Python SDK 版本为 2.22.0，所运行的程序为 Apache Beam Python SDK 自带的单词统计程序 `apache_beam.examples.wordcount`。
 
 ## BeamJob 状态
@@ -159,7 +159,7 @@ spec:
 
 目前 BeamJob 支持两种调度器：
 
-1. Kubernetes 的[默认调度器:octicons-link-external-16:](https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler){target=_blank}
+1. Kubernetes 的<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler">默认调度器</a>
 2. [T9k Scheduler 调度器](../../cluster/scheduling/index.md)
 
 调度器通过 `spec.scheduler` 字段设置：

@@ -1,6 +1,6 @@
 # ColossalAIJob
 
-ColossalAIJob 是服务于 [ColossalAI:octicons-link-external-16:](https://colossalai.org/){target=_blank} 分布式训练框架的 T9k Job。
+ColossalAIJob 是服务于 <a target="_blank" rel="noopener noreferrer" href="https://colossalai.org/">ColossalAI</a> 分布式训练框架的 T9k Job。
 
 您可以较为方便地使用 ColossalAIJob 为 ColossalAI 训练脚本提供训练环境，并监控训练进程。
 
@@ -62,7 +62,7 @@ spec:
 
 在该例中：
 
-* 创建 1 个启动副本，该启动副本是 ColossalAI 在训练中所必须的，启动副本的配置参考 [PodTemplate:octicons-link-external-16:](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-template-v1/#PodTemplateSpec){target=_blank}，这里不再赘述（启动副本的配置由 `spec.launcher` 字段指定）。
+* 创建 1 个启动副本，该启动副本是 ColossalAI 在训练中所必须的，启动副本的配置参考 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-template-v1/#PodTemplateSpec">PodTemplate</a>，这里不再赘述（启动副本的配置由 `spec.launcher` 字段指定）。
 * 创建 2 个执行副本（由 `spec.worker.replicas` 字段指定），每个执行副本上启动 1 个训练进程（由 `spec.worker.procPerWorker` 字段指定），训练脚本和参数为 `train.py arg1`（由 `spec.worker.command` 字段指定），执行副本的其他配置参考 PodTemplate，这里不再赘述（这些配置由 `spec.worker.template` 字段指定）。
 * 执行副本需要执行 sshd 程序，等待启动副本发来训练指令。sshd 的路径为 `/user/sbin/sshd`（由 `spec.ssh.sshdPath` 字段指定，使用该字段的原因是 sshd 程序必须使用绝对路径调用，所以需要其具体路径）。
 
@@ -187,7 +187,7 @@ spec:
 
 目前 ColossalAIJob 支持两种调度器：
 
-1. Kubernetes 的[默认调度器:octicons-link-external-16:](https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler){target=_blank}
+1. Kubernetes 的<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler">默认调度器</a>
 2. [T9k Scheduler 调度器](../../cluster/scheduling/index.md)
 
 调度器通过 `spec.scheduler` 字段设置：

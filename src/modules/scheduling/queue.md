@@ -61,7 +61,7 @@ spec:
 
 ## 资源限制
 
-资源限制通过集群节点的标签筛选来限制队列可以使用的节点，由字段 `spec.nodeSelector`（字段详解请参考 [LabelSelector:octicons-link-external-16:](https://v1-22.docs.kubernetes.io/docs/reference/kubernetes-api/common-definitions/label-selector/){target=_blank}）设置，未设置时队列可以使用集群中所有节点的资源。
+资源限制通过集群节点的标签筛选来限制队列可以使用的节点，由字段 `spec.nodeSelector`（字段详解请参考 <a target="_blank" rel="noopener noreferrer" href="https://v1-22.docs.kubernetes.io/docs/reference/kubernetes-api/common-definitions/label-selector/">LabelSelector</a>）设置，未设置时队列可以使用集群中所有节点的资源。
 
 下面是一个设置资源限制的示例：
 
@@ -85,7 +85,7 @@ spec:
 
 ## 访问权限
 
-访问权限通过命名空间的标签筛选来限制可以使用该队列的命名空间，由字段 `spec.namespaceSelector`（字段详解请参考 [LabelSelector:octicons-link-external-16:](https://v1-22.docs.kubernetes.io/docs/reference/kubernetes-api/common-definitions/label-selector/){target=_blank}）设置，未设置时任何命名空间都可以使用该队列。
+访问权限通过命名空间的标签筛选来限制可以使用该队列的命名空间，由字段 `spec.namespaceSelector`（字段详解请参考 <a target="_blank" rel="noopener noreferrer" href="https://v1-22.docs.kubernetes.io/docs/reference/kubernetes-api/common-definitions/label-selector/">LabelSelector</a>）设置，未设置时任何命名空间都可以使用该队列。
 
 下面是一个设置访问权限的示例：
 

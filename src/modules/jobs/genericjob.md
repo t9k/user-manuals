@@ -251,7 +251,7 @@ GenericJob 重启机制通过 `spec.replicaSpecs[*].restartPolicy` 字段指定:
 
 目前 GenericJob 支持两种调度器：
 
-1. Kubernetes 的[默认调度器:octicons-link-external-16:](https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler){target=_blank}
+1. Kubernetes 的<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler">默认调度器</a>
 2. [T9k Scheduler 调度器](../../cluster/scheduling/index.md)
 
 调度器通过 `spec.scheduler` 字段设置：

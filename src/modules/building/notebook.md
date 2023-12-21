@@ -1,6 +1,6 @@
 # Notebook
 
-[JupyterLab:octicons-link-external-16:](https://jupyter-notebook.readthedocs.io/en/stable/){target=_blank} 是一款非常流行的机器学习开发工具，它通过友好易用的 Web 界面提供交互式计算环境，支持多种编程语言和执行环境，在机器学习、AI、数据处理、数值模拟、统计建模、数据可视化等领域被广泛使用。
+<a target="_blank" rel="noopener noreferrer" href="https://jupyter-notebook.readthedocs.io/en/stable/">JupyterLab</a> 是一款非常流行的机器学习开发工具，它通过友好易用的 Web 界面提供交互式计算环境，支持多种编程语言和执行环境，在机器学习、AI、数据处理、数值模拟、统计建模、数据可视化等领域被广泛使用。
 
 您可以使用 Notebook 在集群中一键部署 JupyterLab 服务，同时本产品还提供 GPU 支持、SSH 访问支持等补充功能。
 
@@ -35,7 +35,7 @@ spec:
 * 默认启动一个 JupyterLab 服务。
 * 预装了 Python3 以及 `tensorflow`、`pytorch`、`keras`、`pandas`、`scikit-learn` 等常用 Python 包。
 * 身份是一个名为 `t9kuser` 的非 `root` 用户（用户 ID 为 1000，组 ID 为 1000），`$HOME` 目录为 `/t9k/mnt`。
-* 预装了 `tensorboard` 插件，您可以在网页中创建 [TensorBoard:octicons-link-external-16:](https://www.tensorflow.org/tensorboard){target=_blank} 以可视化数据。
+* 预装了 `tensorboard` 插件，您可以在网页中创建 <a target="_blank" rel="noopener noreferrer" href="https://www.tensorflow.org/tensorboard">TensorBoard</a> 以可视化数据。
 * 预装了 `notebook2workflow` 插件，您可以在网页中创建 [WorkflowTemplate](../workflow/workflow/workflowtemplate.md) 用于在[工作流模块](../workflow/index.md)中运行一个 `.ipynb` 文件。
 
 ## 使用 GPU

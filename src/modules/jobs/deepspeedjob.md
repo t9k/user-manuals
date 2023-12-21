@@ -1,6 +1,6 @@
 # DeepSpeedJob
 
-DeepSpeedJob 是服务于 [DeepSpeed:octicons-link-external-16:](https://www.deepspeed.ai/){target=_blank} 分布式训练框架的 T9k Job。
+DeepSpeedJob 是服务于 <a target="_blank" rel="noopener noreferrer" href="https://www.deepspeed.ai/">DeepSpeed</a> 分布式训练框架的 T9k Job。
 
 您可以较为方便地使用 DeepSpeedJob 为 DeepSpeed 训练脚本提供训练环境，并监控训练进程。
 

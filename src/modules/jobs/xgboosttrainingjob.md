@@ -1,6 +1,6 @@
 # XGBoostTrainingJob
 
-XGBoostTrainingJob 是服务于 [XGBoost:octicons-link-external-16:](https://xgboost.readthedocs.io/en/latest/){target=_blank} 分布式计算框架的 T9k Job。
+XGBoostTrainingJob 是服务于 <a target="_blank" rel="noopener noreferrer" href="https://xgboost.readthedocs.io/en/latest/">XGBoost</a> 分布式计算框架的 T9k Job。
 
 您可以较为方便地使用 XGBoostTrainingJob 为 XGBoost 计算程序提供训练环境，并监控训练进程。
 
@@ -53,7 +53,7 @@ spec:
 在该例中：
 
 * 创建 1 个 `master` 副本和 2 个 `worker` 副本（由 `spec.replicaSpecs[*].replicas` 字段和 `spec.replicaSpecs[*].type` 字段指定）。
-* 每个副本使用 `registry.tensorstack.cn/t9kmirror/xgboost-dist-iris:1.1` 镜像，执行命令 `python3 /mnt/main.py --job_type=Train --xgboost_parameter=objective:multi:softprob,num_class:3 --n_estimators=10 --learning_rate=0.1 --model_path=/mnt/xgboost_model/ --model_storage_type=local`（由 `spec.replicaSpecs[*].template` 字段指定，此处的填写方式参考 [PodTemplate:octicons-link-external-16:](https://kubernetes.io/docs/concepts/workloads/pods/#pod-templates){target=_blank}）。
+* 每个副本使用 `registry.tensorstack.cn/t9kmirror/xgboost-dist-iris:1.1` 镜像，执行命令 `python3 /mnt/main.py --job_type=Train --xgboost_parameter=objective:multi:softprob,num_class:3 --n_estimators=10 --learning_rate=0.1 --model_path=/mnt/xgboost_model/ --model_storage_type=local`（由 `spec.replicaSpecs<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/workloads/pods/#pod-templates">*].template` 字段指定，此处的填写方式参考 [PodTemplate</a>）。
 * 当副本失败后，会自动重启（由 `spec.replicaSpecs[*].restartPolicy` 字段指定）。
 
 !!! note "注意"
@@ -73,7 +73,7 @@ spec:
 
 ## 重启机制
 
-XGBoostTrainingJob 的 `spec.replicaSpec[*].template` 字段使用 [PodTemplate:octicons-link-external-16:](https://kubernetes.io/docs/concepts/workloads/pods/#pod-templates){target=_blank} 的规范填写，但是 Pod 的重启策略并不能满足 XGBoostTrainingJob 的需求，所以 XGBoostTrainingJob 使用 `spec.replicaSpec[*].restartPolicy` 字段覆盖 `spec.replicaSpec[*].template` 中指定的重启策略。
+XGBoostTrainingJob 的 `spec.replicaSpec<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/workloads/pods/#pod-templates">*].template` 字段使用 [PodTemplate</a> 的规范填写，但是 Pod 的重启策略并不能满足 XGBoostTrainingJob 的需求，所以 XGBoostTrainingJob 使用 `spec.replicaSpec[*].restartPolicy` 字段覆盖 `spec.replicaSpec[*].template` 中指定的重启策略。
 
 可选的重启策略有以下四种：
 
@@ -114,7 +114,7 @@ XGBoostTrainingJob 提供以下三种策略：
 
 目前 XGBoostTrainingJob 支持使用以下两种调度器：
 
-1. Kubernetes 的[默认调度器:octicons-link-external-16:](https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler){target=_blank}
+1. Kubernetes 的<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler">默认调度器</a>
 2. [T9k Scheduler 调度器](../../cluster/scheduling/index.md)
 
 调度器通过 `spec.scheduler` 字段设置：

@@ -26,7 +26,7 @@ TODO: 等待前端的修改。
 您可以通过 Notebook 在浏览器地址栏中的地址来获取其 SSH 连接方式，例如下面我们打开了目标 Notebook 的一个 `.ipynb` 文件。
 
 <figure class="screenshot">
-    <img alt="the-image" src="../../assets/guide/develop-and-test-model/use-notebook-remotely-via-ssh-connection/notebook-address-bar.png" class="screenshot"/>
+    <img alt="the-image" src="../assets/guide/develop-and-test-model/use-notebook-remotely-via-ssh-connection/notebook-address-bar.png" class="screenshot"/>
 </figure>
 
 在浏览器中复制红框中的内容，然后在命令行中输入 `t9k-pf notebook` （或者 `t9k-pf nb`）并粘贴所复制的内容，便可开启 port-forward。
@@ -81,17 +81,17 @@ ssh t9kuser@<Host> -p <Port> \
 然后在 Terminal 中操作 Notebook：
 
 <figure class="screenshot">
-  <img alt="terminal-ssh" src="../../assets/guide/develop-and-test-model/use-notebook-remotely-via-ssh-connection/terminal-ssh.png" class="screenshot"/>
+  <img alt="terminal-ssh" src="../assets/guide/develop-and-test-model/use-notebook-remotely-via-ssh-connection/terminal-ssh.png" class="screenshot"/>
 </figure>
 
 ### 使用 VSCode
 
 #### 安装 Remote SSH 插件
 
-在 VSCode 中搜索 **[Remote - SSH:octicons-link-external-16:](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh)** 插件并安装：
+在 VSCode 中搜索 **[Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh)** 插件并安装：
 
 <figure class="screenshot">
-  <img alt="vscode-plugin" src="../../assets/guide/develop-and-test-model/use-notebook-remotely-via-ssh-connection/vscode-plugin.png" class="screenshot"/>
+  <img alt="vscode-plugin" src="../assets/guide/develop-and-test-model/use-notebook-remotely-via-ssh-connection/vscode-plugin.png" class="screenshot"/>
 </figure>
 
 #### 添加 SSH Config
@@ -113,7 +113,7 @@ ssh t9kuser@<Host> -p <Port> \
 VSCode 提供了编辑 SSH Config 的方式。点击左下角的绿色 **><** 符号，选择 **Connect to Host**，然后拉动滚动条到最下方，点击 **Add New SSH Host**：
 
 <figure class="screenshot">
-  <img alt="vscode-new-host" src="../../assets/guide/develop-and-test-model/use-notebook-remotely-via-ssh-connection/vscode-new-host.png" class="screenshot"/>
+  <img alt="vscode-new-host" src="../assets/guide/develop-and-test-model/use-notebook-remotely-via-ssh-connection/vscode-new-host.png" class="screenshot"/>
 </figure>
 
 根据提示，输入以下内容，然后按下回车键（Enter）：
@@ -123,7 +123,7 @@ ssh t9kuser@<Host> -p <Port>
 ```
 
 <figure class="screenshot">
-  <img alt="vscode-ssh-command" src="../../assets/guide/develop-and-test-model/use-notebook-remotely-via-ssh-connection/vscode-ssh-command.png" class="screenshot"/>
+  <img alt="vscode-ssh-command" src="../assets/guide/develop-and-test-model/use-notebook-remotely-via-ssh-connection/vscode-ssh-command.png" class="screenshot"/>
 </figure>
 
 VSCode 会提示 **Select SSH configuration file to update**，第一个选择项通常是位于 `$HOME/.ssh/config` 的配置文件，您可以选择将主机的信息存储在第一个配置文件中。
@@ -133,19 +133,19 @@ VSCode 会提示 **Select SSH configuration file to update**，第一个选择�
 点击左下角的绿色 **><** 符号，选择 **Connect to Host**：
 
 <figure class="screenshot">
-  <img alt="vscode-connect" src="../../assets/guide/develop-and-test-model/use-notebook-remotely-via-ssh-connection/vscode-connect.png" class="screenshot"/>
+  <img alt="vscode-connect" src="../assets/guide/develop-and-test-model/use-notebook-remotely-via-ssh-connection/vscode-connect.png" class="screenshot"/>
 </figure>
 
 然后选择 SSH Config 中对应的主机名：
 
 <figure class="screenshot">
-  <img alt="vscode-connect-select" src="../../assets/guide/develop-and-test-model/use-notebook-remotely-via-ssh-connection/vscode-connect-select.png" class="screenshot"/>
+  <img alt="vscode-connect-select" src="../assets/guide/develop-and-test-model/use-notebook-remotely-via-ssh-connection/vscode-connect-select.png" class="screenshot"/>
 </figure>
 
 VSCode 会新建一个窗口，等待连接建立之后，左下角会提示 **SSH: Host**。点击 Open Folder 可以选择打开的目录或者文件。您可以和本地开发一样使用 VSCode 来操作 Notebook：
 
 <figure class="screenshot">
-  <img alt="vscode-connected" src="../../assets/guide/develop-and-test-model/use-notebook-remotely-via-ssh-connection/vscode-connected.png" class="screenshot"/>
+  <img alt="vscode-connected" src="../assets/guide/develop-and-test-model/use-notebook-remotely-via-ssh-connection/vscode-connected.png" class="screenshot"/>
 </figure>
 
 ### 使用 PyCharm
@@ -156,12 +156,12 @@ VSCode 会新建一个窗口，等待连接建立之后，左下角会提示 **S
 2. Notebook 的资源配置至少为 3 个 CPU，3 GiB 内存，Notebook 绑定的持久卷至少有 2.5 GiB 的可用空间。推荐配置为至少 4 个 CPU，4 GiB 内存，5 GiB 持久卷。
 
 !!! info "信息"
-    使用 PyCharm 远程连接 Notebook 进行开发时，PyCharm 需要在 Notebook 容器中安装并运行一个 IDE Backend（参阅[官方文档:octicons-link-external-16:](https://www.jetbrains.com/help/pycharm/remote-development-overview.html)）。结合官方推荐的配置和实际测试，我们给出了上面的资源配置要求。
+    使用 PyCharm 远程连接 Notebook 进行开发时，PyCharm 需要在 Notebook 容器中安装并运行一个 IDE Backend（参阅[官方文档](https://www.jetbrains.com/help/pycharm/remote-development-overview.html)）。结合官方推荐的配置和实际测试，我们给出了上面的资源配置要求。
 
 打开 PyCharm，在左侧的导航菜单中点击 **Remote Development > SSH**，然后点击右侧的 **New Connection**：
 
 <figure class="screenshot">
-  <img alt="pycharm-ssh" src="../../assets/guide/develop-and-test-model/use-notebook-remotely-via-ssh-connection/pycharm-ssh.png" class="screenshot"/>
+  <img alt="pycharm-ssh" src="../assets/guide/develop-and-test-model/use-notebook-remotely-via-ssh-connection/pycharm-ssh.png" class="screenshot"/>
 </figure>
 
 在弹出的对话框中填写如下参数：
@@ -172,13 +172,13 @@ VSCode 会新建一个窗口，等待连接建立之后，左下角会提示 **S
 * `Specify private key`：建议勾选，并选择与您[存储的公钥](create-notebook.md#存储-ssh-公钥)对应的私钥。
 
 <figure class="screenshot">
-  <img alt="pycharm-connect" src="../../assets/guide/develop-and-test-model/use-notebook-remotely-via-ssh-connection/pycharm-connect.png" class="screenshot"/>
+  <img alt="pycharm-connect" src="../assets/guide/develop-and-test-model/use-notebook-remotely-via-ssh-connection/pycharm-connect.png" class="screenshot"/>
 </figure>
 
 点击 **Check Connection and Continue**，进入下一步：
 
 <figure class="screenshot">
-  <img alt="pycharm-connected" src="../../assets/guide/develop-and-test-model/use-notebook-remotely-via-ssh-connection/pycharm-connected.png" class="screenshot"/>
+  <img alt="pycharm-connected" src="../assets/guide/develop-and-test-model/use-notebook-remotely-via-ssh-connection/pycharm-connected.png" class="screenshot"/>
 </figure>
 
 这里选择了在 Notebook 中安装的 IDE Backend 版本为 PyCharm 2022.2.3，远程打开的项目目录为 `/t9k/mnt`。点击 **Download IDE and Connect** 后，就可以通过 PyCharm 访问 Notebook 中的文件了。
@@ -187,7 +187,7 @@ VSCode 会新建一个窗口，等待连接建立之后，左下角会提示 **S
     第一次 SSH 连接到 Notebook 中时，需要等待 Notebook 下载 IDE Backend。根据网络情况不同，这一步骤可能耗时几分钟到十几分钟。
 
 <figure class="screenshot">
-  <img alt="pycharm-edit" src="../../assets/guide/develop-and-test-model/use-notebook-remotely-via-ssh-connection/pycharm-edit.png" class="screenshot"/>
+  <img alt="pycharm-edit" src="../assets/guide/develop-and-test-model/use-notebook-remotely-via-ssh-connection/pycharm-edit.png" class="screenshot"/>
 </figure>
 
 您可以和本地开发一样使用 PyCharm 来操作 Notebook：

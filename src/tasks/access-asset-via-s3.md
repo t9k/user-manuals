@@ -11,13 +11,13 @@
 在 Asset Hub 控制台进入 Asset 详情页面，点击 **S3 凭证**可以查看目前已有的所有 S3 凭证。然后点击表格右上角的 **+** 创建一个 S3 凭证：
 
 <figure class="screenshot">
-  <img alt="s3-cred-list" src="../../assets/guide/manage-asset/access-asset-by-s3/s3-cred-list.png" class="screenshot"/>
+  <img alt="s3-cred-list" src="../assets/guide/manage-asset/access-asset-by-s3/s3-cred-list.png" class="screenshot"/>
 </figure>
 
 填写名称 `s3-rw`，选择类型为**可读/可写**，最后点击**创建**：
 
 <figure class="screenshot">
-  <img alt="s3-cred-create" src="../../assets/guide/manage-asset/access-asset-by-s3/s3-cred-create.png" class="screenshot"/>
+  <img alt="s3-cred-create" src="../assets/guide/manage-asset/access-asset-by-s3/s3-cred-create.png" class="screenshot"/>
 </figure>
 
 ## 查看 S3 凭证
@@ -25,13 +25,13 @@
 创建完成后，点击表格左上角的**可读/可写**，查看所有类型为可读/可写的 S3 凭证：
 
 <figure class="screenshot">
-  <img alt="s3-cred-list-rw" src="../../assets/guide/manage-asset/access-asset-by-s3/s3-cred-list-rw.png" class="screenshot"/>
+  <img alt="s3-cred-list-rw" src="../assets/guide/manage-asset/access-asset-by-s3/s3-cred-list-rw.png" class="screenshot"/>
 </figure>
 
 点击刚刚创建的 S3 凭证 `s3-rw`，查看其详情：
 
 <figure class="screenshot">
-  <img alt="s3-cred-detail" src="../../assets/guide/manage-asset/access-asset-by-s3/s3-cred-detail.png" class="screenshot"/>
+  <img alt="s3-cred-detail" src="../assets/guide/manage-asset/access-asset-by-s3/s3-cred-detail.png" class="screenshot"/>
 </figure>
 
 S3 凭证有三种格式：
@@ -78,25 +78,25 @@ s3cmd get s3://baa98ded-2f93-4e9b-835a-6515a63a6eb4/branch-name/path/to/object
 在创建 StorageShim 之前，您首先需要创建一个 Secret 保存 S3 bucket 的相关信息。在 S3 凭证的详情页面，点击左侧的 **S3-cfg Secret** 标签，然后点击右上角的**复制**：
 
 <figure class="screenshot">
-  <img alt="s3-cred-detail-s3-cfg-secret" src="../../assets/guide/manage-asset/access-asset-by-s3/s3-cred-detail-s3-cfg-secret.png" class="screenshot"/>
+  <img alt="s3-cred-detail-s3-cfg-secret" src="../assets/guide/manage-asset/access-asset-by-s3/s3-cred-detail-s3-cfg-secret.png" class="screenshot"/>
 </figure>
 
 在模型构建控制台的左侧导航栏中点击**辅助 > Secret** 进入 Secret 管理页面，然后点击右上角的**创建**进入 Secret 创建页面：
 
 <figure class="screenshot">
-  <img alt="secret-list" src="../../assets/guide/manage-asset/access-asset-by-s3/secret-list.png" class="screenshot"/>
+  <img alt="secret-list" src="../assets/guide/manage-asset/access-asset-by-s3/secret-list.png" class="screenshot"/>
 </figure>
 
 在 Secret 创建页面，将所复制的 `S3-cfg Secret` 粘贴到右侧的 YAML 编辑框中，左侧表格会自动解析出各个字段，最后点击**创建 Secret**。
 
 <figure class="screenshot">
-  <img alt="secret-create" src="../../assets/guide/manage-asset/access-asset-by-s3/secret-create.png" class="screenshot"/>
+  <img alt="secret-create" src="../assets/guide/manage-asset/access-asset-by-s3/secret-create.png" class="screenshot"/>
 </figure>
 
 在模型构建控制台的左侧导航栏中点击**存储 > 持久卷**进入持久卷管理页面，然后点击上方的 S3 进入 S3 类型的持久卷管理页面，最后点击右上角的**创建**进入 StorageShim 创建页面：
 
 <figure class="screenshot">
-  <img alt="storageshim-list" src="../../assets/guide/manage-asset/access-asset-by-s3/storageshim-list.png" class="screenshot"/>
+  <img alt="storageshim-list" src="../assets/guide/manage-asset/access-asset-by-s3/storageshim-list.png" class="screenshot"/>
 </figure>
 
 在 StorageShim 创建页面，
@@ -108,7 +108,7 @@ s3cmd get s3://baa98ded-2f93-4e9b-835a-6515a63a6eb4/branch-name/path/to/object
 最后点击**创建 StorageShim**。
 
 <figure class="screenshot">
-  <img alt="storageshim-create" src="../../assets/guide/manage-asset/access-asset-by-s3/storageshim-create.png" class="screenshot"/>
+  <img alt="storageshim-create" src="../assets/guide/manage-asset/access-asset-by-s3/storageshim-create.png" class="screenshot"/>
 </figure>
 
 StorageShim 创建完成后，等待其阶段变为 **Bound**，您即可通过以下方式使用这个名为 `stable-diffusion-2-1` 的持久卷：
@@ -118,5 +118,5 @@ StorageShim 创建完成后，等待其阶段变为 **Bound**，您即可通过�
 3. 在创建 Job 时，添加持久卷 `stable-diffusion-2-1`，以便在 Job 中使用此 Asset 中的文件。
 
 <figure class="screenshot">
-  <img alt="storageshim-list-after-create" src="../../assets/guide/manage-asset/access-asset-by-s3/storageshim-list-after-create.png" class="screenshot"/>
+  <img alt="storageshim-list-after-create" src="../assets/guide/manage-asset/access-asset-by-s3/storageshim-list-after-create.png" class="screenshot"/>
 </figure>

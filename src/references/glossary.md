@@ -52,7 +52,7 @@ CronWorkflowRun 是一种 TensorStack 资源，用于方便地定时执行 Workf
 
 **Docker**
 
-Docker 是一个提供操作系统级别的虚拟化技术的软件，用于将软件应用及其相关依赖打包成所谓的容器（Container），能够在一个操作系统实例中运行多个其他操作系统中构建的容器。Kubernetes 支持使用 Docker 作为容器运行时。详见 [Docker 文档:octicons-link-external-16:](https://docs.docker.com/get-started/overview/){target=_blank}。
+Docker 是一个提供操作系统级别的虚拟化技术的软件，用于将软件应用及其相关依赖打包成所谓的容器（Container），能够在一个操作系统实例中运行多个其他操作系统中构建的容器。Kubernetes 支持使用 Docker 作为容器运行时。详见 <a target="_blank" rel="noopener noreferrer" href="https://docs.docker.com/get-started/overview/">Docker 文档</a>。
 
 **Explorer**
 
@@ -72,7 +72,7 @@ GenericJob 是一种 TensorStack 资源，用于统一协调多个 Pod 共同完
 
 **Kubernetes（K8s）**
 
-Kubernetes 是一个开源的容器编排引擎，用来对容器化应用进行自动化部署、 扩缩和管理。TensorStack AI 平台构建在 Kubernetes 的坚实基础之上。详见 [Kubernetes 文档:octicons-link-external-16:](https://kubernetes.io/zh/docs/home/){target=_blank}。
+Kubernetes 是一个开源的容器编排引擎，用来对容器化应用进行自动化部署、 扩缩和管理。TensorStack AI 平台构建在 Kubernetes 的坚实基础之上。详见 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh/docs/home/">Kubernetes 文档</a>。
 
 **标签（Label）**
 
@@ -100,7 +100,7 @@ Notebook 是一种 TensorStack 资源，用于在集群中运行 Jupyter Noteboo
 
 **Pod**
 
-Pod 是可以在 Kubernetes 中创建和管理的、最小的可部署的计算单元。Pod 是一组（一个或多个）容器，这些容器共享存储、网络以及怎样运行这些容器的声明。详见 [Kubernetes 文档:octicons-link-external-16:](https://kubernetes.io/zh/docs/concepts/workloads/pods/){target=_blank}。
+Pod 是可以在 Kubernetes 中创建和管理的、最小的可部署的计算单元。Pod 是一组（一个或多个）容器，这些容器共享存储、网络以及怎样运行这些容器的声明。详见 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh/docs/concepts/workloads/pods/">Kubernetes 文档</a>。
 
 **PodGroup**
 
@@ -124,7 +124,7 @@ Queue 是一种 TensorStack 资源，用于存放 PodGroup 并根据它们的优
 
 **RBAC（Role Based Access Control）**
 
-RBAC 是一种管理访问控制的方式，详见 [Kubernetes 文档:octicons-link-external-16:](https://kubernetes.io/zh/docs/reference/access-authn-authz/rbac/){target=_blank}。您可以通过 ServiceAccount、Role、RoleBinding、ClusterRole、ClusterRoleBinding 等资源来管理访问控制。
+RBAC 是一种管理访问控制的方式，详见 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh/docs/reference/access-authn-authz/rbac/">Kubernetes 文档</a>。您可以通过 ServiceAccount、Role、RoleBinding、ClusterRole、ClusterRoleBinding 等资源来管理访问控制。
 
 **Role**
 
@@ -164,7 +164,7 @@ Tuner 算法是一系列超参数调优算法的统称，用于在 AutoTune 中�
 
 **卷（Volume）**
 
-卷是一个包含数据的文件夹，可以被 Pod 中的容器访问。详见 [Kubernetes 文档:octicons-link-external-16:](https://kubernetes.io/zh/docs/concepts/storage/volumes/){target=_blank}。
+卷是一个包含数据的文件夹，可以被 Pod 中的容器访问。详见 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh/docs/concepts/storage/volumes/">Kubernetes 文档</a>。
 
 **WorkflowRun**
 
