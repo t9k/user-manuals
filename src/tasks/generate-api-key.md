@@ -22,7 +22,7 @@
 
 ## 生成一个 API Key
 
-开启 API Key 服务之后，再次点击左侧导航栏的 **API Keys** 进入 API Key 管理页面，此时会列出您拥有的所有 API Key。点击右上角的 **Generate new API Key** 生成一个 API Key。
+开启 API Key 服务之后，再次点击左侧导航菜单的 **API Keys** 进入 API Key 管理页面，此时会列出您拥有的所有 API Key。点击右上角的 **Generate new API Key** 生成一个 API Key。
 
 <figure class="screenshot">
   <img alt="apikey-list" src="../assets/tasks/api-key/generate-api-key/apikey-list.png" class="screenshot"/>

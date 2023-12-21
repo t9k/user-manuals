@@ -35,7 +35,7 @@
   <img alt="notebook-1" src="../assets/tasks/build-automatic-workflow/create-various-unit-of-workflow/notebook-1.png" class="screenshot"/>
 </figure>
 
-点击左侧导航栏的**工作流图标**，然后点击 **USE CURRENT NOTEBOOK**，自动以当前的 `.ipynb` 文件为基础填写表格内容。
+点击左侧导航菜单的**工作流图标**，然后点击 **USE CURRENT NOTEBOOK**，自动以当前的 `.ipynb` 文件为基础填写表格内容。
 
 <figure class="screenshot">
   <img alt="notebook-2" src="../assets/tasks/build-automatic-workflow/create-various-unit-of-workflow/notebook-2.png" class="screenshot"/>

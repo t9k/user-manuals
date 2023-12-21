@@ -17,7 +17,7 @@ Secret 是一种存储密码、令牌、SSH Key 等敏感信息的 Kubernetes �
   <img alt="build-console-web" src="../assets/tasks/manage-auxiliary-resources/building-console.png" class="screenshot"/>
 </figure>
 
-在 Project 主页面左侧导航栏（或右侧卡片）中点击 **Auxiliary&nbsp;> Secrets** 进入 Secret 管理页面。
+在 Project 主页面左侧导航菜单（或右侧卡片）中点击 **Auxiliary&nbsp;> Secrets** 进入 Secret 管理页面。
 
 <figure class="screenshot">
   <img alt="project-page-secret" src="../assets/tasks/manage-auxiliary-resources/project-page-secret.png" class="screenshot"/>

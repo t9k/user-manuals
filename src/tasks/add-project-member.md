@@ -9,7 +9,7 @@
 
 ## 查看自己的 Project
 
-在浏览器中进入安全控制台之后，点击左侧导航栏的 **Projects** 进入 Project 列表页面。其中，**My Project(s)** 部分列出了所有您是所有者（owner）的 Project，**Project(s) shared with me** 部分列出了所有您是成员的 Project。
+在浏览器中进入安全控制台之后，点击左侧导航菜单的 **Projects** 进入 Project 列表页面。其中，**My Project(s)** 部分列出了所有您是所有者（owner）的 Project，**Project(s) shared with me** 部分列出了所有您是成员的 Project。
 
 <figure class="screenshot">
   <img alt="project-list" src="../assets/tasks/manage-project/project-add-member/project-list.png" class="screenshot"/>

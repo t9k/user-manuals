@@ -17,7 +17,7 @@
   <img alt="build-console-web" src="../assets/tasks/manage-auxiliary-resources/building-console.png" class="screenshot"/>
 </figure>
 
-在 Project 主页面左侧导航栏（或右侧卡片）中点击 **Data&nbsp;> Volumes** 进入 PVC 管理页面。
+在 Project 主页面左侧导航菜单（或右侧卡片）中点击 **Data&nbsp;> Volumes** 进入 PVC 管理页面。
 
 <figure class="screenshot">
   <img alt="project-page-volume" src="../assets/tasks/manage-auxiliary-resources/project-page-volume.png" class="screenshot"/>

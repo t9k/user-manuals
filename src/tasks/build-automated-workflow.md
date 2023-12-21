@@ -57,7 +57,7 @@ docker push registry.tensorstack.cn/t9k/python:prod-3.6.10
   <img alt="build-console" src="../assets/tasks/build-automatic-workflow/build-automatic-workflow-from-data-sampling-to-model-exporting/building.png" class="screenshot"/>
 </figure>
 
-在 Project 主页面的左侧导航栏点击 **Build&nbsp;> Notebooks** 进入 Notebook 管理页面，点击右上角的 **Create Notebook** 进入 Notebook 创建页面。
+在 Project 主页面的左侧导航菜单点击 **Build&nbsp;> Notebooks** 进入 Notebook 管理页面，点击右上角的 **Create Notebook** 进入 Notebook 创建页面。
 
 <figure class="screenshot">
   <img alt="notebook-list" src="../assets/tasks/build-automatic-workflow/build-automatic-workflow-from-data-sampling-to-model-exporting/notebook-list.png" class="screenshot"/>
@@ -92,7 +92,7 @@ docker push registry.tensorstack.cn/t9k/python:prod-3.6.10
 
 工作流中包含将模型上传到模型管理服务的步骤，该步骤需要使用您在模型管理模块的用户名和密码，因此您需要先创建一个 Secret 存放您的用户名和密码。我们使用模型构建控制台来完成这个任务。
 
-与上一步类似，在 Project 主页面的左侧导航栏点击 **Resources&nbsp;> Secrets** 进入 Secret 管理页面，然后点击右上角的 **Create Secret** 进入 Secret 创建页面。
+与上一步类似，在 Project 主页面的左侧导航菜单点击 **Resources&nbsp;> Secrets** 进入 Secret 管理页面，然后点击右上角的 **Create Secret** 进入 Secret 创建页面。
 
 <figure class="screenshot">
   <img alt="secret-list" src="../assets/tasks/build-automatic-workflow/build-automatic-workflow-from-data-sampling-to-model-exporting/secret-list.png" class="screenshot"/>
@@ -134,7 +134,7 @@ docker push registry.tensorstack.cn/t9k/python:prod-3.6.10
 
 ## 创建 WorkflowRun
 
-点击左侧导航栏的 **WorkflowRun** 进入 WorkflowRun 列表页面，点击列表右上角的 **+** 创建一个 WorkflowRun。
+点击左侧导航菜单的 **WorkflowRun** 进入 WorkflowRun 列表页面，点击列表右上角的 **+** 创建一个 WorkflowRun。
 
 <figure class="screenshot">
   <img alt="workflowrun-list" src="../assets/tasks/build-automatic-workflow/build-automatic-workflow-from-data-sampling-to-model-exporting/workflowrun-list.png" class="screenshot"/>

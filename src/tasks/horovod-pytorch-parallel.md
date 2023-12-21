@@ -7,7 +7,7 @@
 请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/master/job/mpijob/horovod-torch">本教程对应的示例</a>，参照其 README 文档运行。
 
 !!! tip "提示"
-    除了上述直接提供 YAML 配置文件的方法外，您也可以选择从网页控制台创建 MPIJob。
+    上述操作使用 YAML 配置文件创建 MPIJob，您也可以在模型构建控制台进行创建。
 
 ## 检查训练日志和指标
 

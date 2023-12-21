@@ -81,7 +81,7 @@ s3cmd get s3://baa98ded-2f93-4e9b-835a-6515a63a6eb4/branch-name/path/to/object
   <img alt="s3-cred-detail-s3-cfg-secret" src="../assets/tasks/manage-asset/access-asset-by-s3/s3-cred-detail-s3-cfg-secret.png" class="screenshot"/>
 </figure>
 
-在模型构建控制台的左侧导航栏中点击**辅助 > Secret** 进入 Secret 管理页面，然后点击右上角的**创建**进入 Secret 创建页面：
+在模型构建控制台的左侧导航菜单中点击**辅助 > Secret** 进入 Secret 管理页面，然后点击右上角的**创建**进入 Secret 创建页面：
 
 <figure class="screenshot">
   <img alt="secret-list" src="../assets/tasks/manage-asset/access-asset-by-s3/secret-list.png" class="screenshot"/>
@@ -93,7 +93,7 @@ s3cmd get s3://baa98ded-2f93-4e9b-835a-6515a63a6eb4/branch-name/path/to/object
   <img alt="secret-create" src="../assets/tasks/manage-asset/access-asset-by-s3/secret-create.png" class="screenshot"/>
 </figure>
 
-在模型构建控制台的左侧导航栏中点击**存储 > 持久卷**进入持久卷管理页面，然后点击上方的 S3 进入 S3 类型的持久卷管理页面，最后点击右上角的**创建**进入 StorageShim 创建页面：
+在模型构建控制台的左侧导航菜单中点击**存储 > 持久卷**进入持久卷管理页面，然后点击上方的 **S3** 进入 S3 类型的持久卷管理页面，最后点击右上角的**创建**进入 StorageShim 创建页面：
 
 <figure class="screenshot">
   <img alt="storageshim-list" src="../assets/tasks/manage-asset/access-asset-by-s3/storageshim-list.png" class="screenshot"/>

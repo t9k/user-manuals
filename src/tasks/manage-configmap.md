@@ -17,7 +17,7 @@ ConfigMap 是一种以键值对的形式存储非机密信息的 Kubernetes 资�
   <img alt="building-console" src="../assets/tasks/manage-auxiliary-resources/building-console.png" class="screenshot"/>
 </figure>
 
-在 Project 主页面左侧导航栏（或右侧卡片）中点击 **Auxiliary&nbsp;> ConfigMaps** 进入 ConfigMap 管理页面。
+在 Project 主页面左侧导航菜单（或右侧卡片）中点击 **Auxiliary&nbsp;> ConfigMaps** 进入 ConfigMap 管理页面。
 
 <figure class="screenshot">
   <img alt="project-page-configmap" src="../assets/tasks/manage-auxiliary-resources/project-page-configmap.png" class="screenshot"/>

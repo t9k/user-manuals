@@ -9,7 +9,7 @@
 
 ## 创建 WorkflowTemplate
 
-在浏览器中进入工作流控制台之后，点击左侧导航栏的 **WorkflowTemplate** 进入 WorkflowTemplate 列表页面，然后点击右上角的 **Project** 框选择一个 Project，然后点击列表右上角的 **+** 在该 Project 中创建一个 WorkflowTemplate。
+在浏览器中进入工作流控制台之后，点击左侧导航菜单的 **WorkflowTemplate** 进入 WorkflowTemplate 列表页面，然后点击右上角的 **Project** 框选择一个 Project，然后点击列表右上角的 **+** 在该 Project 中创建一个 WorkflowTemplate。
 
 <figure class="screenshot">
   <img alt="workflowtemplate-list" src="../assets/tasks/build-automatic-workflow/create-basic-unit-of-workflow/workflowtemplate-list.png" class="screenshot"/>
@@ -32,7 +32,7 @@
 
 ## 创建 WorkflowRun
 
-再次点击左侧导航栏的 **WorkflowTemplate** 进入 WorkflowTemplate 列表页面，找到您刚才创建的 WorkflowTemplate `hello`，点击 WorkflowTemplate 的名称进入 WorkflowTemplate 的详情页面。
+再次点击左侧导航菜单的 **WorkflowTemplate** 进入 WorkflowTemplate 列表页面，找到您刚才创建的 WorkflowTemplate `hello`，点击 WorkflowTemplate 的名称进入 WorkflowTemplate 的详情页面。
 
 <figure class="screenshot">
   <img alt="workflowtemplate-detail" src="../assets/tasks/build-automatic-workflow/create-basic-unit-of-workflow/workflowtemplate-detail.png" class="screenshot"/>
@@ -52,7 +52,7 @@
 
 ## 查看 WorkflowRun 运行情况
 
-点击左侧导航栏的 **WorkflowRun** 进入 WorkflowRun 列表页面，找到您刚刚创建的 WorkflowRun `hello-run-3xrlm`，点击 WorkflowRun 的名称进入 WorkflowRun 的详情页面。
+点击左侧导航菜单的 **WorkflowRun** 进入 WorkflowRun 列表页面，找到您刚刚创建的 WorkflowRun `hello-run-3xrlm`，点击 WorkflowRun 的名称进入 WorkflowRun 的详情页面。
 
 <figure class="screenshot">
   <img alt="workflowrun-detail" src="../assets/tasks/build-automatic-workflow/create-basic-unit-of-workflow/workflowrun-detail.png" class="screenshot"/>
