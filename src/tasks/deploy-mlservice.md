@@ -1,0 +1,40 @@
+# 部署用于生产环境的模型推理服务
+
+本教程演示使用 MLService 部署用于生产环境的模型推理服务。
+
+## 运行示例
+
+请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/deployment/mlservice-v2/mlservice-torch-pvc">本教程的示例</a>，参照其 README 文档运行。本示例使用 PVC 中存储的模型创建了一个 MLService 服务。
+
+!!! tip "提示"
+    除了上述直接提供 YAML 配置文件的方法外，您也可以选择从网页控制台创建 MLService。
+
+## 查看推理服务状态
+
+部署完成后，进入模型部署控制台的 MLService 页面，可以看到名为 **torch-mnist-pvc** 的 MLService，稍等片刻，等其进入 Ready 状态：
+
+<figure class="screenshot">
+    <img alt="ready" src="../assets/tasks/deploy-mlservice/status.png" class="screenshot"/>
+</figure>
+
+## 使用推理服务
+
+您可以直接使用命令行工具访问 MLService 的预测服务。运行命令获取 MLService 的 URL：
+
+``` shell
+url=$(kubectl get mlservice keras-mnist-mlservice -o jsonpath='{.status.address.url}') && echo $url
+```
+
+发送推理请求：
+``` shell
+curl -T test_data/0.png ${url}/v1/models/mnist:predict # or use `1.png`, `2.png`
+```
+
+
+## 监控推理服务
+
+在模型部署控制台，点击左侧导航栏**总览**，可以查看项目内 MLService 的资源统计：
+
+<figure class="screenshot">
+  <img alt="resource-usage" src="../../assets/guide/deploy-model-reference-serving/mlservice/resource-usage.png" class="screenshot"/>
+</figure>
