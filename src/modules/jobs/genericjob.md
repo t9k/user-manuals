@@ -38,88 +38,6 @@ spec:
     * 序号为 0 且角色为 `worker` 的副本执行失败。
     * 序号为 1 且角色为 `worker` 的副本执行失败。
 
-## GenericJob 状态
-
-### GenericJob 的状态和阶段
-
-`status.conditions` 字段用于描述当前 GenericJob 的状态，包括以下 5 种类型：
-
-1. `Initialized`：GenericJob 已经成功创建各子资源，完成初始化。
-2. `Running`：开始执行任务。
-3. `ReplicaFailure`：有一个或多个副本出现错误。
-4. `Completed`：GenericJob 成功。
-5. `Failed`：GenericJob 失败。
-
-`status.phase` 字段用于描述当前 GenericJob 所处的阶段，GenericJob 的整个生命周期主要有以下几个阶段：
-
-1. `Pending`：GenericJob 刚刚创建，等待副本启动。
-2. `Running`：副本创建成功，开始执行任务。
-3. `Succeeded`：GenericJob 成功。
-4. `Failed`：GenericJob 失败。
-5. `Unknown`：控制器无法获得 GenericJob 的阶段。
-
-在下面的示例中，GenericJob 所有子资源创建成功，所以类型为 `Initalized` 的 `condition` 被设为 `True`；GenericJob 运行结束，所以类型为 `Completed` 的 `condition` 被设置为 `True`；但是 GenericJob 的训练结果是失败的，所以类型为 `Failed` 的 `condition` 被设置为 `True`（原因是 `The job is failed with rule: { "worker": [0] }`）。当前 GenericJob 运行阶段为 `Failed`。
-
-
-```yaml
-...
-status:
-  conditions:
-    - lastTransitionTime: "2021-01-18T02:36:09Z"
-      status: "True"
-      message: "The job has been initialized successfully."
-      reason: "-"
-      type: Initializing
-    - lastTransitionTime: "2021-01-18T02:36:09Z"
-      status: "True"
-      message: "All pods are running normally."
-      reason: "-"
-      type: Running
-    - lastTransitionTime: "2021-01-18T02:36:09Z"
-      status: "False"
-      message: "All pods are running normally."
-      reason: "-"
-      type: ReplicaFailure
-    - lastTransitionTime: "2021-01-18T02:36:31Z"
-      status: "False"
-      message: 'The job is failed with rule: { "worker": [0] }'
-      reason: "Failed"
-      type: Completed
-    - lastTransitionTime: "2021-01-18T02:36:31Z"
-      status: "True"
-      message: 'The job is failed with rule: { "worker": [0] }'
-      reason: "Failed"
-      type: Failed
-  phase: Failed
-```
-
-### 副本的状态
-
-`status.tasks` 字段用来记录副本的状态，记录的内容主要包括：
-
-* 副本的重启次数（同一种角色的副本的重启次数之和）
-* 副本当前的运行阶段
-* 副本在集群中对应的 Pod 的索引信息
-
-在下面的示例中，GenericJob 创建了 2 个角色为 `worker` 的副本，这 2 个副本的重启次数之和为 3，当前均处于 `Running` 阶段，分别运行在 `generic-example-worker-0` 和 `generic-example-worker-1` 这 2 个 Pod 上。
-
-```yaml
-...
-status:
-  tasks:
-  - type: worker
-    restartCount: 3
-    status:
-    - phase: Running
-      name: generic-example-worker-0
-      uid: e3ec2ee3-6645-4e21-993f-1e472b94e0ae
-      containers: []
-    - phase: Running
-      name: generic-example-worker-1
-      uid: 908a93f0-7b8b-491e-85d5-3da0abcb4ca4
-      containers: []
-```
-
 ## 成功和失败
 
 GenericJob 的成功和失败条件是通过 `spec.successRules` 和 `spec.failureRules` 字段指定的，其规则如下：
@@ -184,7 +102,9 @@ spec:
 * `$(service._type_[_rank_].host)`：各个副本的域名（当且仅当[副本的服务被暴露出来](#暴露副本端口)，此变量可用）。
 * `$(service.port[_port-name_])`：`spec.service.ports` 字段中定义的服务端口号（当且仅当[副本的服务被暴露出来](#暴露副本端口)，此变量可用）。
 
-上述变量中 `_type_`、`_rank_` 和 `_port-name_` 需填入具体的**角色**、**序号**和**端口名称**（由 `spec.service.ports[*].name` 字段指定）。变量替换可以被使用在下列字段中：
+上述变量中 `_type_`、`_rank_` 和 `_port-name_` 需填入具体的**角色**、**序号**和**端口名称**（由 `spec.service.ports[*].name` 字段指定）。
+
+变量替换可以被使用在下列字段中：
 
 * `spec.replicaSpecs[*].template.command`
 * `spec.replicaSpecs[*].template.args`
@@ -198,11 +118,6 @@ kind: GenericJob
 metadata:
   name: generic-example
 spec:
-  successRules:
-    - { "worker": [0] }
-  failureRules:
-    - { "worker": [0] }
-    - { "worker": [1] }
   replicaSpecs:
     - type: worker
       replicas: 4
@@ -273,23 +188,23 @@ spec:
 !!! info "信息"
     队列和优先级都是 T9k Scheduler 的概念，具体含义请参阅 [T9k Scheduler](../../cluster/scheduling/index.md)。
 
-## Debug 模式
+## 调试模式
 
-GenericJob 支持 Debug 模式，在该模式下，训练环境会被部署好，但不会启动训练，用户可以连入副本测试环境或脚本。
+GenericJob 支持调试模式。在该模式下，训练环境会被部署好，但不会启动训练，用户可以连入副本测试环境或脚本。
 
 该模式可以通过 `spec.runMode.debug` 字段来设置：
 
-* `spec.runMode.debug.enable` 表示是否启用 Debug 模式。
-* `spec.runMode.debug.replicaSpecs` 表示如何配置各个副本的 Debug 模式：
+* `spec.runMode.debug.enabled` 表示是否启用调试模式。
+* `spec.runMode.debug.replicaSpecs` 表示如何配置各个副本的调试模式：
     * `spec.runMode.debug.replicaSpecs.type` 表示作用于的副本类型。
     * `spec.runMode.debug.replicaSpecs.skipInitContainer` 表示让副本的 InitContainer 失效，默认为 `false`。
     * `spec.runMode.debug.replicaSpecs.command` 表示副本在等待调试的时候执行的命令，默认为 `sleep inf`。
-    * 如果不填写 `spec.runMode.debug.replicaSpecs` 字段，则表示副本使用上述默认设置。
+    * 如果不填写 `spec.runMode.debug.replicaSpecs` 字段，则表示所有副本都使用默认设置。
 
 在下面的示例中：
 
-* 示例一：开启了 Debug 模式，并配置 worker 跳过 InitContainer，并执行 `/usr/bin/sshd`。
-* 示例二：开启了 Debug 模式，副本使用默认 Debug 设置，即不跳过 InitContainer，并执行 `sleep inf`。
+* 示例一：开启了调试模式，并配置 worker 跳过 InitContainer，并执行 `/usr/bin/sshd`。
+* 示例二：开启了调试模式，副本使用默认调试设置，即不跳过 InitContainer，并执行 `sleep inf`。
 
 ```yaml
 # 示例一
@@ -297,7 +212,7 @@ GenericJob 支持 Debug 模式，在该模式下，训练环境会被部署好�
 spec:
   runMode:
     debug:
-      enable: true
+      enabled: true
       replicaSpecs:
         - type: worker
           skipInitContainer: true
@@ -309,5 +224,151 @@ spec:
 spec:
   runMode:
     debug:
-      enable: true
+      enabled: true
+```
+
+## 暂停模式
+
+GenericJob 支持暂停模式。在该模式下，删除（或不创建）副本，停止训练。
+
+该模式可以通过 `spec.runMode.pause` 字段来设置：
+
+* `spec.runMode.pause.enabled` 表示是否启用暂停模式。
+* `spec.runMode.pause.resumeSpecs` 表示结束暂停后，如何恢复各个副本：
+    * `spec.runMode.pause.resumeSpecs.type` 表示作用于的副本类型。
+    * `spec.runMode.pause.resumeSpecs.skipInitContainer` 表示让副本的 InitContainer 失效，默认为 `false`。
+    * `spec.runMode.pause.resumeSpecs.command` 和 `spec.runMode.pause.resumeSpecs.args` 表示副本在恢复运行时候执行的命令，默认使用 `spec.replicaSpecs[0].template` 中的命令。
+    * 如果不填写 `spec.runMode.pause.resumeSpecs` 字段，则表示所有副本都使用默认设置。
+
+用户可以随时修改 `spec.runMode.pause.enabled` 来控制任务暂停，但是不可以更改 `spec.runMode.pause.resumeSpecs`，所以如果有暂停 GenericJob 的需求，请提前设置好恢复设置。
+
+在下面的示例中：
+
+* 示例一：开启了暂停模式，并配置 worker 跳过 InitContainer，并执行 `/usr/bin/sshd`。
+* 示例二：开启了暂停模式，副本使用默认恢复设置，即不跳过 InitContainer，并执行 `spec.replicaSpecs[0].template` 中设置的命令。
+
+```yaml
+# 示例一
+...
+spec:
+  runMode:
+    pause:
+      enabled: true
+      resumeSpecs:
+        - type: worker
+          skipInitContainer: true
+          command: ["/usr/bin/sshd"]
+
+---
+# 示例二
+...
+spec:
+  runMode:
+    pause:
+      enabled: true
+```
+
+## GenericJob 状态
+
+### GenericJob 的状态和阶段
+
+`status.conditions` 字段用于描述当前 GenericJob 的状态，包括以下 6 种类型：
+
+1. `Initialized`：GenericJob 已经成功创建各子资源，完成初始化。
+2. `Running`：开始执行任务。
+3. `ReplicaFailure`：有一个或多个副本出现错误。
+4. `Completed`：GenericJob 成功。
+5. `Failed`：GenericJob 失败。
+6. `Paused`：GenericJob 进入暂停模式，所有副本都已删除或正在删除。
+
+`status.phase` 字段用于描述当前 GenericJob 所处的阶段，GenericJob 的整个生命周期主要有以下7个阶段：
+
+1. `Pending`：GenericJob 刚刚创建，等待副本启动。
+2. `Running`：副本创建成功，开始执行任务。
+3. `Paused`：GenericJob 进入暂停模式。
+4. `Resuming`：GenericJob 正从暂停模式中恢复运行。恢复运行后，切换为 `Running` 阶段。
+5. `Succeeded`：GenericJob 成功。
+6. `Failed`：GenericJob 失败。
+7. `Unknown`：控制器无法获得 GenericJob 的阶段。
+
+在下面的示例中，GenericJob 所有子资源创建成功，所以类型为 `Initalized` 的 `condition` 被设为 `True`；GenericJob 运行结束，所以类型为 `Completed` 的 `condition` 被设置为 `True`；但是 GenericJob 的训练结果是失败的，所以类型为 `Failed` 的 `condition` 被设置为 `True`（原因是 `The job is failed with rule: { "worker": [0] }`）。当前 GenericJob 运行阶段为 `Failed`。
+
+
+```yaml
+...
+status:
+  conditions:
+    - lastTransitionTime: "2021-01-18T02:36:09Z"
+      status: "True"
+      message: "The job has been initialized successfully."
+      reason: "-"
+      type: Initializing
+    - lastTransitionTime: "2021-01-18T02:36:09Z"
+      status: "True"
+      message: "All pods are running normally."
+      reason: "-"
+      type: Running
+    - lastTransitionTime: "2021-01-18T02:36:09Z"
+      status: "False"
+      message: "All pods are running normally."
+      reason: "-"
+      type: ReplicaFailure
+    - lastTransitionTime: "2021-01-18T02:36:31Z"
+      status: "False"
+      message: 'The job is failed with rule: { "worker": [0] }'
+      reason: "Failed"
+      type: Completed
+    - lastTransitionTime: "2021-01-18T02:36:31Z"
+      status: "True"
+      message: 'The job is failed with rule: { "worker": [0] }'
+      reason: "Failed"
+      type: Failed
+  phase: Failed
+```
+
+### 副本的状态
+
+`status.tasks` 字段用来记录副本的状态，记录的内容主要包括：
+
+* 副本的重启次数（同一种角色的副本的重启次数之和）；
+* 副本当前的运行阶段，此处的“运行阶段”在 K8s Pod 的 5 个阶段的基础上，添加了 `Creating` 和 `Deleted` 分别表示正在创建和已删除；
+* 副本在集群中对应的 Pod 的索引信息。
+
+在下面的示例中，GenericJob 创建了 2 个角色为 `worker` 的副本，这 2 个副本的重启次数之和为 3，当前均处于 `Running` 阶段，分别运行在 `generic-example-worker-0` 和 `generic-example-worker-1` 这 2 个 Pod 上。
+
+```yaml
+...
+status:
+  tasks:
+  - type: worker
+    restartCount: 3
+    status:
+    - phase: Running
+      name: generic-example-worker-0
+      uid: e3ec2ee3-6645-4e21-993f-1e472b94e0ae
+      containers: []
+    - phase: Running
+      name: generic-example-worker-1
+      uid: 908a93f0-7b8b-491e-85d5-3da0abcb4ca4
+      containers: []
+```
+
+### 副本状态统计
+
+`status.aggregate` 字段统计了各个阶段的副本数量。
+
+在下面示例中，GenericJob 创建了 3 个副本，其中 1 个处于 `Pending` 阶段，另外两个处于 `Running` 阶段。
+
+```yaml
+...
+status:
+  aggregate:
+    creating: 0
+    deleted: 0
+    failed: 0
+    pending: 1
+    running: 2
+    succeeded: 0
+    unknown: 0
+...
 ```

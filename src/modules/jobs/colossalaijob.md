@@ -71,6 +71,136 @@ spec:
 
     由于执行副本实际执行的命令是启动 `sshd`，所以执行副本的训练容器的 `command` 字段不再生效。
 
+## 成功和失败
+
+在 ColossalAIJob 分布式训练框架中：
+
+* 如果启动副本执行失败，ColossalAIJob 训练失败。
+* 如果启动副本执行成功，ColossalAIJob 并不一定成功：启动副本的作用是启动训练和监测，无论是训练成功还是失败，启动副本都会正常结束，而不是报错。因此，如果要确定 ColossalAIJob 是否成功结束，需要检查启动副本的日志。
+
+## 重启机制
+
+与其他 TrainingJob 不同，ColossalAIJob 使用 `colossalairun` 作为启动命令，在这种情况下，Pod 失败重启后不会再加入到训练中。所以 ColossalAIJob 无法像其他 TrainingJob 那样支持 Pod 失败重启。
+
+## 清除策略
+
+在 ColossalAIJob 训练结束后，ColossalAIJob 控制器可以清理所创建的 Kubernetes 资源，使 ColossalAIJob 不再浪费集群资源（内存、CPU 等）。一般来说，您需要查看启动副本的日志来确定训练结果，所以启动副本不在清理范围之内，ColossalAIJob 控制器只清理执行副本（通过 `spec.runPolicy.cleanUpWorkers` 字段设置）。
+
+在下面的示例中，ColossalAIJob 在训练结束后会自动删除所有执行副本：
+
+```yaml
+...
+spec:
+  runPolicy:
+    cleanUpWorkers: true
+```
+
+## 调度器
+
+目前 ColossalAIJob 支持两种调度器：
+
+1. Kubernetes 的<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler">默认调度器</a>
+2. [T9k Scheduler 调度器](../../cluster/scheduling/index.md)
+
+调度器通过 `spec.scheduler` 字段设置：
+
+* 不设置 `spec.scheduler` 字段，则默认使用 Kubernetes 的默认调度器。
+* 设置 `spec.scheduler.t9kScheduler` 字段，则使用 T9k Scheduler 调度器。
+
+在下面的示例中，ColossalAIJob 启用 T9k Scheduler 调度器，将执行副本插入 `default` 队列中等待调度，其优先级为 50。
+
+```yaml
+...
+spec:
+  scheduler:
+    t9kScheduler:
+      queue: default
+      priority: 50
+```
+
+!!! info "信息"
+    队列和优先级都是 T9k Scheduler 的概念，具体含义请参阅 [T9k Scheduler](../../cluster/scheduling/index.md)。
+
+## 调试模式
+
+ColossalAIJob 支持调试模式。在该模式下，训练环境会被部署好，但不会启动训练，用户可以连入副本测试环境或脚本。
+
+该模式可以通过 `spec.runMode.debug` 字段来设置：
+
+* `spec.runMode.debug.enabled` 表示是否启用调试模式。
+* `spec.runMode.debug.replicaSpecs` 表示如何配置各个副本的调试模式：
+    * `spec.runMode.debug.replicaSpecs.type` 表示作用于的副本类型。
+    * `spec.runMode.debug.replicaSpecs.skipInitContainer` 表示让副本的 InitContainer 失效，默认为 `false`。
+    * `spec.runMode.debug.replicaSpecs.command` 表示副本在等待调试的时候执行的命令，默认为 `sleep inf`。
+    * 如果不填写 `spec.runMode.debug.replicaSpecs` 字段，则表示所有副本都使用默认设置。
+
+在下面的示例中：
+
+* 示例一：开启了调试模式，并配置 worker 跳过 InitContainer，并执行 `/usr/bin/sshd`。
+* 示例二：开启了调试模式，副本使用默认调试设置，即不跳过 InitContainer，并执行 `sleep inf`。
+
+```yaml
+# 示例一
+...
+spec:
+  runMode:
+    debug:
+      enabled: true
+      replicaSpecs:
+        - type: worker
+          skipInitContainer: true
+          command: ["/usr/bin/sshd"]
+
+---
+# 示例二
+...
+spec:
+  runMode:
+    debug:
+      enabled: true
+```
+
+## 暂停模式
+
+ColossalAIJob 支持暂停模式。在该模式下，删除（或不创建）副本，停止训练。
+
+该模式可以通过 `spec.runMode.pause` 字段来设置：
+
+* `spec.runMode.pause.enabled` 表示是否启用暂停模式。
+* `spec.runMode.pause.resumeSpecs` 表示结束暂停后，如何恢复各个副本：
+    * `spec.runMode.pause.resumeSpecs.type` 表示作用于的副本类型。
+    * `spec.runMode.pause.resumeSpecs.skipInitContainer` 表示让副本的 InitContainer 失效，默认为 `false`。
+    * `spec.runMode.pause.resumeSpecs.command` 和 `spec.runMode.pause.resumeSpecs.args` 表示副本在恢复运行时候执行的命令，默认使用 `spec.replicaSpecs[0].template` 中的命令。
+    * 如果不填写 `spec.runMode.pause.resumeSpecs` 字段，则表示所有副本都使用默认设置。
+
+用户可以随时修改 `spec.runMode.pause.enabled` 来控制任务暂停，但是不可以更改 `spec.runMode.pause.resumeSpecs`，所以如果有暂停 ColossalAIJob 的需求，请提前设置好恢复设置。
+
+在下面的示例中：
+
+* 示例一：开启了暂停模式，并配置 worker 跳过 InitContainer，并执行 `/usr/bin/sshd`。
+* 示例二：开启了暂停模式，副本使用默认恢复设置，即不跳过 InitContainer，并执行 `spec.replicaSpecs[0].template` 中设置的命令。
+
+```yaml
+# 示例一
+...
+spec:
+  runMode:
+    pause:
+      enabled: true
+      resumeSpecs:
+        - type: worker
+          skipInitContainer: true
+          command: ["/usr/bin/sshd"]
+
+---
+# 示例二
+...
+spec:
+  runMode:
+    pause:
+      enabled: true
+```
+
 ## ColossalAIJob 状态
 
 ### ColossalAIJob 的状态和阶段
@@ -82,14 +212,17 @@ spec:
 3. `ReplicaFailure`：有一个或多个副本出现错误。
 4. `Completed`：ColossalAIJob 成功。
 5. `Failed`：ColossalAIJob 失败。
+6. `Paused`：ColossalAIJob 进入暂停模式，所有副本都已删除或正在删除。
 
 `status.phase` 字段用于描述当前 ColossalAIJob 所处的阶段，ColossalAIJob 的整个生命周期主要有以下几个阶段：
 
 1. `Pending`：ColossalAIJob 刚刚创建，等待副本启动。
 2. `Running`：副本创建成功，开始执行任务。
-3. `Succeeded`：ColossalAIJob 成功。
-4. `Failed`：ColossalAIJob 失败。
-5. `Unknown`：控制器无法获得 ColossalAIJob 的阶段。
+3. `Paused`：ColossalAIJob 进入暂停模式。
+4. `Resuming`：ColossalAIJob 正从暂停模式中恢复运行。恢复运行后，切换为 `Running` 阶段。
+5. `Succeeded`：ColossalAIJob 成功。
+6. `Failed`：ColossalAIJob 失败。
+7. `Unknown`：控制器无法获得 ColossalAIJob 的阶段。
 
 在下面的示例中，ColossalAIJob 所有子资源创建成功，所以类型为 `Initalized` 的 `condition` 被设为 `True`；ColossalAIJob 运行结束，所以类型为 `Completed` 的 `condition` 被设置为 `True`；但是 ColossalAIJob 的训练结果是失败的，所以类型为 `Failed` 的 `condition` 被设置为 `True`。当前 ColossalAIJob 运行阶段为 `Failed`。
 
@@ -159,91 +292,22 @@ status:
       containers: []
 ```
 
-## 成功和失败
+### 副本状态统计
 
-在 ColossalAIJob 分布式训练框架中：
+`status.aggregate` 字段统计了各个阶段的副本数量。
 
-* 如果启动副本执行失败，ColossalAIJob 训练失败。
-* 如果启动副本执行成功，ColossalAIJob 并不一定成功：启动副本的作用是启动训练和监测，无论是训练成功还是失败，启动副本都会正常结束，而不是报错。因此，如果要确定 ColossalAIJob 是否成功结束，需要检查启动副本的日志。
-
-## 重启机制
-
-与其他 TrainingJob 不同，ColossalAIJob 使用 `colossalairun` 作为启动命令，在这种情况下，Pod 失败重启后不会再加入到训练中。所以 ColossalAIJob 无法像其他 TrainingJob 那样支持 Pod 失败重启。
-
-## 清除策略
-
-在 ColossalAIJob 训练结束后，ColossalAIJob 控制器可以清理所创建的 Kubernetes 资源，使 ColossalAIJob 不再浪费集群资源（内存、CPU 等）。一般来说，您需要查看启动副本的日志来确定训练结果，所以启动副本不在清理范围之内，ColossalAIJob 控制器只清理执行副本（通过 `spec.runPolicy.cleanUpWorkers` 字段设置）。
-
-在下面的示例中，ColossalAIJob 在训练结束后会自动删除所有执行副本：
+在下面的示例中，ColossalAIJob 创建了 3 个副本，其中 1 个处于 `Pending` 阶段，另外两个处于 `Running` 阶段。
 
 ```yaml
 ...
-spec:
-  runPolicy:
-    cleanUpWorkers: true
-```
-
-## 调度器
-
-目前 ColossalAIJob 支持两种调度器：
-
-1. Kubernetes 的<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler">默认调度器</a>
-2. [T9k Scheduler 调度器](../../cluster/scheduling/index.md)
-
-调度器通过 `spec.scheduler` 字段设置：
-
-* 不设置 `spec.scheduler` 字段，则默认使用 Kubernetes 的默认调度器。
-* 设置 `spec.scheduler.t9kScheduler` 字段，则使用 T9k Scheduler 调度器。
-
-在下面的示例中，ColossalAIJob 启用 T9k Scheduler 调度器，将执行副本插入 `default` 队列中等待调度，其优先级为 50。
-
-```yaml
+status:
+  aggregate:
+    creating: 0
+    deleted: 0
+    failed: 0
+    pending: 1
+    running: 2
+    succeeded: 0
+    unknown: 0
 ...
-spec:
-  scheduler:
-    t9kScheduler:
-      queue: default
-      priority: 50
-```
-
-!!! info "信息"
-    队列和优先级都是 T9k Scheduler 的概念，具体含义请参阅 [T9k Scheduler](../../cluster/scheduling/index.md)。
-
-## Debug 模式
-
-ColossalAIJob 支持 Debug 模式，在该模式下，训练环境会被部署好，但不会启动训练，用户可以连入副本测试环境或脚本。
-
-该模式可以通过 `spec.runMode.debug` 字段来设置：
-
-* `spec.runMode.debug.enable` 表示是否启用 Debug 模式。
-* `spec.runMode.debug.replicaSpecs` 表示如何配置各个副本的 Debug 模式：
-    * `spec.runMode.debug.replicaSpecs.type` 表示作用于的副本类型。
-    * `spec.runMode.debug.replicaSpecs.skipInitContainer` 表示让副本的 InitContainer 失效，默认为 `false`。
-    * `spec.runMode.debug.replicaSpecs.command` 表示副本在等待调试的时候执行的命令，默认为 `sleep inf`。
-    * 如果不填写 `spec.runMode.debug.replicaSpecs` 字段，则表示副本使用上述默认设置。
-
-在下面的示例中：
-
-* 示例一：开启了 Debug 模式，并配置 worker 跳过 InitContainer，并执行 `/usr/bin/sshd`。
-* 示例二：开启了 Debug 模式，副本使用默认 Debug 设置，即不跳过 InitContainer，并执行 `sleep inf`。
-
-```yaml
-# 示例一
-...
-spec:
-  runMode:
-    debug:
-      enable: true
-      replicaSpecs:
-        - type: worker
-          skipInitContainer: true
-          command: ["/usr/bin/sshd"]
-
----
-# 示例二
-...
-spec:
-  runMode:
-    debug:
-      enable: true
 ```

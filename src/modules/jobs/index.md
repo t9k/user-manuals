@@ -35,3 +35,7 @@
 * [MPIJob](./mpijob.md)
 
     <a target="_blank" rel="noopener noreferrer" href="https://www.open-mpi.org/">OpenMPI</a> 是一个开源的 MPI（Message Passing Interface）协议的实现项目。MPIJob 使您能够方便地在集群环境中使用 OpenMPI 进行训练。
+
+* [BeamJob](./beamjob.md)
+
+    BeamJob 用于在集群中通过 <a target="_blank" rel="noopener noreferrer" href="https://beam.apache.org/documentation/sdks/python/">Apache Beam Python SDK</a> 运行分布式计算任务，并提供多种底层计算引擎。

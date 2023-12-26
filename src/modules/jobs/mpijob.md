@@ -60,6 +60,146 @@ spec:
 * sshd 的路径为 `/user/sbin/sshd`（由 `spec.ssh.sshdPath` 字段指定，使用该字段的原因是 sshd 程序必须使用绝对路径调用，所以需要其具体路径）。
 * MPI 安装在 `/usr/local` 处（由 `spec.mpiHome` 字段指定，使用该字段的原因是 `mpirun` 的有些功能需要知道 MPI 的根目录地址才能正确运行）。
 
+## 运行 Horovod 训练脚本
+
+使用 <a target="_blank" rel="noopener noreferrer" href="https://horovod.ai/">Horovod</a> 框架的分布式训练脚本也可以使用 MPIJob 进行训练。
+
+!!! info "信息"
+    Horovod 框架的分布式训练脚本一般使用 `horovodrun` 命令启动；而由于 Horovod 是基于 OpenMPI 实现的，所以也可以使用 `mpirun` 命令启动。两条命令的关系为：`horovodrun` 命令等同于 `mpirun -bind-to none -map-by slot -x NCCL_DEBUG=INFO -x LD_LIBRARY_PATH -x PATH -mca pml ob1 -mca btl ^openib`。具体信息请参阅 <a target="_blank" rel="noopener noreferrer" href="https://github.com/horovod/horovod/blob/master/docs/mpi.rst">Horovod With MPI</a>。
+
+在 MPIJob 中需要执行以下操作：
+
+1. 在 `spec.worker.template.spec.containers[mpi-worker].env` 字段中添加 `NCCL_DEBUG`；
+2. 在 `spec.mca` 字段中添加 `pml:ob1` 和 `btl:^openib`。
+
+下面是使用 MPIJob 执行 Horovod 框架的分布式训练脚本的示例：
+
+```yaml
+apiVersion: batch.tensorstack.dev/v1beta1
+kind: MPIJob
+metadata:
+  name: mpi-example
+spec:
+  mca:
+    btl: ^openib
+    pml: ob1
+  worker:
+    template:
+      spec:
+        containers:
+          - name: mpi-worker
+            env: 
+            - name: "NCCL_DEBUG"
+              value: "INFO"
+...
+```
+
+## 调度器
+
+目前 MPIJob 支持使用以下两种调度器：
+
+1. Kubernetes 的[默认调度器](https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler)
+2. [T9k Scheduler](../../cluster/scheduling/index.md)
+
+调度策略通过 `spec.scheduler` 字段设置：
+
+* 不设置 `spec.scheduler` 字段，则使用 Kubernetes 的默认调度器。
+* 设置 `spec.scheduler.t9kScheduler` 字段，则使用 T9k Scheduler 调度器。
+
+在下面的示例中，MPIJob 启用 T9k Scheduler 调度器，将执行副本插入 `default` 队列中等待调度，其优先级为 50。
+
+```yaml
+...
+spec:
+  scheduler:
+    t9kScheduler:
+      queue: default
+      priority: 50
+```
+
+!!! info "信息"
+    队列和优先级都是 T9k Scheduler 的概念，具体含义请参阅 [T9k Scheduler](../../cluster/scheduling/index.md)。
+
+## 调试模式
+
+MPIJob 支持调试模式。在该模式下，训练环境会被部署好，但不会启动训练，用户可以连入副本测试环境或脚本。
+
+该模式可以通过 `spec.runMode.debug` 字段来设置：
+
+* `spec.runMode.debug.enabled` 表示是否启用调试模式。
+* `spec.runMode.debug.replicaSpecs` 表示如何配置各个副本的调试模式：
+    * `spec.runMode.debug.replicaSpecs.type` 表示作用于的副本类型。
+    * `spec.runMode.debug.replicaSpecs.skipInitContainer` 表示让副本的 InitContainer 失效，默认为 `false`。
+    * `spec.runMode.debug.replicaSpecs.command` 表示副本在等待调试的时候执行的命令，`launcher` 的默认命令为 `sleep inf`，`worker` 的默认命令为 `/usr/bin/sshd -D`。
+    * 如果不填写 `spec.runMode.debug.replicaSpecs` 字段，则表示所有副本都使用默认设置。
+
+在下面的示例中：
+
+* 示例一：开启了调试模式，并配置 worker 跳过 InitContainer，并执行 `sleep inf`。
+* 示例二：开启了调试模式，副本使用默认调试设置，即 worker 不跳过 InitContainer，并执行 `/usr/bin/sshd -D`。
+
+```yaml
+# 示例一
+...
+spec:
+  runMode:
+    debug:
+      enabled: true
+      replicaSpecs:
+        - type: worker
+          skipInitContainer: true
+          command: ["sleep", "inf"]
+
+---
+# 示例二
+...
+spec:
+  runMode:
+    debug:
+      enabled: true
+```
+
+## 暂停模式
+
+MPIJob 支持暂停模式。在该模式下，删除（或不创建）副本，停止训练。
+
+该模式可以通过 `spec.runMode.pause` 字段来设置：
+
+* `spec.runMode.pause.enabled` 表示是否启用暂停模式。
+* `spec.runMode.pause.resumeSpecs` 表示结束暂停后，如何恢复各个副本：
+    * `spec.runMode.pause.resumeSpecs.type` 表示作用于的副本类型。
+    * `spec.runMode.pause.resumeSpecs.skipInitContainer` 表示让副本的 InitContainer 失效，默认为 `false`。
+    * `spec.runMode.pause.resumeSpecs.command` 和 `spec.runMode.pause.resumeSpecs.args` 表示副本在恢复运行时候执行的命令，默认使用 `spec.replicaSpecs[0].template` 中的命令。
+    * 如果不填写 `spec.runMode.pause.resumeSpecs` 字段，则表示所有副本都使用默认设置。
+
+用户可以随时修改 `spec.runMode.pause.enabled` 来控制任务暂停，但是不可以更改 `spec.runMode.pause.resumeSpecs`，所以如果有暂停 MPIJob 的需求，请提前设置好恢复设置。
+
+在下面的示例中：
+
+* 示例一：开启了暂停模式，并配置 worker 跳过 InitContainer，并执行 `/usr/bin/sshd`。
+* 示例二：开启了暂停模式，副本使用默认恢复设置，即不跳过 InitContainer，并执行 `spec.replicaSpecs[0].template` 中设置的命令。
+
+```yaml
+# 示例一
+...
+spec:
+  runMode:
+    pause:
+      enabled: true
+      resumeSpecs:
+        - type: worker
+          skipInitContainer: true
+          command: ["/usr/bin/sshd"]
+
+---
+# 示例二
+...
+spec:
+  runMode:
+    pause:
+      enabled: true
+```
+
 ## MPIJob 状态
 
 ### MPIJob 的状态和阶段
@@ -71,14 +211,17 @@ spec:
 3. `ReplicaFailure`：有一个或多个副本出现错误。
 4. `Completed`：MPIJob **结束**。
 5. `Failed`：MPIJob 失败。
+6. `Paused`：MPIJob 进入暂停模式，所有副本都已删除或正在删除。
 
 `status.phase` 字段用于描述当前 MPIJob 所处的阶段，MPIJob 的整个生命周期主要有以下几个阶段：
 
 1. `Pending`：MPIJob 刚刚创建，等待副本启动。
 2. `Running`：副本创建成功，开始执行任务。
-3. `Succeeded`：MPIJob **结束**。
-4. `Failed`：MPIJob 失败。
-5. `Unknown`：控制器无法获得 MPIJob 的阶段。
+3. `Paused`：MPIJob 进入暂停模式。
+4. `Resuming`：MPIJob 正从暂停模式中恢复运行。恢复运行后，切换为 `Running` 阶段。
+5. `Succeeded`：MPIJob **结束**。
+6. `Failed`：MPIJob 失败。
+7. `Unknown`：控制器无法获得 MPIJob 的阶段。
 
 在下面的示例中，MPIJob 所有子资源创建成功，所以类型为 `Initalized` 的 `condition` 被设为 `True`；MPIJob 运行结束，所以类型为 `Completed` 的 `condition` 被设置为 `True`；但是 MPIJob 的训练结果是失败的，所以类型为 `Failed` 的 `condition` 被设置为 `True`。当前 MPIJob 运行阶段为 `Failed`。
 
@@ -156,66 +299,27 @@ status:
       uid: 908a93f0-7b8b-491e-85d5-3da0abcb4ca4
       containers: []
 ```
-## 运行 Horovod 训练脚本
 
-使用 <a target="_blank" rel="noopener noreferrer" href="https://horovod.ai/">Horovod</a> 框架的分布式训练脚本也可以使用 MPIJob 进行训练。
+### 副本状态统计
 
-!!! info "信息"
-    Horovod 框架的分布式训练脚本一般使用 `horovodrun` 命令启动；而由于 Horovod 是基于 OpenMPI 实现的，所以也可以使用 `mpirun` 命令启动。两条命令的关系为：`horovodrun` 命令等同于 `mpirun -bind-to none -map-by slot -x NCCL_DEBUG=INFO -x LD_LIBRARY_PATH -x PATH -mca pml ob1 -mca btl ^openib`。具体信息请参阅 <a target="_blank" rel="noopener noreferrer" href="https://github.com/horovod/horovod/blob/master/docs/mpi.rst">Horovod With MPI</a>。
+`status.aggregate` 字段统计了各个阶段的副本数量。
 
-在 MPIJob 中需要执行以下操作：
-
-1. 在 `spec.worker.template.spec.containers[mpi-worker].env` 字段中添加 `NCCL_DEBUG`；
-2. 在 `spec.mca` 字段中添加 `pml:ob1` 和 `btl:^openib`。
-
-下面是使用 MPIJob 执行 Horovod 框架的分布式训练脚本的示例：
-
-```yaml
-apiVersion: batch.tensorstack.dev/v1beta1
-kind: MPIJob
-metadata:
-  name: mpi-example
-spec:
-  mca:
-    btl: ^openib
-    pml: ob1
-  worker:
-    template:
-      spec:
-        containers:
-          - name: mpi-worker
-            env: 
-            - name: "NCCL_DEBUG"
-              value: "INFO"
-...
-```
-
-## 调度器
-
-目前 MPIJob 支持使用以下两种调度器：
-
-1. Kubernetes 的[默认调度器](https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler)
-2. [T9k Scheduler](../../cluster/scheduling/index.md)
-
-调度策略通过 `spec.scheduler` 字段设置：
-
-* 不设置 `spec.scheduler` 字段，则使用 Kubernetes 的默认调度器。
-* 设置 `spec.scheduler.t9kScheduler` 字段，则使用 T9k Scheduler 调度器。
-
-在下面的示例中，MPIJob 启用 T9k Scheduler 调度器，将执行副本插入 `default` 队列中等待调度，其优先级为 50。
+在下面示例中，MPIJob 创建了 3 个副本，其中 1 个处于 `Pending` 阶段，另外两个处于 `Running` 阶段。
 
 ```yaml
 ...
-spec:
-  scheduler:
-    t9kScheduler:
-      queue: default
-      priority: 50
+status:
+  aggregate:
+    creating: 0
+    deleted: 0
+    failed: 0
+    pending: 1
+    running: 2
+    succeeded: 0
+    unknown: 0
+...
 ```
-
-!!! info "信息"
-    队列和优先级都是 T9k Scheduler 的概念，具体含义请参阅 [T9k Scheduler](../../cluster/scheduling/index.md)。
-
 ## 下一步
 
-* 了解如何[使用 MPIJob 进行 Horovod 分布式训练](../../../guide/run-distributed-training/horovod/index.md)
+* 了解如何[使用 Horovod 进行 Keras 模型的数据并行训练](../../tasks/horovod-keras-parallel.md)
+* 了解如何[使用 Horovod 进行 PyTorch 模型的数据并行训练](../../tasks/horovod-pytorch-parallel.md)
