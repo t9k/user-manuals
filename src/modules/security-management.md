@@ -10,14 +10,10 @@ TensorStack AI 平台提供全面、系统性的安全支持，以保障平台�
 
 Project 是 TensorStack AI 平台为了有效使用集群资源，实现多用户、多项目同时、安全、共享使用集群而提供的机制。它具有以下特征：
 
-* 每个 Project 有一个**所有者**，他可以管理 Project 的**成员**。
-* 只有 Project 的所有者和成员可以在 Project 中执行操作。
-* Project 有 build 和 deploy 两种使用范围（scope）可选，表示用户可以在哪些 TensorStack 模块使用当前 Project：
-    * build 表示用户可以在模型构建和工作流模块中使用此 Project。
-    * deploy 表示用户可以在模型部署模块中使用此 Project。
-    * Project 可以同时选择两个使用范围。
-    * 所有者在添加 Project 成员时可以规定成员对 Project 的使用范围。
-* 每个 Project 对应一个同名的 Kubernetes 命名空间（namespace）。
+* 每个 Project 有一个**项目管理员**，他可以管理 Project 的**成员**。
+* 只有 Project 的管理员和成员可以在 Project 中执行操作。
+* Project 有两种使用范围（scope）可选：`build` 表示用户可以在模型构建和工作流模块中使用此 Project；`deploy` 表示用户可以在模型部署模块中使用此 Project。Project 可以同时选择两个使用范围，管理员在添加 Project 成员时可以规定成员对 Project 的使用范围。
+* 每个 Project 对应一个同名的 Kubernetes 命名空间（namespace），Project 的成员拥有当前命名空间中几乎所有 K8s 资源的操作权限。
 
 ## API Key
 

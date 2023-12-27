@@ -30,7 +30,7 @@
         * [WorkflowRun](modules/workflows/workflowrun.md)
         * [CronWorkflowRun](modules/workflows/cronworkflowrun.md)
 
-    * [AI 资产管理](modules/asset-management.md)
+    * [资产管理](modules/asset-management.md)
 
     * [实验管理](modules/experiment-management.md)
 
@@ -49,7 +49,7 @@
         * [Secret](modules/auxiliary/secret.md)
         * [ConfigMap](modules/auxiliary/configmap.md)
         * [Pod](modules/auxiliary/pod.md)
-        * [Image Builder](modules/auxiliary/imagebuilder.md)
+        * [ImageBuilder](modules/auxiliary/imagebuilder.md)
 
 * [任务](tasks/index.md)
     * [使用模型构建模块](tasks/model-building.md)
