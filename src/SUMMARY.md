@@ -35,7 +35,7 @@
 
     * [实验管理](modules/experiment-management.md)
 
-    * [安全管理](modules/security-management.md)
+    * [账户和安全](modules/account-and-security.md)
 
     * [调度](modules/scheduling/index.md)
         * [队列](modules/scheduling/queue.md)
