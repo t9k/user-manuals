@@ -2,7 +2,7 @@
 
 SimpleMLService 用于在 TensorStack AI 平台上部署机器学习模型预测服务，常用于快速测试。SimpleMLService 具有以下特性：
 
-* 默认支持 TensorFlow、PyTorch 模型框架，并允许用户自定义模型框架，具有良好的可扩展性。
+* 默认支持 TensorFlow、PyTorch 框架，并允许用户自定义框架，具有良好的可扩展性。
 * 支持 S3 模型存储方式。
 * 支持从集群内部访问服务，集群外访问需要用户自行配置。
 * 服务容量固定，不支持自动伸缩。
@@ -31,22 +31,22 @@ spec:
 ```
 
 本示例的 spec 字段的子字段释义如下：
-1. replicas: 定义运行推理服务的副本数量是 1。
-2. storage.s3: 推理服务的模型存储存储在 S3 服务中，子字段的释义如下
-    * secretName: Secret s3-secret 中存储着 S3 配置信息，Secret 的[内容格式](#s3-secret)。
-    * uri: 模型在 S3 中的存储路径是 s3://models/mnist/。
-    * containerPath: 模型被下载到容器时，在容器中存储模型的路径是 `/var/lib/t9k/model`。
-3. tensorflow: 推理服务的模型框架是 tensorflow，子字段释义如下
-    * image: 使用的推理服务镜像是 "t9kpublic/tensorflow-serving:2.6.0"。
-    * resources: 定义一个副本 Pod 使用的资源量。
+* `replicas`: 定义运行推理服务的副本数量是 1。
+* `storage.s3`: 推理服务的模型存储存储在 S3 服务中，子字段的释义如下
+    * `secretName`: Secret s3-secret 中存储着 S3 配置信息，Secret 的[内容格式](#s3-secret)。
+    * `uri`: 模型在 S3 中的存储路径是 s3://models/mnist/。
+    * `containerPath`: 模型被下载到容器时，在容器中存储模型的路径是 `/var/lib/t9k/model`。
+* `tensorflow`: 推理服务的框架是 tensorflow，子字段释义如下
+    * `image`: 使用的推理服务镜像是 "t9kpublic/tensorflow-serving:2.6.0"。
+    * `resources`: 定义一个副本 Pod 使用的资源量。
 
-## 默认支持的模型框架
+## 默认支持的框架
 
-SimpleMLService 默认支持 TensorFlow、PyTorch 两种机器学习框架。
+SimpleMLService 默认支持 TensorFlow、PyTorch 两种框架。
 
 ### TensorFlow
 
-可以通过设置 `spec.tensorflow` 字段来部署 TensorFlow 模型框架，示例可以参考[创建 SimpleMLService](#创建-simplemlservice)。
+可以通过设置 `spec.tensorflow` 字段来部署 TensorFlow 框架，示例可以参考[创建 SimpleMLService](#创建-simplemlservice)。
 
 当使用 TensorFlow 时，控制器会在容器中设置下列启动命令：
 ```bash
@@ -59,7 +59,7 @@ SimpleMLService 默认支持 TensorFlow、PyTorch 两种机器学习框架。
 
 ### PyTorch
 
-可以通过设置 `spec.pytorch` 字段来部署 PyTorch 模型框架，示例如下：
+可以通过设置 `spec.pytorch` 字段来部署 PyTorch 框架，示例如下：
 ```yaml
 spec:
   pytroch:
@@ -79,12 +79,12 @@ torchserve
 --models <models-flag>
 ```
 
-## 自定义模型框架
+## 自定义框架
 
-可以通过设置 `spec.custom` 字段来自定义模型框架，在 `spec.custom.spec` 字段中定义 PodSpec，并需要满足下列要求：
-1. 至少设置一个 Container。
-2. 启动推理服务运行命令时，指定正确的模型路径。
-3. 未设置 [Service](#service) 时，推理服务的服务端口应该被设置为 8080。
+可以通过设置 `spec.custom` 字段来自定义框架，在 `spec.custom.spec` 字段中定义 PodSpec，并需要满足下列要求：
+* 至少设置一个 Container。
+* 启动推理服务运行命令时，指定正确的模型路径。
+* 未设置 [Service](#service) 时，推理服务的服务端口应该被设置为 8080。
 
 示例如下：
 ```yaml
@@ -137,8 +137,8 @@ SimpleMLService 支持使用两种调度器：
 * [T9k Scheduler 调度器](../scheduling/index.md)
 
 通过 `spec.scheduler` 字段可以设置使用哪个调度器：
-1. 不设置 `spec.scheduler` 字段，默认使用 Kubernetes 调度器
-2. 设置 `spec.scheduler.t9kScheduler` 字段，使用 T9k Scheduler 调度器
+* 不设置 `spec.scheduler` 字段，默认使用 Kubernetes 调度器
+* 设置 `spec.scheduler.t9kScheduler` 字段，使用 T9k Scheduler 调度器
 
 在下面的示例中，SimpleMLService 使用 T9k Scheduler 调度器，并将副本放入 default [队列](../scheduling/queue.md)中进行资源调度。
 
@@ -188,9 +188,9 @@ data:
 #### 设置字段
 
 设置 SimpleMLService 的 `spec.storage.s3` 字段来使用存储在 S3 中的模型数据。`spec.storage.s3` 字段包含下列子字段: 
-* secretName: 存储着 S3 配置信息的 Secret 名称。
-* uri: 模型在 S3 中的存储路径。
-* containerPath: 模型在容器中的存储路径。
+* `secretName`: 存储着 S3 配置信息的 Secret 名称。
+* `uri`: 模型在 S3 中的存储路径。
+* `containerPath`: 模型在容器中的存储路径。
 
 
 示例如下：
@@ -206,9 +206,9 @@ spec:
 ### PVC
 
 通过配置 `spec.storage.pvc` 字段可以使用存储在 PVC 中的模型数据。`spec.storage.pvc` 字段包含下列子字段：
-* name: 存储模型数据的 PVC 的名称
-* subPath: 模型在 PVC 中的路径，不可以是绝对路径（即开头不能是 `/`）。
-* containerPath: 模型在容器中的存储路径。
+* `name`: 存储模型数据的 PVC 的名称
+* `subPath`: 模型在 PVC 中的路径，不可以是绝对路径（即开头不能是 `/`）。
+* `containerPath`: 模型在容器中的存储路径。
 
 示例如下：
 ```yaml
@@ -225,17 +225,17 @@ spec:
 SimpleMLService 的状态记录在 status 字段中。
 
 `status.address` 字段记录了推理服务在集群内的访问地址，子字段如下：
-1. dns: 推理服务在集群内的访问地址
-2. ports: 推理服务可供访问的服务端口
+* `dns`: 推理服务在集群内的访问地址
+* `ports`: 推理服务可供访问的服务端口
 
 `status.conditions` 字段记录了当前 SimpleMLService 的状态，包括下列 2 中类型：
-1. ModelDownloaded: 记录模型是否成功地从 S3 下载到容器本地。
-2. Ready: 推理服务是否就绪。 
+* ModelDownloaded: 记录模型是否成功地从 S3 下载到容器本地。
+* Ready: 推理服务是否就绪。 
 
 在下面的示例中：
-1. 访问推理服务的地址是 sample.czx.svc.cluster.local
-2. 模型已经下载到容器本地
-3. 推理服务处于就绪状态
+* 访问推理服务的地址是 `sample.czx.svc.cluster.local`
+* 模型已经下载到容器本地
+* 推理服务处于就绪状态
 
 ```yaml
 status:
