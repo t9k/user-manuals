@@ -1,6 +1,6 @@
 # 使用 AutoTune 进行超参数优化
 
-本教程演示如何使用 [AutoTune](../../module/building/autotune/index.md) 对模型进行超参数优化（以 Keras 模型的单机训练为例）。
+本教程演示如何使用 [AutoTune](../modules/building/autotune/index.md) 对模型进行超参数优化（以 Keras 模型的单机训练为例）。
 
 ## 准备训练脚本
 

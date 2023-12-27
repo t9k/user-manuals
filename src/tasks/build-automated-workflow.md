@@ -49,7 +49,7 @@ docker push registry.tensorstack.cn/t9k/python:prod-3.6.10
 
 ## 上传代码和数据集
 
-工作流在集群中运行时需要读取代码和数据集，因此我们需要新建一个 PVC 并将代码和数据集上传到 PVC 上。我们使用模型构建控制台中的 [Notebook 服务](../../module/building/notebook.md)来完成这个任务。
+工作流在集群中运行时需要读取代码和数据集，因此我们需要新建一个 PVC 并将代码和数据集上传到 PVC 上。我们使用模型构建控制台中的 [Notebook 服务](../modules/building/notebook.md)来完成这个任务。
 
 与[创建 Notebook](../develop-and-test-model/create-notebook.md) 教程中的步骤相同，进入模型构建控制台之后，选择一个 Project 并点击 **Enter** 进入该 Project 的主页面。
 

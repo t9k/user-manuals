@@ -44,4 +44,4 @@ data:
 type: Opaque
 ```
 
-在上述 Secret 中，在 `data.apikey` 字段中记录 API Key 的 Base64 编码。然后在 AutoTuneExperiment 的配置中引用这个 Secret，具体方式请参阅 [AutoTuneExperiment 文档](../../module/building/autotune/usage.md)。
+在上述 Secret 中，在 `data.apikey` 字段中记录 API Key 的 Base64 编码。然后在 AutoTuneExperiment 的配置中引用这个 Secret，具体方式请参阅 [AutoTuneExperiment 文档](../modules/building/autotune/usage.md)。

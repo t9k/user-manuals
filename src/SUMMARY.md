@@ -8,6 +8,7 @@
         * [Notebook](modules/building/notebook.md)
         * [TensorBoard](modules/building/tensorboard.md)
         * [AutoTune](modules/building/autotune.md)
+            * [AutoTuneExperiment](modules/building/autotuneexperiment.md)
             * [搜索空间](modules/building/autotune-search-space.md)
             * [超参数调优算法](modules/building/autotune-hyperparameter-algorithm.md)
 
@@ -52,7 +53,7 @@
         * [ImageBuilder](modules/auxiliary/imagebuilder.md)
 
 * [任务](tasks/index.md)
-    * [使用模型构建模块](tasks/model-building.md)
+    * [使用模型构建控制台](tasks/model-building.md)
         * [创建 Notebook](tasks/create-notebook.md)
         * [使用 Notebook](tasks/use-notebook.md)
         * [通过 SSH 连接远程使用 Notebook](tasks/ssh-notebook.md)
@@ -84,12 +85,12 @@
         * [操作 Asset 的分支、tag 和 commit](tasks/operate-asset-branch-tag.md)
         * [操作 Asset 的对象](tasks/operate-asset-objects.md)
 
-    * [记录模型训练数据](tasks/record-training-data.md)
-        * [在实验管理控制台查看和管理数据](tasks/experiment-console.md)
-        * [使用 Python SDK 记录和上传训练数据](tasks/python-sdk.md)
-        * [单设备训练场景](tasks/single-device-training.md)
-        * [TrainingJob 场景](tasks/training-job.md)
-        * [在实验管理控制台查看 AutoTune 结果](tasks/view-autotune-results.md)
+    * [追踪模型训练](tasks/track-model-training.md)
+        * [在实验管理控制台查看和管理数据](tasks/use-experiment-console.md)
+        * [使用 Python SDK 记录和上传数据](tasks/record-using-python-sdk.md)
+        * [单设备训练场景](tasks/record-single-device-training.md)
+        * [分布式训练场景](tasks/record-distributed-training.md)
+        * [在实验管理控制台查看 AutoTune](tasks/view-autotune-in-experiment-console.md)
 
     * [构建自动化工作流](tasks/build-automation-workflow.md)
         * [创建工作流的基本单元](tasks/create-workflow-unit.md)
@@ -122,12 +123,15 @@
     * [标准镜像](references/standard-images.md)
 
 * [工具](tools/index.md)
+
     * [命令行工具：t9k](tools/cli-t9k/index.md)
         * [用户指南](tools/cli-t9k/guide.md)
         * [命令](tools/cli-t9k/commands.md)
+
     * [命令行工具：t9k-pf](tools/cli-t9k-pf/index.md)
         * [用户指南](tools/cli-t9k-pf/guide.md)
         * [命令](tools/cli-t9k-pf/commands.md)
+
     * [Python SDK：t9k](tools/python-sdk-t9k/index.md)
         * [用户指南](tools/python-sdk-t9k/guide.md)
         * [API](tools/python-sdk-t9k/api/index.md)
@@ -136,6 +140,7 @@
             * [t9k.config](tools/python-sdk-t9k/api/t9k-config.md)
             * [t9k.em](tools/python-sdk-t9k/api/t9k-em.md)
             * [t9k.tuner](tools/python-sdk-t9k/api/t9k-tuner.md)
+
     * [Codepack](tools/codepack/index.md)
         * [概念](tools/codepack/concepts.md)
         * [Codepack 定义](tools/codepack/definition.md)

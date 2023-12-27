@@ -4,7 +4,7 @@
 
 ## 准备工作
 
-* 了解 [Notebook](../../module/building/notebook.md) 的基本概念。
+* 了解 [Notebook](../modules/building/notebook.md) 的基本概念。
 * 成为一个 [Project](../../module/security/index.md#project) 的所有者或者成员。
 
 ## 创建持久卷申领

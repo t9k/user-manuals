@@ -15,7 +15,7 @@
 
 在教程[创建工作流的基本单元](./create-basic-unit-of-workflow.md)中，我们已经完成了 `SeqPod` 类型的 WorkflowTemplate 的创建和运行。如教程中所述，在 `SeqPod` 的每个步骤（step）中，都要填写所使用的镜像。一般来说，镜像的来源可能有以下几种：
 
-* TensorStack AI 平台预先提供的镜像：例如 [Notebook 镜像](../../module/building/notebook.md#预先编译好的镜像)，或者 [TensorStack 镜像站](https://registry.tensorstack.cn/)中的任何镜像。
+* TensorStack AI 平台预先提供的镜像：例如 [Notebook 镜像](../modules/building/notebook.md#预先编译好的镜像)，或者 [TensorStack 镜像站](https://registry.tensorstack.cn/)中的任何镜像。
 * 第三方镜像：例如来自 Docker 官方镜像站 [Docker Hub](https://hub.docker.com/) 的镜像。
 * 自制镜像：您可以利用 [TensorStack 命令行工具](../../tool/tensorstack-cli/index.md)、[Docker 命令行工具](https://docs.docker.com/engine/reference/commandline/cli/)自行编译镜像。
 
@@ -27,7 +27,7 @@
 
 ### 执行 PVC 中的 `.ipynb` 文件
 
-当您在 [Notebook](../../module/building/notebook.md) 中创建 `.ipynb` 文件并进行了一些实验后，您可能想将其变成工作流中的一个步骤。Notebook 通过 `notebook2workflow` 插件支持创建一个 WorkflowTemplate 来运行一个 `.ipynb` 文件。
+当您在 [Notebook](../modules/building/notebook.md) 中创建 `.ipynb` 文件并进行了一些实验后，您可能想将其变成工作流中的一个步骤。Notebook 通过 `notebook2workflow` 插件支持创建一个 WorkflowTemplate 来运行一个 `.ipynb` 文件。
 
 首先，在 Notebook 中创建一个 `.ipynb` 文件，输入您想要运行的 Python 代码，并点击 :material-content-save: 保存。
 
