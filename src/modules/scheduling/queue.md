@@ -2,127 +2,93 @@
 
 ## 概述
 
-使用 T9k Scheduler 进行作业调度的任务都必须有一个所属的队列（Queue），监控管理员可以通过队列配置来管控队列中任务的作业调度，例如将不同类型的任务放到不同的队列中，设置队列可以使用的资源权限，设置可以使用队列的用户权限等。
+T9k Scheduler 通过队列来管理集群资源，使用 T9k Scheduler 进行作业调度的任务都必须有一个所属的队列。集群管理员负责创建队列、设置队列属性，队列有下列属性。
 
-## 创建队列
+## 使用权限
 
-下面是一个基本的队列示例：
+队列的使用权限用于控制哪些项目可以使用这个队列，您可以在 T9k 产品前端查看到您所在的项目有权使用哪些队列。
 
-```yaml
-apiVersion: scheduler.tensorstack.dev/v1beta1
-kind: Queue
-metadata:
-  name: default
-  namespace: t9k-system
-spec:
-  closed: false
-  priority: 1
-  requests:
-    cpu: 4
-    memory: 200Gi
-  preemptible: true
-```
+更详细地，队列的使用权限通过两种方式进行设置：
+* 管理员直接设置有权使用队列的用户/用户组
+* 管理员设置队列的 `spec.namespaceSelector`（类型是 [labelSelector](https://github.com/kubernetes/apimachinery/blob/v0.29.0/pkg/apis/meta/v1/types.go#L1213)） 字段
 
-在该示例中：
+当项目满足下列任一条件时，用户有权在项目下创建使用某个队列的工作负载：
+* 队列设置了 `spec.namespaceSelector`，并且项目对应的 namespace 的标签符合这个 namespaceSelector
+* 项目的用户有权使用这个队列
 
-* 队列所位于的命名空间是 `t9k-system`。
-* 队列处于开启状态，队列中的任务可以被分配资源。
-* 队列的优先级是 `1`。
-* 队列的资源配额是 `{cpu: 4, memory: 200Gi}`，队列中任务占据的资源总量不可以超过资源配额。
-* 队列处于可以抢占状态，队列中运行的任务可以被高优先级的队列抢占资源。
+## 节点权限
 
-## 命名空间
+队列的节点权限用于限制队列有权限使用哪些集群节点，T9k Scheduler 只会将队列内的工作负载分配到有权使用的节点上。
 
-队列的命名空间必须和**部署 T9k Scheduler 的命名空间**一致。在上述基本示例中，T9k Scheduler 部署在 `t9k-system` 中，所以队列的命名空间也必须设置为 `t9k-system`。
+队列的 `spec.nodeSelector` （类型是 [labelSelector](https://github.com/kubernetes/apimachinery/blob/v0.29.0/pkg/apis/meta/v1/types.go#L1213)）字段用于设置队列的节点权限：
+* 字段未设置时，队列可以使用集群内所有的节点
+* 字段设置后，队列可以使用节点标签满足 nodeSelector 的节点。
 
-## 队列开关
-
-队列的开关是通过字段 `spec.closed` 来设置的：
-
-* `true`：队列处于关闭状态，调度器停止向队列分配资源，但是队列中已经存在的 PodGroup 可以被分配新资源。
-* `false`：队列处于开启状态。
-
-## 优先级
-
-队列的优先级是通过字段 `spec.priority` 来指定的，调度器会优先为高优先级队列分配资源。当两个队列的 `spec.priority` 相同时，调度器会通过[公平排序机制](./scheduling-policy.md#公平排序)判断任务调度的顺序。
-
-当集群中包含生产级别任务和测试任务时，不应该把两种类型任务放在同一队列中，并且生产级别任务的队列优先级应该高于测试任务的队列。
-
-## 资源配额
-
-资源配额用于限制队列可以占据的资源上限，通过字段 `spec.requests` 设置。
-
-## 资源抢占
-
-当集群资源不足时，优先级高的队列可以抢占优先级低的队列的资源，但是被设置不能被抢占资源的队列不会被抢占资源。通过 `spec.preemptible` 可以设置队列的抢占开关：
-
-* `true`：队列可以被抢占资源，队列中运行的任务可以被高优先级的队列抢占资源。
-* `false`：队列不可以被抢占资源。
-
-## 资源限制
-
-资源限制通过集群节点的标签筛选来限制队列可以使用的节点，由字段 `spec.nodeSelector`（字段详解请参考 <a target="_blank" rel="noopener noreferrer" href="https://v1-22.docs.kubernetes.io/docs/reference/kubernetes-api/common-definitions/label-selector/">LabelSelector</a>）设置，未设置时队列可以使用集群中所有节点的资源。
-
-下面是一个设置资源限制的示例：
-
+在下面的节点权限示例中：说明队列可以使用节点标签包含 `topology.kubernetes.io/zone: peking` 或 `topology.kubernetes.io/zone: tianjin` 的节点。
 ```yaml
 spec:
   nodeSelector:
-    matchLabels:
-      kubernetes.io/arch: amd64
     matchExpressions:
-    - key: kubernetes.io/hostname
+    - key: topology.kubernetes.io/zone
       operator: In
       values:
-      - host1
-      - host2
+      - peking
+      - tianjin
 ```
 
-在该示例中，队列可以使用的节点必须具有以下标签：
+## 资源配额
 
-* `kubernetes.io/arch: amd64`
-* `kubernetes.io/hostname: host1` 或 `kubernetes.io/hostname: host2`
+队列的资源配额用于限制队列可以使用的资源上限，如果您创建的工作负载会导致队列超出资源配额限制，那么系统会拒绝您的创建行为。
 
-## 访问权限
+队列的 `spec.quota` 字段定义队列的资源配额，队列的 `status.allocated` 字段表明队列已经使用的资源量。
 
-访问权限通过命名空间的标签筛选来限制可以使用该队列的命名空间，由字段 `spec.namespaceSelector`（字段详解请参考 <a target="_blank" rel="noopener noreferrer" href="https://v1-22.docs.kubernetes.io/docs/reference/kubernetes-api/common-definitions/label-selector/">LabelSelector</a>）设置，未设置时任何命名空间都可以使用该队列。
-
-下面是一个设置访问权限的示例：
-
+在下面的示例中：如果想创建使用该队列的工作负载，工作负载声明的 cpu 资源量不能超过 2。
 ```yaml
 spec:
-  namespaceSelector:
-    matchLabels:
-      tensorstack.dev/role: master
-```
-
-在该示例中，可以使用该队列的命名空间必须具有标签 `tensorstack.dev/role: master`。
-
-## 队列状态
-
-队列状态记录在字段 `status` 中，下面的队列状态示例包含了所有的状态字段：
-
-```yaml
+  quota:
+    requests:
+      cpu: 40
 status:
   allocated:
-    cpu: "2"
-    memory: "419430400"
-  closedTimeStamp: "2022-03-07T05:27:58Z"
-  unknown: 0
-  pending: 0
-  running: 1
-  finished: 0
+    cpu: "38"
 ```
 
-在该示例中，状态字段包括：
 
-* 队列占据的资源数量：`status.allocated` 记录队列已经使用的资源数量，示例中队列使用了 2 个 CPU 和 419,430,400 字节（419 MB）的内存。
-* 队列的关闭时间：当队列处于关闭状态时，`status.closedTimeStamp` 记录队列被关闭的时刻。
-* 队列中的 PodGroup 状态数量：`status.unknown`、`status.pending`、`status.running`、`status.finished` 分别记录队列中处于 **unknown**、**pending**、**running**、**finished** 状态的 PodGroup 的数量。
+## 优先级
 
-## 调度策略
+队列的 `spec.priority` 字段定义队列的优先级，值类型是 int，范围是 [0,100]，数值越大代表队列的优先级越高。队列的优先级会影响下列事情：
+* 优先级较高的队列会被优先分配资源
+* 如果 T9k Scheduler 开启了资源抢占行为，优先级较高的队列有权抢占低优先级队列使用的资源。
 
-与队列相关的调度策略如下：
+## 是否可被抢占资源
 
-* [资源抢占](./scheduling-policy.md#资源抢占)
-* [公平排序](./scheduling-policy.md#公平排序)
+队列的 `spec.preemptible` 字段定义队列是否可以被其他队列抢占资源，字段值类型是 bool：
+* 字段被设置为 false 时，队列无法被抢占资源
+* 字段未设置或设置为 true 时，队列可以被抢占资源
+
+## 开启/关闭
+
+队列的 `spec.closed` 字段定义队列是否处于关闭状态，当队列被关闭了，用户无法创建使用该队列的工作负载。字段值类型是 bool：
+* 字段未设置或被设置为 false 时，队列处于开启状态
+* 字段被设置为 true 时，队列处于关闭状态
+
+## 最大运行时长
+
+最大运行时长会限制队列中 Pod 的运行时长，如果 Pod 的存在时长（存在时长=当前时间 - Pod 创建时间）超过最大运行时长，Pods 会被删除。
+
+队列的 `spec.maxDuration` 字段设置了队列的最大运行时长：
+* 值类型是 string，并且需要满足正则表达式 `^(0|(([0-9]+)y)?(([0-9]+)w)?(([0-9]+)d)?(([0-9]+)h)?(([0-9]+)m)?(([0-9]+)s)?(([0-9]+)ms)?)$`
+* 支持的时间单位：y, w（周）, d, h, m, s, ms
+* 示例："3w",  "2h45m"。
+* 未设置时，队列不受最大运行时长约束。
+
+## 资源尺寸
+
+资源尺寸会限制队列中工作负载声明的资源量上限，当您创建超过资源尺寸的工作负载时，创建行为会被系统拒绝。
+
+队列的 `spec.resourceShapeProfile` 字段设置了队列使用的资源尺寸模版，模型对应的资源尺寸详情存储在 ConfigMap t9k-system/resource-shapes 中。您可以通过 T9k 产品前端查看队列的资源尺寸。
+
+## 下一步
+
+* 了解如何[使用队列](../../tasks/use-queue.md)
+* 队列 [API Reference](../../references/api-reference/scheduler.md#queue)

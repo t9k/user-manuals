@@ -40,8 +40,6 @@
     * [调度](modules/scheduling/index.md)
         * [队列](modules/scheduling/queue.md)
         * [PodGroup](modules/scheduling/podgroup.md)
-        * [GPU 模式](modules/scheduling/gpu-mode.md)
-        * [调度策略](modules/scheduling/scheduling-policy.md)
 
     * [辅助](modules/auxiliary/index.md)
         * [PVC](modules/auxiliary/pvc.md)
