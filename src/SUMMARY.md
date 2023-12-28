@@ -124,6 +124,7 @@
         * [StorageShim](references/api-reference/storageshim.md)
         * [Scheduler](references/api-reference/scheduler.md)
         * [Workflow](references/api-reference/workflow.md)
+        * [SimpleMLService](references/api-reference/simplemlservice.md)
     * [标准镜像](references/standard-images.md)
 
 * [工具](tools/index.md)
