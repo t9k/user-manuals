@@ -34,11 +34,11 @@ BeamJob 是一种 TensorStack 资源，用于通过 Apache Beam 框架和 Apache
 
 ConfigMap 是一种以键值对的形式存储非机密信息的 Kubernetes 资源。Pod 可以挂载 ConfigMap，并以环境变量、命令行参数或配置文件的形式使用 ConfigMap 中的信息。您可以在 TensorStack AI 平台的模型构建控制台中创建 ConfigMap，详见[管理 ConfigMap](../guide/manage-auxiliary-resources/manage-cm.md)。
 
-## 容器（Container）
+## Container（容器）
 
 容器是可移植、可执行的轻量级的镜像，包含其中的软件及其相关依赖。容器使应用和底层的主机基础设施解耦，降低了应用在不同云环境或者操作系统上的部署难度，便于应用扩展。
 
-## 控制器（Controller)
+## Controller（控制器）
 
 控制器负责监控集群中某种 Kubernetes 资源的所有实例，并设法将资源的当前状态转变为期望状态。
 
@@ -62,7 +62,7 @@ Explorer 是一种 TensorStack 资源，用于通过浏览器访问文件管理�
 
 GenericJob 是一种 TensorStack 资源，用于统一协调多个 Pod 共同完成一项任务。详见 [GenericJob 文档](../module/workflow/job/genericjob.md)。
 
-## 镜像（Image）
+## Image（镜像）
 
 镜像是保存的容器实例，它打包了应用运行所需的一组软件。您可以将镜像存储在容器镜像仓库、拉取到本地系统并作为应用来运行。
 
@@ -74,7 +74,7 @@ GenericJob 是一种 TensorStack 资源，用于统一协调多个 Pod 共同完
 
 Kubernetes 是一个开源的容器编排引擎，用来对容器化应用进行自动化部署、 扩缩和管理。TensorStack AI 平台构建在 Kubernetes 的坚实基础之上。详见 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh/docs/home/">Kubernetes 文档</a>。
 
-## 标签（Label）
+## Label（标签）
 
 标签是附属在资源上的键值对，用于标明资源的属性。您可以通过标签来选取一组资源的某个子集。
 
@@ -86,11 +86,11 @@ MLService 是一种 TensorStack 资源，用于部署机器学习模型预测服
 
 MPIJob 是一种 TensorStack 资源，用于通过 OpenMPI 协议进行分布式机器学习训练。详见 [MPIJob 文档](../module/workflow/job/mpijob.md)。
 
-## 命名空间（Namespace）
+## Namespace（命名空间）
 
 命名空间是一组资源所属的工作空间，提供了一种划分集群、隔离资源的方式。同一命名空间内的资源名称必须不同，不同命名空间的资源名称可以相同。
 
-## 节点（Node）
+## Node（节点）
 
 节点是 Kubernetes 中的工作机器。通常，Kubernetes 集群由一系列节点组成，少则一个，多则上千个。
 
@@ -134,7 +134,7 @@ Role 中包含一组代表相关权限的规则，例如获取 Pod、创建 Pod�
 
 RoleBinding 将 Role 中定义的权限赋予一个用户或者一个 ServiceAccount，这样绑定 ServiceAccount 的 Pod 就能进行 Role 中定义的操作。
 
-## 调度器（Scheduler）
+## Scheduler（调度器）
 
 调度器负责将 Pod 分配到合适的节点上，保证节点满足 Pod 声明的计算资源（CPU、内存、GPU等）、亲和度偏好（希望与其他 Pod 一起运行、希望运行在拥有某个标签的节点上等）等需求。
 
@@ -162,7 +162,7 @@ TensorFlowTrainingJob 是一种 TensorStack 资源，用于通过 TensorFlow 框
 
 Tuner 算法是一系列超参数调优算法的统称，用于在 AutoTune 中选取合适的超参数组合。详见 [AutoTune 文档](../module/building/autotune/concepts/tuner.md#tuner-算法)。
 
-## 卷（Volume）
+## Volume（卷）
 
 卷是一个包含数据的文件夹，可以被 Pod 中的容器访问。详见 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh/docs/concepts/storage/volumes/">Kubernetes 文档</a>。
 

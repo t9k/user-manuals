@@ -98,7 +98,11 @@
         * [创建存在依赖关系的工作流](tasks/create-dependent-workflow.md)
         * [建立从数据采样到模型导出的自动化工作流](tasks/build-automated-workflow.md)
 
-    * [管理用户资源](tasks/manage-user-resources.md)
+    * [调度工作负载](tasks/schedule-workload.md)
+        * [使用 Queue](tasks/use-queue.md)
+        * [使用 PodGroup](tasks/use-podgroup.md)
+
+    * [管理个人账户](tasks/manage-personal-account.md)
         * [生成 API Key](tasks/generate-api-key.md)
         * [使用 API Key](tasks/use-api-key.md)
         * [添加 Project 成员](tasks/add-project-member.md)

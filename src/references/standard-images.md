@@ -2,7 +2,7 @@
 
 部分 CRD，如 Notebook、T9k Job 和 MLService，需要 Docker 镜像来提供模型开发、训练或推理所需的具体运行环境。平台提供并维护了一系列镜像以满足您的基本使用需求，这些镜像被称为标准镜像。
 
-您也可以[构建自定义镜像]()，以满足更加特定的需求。
+您也可以[构建自定义镜像](../tasks/build-image.md)，以满足更加特定的需求。
 
 ## Notebook 标准镜像列表
 
@@ -38,8 +38,8 @@
 | wget   | 用于从网络上下载文件，支持 HTTP、HTTPS 和 FTP 协议。                   |
 | zip    | 用于创建和管理 ZIP 压缩文件。                                          |
 
-## Job 标准镜像列表
+<!-- ## Job 标准镜像列表
 
 ## MLService 标准镜像列表
 
-## TensorBoard 标准镜像列表
+## TensorBoard 标准镜像列表 -->
