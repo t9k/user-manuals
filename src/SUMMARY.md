@@ -75,6 +75,7 @@
         * [使用 AutoTune 进行超参数优化](tasks/autotune.md)
 
     * [部署模型推理服务](tasks/deploy-inference-service.md)
+        * [部署用于测试环境的模型推理服务](tasks/deploy-simplemlservice.md)
         * [部署用于生产环境的模型推理服务](tasks/deploy-mlservice.md)
         * [制作并部署含有 Transformer 的模型推理服务](tasks/deploy-mlservice-transformer.md)
 
