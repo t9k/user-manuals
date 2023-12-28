@@ -143,4 +143,4 @@ WorkflowRun `dag-workflowtemplate-sample-run` 的 `status` 字段显示，该 Wo
 
 ## 下一步
 
-* 了解如何[建立自动化工作流](../../../guide/build-automatic-workflow/create-basic-unit-of-workflow.md)
+* 了解如何[建立自动化工作流](../../tasks/build-automation-workflow.md)

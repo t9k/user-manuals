@@ -4,15 +4,15 @@
 
 ## 准备工作
 
-* 完成教程[创建工作流的基本单元](./create-basic-unit-of-workflow.md)。
-* 了解 [DAG WorkflowTemplate](../../module/workflow/workflow/workflowtemplate.md#dag-workflowtemplate) 的基本概念。
-* 成为一个 [Project](../../module/security/index.md#project) 的所有者或者成员。
+* 完成教程[创建工作流的基本单元](./create-workflow-unit.md)。
+* 了解 [DAG WorkflowTemplate](../modules/workflows/workflowtemplate.md#dag-workflowtemplate) 的基本概念。
+* 成为一个 [Project](../modules/account-and-security.md#project) 的所有者或者成员。
 
 ## 创建一些简单的 WorkflowTemplate
 
 在浏览器中进入工作流控制台之后，点击左侧导航菜单的 **WorkflowTemplate** 进入 WorkflowTemplate 列表页面，然后点击右上角的 **Project 选择框**选择一个 Project。
 
-本教程使用[创建工作流的基本单元](./create-basic-unit-of-workflow.md#步骤1创建-workflowtemplate) 教程中创建好的 WorkflowTemplate “hello” 即可。如果有需要，您可以点击列表右上角的加号，按照[创建工作流的基本单元](./create-basic-unit-of-workflow.md#步骤1创建-workflowtemplate) 教程中的步骤，创建一些简单的 WorkflowTemplate。
+本教程使用[创建工作流的基本单元](./create-workflow-unit.md#创建-workflowtemplate)教程中创建好的 WorkflowTemplate **hello** 即可。如果有需要，您可以点击列表右上角的加号，按照[创建工作流的基本单元](./create-workflow-unit.md#创建-workflowtemplate)教程中的步骤，创建一些简单的 WorkflowTemplate。
 
 ## 创建 DAG WorkflowTemplate
 
@@ -34,7 +34,7 @@
 
 ## 创建 WorkflowRun
 
-再次点击左侧导航菜单的 **WorkflowTemplate** 进入 WorkflowTemplate 列表页面，找到您刚刚创建的 WorkflowTemplate “hello-again”，点击 WorkflowTemplate 的名称进入 WorkflowTemplate 的详情页面。
+再次点击左侧导航菜单的 **WorkflowTemplate** 进入 WorkflowTemplate 列表页面，找到您刚刚创建的 WorkflowTemplate **hello-again**，点击 WorkflowTemplate 的名称进入 WorkflowTemplate 的详情页面。
 
 <figure class="screenshot">
   <img alt="workflowtemplate-detail" src="../assets/tasks/build-automatic-workflow/create-workflow-including-dependencies/workflowtemplate-detail.png" class="screenshot"/>
@@ -50,7 +50,7 @@
 
 ## 查看 WorkflowRun 运行情况
 
-点击左侧导航菜单的 **WorkflowRun** 进入 WorkflowRun 列表页面，找到您刚刚创建的 WorkflowRun “hello-again-run-9214x”，点击 WorkflowRun 的名称进入 WorkflowRun 的详情页面。
+点击左侧导航菜单的 **WorkflowRun** 进入 WorkflowRun 列表页面，找到您刚刚创建的 WorkflowRun **hello-again-run-9214x**，点击 WorkflowRun 的名称进入 WorkflowRun 的详情页面。
 
 <figure class="screenshot">
   <img alt="workflowrun-detail" src="../assets/tasks/build-automatic-workflow/create-workflow-including-dependencies/workflowrun-detail.png" class="screenshot"/>

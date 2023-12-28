@@ -4,8 +4,8 @@
 
 ## 准备工作
 
-* 了解 [WorkflowTemplate](../../module/workflow/workflow/workflowtemplate.md) 和 [WorkflowRun](../../module/workflow/workflow/workflowrun.md) 的基本概念。
-* 成为一个 [Project](../../module/security/index.md#project) 的所有者或者成员。
+* 了解 [WorkflowTemplate](../modules/workflows/workflowtemplate.md) 和 [WorkflowRun](../modules/workflows/workflowrun.md) 的基本概念。
+* 成为一个 [Project](../modules/account-and-security.md#project) 的所有者或者成员。
 
 ## 创建 WorkflowTemplate
 
@@ -26,13 +26,13 @@
 
 !!! info "信息"
 
-    WorkflowTemplate 的每个字段的含义详见[参考](../../reference/tensorstack-resources/workflow-api/workflowtemplate.md)。
+    WorkflowTemplate 的每个字段的含义详见[参考](../references/workflow.md)。
 
 编辑好 WorkflowTemplate 之后，点击表格右上角的 **Create WorkflowTemplate** 创建该 WorkflowTemplate，右下角会有悬浮框提示是否创建成功。
 
 ## 创建 WorkflowRun
 
-再次点击左侧导航菜单的 **WorkflowTemplate** 进入 WorkflowTemplate 列表页面，找到您刚才创建的 WorkflowTemplate `hello`，点击 WorkflowTemplate 的名称进入 WorkflowTemplate 的详情页面。
+再次点击左侧导航菜单的 **WorkflowTemplate** 进入 WorkflowTemplate 列表页面，找到您刚才创建的 WorkflowTemplate **hello**，点击 WorkflowTemplate 的名称进入 WorkflowTemplate 的详情页面。
 
 <figure class="screenshot">
   <img alt="workflowtemplate-detail" src="../assets/tasks/build-automatic-workflow/create-basic-unit-of-workflow/workflowtemplate-detail.png" class="screenshot"/>
@@ -52,7 +52,7 @@
 
 ## 查看 WorkflowRun 运行情况
 
-点击左侧导航菜单的 **WorkflowRun** 进入 WorkflowRun 列表页面，找到您刚刚创建的 WorkflowRun `hello-run-3xrlm`，点击 WorkflowRun 的名称进入 WorkflowRun 的详情页面。
+点击左侧导航菜单的 **WorkflowRun** 进入 WorkflowRun 列表页面，找到您刚刚创建的 WorkflowRun **hello-run-3xrlm**，点击 WorkflowRun 的名称进入 WorkflowRun 的详情页面。
 
 <figure class="screenshot">
   <img alt="workflowrun-detail" src="../assets/tasks/build-automatic-workflow/create-basic-unit-of-workflow/workflowrun-detail.png" class="screenshot"/>
