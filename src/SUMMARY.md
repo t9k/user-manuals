@@ -77,6 +77,8 @@
         * [使用 AutoTune 进行超参数优化](tasks/autotune.md)
 
     * [部署模型推理服务](tasks/deploy-inference-service.md)
+        * [部署用于生产环境的模型推理服务](tasks/deploy-mlservice.md)
+        * [制作并部署含有 Transformer 的模型推理服务](tasks/deploy-mlservice-transformer.md)
 
     * [管理 AI 资产](tasks/manage-ai-assets.md)
         * [操作 Folder 和 Asset](tasks/operate-folder-asset.md)
@@ -125,6 +127,7 @@
         * [Scheduler](references/api-reference/scheduler.md)
         * [Workflow](references/api-reference/workflow.md)
         * [SimpleMLService](references/api-reference/simplemlservice.md)
+        * [MLService](references/api-reference/mlservice.md)
     * [标准镜像](references/standard-images.md)
 
 * [工具](tools/index.md)
