@@ -6,7 +6,7 @@ TensorStack AI 平台的资产管理模块（AssetHub，以下简称 AH）对模
 
 ## 产品架构
 
-![structure](../assets/modules/em/structure.png)
+![structure](../assets/modules/ah/architecture.png)
 
 如上图所示，AH 使用 TensorStack AI 平台自研存储系统 AIStore 存储数据，用户可以通过 AH 控制台、命令行工具和 SDK 工具与 AIStore 连接，实现 AH 的各项功能。
 
