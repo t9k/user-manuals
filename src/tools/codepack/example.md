@@ -207,8 +207,12 @@
     ```
 
 <!-- TODO: Use dataset management module / s3 database
-!!! tip "提示"
-    本例中的数据集文件较小（只有 11 MB），因此将其放到 Codepack 中，并随同 Codepack 整个复制到 PVC 中是可行的。但在数据集文件较大的情况下更加推荐将其存放到平台的数据集管理模块中。
+<aside class="note tip">
+<h1>提示</h1>
+
+本例中的数据集文件较小（只有 11 MB），因此将其放到 Codepack 中，并随同 Codepack 整个复制到 PVC 中是可行的。但在数据集文件较大的情况下更加推荐将其存放到平台的数据集管理模块中。
+
+</aside>
 -->
 
 考虑在平台上运行时需要创建 PVC、Notebook（可选，便于进一步开发或对 PVC 中的文件进行修改）和 TensorFlowTrainingJob，分别编写相应的资源配置文件如下。

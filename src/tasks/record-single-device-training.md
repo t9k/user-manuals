@@ -2,8 +2,12 @@
 
 本教程演示如何记录并展示单设备训练场景下的训练产生的信息、指标和文件（以 PyTorch 模型在单个 CPU 或 GPU 上的训练为例）。
 
-!!! info "信息"
-    对于 Keras 模型，`t9k.em` 提供了使用更加方便的回调，详见[自动记录](./record-using-python-sdk.md#自动记录)。
+<aside class="note info">
+<h1>信息</h1>
+
+对于 Keras 模型，`t9k.em` 提供了使用更加方便的回调，详见[自动记录](./record-using-python-sdk.md#自动记录)。
+
+</aside>
 
 ## 运行示例
 

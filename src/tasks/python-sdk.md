@@ -67,17 +67,6 @@ trial.params.update({
 params = trial.params      # 便于之后访问
 ```
 
-<!--  计划取消预留名称，改为自由形式的多级字典
-!!! note "注意"
-    AIMD 为一些常用且重要的超参数预留了相应的名称，如下表所示。如果您需要设定下列超参数，请尽量使用相应的名称，实验管理控制台的试验详情页面的超参数部分会着重展示具有这些名称的超参数。
-
-    | 超参数             | 名称                        |
-    | -----------       | ---------------            |
-    | 学习率             | `"learning_rate"` 或 `"lr"` |
-    | 批次规模           | `"batch_size"`              |
-    | 回合数             | `"epochs"`                   |
- -->
-
 当然，您也可以多次调用 `update()` 方法，或者使用类似 Python 字典键值对的赋值方法设定单个超参数。
 
 ```python
@@ -85,8 +74,12 @@ trial.params['batch_size'] = 32
 ```
 
 <!-- 目前无法自动同步
-!!! note "注意"
-    试验的超参数在每次更新后都会自动同步到服务器。
+<aside class="note">
+<h1>注意</h1>
+
+试验的超参数在每次更新后都会自动同步到服务器。
+
+</aside>
  -->
 
 设定完成之后，使用这些超参数配置模型，同样使用类似 Python 字典键值对的访问方法。
@@ -177,10 +170,14 @@ for epoch in range(1, epochs + 1):
                 epoch=epoch)                   # 当前回合数
 ```
 
-!!! note "注意"
-    训练指标、验证指标和测试指标请分别使用指标类型 `'train'`（或 `'training'`）、`'val'`（或 `'validate'`、`'validation'`）和 `'test'`（或 `'testing'`、`'eval'`、`'evaluate'`、`'evaluation'`）。除此之外，您也可以使用其他任意字符串作为自定义指标类型。
+<aside class="note">
+<h1>注意</h1>
 
-    指标的值可以是 Python 数字类型，或仅有一个元素的 NumPy 数组、TensorFlow 张量或 PyTorch 张量。
+训练指标、验证指标和测试指标请分别使用指标类型 `'train'`（或 `'training'`）、`'val'`（或 `'validate'`、`'validation'`）和 `'test'`（或 `'testing'`、`'eval'`、`'evaluate'`、`'evaluation'`）。除此之外，您也可以使用其他任意字符串作为自定义指标类型。
+
+指标的值可以是 Python 数字类型，或仅有一个元素的 NumPy 数组、TensorFlow 张量或 PyTorch 张量。
+
+</aside>
 
 ### 自动记录
 
@@ -202,8 +199,12 @@ model.evaluate(test_images,
                callbacks=AIMDEvalCallback(trial))
 ```
 
-!!! tip "提示"
-    除了记录训练指标，`AIMDFitCallback` 回调还会获取模型的优化器配置、损失函数类型和指标类型并更新试验的超参数。
+<aside class="note tip">
+<h1>提示</h1>
+
+除了记录训练指标，`AIMDFitCallback` 回调还会获取模型的优化器配置、损失函数类型和指标类型并更新试验的超参数。
+
+</aside>
 
 <!-- 
 ```python
@@ -234,16 +235,28 @@ trial.finish()
 aimd.login(host='<your-server-host>', api_key='<your-api-key>')
 ```
 
-!!! info "信息"
-    生成包含 AIMD 权限的 API Key 的方法请参阅[生成 API Key](../api-key/generate-api-key.md)。
+<aside class="note info">
+<h1>信息</h1>
 
-    如要了解 API Key 的更多细节和使用方法，请参阅 [API Key](../modules/account-and-security.md#api-key) 和[使用 API Key](../api-key/use-api-key.md)。
+生成包含 AIMD 权限的 API Key 的方法请参阅[生成 API Key](../api-key/generate-api-key.md)。
 
-!!! tip "提示"
-    AIMD 服务器位于平台主机域名的 `/t9k/experiment/server` 路径下。例如，如果平台首页的 URL 为 `https://www.tensorstack.net/t9k/landing-page/`，那么 AIMD 服务器的 URL 为 `https://www.tensorstack.net/t9k/experiment/server`。
+如要了解 API Key 的更多细节和使用方法，请参阅 [API Key](../modules/account-and-security.md#api-key) 和[使用 API Key](../api-key/use-api-key.md)。
 
-!!! tip "提示"
-    如果您在 [TensorStack SDK 配置文件](../tools/python-sdk-t9k/guide.md#配置文件)中提供了 `host` 或 `api_key` 配置项的值，则它们将作为调用 `login()` 函数时相应参数的默认值。
+</aside>
+
+<aside class="note tip">
+<h1>提示</h1>
+
+AIMD 服务器位于平台主机域名的 `/t9k/experiment/server` 路径下。例如，如果平台首页的 URL 为 `https://www.tensorstack.net/t9k/landing-page/`，那么 AIMD 服务器的 URL 为 `https://www.tensorstack.net/t9k/experiment/server`。
+
+</aside>
+
+<aside class="note tip">
+<h1>提示</h1>
+
+如果您在 [TensorStack SDK 配置文件](../tools/python-sdk-t9k/guide.md#配置文件)中提供了 `host` 或 `api_key` 配置项的值，则它们将作为调用 `login()` 函数时相应参数的默认值。
+
+</aside>
 
 然后调用 `Trial` 实例的 `upload()` 方法。
 
@@ -269,8 +282,12 @@ aimd login -H <your-server-host> -k <your-api-key>
 aimd trial upload [-p <trial-path>] [-n <trial-name>] [-d <trial-dir>]
 ```
 
-!!! tip "提示"
-    使用 `--help` 参数来查看相应命令的详细使用方法，例如 `aimd trial upload --help`。
+<aside class="note tip">
+<h1>提示</h1>
+
+使用 `--help` 参数来查看相应命令的详细使用方法，例如 `aimd trial upload --help`。
+
+</aside>
 
 ## 下一步
 

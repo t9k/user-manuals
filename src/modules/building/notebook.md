@@ -92,11 +92,19 @@ spec:
 
 在该例中，Notebook 控制器检测到 `spec.ssh.enabled` 字段的值为 `true`，然后创建一个处理 SSH 请求的 Service，其名称前缀为 `managed-notebook-ssh`。Service 的 `targetPort` 为固定的 `2222`，Service 类型通过 `spec.ssh.serviceType` 字段指定为 `NodePort`。
 
-!!! note "注意"
-    Notebook 控制器会为所有 Notebook 创建名称前缀为 `managed-notebook-http` 的 Service，帮助您访问 Juypter Notebook 的服务。而前缀为 `managed-notebook-ssh` 的 Service 只会为 `spec.ssh.enabled` 字段的值为 `true` 的 Notebook 创建。
+<aside class="note">
+<h1>注意</h1>
 
-!!! info "信息"
-    SSH 访问支持允许您直接在本地连接到 Notebook 环境，从而可以使用惯用的本地 IDE 进行开发工作。
+Notebook 控制器会为所有 Notebook 创建名称前缀为 `managed-notebook-http` 的 Service，帮助您访问 Juypter Notebook 的服务。而前缀为 `managed-notebook-ssh` 的 Service 只会为 `spec.ssh.enabled` 字段的值为 `true` 的 Notebook 创建。
+
+</aside>
+
+<aside class="note info">
+<h1>信息</h1>
+
+SSH 访问支持允许您直接在本地连接到 Notebook 环境，从而可以使用惯用的本地 IDE 进行开发工作。
+
+</aside>
 
 ## 资源回收
 

@@ -66,10 +66,14 @@ spec:
 * 创建 2 个执行副本（由 `spec.worker.replicas` 字段指定），每个执行副本上启动 1 个训练进程（由 `spec.worker.procPerWorker` 字段指定），训练脚本和参数为 `train.py arg1`（由 `spec.worker.command` 字段指定），执行副本的其他配置参考 PodTemplate，这里不再赘述（这些配置由 `spec.worker.template` 字段指定）。
 * 执行副本需要执行 sshd 程序，等待启动副本发来训练指令。sshd 的路径为 `/user/sbin/sshd`（由 `spec.ssh.sshdPath` 字段指定，使用该字段的原因是 sshd 程序必须使用绝对路径调用，所以需要其具体路径）。
 
-!!! note "注意"
-    另外，ColossalAIJob 的执行副本定义中必须包含一个 `name` 是 `worker` 的容器，用来作为训练容器。
+<aside class="note">
+<h1>注意</h1>
 
-    由于执行副本实际执行的命令是启动 `sshd`，所以执行副本的训练容器的 `command` 字段不再生效。
+另外，ColossalAIJob 的执行副本定义中必须包含一个 `name` 是 `worker` 的容器，用来作为训练容器。
+
+由于执行副本实际执行的命令是启动 `sshd`，所以执行副本的训练容器的 `command` 字段不再生效。
+
+</aside>
 
 ## 成功和失败
 
@@ -118,8 +122,12 @@ spec:
       priority: 50
 ```
 
-!!! info "信息"
-    队列和优先级都是 T9k Scheduler 的概念，具体含义请参阅 [T9k Scheduler](../scheduling/index.md)。
+<aside class="note info">
+<h1>信息</h1>
+
+队列和优先级都是 T9k Scheduler 的概念，具体含义请参阅 [T9k Scheduler](../scheduling/index.md)。
+
+</aside>
 
 ## 调试模式
 

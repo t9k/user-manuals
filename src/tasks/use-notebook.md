@@ -6,8 +6,12 @@
 
 在模型构建控制台的左侧导航菜单中点击**构建 > Notebook** 进入 Notebook 管理页面，然后点击运行中的 Notebook 右侧的**打开**：
 
-!!! info "信息"
-    如果 Notebook 处于暂停状态，那么您需要先点击右侧的**恢复**，等待 Notebook 运行后再使用。TensorStack AI 平台会自动暂停长时间闲置的 Notebook 以释放集群资源，您也可以主动暂停 Notebook。
+<aside class="note info">
+<h1>信息</h1>
+
+如果 Notebook 处于暂停状态，那么您需要先点击右侧的**恢复**，等待 Notebook 运行后再使用。TensorStack AI 平台会自动暂停长时间闲置的 Notebook 以释放集群资源，您也可以主动暂停 Notebook。
+
+</aside>
 
 <figure class="screenshot">
   <img alt="notebook-manage" src="../assets/tasks/develop-and-test-model/use-notebook/notebook-manage.png" class="screenshot"/>

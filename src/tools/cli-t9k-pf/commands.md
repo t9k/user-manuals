@@ -15,8 +15,12 @@ t9k-pf notebook <url> <localPort>
 `t9k-pf notebook` 也可以用 `t9k-pf nb` 代替。
     
 
-!!! note "注意"  
-    为了方便用户快速连接 SSH，t9k-pf 命令行不支持指定 Notebook 资源的目标端口。如果您有相关需求，可以先获取 Notebook 对应的 Pod 资源，然后参照[访问 Pod ](#pod)来访问特定的目标端口。
+<aside class="note">
+<h1>注意</h1>
+
+为了方便用户快速连接 SSH，t9k-pf 命令行不支持指定 Notebook 资源的目标端口。如果您有相关需求，可以先获取 Notebook 对应的 Pod 资源，然后参照[访问 Pod ](#pod)来访问特定的目标端口。
+
+</aside>
 
 ### 全局选项
 
@@ -48,8 +52,12 @@ t9k-pf nb <tensorstack-host>/t9k/build-console/projects/demo/notebooks/ml-labs/l
 t9k-pf nb <tensorstack-host>/t9k/build-console/projects/demo/notebooks/ml-labs/lab 8888 --address 0.0.0.0
 ```
 
-!!! note "注意" 
-    在 port-forward 成功后，您仍然需要保持您的 t9k-pf 命令行窗口一直保持运行状态。
+<aside class="note">
+<h1>注意</h1>
+
+在 port-forward 成功后，您仍然需要保持您的 t9k-pf 命令行窗口一直保持运行状态。
+
+</aside>
 
 ## pod
 
@@ -93,8 +101,12 @@ t9k-pf pod example 3333:2222 -n dev --address 0.0.0.0
 t9k-pf pod example 2222 -n dev
 ```
 
-!!! note "注意" 
-    在 port-forward 成功后，您仍然需要保持您的 t9k-pf 命令行窗口一直保持运行状态。
+<aside class="note">
+<h1>注意</h1>
+
+在 port-forward 成功后，您仍然需要保持您的 t9k-pf 命令行窗口一直保持运行状态。
+
+</aside>
 
 ## service
 
@@ -140,5 +152,9 @@ t9k-pf service myservice 8888:80 --address 0.0.0.0
 t9k-pf service myservice 80 -n dev
 ```
 
-!!! note "注意" 
-    在 port-forward 成功后，您仍然需要保持您的 t9k-pf 命令行窗口一直保持运行状态。
+<aside class="note">
+<h1>注意</h1>
+
+在 port-forward 成功后，您仍然需要保持您的 t9k-pf 命令行窗口一直保持运行状态。
+
+</aside>

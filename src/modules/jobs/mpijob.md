@@ -64,8 +64,12 @@ spec:
 
 使用 <a target="_blank" rel="noopener noreferrer" href="https://horovod.ai/">Horovod</a> 框架的分布式训练脚本也可以使用 MPIJob 进行训练。
 
-!!! info "信息"
-    Horovod 框架的分布式训练脚本一般使用 `horovodrun` 命令启动；而由于 Horovod 是基于 OpenMPI 实现的，所以也可以使用 `mpirun` 命令启动。两条命令的关系为：`horovodrun` 命令等同于 `mpirun -bind-to none -map-by slot -x NCCL_DEBUG=INFO -x LD_LIBRARY_PATH -x PATH -mca pml ob1 -mca btl ^openib`。具体信息请参阅 <a target="_blank" rel="noopener noreferrer" href="https://github.com/horovod/horovod/blob/master/docs/mpi.rst">Horovod With MPI</a>。
+<aside class="note info">
+<h1>信息</h1>
+
+Horovod 框架的分布式训练脚本一般使用 `horovodrun` 命令启动；而由于 Horovod 是基于 OpenMPI 实现的，所以也可以使用 `mpirun` 命令启动。两条命令的关系为：`horovodrun` 命令等同于 `mpirun -bind-to none -map-by slot -x NCCL_DEBUG=INFO -x LD_LIBRARY_PATH -x PATH -mca pml ob1 -mca btl ^openib`。具体信息请参阅 <a target="_blank" rel="noopener noreferrer" href="https://github.com/horovod/horovod/blob/master/docs/mpi.rst">Horovod With MPI</a>。
+
+</aside>
 
 在 MPIJob 中需要执行以下操作：
 
@@ -117,8 +121,12 @@ spec:
       priority: 50
 ```
 
-!!! info "信息"
-    队列和优先级都是 T9k Scheduler 的概念，具体含义请参阅 [T9k Scheduler](../scheduling/index.md)。
+<aside class="note info">
+<h1>信息</h1>
+
+队列和优先级都是 T9k Scheduler 的概念，具体含义请参阅 [T9k Scheduler](../scheduling/index.md)。
+
+</aside>
 
 ## 调试模式
 
@@ -257,14 +265,18 @@ status:
   phase: Failed
 ```
 
-!!! note "注意"
-    上述 `conditions` 中的 `Completed` 和 `phase` 中的 `Succeeded` 并不表示 MPIJob 成功，仅仅表示 MPIJob 结束。
+<aside class="note">
+<h1>注意</h1>
 
-    MPIJob 使用 `mpirun` 实现 MPI 计算，并将其移植到 Kubernetes 上，`mpirun` 的工作原理是：在本地运行 `mpirun`，向其他主机发送计算命令，并监听这些主机上所启动的进程运行状况，打印这些进程的日志，在所有进程结束（无论是成功还是失败）后退出，返回值为 0。在将 `mpirun` 移植到 Kubernetes 上之后，MPIJob 的控制器仅能看到 `mpirun` 是以什么方式结束的（返回值是零或非零），无法更准确地知道任务具体是成功还是失败，所以 MPIJob 以 `Completed` 记录任务结束的状态（而非 `Succeeded`）。
+上述 `conditions` 中的 `Completed` 和 `phase` 中的 `Succeeded` 并不表示 MPIJob 成功，仅仅表示 MPIJob 结束。
 
-    同理，`conditions` 和 `phase` 中的 `Failed` 表示的也不是 MPIJob 任务运行失败，而是启动副本、执行副本因为某些原因（集群故障、网络错误等）无法正确工作。
-    
-    因此在 MPIJob 结束后，您需要通过查看启动副本的日志来确定任务的具体执行情况。
+MPIJob 使用 `mpirun` 实现 MPI 计算，并将其移植到 Kubernetes 上，`mpirun` 的工作原理是：在本地运行 `mpirun`，向其他主机发送计算命令，并监听这些主机上所启动的进程运行状况，打印这些进程的日志，在所有进程结束（无论是成功还是失败）后退出，返回值为 0。在将 `mpirun` 移植到 Kubernetes 上之后，MPIJob 的控制器仅能看到 `mpirun` 是以什么方式结束的（返回值是零或非零），无法更准确地知道任务具体是成功还是失败，所以 MPIJob 以 `Completed` 记录任务结束的状态（而非 `Succeeded`）。
+
+同理，`conditions` 和 `phase` 中的 `Failed` 表示的也不是 MPIJob 任务运行失败，而是启动副本、执行副本因为某些原因（集群故障、网络错误等）无法正确工作。
+
+因此在 MPIJob 结束后，您需要通过查看启动副本的日志来确定任务的具体执行情况。
+
+</aside>
 
 ### 副本的状态
 

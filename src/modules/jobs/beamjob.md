@@ -152,8 +152,12 @@ spec:
 ...
 ```
 
-!!! note "注意"
-    删除 Flink 集群会丢失任务运行相关的所有信息，且无法恢复。
+<aside class="note">
+<h1>注意</h1>
+
+删除 Flink 集群会丢失任务运行相关的所有信息，且无法恢复。
+
+</aside>
 
 ## 调度器
 
@@ -179,5 +183,9 @@ spec:
 ...
 ```
 
-!!! info "信息"
-    队列和优先级都是 T9k Scheduler 的概念，具体含义请参阅 [T9k Scheduler](../scheduling/index.md)。
+<aside class="note info">
+<h1>信息</h1>
+
+队列和优先级都是 T9k Scheduler 的概念，具体含义请参阅 [T9k Scheduler](../scheduling/index.md)。
+
+</aside>

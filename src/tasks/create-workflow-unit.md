@@ -24,9 +24,12 @@
 
 首先，您需要在名为 **WorkflowTemplate Name** 的文本框中填写 WorkflowTemplate 的名称，然后在名为 **Type** 的下拉框中选择 WorkflowTemplate 的类型（可以是 `Pod`、`SeqPod`、`Resource` 等），最后根据 WorkflowTemplate 类型的不同，继续填写余下配置。
 
-!!! info "信息"
+<aside class="note info">
+<h1>信息</h1>
 
-    WorkflowTemplate 的每个字段的含义详见[参考](../references/workflow.md)。
+WorkflowTemplate 的每个字段的含义详见[参考](../references/workflow.md)。
+
+</aside>
 
 编辑好 WorkflowTemplate 之后，点击表格右上角的 **Create WorkflowTemplate** 创建该 WorkflowTemplate，右下角会有悬浮框提示是否创建成功。
 

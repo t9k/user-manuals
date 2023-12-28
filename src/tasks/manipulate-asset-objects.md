@@ -65,10 +65,14 @@ README.md               221B  84c44f1510389ea7de91e550be8a7130  15s ago
 model_state_dict.pt  375943B  1203ee282c235c9fb4c2ea932a7b7cc8  5m37s ago
 ```
 
-!!! info "信息"
-    每个对象在 Model 或 Dataset 中存储时都有自己的路径，其实质是 S3 对象存储服务中对象的 key，例如 `file1.txt`、`folder/file2.txt`。多级路径在控制台中会以多级目录的形式展示。
+<aside class="note info">
+<h1>信息</h1>
 
-    您可以通过 `-a LOCAL_PATH:PATH` 选项来自定义上传文件的存储路径。详细用法请参阅帮助信息 `ah commit --help`。
+每个对象在 Model 或 Dataset 中存储时都有自己的路径，其实质是 S3 对象存储服务中对象的 key，例如 `file1.txt`、`folder/file2.txt`。多级路径在控制台中会以多级目录的形式展示。
+
+您可以通过 `-a LOCAL_PATH:PATH` 选项来自定义上传文件的存储路径。详细用法请参阅帮助信息 `ah commit --help`。
+
+</aside>
 
 使用 `-d PATH` 选项以删除指定路径的对象：
 
@@ -156,8 +160,12 @@ AH INFO: Uploading object README.md:
 AH INFO: Commit 6a57546b created
 ```
 
-!!! tip "提示"
-    亦可使用 `Branch` 实例的 `create_commit()` 方法完成上述操作。
+<aside class="note tip">
+<h1>提示</h1>
+
+亦可使用 `Branch` 实例的 `create_commit()` 方法完成上述操作。
+
+</aside>
 
 使用 `ah.list()` 函数查看分支的所有对象：
 
@@ -184,8 +192,12 @@ pprint(ah.list('model/llm/gpt2:v1'))
   'size_bytes': 375943}]
 ```
 
-!!! tip "提示"
-    亦可使用 `Branch` 实例的 `list_object()` 方法完成上述操作。
+<aside class="note tip">
+<h1>提示</h1>
+
+亦可使用 `Branch` 实例的 `list_object()` 方法完成上述操作。
+
+</aside>
 
 再次使用 `ah.commit()` 函数，当重复上传文件到同一路径时，原有的对象会被替换：
 
@@ -275,8 +287,12 @@ pprint(ah.list('model/llm/gpt2:v1', resource='commit'))
   'parents': []}]
 ```
 
-!!! tip "提示"
-    亦可使用 `Branch` 实例的 `list_commit()` 方法完成上述操作。
+<aside class="note tip">
+<h1>提示</h1>
+
+亦可使用 `Branch` 实例的 `list_commit()` 方法完成上述操作。
+
+</aside>
 
 之后想要使用这些对象时，使用 `ah.download()` 函数下载对象保存为本地文件：
 
@@ -293,7 +309,11 @@ AH INFO: Downloading object 1/1 model_state_dict.pt:
 ['model_state_dict.pt', ...]
 ```
 
-!!! tip "提示"
-    亦可使用 `Branch` 实例的 `download()` 方法完成上述操作。
+<aside class="note tip">
+<h1>提示</h1>
+
+亦可使用 `Branch` 实例的 `download()` 方法完成上述操作。
+
+</aside>
 
 ## 通过控制台

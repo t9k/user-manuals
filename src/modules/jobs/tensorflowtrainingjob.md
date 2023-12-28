@@ -41,10 +41,14 @@ spec:
 * 每个副本使用 `tensorflow/tensorflow:2.11.0` 镜像，执行命令 `python dist_mnist.py`（由 `spec.replicaSpecs<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/workloads/pods/#pod-templates">*].template` 字段指定，此处的填写方式参考 [PodTemplate</a>）。
 * 当副本失败后，会自动重启（由 `spec.replicaSpecs[*].restartPolicy` 字段指定）。
 
-!!! note "注意"
-    TensorFlowTrainingJob 的 `spec.replicaSpecs[*].template` 字段一定要包含 `name` 为 `tensorflow` 的容器，以便控制器识别训练使用的主容器。
+<aside class="note">
+<h1>注意</h1>
 
-    TensorFlowTrainingJob 中执行的脚本应使用 TensorFlow 分布式训练框架，否则可能达不到训练效果。
+TensorFlowTrainingJob 的 `spec.replicaSpecs[*].template` 字段一定要包含 `name` 为 `tensorflow` 的容器，以便控制器识别训练使用的主容器。
+
+TensorFlowTrainingJob 中执行的脚本应使用 TensorFlow 分布式训练框架，否则可能达不到训练效果。
+
+</aside>
 
 ## 副本的角色
 
@@ -94,8 +98,12 @@ TensorFlowTrainingJob 提供以下三种策略：
 * `All`：删除所有副本。
 * `Unfinished`：只删除未结束的副本。
 
-!!! tip "提示"
-    已结束的副本不会继续消耗集群资源，因此在一定程度上，`Unfinished` 策略比 `All` 策略更优。但这并不总是适用，由于一个项目的资源配额的计算不考虑 Pod 是否已经结束，对于资源紧张的项目，如果确定不需要通过日志来调试 Job，则可以使用 `All` 策略。
+<aside class="note tip">
+<h1>提示</h1>
+
+已结束的副本不会继续消耗集群资源，因此在一定程度上，`Unfinished` 策略比 `All` 策略更优。但这并不总是适用，由于一个项目的资源配额的计算不考虑 Pod 是否已经结束，对于资源紧张的项目，如果确定不需要通过日志来调试 Job，则可以使用 `All` 策略。
+
+</aside>
     
     `None` 策略主要用于训练脚本调试阶段。如果需要从副本中读取训练日志，则可以选用此策略。但由于这些副本可能占用资源并影响后续训练，建议您在调试完毕后手动删除这些副本或删除整个 TensorFlowTrainingJob。
 
@@ -122,8 +130,12 @@ spec:
       priority: 50
 ```
 
-!!! info "信息"
-    队列和优先级都是 T9k Scheduler 的概念，具体含义请参阅 [T9k Scheduler](../scheduling/index.md)。
+<aside class="note info">
+<h1>信息</h1>
+
+队列和优先级都是 T9k Scheduler 的概念，具体含义请参阅 [T9k Scheduler](../scheduling/index.md)。
+
+</aside>
 
 ## TensorBoard 的使用
 
@@ -141,8 +153,12 @@ spec:
 ...
 ```
 
-!!! info "信息"
-    TensorBoard 的详细介绍请参阅 [TensorBoard]((../building/tensorboard.md))。
+<aside class="note info">
+<h1>信息</h1>
+
+TensorBoard 的详细介绍请参阅 [TensorBoard]((../building/tensorboard.md))。
+
+</aside>
 
 ## 调试模式
 

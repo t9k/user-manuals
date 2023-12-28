@@ -24,8 +24,12 @@ $ ah create dataset/text
 AH INFO: Folder /user/t9k-assethub/dataset/text created
 ```
 
-!!! tip "提示"
-    限于篇幅，本教程以及后续教程将仅展示各条命令的基本用法，请使用 `--help` 选项（例如 `ah create --help`）查看相应命令接受的参数格式、所有选项以及具体用例。
+<aside class="note tip">
+<h1>提示</h1>
+
+限于篇幅，本教程以及后续教程将仅展示各条命令的基本用法，请使用 `--help` 选项（例如 `ah create --help`）查看相应命令接受的参数格式、所有选项以及具体用例。
+
+</aside>
 
 然后使用 `ah create` 命令在 Model Folder 中创建一个 Model，以及在 Dataset Folder 中创建一个 Dataset：
 
@@ -78,8 +82,12 @@ $ ah delete dataset/text
 AH INFO: Folder /user/t9k-assethub/dataset/text deleted
 ```
 
-!!! note "注意"
-    删除 Model、Dataset 和 Folder 时会一并删除其中的所有内容，请慎重操作。
+<aside class="note">
+<h1>注意</h1>
+
+删除 Model、Dataset 和 Folder 时会一并删除其中的所有内容，请慎重操作。
+
+</aside>
 
 ## 通过 Python SDK
 
@@ -110,8 +118,12 @@ AH INFO: Folder /user/t9k-assethub/model/llm created
 AH INFO: Folder /user/t9k-assethub/dataset/text created
 ```
 
-!!! tip "提示"
-    限于篇幅，本教程以及后续教程将仅展示各个函数或方法的基本用法，相应函数或方法接受的参数详情以及具体用例请参考 TensorStack SDK 的 [API 文档](../tools/python-sdk-t9k/api/index.md)。
+<aside class="note tip">
+<h1>提示</h1>
+
+限于篇幅，本教程以及后续教程将仅展示各个函数或方法的基本用法，相应函数或方法接受的参数详情以及具体用例请参考 TensorStack SDK 的 [API 文档](../tools/python-sdk-t9k/api/index.md)。
+
+</aside>
 
 继续使用 `ah.create()` 函数在 Model Folder 中创建一个 Model，以及在 Dataset Folder 中创建一个 Dataset：
 
@@ -125,8 +137,12 @@ AH INFO: Model gpt2 created for Folder /user/t9k-assethub/model/llm
 AH INFO: Dataset openwebtext created for Folder /user/t9k-assethub/dataset/text
 ```
 
-!!! tip "提示"
-    亦可使用 `Folder` 实例的 `create_asset()` 方法完成上述操作。
+<aside class="note tip">
+<h1>提示</h1>
+
+亦可使用 `Folder` 实例的 `create_asset()` 方法完成上述操作。
+
+</aside>
 
 创建完成之后，使用 `ah.list()` 函数返回当前用户的 Folder：
 
@@ -194,8 +210,12 @@ pprint(ah.list('dataset/text'))
   'type': 'Dataset'}]
 ```
 
-!!! tip "提示"
-    亦可使用 `Folder` 实例的 `list_asset()` 方法完成上述操作。
+<aside class="note tip">
+<h1>提示</h1>
+
+亦可使用 `Folder` 实例的 `list_asset()` 方法完成上述操作。
+
+</aside>
 
 最后使用 `ah.delete()` 函数删除所有创建的 Model、Dataset 和 Folder：
 
@@ -213,8 +233,12 @@ AH INFO: Folder /user/t9k-assethub/model/llm deleted
 AH INFO: Folder /user/t9k-assethub/dataset/text deleted
 ```
 
-!!! tip "提示"
-    亦可使用各实例的 `delete()` 方法完成上述操作。
+<aside class="note tip">
+<h1>提示</h1>
+
+亦可使用各实例的 `delete()` 方法完成上述操作。
+
+</aside>
 
 ## 通过控制台
 

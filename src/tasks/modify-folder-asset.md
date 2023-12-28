@@ -68,8 +68,12 @@ NAME    PATH                               LABELS    PERMISSION
 gpt3    /xyx/t9k-assethub/model/chat/gpt3  GPT       own
 ```
 
-!!! tip "提示"
-    标签的更新是全量的：每次添加标签都会移除已有的标签。
+<aside class="note tip">
+<h1>提示</h1>
+
+标签的更新是全量的：每次添加标签都会移除已有的标签。
+
+</aside>
 
 ## 通过 Python SDK
 
@@ -114,8 +118,12 @@ AH INFO: Folder /xyx/t9k-assethub/model/llm updated to /xyx/t9k-assethub/model/c
 AH INFO: Model /xyx/t9k-assethub/model/chat/gpt2 updated to /xyx/t9k-assethub/model/chat/gpt3
 ```
 
-!!! tip "提示"
-    亦可使用 `Folder` 和 `Model` 实例的 `update()` 方法完成上述操作。
+<aside class="note tip">
+<h1>提示</h1>
+
+亦可使用 `Folder` 和 `Model` 实例的 `update()` 方法完成上述操作。
+
+</aside>
 
 使用 `ah.list()` 函数查看 Folder 和 Model 的标签：
 
@@ -169,10 +177,18 @@ pprint(ah.list('model/chat'))
   'type': 'Model'}]
 ```
 
-!!! tip "提示"
-    标签的更新是全量的：每次添加标签都会移除已有的标签。
+<aside class="note tip">
+<h1>提示</h1>
 
-!!! tip "提示"
-    亦可使用 `Folder` 和 `Model` 实例的 `update()` 方法完成上述操作。
+标签的更新是全量的：每次添加标签都会移除已有的标签。
+
+</aside>
+
+<aside class="note tip">
+<h1>提示</h1>
+
+亦可使用 `Folder` 和 `Model` 实例的 `update()` 方法完成上述操作。
+
+</aside>
 
 ## 通过控制台

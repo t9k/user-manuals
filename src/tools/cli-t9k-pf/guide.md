@@ -82,8 +82,12 @@ t9k-pf notebook <url> --apikey
 
 命令行会进入交互式输入界面，粘贴您的 API Key 再按下回车即可。
 
-!!! note "注意" 
-    此方式指定的 API Key 不会被保存，认证信息只在这次端口转发中生效。
+<aside class="note">
+<h1>注意</h1>
+
+此方式指定的 API Key 不会被保存，认证信息只在这次端口转发中生效。
+
+</aside>
 
 ## 全局选项
 

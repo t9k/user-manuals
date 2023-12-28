@@ -44,20 +44,23 @@ S3 凭证有三种格式：
 
 点击右侧的**复制**，复制 `.s3cfg` 格式的 S3 凭证，保存在 `$HOME/.s3cfg` 文件中，即可通过 s3cmd 命令行工具访问此 Asset 中的文件。
 
-!!! 信息 "如何安装 s3cmd 命令行工具？"
+<aside class="note info">
+<h1>如何安装 s3cmd 命令行工具？</h1>
 
-    根据操作系统的不同，分别通过以下命令安装 s3cmd 命令行工具：
+根据操作系统的不同，分别通过以下命令安装 s3cmd 命令行工具：
 
-    ```bash
-    # macOS
-    brew install s3cmd
+```bash
+# macOS
+brew install s3cmd
 
-    # Linux
-    apt install s3cmd
+# Linux
+apt install s3cmd
 
-    # Windows
-    pip install s3cmd
-    ```
+# Windows
+pip install s3cmd
+```
+
+</aside>
 
 例如，在上述示例中，所创建的 S3 凭证 `s3-rw` 仅可用于访问名为 `stable-diffusion-2-1` 的 Asset。根据页面上的提示，此 Asset 对应的 bucket 名称为 `baa98ded-2f93-4e9b-835a-6515a63a6eb4`，您可以通过以下命令查看此 Asset 的 `main` 分支的 `README.md` 文件：
 

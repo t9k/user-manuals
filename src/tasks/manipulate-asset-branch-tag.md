@@ -33,8 +33,12 @@ $ ah create model/llm/gpt2:v1
 AH INFO: Branch v1 created for Model /xyx/t9k-assethub/model/llm/gpt2
 ```
 
-!!! note "注意"
-    Model 可以在初始的主分支（`main` 分支）之外创建新的分支，Dataset 则不可以。
+<aside class="note">
+<h1>注意</h1>
+
+Model 可以在初始的主分支（`main` 分支）之外创建新的分支，Dataset 则不可以。
+
+</aside>
 
 使用 `ah ls --branch` 命令查看 Model 的所有分支：
 
@@ -119,8 +123,12 @@ branch = ah.create('model/llm/gpt2:v1')
 AH INFO: Branch v1 created for Model /xyx/t9k-assethub/model/llm/gpt2
 ```
 
-!!! tip "提示"
-    亦可使用 `Model` 实例的 `create_branch()` 方法完成上述操作。
+<aside class="note tip">
+<h1>提示</h1>
+
+亦可使用 `Model` 实例的 `create_branch()` 方法完成上述操作。
+
+</aside>
 
 使用 `ah.list()` 函数查看 Model 的所有分支：
 
@@ -137,8 +145,12 @@ pprint(ah.list('model/llm/gpt2', resource='branch'))
   'id': 'v1'}]
 ```
 
-!!! tip "提示"
-    亦可使用 `Model` 实例的 `list_branch()` 方法完成上述操作。
+<aside class="note tip">
+<h1>提示</h1>
+
+亦可使用 `Model` 实例的 `list_branch()` 方法完成上述操作。
+
+</aside>
 
 继续使用 `ah.create()` 函数为 Model 创建一个 tag：
 
@@ -150,8 +162,12 @@ tag = ah.create('model/llm/gpt2:20230101', resource='tag', source='v1')
 AH INFO: Tag 20230101 created from branch v1 for Model /xyx/t9k-assethub/model/llm/gpt2
 ```
 
-!!! tip "提示"
-    亦可使用 `Branch` 实例的 `create_tag()` 方法完成上述操作。
+<aside class="note tip">
+<h1>提示</h1>
+
+亦可使用 `Branch` 实例的 `create_tag()` 方法完成上述操作。
+
+</aside>
 
 使用 `ah.list()` 函数查看 Model 的所有 tag：
 
@@ -164,8 +180,12 @@ pprint(ah.list('model/llm/gpt2', resource='tag'))
   'id': '20230101'}]
 ```
 
-!!! tip "提示"
-    亦可使用 `Model` 实例的 `list_tag()` 方法完成上述操作。
+<aside class="note tip">
+<h1>提示</h1>
+
+亦可使用 `Model` 实例的 `list_tag()` 方法完成上述操作。
+
+</aside>
 
 最后使用 `ah.delete()` 函数删除所有创建的分支和 tag：
 
@@ -179,7 +199,11 @@ AH INFO: Branch v1 deleted for Model /xyx/t9k-assethub/model/llm/gpt2
 AH INFO: Tag 20230101 deleted for Model /xyx/t9k-assethub/model/llm/gpt2
 ```
 
-!!! tip "提示"
-    亦可使用各实例的 `delete()` 方法完成上述操作。
+<aside class="note tip">
+<h1>提示</h1>
+
+亦可使用各实例的 `delete()` 方法完成上述操作。
+
+</aside>
 
 ## 通过控制台

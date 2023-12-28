@@ -48,13 +48,16 @@ spec:
 * 创建 4 个训练副本，这些副本会启动 `sshd` 服务。
 * 第一个副本会启动 `deepspeed` 程序，该程序会通过 `pdsh`（或其他方式）访问 4 个副本，并在每个副本上运行 `/t9k/mnt/train.py` 脚本。
 
-!!! note "注意"
+<aside class="note">
+<h1>注意</h1>
 
-    一个副本中可以创建多个容器，DeepSpeedJob 需要确定哪一个容器才是训练容器。如果 `spec.worker.template` 中包含 `name` 为 `worker` 的 container，则该容器为训练容器；如果没有，会选取第一个 container 作为训练容器。
+一个副本中可以创建多个容器，DeepSpeedJob 需要确定哪一个容器才是训练容器。如果 `spec.worker.template` 中包含 `name` 为 `worker` 的 container，则该容器为训练容器；如果没有，会选取第一个 container 作为训练容器。
 
-    DeepSpeedJob 中的执行程序应是使用 DeepSpeed 框架的程序，否则可能达不到训练效果。
+DeepSpeedJob 中的执行程序应是使用 DeepSpeed 框架的程序，否则可能达不到训练效果。
 
-    用户挂载文件时，需要避开下列路径，否则会导致 DeepSpeedJob 不能正常运行：`/root/.ssh`、`/t9k/hostfile`、`/root/.deepspeed_env`。
+用户挂载文件时，需要避开下列路径，否则会导致 DeepSpeedJob 不能正常运行：`/root/.ssh`、`/t9k/hostfile`、`/root/.deepspeed_env`。
+
+</aside>
 
 ## 训练配置
 
@@ -80,13 +83,16 @@ DeepSpeedJob 希望提供用户足够的灵活性，所以支持用户通过 `ot
 * `--bind_cores_to_rank`：将每个 Rank 绑定到主机的不同核心。PDSH 模式下不支持。
 * `--bind_core_list`：要绑定的核心列表，以逗号分隔。例如 `1,3-5,7 => [1,3,4,5,7]`。 未指定时，系统上的所有核心都将被绑定。PDSH 模式下不支持。
 
-!!! info "信息"
+<aside class="note info">
+<h1>信息</h1>
 
-    config 中的配置实际上是通过 DeepSpeed 参数实现的，而 `otherArgs` 可以指定任意值，所以可能会造成冲突。以下列出了会导致冲突的参数，请勿在 `otherArgs` 中设置：
+config 中的配置实际上是通过 DeepSpeed 参数实现的，而 `otherArgs` 可以指定任意值，所以可能会造成冲突。以下列出了会导致冲突的参数，请勿在 `otherArgs` 中设置：
 
-    * `--no_local_rank`：与 `spec.config.localRank` 字段冲突。
-    * `--autotuning`：与 `spec.config.autotune` 字段冲突。
-    * `--module` 和 `--no_python`：与 `spec.config.autotune` 字段冲突。
+* `--no_local_rank`：与 `spec.config.localRank` 字段冲突。
+* `--autotuning`：与 `spec.config.autotune` 字段冲突。
+* `--module` 和 `--no_python`：与 `spec.config.autotune` 字段冲突。
+
+</aside>
 
 ## 训练的成功和失败判定
 
@@ -104,8 +110,12 @@ DeepSpeedJob 提供以下三种策略：
 * `All`：删除所有副本。
 * `Unfinished`：只删除未结束的副本。
 
-!!! tip "提示"
-    已结束的副本不会继续消耗集群资源，因此在一定程度上，`Unfinished` 策略比 `All` 策略更优。但这并不总是适用，由于一个项目的资源配额的计算不考虑 Pod 是否已经结束，对于资源紧张的项目，如果确定不需要通过日志来调试 Job，则可以使用 `All` 策略。
+<aside class="note tip">
+<h1>提示</h1>
+
+已结束的副本不会继续消耗集群资源，因此在一定程度上，`Unfinished` 策略比 `All` 策略更优。但这并不总是适用，由于一个项目的资源配额的计算不考虑 Pod 是否已经结束，对于资源紧张的项目，如果确定不需要通过日志来调试 Job，则可以使用 `All` 策略。
+
+</aside>
     
     `None` 策略主要用于训练脚本调试阶段。如果需要从副本中读取训练日志，则可以选用此策略。但由于这些副本可能占用资源并影响后续训练，建议您在调试完毕后手动删除这些副本或删除整个 DeepSpeedJob。
 
@@ -132,8 +142,12 @@ spec:
       priority: 50
 ```
 
-!!! info "信息"
-    队列和优先级都是 T9k Scheduler 的概念，具体含义请参阅 [T9k Scheduler](../scheduling/index.md)。
+<aside class="note info">
+<h1>信息</h1>
+
+队列和优先级都是 T9k Scheduler 的概念，具体含义请参阅 [T9k Scheduler](../scheduling/index.md)。
+
+</aside>
 
 ## 调试模式
 

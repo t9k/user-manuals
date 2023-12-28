@@ -34,8 +34,12 @@ spec:
 * 每个副本使用 `pytorch/pytorch:2.0.0-cuda11.7-cudnn8-devel` 镜像，执行命令 `python dist_mnist.py`（由 `template` 字段指定，此处的填写方式参考 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/workloads/pods/#pod-templates">PodTemplate</a>）。
 * 当副本失败后，会自动重启（由 `spec.replicaSpecs[*].restartPolicy` 字段指定）。
 
-!!! note "注意"
-    PyTorchTrainingJob 中执行的脚本应使用 PyTorch 分布式训练框架，否则可能达不到训练效果。
+<aside class="note">
+<h1>注意</h1>
+
+PyTorchTrainingJob 中执行的脚本应使用 PyTorch 分布式训练框架，否则可能达不到训练效果。
+
+</aside>
 
 ## 使用 torchrun 启动训练
 
@@ -61,10 +65,14 @@ spec:
 * `rdzvBackend`：`torchrun` 所使用的汇合通信方式，可以设置为 `c10d`、`etcd` 或 `etcd-v2`，但是只有 `c10d` 是 `torch` 内置的。如果用户希望使用 `etcd` 需要自行搭建 `etcd` 服务器。
 * `extraOptions`：`torchrun` 的其他参数，上面的参数是 `torchrun` 比较常用的设置，用户也可以通过 `extraOptions` 字段提供更多 `torchrun` 的其他设置。
 
-!!! note "注意"
-    如果使用 torchrun 启动训练，容器的启动命令变为 `torchrun $torchrun_arg $training_script $training_args` 形式，其中 `training_script` 和 `training_args` 由字段 `spec.replicaSpecs[*].template.spec.containers[0].args` 指定，`spec.replicaSpecs[*].template.spec.containers[0].command` 将不再生效。
+<aside class="note">
+<h1>注意</h1>
 
-    另外，PyTorchTrainingJob 使用 torchrun 前需要确定哪一个容器才是训练容器：如果有一个容器的 `name` 是 `python`，则这个容器是训练容器；否则序号为 0 的容器为训练容器。
+如果使用 torchrun 启动训练，容器的启动命令变为 `torchrun $torchrun_arg $training_script $training_args` 形式，其中 `training_script` 和 `training_args` 由字段 `spec.replicaSpecs[*].template.spec.containers[0].args` 指定，`spec.replicaSpecs[*].template.spec.containers[0].command` 将不再生效。
+
+另外，PyTorchTrainingJob 使用 torchrun 前需要确定哪一个容器才是训练容器：如果有一个容器的 `name` 是 `python`，则这个容器是训练容器；否则序号为 0 的容器为训练容器。
+
+</aside>
 
 ### 弹性训练
 
@@ -187,8 +195,12 @@ PyTorchTrainingJob 提供以下三种策略：
 * `All`：删除所有副本。
 * `Unfinished`：只删除未结束的副本。
 
-!!! tip "提示"
-    已结束的副本不会继续消耗集群资源，因此在一定程度上，`Unfinished` 策略比 `All` 策略更优。但这并不总是适用，由于一个项目的资源配额的计算不考虑 Pod 是否已经结束，对于资源紧张的项目，如果确定不需要通过日志来调试 Job，则可以使用 `All` 策略。
+<aside class="note tip">
+<h1>提示</h1>
+
+已结束的副本不会继续消耗集群资源，因此在一定程度上，`Unfinished` 策略比 `All` 策略更优。但这并不总是适用，由于一个项目的资源配额的计算不考虑 Pod 是否已经结束，对于资源紧张的项目，如果确定不需要通过日志来调试 Job，则可以使用 `All` 策略。
+
+</aside>
     
     `None` 策略主要用于训练脚本调试阶段。如果需要从副本中读取训练日志，则可以选用此策略。但由于这些副本可能占用资源并影响后续训练，建议用户在调试完毕后手动删除这些副本或删除整个 PyTorchTrainingJob。
 
@@ -215,8 +227,12 @@ spec:
       priority: 50
 ```
 
-!!! info "信息"
-    队列和优先级都是 T9k Scheduler 的概念，具体含义请参阅 [T9k Scheduler](../scheduling/index.md)。
+<aside class="note info">
+<h1>信息</h1>
+
+队列和优先级都是 T9k Scheduler 的概念，具体含义请参阅 [T9k Scheduler](../scheduling/index.md)。
+
+</aside>
 
 ## TensorBoard 的使用
 
@@ -233,8 +249,12 @@ spec:
     - t9k://pvc/torch-tensorboard-pvc/log
 ```
 
-!!! info "信息"
-    TensorBoard 的详细介绍请参阅 [TensorBoard](../building/tensorboard.md)。
+<aside class="note info">
+<h1>信息</h1>
+
+TensorBoard 的详细介绍请参阅 [TensorBoard](../building/tensorboard.md)。
+
+</aside>
 
 ## 调试模式
 

@@ -23,11 +23,19 @@ Kubernetes 默认只支持 CPU 和 内存的资源调度分配，不支持 GPU�
     * 节点独占模式：节点的所有资源（包括 GPU）被一个 Pod 的所有容器占据。
 2. `sched.tensorstack.dev/node-alloc-mode: sgn`：拥有此标签的节点支持 GPU 共享模式，单个 GPU 可以被多个容器共享。
 
-!!! info "什么是 taint"
-    taint（污点）是节点的属性，它使节点能够排斥一类特定的 Pod，详见 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh/docs/concepts/scheduling-eviction/taint-and-toleration/">Kubernetes 文档</a>。
+<aside class="note info">
+<h1>什么是 taint</h1>
 
-!!! info "信息"
-    `xgn` 表示 `exclusive gpu node`，`sgn` 表示 `shared gpu node`。
+taint（污点）是节点的属性，它使节点能够排斥一类特定的 Pod，详见 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh/docs/concepts/scheduling-eviction/taint-and-toleration/">Kubernetes 文档</a>。
+
+</aside>
+
+<aside class="note info">
+<h1>信息</h1>
+
+`xgn` 表示 `exclusive gpu node`，`sgn` 表示 `shared gpu node`。
+
+</aside>
 
 ### 安装有 AMD GPU 的节点
 
@@ -74,8 +82,12 @@ T9k Scheduler 会将该容器所属的 Pod 调度到 GPU 独占模式的节点�
 
    * `NVIDIA_VISIBLE_DEVICES=id0,id1`：表明该节点上的 GPU `id0`、`id1` 被分配给该容器使用，<a target="_blank" rel="noopener noreferrer" href="https://github.com/NVIDIA/nvidia-docker">nvidia-docker-runtime</a> 负责限制该容器只能使用 GPU `id0`、`id1`。
 
-!!! note "注意"
-    创建 Pod 时无需指定 `spec.tolerations`，T9k Scheduler 会根据资源需求自动添加。
+<aside class="note">
+<h1>注意</h1>
+
+创建 Pod 时无需指定 `spec.tolerations`，T9k Scheduler 会根据资源需求自动添加。
+
+</aside>
 
 ### GPU 共享
 
@@ -140,5 +152,9 @@ T9k Scheduler 会将该容器所属的 Pod 调度到 GPU 独占模式的节点�
 
    * `NVIDIA_VISIBLE_DEVICES=all`：表明该节点上的所有 GPU 都被分配给该容器使用，<a target="_blank" rel="noopener noreferrer" href="https://github.com/NVIDIA/nvidia-docker">nvidia-docker-runtime</a> 为该容器提供所有的 GPU 资源。 
 
-!!! note "注意"
-    如果使用节点独占模式，一个 Pod 中只能有一个容器声明资源请求 `tensorstack.dev/nvidia-gpu-node: 1`，因为一个 Pod 不可能被分配到多个节点上。
+<aside class="note">
+<h1>注意</h1>
+
+如果使用节点独占模式，一个 Pod 中只能有一个容器声明资源请求 `tensorstack.dev/nvidia-gpu-node: 1`，因为一个 Pod 不可能被分配到多个节点上。
+
+</aside>

@@ -6,8 +6,12 @@
 
 为了使用 SSH 连接到 Notebook，您首先要获取 SSH 的用户名（Username）、主机地址（Host）和端口（Port）。其中主机地址和端口需要从控制台获取。下文中我们会用 `<Host>` 代表获取的主机地址，`<Port>` 代表使用的端口。
 
-!!! info "信息"
-    标准 Notebook 镜像的默认用户是 `t9kuser`，其主目录（home directory）是 `/t9k/mnt`。
+<aside class="note info">
+<h1>信息</h1>
+
+标准 Notebook 镜像的默认用户是 `t9kuser`，其主目录（home directory）是 `/t9k/mnt`。
+
+</aside>
 
 TODO: 等待前端的修改。
 
@@ -59,8 +63,12 @@ t9k-pf notebook <tensorstack-host>/t9k/build-console/projects/demo/notebooks/dem
 
 命令行会打印出 `127.0.0.1:3333`，即 `<Port>` 被指定为 `3333`。然后同样参照 [SSH 远程连接教程](#ssh-远程连接)与目标 Notebook 建立 SSH 连接。
 
-!!! note "注意" 
-    在 port-forward 成功后，您仍然需要保持 t9k-pf 命令行窗口一直保持运行状态。
+<aside class="note">
+<h1>注意</h1>
+
+在 port-forward 成功后，您仍然需要保持 t9k-pf 命令行窗口一直保持运行状态。
+
+</aside>
 
 ## SSH 远程连接
 
@@ -75,8 +83,12 @@ ssh t9kuser@<Host> -p <Port> \
   -o UserKnownHostsFile=/dev/null
 ```
 
-!!! info "信息"
-    Notebook 的 Pod 没有固定的主机密钥（Host Key），上面的命令设置 `StrictHostKeyChecking=no` 来跳过主机密钥的检查，并设置 `GlobalKnownHostsFile=/dev/null` 和 `UserKnownHostsFile=/dev/null` 以避免将主机密钥保存到 known_hosts 文件中。运行上面的命令时会提示 `Warning: Permanently added '[<Host>]:<Port>' (RSA) to the list of known hosts.`，但实际上保存的路径为 `/dev/null`，它会丢弃一切写入的数据。
+<aside class="note info">
+<h1>信息</h1>
+
+Notebook 的 Pod 没有固定的主机密钥（Host Key），上面的命令设置 `StrictHostKeyChecking=no` 来跳过主机密钥的检查，并设置 `GlobalKnownHostsFile=/dev/null` 和 `UserKnownHostsFile=/dev/null` 以避免将主机密钥保存到 known_hosts 文件中。运行上面的命令时会提示 `Warning: Permanently added '[<Host>]:<Port>' (RSA) to the list of known hosts.`，但实际上保存的路径为 `/dev/null`，它会丢弃一切写入的数据。
+
+</aside>
 
 然后在 Terminal 中操作 Notebook：
 
@@ -98,17 +110,21 @@ ssh t9kuser@<Host> -p <Port> \
 
 安装完成后，需要在 SSH Config 中添加主机（Notebook）的信息。
 
-!!! tip "提示"
-    如果您熟悉 SSH，直接编辑位于 `$HOME/.ssh/config` 的配置文件，添加以下信息：
+<aside class="note tip">
+<h1>提示</h1>
 
-    ``` bash
-    Host <Host>
-      HostName <Host>
-      User t9kuser
-      Port <Port>
-    ```
+如果您熟悉 SSH，直接编辑位于 `$HOME/.ssh/config` 的配置文件，添加以下信息：
 
-    确认无误后，保存文件即可。
+``` bash
+Host <Host>
+  HostName <Host>
+  User t9kuser
+  Port <Port>
+```
+
+确认无误后，保存文件即可。
+
+</aside>
 
 VSCode 提供了编辑 SSH Config 的方式。点击左下角的绿色 **><** 符号，选择 **Connect to Host**，然后拉动滚动条到最下方，点击 **Add New SSH Host**：
 
@@ -155,8 +171,12 @@ VSCode 会新建一个窗口，等待连接建立之后，左下角会提示 **S
 1. 安装了 PyCharm 专业版，且版本不低于 2022.2。PyCharm 有专业版（Professional）和社区版（Community），目前仅 PyCharm Professional 支持远程 SSH 开发。
 2. Notebook 的资源配置至少为 3 个 CPU，3 GiB 内存，Notebook 绑定的持久卷至少有 2.5 GiB 的可用空间。推荐配置为至少 4 个 CPU，4 GiB 内存，5 GiB 持久卷。
 
-!!! info "信息"
-    使用 PyCharm 远程连接 Notebook 进行开发时，PyCharm 需要在 Notebook 容器中安装并运行一个 IDE Backend（参阅<a target="_blank" rel="noopener noreferrer" href="https://www.jetbrains.com/help/pycharm/remote-development-overview.html">官方文档</a>）。结合官方推荐的配置和实际测试，我们给出了上面的资源配置要求。
+<aside class="note info">
+<h1>信息</h1>
+
+使用 PyCharm 远程连接 Notebook 进行开发时，PyCharm 需要在 Notebook 容器中安装并运行一个 IDE Backend（参阅<a target="_blank" rel="noopener noreferrer" href="https://www.jetbrains.com/help/pycharm/remote-development-overview.html">官方文档</a>）。结合官方推荐的配置和实际测试，我们给出了上面的资源配置要求。
+
+</aside>
 
 打开 PyCharm，在左侧的导航菜单中点击 **Remote Development > SSH**，然后点击右侧的 **New Connection**：
 
@@ -183,8 +203,12 @@ VSCode 会新建一个窗口，等待连接建立之后，左下角会提示 **S
 
 这里选择了在 Notebook 中安装的 IDE Backend 版本为 PyCharm 2022.2.3，远程打开的项目目录为 `/t9k/mnt`。点击 **Download IDE and Connect** 后，就可以通过 PyCharm 访问 Notebook 中的文件了。
 
-!!! note "注意"
-    第一次 SSH 连接到 Notebook 中时，需要等待 Notebook 下载 IDE Backend。根据网络情况不同，这一步骤可能耗时几分钟到十几分钟。
+<aside class="note">
+<h1>注意</h1>
+
+第一次 SSH 连接到 Notebook 中时，需要等待 Notebook 下载 IDE Backend。根据网络情况不同，这一步骤可能耗时几分钟到十几分钟。
+
+</aside>
 
 <figure class="screenshot">
   <img alt="pycharm-edit" src="../assets/tasks/develop-and-test-model/use-notebook-remotely-via-ssh-connection/pycharm-edit.png" class="screenshot"/>

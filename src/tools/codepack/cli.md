@@ -44,8 +44,12 @@ pip install codepack-<version>.tar.gz [-i <pypi-mirror-url>]
 
 ## 命令
 
-!!! tip "提示"
-    执行 `codepack --help` 命令以查看帮助信息，执行 `codepack <subcommand> --help` 命令以查看相应子命令的帮助信息。
+<aside class="note tip">
+<h1>提示</h1>
+
+执行 `codepack --help` 命令以查看帮助信息，执行 `codepack <subcommand> --help` 命令以查看相应子命令的帮助信息。
+
+</aside>
 
 ### check
 

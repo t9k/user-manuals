@@ -326,9 +326,14 @@ aside.note {
     margin-top: 1em;
 }
 
-aside.note > * {
+aside.note > p {
     margin-left: 1em;
     margin-right: 1em;
+    font-size: 14px;
+}
+
+aside.note > p > code {
+    font-size: 13px;
 }
 
 /* note title */
@@ -336,19 +341,25 @@ aside.note > h1 {
     border-bottom: 1px solid var(--searchbar-border-color);
     margin: 0;
     padding: 0.5em 1em;
-    font-size: 100%;
+    font-size: 14px;
     font-weight: normal;
-    background: var(--quote-bg);
+    background: #F0F4FF;
 }
 
 /* warning notes */
 aside.note.warning > h1 {
-    background: var(--warning-note-background-color, #fcf8f2);
+    background: #FFF5EB;
 }
-aside.note.warning > h1::before {
-    /* TODO(directxman12): fill in these colors in theme.
-     * If you're good with colors, feel free to play around with this
-     * in dark mode. */
+
+aside.note.tip > h1 {
+    background: #EDF8F6;
+}
+
+aside.note.info > h1 {
+    background: #ECF8FB;
+}
+
+/* aside.note.warning > h1::before {
     content: "!";
     color: var(--warning-note-color, #f0ad4e);
     margin-right: 1em;
@@ -359,7 +370,7 @@ aside.note.warning > h1::before {
     padding-right: 0.6em;
     border-radius: 50%;
     border: 2px solid var(--warning-note-color, #f0ad4e);
-}
+} */
 
 /* literate source citations */
 cite.literate-source {

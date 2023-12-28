@@ -16,8 +16,12 @@ from t9k import em
 run = em.create_run(name='mnist_torch')    # 返回Run实例
 ```
 
-!!! tip "提示"
-    您可以通过设置环境变量 `EM_RUN_PARENT_DIR` 来修改 Run 的本地文件的保存路径。
+<aside class="note tip">
+<h1>提示</h1>
+
+您可以通过设置环境变量 `EM_RUN_PARENT_DIR` 来修改 Run 的本地文件的保存路径。
+
+</aside>
 
 ### 自动上传
 
@@ -222,10 +226,14 @@ for epoch in range(1, epochs + 1):
                 epoch=epoch)                     # 当前回合数
 ```
 
-!!! note "注意"
-    训练指标、验证指标和测试指标请分别使用指标类型 `'train'`（或 `'training'`）、`'val'`（或 `'validate'`、`'validation'`）和 `'test'`（或 `'testing'`、`'eval'`、`'evaluate'`、`'evaluation'`）。除此之外，您也可以使用其他任意字符串作为自定义指标类型。
+<aside class="note">
+<h1>注意</h1>
 
-    指标的值可以是 Python 数字类型，或仅有一个元素的 NumPy 数组、TensorFlow 张量或 PyTorch 张量。
+训练指标、验证指标和测试指标请分别使用指标类型 `'train'`（或 `'training'`）、`'val'`（或 `'validate'`、`'validation'`）和 `'test'`（或 `'testing'`、`'eval'`、`'evaluate'`、`'evaluation'`）。除此之外，您也可以使用其他任意字符串作为自定义指标类型。
+
+指标的值可以是 Python 数字类型，或仅有一个元素的 NumPy 数组、TensorFlow 张量或 PyTorch 张量。
+
+</aside>
 
 ### 自动记录
 
@@ -247,8 +255,12 @@ model.evaluate(test_images,
                callbacks=EMEvalCallback(run))
 ```
 
-!!! tip "提示"
-    除了记录训练指标，`EMFitCallback` 回调还会获取模型的优化器配置、损失函数类型和指标类型并更新 Run 的超参数。
+<aside class="note tip">
+<h1>提示</h1>
+
+除了记录训练指标，`EMFitCallback` 回调还会获取模型的优化器配置、损失函数类型和指标类型并更新 Run 的超参数。
+
+</aside>
 
 <!-- 
 ```python
@@ -321,8 +333,12 @@ run.mark_input(dateset_artifact)
 run.mark_output(model_artifact)
 ```
 
-!!! tip "提示"
-    Model、Dataset、Branch、Tag 和 Commit 实例也可以被标记为 Run 的输入或输出。
+<aside class="note tip">
+<h1>提示</h1>
+
+Model、Dataset、Branch、Tag 和 Commit 实例也可以被标记为 Run 的输入或输出。
+
+</aside>
 
 ## 上传数据
 
@@ -334,16 +350,28 @@ run.mark_output(model_artifact)
 em.login(ais_host='<your-server-host>', api_key='<your-api-key>')
 ```
 
-!!! info "信息"
-    生成包含 EM 权限的 API Key 的方法请参阅[生成 API Key](../generate-api-key.md)。
+<aside class="note info">
+<h1>信息</h1>
 
-    如要了解 API Key 的更多细节和使用方法，请参阅 [API Key](../modules/security-management.md#api-key) 和[使用 API Key](../use-api-key.md)。
+生成包含 EM 权限的 API Key 的方法请参阅[生成 API Key](../generate-api-key.md)。
 
-!!! tip "提示"
-    服务器位于平台主机域名的 `/t9k/aistore/server` 路径下。例如，如果平台首页的 URL 为 `https://www.tensorstack.net/t9k/landing-page/`，那么服务器的 URL 为 `https://www.tensorstack.net/t9k/asset-hub/server`。
+如要了解 API Key 的更多细节和使用方法，请参阅 [API Key](../modules/security-management.md#api-key) 和[使用 API Key](../use-api-key.md)。
 
-!!! tip "提示"
-    如果您在 [Python SDK 配置文件](../tools/python-sdk-t9k/guide.md#配置文件)中提供了 `contexts[*].prefixes.aistore` 或 `contexts[*].auth.api_key` 字段的值，则它们将作为调用 `login()` 函数时相应参数的默认值。
+</aside>
+
+<aside class="note tip">
+<h1>提示</h1>
+
+服务器位于平台主机域名的 `/t9k/aistore/server` 路径下。例如，如果平台首页的 URL 为 `https://www.tensorstack.net/t9k/landing-page/`，那么服务器的 URL 为 `https://www.tensorstack.net/t9k/asset-hub/server`。
+
+</aside>
+
+<aside class="note tip">
+<h1>提示</h1>
+
+如果您在 [Python SDK 配置文件](../tools/python-sdk-t9k/guide.md#配置文件)中提供了 `contexts[*].prefixes.aistore` 或 `contexts[*].auth.api_key` 字段的值，则它们将作为调用 `login()` 函数时相应参数的默认值。
+
+</aside>
 
 然后调用 `Run` 或 `Artifact` 实例的 `upload()` 方法。
 
@@ -352,8 +380,12 @@ run.upload()
 artifact.upload()
 ```
 
-!!! note "注意"
-    当一个 Run 被上传时，被标记为其输入输出的 Artifact 也会同时被上传。
+<aside class="note">
+<h1>注意</h1>
+
+当一个 Run 被上传时，被标记为其输入输出的 Artifact 也会同时被上传。
+
+</aside>
 
 ### 上传本地保存的数据
 
