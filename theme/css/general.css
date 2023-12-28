@@ -101,10 +101,22 @@ h6:target::before {
     padding: 0 5px 50px 5px;
 }
 .content main {
-    margin-inline-start: auto;
+    margin-inline-start: 12%;
     margin-inline-end: auto;
-    max-width: var(--content-max-width);
+    max-width: 70%;
 }
+@media (max-width: 1800px) {
+    .content main {
+      margin-inline-start: 8%;
+    }
+}
+@media (max-width: 1400px) {
+    .content main {
+      margin-inline-start: 4%;
+      max-width: 92%;
+    }
+}
+
 .content p { line-height: 1.45em; }
 .content ol { line-height: 1.45em; }
 .content ul { line-height: 1.45em; }
