@@ -4,7 +4,7 @@
 
 ## 准备工作
 
-* 成为一个 [Project](../../module/security/index.md#project) 的[所有者](../manage-project/create-and-delete-project.md)或者[成员](../manage-project/project-add-member.md)。
+* 成为一个 [Project](../modules/account-and-security.md#project) 的所有者或[成员](./add-project-member.md)。
 
 ## 示例
 

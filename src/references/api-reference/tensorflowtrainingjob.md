@@ -27,7 +27,7 @@ _Appears in:_
 | --- | --- |
 | `type` _[ReplicaType](#replicatype)_ | ReplicaType is the type of the replica, one of "`chief`", "`worker`", "`ps`", or "`evaluator`". |
 | `replicas` _integer_ | The desired number of replicas created for the current replica type. If unspecified, defaults to 1. |
-| `template` _[PodTemplateSpec](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#podtemplatespec-v1-core)_ | Describes the pod that will be created for this replica. Note that RestartPolicy in PodTemplateSpec will always be set to `Never` as the job controller will create new pods if restart is required. |
+| `template` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#podtemplatespec-v1-core">PodTemplateSpec</a>_ | Describes the pod that will be created for this replica. Note that RestartPolicy in PodTemplateSpec will always be set to `Never` as the job controller will create new pods if restart is required. |
 | `restartPolicy` _[RestartPolicy](#restartpolicy)_ | The restart policy for this replica, one of `Always`, `OnFailure`, `Never`, or `ExitCode`. |
 
 
@@ -82,7 +82,7 @@ _Appears in:_
 | --- | --- |
 | `apiVersion` _string_ | `batch.tensorstack.dev/v1beta1`
 | `kind` _string_ | `TensorFlowTrainingJob`
-| `metadata` _[ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
+| `metadata` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta">ObjectMeta</a>_ | Refer to Kubernetes API documentation for fields of `metadata`. |
 | `spec` _[TensorFlowTrainingJobSpec](#tensorflowtrainingjobspec)_ |  |
 | `status` _[TensorFlowTrainingJobStatus](#tensorflowtrainingjobstatus)_ |  |
 
@@ -99,7 +99,7 @@ TensorFlowTrainingJobList contains a list of TensorFlowTrainingJob
 | --- | --- |
 | `apiVersion` _string_ | `batch.tensorstack.dev/v1beta1`
 | `kind` _string_ | `TensorFlowTrainingJobList`
-| `metadata` _[ListMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#listmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
+| `metadata` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#listmeta-v1-meta">ListMeta</a>_ | Refer to Kubernetes API documentation for fields of `metadata`. |
 | `items` _[TensorFlowTrainingJob](#tensorflowtrainingjob) array_ |  |
 
 

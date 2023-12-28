@@ -4,7 +4,7 @@
 
 ## 准备工作
 
-* 了解 [Project](../../module/security/index.md#project) 的基本概念。
+* 了解 [Project](../modules/account-and-security.md#project) 的基本概念。
 * 成为一个 Project 的所有者（owner）。如果您不是任何一个 Project 的所有者（owner），请联系平台管理员为您创建一个 Project。
 
 ## 查看自己的 Project

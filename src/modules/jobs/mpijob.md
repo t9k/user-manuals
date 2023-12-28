@@ -98,8 +98,8 @@ spec:
 
 目前 MPIJob 支持使用以下两种调度器：
 
-1. Kubernetes 的[默认调度器](https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler)
-2. [T9k Scheduler](../../cluster/scheduling/index.md)
+1. Kubernetes 的<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler">默认调度器</a>
+2. [T9k Scheduler](../scheduling/index.md)
 
 调度策略通过 `spec.scheduler` 字段设置：
 
@@ -118,7 +118,7 @@ spec:
 ```
 
 !!! info "信息"
-    队列和优先级都是 T9k Scheduler 的概念，具体含义请参阅 [T9k Scheduler](../../cluster/scheduling/index.md)。
+    队列和优先级都是 T9k Scheduler 的概念，具体含义请参阅 [T9k Scheduler](../scheduling/index.md)。
 
 ## 调试模式
 

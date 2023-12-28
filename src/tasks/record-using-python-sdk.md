@@ -343,7 +343,7 @@ em.login(ais_host='<your-server-host>', api_key='<your-api-key>')
     服务器位于平台主机域名的 `/t9k/aistore/server` 路径下。例如，如果平台首页的 URL 为 `https://www.tensorstack.net/t9k/landing-page/`，那么服务器的 URL 为 `https://www.tensorstack.net/t9k/asset-hub/server`。
 
 !!! tip "提示"
-    如果您在 [Python SDK 配置文件](../tools/python-sdk-t9k/user-guide.md#配置文件)中提供了 `contexts[*].prefixes.aistore` 或 `contexts[*].auth.api_key` 字段的值，则它们将作为调用 `login()` 函数时相应参数的默认值。
+    如果您在 [Python SDK 配置文件](../tools/python-sdk-t9k/guide.md#配置文件)中提供了 `contexts[*].prefixes.aistore` 或 `contexts[*].auth.api_key` 字段的值，则它们将作为调用 `login()` 函数时相应参数的默认值。
 
 然后调用 `Run` 或 `Artifact` 实例的 `upload()` 方法。
 

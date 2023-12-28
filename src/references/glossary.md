@@ -4,23 +4,23 @@
 
 ## API Key
 
-API Key 是一种 TensorStack AI 平台的安全认证方式，主要应用场景为非交互式程序化身份认证，例如自动化脚本等；或者受限制的交互式场景，例如命令行工具。详见 [API Key 文档](../module/index.md#api-key)。
+API Key 是一种 TensorStack AI 平台的安全认证方式，主要应用场景为非交互式程序化身份认证，例如自动化脚本等；或者受限制的交互式场景，例如命令行工具。详见 [API Key 文档](../modules/account-and-security.md#api-key)。
 
 ## Assessor 算法
 
-Assessor 算法是一系列训练评估算法的统称，用于在 AutoTune 中判断当前超参数的训练中间结果是否符合预期。详见 [AutoTune 文档](../module/building/autotune/concepts/tuner.md#assessor-算法)。
+Assessor 算法是一系列训练评估算法的统称，用于在 AutoTune 中判断当前超参数的训练中间结果是否符合预期。详见 [AutoTune 文档](../modules/building/hpo-algorithm.md#assessor-算法)。
 
 ## AutoTune
 
-AutoTune 是 TensorStack AI 平台提供的自动化机器学习工具，用于自动地进行特征工程、神经网络架构搜索、超参调优和模型压缩。详见 [AutoTune 文档](../module/building/autotune/index.md)。
+AutoTune 是 TensorStack AI 平台提供的自动化机器学习工具，用于自动地进行特征工程、神经网络架构搜索、超参调优和模型压缩。详见 [AutoTune 文档](../modules/building/autotune.md)。
 
 ## AutoTuneExperiment
 
-AutoTuneExperiment 是一种 TensorStack 资源，用于自动化机器学习超参数调优。详见 [AutoTuneExperiment 文档](../module/building/autotune/usage.md)。
+AutoTuneExperiment 是一种 TensorStack 资源，用于自动化机器学习超参数调优。详见 [AutoTuneExperiment 文档](../modules/building/autotuneexperiment.md)。
 
 ## BeamJob
 
-BeamJob 是一种 TensorStack 资源，用于通过 Apache Beam 框架和 Apache Flink 等底层计算引擎运行分布式计算任务。详见 [BeamJob 文档](../module/workflow/job/beamjob.md)。
+BeamJob 是一种 TensorStack 资源，用于通过 Apache Beam 框架和 Apache Flink 等底层计算引擎运行分布式计算任务。详见 [BeamJob 文档](../modules/jobs/beamjob.md)。
 
 ## ClusterRole
 
@@ -32,7 +32,7 @@ BeamJob 是一种 TensorStack 资源，用于通过 Apache Beam 框架和 Apache
 
 ## ConfigMap
 
-ConfigMap 是一种以键值对的形式存储非机密信息的 Kubernetes 资源。Pod 可以挂载 ConfigMap，并以环境变量、命令行参数或配置文件的形式使用 ConfigMap 中的信息。您可以在 TensorStack AI 平台的模型构建控制台中创建 ConfigMap，详见[管理 ConfigMap](../guide/manage-auxiliary-resources/manage-cm.md)。
+ConfigMap 是一种以键值对的形式存储非机密信息的 Kubernetes 资源。Pod 可以挂载 ConfigMap，并以环境变量、命令行参数或配置文件的形式使用 ConfigMap 中的信息。详见 [ConfigMap](../modules/auxiliary/configmap.md) 和 [管理 ConfigMap](../tasks/manage-configmap.md)。
 
 ## Container（容器）
 
@@ -48,7 +48,7 @@ CRD 是 Kubernetes 提供的一种扩展机制，允许开发者定制自己的�
 
 ## CronWorkflowRun
 
-CronWorkflowRun 是一种 TensorStack 资源，用于方便地定时执行 WorkflowRun。详见 [CronWorkflowRun 文档](../module/workflow/workflow/cronworkflowrun.md)。
+CronWorkflowRun 是一种 TensorStack 资源，用于方便地定时执行 WorkflowRun。详见 [CronWorkflowRun 文档](../modules/workflows/cronworkflowrun.md)。
 
 ## Docker
 
@@ -56,11 +56,11 @@ Docker 是一个提供操作系统级别的虚拟化技术的软件，用于将�
 
 ## Explorer
 
-Explorer 是一种 TensorStack 资源，用于通过浏览器访问文件管理器和集成开发环境（IDE）。详见 [Explorer 文档](../module/building/explorer.md)。
+Explorer 是一种 TensorStack 资源，用于通过浏览器访问文件管理器和集成开发环境（IDE）。详见 [Explorer 文档](../modules/auxiliary/explorer.md)。
 
 ## GenericJob
 
-GenericJob 是一种 TensorStack 资源，用于统一协调多个 Pod 共同完成一项任务。详见 [GenericJob 文档](../module/workflow/job/genericjob.md)。
+GenericJob 是一种 TensorStack 资源，用于统一协调多个 Pod 共同完成一项任务。详见 [GenericJob 文档](../modules/jobs/genericjob.md)。
 
 ## Image（镜像）
 
@@ -80,11 +80,11 @@ Kubernetes 是一个开源的容器编排引擎，用来对容器化应用进行
 
 ## MLService
 
-MLService 是一种 TensorStack 资源，用于部署机器学习模型预测服务，以供外部用户使用。详见 [MLService 文档](../module/deployment/concepts/mlservice.md)。
+MLService 是一种 TensorStack 资源，用于部署机器学习模型预测服务，以供外部用户使用。详见 [MLService 文档](../modules/deployment/mlservice.md)。
 
 ## MPIJob
 
-MPIJob 是一种 TensorStack 资源，用于通过 OpenMPI 协议进行分布式机器学习训练。详见 [MPIJob 文档](../module/workflow/job/mpijob.md)。
+MPIJob 是一种 TensorStack 资源，用于通过 OpenMPI 协议进行分布式机器学习训练。详见 [MPIJob 文档](../modules/jobs/mpijob.md)。
 
 ## Namespace（命名空间）
 
@@ -96,7 +96,7 @@ MPIJob 是一种 TensorStack 资源，用于通过 OpenMPI 协议进行分布式
 
 ## Notebook
 
-Notebook 是一种 TensorStack 资源，用于在集群中运行 Jupyter Notebook，同时提供 GPU 支持、SSH 访问支持等补充功能。详见 [Notebook 文档](../module/building/notebook.md)。
+Notebook 是一种 TensorStack 资源，用于在集群中运行 Jupyter Notebook，同时提供 GPU 支持、SSH 访问支持等补充功能。详见 [Notebook 文档](../modules/building/notebook.md)。
 
 ## Pod
 
@@ -104,23 +104,23 @@ Pod 是可以在 Kubernetes 中创建和管理的、最小的可部署的计算�
 
 ## PodGroup
 
-PodGroup 是一组 Pod 的集合，它们需要协同工作、一起被调度。详见 [PodGroup 文档](../module/cluster/scheduling/concept/podgroup.md)。
+PodGroup 是一组 Pod 的集合，它们需要协同工作、一起被调度。详见 [PodGroup 文档](../modules/scheduling/podgroup.md)。
 
 ## Project
 
-Project 是 TensorStack AI 平台对计算集群的抽象，建立在 Kubernetes 命名空间 （namespace）之上。不同的用户通常在不同的 Project 下工作，并且可以互相分享自己 Project。详见 [Project 文档](../module/security/index.md#project)。
+Project 是 TensorStack AI 平台对计算集群的抽象，建立在 Kubernetes 命名空间 （namespace）之上。不同的用户通常在不同的 Project 下工作，并且可以互相分享自己 Project。详见 [Project 文档](../modules/account-and-security.md#project)。
 
 ## PVC（PersistentVolumeClaim，持久卷申领）
 
-PVC 是一种持久化的存储资源，可以被 Pod 挂载、作为 Pod 的卷被访问。您可以在 TensorStack AI 平台的模型构建控制台中创建一个 PVC，并指定它的存储空间（例如 100M、1G）和访问模式（例如只读、可读写、可运行），详见[管理 PVC](../guide/manage-auxiliary-resources/manage-pvc.md)。
+PVC 是一种持久化的存储资源，可以被 Pod 挂载、作为 Pod 的卷被访问。您可以在 TensorStack AI 平台的模型构建控制台中创建一个 PVC，并指定它的存储空间（例如 100M、1G）和访问模式（例如只读、可读写、可运行），详见 [PVC](../modules/auxiliary/pvc.md) 和[管理 PVC](../tasks/manage-pvc.md)。
 
 ## PyTorchTrainingJob
 
-PyTorchTrainingJob 是一种 TensorStack 资源，用于通过 PyTorch 框架进行分布式机器学习训练。详见 [PyTorchTrainingJob 文档](../module/workflow/job/pytorchtrainingjob.md)。
+PyTorchTrainingJob 是一种 TensorStack 资源，用于通过 PyTorch 框架进行分布式机器学习训练。详见 [PyTorchTrainingJob 文档](../modules/jobs/pytorchtrainingjob.md)。
 
-## Queue
+## Queue（队列）
 
-Queue 是一种 TensorStack 资源，用于存放 PodGroup 并根据它们的优先级进行调度。详见 [Queue 文档](../module/cluster/scheduling/concept/queue.md)。
+队列是一种 TensorStack 资源，用于存放 PodGroup 并根据它们的优先级进行调度。详见[队列文档](../modules/scheduling/queue.md)。
 
 ## RBAC（Role Based Access Control）
 
@@ -140,7 +140,7 @@ RoleBinding 将 Role 中定义的权限赋予一个用户或者一个 ServiceAcc
 
 ## Secret
 
-Secret 是一种存储密码、令牌、SSH Key 等敏感信息的 Kubernetes 资源。Pod 可以将 Secret 挂载为一个文件，并读取其中的信息。您可以在 TensorStack AI 平台的模型构建控制台中创建 Secret，详见[管理 Secret](../guide/manage-auxiliary-resources/manage-secret.md)。
+Secret 是一种存储密码、令牌、SSH Key 等敏感信息的 Kubernetes 资源。Pod 可以将 Secret 挂载为一个文件，并读取其中的信息。详见 [Secret](../modules/auxiliary/secret.md) 和[管理 Secret](../tasks/manage-secret.md)。
 
 ## ServiceAccount
 
@@ -148,19 +148,19 @@ ServiceAccount 为 Pod 提供一个身份凭证。当您创建一个 Pod 时，�
 
 ## SimpleMLService
 
-SimpleMLService 是一种 TensorStack 资源，用于部署机器学习模型预测服务，以供内部开发者快速测试。详见 [SimpleMLService 文档](../module/deployment/concepts/simplemlservice.md)。
+SimpleMLService 是一种 TensorStack 资源，用于部署机器学习模型预测服务，以供内部开发者快速测试。详见 [SimpleMLService 文档](../modules/deployment/simplemlservice.md)。
 
 ## TensorBoard
 
-TensorBoard 是 TensorFlow 提供的机器学习可视化工具。TensorStack AI 平台提供在集群中一键部署 TensorBoard 的功能，详见 [TensorBoard 文档](../module/building/tensorboard.md)。
+TensorBoard 是 TensorFlow 提供的机器学习可视化工具。TensorStack AI 平台提供在集群中一键部署 TensorBoard 的功能，详见 [TensorBoard 文档](../modules/building/tensorboard.md)。
 
 ## TensorFlowTrainingJob
 
-TensorFlowTrainingJob 是一种 TensorStack 资源，用于通过 TensorFlow 框架进行分布式机器学习训练。详见 [TensorFlowTrainingJob 文档](../module/workflow/job/tensorflowtrainingjob.md)。
+TensorFlowTrainingJob 是一种 TensorStack 资源，用于通过 TensorFlow 框架进行分布式机器学习训练。详见 [TensorFlowTrainingJob 文档](../modules/jobs/tensorflowtrainingjob.md)。
 
 ## Tuner 算法
 
-Tuner 算法是一系列超参数调优算法的统称，用于在 AutoTune 中选取合适的超参数组合。详见 [AutoTune 文档](../module/building/autotune/concepts/tuner.md#tuner-算法)。
+Tuner 算法是一系列超参数调优算法的统称，用于在 AutoTune 中选取合适的超参数组合。详见 [AutoTune 文档](../modules/building/hpo-algorithm.md#tuner-算法)。
 
 ## Volume（卷）
 
@@ -168,12 +168,12 @@ Tuner 算法是一系列超参数调优算法的统称，用于在 AutoTune 中�
 
 ## WorkflowRun
 
-WorkflowRun 是一种 TensorStack 资源，用于实例化 WorkflowTemplate 并提供 WorkflowTemplate 运行时所需的参数、工作空间等资源。详见 [WorkflowRun 文档](../module/workflow/workflow/workflowrun.md)。
+WorkflowRun 是一种 TensorStack 资源，用于实例化 WorkflowTemplate 并提供 WorkflowTemplate 运行时所需的参数、工作空间等资源。详见 [WorkflowRun 文档](../modules/workflows/workflowrun.md)。
 
 ## WorkflowTemplate
 
-WorkflowTemplate 是一种 TensorStack 资源，用于在 Kubernetes 中有序、高效、方便地组织运行各类工作负载。详见 [WorkflowTemplate 文档](../module/workflow/workflow/workflowtemplate.md)。
+WorkflowTemplate 是一种 TensorStack 资源，用于在 Kubernetes 中有序、高效、方便地组织运行各类工作负载。详见 [WorkflowTemplate 文档](../modules/workflows/workflowtemplate.md)。
 
 ## XGBoostTrainingJob
 
-XGBoostTrainingJob 是一种 TensorStack 资源，用于通过 XGBoost 框架进行分布式机器学习训练。详见 [XGBoostTrainingJob 文档](../module/workflow/job/xgboosttrainingjob.md)。
+XGBoostTrainingJob 是一种 TensorStack 资源，用于通过 XGBoost 框架进行分布式机器学习训练。详见 [XGBoostTrainingJob 文档](../modules/jobs/xgboosttrainingjob.md)。

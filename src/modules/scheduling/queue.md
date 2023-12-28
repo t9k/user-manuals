@@ -44,7 +44,7 @@ spec:
 
 ## 优先级
 
-队列的优先级是通过字段 `spec.priority` 来指定的，调度器会优先为高优先级队列分配资源。当两个队列的 `spec.priority` 相同时，调度器会通过[公平排序机制](../policy/fair-share.md)判断任务调度的顺序。
+队列的优先级是通过字段 `spec.priority` 来指定的，调度器会优先为高优先级队列分配资源。当两个队列的 `spec.priority` 相同时，调度器会通过[公平排序机制](./scheduling-policy.md#公平排序)判断任务调度的顺序。
 
 当集群中包含生产级别任务和测试任务时，不应该把两种类型任务放在同一队列中，并且生产级别任务的队列优先级应该高于测试任务的队列。
 
@@ -124,5 +124,5 @@ status:
 
 与队列相关的调度策略如下：
 
-* [资源抢占](../policy/preemption-of-queue-resource.md)
-* [公平排序](../policy/fair-share.md)
+* [资源抢占](./scheduling-policy.md#资源抢占)
+* [公平排序](./scheduling-policy.md#公平排序)

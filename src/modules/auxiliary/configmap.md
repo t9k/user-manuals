@@ -66,5 +66,5 @@ spec:
 
 ## 下一步
 
-* 了解 [ConfigMap 的概念](https://kubernetes.io/docs/concepts/configuration/configmap/)
-* 了解 [ConfigMap 的定义](https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/config-map-v1/)
+* 了解 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/configuration/configmap/">ConfigMap 的概念</a>
+* 了解 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/config-map-v1/">ConfigMap 的定义</a>

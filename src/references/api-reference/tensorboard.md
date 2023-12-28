@@ -41,7 +41,7 @@ _Appears in:_
 | Field | Description |
 | --- | --- |
 | `reference` _[PodReference](#podreference)_ | References to the subordinate `v1.Pod`. |
-| `phase` _[PodPhase](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#podphase-v1-core)_ | Replicated from the corresponding field in the subordinate `v1.Pod`. |
+| `phase` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#podphase-v1-core">PodPhase</a>_ | Replicated from the corresponding field in the subordinate `v1.Pod`. |
 
 
 #### SchedulePolicy
@@ -85,7 +85,7 @@ _Appears in:_
 | --- | --- |
 | `apiVersion` _string_ | `tensorstack.dev/v1beta1`
 | `kind` _string_ | `TensorBoard`
-| `metadata` _[ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
+| `metadata` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta">ObjectMeta</a>_ | Refer to Kubernetes API documentation for fields of `metadata`. |
 | `spec` _[TensorBoardSpec](#tensorboardspec)_ |  |
 | `status` _[TensorBoardStatus](#tensorboardstatus)_ |  |
 
@@ -102,10 +102,10 @@ _Appears in:_
 | Field | Description |
 | --- | --- |
 | `type` _[TensorBoardConditionType](#tensorboardconditiontype)_ | Type is the type of the condition. Possible values are Idle, etc |
-| `status` _[ConditionStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#conditionstatus-v1-core)_ | Status is the status of the condition type. Possible values of type Idle are True|False|Unknown |
+| `status` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#conditionstatus-v1-core">ConditionStatus</a>_ | Status is the status of the condition type. Possible values of type Idle are True|False|Unknown |
 | `message` _string_ | Message is the reason of the status |
-| `lastTransitionTime` _[Time](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta)_ | LastTransitionTime is the last time the status was changed |
-| `lastProbeTime` _[Time](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta)_ | LastProbeTime is the last time the condition was probed |
+| `lastTransitionTime` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta">Time</a>_ | LastTransitionTime is the last time the status was changed |
+| `lastProbeTime` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta">Time</a>_ | LastProbeTime is the last time the condition was probed |
 
 
 #### TensorBoardConditionType
@@ -131,7 +131,7 @@ TensorBoardList contains a list of TensorBoard
 | --- | --- |
 | `apiVersion` _string_ | `tensorstack.dev/v1beta1`
 | `kind` _string_ | `TensorBoardList`
-| `metadata` _[ListMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#listmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
+| `metadata` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#listmeta-v1-meta">ListMeta</a>_ | Refer to Kubernetes API documentation for fields of `metadata`. |
 | `items` _[TensorBoard](#tensorboard) array_ |  |
 
 
@@ -172,7 +172,7 @@ _Appears in:_
 | `image` _string_ | The container image used to run the tensorboard. |
 | `runMode` _[TensorBoardRunMode](#tensorboardrunmode)_ |  |
 | `scheduler` _[SchedulePolicy](#schedulepolicy)_ |  |
-| `resources` _[ResourceRequirements](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#resourcerequirements-v1-core)_ | Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/ |
+| `resources` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#resourcerequirements-v1-core">ResourceRequirements</a>_ | Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/ |
 
 
 #### TensorBoardStatus

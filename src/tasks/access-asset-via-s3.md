@@ -4,7 +4,7 @@
 
 ## 准备工作
 
-* 完成教程[操作 Folder 和 Asset](./manipulate-folder-and-asset.md)。
+* 完成教程[操作 Folder 和 Asset](./manipulate-folder-asset.md)。
 
 ## 创建 S3 凭证
 
@@ -73,7 +73,7 @@ s3cmd get s3://baa98ded-2f93-4e9b-835a-6515a63a6eb4/branch-name/path/to/object
 
 ## 通过 StorageShim 访问 Asset
 
-除了通过命令行工具访问，您还可以创建一个 [StorageShim](../manage-auxiliary-resources/manage-datasetconnect.md)，将 S3 bucket 的某个子路径形式化为一个持久卷，以便在 Notebook、Job、Workflow 等工作负载中挂载，直接以文件系统的形式查看、编辑 S3 bucket 中的文件。
+除了通过命令行工具访问，您还可以创建一个 [StorageShim](./manage-storageshim.md)，将 S3 bucket 的某个子路径形式化为一个持久卷，以便在 Notebook、Job、Workflow 等工作负载中挂载，直接以文件系统的形式查看、编辑 S3 bucket 中的文件。
 
 在创建 StorageShim 之前，您首先需要创建一个 Secret 保存 S3 bucket 的相关信息。在 S3 凭证的详情页面，点击左侧的 **S3-cfg Secret** 标签，然后点击右上角的**复制**：
 

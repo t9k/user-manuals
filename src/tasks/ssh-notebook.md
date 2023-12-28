@@ -13,13 +13,13 @@ TODO: 等待前端的修改。
 
 ### 通过 t9k-pf 命令行工具获取连接方式
 
-[t9k-pf 命令行工具](../../tool/tensorstack-pf-cli/index.md)的功能类似于 `kubectl port-forward`，可以让您在本地通过端口转发的方式获取 Notebook 的 SSH 连接方式。
+[t9k-pf 命令行工具](../tools/cli-t9k-pf/index.md)的功能类似于 `kubectl port-forward`，可以让您在本地通过端口转发的方式获取 Notebook 的 SSH 连接方式。
 
 #### 准备 t9k-pf 命令行工具
 
-首先您需要参照 t9k-pf [安装教程](../../tool/tensorstack-pf-cli/user-guide.md#下载安装)完成命令行工具的安装。
+首先您需要参照 t9k-pf [安装教程](../tools/cli-t9k-pf/guide.md#下载安装)完成命令行工具的安装。
 
-然后您需要参照 t9k-pf [身份认证和授权教程](../../tool/tensorstack-pf-cli/user-guide.md#身份认证和授权)完成相应的身份认证和授权。
+然后您需要参照 t9k-pf [身份认证和授权教程](../tools/cli-t9k-pf/guide.md#身份认证和授权)完成相应的身份认证和授权。
 
 #### 通过 URL 获取 Notebook 的 SSH 连接方式
 
@@ -88,7 +88,7 @@ ssh t9kuser@<Host> -p <Port> \
 
 #### 安装 Remote SSH 插件
 
-在 VSCode 中搜索 **[Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh)** 插件并安装：
+在 VSCode 中搜索 **<a target="_blank" rel="noopener noreferrer" href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh">Remote - SSH</a>** 插件并安装：
 
 <figure class="screenshot">
   <img alt="vscode-plugin" src="../assets/tasks/develop-and-test-model/use-notebook-remotely-via-ssh-connection/vscode-plugin.png" class="screenshot"/>
@@ -156,7 +156,7 @@ VSCode 会新建一个窗口，等待连接建立之后，左下角会提示 **S
 2. Notebook 的资源配置至少为 3 个 CPU，3 GiB 内存，Notebook 绑定的持久卷至少有 2.5 GiB 的可用空间。推荐配置为至少 4 个 CPU，4 GiB 内存，5 GiB 持久卷。
 
 !!! info "信息"
-    使用 PyCharm 远程连接 Notebook 进行开发时，PyCharm 需要在 Notebook 容器中安装并运行一个 IDE Backend（参阅[官方文档](https://www.jetbrains.com/help/pycharm/remote-development-overview.html)）。结合官方推荐的配置和实际测试，我们给出了上面的资源配置要求。
+    使用 PyCharm 远程连接 Notebook 进行开发时，PyCharm 需要在 Notebook 容器中安装并运行一个 IDE Backend（参阅<a target="_blank" rel="noopener noreferrer" href="https://www.jetbrains.com/help/pycharm/remote-development-overview.html">官方文档</a>）。结合官方推荐的配置和实际测试，我们给出了上面的资源配置要求。
 
 打开 PyCharm，在左侧的导航菜单中点击 **Remote Development > SSH**，然后点击右侧的 **New Connection**：
 

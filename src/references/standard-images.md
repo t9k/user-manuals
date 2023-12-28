@@ -6,7 +6,7 @@
 
 ## Notebook 标准镜像列表
 
-每个 Notebook 标准镜像包含特定的机器学习框架，同时预装了一些 Python 包、命令行工具和最新版本的[平台工具](../../tool/index.md)。
+每个 Notebook 标准镜像包含特定的机器学习框架，同时预装了一些 Python 包、命令行工具和最新版本的[平台工具](../tools/index.md)。
 
 当前正在维护的 Notebook 标准镜像如下表所示：
 
@@ -19,7 +19,7 @@
 
 说明：
 
-1. 您可以在[创建 Notebook](../../tasks/develop-and-test-model/create-notebook.md#创建标准的-notebook) 时选择以使用这些镜像，也可以直接从 Docker Hub 的 [t9kpublic](https://hub.docker.com/u/t9kpublic) Namespace 下拉取这些镜像以使用。
+1. 您可以在[创建 Notebook](../tasks/create-notebook.md#创建标准的-notebook) 时选择以使用这些镜像，也可以直接从 Docker Hub 的 <a target="_blank" rel="noopener noreferrer" href="https://hub.docker.com/u/t9kpublic">t9kpublic</a> Namespace 下拉取这些镜像以使用。
 2. 这些镜像会持续更新，直到相应机器学习框架的小版本更新后被新镜像替代，此时旧镜像会被移除。镜像的标签（tag）是它的版本号，其跟随平台的版本号进行更新；镜像的每一次更新可能包含修复问题、更新包或工具、更新 Notebook 的扩展程序等内容。
 3. 标签中包含 `-sudo` 的镜像包含 `sudo` 命令，其中用户（`t9kuser`）的密码为 `tensorstack`。
 4. 所有镜像包含以下命令行工具：

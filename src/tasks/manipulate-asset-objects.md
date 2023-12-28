@@ -4,7 +4,7 @@
 
 ## 准备工作
 
-* 完成教程[操作 Asset 的分支、tag 和 commit](./manipulate-branch-tag-and-commit-of-asset.md)。
+* 完成教程[操作 Asset 的分支、tag 和 commit](./manipulate-asset-branch-tag.md)。
 
 ## 通过命令行工具
 

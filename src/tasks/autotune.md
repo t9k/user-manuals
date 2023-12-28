@@ -1,6 +1,6 @@
 # 使用 AutoTune 进行超参数优化
 
-本教程演示如何使用 [AutoTune](../modules/building/autotune/index.md) 对模型进行超参数优化（以 Keras 模型的单机训练为例）。
+本教程演示如何使用 [AutoTune](../modules/building/autotune.md) 对模型进行超参数优化（以 Keras 模型的单机训练为例）。
 
 ## 准备训练脚本
 
@@ -8,7 +8,7 @@
 
 ### 创建 PVC
 
-参照[创建 PVC](../manage-auxiliary-resources/manage-pvc.md#创建-pvc) 教程创建名为 `autotune-mnist-keras`、大小为 1Gi 的 PVC。
+参照[创建 PVC](./manage-pvc.md#创建-pvc) 教程创建名为 `autotune-mnist-keras`、大小为 1Gi 的 PVC。
 
 ### 创建 Notebook
 
@@ -381,7 +381,7 @@ AIMD 的实验数据是以文件夹形式管理的，所以您首先需要在实
 在超参数优化实验中，如果您希望使用 AIMD 来存储实验数据，需要生成一个具有访问 AIMD 数据库权限的 API Key，您可以通过这个 API Key 上传实验数据。
 
 !!! info "什么是 API Key"
-    请参阅 [API Key 介绍](../../module/security/index.md#api-key)。
+    请参阅 [API Key 介绍](../modules/account-and-security.md#api-key)。
 
 您需要按照[生成 API Key](../api-key/generate-api-key.md) 教程中的步骤，在安全控制台中生成一个 API Key，其中必须勾选 AIMD 选项。
 

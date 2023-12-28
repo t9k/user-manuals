@@ -23,7 +23,7 @@ spec:
       uri: s3://models/mnist/
       containerPath: /var/lib/t9k/model
   tensorflow:
-    image: "t9kpublic/tensorflow-serving:2.6.0"
+    image: t9kpublic/tensorflow-serving:2.6.0
     resources: 
       requests:
         cpu: 1
@@ -33,11 +33,11 @@ spec:
 本示例的 spec 字段的子字段释义如下：
 * `replicas`: 定义运行推理服务的副本数量是 1。
 * `storage.s3`: 推理服务的模型存储存储在 S3 服务中，子字段的释义如下
-    * `secretName`: Secret s3-secret 中存储着 S3 配置信息，Secret 的[内容格式](#s3-secret)。
-    * `uri`: 模型在 S3 中的存储路径是 s3://models/mnist/。
+    * `secretName`: Secret s3-secret 中存储着 S3 配置信息，Secret 的[内容格式](#创建-s3-secret)。
+    * `uri`: 模型在 S3 中的存储路径是 `s3://models/mnist/`。
     * `containerPath`: 模型被下载到容器时，在容器中存储模型的路径是 `/var/lib/t9k/model`。
 * `tensorflow`: 推理服务的框架是 tensorflow，子字段释义如下
-    * `image`: 使用的推理服务镜像是 "t9kpublic/tensorflow-serving:2.6.0"。
+    * `image`: 使用的推理服务镜像是 `t9kpublic/tensorflow-serving:2.6.0`。
     * `resources`: 定义一个副本 Pod 使用的资源量。
 
 ## 默认支持的框架
@@ -133,7 +133,7 @@ spec:
 ## 调度器
 
 SimpleMLService 支持使用两种调度器：
-* [Kubernetes 默认调度器](https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler)
+* <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler">Kubernetes 默认调度器</a>
 * [T9k Scheduler 调度器](../scheduling/index.md)
 
 通过 `spec.scheduler` 字段可以设置使用哪个调度器：
@@ -163,7 +163,7 @@ SimpleMLService 默认支持的模型存储是 S3 或 [PVC](../auxiliary/pvc.md)
 
 存储 S3 信息的 Secret 需要满足下列条件：
 1. 设置 label `tensorstack.dev/resource: s3`。
-2. 设置 data[.s3cfg] 字段，内容是 [s3cmd](https://s3tools.org/s3cmd) config 的 base64 编码。
+2. 设置 data[.s3cfg] 字段，内容是 <a target="_blank" rel="noopener noreferrer" href="https://s3tools.org/s3cmd">s3cmd</a> config 的 base64 编码。
 
 S3 Secret 的 YAML 示例如下：
 ```yaml
@@ -228,9 +228,9 @@ SimpleMLService 的状态记录在 status 字段中。
 * `dns`: 推理服务在集群内的访问地址
 * `ports`: 推理服务可供访问的服务端口
 
-`status.conditions` 字段记录了当前 SimpleMLService 的状态，包括下列 2 中类型：
-* ModelDownloaded: 记录模型是否成功地从 S3 下载到容器本地。
-* Ready: 推理服务是否就绪。 
+`status.conditions` 字段记录了当前 SimpleMLService 的状态，包括下列 2 种类型：
+* `ModelDownloaded`: 记录模型是否成功地从 S3 下载到容器本地。
+* `Ready`: 推理服务是否就绪。 
 
 在下面的示例中：
 * 访问推理服务的地址是 `sample.czx.svc.cluster.local`

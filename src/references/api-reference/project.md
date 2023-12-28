@@ -59,7 +59,7 @@ _Appears in:_
 | --- | --- |
 | `name` _string_ |  |
 | `uid` _UID_ |  |
-| `phase` _[PodPhase](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#podphase-v1-core)_ |  |
+| `phase` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#podphase-v1-core">PodPhase</a>_ |  |
 
 
 #### NetworkPolicy
@@ -88,7 +88,7 @@ _Appears in:_
 
 | Field | Description |
 | --- | --- |
-| `spec` _[NetworkPolicySpec](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#networkpolicyspec-v1-networking)_ |  |
+| `spec` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#networkpolicyspec-v1-networking">NetworkPolicySpec</a>_ |  |
 
 
 #### Project
@@ -104,7 +104,7 @@ _Appears in:_
 | --- | --- |
 | `apiVersion` _string_ | `tensorstack.dev/v1beta1`
 | `kind` _string_ | `Project`
-| `metadata` _[ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
+| `metadata` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta">ObjectMeta</a>_ | Refer to Kubernetes API documentation for fields of `metadata`. |
 | `spec` _[ProjectSpec](#projectspec)_ |  |
 | `status` _[ProjectStatus](#projectstatus)_ |  |
 
@@ -121,9 +121,9 @@ _Appears in:_
 | Field | Description |
 | --- | --- |
 | `type` _[ProjectConditionType](#projectconditiontype)_ | Type is the type of the condition. |
-| `status` _[ConditionStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#conditionstatus-v1-core)_ | Status is the status of the condition. Can be True, False, Unknown. |
-| `lastUpdateTime` _[Time](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta)_ | Last time we probed the condition. |
-| `lastTransitionTime` _[Time](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta)_ | Last time the condition transitioned from one status to another. |
+| `status` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#conditionstatus-v1-core">ConditionStatus</a>_ | Status is the status of the condition. Can be True, False, Unknown. |
+| `lastUpdateTime` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta">Time</a>_ | Last time we probed the condition. |
+| `lastTransitionTime` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta">Time</a>_ | Last time the condition transitioned from one status to another. |
 | `reason` _string_ | Unique, one-word, CamelCase reason for the condition's last transition. |
 | `message` _string_ | Human-readable message indicating details about last transition. |
 
@@ -151,7 +151,7 @@ ProjectList contains a list of Project
 | --- | --- |
 | `apiVersion` _string_ | `tensorstack.dev/v1beta1`
 | `kind` _string_ | `ProjectList`
-| `metadata` _[ListMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#listmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
+| `metadata` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#listmeta-v1-meta">ListMeta</a>_ | Refer to Kubernetes API documentation for fields of `metadata`. |
 | `items` _[Project](#project) array_ |  |
 
 
@@ -201,8 +201,8 @@ _Appears in:_
 | --- | --- |
 | `apiVersion` _string_ | `tensorstack.dev/v1beta1`
 | `kind` _string_ | `QuotaProfile`
-| `metadata` _[ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
-| `spec` _[ResourceQuotaSpec](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#resourcequotaspec-v1-core)_ |  |
+| `metadata` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta">ObjectMeta</a>_ | Refer to Kubernetes API documentation for fields of `metadata`. |
+| `spec` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#resourcequotaspec-v1-core">ResourceQuotaSpec</a>_ |  |
 
 
 #### QuotaProfileList
@@ -217,7 +217,7 @@ QuotaProfileList contains a list of QuotaProfile
 | --- | --- |
 | `apiVersion` _string_ | `tensorstack.dev/v1beta1`
 | `kind` _string_ | `QuotaProfileList`
-| `metadata` _[ListMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#listmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
+| `metadata` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#listmeta-v1-meta">ListMeta</a>_ | Refer to Kubernetes API documentation for fields of `metadata`. |
 | `items` _[QuotaProfile](#quotaprofile) array_ |  |
 
 
@@ -247,7 +247,7 @@ _Appears in:_
 | Field | Description |
 | --- | --- |
 | `name` _string_ |  |
-| `ResourceQuotaStatus` _[ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#resourcequotastatus-v1-core)_ |  |
+| `ResourceQuotaStatus` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#resourcequotastatus-v1-core">ResourceQuotaStatus</a>_ |  |
 
 
 #### ResourceQuotaTemplate
@@ -261,7 +261,7 @@ _Appears in:_
 
 | Field | Description |
 | --- | --- |
-| `spec` _[ResourceQuotaSpec](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#resourcequotaspec-v1-core)_ |  |
+| `spec` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#resourcequotaspec-v1-core">ResourceQuotaSpec</a>_ |  |
 
 
 #### SchedulePolicy

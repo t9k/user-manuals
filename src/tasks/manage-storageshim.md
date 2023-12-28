@@ -2,12 +2,12 @@
 
 ## 概述
 
-TensorStack AI 平台支持用户在多个环节使用 [S3 协议](https://en.wikipedia.org/wiki/Amazon_S3)的存储服务。本教程演示如何使用平台提供的 StorageShim 通过 PVC 的形式使用 S3。
+TensorStack AI 平台支持用户在多个环节使用 <a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Amazon_S3">S3 协议</a>的存储服务。本教程演示如何使用平台提供的 StorageShim 通过 PVC 的形式使用 S3。
 
 本教程涉及如下基本概念：
 
-* **[S3（Simple Storage Service）](https://aws.amazon.com/cn/s3/)**提供可扩展、安全、高可用的对象存储服务，可以存储和检索任意数量和类型的数据，包括文档、图片、视频、音频等。更多详细信息请参阅[附录](#附录)。
-* **[PVC（PersistentVolumeClaim）](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)**是 Kubernetes 提供的一种声明式的存储卷请求，用于向 Kubernetes 集群申请持久化存储卷。PVC 使应用程序与存储资源解耦，提高了存储资源的管理和使用效率。
+* **<a target="_blank" rel="noopener noreferrer" href="https://aws.amazon.com/cn/s3/">S3（Simple Storage Service）</a>**提供可扩展、安全、高可用的对象存储服务，可以存储和检索任意数量和类型的数据，包括文档、图片、视频、音频等。更多详细信息请参阅[附录](#附录)。
+* **<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/">PVC（PersistentVolumeClaim）</a>**是 Kubernetes 提供的一种声明式的存储卷请求，用于向 Kubernetes 集群申请持久化存储卷。PVC 使应用程序与存储资源解耦，提高了存储资源的管理和使用效率。
 * **T9k StorageShim** 提供了把 S3 服务转换为 PVC 的能力，让用户能够以 Kubernetes 原生的方式使用 S3。
 
 ## 详细过程
@@ -213,7 +213,7 @@ s3cmd setacl --acl-public s3://my-bucket-name/path/to/remote/file
 
 ### 对象存储（object storage）
 
-[对象存储](https://en.wikipedia.org/wiki/Object_storage)是一种将数据存储为对象的数据存储架构，这与文件系统将数据作为文件层次结构进行管理不同。 每个对象通常包括数据本身（object）、元数据（metadata）和全局唯一标识符（object key）。
+<a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Object_storage">对象存储</a>是一种将数据存储为对象的数据存储架构，这与文件系统将数据作为文件层次结构进行管理不同。 每个对象通常包括数据本身（object）、元数据（metadata）和全局唯一标识符（object key）。
 
 对象存储是存储海量非结构化数据（例如图像、视频和文档）的不错选择，例如大规模机器学习中使用的海量训练数据、特征、模型等。
 

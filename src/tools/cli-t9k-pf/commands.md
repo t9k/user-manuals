@@ -2,7 +2,7 @@
 
 ## notebook
 
-针对 TensorStack AI 平台的 Notebook 资源，我们提供了直接通过其 URL 地址获取 SSH 连接方式的功能。使用该命令，您不需要指定名称、命名空间等信息。关于 SSH 连接的详细内容请参阅[通过 SSH 连接远程使用 Notebook](../../guide/develop-and-test-model/use-notebook-remotely-via-ssh-connection.md)。
+针对 TensorStack AI 平台的 Notebook 资源，我们提供了直接通过其 URL 地址获取 SSH 连接方式的功能。使用该命令，您不需要指定名称、命名空间等信息。关于 SSH 连接的详细内容请参阅[通过 SSH 连接远程使用 Notebook](../../tasks/ssh-notebook.md)。
 
 ### 使用
 

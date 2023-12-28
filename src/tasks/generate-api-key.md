@@ -4,7 +4,7 @@
 
 ## 准备工作
 
-* 了解 [API Key](../../module/security/index.md#api-key) 的基本概念。
+* 了解 [API Key](../modules/account-and-security.md#api-key) 的基本概念。
 
 ## 开启 API Key 服务
 

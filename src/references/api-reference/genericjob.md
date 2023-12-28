@@ -95,7 +95,7 @@ _Appears in:_
 | --- | --- |
 | `apiVersion` _string_ | `batch.tensorstack.dev/v1beta1`
 | `kind` _string_ | `GenericJob`
-| `metadata` _[ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
+| `metadata` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta">ObjectMeta</a>_ | Refer to Kubernetes API documentation for fields of `metadata`. |
 | `spec` _[GenericJobSpec](#genericjobspec)_ |  |
 | `status` _[GenericJobStatus](#genericjobstatus)_ |  |
 
@@ -112,7 +112,7 @@ GenericJobList contains a list of GenericJob
 | --- | --- |
 | `apiVersion` _string_ | `batch.tensorstack.dev/v1beta1`
 | `kind` _string_ | `GenericJobList`
-| `metadata` _[ListMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#listmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
+| `metadata` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#listmeta-v1-meta">ListMeta</a>_ | Refer to Kubernetes API documentation for fields of `metadata`. |
 | `items` _[GenericJob](#genericjob) array_ |  |
 
 
@@ -165,8 +165,8 @@ _Appears in:_
 | Field | Description |
 | --- | --- |
 | `type` _[JobConditionType](#jobconditiontype)_ | Type of job condition: Complete or Failed. |
-| `status` _[ConditionStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#conditionstatus-v1-core)_ | Status of the condition, one of True, False, Unknown. |
-| `lastTransitionTime` _[Time](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta)_ | Last time the condition transited from one status to another. |
+| `status` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#conditionstatus-v1-core">ConditionStatus</a>_ | Status of the condition, one of True, False, Unknown. |
+| `lastTransitionTime` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta">Time</a>_ | Last time the condition transited from one status to another. |
 | `reason` _string_ | Brief reason for the condition's last transition. |
 | `message` _string_ | Human readable message indicating details about last transition. |
 
@@ -240,7 +240,7 @@ _Appears in:_
 | `type` _string_ | Replica type. |
 | `replicas` _integer_ | The desired number of replicas of this replica type. Defaults to 1. |
 | `restartPolicy` _[RestartPolicy](#restartpolicy)_ | Restart policy for replicas of this replica type. One of Always, OnFailure, Never. Optional: Default to OnFailure. |
-| `template` _[PodTemplateSpec](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#podtemplatespec-v1-core)_ | Defines the template used to create pods. |
+| `template` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#podtemplatespec-v1-core">PodTemplateSpec</a>_ | Defines the template used to create pods. |
 
 
 #### ReplicaStatus
@@ -256,7 +256,7 @@ _Appears in:_
 | --- | --- |
 | `name` _string_ | Pod name. |
 | `uid` _UID_ | Pod uid. |
-| `phase` _[PodPhase](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#podphase-v1-core)_ | Pod phase. The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. |
+| `phase` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#podphase-v1-core">PodPhase</a>_ | Pod phase. The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. |
 | `containers` _[ContainerStatus](#containerstatus) array_ | Containers status. |
 
 
@@ -343,7 +343,7 @@ _Appears in:_
 
 | Field | Description |
 | --- | --- |
-| `ports` _[ServicePort](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#serviceport-v1-core) array_ | The list of ports that are exposed by this service. |
+| `ports` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#serviceport-v1-core">ServicePort</a> array_ | The list of ports that are exposed by this service. |
 
 
 #### T9kScheduler

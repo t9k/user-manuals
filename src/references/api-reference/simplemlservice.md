@@ -44,7 +44,7 @@ _Appears in:_
 | --- | --- |
 | `port` _integer_ |  |
 | `nodePort` _integer_ |  |
-| `protocol` _[Protocol](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#protocol-v1-core)_ | default is TCP |
+| `protocol` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#protocol-v1-core">Protocol</a>_ | default is TCP |
 
 
 #### Condition
@@ -58,9 +58,9 @@ _Appears in:_
 
 | Field | Description |
 | --- | --- |
-| `lastTransitionTime` _[Time](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta)_ |  |
+| `lastTransitionTime` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta">Time</a>_ |  |
 | `type` _[SimpleMLServiceConditionType](#simplemlserviceconditiontype)_ |  |
-| `status` _[ConditionStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#conditionstatus-v1-core)_ |  |
+| `status` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#conditionstatus-v1-core">ConditionStatus</a>_ |  |
 | `reason` _string_ |  |
 | `message` _string_ |  |
 
@@ -76,7 +76,7 @@ _Appears in:_
 
 | Field | Description |
 | --- | --- |
-| `spec` _[PodSpec](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#podspec-v1-core)_ |  |
+| `spec` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#podspec-v1-core">PodSpec</a>_ |  |
 
 
 #### DeploymentSpec
@@ -92,7 +92,7 @@ _Appears in:_
 | --- | --- |
 | `scheduler` _[SchedulePolicy](#schedulepolicy)_ | Scheduler responsible for handling resource allocation requests. default is default-scheduler |
 | `replicas` _integer_ | Replicas of pods running model serving |
-| `strategy` _[DeploymentStrategy](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#deploymentstrategy-v1-apps)_ | The deployment strategy to use to replace existing pods with new ones |
+| `strategy` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#deploymentstrategy-v1-apps">DeploymentStrategy</a>_ | The deployment strategy to use to replace existing pods with new ones |
 
 
 #### PVCStorage
@@ -124,7 +124,7 @@ _Appears in:_
 | --- | --- |
 | `modelsFlag` _string_ | Value of torchserve's flag --models |
 | `image` _string_ | Image of torchserve |
-| `resources` _[ResourceRequirements](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#resourcerequirements-v1-core)_ | Compute Resources required by a replica |
+| `resources` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#resourcerequirements-v1-core">ResourceRequirements</a>_ | Compute Resources required by a replica |
 
 
 #### S3Storage
@@ -168,8 +168,8 @@ _Appears in:_
 
 | Field | Description |
 | --- | --- |
-| `ports` _[ServicePort](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#serviceport-v1-core) array_ | The list of ports that are exposed by this service. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies |
-| `type` _[ServiceType](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#servicetype-v1-core)_ | type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ExternalName" maps to the specified externalName. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a stable IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the clusterIP. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types |
+| `ports` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#serviceport-v1-core">ServicePort</a> array_ | The list of ports that are exposed by this service. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies |
+| `type` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#servicetype-v1-core">ServiceType</a>_ | type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ExternalName" maps to the specified externalName. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a stable IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the clusterIP. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types |
 
 
 #### SimpleMLService
@@ -185,7 +185,7 @@ _Appears in:_
 | --- | --- |
 | `apiVersion` _string_ | `tensorstack.dev/v1beta1`
 | `kind` _string_ | `SimpleMLService`
-| `metadata` _[ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
+| `metadata` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta">ObjectMeta</a>_ | Refer to Kubernetes API documentation for fields of `metadata`. |
 | `spec` _[SimpleMLServiceSpec](#simplemlservicespec)_ |  |
 | `status` _[SimpleMLServiceStatus](#simplemlservicestatus)_ |  |
 
@@ -213,7 +213,7 @@ SimpleMLServiceList contains a list of SimpleMLService
 | --- | --- |
 | `apiVersion` _string_ | `tensorstack.dev/v1beta1`
 | `kind` _string_ | `SimpleMLServiceList`
-| `metadata` _[ListMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#listmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
+| `metadata` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#listmeta-v1-meta">ListMeta</a>_ | Refer to Kubernetes API documentation for fields of `metadata`. |
 | `items` _[SimpleMLService](#simplemlservice) array_ |  |
 
 
@@ -293,6 +293,6 @@ _Appears in:_
 | Field | Description |
 | --- | --- |
 | `image` _string_ | Image of Tensorflow Serving |
-| `resources` _[ResourceRequirements](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#resourcerequirements-v1-core)_ | Compute Resources required by a replica |
+| `resources` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#resourcerequirements-v1-core">ResourceRequirements</a>_ | Compute Resources required by a replica |
 
 

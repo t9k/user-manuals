@@ -56,7 +56,7 @@ _Appears in:_
 | --- | --- |
 | `apiVersion` _string_ | `tensorstack.dev/v1beta1`
 | `kind` _string_ | `StorageShim`
-| `metadata` _[ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
+| `metadata` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta">ObjectMeta</a>_ | Refer to Kubernetes API documentation for fields of `metadata`. |
 | `spec` _[StorageShimSpec](#storageshimspec)_ |  |
 | `status` _[StorageShimStatus](#storageshimstatus)_ |  |
 
@@ -73,9 +73,9 @@ _Appears in:_
 | Field | Description |
 | --- | --- |
 | `type` _[StorageShimConditionType](#storageshimconditiontype)_ | Type is the type of the condition |
-| `status` _[ConditionStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#conditionstatus-v1-core)_ | Status is the status of the condition. Can be True, False, Unknown. |
+| `status` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#conditionstatus-v1-core">ConditionStatus</a>_ | Status is the status of the condition. Can be True, False, Unknown. |
 | `message` _string_ | Human-readable message indicating details about last transition. |
-| `lastTransitionTime` _[Time](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta)_ | Last time the condition transitioned from one status to another. |
+| `lastTransitionTime` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta">Time</a>_ | Last time the condition transitioned from one status to another. |
 
 
 #### StorageShimConditionType
@@ -101,7 +101,7 @@ StorageShimList contains a list of StorageShim
 | --- | --- |
 | `apiVersion` _string_ | `tensorstack.dev/v1beta1`
 | `kind` _string_ | `StorageShimList`
-| `metadata` _[ListMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#listmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
+| `metadata` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#listmeta-v1-meta">ListMeta</a>_ | Refer to Kubernetes API documentation for fields of `metadata`. |
 | `items` _[StorageShim](#storageshim) array_ |  |
 
 
@@ -132,7 +132,7 @@ _Appears in:_
 
 | Field | Description |
 | --- | --- |
-| `phase` _[PersistentVolumeClaimPhase](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#persistentvolumeclaimphase-v1-core)_ | The phase of this StorageShim |
+| `phase` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#persistentvolumeclaimphase-v1-core">PersistentVolumeClaimPhase</a>_ | The phase of this StorageShim |
 | `conditions` _[StorageShimCondition](#storageshimcondition) array_ | Conditions is an array of current conditions |
 
 
@@ -250,7 +250,7 @@ _Appears in:_
 | --- | --- |
 | `apiVersion` _string_ | `tensorstack.dev/v1beta2`
 | `kind` _string_ | `StorageShim`
-| `metadata` _[ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
+| `metadata` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta">ObjectMeta</a>_ | Refer to Kubernetes API documentation for fields of `metadata`. |
 | `spec` _[StorageShimSpec](#storageshimspec)_ |  |
 | `status` _[StorageShimStatus](#storageshimstatus)_ |  |
 
@@ -267,9 +267,9 @@ _Appears in:_
 | Field | Description |
 | --- | --- |
 | `type` _[StorageShimConditionType](#storageshimconditiontype)_ | Type is the type of the condition |
-| `status` _[ConditionStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#conditionstatus-v1-core)_ | Status is the status of the condition. Can be True, False, Unknown. |
+| `status` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#conditionstatus-v1-core">ConditionStatus</a>_ | Status is the status of the condition. Can be True, False, Unknown. |
 | `message` _string_ | Human-readable message indicating details about last transition. |
-| `lastTransitionTime` _[Time](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta)_ | Last time the condition transitioned from one status to another. |
+| `lastTransitionTime` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta">Time</a>_ | Last time the condition transitioned from one status to another. |
 
 
 #### StorageShimConditionType
@@ -295,7 +295,7 @@ StorageShimList contains a list of StorageShim
 | --- | --- |
 | `apiVersion` _string_ | `tensorstack.dev/v1beta2`
 | `kind` _string_ | `StorageShimList`
-| `metadata` _[ListMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#listmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
+| `metadata` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#listmeta-v1-meta">ListMeta</a>_ | Refer to Kubernetes API documentation for fields of `metadata`. |
 | `items` _[StorageShim](#storageshim) array_ |  |
 
 
@@ -326,7 +326,7 @@ _Appears in:_
 
 | Field | Description |
 | --- | --- |
-| `phase` _[PersistentVolumeClaimPhase](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#persistentvolumeclaimphase-v1-core)_ | The phase of this StorageShim. |
+| `phase` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#persistentvolumeclaimphase-v1-core">PersistentVolumeClaimPhase</a>_ | The phase of this StorageShim. |
 | `conditions` _[StorageShimCondition](#storageshimcondition) array_ | Conditions represent an array of current conditions observed within the system. |
 
 

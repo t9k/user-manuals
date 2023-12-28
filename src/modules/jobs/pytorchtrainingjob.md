@@ -197,7 +197,7 @@ PyTorchTrainingJob 提供以下三种策略：
 目前 PyTorchTrainingJob 支持使用以下两种调度器：
 
 1. Kubernetes 的<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler">默认调度器</a>
-2. [T9k Scheduler 调度器](../../cluster/scheduling/index.md)
+2. [T9k Scheduler 调度器](../scheduling/index.md)
 
 调度器通过 `spec.scheduler` 字段设置：
 
@@ -216,7 +216,7 @@ spec:
 ```
 
 !!! info "信息"
-    队列和优先级都是 T9k Scheduler 的概念，具体含义请参阅 [T9k Scheduler](../../cluster/scheduling/index.md)。
+    队列和优先级都是 T9k Scheduler 的概念，具体含义请参阅 [T9k Scheduler](../scheduling/index.md)。
 
 ## TensorBoard 的使用
 
@@ -234,7 +234,7 @@ spec:
 ```
 
 !!! info "信息"
-    TensorBoard 的详细介绍请参阅 [TensorBoard](../../building/tensorboard.md)。
+    TensorBoard 的详细介绍请参阅 [TensorBoard](../building/tensorboard.md)。
 
 ## 调试模式
 

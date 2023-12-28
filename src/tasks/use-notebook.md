@@ -13,7 +13,7 @@
   <img alt="notebook-manage" src="../assets/tasks/develop-and-test-model/use-notebook/notebook-manage.png" class="screenshot"/>
 </figure>
 
-进入到 [JupyterLab](https://jupyter.org/) 的页面：
+进入到 <a target="_blank" rel="noopener noreferrer" href="https://jupyterlab.readthedocs.io/en/latest/">JupyterLab</a> 的页面：
 
 <figure class="screenshot">
   <img alt="jupyterLab" src="../assets/tasks/develop-and-test-model/use-notebook/jupyterLab.png" class="screenshot"/>

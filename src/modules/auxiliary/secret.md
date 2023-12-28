@@ -86,5 +86,5 @@ TensorStack AI 平台通过 label `tensorstack.dev/resource` 来标识 Secret �
 
 ## 下一步
 
-* 了解 [Secret 的概念](https://kubernetes.io/docs/concepts/configuration/configmap/)
-* 了解 [Secret 的定义](https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/secret-v1/)
+* 了解 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/configuration/configmap/">Secret 的概念</a>
+* 了解 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/secret-v1/">Secret 的定义</a>

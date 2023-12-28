@@ -27,7 +27,7 @@ _Appears in:_
 | --- | --- |
 | `apiVersion` _string_ | `batch.tensorstack.dev/v1beta1`
 | `kind` _string_ | `ColossalAIJob`
-| `metadata` _[ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
+| `metadata` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta">ObjectMeta</a>_ | Refer to Kubernetes API documentation for fields of `metadata`. |
 | `spec` _[ColossalAIJobSpec](#colossalaijobspec)_ |  |
 | `status` _[ColossalAIJobStatus](#colossalaijobstatus)_ |  |
 
@@ -44,7 +44,7 @@ ColossalAIJobList contains a list of ColossalAIJob.
 | --- | --- |
 | `apiVersion` _string_ | `batch.tensorstack.dev/v1beta1`
 | `kind` _string_ | `ColossalAIJobList`
-| `metadata` _[ListMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#listmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
+| `metadata` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#listmeta-v1-meta">ListMeta</a>_ | Refer to Kubernetes API documentation for fields of `metadata`. |
 | `items` _[ColossalAIJob](#colossalaijob) array_ |  |
 
 
@@ -97,8 +97,8 @@ _Appears in:_
 | --- | --- |
 | `image` _string_ | Container image name. |
 | `workingDir` _string_ | Working directory of container `launcher`. If not specified, the container runtime's default will be used, which might be configured in the container image. Cannot be updated. |
-| `env` _[EnvVar](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#envvar-v1-core) array_ | List of environment variables set for the container. Cannot be updated. |
-| `resources` _[ResourceRequirements](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#resourcerequirements-v1-core)_ | Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/ |
+| `env` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#envvar-v1-core">EnvVar</a> array_ | List of environment variables set for the container. Cannot be updated. |
+| `resources` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#resourcerequirements-v1-core">ResourceRequirements</a>_ | Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/ |
 
 
 #### RunPolicy
@@ -145,6 +145,6 @@ _Appears in:_
 | `procPerWorker` _integer_ | The number of processes of a worker. Defaults to 1. |
 | `command` _string array_ | Specifies the command used to start the workers. |
 | `torchArgs` _string array_ | Args of torchrun. |
-| `template` _[PodTemplateSpec](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#podtemplatespec-v1-core)_ | Template defines the workers that will be created from this pod template. |
+| `template` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#podtemplatespec-v1-core">PodTemplateSpec</a>_ | Template defines the workers that will be created from this pod template. |
 
 

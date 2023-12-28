@@ -53,5 +53,5 @@ spec:
 ```
 
 * `image`：在部署 ImageBuilder 控制器时，会指定一个默认镜像，所以一般来说可以不设置该字段。
-* `args`：在不指定该参数的情况下，ImageBuilder 构建镜像时执行 `kaniko --destination=[image-tag] --context=[context-path] --dockerfile=[dockerfile-path]` 命令。如果您需要使用其他参数，可以在该字段中指定。参考 [kaniko additional flags](https://github.com/GoogleContainerTools/kaniko?tab=readme-ov-file#additional-flags)。
+* `args`：在不指定该参数的情况下，ImageBuilder 构建镜像时执行 `kaniko --destination=[image-tag] --context=[context-path] --dockerfile=[dockerfile-path]` 命令。如果您需要使用其他参数，可以在该字段中指定。参考 <a target="_blank" rel="noopener noreferrer" href="https://github.com/GoogleContainerTools/kaniko?tab=readme-ov-file#additional-flags">kaniko additional flags</a>。
 

@@ -99,8 +99,8 @@ spec:
 * `$(type)`：当前副本的角色。
 * `$(rank)`：当前副本在同类副本中的序号。
 * `$(replicas[_type_])`：扮演此角色的副本的数量。
-* `$(service._type_[_rank_].host)`：各个副本的域名（当且仅当[副本的服务被暴露出来](#暴露副本端口)，此变量可用）。
-* `$(service.port[_port-name_])`：`spec.service.ports` 字段中定义的服务端口号（当且仅当[副本的服务被暴露出来](#暴露副本端口)，此变量可用）。
+* `$(service._type_[_rank_].host)`：各个副本的域名（当且仅当[副本的服务被暴露出来](#暴露副本的服务)，此变量可用）。
+* `$(service.port[_port-name_])`：`spec.service.ports` 字段中定义的服务端口号（当且仅当[副本的服务被暴露出来](#暴露副本的服务)，此变量可用）。
 
 上述变量中 `_type_`、`_rank_` 和 `_port-name_` 需填入具体的**角色**、**序号**和**端口名称**（由 `spec.service.ports[*].name` 字段指定）。
 
@@ -167,7 +167,7 @@ GenericJob 重启机制通过 `spec.replicaSpecs[*].restartPolicy` 字段指定:
 目前 GenericJob 支持两种调度器：
 
 1. Kubernetes 的<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler">默认调度器</a>
-2. [T9k Scheduler 调度器](../../cluster/scheduling/index.md)
+2. [T9k Scheduler 调度器](../scheduling/index.md)
 
 调度器通过 `spec.scheduler` 字段设置：
 
@@ -186,7 +186,7 @@ spec:
 ```
 
 !!! info "信息"
-    队列和优先级都是 T9k Scheduler 的概念，具体含义请参阅 [T9k Scheduler](../../cluster/scheduling/index.md)。
+    队列和优先级都是 T9k Scheduler 的概念，具体含义请参阅 [T9k Scheduler](../scheduling/index.md)。
 
 ## 调试模式
 

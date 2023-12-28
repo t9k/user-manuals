@@ -49,8 +49,8 @@ spec:
 在该例中：
 
 * 使用 TensorFlowTrainingJob 进行训练（由 `trainingConfig` 字段指定，详细配置方法请参阅[训练框架支持](#训练框架支持)）。
-* 使用 TPE 算法进行超参数调优，算法的参数为 `{"optimize_mode": "minimize", "constant_liar_type": "min"}`（由 `tuner` 字段指定，更多参数请参阅[超参数调优算法](./concepts/tuner.md)）。
-* 超参数的搜索空间为 `{"batch_size": {"_type": "choice", "_value": [512, 1024, 2048, 4096, 8092]},"learning_rate": {"_type": "choice", "_value": [0.0001, 0.001, 0.01, 0.1]}}`（由 `searchSpace` 字段指定，搜索空间的格式及含义请参阅[搜索空间](./concepts/search_space.md)）。
+* 使用 TPE 算法进行超参数调优，算法的参数为 `{"optimize_mode": "minimize", "constant_liar_type": "min"}`（由 `tuner` 字段指定，更多参数请参阅[超参数调优算法](./hpo-algorithm.md)）。
+* 超参数的搜索空间为 `{"batch_size": {"_type": "choice", "_value": [512, 1024, 2048, 4096, 8092]},"learning_rate": {"_type": "choice", "_value": [0.0001, 0.001, 0.01, 0.1]}}`（由 `searchSpace` 字段指定，搜索空间的格式及含义请参阅[搜索空间](./autotune-search-space.md)）。
 * 可以同时测试 3 组超参数，最大测试次数为 50（分别由 `trialConcurrency` 和 `maxTrialNum` 字段指定），实验的最大执行时间为 2 小时（7200 秒，由 `maxExecSeconds` 字段指定），如果时间超出，实验进入 `TIMEOUT` 状态。
 
 ## 数据库的使用
@@ -76,7 +76,7 @@ type: Opaque
 
 搜索空间是实验过程中超参数的设置范围，AutoTuneExperiment 会在此范围中选择超参数进行训练，最后找出最优的超参数组合。
 
-搜索空间是一个 JSON 结构，具体格式请参阅[搜索空间](./concepts/search_space.md)。
+搜索空间是一个 JSON 结构，具体格式请参阅[搜索空间](./autotune-search-space.md)。
 
 ## 训练框架支持
 
@@ -85,7 +85,7 @@ AutoTuneExperiment 支持对多种训练框架进行超参数的调优，包括 
 AutoTuneExperiment 通过设置 `spec.trainingConfig` 字段实现对上述框架的支持。其中：
 
 * `spec.trainingConfig.type` 可设置为 `tensorflow`、`pytorch` 和 `xgboost`，分别表示使用 TensorFlow、PyTorch 和 XGBoost 框架进行训练。
-* `spec.trainingConfig.tasks` 字段的设置请根据所使用的框架种类分别参阅 [TensorFlowTrainingJob](../../workflow/job/tensorflowtrainingjob.md)、[PyTorchTrainingJob](../../workflow/job/pytorchtrainingjob.md) 和 [XGBoostTrainingJob](../../workflow/job/xgboosttrainingjob.md)。
+* `spec.trainingConfig.tasks` 字段的设置请根据所使用的框架种类分别参阅 [TensorFlowTrainingJob](../jobs/tensorflowtrainingjob.md)、[PyTorchTrainingJob](../jobs/pytorchtrainingjob.md) 和 [XGBoostTrainingJob](../jobs/xgboosttrainingjob.md)。
 
 ## 超参数调优算法
 
@@ -96,7 +96,7 @@ AutoTuneExperiment 在调参过程中需要使用超参数调优算法对超参�
 * Tuner 算法：超参数调优算法，用于选取合适的超参数组合。
 * Assessor 算法：训练评估算法，用于判断当前训练是否符合预期，如果不符合则终止训练。
 
-算法的详细介绍以及参数配置请参阅[超参数调优算法](./concepts/tuner.md)。
+算法的详细介绍以及参数配置请参阅[超参数调优算法](./hpo-algorithm.md)。
 
 ## 实验状态
 

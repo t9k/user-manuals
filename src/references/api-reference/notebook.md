@@ -27,7 +27,7 @@ _Appears in:_
 | --- | --- |
 | `apiVersion` _string_ | `tensorstack.dev/v1beta1`
 | `kind` _string_ | `Notebook`
-| `metadata` _[ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
+| `metadata` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta">ObjectMeta</a>_ | Refer to Kubernetes API documentation for fields of `metadata`. |
 | `spec` _[NotebookSpec](#notebookspec)_ |  |
 | `status` _[NotebookStatus](#notebookstatus)_ |  |
 
@@ -44,10 +44,10 @@ _Appears in:_
 | Field | Description |
 | --- | --- |
 | `type` _[NotebookConditionType](#notebookconditiontype)_ | Type is the type of the condition. Possible values are `Idle`, etc |
-| `status` _[ConditionStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#conditionstatus-v1-core)_ | Status is the status of the condition type. Possible values of type Idle are `True|False|Unknown` |
+| `status` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#conditionstatus-v1-core">ConditionStatus</a>_ | Status is the status of the condition type. Possible values of type Idle are `True|False|Unknown` |
 | `message` _string_ | Message is a human-readable message for the reason of the status. |
-| `lastTransitionTime` _[Time](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta)_ | LastTransitionTime is the last time the status was changed. |
-| `lastProbeTime` _[Time](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta)_ | LastProbeTime is the last time the condition was probed. |
+| `lastTransitionTime` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta">Time</a>_ | LastTransitionTime is the last time the status was changed. |
+| `lastProbeTime` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta">Time</a>_ | LastProbeTime is the last time the condition was probed. |
 
 
 #### NotebookConditionType
@@ -73,7 +73,7 @@ NotebookList contains a list of Notebook
 | --- | --- |
 | `apiVersion` _string_ | `tensorstack.dev/v1beta1`
 | `kind` _string_ | `NotebookList`
-| `metadata` _[ListMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#listmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
+| `metadata` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#listmeta-v1-meta">ListMeta</a>_ | Refer to Kubernetes API documentation for fields of `metadata`. |
 | `items` _[Notebook](#notebook) array_ |  |
 
 
@@ -111,7 +111,7 @@ _Appears in:_
 | Field | Description |
 | --- | --- |
 | `enabled` _boolean_ | If true, SSH service will be started for this Notebook instance. |
-| `serviceType` _[ServiceType](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#servicetype-v1-core)_ |  |
+| `serviceType` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#servicetype-v1-core">ServiceType</a>_ |  |
 | `authorized_keys` _string array_ | A list of names of v1.Secret containing SSH public keys authorized for access to this SSH service. |
 
 
@@ -130,8 +130,8 @@ _Appears in:_
 | `port` _integer_ | The port number of the SSH server daemon. |
 | `clusterIp` _string_ |  |
 | `nodePort` _integer_ |  |
-| `protocol` _[Protocol](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#protocol-v1-core)_ |  |
-| `lastSshClientActivity` _[Time](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta)_ | LastSshClientActivity is the last time an SSH client is active. |
+| `protocol` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#protocol-v1-core">Protocol</a>_ |  |
+| `lastSshClientActivity` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta">Time</a>_ | LastSshClientActivity is the last time an SSH client is active. |
 
 
 #### NotebookSpec
@@ -181,7 +181,7 @@ _Appears in:_
 
 | Field | Description |
 | --- | --- |
-| `spec` _[PodSpec](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#podspec-v1-core)_ |  |
+| `spec` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#podspec-v1-core">PodSpec</a>_ |  |
 
 
 #### NotebookType
@@ -222,7 +222,7 @@ _Appears in:_
 | Field | Description |
 | --- | --- |
 | `reference` _[PodReference](#podreference)_ | References to the subordinate v1.Pod. |
-| `phase` _[PodPhase](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#podphase-v1-core)_ | Replicated from the corresponding field in the subordinate v1.Pod. |
+| `phase` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#podphase-v1-core">PodPhase</a>_ | Replicated from the corresponding field in the subordinate v1.Pod. |
 
 
 #### SchedulePolicy

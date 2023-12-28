@@ -74,7 +74,7 @@ contexts:
 
 t9k-pf 支持通过命令行参数 `-k,--apikey` 直接指定 API Key，完成单次端口转发的身份认证和授权。
 
-例如输入以下指令（其中 `notebook <URL>` 会在[命令](./command.md)中介绍，此处只用关注 `--apikey` 的使用）：
+例如输入以下指令（其中 `notebook <URL>` 会在[命令](./commands.md)中介绍，此处只用关注 `--apikey` 的使用）：
 
 ``` bash
 t9k-pf notebook <url> --apikey

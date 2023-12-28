@@ -27,7 +27,7 @@ _Appears in:_
 | --- | --- |
 | `apiVersion` _string_ | `batch.tensorstack.dev/v1beta1`
 | `kind` _string_ | `MPIJob`
-| `metadata` _[ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
+| `metadata` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta">ObjectMeta</a>_ | Refer to Kubernetes API documentation for fields of `metadata`. |
 | `spec` _[MPIJobSpec](#mpijobspec)_ |  |
 | `status` _[MPIJobStatus](#mpijobstatus)_ |  |
 
@@ -44,7 +44,7 @@ MPIJobList contains a list of MPIJob
 | --- | --- |
 | `apiVersion` _string_ | `batch.tensorstack.dev/v1beta1`
 | `kind` _string_ | `MPIJobList`
-| `metadata` _[ListMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#listmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
+| `metadata` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#listmeta-v1-meta">ListMeta</a>_ | Refer to Kubernetes API documentation for fields of `metadata`. |
 | `items` _[MPIJob](#mpijob) array_ |  |
 
 
@@ -128,6 +128,6 @@ _Appears in:_
 | `replicas` _integer_ | The number of workers to launch. Default 1. |
 | `extraMPIArgs` _string array_ | Extra args for mpirun. |
 | `cmd` _string array_ | Command line to start the MPI programs inside a worker pod. This is invoked by the launcher after all the worker pods have been created and entered ready state. |
-| `template` _[PodTemplateSpec](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#podtemplatespec-v1-core)_ | Defines the pod template used to create workers. Users are responsible for ensuring that container images and configurations are properly set to guarantee the worker operates in the state anticipated by the `launcher`. |
+| `template` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#podtemplatespec-v1-core">PodTemplateSpec</a>_ | Defines the pod template used to create workers. Users are responsible for ensuring that container images and configurations are properly set to guarantee the worker operates in the state anticipated by the `launcher`. |
 
 

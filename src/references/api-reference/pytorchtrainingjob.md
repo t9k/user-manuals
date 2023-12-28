@@ -46,7 +46,7 @@ _Appears in:_
 | --- | --- |
 | `apiVersion` _string_ | `batch.tensorstack.dev/v1beta1`
 | `kind` _string_ | `PyTorchTrainingJob`
-| `metadata` _[ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
+| `metadata` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta">ObjectMeta</a>_ | Refer to Kubernetes API documentation for fields of `metadata`. |
 | `spec` _[PyTorchTrainingJobSpec](#pytorchtrainingjobspec)_ |  |
 | `status` _[PyTorchTrainingJobStatus](#pytorchtrainingjobstatus)_ |  |
 
@@ -63,7 +63,7 @@ PyTorchTrainingJobList contains a list of PyTorchTrainingJob
 | --- | --- |
 | `apiVersion` _string_ | `batch.tensorstack.dev/v1beta1`
 | `kind` _string_ | `PyTorchTrainingJobList`
-| `metadata` _[ListMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#listmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
+| `metadata` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#listmeta-v1-meta">ListMeta</a>_ | Refer to Kubernetes API documentation for fields of `metadata`. |
 | `items` _[PyTorchTrainingJob](#pytorchtrainingjob) array_ |  |
 
 
@@ -120,7 +120,7 @@ _Appears in:_
 | `type` _string_ | ReplicaType is the type of the replica. |
 | `replicas` _integer_ | The desired number of replicas of the current template. Defaults to 1. |
 | `scalingWeight` _integer_ | Scaling weight of the current replica used in elastic training. |
-| `template` _[PodTemplateSpec](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#podtemplatespec-v1-core)_ | Describes the pod that will be created for this replica. Note that `RestartPolicy` in `PodTemplateSpec` will always be set to `Never` as the job controller will decide if restarts are desired. |
+| `template` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#podtemplatespec-v1-core">PodTemplateSpec</a>_ | Describes the pod that will be created for this replica. Note that `RestartPolicy` in `PodTemplateSpec` will always be set to `Never` as the job controller will decide if restarts are desired. |
 | `restartPolicy` _RestartPolicy_ | Restart policy for all replicas within the job. One of `Always`, `OnFailure`, `Never`, or `ExitCode`. |
 
 

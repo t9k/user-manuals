@@ -2,7 +2,7 @@
 
 ## 概述
 
-PodGroup 是一组 Pod 的集合，这一组 Pod 协调工作完成一项具体任务。通常情况下，您不会直接创建 PodGroup，而是通过创建 [T9k Job](../../../workflow/job/index.md) 来间接使用 PodGroup。
+PodGroup 是一组 Pod 的集合，这一组 Pod 协调工作完成一项具体任务。通常情况下，您不会直接创建 PodGroup，而是通过创建 [T9k Job](../jobs/index.md) 来间接使用 PodGroup。
 
 ## 创建 PodGroup
 
@@ -46,7 +46,7 @@ PodGroup 是一组协调工作以完成某项具体任务的 Pod 的集合，如
 
 ### 最小运行数量
 
-最小运行数量通过字段 `spec.minMember` 设置，表明 PodGroup 中可以运行的 Pod （或成功运行结束的 Pod）达到该数量时，调度器才会为 PodGroup 分配资源。在示例 [创建 PodGroup](#创建-podgroup) 中，设置的最小运行数量是 2。
+最小运行数量通过字段 `spec.minMember` 设置，表明 PodGroup 中可以运行的 Pod （或成功运行结束的 Pod）达到该数量时，调度器才会为 PodGroup 分配资源。在示例[创建 PodGroup](#创建-podgroup) 中，设置的最小运行数量是 2。
 
 ### 基于角色的最小运行数量
 
@@ -68,7 +68,7 @@ spec:
 
 ## 任务结束
 
-PodGroup 代表的任务被完成后，应该将字段 `spec.finished` 设置为 `true` 表明任务结束，然后调度器会停止为该 PodGroup 分配资源。如果使用 [T9k Job](../../../workflow/job/index.md) 来部署任务，无需手动修改 PodGroup 的任务结束字段，T9k Job 会在任务完成后自动将 PodGroup 标记为任务结束。
+PodGroup 代表的任务被完成后，应该将字段 `spec.finished` 设置为 `true` 表明任务结束，然后调度器会停止为该 PodGroup 分配资源。如果使用 [T9k Job](../jobs/index.md) 来部署任务，无需手动修改 PodGroup 的任务结束字段，T9k Job 会在任务完成后自动将 PodGroup 标记为任务结束。
 
 下面是一个任务结束的 PodGroup 的示例：
 
@@ -115,4 +115,4 @@ status:
 
 ## 下一步
 
-* 查看 [PodGroup API 详情](../../../../reference/tensorstack-resources/scheduling-api/podgroup.md)
+* 查看 [PodGroup API 详情](../../../../reference/tensorstack-resources/scheduling-api/podgroup.md)（坏链）

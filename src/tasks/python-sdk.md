@@ -1,6 +1,6 @@
 # 使用 Python SDK 记录和上传训练数据
 
-本教程介绍如何在模型的训练脚本中使用 [TensorStack SDK](../../tool/tensorstack-sdk/index.md) 进行创建和结束试验、设定超参数、记录指标、上传数据到 AIMD 服务器等操作。
+本教程介绍如何在模型的训练脚本中使用 [TensorStack SDK](../tools/python-sdk-t9k/index.md) 进行创建和结束试验、设定超参数、记录指标、上传数据到 AIMD 服务器等操作。
 
 ## 创建试验
 
@@ -237,13 +237,13 @@ aimd.login(host='<your-server-host>', api_key='<your-api-key>')
 !!! info "信息"
     生成包含 AIMD 权限的 API Key 的方法请参阅[生成 API Key](../api-key/generate-api-key.md)。
 
-    如要了解 API Key 的更多细节和使用方法，请参阅 [API Key](../../module/security/index.md#api-key) 和[使用 API Key](../api-key/use-api-key.md)。
+    如要了解 API Key 的更多细节和使用方法，请参阅 [API Key](../modules/account-and-security.md#api-key) 和[使用 API Key](../api-key/use-api-key.md)。
 
 !!! tip "提示"
     AIMD 服务器位于平台主机域名的 `/t9k/experiment/server` 路径下。例如，如果平台首页的 URL 为 `https://www.tensorstack.net/t9k/landing-page/`，那么 AIMD 服务器的 URL 为 `https://www.tensorstack.net/t9k/experiment/server`。
 
 !!! tip "提示"
-    如果您在 [TensorStack SDK 配置文件](../../tool/tensorstack-sdk/user-guide.md#配置文件)中提供了 `host` 或 `api_key` 配置项的值，则它们将作为调用 `login()` 函数时相应参数的默认值。
+    如果您在 [TensorStack SDK 配置文件](../tools/python-sdk-t9k/guide.md#配置文件)中提供了 `host` 或 `api_key` 配置项的值，则它们将作为调用 `login()` 函数时相应参数的默认值。
 
 然后调用 `Trial` 实例的 `upload()` 方法。
 
@@ -257,7 +257,7 @@ trial.upload()
 
 您也可以在训练结束之后将本地保存的试验数据上传到 AIMD 服务器，以应对训练时无网络连接、最初未打算上传、误删服务器中的数据等情形。
 
-这里使用到 TensorStack SDK 提供的[命令行工具](../../tool/tensorstack-sdk/user-guide.md#命令行工具)。首先登录到 AIMD 服务器，通过执行 `aimd login` 命令。
+这里使用到 TensorStack SDK 提供的[命令行工具](../tools/python-sdk-t9k/guide.md#命令行工具)。首先登录到 AIMD 服务器，通过执行 `aimd login` 命令。
 
 ```shell
 aimd login -H <your-server-host> -k <your-api-key>

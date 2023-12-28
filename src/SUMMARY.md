@@ -10,7 +10,7 @@
         * [AutoTune](modules/building/autotune.md)
             * [AutoTuneExperiment](modules/building/autotuneexperiment.md)
             * [搜索空间](modules/building/autotune-search-space.md)
-            * [超参数调优算法](modules/building/autotune-hyperparameter-algorithm.md)
+            * [超参数调优算法](modules/building/hpo-algorithm.md)
 
     * [模型部署](modules/deployment/index.md)
         * [MLService](modules/deployment/mlservice.md)
@@ -81,11 +81,11 @@
         * [制作并部署含有 Transformer 的模型推理服务](tasks/deploy-mlservice-transformer.md)
 
     * [管理 AI 资产](tasks/manage-ai-assets.md)
-        * [操作 Folder 和 Asset](tasks/operate-folder-asset.md)
+        * [操作 Folder 和 Asset](tasks/manipulate-folder-asset.md)
         * [通过 S3 访问 Asset](tasks/access-asset-via-s3.md)
         * [修改 Folder 和 Asset 的名称和标签](tasks/modify-folder-asset.md)
-        * [操作 Asset 的分支、tag 和 commit](tasks/operate-asset-branch-tag.md)
-        * [操作 Asset 的对象](tasks/operate-asset-objects.md)
+        * [操作 Asset 的分支、tag 和 commit](tasks/manipulate-asset-branch-tag.md)
+        * [操作 Asset 的对象](tasks/manipulate-asset-objects.md)
 
     * [追踪模型训练](tasks/track-model-training.md)
         * [在实验管理控制台查看和管理数据](tasks/use-experiment-console.md)

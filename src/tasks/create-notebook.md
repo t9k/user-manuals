@@ -5,7 +5,7 @@
 ## 准备工作
 
 * 了解 [Notebook](../modules/building/notebook.md) 的基本概念。
-* 成为一个 [Project](../../module/security/index.md#project) 的所有者或者成员。
+* 成为一个 [Project](../modules/account-and-security.md#project) 的所有者或者成员。
 
 ## 创建持久卷申领
 
@@ -85,7 +85,7 @@
 
 ### 使用 T9k 调度器
 
-[集群管理](../../module/cluster/index.md)模块还提供了 T9k 调度器，使用 T9k 调度器调度任务时必须指定一个[队列](../../module/cluster/scheduling/concept/queue.md)。这里选择 **T9k 调度器**，相比[默认调度器](#使用默认调度器设置资源)，需要额外填写如下参数：
+[调度](../modules/scheduling/index.md)模块还提供了 T9k 调度器，使用 T9k 调度器调度任务时必须指定一个[队列](../modules/scheduling/queue.md)。这里选择 **T9k 调度器**，相比[默认调度器](#使用默认调度器设置资源)，需要额外填写如下参数：
 
 * `队列`：必需。选择一个已有的队列，或者请求管理员创建一个队列。
 * `优先级`：可选，默认值是 0。代表任务在队列内部的优先级。当发生资源抢占时，优先级数字较小的工作负载会比同一个队列中的其他负载优先被驱逐。
@@ -126,7 +126,7 @@ Notebook 的 SSH 服务只允许通过密钥对进行验证，因此您需要上
 在 Secret 创建页面，选择类型为 **SSH Public Key**，填写名称并上传公钥。最后点击**创建 Secret** 进行创建：
 
 !!! info "信息"
-    如果您没有生成过密钥对，或者不知道从哪里获取公钥，那么您可以参阅 [SSH 文档](https://www.ssh.com/academy/ssh/keygen)或者 [Windows 文档](https://learn.microsoft.com/zh-cn/windows-server/administration/openssh/openssh_keymanagement#user-key-generation)。
+    如果您没有生成过密钥对，或者不知道从哪里获取公钥，那么您可以参阅 <a target="_blank" rel="noopener noreferrer" href="https://www.ssh.com/academy/ssh/keygen">SSH 文档</a>或者 <a target="_blank" rel="noopener noreferrer" href="https://learn.microsoft.com/zh-cn/windows-server/administration/openssh/openssh_keymanagement#user-key-generation">Windows 文档</a>。
 
 <figure class="screenshot">
   <img alt="secret-create-ssh" src="../assets/tasks/develop-and-test-model/create-notebook/secret-create-ssh.png" class="screenshot"/>
@@ -146,4 +146,4 @@ Notebook 的 SSH 服务只允许通过密钥对进行验证，因此您需要上
 !!! info "信息"
     关于服务类型，详细的说明可以参阅 Kubernetes 官方文档<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh-cn/docs/concepts/services-networking/service/#publishing-services-service-types">发布服务（服务类型）</a>。
 
-点击**创建 Notebook**，等待运行之后，您可以[通过 SSH 连接远程使用 Notebook](./use-notebook-remotely-via-ssh-connection.md)。
+点击**创建 Notebook**，等待运行之后，您可以[通过 SSH 连接远程使用 Notebook](./ssh-notebook.md)。

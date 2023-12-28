@@ -1,6 +1,6 @@
 # StorageShim
 
-StorageShim 用于将已有的存储系统以 PVC 的形式提供给用户使用，例如 S3 bucket 的某个子路径可以作为一个 PVC，分布式文件系统的某个子目录可以作为一个 PVC。通过 StorageShim，用户能够方便地访问已经上传到各类存储系统中的数据，而无需进行复制。目前支持的存储系统包括 [S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html) 和 [CephFS](https://docs.ceph.com/en/quincy/cephfs/)，未来可能支持更多的存储系统类型。
+StorageShim 用于将已有的存储系统以 PVC 的形式提供给用户使用，例如 S3 bucket 的某个子路径可以作为一个 PVC，分布式文件系统的某个子目录可以作为一个 PVC。通过 StorageShim，用户能够方便地访问已经上传到各类存储系统中的数据，而无需进行复制。目前支持的存储系统包括 <a target="_blank" rel="noopener noreferrer" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html">S3</a> 和 <a target="_blank" rel="noopener noreferrer" href="https://docs.ceph.com/en/quincy/cephfs/">CephFS</a>，未来可能支持更多的存储系统类型。
 
 ## 创建 StorageShim
 

@@ -1,6 +1,6 @@
 # Notebook
 
-<a target="_blank" rel="noopener noreferrer" href="https://jupyter-notebook.readthedocs.io/en/stable/">JupyterLab</a> 是一款非常流行的机器学习开发工具，它通过友好易用的 Web 界面提供交互式计算环境，支持多种编程语言和执行环境，在机器学习、AI、数据处理、数值模拟、统计建模、数据可视化等领域被广泛使用。
+<a target="_blank" rel="noopener noreferrer" href="https://jupyterlab.readthedocs.io/en/latest/">JupyterLab</a> 是一款非常流行的机器学习开发工具，它通过友好易用的 Web 界面提供交互式计算环境，支持多种编程语言和执行环境，在机器学习、AI、数据处理、数值模拟、统计建模、数据可视化等领域被广泛使用。
 
 您可以使用 Notebook 在集群中一键部署 JupyterLab 服务，同时本产品还提供 GPU 支持、SSH 访问支持等补充功能。
 
@@ -28,7 +28,7 @@ spec:
 
 ## 预先编译好的镜像
 
-模型构建模块提供了一些预先编译好的镜像，与 JupyterLab 原生镜像相比内置了更丰富的工具包，请参阅[Notebook 标准镜像列表](../../references/standard-images.md#notebook-标准镜像列表)。
+模型构建模块提供了一些预先编译好的镜像，与 JupyterLab 原生镜像相比内置了更丰富的工具包，请参阅 [Notebook 标准镜像列表](../../references/standard-images.md#notebook-标准镜像列表)。
 
 在这些镜像中：
 
@@ -36,11 +36,11 @@ spec:
 * 预装了 Python3 以及 `tensorflow`、`pytorch`、`keras`、`pandas`、`scikit-learn` 等常用 Python 包。
 * 身份是一个名为 `t9kuser` 的非 `root` 用户（用户 ID 为 1000，组 ID 为 1000），`$HOME` 目录为 `/t9k/mnt`。
 * 预装了 `tensorboard` 插件，您可以在网页中创建 <a target="_blank" rel="noopener noreferrer" href="https://www.tensorflow.org/tensorboard">TensorBoard</a> 以可视化数据。
-* 预装了 `notebook2workflow` 插件，您可以在网页中创建 [WorkflowTemplate](../workflow/workflow/workflowtemplate.md) 用于在[工作流模块](../workflow/index.md)中运行一个 `.ipynb` 文件。
+* 预装了 `notebook2workflow` 插件，您可以在网页中创建 [WorkflowTemplate](../workflows/workflowtemplate.md) 用于在[工作流模块](../workflows/index.md)中运行一个 `.ipynb` 文件。
 
 ## 使用 GPU
 
-Notebook 支持通过 [T9k Scheduler](../cluster/scheduling/index.md) 进行调度并申请使用一定量的 GPU 资源，例如：
+Notebook 支持通过 [T9k Scheduler](../scheduling/index.md) 进行调度并申请使用一定量的 GPU 资源，例如：
 
 ```yaml
 apiVersion: tensorstack.dev/v1beta1
@@ -65,8 +65,8 @@ spec:
 
 在该例中：
 
-* 所创建的 Pod 使用 T9k Scheduler 作为调度器（通过 `scheduler` 字段指定），并放在名为 default 的[队列](../cluster/scheduling/concept/queue.md) 中。
-* 所创建的 Pod 申请使用 0.5 个 CPU、1Gi 内存 以及一个 GPU 的 30% 显存，T9k Scheduler 会将 Pod 调度到某个能提供这些资源的节点上。
+* 所创建的 Pod 使用 T9k Scheduler 作为调度器（通过 `scheduler` 字段指定），并放在名为 default 的[队列](../scheduling/queue.md)中。
+* 所创建的 Pod 申请使用 0.5 个 CPU、1Gi 内存以及一个 GPU 的 30% 显存，T9k Scheduler 会将 Pod 调度到某个能提供这些资源的节点上。
 
 ## SSH 访问
 
@@ -113,7 +113,7 @@ Notebook 提供空闲资源回收的支持，在检测到 Notebook 处于空闲�
     
     满足以下任一条件即为活跃：
 
-    * [Jupyter ipykernel](https://github.com/jupyter/jupyter/wiki/Jupyter-kernels) 存在任务运行（即 .ipynb 文件中有代码块在运行）。
+    * <a target="_blank" rel="noopener noreferrer" href="https://github.com/jupyter/jupyter/wiki/Jupyter-kernels">Jupyter ipykernel</a> 存在任务运行（即 .ipynb 文件中有代码块在运行）。
     * 前端网页存在活动。
     * Notebook SSH 存在连接。
     

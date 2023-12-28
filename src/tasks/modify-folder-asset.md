@@ -4,7 +4,7 @@
 
 ## 准备工作
 
-* 完成教程[操作 Folder 和 Asset](./manipulate-folder-and-asset.md)。
+* 完成教程[操作 Folder 和 Asset](./manipulate-folder-asset.md)。
 
 ## 通过命令行工具
 

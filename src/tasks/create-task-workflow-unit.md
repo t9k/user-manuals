@@ -15,9 +15,9 @@
 
 在教程[创建工作流的基本单元](./create-workflow-unit.md)中，我们已经完成了 `SeqPod` 类型的 WorkflowTemplate 的创建和运行。如教程中所述，在 `SeqPod` 的每个步骤（step）中，都要填写所使用的镜像。一般来说，镜像的来源可能有以下几种：
 
-* TensorStack AI 平台预先提供的镜像：例如 [Notebook 镜像](../modules/building/notebook.md#预先编译好的镜像)，或者 [TensorStack 镜像站](https://registry.tensorstack.cn/)中的任何镜像。
-* 第三方镜像：例如来自 Docker 官方镜像站 [Docker Hub](https://hub.docker.com/) 的镜像。
-* 自制镜像：您可以利用 [TensorStack 命令行工具](../tools/cli-t9k/index.md)、[Docker 命令行工具](https://docs.docker.com/engine/reference/commandline/cli/)自行编译镜像。
+* TensorStack AI 平台预先提供的镜像：例如 [Notebook 镜像](../modules/building/notebook.md#预先编译好的镜像)，或者 <a target="_blank" rel="noopener noreferrer" href="https://registry.tensorstack.cn/">TensorStack 镜像站</a>中的任何镜像。
+* 第三方镜像：例如来自 Docker 官方镜像站 <a target="_blank" rel="noopener noreferrer" href="https://hub.docker.com/">Docker Hub</a> 的镜像。
+* 自制镜像：您可以利用 [TensorStack 命令行工具](../tools/cli-t9k/index.md)、<a target="_blank" rel="noopener noreferrer" href="https://docs.docker.com/engine/reference/commandline/cli/">Docker 命令行工具</a>自行编译镜像。
 
 准备好镜像之后，在 **Image** 框中填入镜像的地址。
 
@@ -116,7 +116,7 @@ WorkflowRun 运行完成后，可以看到打印结果与所编写的脚本运�
 
 ## 创建类型为 `Resource` 的 WorkflowTemplate
 
-如 [WorkflowTemplate 介绍](../modules/workflows/workflowtemplate.md#resource-workflowtemplate) 中所述，`Resource` 类型的 WorkflowTemplate 用于创建一个 Kubernetes 资源。下面展示两个常用示例。
+如 [WorkflowTemplate 介绍](../modules/workflows/workflowtemplate.md#resource-workflowtemplate)中所述，`Resource` 类型的 WorkflowTemplate 用于创建一个 Kubernetes 资源。下面展示两个常用示例。
 
 
 ### 创建分布式训练

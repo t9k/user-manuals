@@ -29,7 +29,7 @@ _Appears in:_
 | --- | --- |
 | `apiVersion` _string_ | `scheduler.tensorstack.dev/v1beta1`
 | `kind` _string_ | `PodGroup`
-| `metadata` _[ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
+| `metadata` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta">ObjectMeta</a>_ | Refer to Kubernetes API documentation for fields of `metadata`. |
 | `spec` _[PodGroupSpec](#podgroupspec)_ | Specification of the desired behavior of the pod group. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status |
 | `status` _[PodGroupStatus](#podgroupstatus)_ | Status represents the current status of a pod group. This data may not be up to date. |
 
@@ -46,9 +46,9 @@ _Appears in:_
 | Field | Description |
 | --- | --- |
 | `type` _PodGroupConditionType_ | The type of the condition. |
-| `status` _[ConditionStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#conditionstatus-v1-core)_ | The status of the condition. |
+| `status` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#conditionstatus-v1-core">ConditionStatus</a>_ | The status of the condition. |
 | `transitionID` _string_ | The ID of condition transition. |
-| `lastTransitionTime` _[Time](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta)_ | Last time of condition transition(s). |
+| `lastTransitionTime` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta">Time</a>_ | Last time of condition transition(s). |
 | `reason` _string_ | Unique, one-word, CamelCase, machine-readable reason for the condition's last change. |
 | `message` _string_ | Human-readable message indicating details about last change. |
 
@@ -79,7 +79,7 @@ PodGroupList is a collection of pod groups.
 | --- | --- |
 | `apiVersion` _string_ | `scheduler.tensorstack.dev/v1beta1`
 | `kind` _string_ | `PodGroupList`
-| `metadata` _[ListMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#listmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
+| `metadata` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#listmeta-v1-meta">ListMeta</a>_ | Refer to Kubernetes API documentation for fields of `metadata`. |
 | `items` _[PodGroup](#podgroup) array_ | The list of PodGroup. |
 
 
@@ -113,7 +113,7 @@ _Appears in:_
 | Field | Description |
 | --- | --- |
 | `conditions` _[PodGroupCondition](#podgroupcondition) array_ | The conditions of PodGroup. |
-| `allocated` _object (keys:[ResourceName](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#resourcename-v1-core), values:Quantity)_ | Allocated represents resources and their qunatities allocated to the PodGroup. |
+| `allocated` _object (keys:<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#resourcename-v1-core">ResourceName</a>, values:Quantity)_ | Allocated represents resources and their qunatities allocated to the PodGroup. |
 | `pending` _integer_ | The number of pods in phase Pending. |
 | `running` _integer_ | The number of pods in phase running. |
 | `succeeded` _integer_ | The number of pods in phase Succeeded. |
@@ -152,7 +152,7 @@ _Appears in:_
 | --- | --- |
 | `apiVersion` _string_ | `scheduler.tensorstack.dev/v1beta1`
 | `kind` _string_ | `Queue`
-| `metadata` _[ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
+| `metadata` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta">ObjectMeta</a>_ | Refer to Kubernetes API documentation for fields of `metadata`. |
 | `spec` _[QueueSpec](#queuespec)_ | Specification of the desired behavior of the queue. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status |
 | `status` _[QueueStatus](#queuestatus)_ | The status of queue. |
 
@@ -169,8 +169,8 @@ _Appears in:_
 | Field | Description |
 | --- | --- |
 | `type` _[QueueConditionType](#queueconditiontype)_ | Type is the type of the condition. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions |
-| `status` _[ConditionStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#conditionstatus-v1-core)_ | Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions |
-| `lastTransitionTime` _[Time](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta)_ | Last time the condition transitioned. |
+| `status` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#conditionstatus-v1-core">ConditionStatus</a>_ | Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions |
+| `lastTransitionTime` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta">Time</a>_ | Last time the condition transitioned. |
 | `reason` _string_ | Unique, one-word, CamelCase reason for the condition's last transition. |
 | `message` _string_ | Human-readable message indicating details about last transition. |
 
@@ -198,7 +198,7 @@ QueueList is a collection of queues.
 | --- | --- |
 | `apiVersion` _string_ | `scheduler.tensorstack.dev/v1beta1`
 | `kind` _string_ | `QueueList`
-| `metadata` _[ListMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#listmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
+| `metadata` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#listmeta-v1-meta">ListMeta</a>_ | Refer to Kubernetes API documentation for fields of `metadata`. |
 | `items` _[Queue](#queue) array_ | The list of Queue. |
 
 
@@ -217,8 +217,8 @@ _Appears in:_
 | `priority` _integer_ | If specified, indicates the Queue's priority. range is [0,100] The higher value of `priority`, workloads in this queue will be scheduled with resources with higher preferences. |
 | `preemptible` _boolean_ | Preemptible indicate whether the queue can be preempted by other queue when cluster resources are in short. Queue can be preempted if Preemptible is not set. |
 | `closed` _boolean_ | After queue is closed, new workloads (pods) will not be allocated with resources and no new workloads will be accepted either. |
-| `nodeSelector` _[LabelSelector](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#labelselector-v1-meta)_ | NodeSelector specifies the nodes whoses resource can be used by a Queue. This provides a machanism to restrict workloads submitted to a particular queue to a sub-set of nodes in the cluster. if `nil`, all nodes are eligible. |
-| `namespaceSelector` _[LabelSelector](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#labelselector-v1-meta)_ | NamespaceSelector specifies the set of namespaces from which workloads are allowed to use this Queue. if `nil`,  no namespaces are selected. Note: There may be other authorization procedures that permit workloads in a queue. They are OR'ed with this selector. |
+| `nodeSelector` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#labelselector-v1-meta">LabelSelector</a>_ | NodeSelector specifies the nodes whoses resource can be used by a Queue. This provides a machanism to restrict workloads submitted to a particular queue to a sub-set of nodes in the cluster. if `nil`, all nodes are eligible. |
+| `namespaceSelector` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#labelselector-v1-meta">LabelSelector</a>_ | NamespaceSelector specifies the set of namespaces from which workloads are allowed to use this Queue. if `nil`,  no namespaces are selected. Note: There may be other authorization procedures that permit workloads in a queue. They are OR'ed with this selector. |
 
 
 #### QueueStatus
@@ -232,7 +232,7 @@ _Appears in:_
 
 | Field | Description |
 | --- | --- |
-| `allocated` _object (keys:[ResourceName](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#resourcename-v1-core), values:Quantity)_ | Count of resource allocated to the queue. |
+| `allocated` _object (keys:<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#resourcename-v1-core">ResourceName</a>, values:Quantity)_ | Count of resource allocated to the queue. |
 | `conditions` _[QueueCondition](#queuecondition) array_ | Current service state of Queue. |
 | `podGroups` _[PodGroupInQueueStatus](#podgroupinqueuestatus)_ | PodGroup Status in Queue. |
 | `pods` _[PodInQueueStatus](#podinqueuestatus)_ | Pod Status in Queue. |
@@ -249,7 +249,7 @@ _Appears in:_
 
 | Field | Description |
 | --- | --- |
-| `requests` _object (keys:[ResourceName](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#resourcename-v1-core), values:Quantity)_ | Requests describes max amount of resources pods in the Queue can potentially request. However, these are the upper limits for resources, not necessarily always available for use. This can be used by cluster administrators to control the upper bounds of resources submitted to a particular queue. Togethe with allowed users of queues, this provides a mechanism for admins to set policies to constrain some aspects of user resource usages. |
+| `requests` _object (keys:<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#resourcename-v1-core">ResourceName</a>, values:Quantity)_ | Requests describes max amount of resources pods in the Queue can potentially request. However, these are the upper limits for resources, not necessarily always available for use. This can be used by cluster administrators to control the upper bounds of resources submitted to a particular queue. Togethe with allowed users of queues, this provides a mechanism for admins to set policies to constrain some aspects of user resource usages. |
 
 
 #### Role

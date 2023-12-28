@@ -46,13 +46,13 @@ FileSet 的格式为 `t9k://storage-type/storage-identity/path`，由下列四�
 * `t9k://minio/secret-name/bucket1/log/model` 表示：所指向的资源被存储在一个 MinIO 中名为 `bucket1` 的 Bucket 中的 `log/model` 路径下，该 MinIO 的地址、用户名和密码被存储在名为 `secret-name` 的 Secret 中。
 
 !!! info "信息"
-    创建 MinIO Secret 的方法请参阅[管理 Secret](../../tasks/manage-auxiliary-resources/manage-secret.md)。
+    创建 MinIO Secret 的方法请参阅[管理 Secret](../../tasks/manage-secret.md)。
 
     MinIO 的相关介绍（比如 Bucket 的含义）请参阅<a target="_blank" rel="noopener noreferrer" href="https://min.io/">官方介绍</a>。
 
 ## TrainingJob 自动创建 TensorBoard
 
-我们在 [TensorFlowTrainingJob](../workflow/job/tensorflowtrainingjob.md#tensorboard-的使用) 和 [PyTorchTrainingJob](../workflow/job/pytorchtrainingjob.md#tensorboard-的使用) 中集成了 TensorBoard 的创建，您可以在创建 TrainingJob 后直接进入 TensorBoard 监控训练进程和查看训练结果。
+我们在 [TensorFlowTrainingJob](../jobs/tensorflowtrainingjob.md#tensorboard-的使用) 和 [PyTorchTrainingJob](../jobs/pytorchtrainingjob.md#tensorboard-的使用) 中集成了 TensorBoard 的创建，您可以在创建 TrainingJob 后直接进入 TensorBoard 监控训练进程和查看训练结果。
 
 ## 资源回收
 

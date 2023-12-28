@@ -4,7 +4,7 @@
 
 ## 准备工作
 
-* [安装](../../tool/tensorstack-sdk/user-guide.md#安装) TensorStack SDK 并阅读[用户指南](../../tool/tensorstack-sdk/user-guide.md)。
+* [安装](../tools/python-sdk-t9k/guide.md#安装) TensorStack SDK 并阅读[用户指南](../tools/python-sdk-t9k/guide.md)。
 
 ## 通过命令行工具
 
@@ -111,7 +111,7 @@ AH INFO: Folder /user/t9k-assethub/dataset/text created
 ```
 
 !!! tip "提示"
-    限于篇幅，本教程以及后续教程将仅展示各个函数或方法的基本用法，相应函数或方法接受的参数详情以及具体用例请参考 TensorStack SDK 的 [API 文档](../../tool/tensorstack-sdk/api/index.md)。
+    限于篇幅，本教程以及后续教程将仅展示各个函数或方法的基本用法，相应函数或方法接受的参数详情以及具体用例请参考 TensorStack SDK 的 [API 文档](../tools/python-sdk-t9k/api/index.md)。
 
 继续使用 `ah.create()` 函数在 Model Folder 中创建一个 Model，以及在 Dataset Folder 中创建一个 Dataset：
 

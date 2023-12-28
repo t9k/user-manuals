@@ -4,7 +4,7 @@ Pod 是可以在 Kubernetes 中创建和管理的、最小的可部署的计算�
 
 Pod 是一组（一个或多个）容器；这些容器共享存储、网络、以及怎样运行这些容器的声明。Pod 中的内容总是并置的并且一同调度，在共享的上下文中运行。Pod 模拟一个特定应用的“逻辑主机”，其中包含一个或多个应用容器，这些容器相对紧密地耦合在一起。在非云环境中，在相同的物理机或虚拟机上运行的应用类似于在同一逻辑主机上运行的云应用。
 
-除了应用容器，Pod 还可以包含在 Pod 启动期间运行的 [Init 容器](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/)。你也可以在集群支持临时性容器的情况下，为调试的目的注入[临时性容器](https://kubernetes.io/docs/concepts/workloads/pods/ephemeral-containers/)。
+除了应用容器，Pod 还可以包含在 Pod 启动期间运行的 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/workloads/pods/init-containers/">Init 容器</a>。你也可以在集群支持临时性容器的情况下，为调试的目的注入<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/workloads/pods/ephemeral-containers/">临时性容器</a>。
 
 通常您不需要直接创建 Pod，甚至单实例 Pod。您会使用诸如 Deployment 或 Job 这类工作负载资源来创建 Pod。如果 Pod 需要跟踪状态，可以考虑 StatefulSet 资源。
 
@@ -17,5 +17,5 @@ Kubernetes 集群中的 Pod 主要有两种用法：
 
 ## 下一步
 
-* 了解 [Pod 的概念](https://kubernetes.io/docs/concepts/workloads/pods/)
-* 了解 [Pod 的定义](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/)
+* 了解 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/workloads/pods/">Pod 的概念</a>
+* 了解 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/">Pod 的定义</a>
