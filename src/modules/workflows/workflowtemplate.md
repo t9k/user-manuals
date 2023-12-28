@@ -41,11 +41,13 @@ WorkflowTemplate 的 `spec.type` 字段用于指定 WorkflowTemplate 的类型�
 * [`Resource`](#resource-workflowtemplate)
 * [`DAG`](#dag-workflowtemplate)
 * [`GenericJob`](#t9k-jobs-workflowtemplate)
-* [`MPIJob`](#t9k-jobs-workflowtemplate)
-* [`BeamJob`](#t9k-jobs-workflowtemplate)
 * [`TensorFlowTrainingJob`](#t9k-jobs-workflowtemplate)
 * [`PyTorchTrainingJob`](#t9k-jobs-workflowtemplate)
 * [`XGBoostTrainingJob`](#t9k-jobs-workflowtemplate)
+* [`ColossalAIJob`](#t9k-jobs-workflowtemplate)
+* [`DeepSpeedJob`](#t9k-jobs-workflowtemplate)
+* [`MPIJob`](#t9k-jobs-workflowtemplate)
+* [`BeamJob`](#t9k-jobs-workflowtemplate)
 
 ### Pod WorkflowTemplate
 
@@ -113,33 +115,31 @@ spec:
 
 SeqPod 中的每个步骤（step）对应 Kubernetes Pod 中的一个容器，但 SeqPod 会按照顺序依次执行每个步骤，直到所有的步骤成功运行完毕，或者其中某个步骤失败（后续的步骤不会再运行）。
 
+在 `pod.containers[*].command`、`pod.containers[*].args`、`seqPod.steps[*].command`、`seqPod.steps[*].args` 等字段中，您有时候可能需要填写带有引号的字符串，有以下几种合法的方式：
 
-!!! tip "提示"
-    在 `pod.containers[*].command`、`pod.containers[*].args`、`seqPod.steps[*].command`、`seqPod.steps[*].args` 等字段中，您有时候可能需要填写带有引号的字符串，有以下几种合法的方式：
+```yaml
+command: ["echo"]
+args: ["this is a 'quote'"]
+```
 
-    ```
-    command: ["echo"]
-    args: ["this is a 'quote'"]
-    ```
+```yaml
+command: ['echo']
+args: ['this is a "quote"']
+```
 
-    ```
-    command: ['echo']
-    args: ['this is a "quote"']
-    ```
-    
-    ```
-    command:
-      - echo
-    args:
-      - this is a "quote"
-    ```
+```yaml
+command:
+  - echo
+args:
+  - this is a "quote"
+```
 
-    ```
-    command:
-      - echo
-    args:
-      - this is a 'quote'
-    ```
+```yaml
+command:
+  - echo
+args:
+  - this is a 'quote'
+```
 
 #### 指定 script
 
@@ -264,45 +264,47 @@ spec:
 * PyTorchTrainingJob
 * XGBoostTrainingJob
 
-!!! note "注意"
+创建 Resource WorkflowTemplate 对应的 WorkflowRun 时需要提供一个 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/kubernetes-api/authentication-resources/service-account-v1/">Service Account</a>，使得 WorkflowRun 具有在 Kubernetes 中创建该 Resource 的权限。例如：
 
-    创建 Resource WorkflowTemplate 对应的 WorkflowRun 时需要提供一个 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/kubernetes-api/authentication-resources/service-account-v1/">Service Account</a>，使得 WorkflowRun 具有在 Kubernetes 中创建该 Resource 的权限。例如：
+```yaml
+apiVersion: batch.tensorstack.dev/v1beta1
+kind: WorkflowRun
+metadata:
+  name: resource-workflowtemplate-sample-run
+spec:
+  workflowTemplateRef: resource-workflowtemplate-sample
+  serviceAccountName: managed-project-sa
+```
 
-    ```yaml
-    apiVersion: batch.tensorstack.dev/v1beta1
-    kind: WorkflowRun
-    metadata:
-      name: resource-workflowtemplate-sample-run
-    spec:
-      workflowTemplateRef: resource-workflowtemplate-sample
-      serviceAccountName: managed-project-sa
-    ```
-
-    在网页中创建 WorkflowRun 时，系统将自动为您配置名为 `managed-project-sa` 的 Service Account，您不用关心这一项的填写。
+在网页中创建 WorkflowRun 时，系统将自动为您配置名为 `managed-project-sa` 的 Service Account，您不用关心这一项的填写。
 
 ### T9k Jobs WorkflowTemplate
 
 T9k Workflow 系统对 [T9k Jobs](../job/index.md) 提供更进一步的原生支持，添加以下 WorkflowTemplate 类型：
 
 * GenericJob
-* MPIJob
-* BeamJob
 * TensorFlowTrainingJob
 * PyTorchTrainingJob
 * XGBoostTrainingJob
+* ColossalAIJob
+* DeepSpeedJob
+* MPIJob
+* BeamJob
 
 并在 WorkflowTemplate 的 `spec` 中添加了相应字段用于填写 T9k Job 的 `spec`：
 
 * `spec.genericJob`
-* `spec.mpiJob`
-* `spec.beamJob`
 * `spec.tensorflowTrainingJob`
 * `spec.pytorchTrainingJob`
 * `spec.xgboostTrainingJob`
+* `spec.colossalaiJob`
+* `spec.deepspeedJob`
+* `spec.mpiJob`
+* `spec.beamJob`
 
 相比于在 Resource 类型中将资源的 `spec` 视作一个很长的字符串，添加原生类型支持的好处是在创建 WorkflowTemplate 时 T9k Job 的 `spec` 就会得到语法检查，能更早地发现错误，加深了 T9k Workflow 系统和 T9k Job 系统的集成配合。
 
-例如，创建一个 MPIJob 可以使用如下格式（其中 MPIJob 示例来自 [MPIJob 文档](../../workflow/job/mpijob#创建-mpijob)）：
+例如，创建一个 MPIJob 可以使用如下格式（其中 MPIJob 示例来自 [MPIJob 文档](../jobs/mpijob.md#创建-mpijob)）：
 
 ```yaml
 apiVersion: batch.tensorstack.dev/v1beta1
@@ -344,9 +346,7 @@ spec:
       mpiHome: /usr/local
 ```
 
-!!! note "注意"
-
-    与 Resource WorkflowTemplate 相同，T9k Jobs WorkflowTemplate 对应的 WorkflowRun 也需要一个 Service Account。同样，在网页中创建 WorkflowRun 时，系统将自动为您配置名为 `managed-project-sa` 的 Service Account，您不用关心这一项的填写。
+注意：与 Resource WorkflowTemplate 相同，T9k Jobs WorkflowTemplate 对应的 WorkflowRun 也需要一个 Service Account。同样，在网页中创建 WorkflowRun 时，系统将自动为您配置名为 `managed-project-sa` 的 Service Account，您不用关心这一项的填写。
 
 
 ### DAG WorkflowTemplate

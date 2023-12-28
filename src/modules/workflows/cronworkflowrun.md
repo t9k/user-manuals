@@ -2,31 +2,29 @@
 
 CronWorkflowRun 用于方便地定时执行 [WorkflowRun](./workflowrun.md)，对于创建周期性的、反复重复的任务很有用。
 
-!!! info "什么是 cron"
+<a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Cron">cron</a> 是一种书写定时计划的格式，用一个字符串指定何时触发任务的执行，通常由以空格分隔的 5 个部分组成：
 
-    <a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Cron">cron</a> 是一种书写定时计划的格式，用一个字符串指定何时触发任务的执行，通常由以空格分隔的 5 个部分组成：
+```bash
+# ┌───────────── minute (0 - 59)
+# │ ┌───────────── hour (0 - 23)
+# │ │ ┌───────────── day of the month (1 - 31)
+# │ │ │ ┌───────────── month (1 - 12)
+# │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday;
+# │ │ │ │ │                                   7 is also Sunday on some systems)
+# │ │ │ │ │
+# │ │ │ │ │
+# * * * * *
+```
 
-    ```bash
-    # ┌───────────── minute (0 - 59)
-    # │ ┌───────────── hour (0 - 23)
-    # │ │ ┌───────────── day of the month (1 - 31)
-    # │ │ │ ┌───────────── month (1 - 12)
-    # │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday;
-    # │ │ │ │ │                                   7 is also Sunday on some systems)
-    # │ │ │ │ │
-    # │ │ │ │ │
-    # * * * * *
-    ```
+例如：
 
-    例如：
+* `1 0 * * *` 表示在每天的 00:01 执行。
+* `45 23 * * 6` 表示在每个星期六的 23:45 执行。
+* `*/5 1,2,3 * * *` 表示在每天的第 1、2、3 个小时每隔 5 分钟执行一次（即 01:00，01:05，01:10，...，03:55）。
 
-    * `1 0 * * *` 表示在每天的 00:01 执行。
-    * `45 23 * * 6` 表示在每个星期六的 23:45 执行。
-    * `*/5 1,2,3 * * *` 表示在每天的第 1、2、3 个小时每隔 5 分钟执行一次（即 01:00，01:05，01:10，...，03:55）。
+注意 `*/n` 表示每隔 n 个时间单位执行一次，在某个时间单位多次执行可以用逗号连接（例如 `1,2,3`）。
 
-    注意 `*/n` 表示每隔 n 个时间单位执行一次，在某个时间单位多次执行可以用逗号连接（例如 `1,2,3`）。
-
-    为了更方便地创建 cron 表达式，可以使用第三方网页工具，例如 <a target="_blank" rel="noopener noreferrer" href="https://crontab.guru">crontab.guru</a>。
+为了更方便地创建 cron 表达式，可以使用第三方网页工具，例如 <a target="_blank" rel="noopener noreferrer" href="https://crontab.guru">crontab.guru</a>。
 
 
 ## 创建 CronWorkflowRun

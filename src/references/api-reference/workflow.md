@@ -6,7 +6,7 @@
 
 ## batch.tensorstack.dev/v1beta1
 
-Package apis defines the CRD types.
+Package v1beta1 defines the CRD types.
 
 ### Resource Types
 - [CronWorkflowRun](#cronworkflowrun)
@@ -31,6 +31,21 @@ _Appears in:_
 | --- | --- |
 | `metadata` _[ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
 | `spec` _[BeamJobSpec](#beamjobspec)_ | Spec of the beam job. |
+
+
+#### ColossalAIJobWorkflowTemplate
+
+
+
+ColossalAIJobWorkflowTemplate creates a t9k colossalai job.
+
+_Appears in:_
+- [WorkflowTemplateSpec](#workflowtemplatespec)
+
+| Field | Description |
+| --- | --- |
+| `metadata` _[ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
+| `spec` _[ColossalAIJobSpec](#colossalaijobspec)_ | Spec of the colossalai job. |
 
 
 #### ConcurrencyPolicy
@@ -193,6 +208,21 @@ _Appears in:_
 | --- | --- |
 | `templates` _[DAGNode](#dagnode) array_ | Templates are a list of DAG nodes. |
 | `failureStrategy` _[FailureStrategy](#failurestrategy)_ | FailureStrategy is the strategy when a node in DAG fails. |
+
+
+#### DeepSpeedJobWorkflowTemplate
+
+
+
+DeepSpeedJobWorkflowTemplate creates a t9k deepspeed job.
+
+_Appears in:_
+- [WorkflowTemplateSpec](#workflowtemplatespec)
+
+| Field | Description |
+| --- | --- |
+| `metadata` _[ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
+| `spec` _[DeepSpeedJobSpec](#deepspeedjobspec)_ | Spec of the deepspeed job. |
 
 
 #### FailureStrategy
@@ -725,6 +755,8 @@ _Appears in:_
 | `tensorflowTrainingJob` _[TensorFlowTrainingJobWorkflowTemplate](#tensorflowtrainingjobworkflowtemplate)_ | TensorFlowTrainingJob is the spec of t9k training job which WorkflowTemplate will create. |
 | `pytorchTrainingJob` _[PyTorchTrainingJobWorkflowTemplate](#pytorchtrainingjobworkflowtemplate)_ | PyTorchTrainingJob is the spec of t9k pytorch training job which WorkflowTemplate will create. |
 | `xgboostTrainingJob` _[XGBoostTrainingJobWorkflowTemplate](#xgboosttrainingjobworkflowtemplate)_ | XGBoostTrainingJob is the spec of t9k xgboost training job which WorkflowTemplate will create. |
+| `colossalaiJob` _[ColossalAIJobWorkflowTemplate](#colossalaijobworkflowtemplate)_ | ColossalAIJob is the spec of t9k colossalai job which WorkflowTemplate will create. |
+| `deepspeedJob` _[DeepSpeedJobWorkflowTemplate](#deepspeedjobworkflowtemplate)_ | DeepSpeedJob is the spec of t9k deepspeed job which WorkflowTemplate will create. |
 | `mpiJob` _[MPIJobWorkflowTemplate](#mpijobworkflowtemplate)_ | MPIJob is the spec of t9k mpi job which WorkflowTemplate will create. |
 | `beamJob` _[BeamJobWorkflowTemplate](#beamjobworkflowtemplate)_ | BeamJob is the spec of t9k beam job which WorkflowTemplate will create. |
 

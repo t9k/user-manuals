@@ -6,7 +6,7 @@ AI 应用由很多基础计算步骤构成，具有很大灵活性，在不同�
 
 ## 架构
 
-工作流模块提供了 [WorkflowTemplate](./workflow/workflowtemplate.md)、[WorkflowRun](./workflow/workflowrun.md)、[CronWorkflowRun](./workflow/cronworkflowrun.md) 等自定义扩展资源，以及控制台、服务器、操作器等组件。整体架构如下图所示：
+工作流模块提供了 [WorkflowTemplate](./workflowtemplate.md)、[WorkflowRun](./workflowrun.md)、[CronWorkflowRun](./cronworkflowrun.md) 等自定义扩展资源，以及控制台、服务器、操作器等组件。整体架构如下图所示：
 
 <figure> 
 <img alt="architecture" src="../../assets/modules/workflow/architecture.drawio.svg"/>
