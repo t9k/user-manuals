@@ -11,7 +11,7 @@ t9k-pf 可以从平台首页下载。请根据操作系统和架构（可以在�
 根据下载的版本，设置 t9k-pf 的版本和系统架构等变量：
 
 ``` bash
-version=0.1.9
+version=0.2.6
 os=darwin
 arch=amd64
 ```
@@ -53,12 +53,13 @@ contexts:
   server: https://<example.com>
   image-registry: https://<example.io>
   prefixes:
-    aimd: /t9k/aimd/server
+    aistore: /t9k/aistore/server
     asset-hub: /t9k/asset-hub/server
     build-console: /t9k/build-console/server
     cluster-admin: /t9k/cluster-admin/server
     deploy-console: /t9k/deploy-console/server
-    workflow: /t9k/workflow/server
+    security-console: /t9k/security/server
+    workflow-manager: /t9k/workflow/server
   auth:
     apikey: ""
     token: demo1-token
@@ -110,3 +111,11 @@ t9k-pf notebook <url> --apikey
 * **--address** 
 
     本地监听地址。默认为 `localhost`。
+
+* **--retryMaxTimes** 
+
+    整数，最大重试次数。默认为 `10`。
+
+* **--retryPeriod** 
+
+    整数，重试间隔时间（单位：秒）。默认为 `10`。

@@ -30,6 +30,8 @@ t9k-pf notebook <url> <localPort>
 -n, --namespace         字符串，指定使用的项目（命名空间）名称。
 -k, --apikey            开启交互式输入 API Key。
 --address               本地监听地址。默认为 `localhost`。
+--retryMaxTimes         整数，最大重试次数。默认为 `10`。
+--retryPeriod           整数，重试间隔时间（单位：秒）。默认为 `10`。
 ```
 
 ### 示例
@@ -79,6 +81,8 @@ t9k-pf pod <name> [<localPort>:]<targetPort>
 -n, --namespace         字符串，指定使用的项目（命名空间）名称。
 -k, --apikey            开启交互式输入 API Key。
 --address               本地监听地址。默认为 `localhost`。
+--retryMaxTimes         整数，最大重试次数。默认为 `10`。
+--retryPeriod           整数，重试间隔时间（单位：秒）。默认为 `10`。
 ```
 
 ### 示例
@@ -130,6 +134,8 @@ t9k-pf service <name> [<localPort>:]<targetPort>
 -n, --namespace         字符串，指定使用的项目（命名空间）名称。默认是 `default`。
 -k, --apikey            开启交互式输入 API Key。
 --address               本地监听地址。默认为 `localhost`。
+--retryMaxTimes         整数，最大重试次数。默认为 `10`。
+--retryPeriod           整数，重试间隔时间（单位：秒）。默认为 `10`。
 ```
 
 ### 示例
