@@ -217,8 +217,10 @@ _Appears in:_
 | `priority` _integer_ | If specified, indicates the Queue's priority. range is [0,100] The higher value of `priority`, workloads in this queue will be scheduled with resources with higher preferences. |
 | `preemptible` _boolean_ | Preemptible indicate whether the queue can be preempted by other queue when cluster resources are in short. Queue can be preempted if Preemptible is not set. |
 | `closed` _boolean_ | After queue is closed, new workloads (pods) will not be allocated with resources and no new workloads will be accepted either. |
-| `nodeSelector` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#labelselector-v1-meta">LabelSelector</a>_ | NodeSelector specifies the nodes whoses resource can be used by a Queue. This provides a machanism to restrict workloads submitted to a particular queue to a sub-set of nodes in the cluster. if `nil`, all nodes are eligible. |
-| `namespaceSelector` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#labelselector-v1-meta">LabelSelector</a>_ | NamespaceSelector specifies the set of namespaces from which workloads are allowed to use this Queue. if `nil`,  no namespaces are selected. Note: There may be other authorization procedures that permit workloads in a queue. They are OR'ed with this selector. |
+| `maxDuration` _Duration_ | Define the max lifetime of Pod using the Queue. Supported units: y, w, d, h, m, s, ms. Examples: `30s`, `1m`, `1h20m15s`, `15d`. |
+| `resourceShapeProfile` _string_ | Specify ResourceShape profile used by the Queue. |
+| `nodeSelector` _[LabelSelector](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#labelselector-v1-meta)_ | NodeSelector specifies the nodes whoses resource can be used by a Queue. This provides a machanism to restrict workloads submitted to a particular queue to a sub-set of nodes in the cluster. if `nil`, all nodes are eligible. |
+| `namespaceSelector` _[LabelSelector](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#labelselector-v1-meta)_ | NamespaceSelector specifies the set of namespaces from which workloads are allowed to use this Queue. if `nil`,  no namespaces are selected. Note: There may be other authorization procedures that permit workloads in a queue. They are OR'ed with this selector. |
 
 
 #### QueueStatus
