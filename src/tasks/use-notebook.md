@@ -33,40 +33,39 @@
 
 Jupyter Notebook 提供了交互式的 Python 开发环境。您可以在这里分块编辑并运行 Python 代码。比如运行 `keras_mnist.py`：
 
-??? quote "`keras_mnist.py`"
-    ``` python
-    from tensorflow.keras import callbacks, datasets, layers, models, optimizers
+``` python
+from tensorflow.keras import callbacks, datasets, layers, models, optimizers
 
-    model = models.Sequential([
-        layers.Conv2D(32, 3, activation='relu', input_shape=(28, 28, 1)),
-        layers.MaxPool2D((2, 2)),
-        layers.Conv2D(64, 3, activation='relu'),
-        layers.MaxPool2D((2, 2)),
-        layers.Conv2D(64, 3, activation='relu'),
-        layers.Flatten(),
-        layers.Dense(64, activation='relu'),
-        layers.Dense(10, activation='softmax'),
-    ])
-    model.compile(optimizer=optimizers.Adam(learning_rate=0.001),
-                loss='sparse_categorical_crossentropy',
-                metrics=['accuracy'])
+model = models.Sequential([
+    layers.Conv2D(32, 3, activation='relu', input_shape=(28, 28, 1)),
+    layers.MaxPool2D((2, 2)),
+    layers.Conv2D(64, 3, activation='relu'),
+    layers.MaxPool2D((2, 2)),
+    layers.Conv2D(64, 3, activation='relu'),
+    layers.Flatten(),
+    layers.Dense(64, activation='relu'),
+    layers.Dense(10, activation='softmax'),
+])
+model.compile(optimizer=optimizers.Adam(learning_rate=0.001),
+            loss='sparse_categorical_crossentropy',
+            metrics=['accuracy'])
 
 
-    (train_images, train_labels), (test_images,
-                                test_labels) = datasets.mnist.load_data()
+(train_images, train_labels), (test_images,
+                            test_labels) = datasets.mnist.load_data()
 
-    train_images = train_images.reshape((60000, 28, 28, 1))
-    test_images = test_images.reshape((10000, 28, 28, 1))
+train_images = train_images.reshape((60000, 28, 28, 1))
+test_images = test_images.reshape((10000, 28, 28, 1))
 
-    train_images, test_images = train_images / 255.0, test_images / 255.0
+train_images, test_images = train_images / 255.0, test_images / 255.0
 
-    model.fit(train_images,
-            train_labels,
-            batch_size=32,
-            epochs=5,
-            validation_split=0.2)
-    model.evaluate(test_images, test_labels)
-    ```
+model.fit(train_images,
+        train_labels,
+        batch_size=32,
+        epochs=5,
+        validation_split=0.2)
+model.evaluate(test_images, test_labels)
+```
 
 <figure class="screenshot">
   <img alt="jupyterLab-notebook" src="../assets/tasks/develop-and-test-model/use-notebook/jupyterLab-notebook.png" class="screenshot"/>

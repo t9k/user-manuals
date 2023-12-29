@@ -57,6 +57,9 @@
   <img alt="connect-explorer" src="../assets/tasks/manage-auxiliary-resources/connect-explorer.png" class="screenshot"/>
 </figure>
 
-!!! abstract "延伸阅读"
-    * <a target="_blank" rel="noopener noreferrer" href="https://filebrowser.org">FileBrowser 官方介绍</a>
-    * <a target="_blank" rel="noopener noreferrer" href="https://code.visualstudio.com/">VSCode 官方网站</a>
+<div class="title">延伸阅读</div>
+
+* <a target="_blank" rel="noopener noreferrer" href="https://filebrowser.org">FileBrowser 官方介绍</a>
+* <a target="_blank" rel="noopener noreferrer" href="https://code.visualstudio.com/">VSCode 官方网站</a>
+
+</aside>

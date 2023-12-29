@@ -2,10 +2,14 @@
 
 TensorBoard 是 TensorFlow 提供的一种可视化机器学习过程和结果的工具，功能强大且广泛应用于多种框架。
 
-!!! abstract "延伸阅读"
-    * <a target="_blank" rel="noopener noreferrer" href="https://www.tensorflow.org/tensorboard/get_started">TensorBoard 官方教程</a>  
-    * <a target="_blank" rel="noopener noreferrer" href="https://pytorch.org/docs/stable/tensorboard.html">使用 TensorBoard 可视化 PyTorch 模型</a>  
-    * <a target="_blank" rel="noopener noreferrer" href="https://keras.io/api/callbacks/tensorboard/">使用 TensorBoard 可视化 Keras 模型</a>
+<aside class="note info">
+<div class="title">延伸阅读</div>
+
+* <a target="_blank" rel="noopener noreferrer" href="https://www.tensorflow.org/tensorboard/get_started">TensorBoard 官方教程</a>  
+* <a target="_blank" rel="noopener noreferrer" href="https://pytorch.org/docs/stable/tensorboard.html">使用 TensorBoard 可视化 PyTorch 模型</a>  
+* <a target="_blank" rel="noopener noreferrer" href="https://keras.io/api/callbacks/tensorboard/">使用 TensorBoard 可视化 Keras 模型</a>
+
+</aside>
 
 您可以使用本产品在集群中一键部署 TensorBoard，可视化训练模型。
 
