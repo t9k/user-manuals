@@ -4,7 +4,7 @@ TensorStack AI 平台的实验管理模块（Experiment Management，以下简�
 
 ## 产品架构
 
-![structure](../assets/modules/em/structure.png)
+![structure](../assets/modules/em/architecture.png)
 
 如上图所示，EM 使用 TensorStack AI 平台自研存储系统 AIStore 存储数据，用户可以通过 EM 控制台、命令行工具和 SDK 工具与 AIStore 连接，实现 EM 的各项功能。
 

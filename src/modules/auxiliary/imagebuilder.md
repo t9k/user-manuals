@@ -36,11 +36,11 @@ spec:
 
 ## 构建工具
 
-目前 ImageBuilder 只支持使用 `kaniko` 来构建镜像。
+目前 ImageBuilder 支持使用 <a target="_blank" rel="noopener noreferrer" href="https://github.com/GoogleContainerTools/kaniko">kaniko</a> 工具来构建镜像。
 
 ### kaniko
 
-您可以通过 `spec.builder` 字段来设置 `kaniko` 工具。
+您可以通过 `spec.builder.kaniko` 字段来设置 `kaniko` 工具。
 
 在下面示例中，ImageBuilder 使用 `t9kpublic/kaniko-project-executor:v1.17.0` 镜像启动容器，并在该容器中构建镜像；ImageBuilder 不额外设置 `kaniko` 参数。
 
@@ -54,4 +54,3 @@ spec:
 
 * `image`：在部署 ImageBuilder 控制器时，会指定一个默认镜像，所以一般来说可以不设置该字段。
 * `args`：在不指定该参数的情况下，ImageBuilder 构建镜像时执行 `kaniko --destination=[image-tag] --context=[context-path] --dockerfile=[dockerfile-path]` 命令。如果您需要使用其他参数，可以在该字段中指定。参考 <a target="_blank" rel="noopener noreferrer" href="https://github.com/GoogleContainerTools/kaniko?tab=readme-ov-file#additional-flags">kaniko additional flags</a>。
-
