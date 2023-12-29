@@ -35,7 +35,7 @@ spec:
                   - dist_mnist.py
                 workingDir: /mnt/mnist-distributed
                 imagePullPolicy: IfNotPresent
-                image: registry.tensorstack.cn/t9k/tensorflow-1.15.2:tuner-2.23
+                image: t9kpublic/tensorflow-1.15.2:tuner-2.23
                 name: tensorflow
   tuner:
     builtinTunerName: TPE

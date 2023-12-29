@@ -34,7 +34,7 @@ spec:
       spec:
         containers:
           - name: mpi-worker
-            image: registry.tensorstack.cn/t9k/mpi-tutorial:1.41.0
+            image: t9kpublic/mpi-tutorial:2021022-2
             resources:
               limits:
                 cpu: 100m

@@ -22,7 +22,7 @@ spec:
         spec:
           containers:
             - name: xgboost
-              image: registry.tensorstack.cn/t9kmirror/xgboost-dist-iris:1.1
+              image: t9kpublic/xgboost-dist-iris:3.7
               command:
                 - python3
                 - /mnt/main.py
@@ -38,7 +38,7 @@ spec:
       template:
           containers:
             - name: xgboost
-              image: registry.tensorstack.cn/t9kmirror/xgboost-dist-iris:1.1
+              image: t9kpublic/xgboost-dist-iris:3.7
               command:
                 - python3
                 - /mnt/main.py

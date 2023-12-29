@@ -271,7 +271,7 @@ spec:
   tensorboardSpec:
     trainingLogFilesets:
       - t9k://pvc/codepack-example/mnist-keras/log
-    image: registry.tensorstack.cn/t9k/tensorflow-2.7.0:cpu
+    image: t9kpublic/tensorflow-2.7.0:cpu
   replicaSpecs:
     - type: worker
       replicas: 4
@@ -291,7 +291,7 @@ spec:
                 - "saved-model"
               workingDir: /mnt/mnist-keras/    # 工作路径,与定义文件中Codepack的
               imagePullPolicy: IfNotPresent    # 复制路径一致
-              image: registry.tensorstack.cn/t9k/tensorflow-2.7.0:cpu
+              image: t9kpublic/tensorflow-2.7.0:cpu
               name: tensorflow
               resources:
                 requests:
