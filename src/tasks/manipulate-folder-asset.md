@@ -1,10 +1,10 @@
-# 操作 Folder 和 Asset
+# 操作文件夹、模型和数据集
 
-本教程演示如何通过多种方式操作 Folder 和 Asset，包括创建、查看和删除 Asset Hub 中的 Folder 和各类 Asset。
+本教程演示如何通过多种方式操作文件夹、模型和数据集，包括创建、查看和删除。
 
 ## 准备工作
 
-* [安装](../tools/python-sdk-t9k/guide.md#安装) TensorStack SDK 并阅读[用户指南](../tools/python-sdk-t9k/guide.md)。
+* [安装](../tools/python-sdk-t9k/index.md) TensorStack SDK 并阅读[用户指南](../tools/python-sdk-t9k/guide.md)。
 
 ## 通过命令行工具
 
@@ -14,14 +14,14 @@
 $ cd /your/workpath
 ```
 
-假设当前用户（这里以 `user` 表示）没有可以访问的 Folder，使用 `ah create` 命令创建一个 Model Folder 和一个 Dataset Folder：
+假设当前用户（这里假设用户名为 `demo`）没有可以访问的文件夹，使用 `ah create` 命令创建一个模型文件夹和一个数据集文件夹：
 
 ```shell
 $ ah create model/llm
-AH INFO: Folder /user/t9k-assethub/model/llm created
+AH INFO: Folder /demo/t9k-assethub/model/llm created
 
 $ ah create dataset/text
-AH INFO: Folder /user/t9k-assethub/dataset/text created
+AH INFO: Folder /demo/t9k-assethub/dataset/text created
 ```
 
 <aside class="note tip">
@@ -31,61 +31,61 @@ AH INFO: Folder /user/t9k-assethub/dataset/text created
 
 </aside>
 
-然后使用 `ah create` 命令在 Model Folder 中创建一个 Model，以及在 Dataset Folder 中创建一个 Dataset：
+然后使用 `ah create` 命令在模型文件夹中创建一个模型，以及在数据集文件夹中创建一个数据集：
 
 ```shell
 $ ah create model/llm/gpt2
-AH INFO: Model gpt2 created for Folder /user/t9k-assethub/model/llm
+AH INFO: Model gpt2 created for Folder /demo/t9k-assethub/model/llm
 
 $ ah create dataset/text/openwebtext
-AH INFO: Dataset openwebtext created for Folder /user/t9k-assethub/dataset/text
+AH INFO: Dataset openwebtext created for Folder /demo/t9k-assethub/dataset/text
 ```
 
-创建完成之后，使用 `ah ls` 命令查看当前用户的 Model Folder 和 Dataset Folder：
+创建完成之后，使用 `ah ls` 命令查看当前用户的模型文件夹和数据集文件夹：
 
 ```shell
 $ ah ls model
 NAME    PATH                          LABELS    PERMISSION
-llm     /user/t9k-assethub/model/llm             own
+llm     /demo/t9k-assethub/model/llm             own
 
 $ ah ls dataset
 NAME    PATH                              LABELS    PERMISSION
-text    /user/t9k-assethub/dataset/text              own
+text    /demo/t9k-assethub/dataset/text              own
 ```
 
-使用 `ah ls` 命令查看 Model Folder 下的所有 Model 以及 Dataset Folder 下的所有 Dataset：
+使用 `ah ls` 命令查看模型文件夹下的所有模型以及数据集文件夹下的所有数据集：
 
 ```shell
 $ ah ls model/llm
 NAME    PATH                              LABELS    PERMISSION
-gpt2    /user/t9k-assethub/model/llm/gpt2            own
+gpt2    /demo/t9k-assethub/model/llm/gpt2            own
 
 $ ah ls dataset/text
 NAME         PATH                                        LABELS    PERMISSION
-openwebtext  /user/t9k-assethub/dataset/text/openwebtext            own
+openwebtext  /demo/t9k-assethub/dataset/text/openwebtext            own
 ```
 
-最后使用 `ah delete` 命令删除所有创建的 Model、Dataset 和 Folder：
+最后使用 `ah delete` 命令删除所有创建的模型、数据集和文件夹：
 
 ```shell
 $ ah delete model/llm/gpt2
-AH INFO: Model /user/t9k-assethub/model/llm/gpt2 deleted
+AH INFO: Model /demo/t9k-assethub/model/llm/gpt2 deleted
 
 $ ah delete dataset/text/openwebtext
-AH INFO: Dataset /user/t9k-assethub/dataset/text/openwebtext deleted
+AH INFO: Dataset /demo/t9k-assethub/dataset/text/openwebtext deleted
 
-# 可以直接删除 Folder, 其中的 Model 或 Dataset 都会被一并删除
+# 可以直接删除文件夹, 其中的模型或数据集都会被一并删除
 $ ah delete model/llm
-AH INFO: Folder /user/t9k-assethub/model/llm deleted
+AH INFO: Folder /demo/t9k-assethub/model/llm deleted
 
 $ ah delete dataset/text
-AH INFO: Folder /user/t9k-assethub/dataset/text deleted
+AH INFO: Folder /demo/t9k-assethub/dataset/text deleted
 ```
 
 <aside class="note">
 <div class="title">注意</div>
 
-删除 Model、Dataset 和 Folder 时会一并删除其中的所有内容，请慎重操作。
+删除模型、数据集和文件夹时会一并删除其中的所有内容，请慎重操作。
 
 </aside>
 
@@ -106,7 +106,7 @@ ah.login(host='<asset-hub-server-url>',
 AH INFO: Logged in to Asset Hub server and AIStore server as user <your-user-name>
 ```
 
-假设当前用户（这里以 `user` 表示）没有可以访问的 Folder，使用 `ah.create()` 函数创建一个 Model Folder 和一个 Dataset Folder，各返回一个 `Folder` 实例：
+假设当前用户（这里假设用户名为 `demo`）没有可以访问的文件夹，使用 `ah.create()` 函数创建一个模型文件夹和一个数据集文件夹，各返回一个 `Folder` 实例：
 
 ```python
 model_folder = ah.create('model/llm')
@@ -114,8 +114,8 @@ dataset_folder = ah.create('dataset/text')
 ```
 
 ```
-AH INFO: Folder /user/t9k-assethub/model/llm created
-AH INFO: Folder /user/t9k-assethub/dataset/text created
+AH INFO: Folder /demo/t9k-assethub/model/llm created
+AH INFO: Folder /demo/t9k-assethub/dataset/text created
 ```
 
 <aside class="note tip">
@@ -125,7 +125,7 @@ AH INFO: Folder /user/t9k-assethub/dataset/text created
 
 </aside>
 
-继续使用 `ah.create()` 函数在 Model Folder 中创建一个 Model，以及在 Dataset Folder 中创建一个 Dataset：
+继续使用 `ah.create()` 函数在模型文件夹中创建一个模型，以及在数据集文件夹中创建一个数据集：
 
 ```python
 model = ah.create('model/llm/gpt2')
@@ -133,8 +133,8 @@ dataset = ah.create('dataset/text/openwebtext')
 ```
 
 ```
-AH INFO: Model gpt2 created for Folder /user/t9k-assethub/model/llm
-AH INFO: Dataset openwebtext created for Folder /user/t9k-assethub/dataset/text
+AH INFO: Model gpt2 created for Folder /demo/t9k-assethub/model/llm
+AH INFO: Dataset openwebtext created for Folder /demo/t9k-assethub/dataset/text
 ```
 
 <aside class="note tip">
@@ -144,7 +144,7 @@ AH INFO: Dataset openwebtext created for Folder /user/t9k-assethub/dataset/text
 
 </aside>
 
-创建完成之后，使用 `ah.list()` 函数返回当前用户的 Folder：
+创建完成之后，使用 `ah.list()` 函数返回当前用户的文件夹：
 
 ```python
 from pprint import pprint
@@ -155,30 +155,30 @@ pprint(ah.list('dataset'))
 
 ```
 [{'description': '',
-  'editor': 'user',
+  'editor': 'demo',
   'extra': '{"createdTimestamp": "2023-08-17T08:05:24.044319Z"}',
   'id': '967a5135-8b13-4283-9fad-ba53503612b3',
   'labels': [],
   'modifiedTimestamp': '2023-08-17T08:05:24.390002Z',
   'name': 'llm',
-  'path': '/user/t9k-assethub/model/llm',
+  'path': '/demo/t9k-assethub/model/llm',
   'permission': 'own',
   'storageType': 0,
   'type': 'Folder'}]
 [{'description': '',
-  'editor': 'user',
+  'editor': 'demo',
   'extra': '{"createdTimestamp": "2023-08-17T08:05:24.196610Z"}',
   'id': 'd0d9f4b2-6c15-4dbb-b2d1-0619b6774c4a',
   'labels': [],
   'modifiedTimestamp': '2023-08-17T08:05:24.519213Z',
   'name': 'text',
-  'path': '/user/t9k-assethub/dataset/text',
+  'path': '/demo/t9k-assethub/dataset/text',
   'permission': 'own',
   'storageType': 0,
   'type': 'Folder'}]
 ```
 
-继续使用 `ah.list()` 函数返回 Model Folder 下的所有 Model 和 Dataset Folder 下的所有 Dataset：
+继续使用 `ah.list()` 函数返回模型文件夹下的所有模型和数据集文件夹下的所有数据集：
 
 ```python
 pprint(ah.list('model/llm'))
@@ -187,24 +187,24 @@ pprint(ah.list('dataset/text'))
 
 ```
 [{'description': '',
-  'editor': 'user',
+  'editor': 'demo',
   'extra': '{"createdTimestamp": "2023-08-17T08:11:09.948554Z"}',
   'id': '2157a139-e20b-4736-9e25-d4495e287af8',
   'labels': [],
   'modifiedTimestamp': '2023-08-17T08:11:10.327166Z',
   'name': 'gpt2',
-  'path': '/user/t9k-assethub/model/llm/gpt2',
+  'path': '/demo/t9k-assethub/model/llm/gpt2',
   'permission': 'own',
   'storageType': 3,
   'type': 'Model'}]
 [{'description': '',
-  'editor': 'user',
+  'editor': 'demo',
   'extra': '{"createdTimestamp": "2023-08-17T08:11:10.508407Z"}',
   'id': '6826131c-2c88-483e-8a48-0f6d8fa59cfa',
   'labels': [],
   'modifiedTimestamp': '2023-08-17T08:11:10.830665Z',
   'name': 'openwebtext',
-  'path': '/user/t9k-assethub/dataset/text/openwebtext',
+  'path': '/demo/t9k-assethub/dataset/text/openwebtext',
   'permission': 'own',
   'storageType': 3,
   'type': 'Dataset'}]
@@ -217,20 +217,20 @@ pprint(ah.list('dataset/text'))
 
 </aside>
 
-最后使用 `ah.delete()` 函数删除所有创建的 Model、Dataset 和 Folder：
+最后使用 `ah.delete()` 函数删除所有创建的模型、数据集和文件夹：
 
 ```python
 ah.delete('model/llm/gpt2')
 ah.delete('dataset/text/openwebtext')
-ah.delete('model/llm')    # 可以直接删除 Folder, 其中的 Model 或 Dataset 都会被一并删除
+ah.delete('model/llm')    # 可以直接删除文件夹, 其中的模型或数据集都会被一并删除
 ah.delete('dataset/text')
 ```
 
 ```
-AH INFO: Model /user/t9k-assethub/model/llm/gpt2 deleted
-AH INFO: Dataset /user/t9k-assethub/dataset/text/openwebtext deleted
-AH INFO: Folder /user/t9k-assethub/model/llm deleted
-AH INFO: Folder /user/t9k-assethub/dataset/text deleted
+AH INFO: Model /demo/t9k-assethub/model/llm/gpt2 deleted
+AH INFO: Dataset /demo/t9k-assethub/dataset/text/openwebtext deleted
+AH INFO: Folder /demo/t9k-assethub/model/llm deleted
+AH INFO: Folder /demo/t9k-assethub/dataset/text deleted
 ```
 
 <aside class="note tip">
@@ -244,13 +244,13 @@ AH INFO: Folder /user/t9k-assethub/dataset/text deleted
 
 数据集文件夹、数据集的控制台操作分别和模型文件夹、模型完全一致。本教程后续仅展示模型文件夹和模型的创建、查看、删除、分享功能，您可以用同样的方式操作数据集文件夹和数据集。
 
-在左侧的导航菜单中点击**模型**，选择查看范围为 **All**，查看当前用户可以访问的所有模型文件夹。然后点击右上角的 **+** 创建新的模型文件夹：
+在左侧的导航菜单中点击**模型**，选择查看范围为 **My Own**，查看当前用户的所有模型文件夹。然后点击右上角的 **+** 创建新的模型文件夹：
 
 <figure class="screenshot">
-  <img alt="model-all" src="../assets/tasks/manage-asset/manipulate-folder-and-asset/model-all.png" class="screenshot"/>
+  <img alt="model-all" src="../assets/tasks/manage-asset/manipulate-folder-and-asset/model-owned.png" class="screenshot"/>
 </figure>
 
-填写名称 `image-classification`，点击标签右侧的 **+**，添加标签 `image`，最后点击**创建**：
+填写名称 `image-classification`，点击**创建**：
 
 <figure class="screenshot">
   <img alt="folder-create" src="../assets/tasks/manage-asset/manipulate-folder-and-asset/folder-create.png" class="screenshot"/>
@@ -262,7 +262,7 @@ AH INFO: Folder /user/t9k-assethub/dataset/text deleted
   <img alt="folder-share" src="../assets/tasks/manage-asset/manipulate-folder-and-asset/folder-share.png" class="screenshot"/>
 </figure>
 
-点击**添加分享目标**，选择分享的对象为 **Public**（所有用户可见），分享的权限是 **Editor**，最后点击**分享**：
+点击**添加分享目标**，选择分享的对象为 **Public**（所有用户可见），分享的权限是 **Edit**，最后点击**分享**：
 
 <figure class="screenshot">
   <img alt="folder-share-setting" src="../assets/tasks/manage-asset/manipulate-folder-and-asset/folder-share-setting.png" class="screenshot"/>
