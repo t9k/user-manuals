@@ -24,7 +24,7 @@
   <img alt="create-notebook" src="../assets/tasks/run-hyperparameter-optimization/create-notebook.png" class="screenshot"/>
 </figure>
 
-创建完成之后，点击 **CONNECT** 进入 Notebook。
+创建完成之后，点击**打开**进入 Notebook。
 
 <figure class="screenshot">
   <img alt="after-creating-notebook" src="../assets/tasks/run-hyperparameter-optimization/after-creating-notebook.png" class="screenshot"/>
@@ -337,7 +337,7 @@ if task_index > 0:
   <img alt="notebook-detail" src="../assets/tasks/run-hyperparameter-optimization/notebook-detail.png" class="screenshot"/>
 </figure>
 
-创建 `download_dataset.py` 文件，写入以下脚本并执行来下载实验数据。
+创建 `download_dataset.py` 文件，写入并执行以下脚本来下载实验数据。
 
 ```python
 import os
@@ -356,17 +356,17 @@ _, _ = tf.keras.datasets.mnist.load_data(os.path.join(os.getcwd(), 'mnist.npz'))
 
 ## 准备数据库
 
-您可以使用 AIMD 记录超参数调优实验中的超参数组合和训练结果。（如果您选择不使用 AIMD 持久记录 AutoTune 实验结果，请忽略这一步，并在开始实验时删掉 AutoTuneExperiment 的 `spec.aimd` 字段）
+您可以使用实验管理平台（以下称 EM）记录超参数调优实验中的超参数组合和训练结果。（如果您选择不使用 EM 持久记录 AutoTune 实验结果，请忽略这一步，并在开始实验时删掉 AutoTuneExperiment 的 `spec.aistore` 字段）
 
 ### 在实验管理控制台中新建文件夹
 
-AIMD 的实验数据是以文件夹形式管理的，所以您首先需要在实验管理控制台点击右上角的 **+** 新建一个文件夹。
+EM 的实验数据是以文件夹形式管理的，所以您首先需要在实验管理控制台点击右上角的 **+** 新建一个文件夹。
 
 <figure class="screenshot">
-  <img alt="create-aimd-folder" src="../assets/tasks/run-hyperparameter-optimization/create-aimd-folder.png" class="screenshot"/>
+  <img alt="create-aimd-folder" src="../assets/tasks/run-hyperparameter-optimization/create-aistore-folder.png" class="screenshot"/>
 </figure>
 
-右键文件夹，点击 **Copy folder ID** 来获取该文件夹的 ID。
+进入文件夹，点击 **ID** 来复制该文件夹的 ID。
 
 <figure class="screenshot">
   <img alt="folder-id" src="../assets/tasks/run-hyperparameter-optimization/folder-id.png" class="screenshot"/>
@@ -375,13 +375,13 @@ AIMD 的实验数据是以文件夹形式管理的，所以您首先需要在实
 <aside class="note info">
 <div class="title">信息</div>
 
-AIMD 的更详细信息请参阅[实验管理](../../module/experiment/index.md)和[使用实验管理控制台查看和管理数据](../record-model-training-data/use-experiment-console.md)。
+EM 的更详细信息请参阅[实验管理](../modules/experiment-management.md)。
 
 </aside>
 
-### 获得访问 AIMD 所需的 API Key
+### 获得访问 EM 所需的 API Key
 
-在超参数优化实验中，如果您希望使用 AIMD 来存储实验数据，需要生成一个具有访问 AIMD 数据库权限的 API Key，您可以通过这个 API Key 上传实验数据。
+在超参数优化实验中，如果您希望使用 EM 来存储实验数据，需要生成一个具有访问 EM 文件夹权限的 API Key，您可以通过这个 API Key 上传实验数据。
 
 <aside class="note info">
 <div class="title">什么是 API Key</div>
@@ -390,19 +390,19 @@ AIMD 的更详细信息请参阅[实验管理](../../module/experiment/index.md)
 
 </aside>
 
-您需要按照[生成 API Key](../api-key/generate-api-key.md) 教程中的步骤，在安全控制台中生成一个 API Key，其中必须勾选 AIMD 选项。
+您需要按照[生成 API Key](./generate-api-key.md) 教程中的步骤，在安全控制台中生成一个 API Key，其中必须勾选 AIStore 选项。
 
 <figure class="screenshot">
   <img alt="create-apikey" src="../assets/tasks/run-hyperparameter-optimization/create-apikey.png" class="screenshot"/>
 </figure>
 
-生成 API Key 之后，点击 **:material-content-copy:** 复制该 API Key。
+生成 API Key 之后，点击**复制按钮**复制该 API Key。
 
 <figure class="screenshot">
   <img alt="after-creating-apikey" src="../assets/tasks/run-hyperparameter-optimization/after-creating-apikey.png" class="screenshot"/>
 </figure>
 
-然后，您需要按照[管理 Secret](../manage-auxiliary-resources/manage-secret.md) 教程中的步骤，在模型构建控制台中将所复制的 API Key 存入名为 `aimd` 的 Secret 中，以方便后续实验使用。
+然后，您需要按照[管理 Secret](./manage-secret.md) 教程中的步骤，在模型构建控制台中将所复制的 API Key 存入名为 `aistore` 的 Secret 中，以方便后续实验使用。
 
 <figure class="screenshot">
   <img alt="create-apikey-secret" src="../assets/tasks/run-hyperparameter-optimization/create-apikey-secret.png" class="screenshot"/>
@@ -416,15 +416,7 @@ AIMD 的更详细信息请参阅[实验管理](../../module/experiment/index.md)
   <img alt="autotune-table" src="../assets/tasks/run-hyperparameter-optimization/autotune-table.png" class="screenshot"/>
 </figure>
 
-接下来填写 AutoTuneExperiment 创建表单，按照下图填写 AutoTuneExperiment 配置：
-
-<figure class="screenshot">
-  <img alt="create-autotune" src="../assets/tasks/run-hyperparameter-optimization/create-autotune.png" class="screenshot"/>
-</figure>
-
-在此例中，实验绑定了准备过程中创建的名为 `autotune-mnist-keras` 的 PVC，其中存有在 Notebook 中编辑的训练脚本；使用了名为 `aimd` 的存有 API Key 的 Secret；填入了前面创建的 AIMD Folder 的 ID。
-
-为了简化操作，您也可以直接复制下面的 AutoTuneExperiment 配置文件并粘贴到右侧的编辑框中来完成创建：
+在 AutoTuneExperiment 创建页面，点击**预览 YAML**，输入以下配置，点击**创建**：
 
 ```yaml
 apiVersion: tensorstack.dev/v1beta1
@@ -435,9 +427,10 @@ spec:
   maxExecSeconds: 3600
   maxTrialNum: 20
   trialConcurrency: 3
-  aimd:
-    secret: aimd
-    folder: bbb910e8-4ac9-4f77-9960-cc6cb6fb51b5
+  storage: 100Mi
+  aistore:
+    secret: 'aistore'
+    folder: 'b6c17378-965c-4467-9a43-eed65597f976'
   searchSpace: |-
     {
       "batch_size": {"_type": "choice", "_value": [16, 32, 64, 128]},
@@ -485,9 +478,15 @@ spec:
       }
 ```
 
+在此例中，实验绑定了准备过程中创建的名为 `autotune-mnist-keras` 的 PVC，其中存有在 Notebook 中编辑的训练脚本；使用了名为 `aistore` 的存有 API Key 的 Secret；填入了前面创建的 EM Folder 的 ID。
+
+<figure class="screenshot">
+  <img alt="create-autotune" src="../assets/tasks/run-hyperparameter-optimization/create-autotune.png" class="screenshot"/>
+</figure>
+
 ## 查看实验
 
-您可以在 AutoTune 列表页面看到已创建的 AutoTuneExperiment，点击 **CONNECT** 进入实验详情页面。
+您可以在 AutoTune 列表页面看到已创建的 AutoTuneExperiment，点击**连接**进入实验详情页面。
 
 <figure class="screenshot">
   <img alt="after-creating-autotune" src="../assets/tasks/run-hyperparameter-optimization/after-creating-autotune.png" class="screenshot"/>
@@ -502,7 +501,3 @@ spec:
 <figure class="screenshot">
   <img alt="trial-detail" src="../assets/tasks/run-hyperparameter-optimization/trial-detail.png" class="screenshot"/>
 </figure>
-
-## 下一步
-
-* [AutoTune 使用 AIMD 存储实验数据](../record-model-training-data/autotune-use-aimd.md)
