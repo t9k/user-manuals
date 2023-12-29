@@ -141,13 +141,13 @@ spec:
 
 TensorFlowTrainingJob 支持使用 TensorBoard 对训练过程和结果进行实时可视化（由 `spec.tensorboardSpec` 字段设置）。
 
-在下面的示例中，TensorFlowTrainingJob 使用 `t9kpublic/tensorboard:2.11.0` 镜像创建一个 TensorBoard，可视化名为 `tensorflow-tensorboard-pvc` 的 PVC 中 `/log` 路径下的模型数据。
+在下面的示例中，TensorFlowTrainingJob 使用 `t9kpublic/tensorflow-2.11.0:cpu-sdk-0.5.2` 镜像创建一个 TensorBoard，可视化名为 `tensorflow-tensorboard-pvc` 的 PVC 中 `/log` 路径下的模型数据。
 
 ```yaml
 ...
 spec:
   tensorboardSpec:
-    image: t9kpublic/tensorboard:2.11.0
+    image: t9kpublic/tensorflow-2.11.0:cpu-sdk-0.5.2
     trainingLogFilesets:
     - t9k://pvc/tensorflow-tensorboard-pvc/log
 ...
