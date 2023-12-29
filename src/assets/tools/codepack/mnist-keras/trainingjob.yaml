@@ -13,7 +13,7 @@ spec:
   tensorboardSpec:
     trainingLogFilesets:
       - t9k://pvc/codepack-example/mnist-keras/log
-    image: tsz.io/t9k/tensorflow-2.7.0:cpu
+    image: t9kpublic/tensorflow-2.7.0:cpu
   replicaSpecs:
     - type: worker
       replicas: 4
@@ -33,7 +33,7 @@ spec:
                 - "saved-model"
               workingDir: /mnt/mnist-keras/
               imagePullPolicy: IfNotPresent
-              image: tsz.io/t9k/tensorflow-2.7.0:cpu
+              image: t9kpublic/tensorflow-2.7.0:cpu
               name: tensorflow
               resources:
                 requests:

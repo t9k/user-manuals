@@ -270,7 +270,7 @@ spec:
         maxReplicas: 1
         minReplicas: 1
         tensorflow:
-          image: 'tsz.io/t9kmirror/tensorflow-serving:2.6.0'
+          image: 't9kpublic/tensorflow-serving:2.6.0'
           modelUri: 'mms://$(params.mms_host)/$(params.model_name):$(params.model_tag)'
           resources:
             limits:

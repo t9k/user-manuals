@@ -16,7 +16,7 @@ spec:
     spec:
       flinkVersion: 1.10.1
       image:
-        name: tsz.io/t9kmirror/flink:1.10.1
+        name: t9kpublic/flink:1.10.1
       jobManager:
         accessScope: Cluster
         resources:
@@ -36,7 +36,7 @@ spec:
       template:
         spec:
           containers:
-          - image: tsz.io/t9kmirror/apache_beam_python3.7_sdk:2.22.0
+          - image: t9kpublic/apache_beam_python3.7_sdk:2.22.0
             name: submit-job
             command:
               - "python3"

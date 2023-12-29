@@ -63,7 +63,7 @@ spec:
   template:
     spec:
       containers:
-      - image: tsz.io/t9k/torch-2.1.0-notebook:1.77.1
+      - image: t9kpublic/torch-2.0.0-notebook:1.72.0
         name: notebook
         resources:
           limits:
