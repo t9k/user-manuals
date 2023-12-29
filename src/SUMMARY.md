@@ -79,11 +79,11 @@
         * [制作并部署含有 Transformer 的模型推理服务](tasks/deploy-mlservice-transformer.md)
 
     * [管理 AI 资产](tasks/manage-ai-assets.md)
-        * [操作 Folder 和 Asset](tasks/manipulate-folder-asset.md)
-        * [通过 S3 访问 Asset](tasks/access-asset-via-s3.md)
-        * [修改 Folder 和 Asset 的名称和标签](tasks/modify-folder-asset.md)
-        * [操作 Asset 的分支、tag 和 commit](tasks/manipulate-asset-branch-tag.md)
-        * [操作 Asset 的对象](tasks/manipulate-asset-objects.md)
+        * [操作文件夹、模型和数据集](tasks/manipulate-folder-asset.md)
+        * [通过 S3 访问模型和数据集](tasks/access-asset-via-s3.md)
+        * [修改文件夹、模型和数据集的基本信息](tasks/modify-folder-asset.md)
+        * [操作模型和数据集的分支、tag 和 commit](tasks/manipulate-asset-branch-tag.md)
+        * [操作模型和数据集的对象](tasks/manipulate-asset-objects.md)
 
     * [追踪模型训练](tasks/track-model-training.md)
         * [在实验管理控制台查看和管理数据](tasks/use-experiment-console.md)
