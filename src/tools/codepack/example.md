@@ -208,7 +208,7 @@
 
 <!-- TODO: Use dataset management module / s3 database
 <aside class="note tip">
-<h1>提示</h1>
+<div class="title">提示</div>
 
 本例中的数据集文件较小（只有 11 MB），因此将其放到 Codepack 中，并随同 Codepack 整个复制到 PVC 中是可行的。但在数据集文件较大的情况下更加推荐将其存放到平台的数据集管理模块中。
 

@@ -65,7 +65,7 @@ spec:
 使用 <a target="_blank" rel="noopener noreferrer" href="https://horovod.ai/">Horovod</a> 框架的分布式训练脚本也可以使用 MPIJob 进行训练。
 
 <aside class="note info">
-<h1>信息</h1>
+<div class="title">信息</div>
 
 Horovod 框架的分布式训练脚本一般使用 `horovodrun` 命令启动；而由于 Horovod 是基于 OpenMPI 实现的，所以也可以使用 `mpirun` 命令启动。两条命令的关系为：`horovodrun` 命令等同于 `mpirun -bind-to none -map-by slot -x NCCL_DEBUG=INFO -x LD_LIBRARY_PATH -x PATH -mca pml ob1 -mca btl ^openib`。具体信息请参阅 <a target="_blank" rel="noopener noreferrer" href="https://github.com/horovod/horovod/blob/master/docs/mpi.rst">Horovod With MPI</a>。
 
@@ -122,7 +122,7 @@ spec:
 ```
 
 <aside class="note info">
-<h1>信息</h1>
+<div class="title">信息</div>
 
 队列和优先级都是 T9k Scheduler 的概念，具体含义请参阅 [T9k Scheduler](../scheduling/index.md)。
 
@@ -266,7 +266,7 @@ status:
 ```
 
 <aside class="note">
-<h1>注意</h1>
+<div class="title">注意</div>
 
 上述 `conditions` 中的 `Completed` 和 `phase` 中的 `Succeeded` 并不表示 MPIJob 成功，仅仅表示 MPIJob 结束。
 

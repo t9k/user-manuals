@@ -164,7 +164,7 @@ spec:
 如果用户新创建了一个优先级高的 Runtime，而某个 MLService 根据[自动匹配](#自动匹配)规则与新创建的 Runtime 匹配上，MLService 控制器会更新 MLService 之前已经创建的 pod。
 
 <aside class="note tip">
-<h1>提示</h1>
+<div class="title">提示</div>
 
 如果你正在测试一个不稳定的 Runtime ，可以先将其优先级设为 0（不参与自动匹配），只通过指定 Runtime 的方式来测试它。待测试通过后再调高优先级。
 
@@ -467,7 +467,7 @@ Data,
 ```
 
 <aside class="note info">
-<h1>信息</h1>
+<div class="title">信息</div>
 
 MLService 在本地的日志信息会存储在 <a target="_blank" rel="noopener noreferrer" href="https://www.elastic.co/guide/en/elasticsearch/reference/7.10/index.html">Elasticsearch</a> 中。在 Elasticsearch 中，每个 Index 是一个命名空间，Index 之间互相独立。MLService 日志信息的 Index 模式是 `mlservice-<date>`，例如 `mlservice-2022.04.27`。
 

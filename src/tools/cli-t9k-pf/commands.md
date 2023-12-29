@@ -16,7 +16,7 @@ t9k-pf notebook <url> <localPort>
     
 
 <aside class="note">
-<h1>注意</h1>
+<div class="title">注意</div>
 
 为了方便用户快速连接 SSH，t9k-pf 命令行不支持指定 Notebook 资源的目标端口。如果您有相关需求，可以先获取 Notebook 对应的 Pod 资源，然后参照[访问 Pod ](#pod)来访问特定的目标端口。
 
@@ -53,7 +53,7 @@ t9k-pf nb <tensorstack-host>/t9k/build-console/projects/demo/notebooks/ml-labs/l
 ```
 
 <aside class="note">
-<h1>注意</h1>
+<div class="title">注意</div>
 
 在 port-forward 成功后，您仍然需要保持您的 t9k-pf 命令行窗口一直保持运行状态。
 
@@ -102,7 +102,7 @@ t9k-pf pod example 2222 -n dev
 ```
 
 <aside class="note">
-<h1>注意</h1>
+<div class="title">注意</div>
 
 在 port-forward 成功后，您仍然需要保持您的 t9k-pf 命令行窗口一直保持运行状态。
 
@@ -153,7 +153,7 @@ t9k-pf service myservice 80 -n dev
 ```
 
 <aside class="note">
-<h1>注意</h1>
+<div class="title">注意</div>
 
 在 port-forward 成功后，您仍然需要保持您的 t9k-pf 命令行窗口一直保持运行状态。
 

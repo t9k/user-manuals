@@ -75,7 +75,7 @@ trial.params['batch_size'] = 32
 
 <!-- 目前无法自动同步
 <aside class="note">
-<h1>注意</h1>
+<div class="title">注意</div>
 
 试验的超参数在每次更新后都会自动同步到服务器。
 
@@ -171,7 +171,7 @@ for epoch in range(1, epochs + 1):
 ```
 
 <aside class="note">
-<h1>注意</h1>
+<div class="title">注意</div>
 
 训练指标、验证指标和测试指标请分别使用指标类型 `'train'`（或 `'training'`）、`'val'`（或 `'validate'`、`'validation'`）和 `'test'`（或 `'testing'`、`'eval'`、`'evaluate'`、`'evaluation'`）。除此之外，您也可以使用其他任意字符串作为自定义指标类型。
 
@@ -200,7 +200,7 @@ model.evaluate(test_images,
 ```
 
 <aside class="note tip">
-<h1>提示</h1>
+<div class="title">提示</div>
 
 除了记录训练指标，`AIMDFitCallback` 回调还会获取模型的优化器配置、损失函数类型和指标类型并更新试验的超参数。
 
@@ -236,7 +236,7 @@ aimd.login(host='<your-server-host>', api_key='<your-api-key>')
 ```
 
 <aside class="note info">
-<h1>信息</h1>
+<div class="title">信息</div>
 
 生成包含 AIMD 权限的 API Key 的方法请参阅[生成 API Key](../api-key/generate-api-key.md)。
 
@@ -245,14 +245,14 @@ aimd.login(host='<your-server-host>', api_key='<your-api-key>')
 </aside>
 
 <aside class="note tip">
-<h1>提示</h1>
+<div class="title">提示</div>
 
 AIMD 服务器位于平台主机域名的 `/t9k/experiment/server` 路径下。例如，如果平台首页的 URL 为 `https://www.tensorstack.net/t9k/landing-page/`，那么 AIMD 服务器的 URL 为 `https://www.tensorstack.net/t9k/experiment/server`。
 
 </aside>
 
 <aside class="note tip">
-<h1>提示</h1>
+<div class="title">提示</div>
 
 如果您在 [TensorStack SDK 配置文件](../tools/python-sdk-t9k/guide.md#配置文件)中提供了 `host` 或 `api_key` 配置项的值，则它们将作为调用 `login()` 函数时相应参数的默认值。
 
@@ -283,7 +283,7 @@ aimd trial upload [-p <trial-path>] [-n <trial-name>] [-d <trial-dir>]
 ```
 
 <aside class="note tip">
-<h1>提示</h1>
+<div class="title">提示</div>
 
 使用 `--help` 参数来查看相应命令的详细使用方法，例如 `aimd trial upload --help`。
 

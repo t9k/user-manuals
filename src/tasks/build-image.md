@@ -7,7 +7,7 @@
 请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/master/build-image/build-image-on-platform">本教程对应的示例</a>，参照其 README 文档运行。
 
 <aside class="note tip">
-<h1>提示</h1>
+<div class="title">提示</div>
 
 上述操作使用 YAML 配置文件创建 Secret 和 Image Builder，您也可以在模型构建控制台进行创建。
 
@@ -32,7 +32,7 @@
 </figure>
 
 <aside class="note">
-<h1>注意</h1>
+<div class="title">注意</div>
 
 拉取和推送较大的镜像可能会花费较长的时间，取决于具体的网络情况，在这一过程中可能出现网络断线导致工作流失败。
 

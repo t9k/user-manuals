@@ -44,7 +44,7 @@
 </figure>
 
 <aside class="note info">
-<h1>信息</h1>
+<div class="title">信息</div>
 
 标准 Notebook 镜像的默认用户是 `t9kuser`，其主目录（home directory）是 `/t9k/mnt`。
 
@@ -82,14 +82,14 @@
 </figure>
 
 <aside class="note info">
-<h1>资源请求和上限</h1>
+<div class="title">资源请求和上限</div>
 
 关于资源请求（requests）和资源上限（limits）如何应用到 Pod 和容器，请参阅 Kubernetes 官方文档<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh-cn/docs/concepts/configuration/manage-resources-containers/">为 Pod 和容器管理资源</a>。需要注意一点，当指定了资源上限而没指定资源请求值时，Kubernetes 会参考资源上限，并将其作为资源请求值使用。
 
 </aside>
 
 <aside class="note">
-<h1>注意</h1>
+<div class="title">注意</div>
 
 建议的最低配置是 CPU 上限 500m 和内存上限 500 Mi。如果设置更低的资源上限，可能会导致 Notebook 响应慢、卡顿等问题。
 
@@ -138,7 +138,7 @@ Notebook 的 SSH 服务只允许通过密钥对进行验证，因此您需要上
 在 Secret 创建页面，选择类型为 **SSH Public Key**，填写名称并上传公钥。最后点击**创建 Secret** 进行创建：
 
 <aside class="note info">
-<h1>信息</h1>
+<div class="title">信息</div>
 
 如果您没有生成过密钥对，或者不知道从哪里获取公钥，那么您可以参阅 <a target="_blank" rel="noopener noreferrer" href="https://www.ssh.com/academy/ssh/keygen">SSH 文档</a>或者 <a target="_blank" rel="noopener noreferrer" href="https://learn.microsoft.com/zh-cn/windows-server/administration/openssh/openssh_keymanagement#user-key-generation">Windows 文档</a>。
 
@@ -160,7 +160,7 @@ Notebook 的 SSH 服务只允许通过密钥对进行验证，因此您需要上
 </figure>
 
 <aside class="note info">
-<h1>信息</h1>
+<div class="title">信息</div>
 
 关于服务类型，详细的说明可以参阅 Kubernetes 官方文档<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh-cn/docs/concepts/services-networking/service/#publishing-services-service-types">发布服务（服务类型）</a>。
 

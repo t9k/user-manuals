@@ -374,7 +374,7 @@ AIMD 的实验数据是以文件夹形式管理的，所以您首先需要在实
 </figure>
 
 <aside class="note info">
-<h1>信息</h1>
+<div class="title">信息</div>
 
 AIMD 的更详细信息请参阅[实验管理](../../module/experiment/index.md)和[使用实验管理控制台查看和管理数据](../record-model-training-data/use-experiment-console.md)。
 
@@ -385,7 +385,7 @@ AIMD 的更详细信息请参阅[实验管理](../../module/experiment/index.md)
 在超参数优化实验中，如果您希望使用 AIMD 来存储实验数据，需要生成一个具有访问 AIMD 数据库权限的 API Key，您可以通过这个 API Key 上传实验数据。
 
 <aside class="note info">
-<h1>什么是 API Key</h1>
+<div class="title">什么是 API Key</div>
 
 请参阅 [API Key 介绍](../modules/account-and-security.md#api-key)。
 

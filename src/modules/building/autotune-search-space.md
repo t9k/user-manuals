@@ -36,7 +36,7 @@
 | `qlognoraml`  | `[mu, sigma, q]` | 取值方法为 `round(exp(normal(mu, sigma)) / q) * q`，此公式含义参考 `quniform` 和 `loguniform` 条目。 |
 
 <aside class="note info">
-<h1>信息</h1>
+<div class="title">信息</div>
 
 不同算法可以支持不同种类的搜索方法：并不是在每一种调优算法中都可以使用以上所有搜索方法；也有些调优算法支持使用上述方法之外的搜索方法，例如 [PPO 算法](./hpo-algorithm.md#ppotuner)。
 

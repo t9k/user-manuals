@@ -25,7 +25,7 @@ AH INFO: Folder /user/t9k-assethub/dataset/text created
 ```
 
 <aside class="note tip">
-<h1>提示</h1>
+<div class="title">提示</div>
 
 限于篇幅，本教程以及后续教程将仅展示各条命令的基本用法，请使用 `--help` 选项（例如 `ah create --help`）查看相应命令接受的参数格式、所有选项以及具体用例。
 
@@ -83,7 +83,7 @@ AH INFO: Folder /user/t9k-assethub/dataset/text deleted
 ```
 
 <aside class="note">
-<h1>注意</h1>
+<div class="title">注意</div>
 
 删除 Model、Dataset 和 Folder 时会一并删除其中的所有内容，请慎重操作。
 
@@ -119,7 +119,7 @@ AH INFO: Folder /user/t9k-assethub/dataset/text created
 ```
 
 <aside class="note tip">
-<h1>提示</h1>
+<div class="title">提示</div>
 
 限于篇幅，本教程以及后续教程将仅展示各个函数或方法的基本用法，相应函数或方法接受的参数详情以及具体用例请参考 TensorStack SDK 的 [API 文档](../tools/python-sdk-t9k/api/index.md)。
 
@@ -138,7 +138,7 @@ AH INFO: Dataset openwebtext created for Folder /user/t9k-assethub/dataset/text
 ```
 
 <aside class="note tip">
-<h1>提示</h1>
+<div class="title">提示</div>
 
 亦可使用 `Folder` 实例的 `create_asset()` 方法完成上述操作。
 
@@ -211,7 +211,7 @@ pprint(ah.list('dataset/text'))
 ```
 
 <aside class="note tip">
-<h1>提示</h1>
+<div class="title">提示</div>
 
 亦可使用 `Folder` 实例的 `list_asset()` 方法完成上述操作。
 
@@ -234,7 +234,7 @@ AH INFO: Folder /user/t9k-assethub/dataset/text deleted
 ```
 
 <aside class="note tip">
-<h1>提示</h1>
+<div class="title">提示</div>
 
 亦可使用各实例的 `delete()` 方法完成上述操作。
 

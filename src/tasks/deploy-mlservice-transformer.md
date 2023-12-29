@@ -17,7 +17,7 @@ pip install tensorflow==2.8.0 numpy
 ### 制作 Transformer 镜像
 
 <aside class="note tip">
-<h1>提示</h1>
+<div class="title">提示</div>
 
 您可以跳过此步，直接使用我们制作好的镜像
 
@@ -115,7 +115,7 @@ $ docker push <your-docker-registry-address>/mnist-transformer:test
 进入模型部署控制台的 MLService 创建页面，如下图所示，将 `image_transformer.yaml` 的内容复制到右侧的 YAML 编辑框，然后点击 **Create MLService** 创建 MLService：
 
 <aside class="note">
-<h1>注意</h1>
+<div class="title">注意</div>
 
 确保 MLService `metadata.namespace` 指定的命名空间存在于集群中。
 

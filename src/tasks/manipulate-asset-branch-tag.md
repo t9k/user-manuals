@@ -34,7 +34,7 @@ AH INFO: Branch v1 created for Model /xyx/t9k-assethub/model/llm/gpt2
 ```
 
 <aside class="note">
-<h1>注意</h1>
+<div class="title">注意</div>
 
 Model 可以在初始的主分支（`main` 分支）之外创建新的分支，Dataset 则不可以。
 
@@ -124,7 +124,7 @@ AH INFO: Branch v1 created for Model /xyx/t9k-assethub/model/llm/gpt2
 ```
 
 <aside class="note tip">
-<h1>提示</h1>
+<div class="title">提示</div>
 
 亦可使用 `Model` 实例的 `create_branch()` 方法完成上述操作。
 
@@ -146,7 +146,7 @@ pprint(ah.list('model/llm/gpt2', resource='branch'))
 ```
 
 <aside class="note tip">
-<h1>提示</h1>
+<div class="title">提示</div>
 
 亦可使用 `Model` 实例的 `list_branch()` 方法完成上述操作。
 
@@ -163,7 +163,7 @@ AH INFO: Tag 20230101 created from branch v1 for Model /xyx/t9k-assethub/model/l
 ```
 
 <aside class="note tip">
-<h1>提示</h1>
+<div class="title">提示</div>
 
 亦可使用 `Branch` 实例的 `create_tag()` 方法完成上述操作。
 
@@ -181,7 +181,7 @@ pprint(ah.list('model/llm/gpt2', resource='tag'))
 ```
 
 <aside class="note tip">
-<h1>提示</h1>
+<div class="title">提示</div>
 
 亦可使用 `Model` 实例的 `list_tag()` 方法完成上述操作。
 
@@ -200,7 +200,7 @@ AH INFO: Tag 20230101 deleted for Model /xyx/t9k-assethub/model/llm/gpt2
 ```
 
 <aside class="note tip">
-<h1>提示</h1>
+<div class="title">提示</div>
 
 亦可使用各实例的 `delete()` 方法完成上述操作。
 

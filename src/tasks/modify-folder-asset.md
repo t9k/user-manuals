@@ -69,7 +69,7 @@ gpt3    /xyx/t9k-assethub/model/chat/gpt3  GPT       own
 ```
 
 <aside class="note tip">
-<h1>提示</h1>
+<div class="title">提示</div>
 
 标签的更新是全量的：每次添加标签都会移除已有的标签。
 
@@ -119,7 +119,7 @@ AH INFO: Model /xyx/t9k-assethub/model/chat/gpt2 updated to /xyx/t9k-assethub/mo
 ```
 
 <aside class="note tip">
-<h1>提示</h1>
+<div class="title">提示</div>
 
 亦可使用 `Folder` 和 `Model` 实例的 `update()` 方法完成上述操作。
 
@@ -178,14 +178,14 @@ pprint(ah.list('model/chat'))
 ```
 
 <aside class="note tip">
-<h1>提示</h1>
+<div class="title">提示</div>
 
 标签的更新是全量的：每次添加标签都会移除已有的标签。
 
 </aside>
 
 <aside class="note tip">
-<h1>提示</h1>
+<div class="title">提示</div>
 
 亦可使用 `Folder` 和 `Model` 实例的 `update()` 方法完成上述操作。
 

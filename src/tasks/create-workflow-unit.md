@@ -25,7 +25,7 @@
 首先，您需要在名为 **WorkflowTemplate Name** 的文本框中填写 WorkflowTemplate 的名称，然后在名为 **Type** 的下拉框中选择 WorkflowTemplate 的类型（可以是 `Pod`、`SeqPod`、`Resource` 等），最后根据 WorkflowTemplate 类型的不同，继续填写余下配置。
 
 <aside class="note info">
-<h1>信息</h1>
+<div class="title">信息</div>
 
 WorkflowTemplate 的每个字段的含义详见[参考](../references/workflow.md)。
 

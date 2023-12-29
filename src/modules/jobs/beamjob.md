@@ -153,7 +153,7 @@ spec:
 ```
 
 <aside class="note">
-<h1>注意</h1>
+<div class="title">注意</div>
 
 删除 Flink 集群会丢失任务运行相关的所有信息，且无法恢复。
 
@@ -184,7 +184,7 @@ spec:
 ```
 
 <aside class="note info">
-<h1>信息</h1>
+<div class="title">信息</div>
 
 队列和优先级都是 T9k Scheduler 的概念，具体含义请参阅 [T9k Scheduler](../scheduling/index.md)。
 

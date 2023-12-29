@@ -3,7 +3,7 @@
 本教程演示如何记录并展示 PyTorchTrainingJob 分布式训练场景下的训练产生的信息、指标和文件（以 PyTorch 模型的数据并行训练为例）。
 
 <aside class="note info">
-<h1>信息</h1>
+<div class="title">信息</div>
 
 对于 Keras 模型，`t9k.em` 提供了使用更加方便的回调，详见[自动记录](./record-using-python-sdk.md#自动记录)。
 
