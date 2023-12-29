@@ -6,8 +6,13 @@
 
 请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/deployment/simplemlservice">本教程的示例</a>，参照其 README 文档运行。本示例使用 PVC 中存储的模型创建了一个 SimpleMLService 服务。
 
-!!! tip "提示"
-    除了上述直接提供 YAML 配置文件的方法外，您也可以选择从网页控制台创建 SimpleMLService。
+<aside class="note tip">
+<div class="title">提示</div>
+
+除了上述直接提供 YAML 配置文件的方法外，您也可以选择从网页控制台创建 SimpleMLService。
+
+</aside>
+
 
 ## 查看推理服务状态
 
@@ -22,5 +27,5 @@
 SimpleMLService **mnist** 的详情页面：
 
 <figure class="screenshot">
-    <img alt="detail" src="../assets/tasks/deploy-simplemlservice/list.png" class="screenshot"/>
+    <img alt="detail" src="../assets/tasks/deploy-simplemlservice/details.png" class="screenshot"/>
 </figure>
