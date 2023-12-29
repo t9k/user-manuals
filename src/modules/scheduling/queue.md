@@ -9,12 +9,14 @@ T9k Scheduler 通过队列来管理集群资源，使用 T9k Scheduler 进行作
 队列的使用权限用于控制哪些项目可以使用这个队列，您可以在 T9k 产品前端查看到您所在的项目有权使用哪些队列。
 
 更详细地，队列的使用权限通过两种方式进行设置：
-* 管理员直接设置有权使用队列的用户/用户组
-* 管理员设置队列的 `spec.namespaceSelector`（类型是 [labelSelector](https://github.com/kubernetes/apimachinery/blob/v0.29.0/pkg/apis/meta/v1/types.go#L1213)） 字段
+
+* 管理员直接设置有权使用队列的用户/用户组。
+* 管理员设置队列的 `spec.namespaceSelector`（类型是 [labelSelector](https://github.com/kubernetes/apimachinery/blob/v0.29.0/pkg/apis/meta/v1/types.go#L1213)）字段。
 
 当项目满足下列任一条件时，用户有权在项目下创建使用某个队列的工作负载：
-* 队列设置了 `spec.namespaceSelector`，并且项目对应的 namespace 的标签符合这个 namespaceSelector
-* 项目的用户有权使用这个队列
+
+* 队列设置了 `spec.namespaceSelector`，并且项目对应的 namespace 的标签符合这个 namespaceSelector。
+* 项目的用户有权使用这个队列。
 
 ## 节点权限
 
@@ -56,8 +58,9 @@ status:
 
 ## 优先级
 
-队列的 `spec.priority` 字段定义队列的优先级，值类型是 int，范围是 [0,100]，数值越大代表队列的优先级越高。队列的优先级会影响下列事情：
-* 优先级较高的队列会被优先分配资源
+队列的 `spec.priority` 字段定义队列的优先级，值类型是 int，范围是 [0,100]，数值越大代表队列的优先级越高。队列的优先级会影响下列事件：
+
+* 优先级较高的队列会被优先分配资源。
 * 如果 T9k Scheduler 开启了资源抢占行为，优先级较高的队列有权抢占低优先级队列使用的资源。
 
 ## 是否可被抢占资源
@@ -77,8 +80,9 @@ status:
 最大运行时长会限制队列中 Pod 的运行时长，如果 Pod 的存在时长（存在时长=当前时间 - Pod 创建时间）超过最大运行时长，Pods 会被删除。
 
 队列的 `spec.maxDuration` 字段设置了队列的最大运行时长：
-* 值类型是 string，并且需要满足正则表达式 `^(0|(([0-9]+)y)?(([0-9]+)w)?(([0-9]+)d)?(([0-9]+)h)?(([0-9]+)m)?(([0-9]+)s)?(([0-9]+)ms)?)$`
-* 支持的时间单位：y, w（周）, d, h, m, s, ms
+
+* 值类型是 string，并且需要满足正则表达式 `^(0|(([0-9]+)y)?(([0-9]+)w)?(([0-9]+)d)?(([0-9]+)h)?(([0-9]+)m)?(([0-9]+)s)?(([0-9]+)ms)?)$`。
+* 支持的时间单位：y, w（周）, d, h, m, s, ms。
 * 示例："3w",  "2h45m"。
 * 未设置时，队列不受最大运行时长约束。
 

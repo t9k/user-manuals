@@ -20,10 +20,11 @@ spec:
   queue: default
 ```
 
-本示例的 `spec` 字段的子字段解析如下:
-* `minMember`: 最小运行需求是至少有 2 个 Pod，PodGroup 才会被分配资源
-* `priority`: PodGroup 的优先级是 50
-* `priority`: 所属队列是 default
+在该例中：
+
+* 最小运行数量是 2 个 Pod（由 `spec.minMember` 字段指定）。
+* PodGroup 的优先级是 50（由 `spec.priority` 字段指定）。
+* PodGroup 属于 `default` 队列（由 `spec.queue` 字段指定）。
 
 ## 所属队列
 
@@ -31,7 +32,7 @@ PodGroup 所属的队列通过字段 `spec.queue` 设置，默认值是 default�
 
 ## 优先级
 
- PodGroup 的优先级通过 `spec.priority` 字段设置，值类型是 int，范围是 [0,100]，默认值是 0，数值越大表明优先级越高。在同一个队列中，优先级高的 PodGroup 会被优先分配资源（优先级相同时，先创建的先分配）。
+PodGroup 的优先级通过 `spec.priority` 字段设置，值类型是 int，范围是 [0,100]，默认值是 0，数值越大表明优先级越高。在同一个队列中，优先级高的 PodGroup 会被优先分配资源（优先级相同时，先创建的先分配）。
 
 ## 最低运行需求
 
@@ -71,20 +72,22 @@ PodGroup 的状态记录在 `status` 字段中。
 
 `status.conditions` 字段记录了当前 PodGroup 的状态，包括下列 2 种类型：
 * GroupScheduled: PodGroup 是否已经被分配过资源
-* SufficientGroupMember: PodGroup 的 Pods 数量是否满足最小运行需求
+* SufficientGroupMember: PodGroup 的 Pod 数量是否满足最小运行需求
 
 `status.allocated` 字段记录了当前 PodGroup 使用的资源量。
 
-PodGroup 的 Pods 的数量：
-* `status.pending`：处于 Pending phase 的 Pods 数量
-* `status.running`：处于 Running phase 的 Pods 数量
-* `status.succeeded`：处于 Succeeded phase 的 Pods 数量
-* `status.failed`：处于 Failed phase 的 Pods 数量
-* `status.unknown`：处于 Unknown phase 的 Pods 数量
+PodGroup 的 Pod 的数量：
 
-在下面的示例中：PodGroup 已经被分配过资源，PodGroup 的 Pods 数量为 0。有以下可能：
-* PodGroup 的任务已经完成，完成后处于 Succeeded Phase 的 Pods 都被删除
-* PodGroup 的任务未完成，Pods 在运行过程中未成功运行结束就被删除
+* `status.pending`：处于 Pending phase 的 Pod 数量
+* `status.running`：处于 Running phase 的 Pod 数量
+* `status.succeeded`：处于 Succeeded phase 的 Pod 数量
+* `status.failed`：处于 Failed phase 的 Pod 数量
+* `status.unknown`：处于 Unknown phase 的 Pod 数量
+
+在下面的示例中：PodGroup 已经被分配过资源，PodGroup 的 Pod 数量为 0。有以下可能：
+
+* PodGroup 的任务已经完成，完成后处于 Succeeded Phase 的 Pod 都被删除
+* PodGroup 的任务未完成，Pod 在运行过程中未成功运行结束就被删除
 
 !!! note "注意"
     PodGroup 只负责 coscheduling，并不记录任务的完成状态，想知道任务是否完成需要查看 T9k Job 或查看训练产出结果。

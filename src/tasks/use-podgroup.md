@@ -2,7 +2,7 @@
 
 ## 概念
 
-PodGroup 是 namespaced-scoped 资源对象，代表一组协同工作的 Pods。PodGroup spec 中定义了 coscheduling 和其它相关的配置信息，调度器 T9k Scheduler 会根据这些信息为 Pods 分配资源。
+PodGroup 是 namespaced-scoped 资源对象，代表一组协同工作的 Pod。PodGroup spec 中定义了 coscheduling 和其它相关的配置信息，调度器 T9k Scheduler 会根据这些信息为 Pod 分配资源。
 
 ## 使用 PodGroup
 
@@ -13,9 +13,9 @@ PodGroup 是 namespaced-scoped 资源对象，代表一组协同工作的 Pods�
 
 一般仅需要通过 Job 控制器自动化地实现对 PodGroup 的使用。工作负载控制器的编程者，或者需手工设定 pod 的 PodGroup，可参考本节内容。
 
-用户创建一组使用调度器 T9k Scheduler 进行协同工作的 Pods 时，需要：
+用户创建一组使用调度器 T9k Scheduler 进行协同工作的 Pod 时，需要：
 1. 先在相同的 namespace 中创建一个 PodGroup
-2. 为 Pods 添加标签 `scheduler.tensorstack.dev/group-name: <PodGroup-name>` 来表明 Pod 属于步骤一创建的 PodGroup
+2. 为 Pod 添加标签 `scheduler.tensorstack.dev/group-name: <PodGroup-name>` 来表明 Pod 属于步骤一创建的 PodGroup
 
 !!! note "注意"
     Pod 一旦指定了所属的 PodGroup，就无法修改其所属的 PodGroup，如果想要修改 Pod 所属的 PodGroup，需要删除 Pod 再重新创建并指定新的 PodGroup。
@@ -34,7 +34,7 @@ spec:
   priority: 50
 ```
 
-然后创建 2 个 Pods 并指定 PodGroup，Pod 通过标签 `scheduler.tensorstack.dev/group-name: dance` 表明他们属于 PodGroup dance。
+然后创建 2 个 Pod 并指定 PodGroup，Pod 通过标签 `scheduler.tensorstack.dev/group-name: dance` 表明他们属于 PodGroup dance。
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -90,12 +90,12 @@ spec:
   queue: default
   priority: 50
 ```
-说明：上面这个 PodGroup 的最小运行需求如下，这些需求都被满足了，调度器才会为 PodGroup 中的 Pods 分配资源：
-* PodGroup 的 Pods 数量需要达到 3
-* 角色名称是 master 的 Pods 数量需要达到 1
-* 角色名称是 worker 的 Pods 数量需要达到 1
+说明：上面这个 PodGroup 的最小运行需求如下，这些需求都被满足了，调度器才会为 PodGroup 中的 Pod 分配资源：
+* PodGroup 的 Pod 数量需要达到 3
+* 角色名称是 master 的 Pod 数量需要达到 1
+* 角色名称是 worker 的 Pod 数量需要达到 1
 
-创建 Pods：
+创建 Pod：
 
 ```yaml
 apiVersion: v1
@@ -156,7 +156,7 @@ Pod 通过标签 `scheduler.tensorstack.dev/role: <role-name>` 来表明自己�
 
 T9k Job 包括 TensorFlowTrainingJob、PyTorchTrainingJob、XGBoostTrainingJob、GenericJob、MPIJob、ColossalAIJob、DeepSpeedJob 和 BeamJob，这些 Job 中都有相同的 `spec.scheduler` 字段。
 
-创建 T9k Job 时，用户可以通过设置 `spec.scheduler` 字段来表明使用 T9k scheduler，并指定 Job 使用哪个队列，然后控制器会自动地创建 PodGroup、并创建 Pods 使用这个 PodGroup。
+创建 T9k Job 时，用户可以通过设置 `spec.scheduler` 字段来表明使用 T9k scheduler，并指定 Job 使用哪个队列，然后控制器会自动地创建 PodGroup、并创建 Pod 使用这个 PodGroup。
 
 #### 基本示例
 
