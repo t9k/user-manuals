@@ -117,23 +117,29 @@ Notebook 提供空闲资源回收的支持，在检测到 Notebook 处于空闲�
 
 如果需要再次使用该 Notebook，您可以在模型构建控制台中手动点击**恢复**按钮。
 
-!!! question "如何判定 Notebook 是否活跃？"
-    
-    满足以下任一条件即为活跃：
+<aside class="note info">
+<div class="title">判定 Notebook 是否活跃</div>
 
-    * <a target="_blank" rel="noopener noreferrer" href="https://github.com/jupyter/jupyter/wiki/Jupyter-kernels">Jupyter ipykernel</a> 存在任务运行（即 .ipynb 文件中有代码块在运行）。
-    * 前端网页存在活动。
-    * Notebook SSH 存在连接。
-    
-!!! question "如果有非上述场景的任务运行，同时不希望 Notebook 空闲超时被回收，如何保持 Notebook 活跃？"
+满足以下任一条件即为活跃：
 
-    * 参考[使用 Jupyter Notebook](../../tasks/develop-and-test-model/use-notebook.md#使用-jupyter-notebook) 创建 `active.ipynb` 文件并执行以下代码块：
-      
-      ```
-      import time
+* <a target="_blank" rel="noopener noreferrer" href="https://github.com/jupyter/jupyter/wiki/Jupyter-kernels">Jupyter ipykernel</a> 存在任务运行（即 .ipynb 文件中有代码块在运行）。
+* 前端网页存在活动。
+* Notebook SSH 存在连接。
 
-      while True:
-          time.sleep(60)
-      ```
-    
-    如果您的任务运行完成，您可以手动停止该代码块的执行，以恢复空闲资源回收的功能。
+</aside>
+
+<aside class="note info">
+<div class="title">在不满足上述条件的情况下，保持 Notebook 活跃</div>
+
+* 参考[使用 Jupyter Notebook](../../tasks/develop-and-test-model/use-notebook.md#使用-jupyter-notebook) 创建 `active.ipynb` 文件并执行以下代码块：
+  
+  ```
+  import time
+
+  while True:
+      time.sleep(60)
+  ```
+
+如果您的任务运行完成，您可以手动停止该代码块的执行，以恢复空闲资源回收的功能。
+
+</aside>
