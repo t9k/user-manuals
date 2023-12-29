@@ -27,7 +27,7 @@ metadata:
 spec:
   containers:
     - name: sdk
-      image: tsz.io/t9k/pytorch-2.0.1:sdk-0.6.0-test
+      image: t9kpublic/t9k-sdk:0.6.0-torch-2.0.1
       command:
         - sleep
         - inf
@@ -39,7 +39,7 @@ spec:
 
 在上述示例中：
 
-* Pod 使用 `tsz.io/t9k/pytorch-2.0.1:sdk-0.6.0-test`（由 `spec.containers[0].image` 字段指定）镜像启动容器 `sdk`（由 `spec.containers[0].name` 字段指定）。
+* Pod 使用 `t9kpublic/t9k-sdk:0.6.0-torch-2.0.1`（由 `spec.containers[0].image` 字段指定）镜像启动容器 `sdk`（由 `spec.containers[0].name` 字段指定）。
 * 容器中执行 `sleep inf`（由 `spec.containers[0].command` 字段指定）命令。
 * `sdk` 容器最多可使用 `0.5` 个 CPU 和 `200Mi` 内存（由 `spec.containers[0].resources.limits` 字段指定）。
 

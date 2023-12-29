@@ -96,7 +96,7 @@ $ codepack config [--list] [--get KEY] [--set KEY=VALUE]
 ```shell
 $ codepack config --list
 api_key=None
-copy_pod_image=tsz.io/t9k/sshd-rsync:0.0.0.6
+copy_pod_image=t9kpublic/sshd-rsync:0.0.0.6
 
 $ codepack config --get api_key
 api_key=None

@@ -15,7 +15,7 @@ metadata:
 spec:
   dockerConfig:
     secret: docker-config
-  tag: tsz.io/t9k/kaniko-test:latest
+  tag: t9kpublic/kaniko-executor:v1.19.2
   workspace:
     pvc:
       name: kaniko
@@ -28,7 +28,7 @@ spec:
 在该例中：
 
 * 使用 `docker-config`（由 `spec.dockerConfig.secret` 字段指定） Secret 中记录的 docker 配置，上传镜像。
-* 所要构建镜像的名称和标签为 `tsz.io/t9k/kaniko-test:latest`（由 `spec.tag` 字段指定）。
+* 所要构建镜像的名称和标签为 `t9kpublic/kaniko-executor:v1.19.2`（由 `spec.tag` 字段指定）。
 * 构建镜像使用 `kaniko` PVC 作为工作空间（由 `spec.workspace` 字段指定），其中：
   * 在 PVC 相对路径 `./Dockerfile` 中存放构建镜像所需的 Dockerfile。
   * 在 PVC 相对路径 `.` 中存放构建镜像所需要的上下文。
@@ -42,13 +42,13 @@ spec:
 
 您可以通过 `spec.builder.kaniko` 字段来设置 `kaniko` 工具。
 
-在下面示例中，ImageBuilder 使用 `t9kpublic/kaniko-project-executor:v1.17.0` 镜像启动容器，并在该容器中构建镜像；ImageBuilder 不额外设置 `kaniko` 参数。
+在下面示例中，ImageBuilder 使用 `t9kpublic/kaniko-executor:v1.19.2` 镜像启动容器，并在该容器中构建镜像；ImageBuilder 不额外设置 `kaniko` 参数。
 
 ```
 spec:
   builder:
     kaniko:
-      image: t9kpublic/kaniko-project-executor:v1.17.0
+      image: t9kpublic/kaniko-executor:v1.19.2
       args: []
 ```
 
