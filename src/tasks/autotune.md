@@ -453,7 +453,7 @@ spec:
                   - "python3 main.py --log_dir /mnt/log --no_cuda"
                 workingDir: /mnt/
                 imagePullPolicy: IfNotPresent
-                image: tsz.io/t9k/tensorflow-2.5.1:20220216
+                image: t9kpublic/tensorflow-2.5.1:20220216
                 name: tensorflow
                 resources:
                   requests:

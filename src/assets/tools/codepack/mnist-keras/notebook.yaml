@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
         - name: notebook
-          image: 'tsz.io/t9k/tensorflow-2.8.0-notebook-cpu:1.50.0'
+          image: 't9kpublic/tensorflow-2.8.0-notebook-cpu:1.50.0'
           resources:
             limits:
               cpu: '1'
