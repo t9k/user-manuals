@@ -35,7 +35,7 @@ spec:
 * 当副本失败后，会自动重启（由 `spec.replicaSpecs[*].restartPolicy` 字段指定）。
 
 <aside class="note">
-<h1>注意</h1>
+<div class="title">注意</div>
 
 PyTorchTrainingJob 中执行的脚本应使用 PyTorch 分布式训练框架，否则可能达不到训练效果。
 
@@ -66,7 +66,7 @@ spec:
 * `extraOptions`：`torchrun` 的其他参数，上面的参数是 `torchrun` 比较常用的设置，用户也可以通过 `extraOptions` 字段提供更多 `torchrun` 的其他设置。
 
 <aside class="note">
-<h1>注意</h1>
+<div class="title">注意</div>
 
 如果使用 torchrun 启动训练，容器的启动命令变为 `torchrun $torchrun_arg $training_script $training_args` 形式，其中 `training_script` 和 `training_args` 由字段 `spec.replicaSpecs[*].template.spec.containers[0].args` 指定，`spec.replicaSpecs[*].template.spec.containers[0].command` 将不再生效。
 
@@ -196,7 +196,7 @@ PyTorchTrainingJob 提供以下三种策略：
 * `Unfinished`：只删除未结束的副本。
 
 <aside class="note tip">
-<h1>提示</h1>
+<div class="title">提示</div>
 
 已结束的副本不会继续消耗集群资源，因此在一定程度上，`Unfinished` 策略比 `All` 策略更优。但这并不总是适用，由于一个项目的资源配额的计算不考虑 Pod 是否已经结束，对于资源紧张的项目，如果确定不需要通过日志来调试 Job，则可以使用 `All` 策略。
 
@@ -228,7 +228,7 @@ spec:
 ```
 
 <aside class="note info">
-<h1>信息</h1>
+<div class="title">信息</div>
 
 队列和优先级都是 T9k Scheduler 的概念，具体含义请参阅 [T9k Scheduler](../scheduling/index.md)。
 
@@ -250,7 +250,7 @@ spec:
 ```
 
 <aside class="note info">
-<h1>信息</h1>
+<div class="title">信息</div>
 
 TensorBoard 的详细介绍请参阅 [TensorBoard](../building/tensorboard.md)。
 

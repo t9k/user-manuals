@@ -20,8 +20,12 @@
 
 Pod 通过标签来表明他属于哪一个队列，标签的 key 是 `scheduler.tensorstack.dev/queue`。
 
-!!! note "注意"
-    Pod 一旦指定了所属的队列，就无法修改其所属的队列，如果想要修改 Pod 所属的队列，需要删除 Pod 再重新创建并指定新的队列。
+<aside class="note">
+<div class="title">注意</div>
+
+Pod 一旦指定了所属的队列，就无法修改其所属的队列，如果想要修改 Pod 所属的队列，需要删除 Pod 再重新创建并指定新的队列。
+
+</aside>
 
 在下面的示例中，Pod 指定了队列 demo：
 

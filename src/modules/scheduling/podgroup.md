@@ -89,8 +89,12 @@ PodGroup 的 Pod 的数量：
 * PodGroup 的任务已经完成，完成后处于 Succeeded Phase 的 Pod 都被删除
 * PodGroup 的任务未完成，Pod 在运行过程中未成功运行结束就被删除
 
-!!! note "注意"
-    PodGroup 只负责 coscheduling，并不记录任务的完成状态，想知道任务是否完成需要查看 T9k Job 或查看训练产出结果。
+<aside class="note">
+<div class="title">注意</div>
+
+PodGroup 只负责 coscheduling，并不记录任务的完成状态，想知道任务是否完成需要查看 T9k Job 或查看训练产出结果。
+
+</aside>
 
 ```yaml
 status:

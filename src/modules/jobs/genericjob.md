@@ -158,7 +158,7 @@ GenericJob 重启机制通过 `spec.replicaSpecs[*].restartPolicy` 字段指定:
 * `Unfinished`：清除未结束（处于 `Pending`、`Running` 或 `Unknown` 阶段）的副本
 
 <aside class="note tip">
-<h1>提示</h1>
+<div class="title">提示</div>
 
 已结束的副本不会继续消耗集群资源，因此在一定程度上，`Unfinished` 策略比 `All` 策略更优。但这并不总是适用，由于一个项目的资源配额的计算不考虑 Pod 是否已经结束，对于资源紧张的项目，如果确定不需要通过日志来调试 Job，则可以使用 `All` 策略。
 
@@ -190,7 +190,7 @@ spec:
 ```
 
 <aside class="note info">
-<h1>信息</h1>
+<div class="title">信息</div>
 
 队列和优先级都是 T9k Scheduler 的概念，具体含义请参阅 [T9k Scheduler](../scheduling/index.md)。
 

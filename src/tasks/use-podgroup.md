@@ -17,8 +17,12 @@ PodGroup 是 namespaced-scoped 资源对象，代表一组协同工作的 Pod。
 1. 先在相同的 namespace 中创建一个 PodGroup
 2. 为 Pod 添加标签 `scheduler.tensorstack.dev/group-name: <PodGroup-name>` 来表明 Pod 属于步骤一创建的 PodGroup
 
-!!! note "注意"
-    Pod 一旦指定了所属的 PodGroup，就无法修改其所属的 PodGroup，如果想要修改 Pod 所属的 PodGroup，需要删除 Pod 再重新创建并指定新的 PodGroup。
+<aside class="note">
+<div class="title">注意</div>
+
+Pod 一旦指定了所属的 PodGroup，就无法修改其所属的 PodGroup，如果想要修改 Pod 所属的 PodGroup，需要删除 Pod 再重新创建并指定新的 PodGroup。
+
+</aside>
 
 #### 示例1 - 基本场景
 

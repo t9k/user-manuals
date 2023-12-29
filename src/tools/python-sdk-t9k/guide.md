@@ -29,7 +29,7 @@ t9k.CONFIG.update({'api_key': 'e4ccd2a3-3425-44b0-8b44-148bd303a0f9'})
 ```
 
 <aside class="note">
-<h1>注意</h1>
+<div class="title">注意</div>
 
 您对于配置的任何修改都只是临时的，这些修改不会被保存到配置文件中。
 

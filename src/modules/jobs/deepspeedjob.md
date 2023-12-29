@@ -49,7 +49,7 @@ spec:
 * 第一个副本会启动 `deepspeed` 程序，该程序会通过 `pdsh`（或其他方式）访问 4 个副本，并在每个副本上运行 `/t9k/mnt/train.py` 脚本。
 
 <aside class="note">
-<h1>注意</h1>
+<div class="title">注意</div>
 
 一个副本中可以创建多个容器，DeepSpeedJob 需要确定哪一个容器才是训练容器。如果 `spec.worker.template` 中包含 `name` 为 `worker` 的 container，则该容器为训练容器；如果没有，会选取第一个 container 作为训练容器。
 
@@ -84,7 +84,7 @@ DeepSpeedJob 希望提供用户足够的灵活性，所以支持用户通过 `ot
 * `--bind_core_list`：要绑定的核心列表，以逗号分隔。例如 `1,3-5,7 => [1,3,4,5,7]`。 未指定时，系统上的所有核心都将被绑定。PDSH 模式下不支持。
 
 <aside class="note info">
-<h1>信息</h1>
+<div class="title">信息</div>
 
 config 中的配置实际上是通过 DeepSpeed 参数实现的，而 `otherArgs` 可以指定任意值，所以可能会造成冲突。以下列出了会导致冲突的参数，请勿在 `otherArgs` 中设置：
 
@@ -111,7 +111,7 @@ DeepSpeedJob 提供以下三种策略：
 * `Unfinished`：只删除未结束的副本。
 
 <aside class="note tip">
-<h1>提示</h1>
+<div class="title">提示</div>
 
 已结束的副本不会继续消耗集群资源，因此在一定程度上，`Unfinished` 策略比 `All` 策略更优。但这并不总是适用，由于一个项目的资源配额的计算不考虑 Pod 是否已经结束，对于资源紧张的项目，如果确定不需要通过日志来调试 Job，则可以使用 `All` 策略。
 
@@ -143,7 +143,7 @@ spec:
 ```
 
 <aside class="note info">
-<h1>信息</h1>
+<div class="title">信息</div>
 
 队列和优先级都是 T9k Scheduler 的概念，具体含义请参阅 [T9k Scheduler](../scheduling/index.md)。
 

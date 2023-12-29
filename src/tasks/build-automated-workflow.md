@@ -14,7 +14,7 @@
 请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/master/workflow/e2e-workflow">本教程对应的示例</a>，参照其 README 文档运行。
 
 <aside class="note tip">
-<h1>提示</h1>
+<div class="title">提示</div>
 
 上述操作使用 YAML 配置文件创建 WorkflowTemplate 及 WorkflowRun，您也可以在工作流控制台进行创建。
 

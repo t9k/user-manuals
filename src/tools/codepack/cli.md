@@ -45,7 +45,7 @@ pip install codepack-<version>.tar.gz [-i <pypi-mirror-url>]
 ## 命令
 
 <aside class="note tip">
-<h1>提示</h1>
+<div class="title">提示</div>
 
 执行 `codepack --help` 命令以查看帮助信息，执行 `codepack <subcommand> --help` 命令以查看相应子命令的帮助信息。
 

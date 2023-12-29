@@ -45,7 +45,7 @@ S3 凭证有三种格式：
 点击右侧的**复制**，复制 `.s3cfg` 格式的 S3 凭证，保存在 `$HOME/.s3cfg` 文件中，即可通过 s3cmd 命令行工具访问此 Asset 中的文件。
 
 <aside class="note info">
-<h1>如何安装 s3cmd 命令行工具？</h1>
+<div class="title">如何安装 s3cmd 命令行工具？</div>
 
 根据操作系统的不同，分别通过以下命令安装 s3cmd 命令行工具：
 

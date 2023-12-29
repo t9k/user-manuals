@@ -67,7 +67,7 @@ spec:
 * 执行副本需要执行 sshd 程序，等待启动副本发来训练指令。sshd 的路径为 `/user/sbin/sshd`（由 `spec.ssh.sshdPath` 字段指定，使用该字段的原因是 sshd 程序必须使用绝对路径调用，所以需要其具体路径）。
 
 <aside class="note">
-<h1>注意</h1>
+<div class="title">注意</div>
 
 另外，ColossalAIJob 的执行副本定义中必须包含一个 `name` 是 `worker` 的容器，用来作为训练容器。
 
@@ -123,7 +123,7 @@ spec:
 ```
 
 <aside class="note info">
-<h1>信息</h1>
+<div class="title">信息</div>
 
 队列和优先级都是 T9k Scheduler 的概念，具体含义请参阅 [T9k Scheduler](../scheduling/index.md)。
 

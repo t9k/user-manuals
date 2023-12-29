@@ -46,7 +46,7 @@ FileSet 的格式为 `t9k://storage-type/storage-identity/path`，由下列四�
 * `t9k://minio/secret-name/bucket1/log/model` 表示：所指向的资源被存储在一个 MinIO 中名为 `bucket1` 的 Bucket 中的 `log/model` 路径下，该 MinIO 的地址、用户名和密码被存储在名为 `secret-name` 的 Secret 中。
 
 <aside class="note info">
-<h1>信息</h1>
+<div class="title">信息</div>
 
 创建 MinIO Secret 的方法请参阅[管理 Secret](../../tasks/manage-secret.md)。
 

@@ -337,7 +337,7 @@ aside.note > p > code {
 }
 
 /* note title */
-aside.note > h1 {
+aside.note > .title {
     border-bottom: 1px solid var(--searchbar-border-color);
     margin: 0;
     padding: 0.5em 1em;
@@ -347,19 +347,19 @@ aside.note > h1 {
 }
 
 /* warning notes */
-aside.note.warning > h1 {
+aside.note.warning > .title {
     background: #FFF5EB;
 }
 
-aside.note.tip > h1 {
+aside.note.tip > .title {
     background: #EDF8F6;
 }
 
-aside.note.info > h1 {
+aside.note.info > .title {
     background: #ECF8FB;
 }
 
-/* aside.note.warning > h1::before {
+/* aside.note.warning > .title::before {
     content: "!";
     color: var(--warning-note-color, #f0ad4e);
     margin-right: 1em;

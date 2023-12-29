@@ -66,7 +66,7 @@ model_state_dict.pt  375943B  1203ee282c235c9fb4c2ea932a7b7cc8  5m37s ago
 ```
 
 <aside class="note info">
-<h1>信息</h1>
+<div class="title">信息</div>
 
 每个对象在 Model 或 Dataset 中存储时都有自己的路径，其实质是 S3 对象存储服务中对象的 key，例如 `file1.txt`、`folder/file2.txt`。多级路径在控制台中会以多级目录的形式展示。
 
@@ -161,7 +161,7 @@ AH INFO: Commit 6a57546b created
 ```
 
 <aside class="note tip">
-<h1>提示</h1>
+<div class="title">提示</div>
 
 亦可使用 `Branch` 实例的 `create_commit()` 方法完成上述操作。
 
@@ -193,7 +193,7 @@ pprint(ah.list('model/llm/gpt2:v1'))
 ```
 
 <aside class="note tip">
-<h1>提示</h1>
+<div class="title">提示</div>
 
 亦可使用 `Branch` 实例的 `list_object()` 方法完成上述操作。
 
@@ -288,7 +288,7 @@ pprint(ah.list('model/llm/gpt2:v1', resource='commit'))
 ```
 
 <aside class="note tip">
-<h1>提示</h1>
+<div class="title">提示</div>
 
 亦可使用 `Branch` 实例的 `list_commit()` 方法完成上述操作。
 
@@ -310,7 +310,7 @@ AH INFO: Downloading object 1/1 model_state_dict.pt:
 ```
 
 <aside class="note tip">
-<h1>提示</h1>
+<div class="title">提示</div>
 
 亦可使用 `Branch` 实例的 `download()` 方法完成上述操作。
 
