@@ -1,10 +1,10 @@
-@media only screen and (max-width:1599px) {
+@media only screen and (max-width:1367px) {
     .sidetoc {
         display: none;
     }
 }
 
-@media only screen and (min-width:1600px) {
+@media only screen and (min-width:1368px) {
     main {
         position: relative;
     }

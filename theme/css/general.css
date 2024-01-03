@@ -110,7 +110,12 @@ h6:target::before {
       margin-inline-start: 8%;
     }
 }
-@media (max-width: 1400px) {
+@media (max-width: 1600px) {
+    .content main {
+      margin-inline-start: 6%;
+    }
+}
+@media (max-width: 1368px) {
     .content main {
       margin-inline-start: 4%;
       max-width: 92%;
