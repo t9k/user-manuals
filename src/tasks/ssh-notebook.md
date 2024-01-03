@@ -1,4 +1,4 @@
-# 通过 SSH 连接远程使用 Notebook
+# 通过 SSH 远程使用 Notebook
 
 本教程演示如何通过 SSH 连接远程使用 Notebook。
 

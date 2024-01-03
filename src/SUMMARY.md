@@ -56,7 +56,7 @@
     * [使用模型构建控制台](tasks/model-building.md)
         * [创建 Notebook](tasks/create-notebook.md)
         * [使用 Notebook](tasks/use-notebook.md)
-        * [通过 SSH 连接远程使用 Notebook](tasks/ssh-notebook.md)
+        * [通过 SSH 远程使用 Notebook](tasks/ssh-notebook.md)
         * [创建 TensorBoard](tasks/create-tensorboard.md)
         * [构建镜像](tasks/build-image.md)
         * [调试镜像](tasks/debug-image.md)
