@@ -1,7 +1,8 @@
 # user-manuals
 
 <!-- 
-update admonition
+
+* update admonition
 
 !!! note "(.*)"\n    (.*)\n
 <aside class="note">\n<div class="title">$1</div>\n\n$2\n\n</aside>\n
@@ -14,4 +15,10 @@ update admonition
 
 !!! warning "(.*)"\n    (.*)\n
 <aside class="note warning">\n<div class="title">$1</div>\n\n$2\n\n</aside>\n
- -->
+
+* update external link
+
+\[(.*?)\]\((https?:\/\/.*?)\)\{target=_blank\}
+<a target="_blank" rel="noopener noreferrer" href="$2">$1</a>
+
+-->

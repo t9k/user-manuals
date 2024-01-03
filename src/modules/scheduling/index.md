@@ -1,6 +1,6 @@
 # 调度
 
-T9k Scheduler 是 K8s 调度器，负责将 Pod 调度到一个合适的节点上来运行。相比于 K8s 的默认调度器 [kube-scheduler](https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler)，T9k Scheduler 增强了对 AI 计算场景的支持，并增加了额外的机制方便对集群进行更加精细化管理等。
+T9k Scheduler 是 K8s 调度器，负责将 Pod 调度到一个合适的节点上来运行。相比于 K8s 的默认调度器 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler">kube-scheduler</a>，T9k Scheduler 增强了对 AI 计算场景的支持，并增加了额外的机制方便对集群进行更加精细化管理等。
 
 ## 适用场景
 

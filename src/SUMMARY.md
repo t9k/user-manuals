@@ -1,6 +1,8 @@
 # Summary
 
-* [快速入门](get-started.md)
+* [快速入门](get-started/index.md)
+    * [训练你的第一个模型](get-started/training-first-model.md)<!-- * [完整地追踪训练过程] -->
+    * [部署模型为推理服务](get-started/deploy-model.md)<!-- * [保存数据集和模型文件] -->
 
 * [模块](modules/index.md)
 
