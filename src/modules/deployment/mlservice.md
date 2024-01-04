@@ -76,7 +76,7 @@ spec:
 
 ## MLServiceRuntimes
 
-在[基本示例](#基本示例)中，我们使用了 MLServiceRuntime `t9k-torchserve`。在此章节中我们将向您详细介绍 MLServiceRuntimes 的工作机制。
+在[基本示例](#基本示例)中，我们使用了 MLServiceRuntime `t9k-torchserve`。在此章节中我们将向用户详细介绍 MLServiceRuntimes 的工作机制。
 
 MLService 提供了 MLServiceRuntime 和 ClusterMLServiceRuntime 来支持多种机器学习框架，从而帮助用户快速部署推理服务。两者的区别是前者只能被用于单个项目，后者被整个集群所共享。
 
@@ -234,7 +234,7 @@ spec:
 将上面 MLService 中 predictor `version1` 的 `template.spec` 和之前的 [Runtime 基本示例](#runtime-基本示例)相比，可以发现他们都定义了一个名为 `user-container` 的 container，但是 `image` 不同。于是最终生成的 pod 中，MLService 中定义的 `image` 会覆盖 Runtime 中的 `image`，但是 Runtime 中 `args` 等其余设置都会被保留。
 
 这里的覆盖合并原则采用的是 StrategicMergePatch。
-您可以通过阅览以下参考资料，进一步了解  StrategicMergePatch：
+用户可以通过阅览以下参考资料，进一步了解  StrategicMergePatch：
 * <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/#use-a-strategic-merge-patch-to-update-a-deployment">Update API Objects in Place Using kubectl patch</a>
 * <a target="_blank" rel="noopener noreferrer" href="https://pkg.go.dev/k8s.io/apimachinery/pkg/util/strategicpatch">strategicpatch - k8s.io/apimachinery/pkg/util/strategicpatch</a>
 
@@ -260,7 +260,7 @@ spec:
 
 #### 设置资源
 
-上述的 [StrategicMergePatch](#strategicmergepatch) 提供给了用户完整的个性化改动的方案。除此以外，针对改动频率更高的资源要求（resource），MLService 提供了更方便的个性化改动方案。您可以直接通过 Predictor 中的 `resources` 覆盖 Runtime 的资源要求，例如：
+上述的 [StrategicMergePatch](#strategicmergepatch) 提供给了用户完整的个性化改动的方案。除此以外，针对改动频率更高的资源要求（resource），MLService 提供了更方便的个性化改动方案。用户可以直接通过 Predictor 中的 `resources` 覆盖 Runtime 的资源要求，例如：
 
 ```yaml
 apiVersion: tensorstack.dev/v1beta1
@@ -284,7 +284,7 @@ spec:
 
 ## 模型存储
 
-MLService 支持 S3 和 PVC 两种存储模型的方式，您需要根据模型存储的类型填写 MLService 的配置。
+MLService 支持 S3 和 PVC 两种存储模型的方式，用户需要根据模型存储的类型填写 MLService 的配置。
 
 ### S3
 
@@ -359,7 +359,9 @@ $ curl -T test_data/0.png http://torch-mnist.<project-name>.<domain-name>/v1/mod
 }
 ```
 
-## 多版本支持
+## 发布策略
+
+### 多版本支持
 
 一个 MLService 可以同时部署多个版本的 Predictor，在 `spec.releases` 字段中设置配置详情。
 
@@ -393,9 +395,9 @@ spec:
           modelUri: pvc://tutorial/model-11-11
 ```
 
-## 金丝雀发布
+### 金丝雀发布
 
-MLService 支持金丝雀发布，您可以通过 `spec.canary` 字段设置金丝雀发布对应的模型版本，`spec.canaryTrafficPercent` 字段设置金丝雀发布的路由权重。`spec.default` 是必需字段，用于设置默认发布对应的模型版本。
+MLService 支持金丝雀发布，用户可以通过 `spec.canary` 字段设置金丝雀发布对应的模型版本，`spec.canaryTrafficPercent` 字段设置金丝雀发布的路由权重。`spec.default` 是必需字段，用于设置默认发布对应的模型版本。
 
 例如上一节中我们部署了 3 个版本的模型，我们想主要使用 `nov-05` 这个版本，并且将刚刚训练好的 `nov-11` 作为金丝雀版本：
 
@@ -473,29 +475,29 @@ MLService 在本地的日志信息会存储在 <a target="_blank" rel="noopener 
 
 </aside>
 
-## Transformer
+## 前处理及后处理
 
-MLService 支持部署含有 Transformer 的推理服务，Transformer 用于进行数据的预处理、后处理：
+MLService 支持部署含有前处理及后处理服务（Transformer） 的推理服务：
 
 * 预处理：用户发向推理服务的原始数据，先经过 Transformer 预处理，然后再被发送到推理服务。
 * 后处理：推理服务返回的预测结果，先经过 Transformer 后处理，然后再返回给用户。
 
-您可以使用 [Tensorstack SDK](../../../tools/python-sdk-t9k/index.md) 编写 Transformer 代码，制作镜像，并基于该镜像创建含有 Transformer 的推理服务。详细示例请参考 [制作并部署含有 Transformer 的模型推理服务](../../tasks/deploy-mlservice-transformer.md)。
+用户可以使用 [Tensorstack SDK](../../../tools/python-sdk-t9k/index.md) 编写 Transformer 代码，制作镜像，并基于该镜像创建含有 Transformer 的推理服务。详细示例请参考 [制作并部署含有 Transformer 的模型推理服务](../../tasks/deploy-mlservice-transformer.md)。
 
 ## 容量伸缩
 
 MLService 支持容量自动伸缩，工作负载的变化是根据请求负荷指标来变化的，具体原理可以查看 <a target="_blank" rel="noopener noreferrer" href="https://knative.dev/docs/serving/autoscaling/">Knative Autoscaling</a>。
 
-您可以通过设置 `spec.releases[*].predictor.minReplicas` 字段和 `spec.releases[*].predictor.maxReplicas` 字段来指定 Predictor 工作负载数量的下限和上限。
+用户可以通过设置 `spec.releases[*].predictor.minReplicas` 字段和 `spec.releases[*].predictor.maxReplicas` 字段来指定 Predictor 工作负载数量的下限和上限。
 
-同样的，如果您启用了 Transformer，可以通过 `spec.transformer.minReplicas` 字段和 `spec.transformer.maxReplicas` 字段来指定 Transformer 工作负载数量的下限和上限。
+同样的，如果用户启用了 Transformer，可以通过 `spec.transformer.minReplicas` 字段和 `spec.transformer.maxReplicas` 字段来指定 Transformer 工作负载数量的下限和上限。
 
 以下是一些特殊情况：
 * `minReplicas` 不填时，工作负载数量的默认最小值为 1。
 * `minReplicas` 等于 0 时，当没有流量请求时，MLService 会缩容到 0，删掉所有的工作负载。
 * `maxReplicas` 不填或设为 0 时，工作负载数量没有上限。
 
-除了负载数量的限制，您还可以在具体的 Runtime 或者组件（Predictor 或者 Transformer）的 Pod 定义中设置 Knative Autoscaling 相关的 Annotation，例如：
+除了负载数量的限制，用户还可以在具体的 Runtime 或者组件（Predictor 或者 Transformer）的 Pod 定义中设置 Knative Autoscaling 相关的 Annotation，例如：
 
 ```yaml
 ...
@@ -533,7 +535,7 @@ spec:
 ...
 ```
 
-## 状态查询
+## 服务状态
 
 通过 MLService 的状态字段可以获取如下信息：
 
@@ -589,3 +591,6 @@ status:
 
 如果推理服务没有就绪，你可以通过查看 `status.conditions` 中 type 为 `Ready` 的 reason 以及 message 来查看具体信息，同时 Event 中也会有相关的错误信息。
 
+## 应用示例
+
+TODO

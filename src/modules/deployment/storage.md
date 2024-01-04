@@ -2,8 +2,8 @@
 
 模型部署支持以下两种模型存储模式：
 
-* [S3](https://aws.amazon.com/s3/)
-* [PVC]
+* [S3 形式的对象存储](#S3)
+* [通过 PVC 使用的共享文件系统](#pvc)
 
 ## S3
 
@@ -29,7 +29,7 @@ Secret 存储的 S3 配置格式是 [s3cmd](https://s3tools.org/s3cmd) 配置文
 
 ### S3 部署示例
 
-下面是一个 MLService 将存储在 S3 中的模型部署为推理服务的示例，其中模型在 S3 中的存储路径为 `s3://models/example/`，S3 的配置信息存储在 Secret `s3-security` 中。
+下面是一个 `MLService` 将存储在 S3 中的模型部署为推理服务的示例，其中模型在 S3 中的存储路径为 `s3://models/example/`，S3 的配置信息存储在 Secret `s3-security` 中。
 
 ```yaml
 apiVersion: tensorstack.dev/v1beta1
@@ -69,8 +69,7 @@ data:
 
 ## PVC
 
-TensorStack AI 平台的模型部署支持直接使用持久卷申领（Persistent Volume Claim）中的模型。
-
+模型部署服务也支持直接使用持久卷申领（Persistent Volume Claim）中的模型。
 
 ### 模型路径
 
@@ -81,7 +80,7 @@ TensorStack AI 平台的模型部署支持直接使用持久卷申领（Persiste
 
 ### PVC 部署示例
 
-下面是一个 MLService 将存储在 PVC 中的模型部署为推理服务的示例，其中模型存储在 pvc `tutorial` 的 `models/example/` 路径下。
+下面是一个 `MLService` 将存储在 PVC 中的模型部署为推理服务的示例，其中模型存储在 pvc `tutorial` 的 `models/example/` 路径下。
 
 ```yaml
 apiVersion: tensorstack.dev/v1beta1

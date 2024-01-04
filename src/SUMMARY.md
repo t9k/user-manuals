@@ -18,6 +18,7 @@
     * [模型部署](modules/deployment/index.md)
         * [MLService](modules/deployment/mlservice.md)
         * [SimpleMLService](modules/deployment/simplemlservice.md)
+        * [模型存储](modules/deployment/storage.md)
 
     * [作业](modules/jobs/index.md)
         * [GenericJob](modules/jobs/genericjob.md)

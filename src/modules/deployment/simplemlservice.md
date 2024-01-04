@@ -1,6 +1,6 @@
 # SimpleMLService
 
-SimpleMLService 用于在 TensorStack AI 平台上部署机器学习模型预测服务，常用于快速测试。SimpleMLService 具有以下特性：
+SimpleMLService 用于在 TensorStack AI 平台上部署 AI 模型推理服务，常用于快速测试。SimpleMLService 具有以下特性：
 
 * 默认支持 TensorFlow、PyTorch 框架，并允许用户自定义框架，具有良好的可扩展性。
 * 支持 S3 模型存储方式。
@@ -10,11 +10,12 @@ SimpleMLService 用于在 TensorStack AI 平台上部署机器学习模型预测
 ## 创建 SimpleMLService
 
 下面是一个基本的 SimpleMLService 配置示例：
+
 ```yaml
 apiVersion: tensorstack.dev/v1beta1
 kind: SimpleMLService
 metadata:
-  name: sample
+  name: mnist
 spec:
   replicas: 1
   storage:
@@ -36,25 +37,26 @@ spec:
     * `secretName`: Secret s3-secret 中存储着 S3 配置信息，Secret 的[内容格式](#创建-s3-secret)。
     * `uri`: 模型在 S3 中的存储路径是 `s3://models/mnist/`。
     * `containerPath`: 模型被下载到容器时，在容器中存储模型的路径是 `/var/lib/t9k/model`。
-* `tensorflow`: 推理服务的框架是 tensorflow，子字段释义如下
+* `tensorflow`: 推理服务的框架是 `tensorflow`，子字段释义如下
     * `image`: 使用的推理服务镜像是 `t9kpublic/tensorflow-serving:2.6.0`。
     * `resources`: 定义一个副本 Pod 使用的资源量。
 
-## 默认支持的框架
+## 直接支持的 AI 框架
 
-SimpleMLService 默认支持 TensorFlow、PyTorch 两种框架。
+SimpleMLService 目前直接支持 TensorFlow、PyTorch 两种框架。
 
 ### TensorFlow
 
 可以通过设置 `spec.tensorflow` 字段来部署 TensorFlow 框架，示例可以参考[创建 SimpleMLService](#创建-simplemlservice)。
 
 当使用 TensorFlow 时，控制器会在容器中设置下列启动命令：
+
 ```bash
-/usr/bin/tensorflow_model_server
---port=9090
---rest_api_port=8080
---model_name=<SimpleMLService name>
---model_base_path=<model-dir-in-container>
+/usr/bin/tensorflow_model_server \
+  --port=9090 \
+  --rest_api_port=8080 \
+  --model_name=<SimpleMLService name> \
+  --model_base_path=<model-dir-in-container>
 ```
 
 ### PyTorch
@@ -72,11 +74,12 @@ spec:
 ```
 
 当使用 PyTorch 时，控制器会在容器中设置下列启动命令：
+
 ```bash
-torchserve
---start
---model-store=<mode-dir>
---models <models-flag>
+torchserve \
+  --start \
+  --model-store=<mode-dir> \
+  --models <models-flag>
 ```
 
 ## 自定义框架
@@ -117,11 +120,12 @@ spec:
 
 副本数量通过字段 `spec.replicas` 设置，用于定义 SimpleMLService 的 Pods 数量，默认值是 1。
 
-## 暴露副本服务
+## 暴露服务
 
-通过设置 `spec.service` 字段来选择将副本的哪个端口暴露出来，未设置时，默认暴露 8080 端口。
+通过设置 `spec.service` 字段来选择将服务的哪个端口暴露出来，未设置时，默认暴露 8080 端口。
 
 在下面的示例中，暴露端口 7070：
+
 ```yaml
 spec:
   service:
@@ -220,7 +224,7 @@ spec:
       containerPath: /var/lib/custom
 ```
 
-## 状态查询
+## 服务状态
 
 SimpleMLService 的状态记录在 status 字段中。
 
@@ -254,3 +258,6 @@ status:
     status: "True"
     type: Ready
 ```
+## 应用示例
+
+TODO
