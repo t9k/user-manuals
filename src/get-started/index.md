@@ -1,13 +1,13 @@
 # 快速入门
 
-欢迎使用 TensorStack AI 平台！
+欢迎使用 “TensorStack AI 平台”！
 
-快速入门将带领用户快速体验平台的主要功能，并完成一个完整的 AI 项目，涵盖模型的构建、训练、部署等。
+本节将带领用户快速体验“TensorStack AI 平台”的主要功能，并完成一个基本的 AI 项目，涵盖模型的构建、训练、部署等。
 
 使用 TensorStack AI 平台之前，用户需要满足以下条件：
 
-* 拥有一个账户，以登录系统。
-* 成为一个 Project（项目）的成员，以使用集群资源。
+* 拥有一个[账户]()，以登录系统。
+* 成为一个 [Project（项目）](../tasks/add-project-member.html)的成员，以使用集群资源。
 
 <aside class="note tip">
 <div class="title">提示</div>
