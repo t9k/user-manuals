@@ -1,6 +1,6 @@
-# 部署模型为推理服务
+# 部署模型
 
-本教程将带领您使用[模型部署](../modules/deployment/index.md)模块的 [SimpleMLService](../modules/deployment/simplemlservice.md) 资源，将上一篇教程中保存的模型文件部署为推理服务。
+本教程展示如何使用 [SimpleMLService](../modules/deployment/simplemlservice.md) 资源，将之前教程中保存的模型文件部署为推理服务。
 
 ## 部署推理服务
 
@@ -39,7 +39,7 @@ spec:
 
 </aside>
 
-在跳转回到 SimpleMLService 管理页面之后，等待刚才创建的 SimpleMLService 准备就绪。第一次拉取镜像可能会花费较长的时间，具体取决于您的网络状况。点击右上角的**刷新按钮**以手动刷新 SimpleMLService 状态。
+在跳转回到 SimpleMLService 管理页面之后，等待刚才创建的 SimpleMLService 准备就绪。第一次拉取镜像可能会花费较长的时间，具体取决于用户集群的网络状况。点击右上角的**刷新按钮**以手动刷新 SimpleMLService 状态。
 
 ## 使用推理服务
 
@@ -88,7 +88,7 @@ with open('target.json', 'w') as f:
 
 ### 访问推理服务
 
-在终端中执行以下命令以向推理服务发送请求，其中 `URL` 变量的值需要修改为您实际部署的推理服务的地址。
+在终端中执行以下命令以向推理服务发送请求，其中 `URL` 变量的值需要修改为用户实际部署的推理服务的地址。
 
 ```shell
 export URL="http://mnist.demo.svc.cluster.local/v1/models/mnist:predict"
@@ -108,7 +108,7 @@ cat target.json
 
 响应体的预测数组中最大值的索引分别为 7、2、1（从 0 开始计数），与这三个样本的标签一致。
 
-或者，您也可以运行下面的 Python 脚本以向推理服务发送请求并验证推理结果，其中 `url` 的值同样需要修改为您的推理服务地址。
+或者，用户也可以运行下面的 Python 脚本以向推理服务发送请求并验证推理结果，其中 `url` 的值同样需要修改为用户的推理服务地址。
 
 ```python
 import json

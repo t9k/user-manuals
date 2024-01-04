@@ -19,7 +19,7 @@
   <img alt="landing-page" src="../assets/get-started/training-first-model/landing-page.png" class="screenshot"/>
 </figure>
 
-模型构建控制台的总览页面展示了多种资源，您可以点击右上角的按钮切换 Project，也可以点击**事件**和**配额**标签页以查看当前 Project 最近发生的事件以及计算资源（CPU、Memory、GPU 等）配额。
+模型构建控制台的总览页面展示了多种资源，用户可以点击右上角的按钮切换 Project，也可以点击**事件**和**配额**标签页以查看当前 Project 最近发生的事件以及计算资源（CPU、Memory、GPU 等）配额。
 
 <figure class="screenshot">
   <img alt="project" src="../assets/get-started/training-first-model/overview.png" class="screenshot"/>
@@ -85,7 +85,7 @@
 
 </aside>
 
-在跳转回到 Notebook 管理页面之后，等待刚才创建的 Notebook 准备就绪。第一次拉取镜像可能会花费较长的时间，具体取决于您的网络状况。点击右上角的**刷新图标**来手动刷新 Notebook 状态，待 Notebook 开始运行之后，点击右侧的**打开**进入其前端页面。
+在跳转回到 Notebook 管理页面之后，等待刚才创建的 Notebook 准备就绪。第一次拉取镜像可能会花费较长的时间，具体取决于用户集群的网络状况。点击右上角的**刷新图标**来手动刷新 Notebook 状态，待 Notebook 开始运行之后，点击右侧的**打开**进入其前端页面。
 
 <figure class="screenshot">
   <img alt="connect-notebook" src="../assets/get-started/training-first-model/connect-notebook.png" class="screenshot"/>

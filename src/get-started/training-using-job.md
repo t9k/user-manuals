@@ -205,7 +205,7 @@ spec:
   <img alt="tensorboard" src="../assets/get-started/training-first-model/tensorboard.png" class="screenshot"/>
 </figure>
 
-一段时间之后，Job 的状态变为 **Done**，表示训练已经成功完成。回到 Notebook 的前端页面，可以看到训练完成的模型被保存在 `saved_model` 目录下。在快速入门的后续教程中，您将会将此模型文件部署为推理服务。
+一段时间之后，Job 的状态变为 **Done**，表示训练已经成功完成。回到 Notebook 的前端页面，可以看到训练完成的模型被保存在 `saved_model` 目录下。在快速入门的后续教程中，用户可以将此模型文件部署为推理服务。
 
 ## 下一步
 
