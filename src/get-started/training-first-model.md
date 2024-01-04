@@ -5,7 +5,7 @@
 <aside class="note info">
 <div class="title"> Resources（资源）</div>
 
-在 Kubernetes 中，Resources（资源）是用于描述集群中工作负载的概念。资源可分为 Kubernetes 原生资源，例如 `Pod`，`Service` 等；及 Custom Resource Defintion（定制资源），其扩展 Kubernetes，提供特定领域（例如 AI）的额外能力。 `Notebook` 和 `PyTorchJob` 是 TensorStack 提供的 CRD。
+在 Kubernetes 中，Resources（资源）是用于描述集群中工作负载的概念。资源可分为 Kubernetes 原生资源，例如 `Pod`，`Service` 等；及 Custom Resource Defintion（CRD，定制资源），其扩展 Kubernetes，提供特定领域（例如 AI）的额外能力。 `Notebook` 和 `PyTorchJob` 是 TensorStack 提供的 CRDs。
 
 详细信息请参阅 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/"> Custom Resources （定制资源）</a>
 
