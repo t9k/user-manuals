@@ -490,7 +490,12 @@ MLService 支持容量自动伸缩，工作负载的变化是根据请求负荷�
 
 同样的，如果您启用了 Transformer，可以通过 `spec.transformer.minReplicas` 字段和 `spec.transformer.maxReplicas` 字段来指定 Transformer 工作负载数量的下限和上限。
 
-您可以在具体的 Runtime 或者组件（Predictor 或者 Transformer）的 Pod 定义中设置 Knative Autoscaling 相关的 Annotation，例如：
+以下是一些特殊情况：
+* `minReplicas` 不填时，工作负载数量的默认最小值为 1。
+* `minReplicas` 等于 0 时，当没有流量请求时，MLService 会缩容到 0，删掉所有的工作负载。
+* `maxReplicas` 不填或设为 0 时，工作负载数量没有上限。
+
+除了负载数量的限制，您还可以在具体的 Runtime 或者组件（Predictor 或者 Transformer）的 Pod 定义中设置 Knative Autoscaling 相关的 Annotation，例如：
 
 ```yaml
 ...
