@@ -5,7 +5,7 @@
     * [使用 Job 进行分布式训练](get-started/training-using-job.md)<!-- * [使用 job 进行并行训练] -->
     * [部署模型](get-started/deploy-model.md)<!-- * [保存数据集和模型文件] -->
 
-* [模块](modules/index.md)
+* [AI 开发及应用](modules/index.md)
 
     * [模型构建](modules/building/index.md)
         * [Notebook](modules/building/notebook.md)
@@ -38,20 +38,23 @@
 
     * [实验管理](modules/experiment-management.md)
 
-    * [账户和安全](modules/account-and-security.md)
+* [账户和安全](modules/account-and-security.md)
 
-    * [调度](modules/scheduling/index.md)
-        * [队列](modules/scheduling/queue.md)
-        * [PodGroup](modules/scheduling/podgroup.md)
+* [计算资源](modules/scheduling/index.md)
+    * [资源配额](modules/scheduling/quota.md)
+    * [队列](modules/scheduling/queue.md)
+    * [PodGroup](modules/scheduling/podgroup.md)
 
-    * [辅助](modules/auxiliary/index.md)
-        * [PVC](modules/auxiliary/pvc.md)
-        * [StorageShim](modules/auxiliary/storageshim.md)
-        * [Explorer](modules/auxiliary/explorer.md)
-        * [Secret](modules/auxiliary/secret.md)
-        * [ConfigMap](modules/auxiliary/configmap.md)
-        * [Pod](modules/auxiliary/pod.md)
-        * [ImageBuilder](modules/auxiliary/imagebuilder.md)
+* [存储](modules/storage/index.md)
+    * [PVC](modules/storage/pvc.md)
+    * [StorageShim](modules/storage/storageshim.md)
+    * [Explorer](modules/storage/explorer.md)
+
+* [辅助](modules/auxiliary/index.md)
+    * [Secret](modules/auxiliary/secret.md)
+    * [ConfigMap](modules/auxiliary/configmap.md)
+    * [Pod](modules/auxiliary/pod.md)
+    * [ImageBuilder](modules/auxiliary/imagebuilder.md)
 
 * [任务](tasks/index.md)
     * [使用模型构建控制台](tasks/model-building.md)
