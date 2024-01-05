@@ -155,7 +155,7 @@ spec:
 
 ## 模型存储
 
-SimpleMLService 默认支持的模型存储是 S3 或 [PVC](../auxiliary/pvc.md)。
+SimpleMLService 默认支持的模型存储是 S3 或 [PVC](../storage/pvc.md)。
 
 ### S3
 
