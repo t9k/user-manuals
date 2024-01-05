@@ -1,12 +1,12 @@
 # 部署 Stable Diffusion 图像生成模型
 
-自扩散模型问世以来，AI 绘图应用在艺术、设计和创意领域取得了显著的突破和广泛的应用。在平台上，您可以使用 [SimpleMLService](../modules/deployment/simplemlservice.md) 和 [MLService](../modules/deployment/mlservice.md) 方便地部署各种基于图像生成模型的服务或应用。
+自扩散模型问世以来，AI 绘图应用在艺术、设计和创意领域取得了显著的突破和广泛的应用。在 TensorStack 平台上，用户可以使用 [SimpleMLService](../modules/deployment/simplemlservice.md) 和 [MLService](../modules/deployment/mlservice.md) 方便地部署各种基于图像生成模型的服务或应用。
 
 本教程演示如何使用 SimpleMLService 快速部署一个基于 Stable Diffusion 图像生成模型的绘图应用。
 
 ## 模型
 
-在您的项目中创建一个名为 draw、大小 50 GiB 以上的 PVC，然后创建一个同样名为 draw 的 Notebook 挂载该 PVC（镜像类型和模板不限）。
+在项目中创建一个名为 `draw`、大小 50 GiB 以上的 PVC，然后创建一个同样名为 `draw` 的 Notebook 挂载该 PVC（镜像类型和模板不限）。
 
 进入 Notebook 或远程连接到 Notebook，启动一个终端，执行下列命令以下载 Stable Diffusion、VAE、LoRA 等模型的文件：
 
@@ -66,7 +66,7 @@ Stable Diffusion 生成图片的简化流水线如下图所示，具体包含三
 <aside class="note info">
 <div class="title">信息</div>
 
-您可以前往 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/models">Hugging Face</a> 或 <a target="_blank" rel="noopener noreferrer" href="https://civitai.com/">Civitai</a> 获取更多图像生成模型。
+用户可以前往 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/models">Hugging Face</a> 或 <a target="_blank" rel="noopener noreferrer" href="https://civitai.com/">Civitai</a> 获取更多图像生成模型。
 
 想要更深入地了解 Stable Diffusion 模型的机制，可以参阅 <a target="_blank" rel="noopener noreferrer" href="https://stable-diffusion-art.com/how-stable-diffusion-work/">How does Stable Diffusion work?</a>。
 

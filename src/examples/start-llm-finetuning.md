@@ -1,6 +1,6 @@
 # 启动 LLM 微调
 
-在[上一个示例](./start-llm-large-scale-pretraining.md)中我们介绍了如何对 LLM 进行预训练，预训练使 LLM 获得了对语言结构、语义直至语言所描述的世界和各种规律的全面理解。
+在[启动 LLM 大规模预训练](./start-llm-large-scale-pretraining.md)中我们介绍了如何对 LLM 进行预训练，预训练使 LLM 获得了对语言结构、语义直至语言所描述的世界和各种规律的全面理解。
 
 为了使人类能够更有效地与 LLM 交互并从中获取所需的信息，赋予 LLM 对话能力（并使其对齐）变得至关重要。OpenAI 在论文<a target="_blank" rel="noopener noreferrer" href="https://arxiv.org/abs/2203.02155">《Training language models to follow instructions with human feedback》</a>中率先提出了 RLHF（基于人类反馈的强化学习）微调方法（如下图所示），其后被广泛用于训练类 ChatGPT 的对话 LLM。
 
@@ -14,7 +14,7 @@
 
 ## 准备
 
-在项目中创建一个名为 llama-factory、大小 250 GiB 以上的 PVC，然后创建一个同样名为 llama-factory 的 Notebook 挂载该 PVC（镜像类型和模板不限）。
+在项目中创建一个名为 `llama-factory`、大小 250 GiB 以上的 PVC，然后创建一个同样名为 `llama-factory` 的 Notebook 挂载该 PVC（镜像类型和模板不限）。
 
 进入 Notebook 或远程连接到 Notebook，启动一个终端，执行以下命令以克隆必要的仓库：
 
@@ -45,7 +45,10 @@ git clone https://huggingface.co/baichuan-inc/Baichuan2-7B-Base
 
 </aside>
 
-选用 <a target="_blank" rel="noopener noreferrer" href="https://github.com/Instruction-Tuning-with-GPT-4/GPT-4-LLM">alpaca_gpt4_data_zh 和 comparison_gpt4_data_zh</a>作为训练数据集：前者包含 Alpaca 收集的 52,000 条指令（由 ChatGPT 翻译为中文），以及 GPT-4 对于每条指令的中文回答；后者包含约 36,000 条中文指令，以及 GPT-4 评估的一对高/低质量回答。
+选用 <a target="_blank" rel="noopener noreferrer" href="https://github.com/Instruction-Tuning-with-GPT-4/GPT-4-LLM">alpaca_gpt4_data_zh 和 comparison_gpt4_data_zh</a>作为训练数据集：
+
+- 前者包含 Alpaca 收集的 52,000 条指令（由 ChatGPT 翻译为中文），以及 GPT-4 对于每条指令的中文回答；
+- 后者包含约 36,000 条中文指令，以及 GPT-4 评估的一对高/低质量回答。
 
 ## 启动三步训练
 
@@ -144,6 +147,8 @@ Assistant: 新型冠状病毒对全球经济的影响是巨大的。在2020年�
 User: 我害怕乘坐飞机
 Assistant: 很多人都有乘坐飞机的恐惧，但是不用担心，我们可以通过一些方法来克服它。
 ```
+
+## 总结
 
 SFT 模型能够在聊天中给出比较好的回答，并且提供一些有用信息；与之相比，PPO 模型的回答就简短得多。
 

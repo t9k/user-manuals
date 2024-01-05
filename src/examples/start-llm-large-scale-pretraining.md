@@ -8,11 +8,13 @@ LLM（大型语言模型）是当前 AI 领域备受瞩目的研究和应用领�
 * 数据的并行加载和分发以及模型参数的同步和更新，需要高效的通信和协调机制，以确保训练的一致性和速度。
 * 故障容错和中断恢复必不可少，因为在大规模集群上运行时硬件故障和网络问题可能导致训练中断。
 
-<a target="_blank" rel="noopener noreferrer" href="https://github.com/microsoft/DeepSpeed">DeepSpeed</a> 是目前最受欢迎的大规模分布式训练框架，而平台提供了 [DeepSpeedJob](../modules/jobs/deepspeedjob.md)，这是专为使用 DeepSpeed 框架的分布式训练而设计的作业类型。本示例将使用 DeepSpeedJob 以简便迅速的方式启动 Megatron-LM GPT-3 系列（125M、1.3B、13B 和 175B）模型的预训练任务。
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/microsoft/DeepSpeed">DeepSpeed</a> 是目前最受欢迎的大规模分布式训练框架，而平台提供了 [DeepSpeedJob](../modules/jobs/deepspeedjob.md)，这是专为使用 DeepSpeed 框架的分布式训练而设计的作业类型。
+
+本示例将使用 DeepSpeedJob 以简便迅速的方式启动 Megatron-LM GPT-3 系列（125M、1.3B、13B 和 175B）模型的预训练任务。
 
 ## 准备
 
-在你的项目中创建一个名为 megatron、大小 250 GiB 以上的 PVC，然后创建一个同样名为 megatron 的 Notebook 挂载该 PVC（镜像类型和模板不限）。
+在你的项目中创建一个名为 `megatron、大小` 250 GiB 以上的 PVC，然后创建一个同样名为 `megatron` 的 Notebook 挂载该 PVC（镜像类型和模板不限）。
 
 进入 Notebook 或远程连接到 Notebook，启动一个终端，执行以下命令以克隆必要的仓库：
 
@@ -54,7 +56,7 @@ python train_tokenizer.py ../dataset/wiki-en/all wiki-en-tokenizer
 使用如下 YAML 配置文件创建 DeepSpeedJob 以启动 125M 模型的训练：
 
 ```bash
-# 8 度数据并行训练 125M 参数的 GPT 模型
+# 数据并行训练 125M 参数的 GPT 模型
 kubectl create -f \
   examples/deepspeed/megatron-gpt/training/gpt-125m-4xdp.yaml
 ```
