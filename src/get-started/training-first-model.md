@@ -1,13 +1,13 @@
 # 训练你的第一个模型
 
-本教程将带领用户使用 [Notebook](../modules/building/notebook.md) 和 [PyTorchJob](../modules/jobs/pytorchtrainingjob.md) 资源，来构建和训练用户的第一个机器学习模型。
+本教程将带领用户使用 [Notebook](../modules/building/notebook.md) 和 [PyTorchTrainingJob](../modules/jobs/pytorchtrainingjob.md) 资源，来构建和训练用户的第一个机器学习模型。
 
 <aside class="note info">
 <div class="title"> Resources（资源）</div>
 
-在 Kubernetes 中，Resources（资源）是用于描述集群中工作负载的概念。资源可分为 Kubernetes 原生资源，例如 `Pod`，`Service` 等；及 Custom Resource Defintion（CRD，定制资源），其扩展 Kubernetes，提供特定领域（例如 AI）的额外能力。 `Notebook` 和 `PyTorchJob` 是 TensorStack 提供的 CRDs。
+在 Kubernetes 中，Resources（资源）是用于描述集群中工作负载的概念。资源可分为 Kubernetes 原生资源，例如 `Pod`，`Service` 等；及 Custom Resource Defintion（CRD，定制资源），其扩展 Kubernetes，提供特定领域（例如 AI）的额外能力。 `Notebook` 和 `PyTorchTrainingJob` 是 TensorStack 提供的 CRD。
 
-详细信息请参阅 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/"> Custom Resources （定制资源）</a>
+详细信息请参阅 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/"> Custom Resources （定制资源）</a>。
 
 </aside>
 
@@ -32,7 +32,7 @@
 <aside class="note info">
 <div class="title">PVC</div>
 
-<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh/docs/concepts/storage/persistent-volumes/">PVC（PersistentVolumeClaim，持久卷申领）</a>是 Kubernetes 的一个原生 Resource，表示用户对存储的请求。参阅[管理 PVC](../tasks/manage-pvc.md) 以进一步了解如何在平台上使用 PVC。
+<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh/docs/concepts/storage/persistent-volumes/">PVC（PersistentVolumeClaim，持久卷申领）</a>是一种 Kubernetes 原生资源，表示用户对存储的请求。参阅[管理 PVC](../tasks/manage-pvc.md) 以进一步了解如何在平台上使用 PVC。
 
 </aside>
 
@@ -60,6 +60,13 @@
 ### 创建 Notebook
 
 在左侧的导航菜单中点击**构建 > Notebook** 进入 Notebook 管理页面，然后点击右上角的**创建 Notebook**。
+
+<aside class="note info">
+<div class="title">Notebook</div>
+
+[Notebook](../modules/building/notebook.md) 是一种 TensorStack CRD，用于在集群中运行在线交互式开发环境的服务（例如 JupyterLab、RStudio），同时提供 GPU 使用、SSH 访问等补充功能。
+
+</aside>
 
 <figure class="screenshot">
   <img alt="create-notebook" src="../assets/get-started/training-first-model/create-notebook.png" class="screenshot"/>
@@ -159,9 +166,5 @@ model.evaluate(test_images, test_labels)
 
 ## 下一步
 
-* 将训练完成的模型 [部署为推理服务](./deploy-model.md)
-* 了解 [使用 Job 进行分布式训练](./training-using-job.md)
-* 了解 [模型构建](../modules/building/index.md)
-* 了解 [作业](../modules/jobs/index.md)
-* 进一步学习如何 [进行分布式训练](../tasks/model-training.md)
-* 学习如何 [进行超参数优化](../tasks/hyperparameter-tuning.md)
+* 对上述模型[进行分布式训练](./training-using-job.md)
+* 了解[模型构建](../modules/building/index.md)

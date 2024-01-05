@@ -6,14 +6,19 @@ Job 是 TensorStack 提供的一组 CRDs，用于支持各种规模的批处理�
 
 ## 在 Notebook 中准备分布式训练
 
-在 Notebook 的前端页面，点击左上角的 **+**，然后点击 **Other** 下的 **Python File** 以新建一个 Python 脚本文件。将该文件重命名为 `download_dataset.py`，并向其复制以下代码：
+在 Notebook 的前端页面，点击左上角的 **+**，然后点击 **Other** 下的 **Python File** 以新建一个 Python 脚本文件。
+
+<figure class="screenshot">
+  <img alt="create-py-file" src="../assets/get-started/training-using-job/create-py-file.png" class="screenshot"/>
+</figure>
+
+将该文件重命名为 `download_dataset.py`，并向其复制以下代码：
 
 ```python title="download_dataset.py"
 import os
 import tensorflow as tf
 
 tf.keras.datasets.mnist.load_data(os.path.join(os.getcwd(), 'mnist.npz'))
-
 ```
 
 以同样的方式再新建一个名为 `keras_mnist_trainingjob.py` 的文件，并向其复制下面的训练脚本。该脚本在上面的脚本的基础上进行了修改以支持数据并行训练。
@@ -110,7 +115,13 @@ model.evaluate(test_images, test_labels, verbose=2)
 
 ```
 
-点击左上角的 **+**，然后点击 Other 下的 **Terminal** 以新建一个终端。执行 `download_dataset.py` 脚本以下载数据集文件 `mnist.npz` 到当前 `$HOME` 目录下。
+点击左上角的 **+**，然后点击 Other 下的 **Terminal** 以新建一个终端。
+
+<figure class="screenshot">
+  <img alt="create-terminal" src="../assets/get-started/training-using-job/create-terminal.png" class="screenshot"/>
+</figure>
+
+执行 `download_dataset.py` 脚本以下载数据集文件 `mnist.npz` 到当前 `$HOME` 目录下。
 
 ```shell
 python download_dataset.py
@@ -209,8 +220,7 @@ spec:
 
 ## 下一步
 
-* 将训练完成的模型 [部署为推理服务](./deploy-model.md)
-* 了解 [模型构建](../modules/building/index.md)
-* 了解 [作业](../modules/jobs/index.md)
-* 进一步学习如何 [进行分布式训练](../tasks/model-training.md)
-* 学习如何 [进行超参数优化](../tasks/hyperparameter-tuning.md)
+* 将训练完成的模型[部署为推理服务](./deploy-model.md)
+* 了解[作业](../modules/jobs/index.md)
+* 进一步学习如何[进行分布式训练](../tasks/model-training.md)
+* 学习如何[进行超参数优化](../tasks/hyperparameter-tuning.md)

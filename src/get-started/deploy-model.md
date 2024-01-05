@@ -149,6 +149,6 @@ Target:
 
 ## 下一步
 
-* 了解模块[模型部署](../modules/deployment/index.md)
+* 了解[模型部署](../modules/deployment/index.md)
 * 进一步学习如何[部署用于测试环境的模型推理服务](../tasks/deploy-simplemlservice.md)
 * 进一步学习如何[部署用于生产环境的模型推理服务](../tasks/deploy-mlservice.md)
