@@ -162,3 +162,10 @@
         * [Codepack 定义](tools/codepack/definition.md)
         * [命令行工具](tools/codepack/cli.md)
         * [示例](tools/codepack/example.md)
+
+* [示例](examples/index.md)
+    * [启动 LLM 大规模预训练](examples/start-llm-large-scale-pretraining.md)
+    * [启动 LLM 微调](examples/start-llm-finetuning.md)
+    * [部署 LLM 聊天机器人](examples/deploy-llm-chatbot.md)
+    * [部署 Stable Diffusion 图像生成模型](examples/deploy-sd-drawing-model.md)
+    * [使用 AutoGen 构建下一代 LLM 应用](examples/build-next-generation-llm-app-using-autogen.md)

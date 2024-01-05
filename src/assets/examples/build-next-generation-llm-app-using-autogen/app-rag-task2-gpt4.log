@@ -1,0 +1,79 @@
+doc_ids:  [['doc_460', 'doc_1461', 'doc_4853', 'doc_4871', 'doc_1582', 'doc_1439', 'doc_1374', 'doc_2312', 'doc_1584', 'doc_512', 'doc_6188', 'doc_2324', 'doc_1577', 'doc_2314', 'doc_1444', 'doc_14', 'doc_3357', 'doc_1336', 'doc_6106', 'doc_1948', 'doc_1588', 'doc_1587', 'doc_4898', 'doc_439', 'doc_1448', 'doc_2308', 'doc_5452', 'doc_6186', 'doc_6166', 'doc_536']]
+Adding doc_id doc_460 to context.
+Adding doc_id doc_1461 to context.
+Adding doc_id doc_4853 to context.
+Adding doc_id doc_4871 to context.
+Adding doc_id doc_1582 to context.
+Adding doc_id doc_1439 to context.
+Adding doc_id doc_1374 to context.
+Adding doc_id doc_2312 to context.
+Adding doc_id doc_1584 to context.
+Adding doc_id doc_512 to context.
+Adding doc_id doc_6188 to context.
+Adding doc_id doc_2324 to context.
+Adding doc_id doc_1577 to context.
+Adding doc_id doc_2314 to context.
+Adding doc_id doc_1444 to context.
+Adding doc_id doc_14 to context.
+Adding doc_id doc_3357 to context.
+Adding doc_id doc_1336 to context.
+Adding doc_id doc_6106 to context.
+Adding doc_id doc_1948 to context.
+Adding doc_id doc_1588 to context.
+Adding doc_id doc_1587 to context.
+Adding doc_id doc_4898 to context.
+Adding doc_id doc_439 to context.
+Adding doc_id doc_1448 to context.
+Adding doc_id doc_2308 to context.
+Adding doc_id doc_5452 to context.
+Adding doc_id doc_6186 to context.
+Adding doc_id doc_6166 to context.
+Adding doc_id doc_536 to context.
+ragproxyagent (to assistant):
+
+You're a retrieve augmented chatbot. You answer user's questions based on your own knowledge and the
+context provided by the user.
+If you can't answer the question with or without the current context, you should reply exactly `UPDATE CONTEXT`.
+You must give as short an answer as possible.
+
+User's question is: 公司是否计划派发现金红利？
+
+Context is: 公司报告期无募集资金使用情况。  
+限 公 司 各 项 经 济 损 失
+母公司股东    归属于 
+母公司股东    归属于 
+公司控股的财务公司与关联方之间不存在存款、贷款、授信或其他金融业务。  
+公司报告期不存在控股股东及其 他关联方对上市公司的非经营性占用资金。  
+沙分公司  废气 氮氧化
+公司报告期控股股东未发生变更。  
+公司报告期无其他重大关联交易。  
+公司计划半年度不派发现金红利，不送红股，不以公积金转增股本。  
+限公司  房屋         
+公司半年度财务报告未经审计。  
+公司报告期不存在关联债权债务往来。  
+公司报告期实际控制人未发生变更。  
+公司半年度报告未经审计。  
+公司计划不派发现金红利，不送红股，不以公积金转增股本。  
+本公司的现金股利，于股东大会批准后确认为负债。  
+公司 废气 颗粒物 有组织
+  公司名称  与本企业关系    
+有限公司办理存款业务暨关
+公司报告期不存在承包情况。  
+公司报告期不存在托管情况。  
+本公司在提取法定盈余公积金后，可提取任意公积金。经批准，任意公积金可用于弥补以前年度亏损或增加
+明 公司为规避日常经营中所面临的汇率、利率风险，通过操作金融衍生品对实际持有的风险敞口进
+公司报告期未发生破产重整相关事项。  
+公司秘书  现任 27,500   27,500    
+重庆弗迪锂电池有限公司  
+能源汽车有限公司   房屋         
+公司 接受劳务及购买水电燃气
+公司员工持股计划在 2023年半年度费用摊销金额请详见“第十节财务报告 -十三.股份支付”相关内容。  
+
+
+
+--------------------------------------------------------------------------------
+assistant (to ragproxyagent):
+
+否
+
+--------------------------------------------------------------------------------
