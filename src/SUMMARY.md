@@ -39,7 +39,9 @@
 
     * [实验管理](modules/experiment-management.md)
 
-* [账户和安全](modules/account-and-security.md)
+* [账户和安全](modules/security/index.md)
+    * [账户](modules/security/account.md)
+    * [项目](modules/security/project.md)
 
 * [计算资源](modules/scheduling/index.md)
     * [资源配额](modules/scheduling/quota.md)
