@@ -45,6 +45,7 @@
 
 * [计算资源](modules/scheduling/index.md)
     * [资源配额](modules/scheduling/quota.md)
+    * [资源回收](modules/scheduling/reclaim.md)
     * [队列](modules/scheduling/queue.md)
     * [PodGroup](modules/scheduling/podgroup.md)
 

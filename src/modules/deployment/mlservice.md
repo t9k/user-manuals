@@ -313,7 +313,7 @@ S3 是一种对象存储服务和协议，具有良好的可扩展性、数据�
 
 ### PVC
 
-MLService 支持使用 [PVC](../auxiliary/pvc.md) 中的模型。
+MLService 支持使用 [PVC](../storage/pvc.md) 中的模型。
 
 在MLService中使用 PVC 存储模式需要在 `spec.releases[*].predictor.model.modelUri` 中设置包含前缀 `pvc://` 的模型路径。例如：
 

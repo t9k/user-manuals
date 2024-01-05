@@ -56,7 +56,7 @@ Docker 是一个提供操作系统级别的虚拟化技术的软件，用于将�
 
 ## Explorer
 
-Explorer 是一种 TensorStack 资源，用于通过浏览器访问文件管理器和集成开发环境（IDE）。详见 [Explorer 文档](../modules/auxiliary/explorer.md)。
+Explorer 是一种 TensorStack 资源，用于通过浏览器访问文件管理器和集成开发环境（IDE）。详见 [Explorer 文档](../modules/storage/explorer.md)。
 
 ## GenericJob
 
@@ -112,7 +112,7 @@ Project 是 TensorStack AI 平台对计算集群的抽象，建立在 Kubernetes
 
 ## PVC（PersistentVolumeClaim，持久卷申领）
 
-PVC 是一种持久化的存储资源，可以被 Pod 挂载、作为 Pod 的卷被访问。您可以在 TensorStack AI 平台的模型构建控制台中创建一个 PVC，并指定它的存储空间（例如 100M、1G）和访问模式（例如只读、可读写、可运行），详见 [PVC](../modules/auxiliary/pvc.md) 和[管理 PVC](../tasks/manage-pvc.md)。
+PVC 是一种持久化的存储资源，可以被 Pod 挂载、作为 Pod 的卷被访问。您可以在 TensorStack AI 平台的模型构建控制台中创建一个 PVC，并指定它的存储空间（例如 100M、1G）和访问模式（例如只读、可读写、可运行），详见 [PVC](../modules/storage/pvc.md) 和[管理 PVC](../tasks/manage-pvc.md)。
 
 ## PyTorchTrainingJob
 
