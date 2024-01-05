@@ -326,13 +326,13 @@ aside.note {
     margin-top: 1em;
 }
 
-aside.note > p {
+aside.note > * {
     margin-left: 1em;
     margin-right: 1em;
     font-size: 14px;
 }
 
-aside.note > p > code {
+aside.note > * > code {
     font-size: 13px;
 }
 
