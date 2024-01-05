@@ -6,7 +6,7 @@
 
 使用 TensorStack AI 平台之前，用户需要满足以下条件：
 
-* 拥有一个[账户]()，以登录系统。
+* 拥有一个[账户](../modules/security/account.md)，以登录系统。
 * 成为一个 [Project（项目）](../tasks/add-project-member.md)的成员，以使用集群资源。
 
 <aside class="note tip">
