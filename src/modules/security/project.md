@@ -1,6 +1,6 @@
 # 项目
 
-项目（Project）是 TensorStack AI 平台为了有效使用集群资源，实现多用户、多项目同时、安全、共享使用集群而提供的机制。
+Project（项目）是 TensorStack AI 平台为了有效使用集群资源，实现多用户、多项目同时、安全、共享使用集群而提供的机制；它是一个 CRD。
 
 它具有以下特征：
 
@@ -23,7 +23,7 @@
 
 ## 项目定义
 
-以下是一个项目在 Kubernetes 中的资源示例：
+以下是一个项目的定义（Custom Resource）示例：
 
 ```yaml
 apiVersion: tensorstack.dev/v1beta1
