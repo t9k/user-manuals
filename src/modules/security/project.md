@@ -115,4 +115,4 @@ spec:
 
 ## 下一步
 
-* 了解项目管理员如何[为 Project 添加成员](../../tasks/add-project-member.md)
+* 了解项目管理员如何：[添加 Project 成员](../../tasks/add-project-member.md)

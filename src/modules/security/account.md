@@ -27,5 +27,5 @@ API Key 是 TensorStack AI 平台应对上述问题的解决方案。它是一�
 
 ## 下一步
 
-* 了解如何[生成 API Key](../../tasks/generate-api-key.md)
-* 了解如何[使用 API Key](../../tasks/use-api-key.md)
+* 了解如何为帐户：[生成 API Key](../../tasks/generate-api-key.md)
+* 了解在不同场景：[使用 API Key](../../tasks/use-api-key.md)

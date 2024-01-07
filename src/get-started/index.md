@@ -19,6 +19,6 @@
 <aside class="note info">
 <div class="title">Project（项目）</div>
 
-`Project` 是 TensorStack AI 平台提供的一种机制，旨在有效利用集群资源，实现多用户、多项目共享使用集群。`Project` 可被视为为用户准备的“虚拟集群”。详细信息请参阅 [Project](../modules/account-and-security.md#project)。
+`Project` 是 TensorStack AI 平台提供的一种机制，旨在有效利用集群资源，实现多用户、多项目共享使用集群。`Project` 可被视为为用户准备的“虚拟集群”。详细信息请参阅 [Project](../modules/security/project.md)。
 
 </aside>
