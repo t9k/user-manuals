@@ -43,3 +43,7 @@ Explorer 提供空闲资源回收的支持，在检测到 Explorer 处于空闲�
 * Explorer 进入 `Idle` 状态超过 24h 后，删除该 Explorer 底层工作负载。
 
 如果需要再次使用该 Explorer，您可以在模型构建控制台中手动点击**恢复**按钮。
+
+## 下一步
+
+- [使用 Explorer](../../tasks/use-explorer.md)

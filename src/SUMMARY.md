@@ -69,6 +69,7 @@
         * [构建镜像](tasks/build-image.md)
         * [调试镜像](tasks/debug-image.md)
         * [管理 PVC](tasks/manage-pvc.md)
+        * [使用 Explorer](tasks/use-explorer.md)
         * [管理 StorageShim](tasks/manage-storageshim.md)
         * [管理 Secret](tasks/manage-secret.md)
         * [管理 ConfigMap](tasks/manage-configmap.md)
