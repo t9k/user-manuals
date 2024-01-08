@@ -1,6 +1,6 @@
 # PVC 快照
 
-[PVC](./pvc.md) 作为重要的存储资源，应当定期快照（snapshot），以免数据丢失时无法恢复。
+如果 [PVC](./pvc.md) 存放了重要的数据，用户可适时制作快照（snapshot），以方便恢复。
 
 ## CRD 资源
 
@@ -31,7 +31,7 @@ spec:
   storageClassName: cephfs-hdd
 ```
 
-为了对该 PVC 进行快照，我们需要创建如下 VolumeSnapshot 资源：
+为了对该 PVC 进行快照，用户需要创建如下 VolumeSnapshot 资源：
 
 ```yaml
 apiVersion: snapshot.storage.k8s.io/v1
@@ -49,11 +49,11 @@ spec:
 * `spec.volumeSnapshotClassName` 定义了所使用的快照类为 `cephfs-hdd-snapshotclass`，每个 StorageClass 都有对应的 VolumeSnapshotClass，由管理员负责创建；VolumeSnapshot 指定的 `spec.volumeSnapshotClassName` 应当与 PVC 的 `spec.storageClassName` 对应。
 * `spec.source.persistentVolumeClaimName` 定义了所要快照的 PVC 名称为 `pvc-demo`。
 
-创建完成后，您可以对 PVC 中的数据进行任意修改，而不必担心无法恢复修改前的数据。
+创建完成后，用户可以对 PVC 中的数据进行继续修改；若需要放弃修改，则可方便地使用快照恢复到修改前的数据。
 
 ## 从快照中恢复
 
-如果想将 PVC 中的数据恢复至快照创建时刻的状态，您需要创建一个新的 PVC（之前的 PVC 仍然可以使用，两个 PVC 之间互不影响）：
+如果想将 PVC 中的数据恢复至快照创建时刻的状态，用户需要创建一个新的 PVC（之前的 PVC 仍然可以使用，两个 PVC 之间互不影响）：
 
 ```yaml
 apiVersion: v1
