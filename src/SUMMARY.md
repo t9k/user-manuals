@@ -34,6 +34,7 @@
         * [WorkflowTemplate](modules/workflows/workflowtemplate.md)
         * [WorkflowRun](modules/workflows/workflowrun.md)
         * [CronWorkflowRun](modules/workflows/cronworkflowrun.md)
+        * [WorkflowTrigger](modules/workflows/workflowtrigger.md)
 
     * [资产管理](modules/asset-management.md)
 
