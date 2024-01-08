@@ -4,7 +4,7 @@
 
 ## 准备工作
 
-* 成为一个[项目](../modules/security/project.md) 的管理员或[成员](./add-project-member.md)。
+* 成为一个 [项目](../modules/security/project.md) 的管理员或 [成员](./add-project-member.md)。
 
 ## 示例
 
