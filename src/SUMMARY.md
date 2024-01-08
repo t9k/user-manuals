@@ -52,6 +52,7 @@
 
 * [存储](modules/storage/index.md)
     * [PVC](modules/storage/pvc.md)
+    * [PVC 快照](modules/storage/pvc-snapshot.md)
     * [StorageShim](modules/storage/storageshim.md)
     * [Explorer](modules/storage/explorer.md)
 

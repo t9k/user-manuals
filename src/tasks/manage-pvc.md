@@ -2,7 +2,7 @@
 
 本教程演示如何在模型构建控制台中管理和使用 PVC。
 
-**PVC（<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh/docs/concepts/storage/persistent-volumes/">PersistentVolumeClaim</a>）**是 Kubernetes 提供的一种声明式的存储卷请求，用于向 Kubernetes 集群申请持久化存储卷。PVC 使应用程序与存储资源进行解耦，提高了存储资源的管理和使用效率。PVC 可以被 Pod 挂载、作为 Pod 的卷被访问。
+**PVC**（<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh/docs/concepts/storage/persistent-volumes/">PersistentVolumeClaim</a>）是 Kubernetes 提供的一种声明式的存储卷请求，用于向 Kubernetes 集群申请持久化存储卷。PVC 使应用程序与存储资源进行解耦，提高了存储资源的管理和使用效率。PVC 可以被 Pod 挂载、作为 Pod 的卷被访问。
 
 ## 准备工作
 
