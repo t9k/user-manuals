@@ -336,5 +336,5 @@ if __name__ == '__main__':
 
 ## 下一步
 
-* 进一步学习如何[在分布式训练场景下追踪模型训练](./record-training-job.md)
+* 进一步学习如何[在分布式训练场景下追踪模型训练](./record-distributed-training.md)
 * 进一步学习如何[在实验管理控制台查看 AutoTune](./view-autotune-in-experiment-console.md)

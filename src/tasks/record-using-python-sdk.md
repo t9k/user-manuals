@@ -1,6 +1,6 @@
 # 使用 Python SDK 记录和上传数据
 
-本教程介绍如何使用 [Python SDK](../../tool/python-sdk-t9k/index.md) 进行创建、加载、上传 Run 和 Artifact，设定超参数，记录指标等操作。
+本教程介绍如何使用 [Python SDK](../tools/python-sdk-t9k/guide.md) 进行创建、加载、上传 Run 和 Artifact，设定超参数，记录指标等操作。
 
 ## 创建 Run
 
@@ -25,7 +25,7 @@ run = em.create_run(name='mnist_torch')    # 返回Run实例
 
 ### 自动上传
 
-如果想要自动异步上传 Run 的更新，可以设定 `auto_upload=True`，并提供文件夹路径，以及设定是否创建不存在的各级文件夹。在这种情况下，您在创建 Run 之前需要先[登录到 EM 服务器](#e59fbae69cace696b9e6b395-2)。
+如果想要自动异步上传 Run 的更新，可以设定 `auto_upload=True`，并提供文件夹路径，以及设定是否创建不存在的各级文件夹。在这种情况下，您在创建 Run 之前需要先[登录到 EM 服务器](#基本方法-2)。
 
 ```python
 run = em.create_run(name='mnist_torch',
@@ -353,9 +353,9 @@ em.login(ais_host='<your-server-host>', api_key='<your-api-key>')
 <aside class="note info">
 <div class="title">信息</div>
 
-生成包含 EM 权限的 API Key 的方法请参阅[生成 API Key](../generate-api-key.md)。
+生成包含 EM 权限的 API Key 的方法请参阅[生成 API Key](./generate-api-key.md)。
 
-如要了解 API Key 的更多细节和使用方法，请参阅 [API Key](../modules/security-management.md#api-key) 和[使用 API Key](../use-api-key.md)。
+如要了解 API Key 的更多细节和使用方法，请参阅 [API Key](../modules/security/account.md#api-key) 和[使用 API Key](./use-api-key.md)。
 
 </aside>
 
@@ -391,7 +391,7 @@ artifact.upload()
 
 您也可以在训练结束之后将本地保存的数据上传到服务器，以应对训练时无网络连接、最初未打算上传、误删服务器中的数据等情形。
 
-首先[登录到服务器](#e59fbae69cace696b9e6b395-2)，然后加载保存在本地的 Run 或 Artifact，调用其 `upload()` 方法。
+首先[登录到服务器](#基本方法-2)，然后加载保存在本地的 Run 或 Artifact，调用其 `upload()` 方法。
 
 ```python
 run = em.load_run(path='.em/runs/mnist_torch_231222_141932_61p5jc')
@@ -403,4 +403,4 @@ artifact.upload(folder='default', make_folder=True)
 
 ## 下一步
 
-* 进一步学习如何[在单设备训练场景下追踪模型训练](./record-single-device.md)
+* 进一步学习如何[在单设备训练场景下追踪模型训练](./record-single-device-training.md)
