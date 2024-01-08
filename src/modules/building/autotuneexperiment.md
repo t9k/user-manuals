@@ -53,12 +53,12 @@ spec:
 * 超参数的搜索空间为 `{"batch_size": {"_type": "choice", "_value": [512, 1024, 2048, 4096, 8092]},"learning_rate": {"_type": "choice", "_value": [0.0001, 0.001, 0.01, 0.1]}}`（由 `searchSpace` 字段指定，搜索空间的格式及含义请参阅[搜索空间](./autotune-search-space.md)）。
 * 可以同时测试 3 组超参数，最大测试次数为 50（分别由 `trialConcurrency` 和 `maxTrialNum` 字段指定），实验的最大执行时间为 2 小时（7200 秒，由 `maxExecSeconds` 字段指定），如果时间超出，实验进入 `TIMEOUT` 状态。
 
-## 数据库的使用
+## AIStore 的使用
 
-AutoTuneExperiment 支持将实验数据存储在 AIMD 中，通过设置 `spec.aimd` 字段以使用 AIMD 数据库，其中：
+AutoTuneExperiment 支持将实验数据存储在 AIStore 中，通过设置 `spec.aistore` 字段以使用 AIStore 数据库，其中：
 
-* `spec.aimd.folder` 声明实验数据存储在哪个 AIMD 文件夹中，内容应填写文件夹的 ID。
-* `spec.aimd.secret` 引用一个 K8s Secret，其中应记录 API Key，用于上传数据时进行身份验证。
+* `spec.aistore.folder` 声明实验数据存储在哪个 AIStore 文件夹中，内容应填写文件夹的 ID。
+* `spec.aistore.secret` 引用一个 K8s Secret，其中应记录 API Key，用于上传数据时进行身份验证。
 
 下面是一个存储 APIKey 的 Secret 示例：
 
@@ -68,7 +68,7 @@ data:
   apikey: ZDQyMjJjZjUtMmI0Ni00Mjk2LWFiMzYtYWI4NmVhZGUwZjQx
 kind: Secret
 metadata:
-  name: aimd-secret
+  name: aistore-secret
 type: Opaque
 ```
 

@@ -363,7 +363,7 @@ _, _ = tf.keras.datasets.mnist.load_data(os.path.join(os.getcwd(), 'mnist.npz'))
 EM 的实验数据是以文件夹形式管理的，所以您首先需要在实验管理控制台点击右上角的 **+** 新建一个文件夹。
 
 <figure class="screenshot">
-  <img alt="create-aimd-folder" src="../assets/tasks/run-hyperparameter-optimization/create-aistore-folder.png" class="screenshot"/>
+  <img alt="create-aistore-folder" src="../assets/tasks/run-hyperparameter-optimization/create-aistore-folder.png" class="screenshot"/>
 </figure>
 
 进入文件夹，点击 **ID** 来复制该文件夹的 ID。
