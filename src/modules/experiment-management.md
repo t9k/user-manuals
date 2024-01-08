@@ -149,3 +149,7 @@ user:demo
 数据集和模型分别记录在 EM 的 `./t9k-assethub/dataset` 和 `./t9k-assethub/model` 文件夹中，model 文件夹（dataset 文件夹同样）维护文件夹和模型两级结构，每一个模型都是一个具有版本管理功能的节点。
 
 注意：在使用 EM 的时候，非必要请勿修改 t9k-assethub 文件夹中的数据，避免影响 AssetHub 的使用。
+
+## 下一步
+
+* 了解如何使用 EM [追踪模型训练](../tasks/track-model-training.md)

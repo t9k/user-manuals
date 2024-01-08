@@ -1,6 +1,6 @@
 # 在实验管理控制台查看 AutoTune
 
-如果 [AutoTune 使用 AIStore 作为数据库](../modules/building/autotune/usage.md#数据库的使用)，那么 AutoTune 会自动记录实验以及其中所有试验的数据到 AIStore 中。
+如果 [AutoTune 使用 AIStore 作为数据库](../modules/building/autotuneexperiment.md#数据库的使用)，那么 AutoTune 会自动记录实验以及其中所有试验的数据到 AIStore 中。
 
 参照[使用 AutoTune 进行超参数优化](./autotune.md)创建一个 AutoTuneExperiment。唯一需要修改的部分是，将 AutoTuneExperiment 配置文件的 `spec.em.folder` 字段修改为文件夹 `em-examples` 的 ID。
 
