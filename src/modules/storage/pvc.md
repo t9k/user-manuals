@@ -25,7 +25,7 @@ spec:
 
 * `spec.resources.requests.storage` 字段定义了所申请的存储空间容量大小为 `1Gi`。
 * `spec.accessModes` 字段定义了访问模式为 `ReadWriteMany`，表示该 PVC 能够同时被多个节点上的 Pod 使用。
-* `spec.storageClassName` 字段定义所使用的存储类名称为 `cephfs-hdd`，集群中可用的存储类由管理员提供。
+* `spec.storageClassName` 字段定义了所使用的存储类名称为 `cephfs-hdd`，集群中可用的存储类由管理员提供。
 
 ## 使用 PVC
 
@@ -101,7 +101,7 @@ PVC 的生命周期独立于 Pod。一个 PVC 可以被多个 Pod 使用。当 P
 在 TensorStack AI 平台中，您可以：
 
 1. 创建一个独立的 PVC，申请全新的存储空间。
-2. 创建一个 [StorageShim](./storageshim.md)，将已有存储系统的某个子目录挂载为一个 PVC。此时 PVC 的生命周期由 StorageShim 管理。
+2. 创建一个 [StorageShim](./storageshim.md)，将已有存储系统的某个子目录挂载为一个 PVC。此时 StorageShim 控制器将为所创建的 StorageShim 创建一个同名的 PVC，此 PVC 的生命周期由 StorageShim 管理。
 
 ## 容量请求
 

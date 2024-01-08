@@ -26,7 +26,7 @@ Block Storage Volumes （块存储卷）可作为高性能虚拟存储盘挂载�
 
 ## 使用
 
-TensorStack 的存储系统支持建立在 Kubernetes 的 Storage API 基础之上，主要通过 API [Persistent Volumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) ， [Storage Class](https://kubernetes.io/docs/concepts/storage/storage-classes/) 提供用户接口。
+TensorStack 的存储系统支持建立在 Kubernetes 的 Storage API 基础之上，主要通过 API [Persistent Volumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) ，[Storage Class](https://kubernetes.io/docs/concepts/storage/storage-classes/) 提供用户接口。
 
 同时，为了支持一些特定场景的使用，TensorStack 提供 CRD [StorageShim](storageshim.md)，[Explorer](explorer.md) 增加了额外的支持。
 
