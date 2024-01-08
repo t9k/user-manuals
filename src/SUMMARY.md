@@ -118,7 +118,7 @@
     * [管理个人账户](tasks/manage-personal-account.md)
         * [生成 API Key](tasks/generate-api-key.md)
         * [使用 API Key](tasks/use-api-key.md)
-        * [添加 Project 成员](tasks/add-project-member.md)
+        * [添加项目成员](tasks/add-project-member.md)
 
 * [命令行工具和 SDK](tools/index.md)
 
