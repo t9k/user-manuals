@@ -20,7 +20,7 @@
 准备一个 PyTorch 训练脚本，其模型对 MNIST 数据集的图像进行分类，具体代码如下所示。接下来将在此脚本的基础上进行简单的修改以进行追踪。
 
 ```python
-# torch_mnist_em.py
+# torch_mnist.py
 import argparse
 import logging
 import os
@@ -30,8 +30,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 from torchvision import datasets, transforms
-
-from t9k import em
 
 parser = argparse.ArgumentParser(
     description='Recording of training data of PyTorch model for MNIST with EM.'

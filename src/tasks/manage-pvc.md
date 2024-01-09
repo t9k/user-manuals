@@ -42,24 +42,3 @@
 <figure class="screenshot">
   <img alt="delete-pvc" src="../assets/tasks/manage-auxiliary-resources/delete-pvc.png" class="screenshot"/>
 </figure>
-
-## PVC 数据管理
-
-进入 PVC 管理页面后，选择所要操作的 PVC，点击列表中的 **Start Explorer**，启动 PVC 数据管理服务。
-
-<figure class="screenshot">
-  <img alt="start-explorer" src="../assets/tasks/manage-auxiliary-resources/start-explorer.png" class="screenshot"/>
-</figure>
-
-服务启动后，**Start Explorer** 会变成 **Connect｜Stop**，点击 **Stop** 关闭 PVC 数据管理服务，点击 **Connect** 进入 PVC 管理服务 UI。
-
-<figure class="screenshot">
-  <img alt="connect-explorer" src="../assets/tasks/manage-auxiliary-resources/connect-explorer.png" class="screenshot"/>
-</figure>
-
-<div class="title">延伸阅读</div>
-
-* <a target="_blank" rel="noopener noreferrer" href="https://filebrowser.org">FileBrowser 官方介绍</a>
-* <a target="_blank" rel="noopener noreferrer" href="https://code.visualstudio.com/">VSCode 官方网站</a>
-
-</aside>

@@ -1,6 +1,6 @@
 # 训练你的第一个模型
 
-本教程将带领用户使用 [Notebook](../modules/building/notebook.md) 和 [PyTorchTrainingJob](../modules/jobs/pytorchtrainingjob.md) 资源，来构建和训练用户的第一个机器学习模型。
+本教程将带领用户使用 [Notebook](../modules/building/notebook.md) 资源，来构建和训练用户的第一个机器学习模型。
 
 <aside class="note info">
 <div class="title"> Resources（资源）</div>
@@ -75,9 +75,9 @@
 在 Notebook 创建页面，如下填写各个参数：
 
 * **名称**填写 `mnist`。
-* **镜像类型**选择 `Jupyter`，**镜像**选择 `t9kpublic/tensorflow-2.14.0-notebook-cpu:1.77.1`。
+* **镜像类型**选择 `Jupyter`，**镜像**选择 `t9kpublic/torch-2.1.0-notebook:1.77.1`。
 * **存储卷**选择 `mnist`。
-* **调度器**选择**默认调度器**，**模板**选择 **small**。
+* **调度器**选择**默认调度器**，**模板**选择 **large**。
 
 完成之后，点击**创建**。
 
@@ -119,50 +119,27 @@
   <img alt="jupyter-create-notebook" src="../assets/get-started/training-first-model/jupyter-create-notebook.png" class="screenshot"/>
 </figure>
 
-复制下面的训练脚本到该 `.ipynb` 文件的代码框中。该脚本基于 TensorFlow 框架和 Keras API，建立一个简单的卷积神经网络模型，并使用 MNIST 数据集的手写数字图像进行训练和测试。
+复制下面的训练脚本到该 `.ipynb` 文件的代码框中。该脚本基于 PyTorch 框架，建立一个简单的卷积神经网络模型，并使用 MNIST 数据集的手写数字图像进行训练和测试。
 
-```python title="keras_mnist.py"
-from tensorflow.keras import callbacks, datasets, layers, models, optimizers
+<details><summary><code class="hljs">torch_mnist.py</code></summary>
 
-model = models.Sequential([
-    layers.Conv2D(32, 3, activation='relu', input_shape=(28, 28, 1)),
-    layers.MaxPool2D((2, 2)),
-    layers.Conv2D(64, 3, activation='relu'),
-    layers.MaxPool2D((2, 2)),
-    layers.Conv2D(64, 3, activation='relu'),
-    layers.Flatten(),
-    layers.Dense(64, activation='relu'),
-    layers.Dense(10, activation='softmax'),
-])
-model.compile(optimizer=optimizers.Adam(learning_rate=0.001),
-              loss='sparse_categorical_crossentropy',
-              metrics=['accuracy'])
-
-
-(train_images, train_labels), (test_images,
-                               test_labels) = datasets.mnist.load_data()
-
-train_images = train_images.reshape((60000, 28, 28, 1))
-test_images = test_images.reshape((10000, 28, 28, 1))
-
-train_images, test_images = train_images / 255.0, test_images / 255.0
-
-model.fit(train_images,
-          train_labels,
-          batch_size=32,
-          epochs=10,
-          validation_split=0.2,
-          callbacks=callbacks.TensorBoard(log_dir='./log'))
-model.evaluate(test_images, test_labels)
-
+```python
+{{#include ../assets/get-started/training-first-model/torch_mnist.py}}
 ```
 
-点击上方的运行按钮，可以看到训练开始进行，如下图：
+</details>
+
+点击上方的运行按钮，可以看到训练开始进行：
 
 <figure class="screenshot">
   <img alt="jupyter-training" src="../assets/get-started/training-first-model/jupyter-training.png" class="screenshot"/>
 </figure>
 
+训练结束后，点击左上角的**新建文件夹按钮**，为新文件夹命名 **first-model**，并将当前教程产生的所有文件拖拽移动到其中。
+
+<figure class="screenshot">
+  <img alt="create-folder" src="../assets/get-started/training-first-model/create-folder.png" class="screenshot"/>
+</figure>
 
 ## 下一步
 
