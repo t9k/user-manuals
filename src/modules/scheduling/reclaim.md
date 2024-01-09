@@ -1,8 +1,8 @@
 # 资源回收
 
-[Notebook](../building/notebook.md)、[TensorBoard](../building/tensorboard.md) 和 [Explorer](../storage/explorer.md) 一旦创建完毕，就一直占据所申请的 CPU、内存、GPU 等计算资源，但是大部分时间用户并没有在真正使用这些资源。
+一些交互式工作负载，例如 [Notebook](../building/notebook.md)、[TensorBoard](../building/tensorboard.md) 和 [Explorer](../storage/explorer.md)，经常被闲置。例如，在非工作时间，用户创建的 Notebook 服务虽然没有用户使用，但仍占用大量集群计算资源，造成资源浪费。
 
-TensorStack AI 平台为保证集群资源的充分利用，采取资源回收机制，自动检测并暂停空闲的 Notebook、TensorBoard 和 Explorer 服务，回收其占用的资源。
+为充分利用集群资源，TensorStack AI 平台提供资源回收机制，自动检测并暂停空闲的 Notebook、TensorBoard 和 Explorer 等服务，释放占用的资源。
 
 ## 原理
 
@@ -12,9 +12,9 @@ TensorStack AI 平台为保证集群资源的充分利用，采取资源回收�
 
 如上图所示：
 
-* 集群管理员设置 “资源回收配置” 策略；
-* 根据配置，Resource Keeper 监听启用回收功能的项目（Project 2）中的 Notebook 状态；
-* 当 Notebook 空闲时间达到配置中规定的阈值，则 Resource Keeper 对该资源实施暂停操作，以释放资源。
+1. 集群管理员设置 “资源回收配置” 策略；
+1. 根据配置，Resource Keeper 监听启用回收功能的项目（Project 2）中的 Notebook 状态；
+1. 当 Notebook 空闲时间达到配置中规定的阈值，则 Resource Keeper 对该资源实施暂停操作，以释放资源。
 
 ### 状态检测
 
@@ -30,9 +30,10 @@ Jupyter Notebook 本身的 server 就提供了状态查询功能。因此，对�
 
 ## Jupyter Notebook 保持活跃状态
 
-如果由于某种特定原因，用户需要使特定的 Notebook 不被此回收机制影响，用户可以在 Notebook 中创建 `active.ipynb` 文件并执行以下代码块：
-  
+如果需要，用户可以通过在 Notebook 中运行以下代码块，使此 Notebook 不受此回收机制的影响。
+
 ```python
+# To keep the kernel active
 import time
 
 while True:
