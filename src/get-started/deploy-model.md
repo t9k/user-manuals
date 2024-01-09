@@ -1,6 +1,40 @@
 # 部署模型
 
-本教程展示如何使用 [SimpleMLService](../modules/deployment/simplemlservice.md) 资源，将之前教程中保存的模型文件部署为推理服务。
+在教程[训练你的第一个模型](./training-first-model.md)和[进行并行训练](./parallel-training.md)中，训练完成的模型（参数）都被保存为文件 `model_state_dict.pt`，这两个模型文件所对应的模型是相同的。本教程将带领用户使用 [SimpleMLService](../modules/deployment/simplemlservice.md) 资源，将其中一个模型文件部署为推理服务。
+
+## 准备模型文件
+
+这里我们使用 <a target="_blank" rel="noopener noreferrer" href="https://github.com/pytorch/serve">TorchServe</a> 部署 PyTorch 模型。回到 Notebook mnist，在 HOME 目录（即左侧边栏文件浏览器显示的根目录 `/`）下新建以下文件：
+
+<details><summary><code class="hljs">model.py</code></summary>
+
+```python
+{{#include ../assets/get-started/deployment/model.py}}
+```
+
+</details>
+
+<details><summary><code class="hljs">handler.py</code></summary>
+
+```python
+{{#include ../assets/get-started/deployment/handler.py}}
+```
+
+</details>
+
+点击左上角的 **+**，然后点击 Other 下的 **Terminal** 以新建一个终端。
+
+<figure class="screenshot">
+  <img alt="create-terminal" src="../assets/get-started/deployment/create-terminal.png" class="screenshot"/>
+</figure>
+
+执行以下命令以打包一个 torch model archive：
+
+```bash
+torch-model-archiver --model-name mnist --version 1.0 --model-file model.py \
+--serialized-file first-model/model_state_dict.pt --handler handler.py
+# 或 --serialized-file parallel-training/model_state_dict.pt
+```
 
 ## 部署推理服务
 
@@ -21,11 +55,16 @@ spec:
   replicas: 1
   storage:
     pvc:
-      containerPath: /var/lib/t9k/models/mnist
+      containerPath: /var/lib/t9k/models
       name: mnist
       subPath: .
-  tensorflow:
-    image: t9kpublic/tensorflow-serving:2.6.0
+  pytorch:
+    image: pytorch/torchserve:0.9.0-cpu
+    modelsFlag: "mnist=mnist.mar"
+    resources: 
+      requests:
+        cpu: 1
+        memory: 1Gi
 ```
 
 <figure class="screenshot">
@@ -57,95 +96,30 @@ spec:
   <img alt="simplemlservice-detail" src="../assets/get-started/deployment/simplemlservice-detail.png" class="screenshot"/>
 </figure>
 
-### 生成测试数据
-
-再次连接到 Notebook mnist，在终端中执行以下命令以将保存模型文件的目录重命名为 `1`。
-
-```bash
-mv saved_model/ 1/
-```
-
-然后新建一个 `.ipynb` 文件或 Python 脚本文件以运行下面的脚本。该脚本将 MNIST 数据集的测试集中的前三个样本的数据和标签保存为 TensorFlow Serving 服务器的 REST API 所接受的 JSON 文件格式。
-
-```python title="generate_testing_data.py"
-import json
-from tensorflow.keras import datasets
-
-(_, _), (test_images, test_labels) = datasets.mnist.load_data()
-test_images = test_images.reshape((10000, 28, 28, 1))
-test_images = test_images / 255.0
-
-data = {
-    "signature_name": "serving_default",
-    "instances": test_images[0:3].tolist()
-}
-target = {"labels": test_labels[0:3].tolist()}
-with open('data.json', 'w') as f:
-    json.dump(data, f)
-with open('target.json', 'w') as f:
-    json.dump(target, f)
-```
 
 ### 访问推理服务
 
-在终端中执行以下命令以向推理服务发送请求，其中 `URL` 变量的值需要修改为用户实际部署的推理服务的地址。
+回到 Notebook mnist，在终端中执行以下命令以下载测试数据，并向推理服务发送请求，其中 `URL` 变量的值需要修改为用户实际部署的推理服务的地址。
 
-```shell
+```bash
+wget https://t9k.github.io/user-manuals/assets/get-started/deployment/{0,1,2}.png
 export URL="http://mnist.demo.svc.cluster.local/v1/models/mnist:predict"
-curl -d @data.json $URL
-cat target.json
+curl -T 0.png $URL    # 或使用 `1.png`, `2.png`
 ```
 
-输出类似于：
+响应体应是一个类似于下面的 JSON，其预测了图片最有可能是的 5 个数字以及相应的概率：
 
-```shell
+```json
 {
-    "predictions": [[4.62218732e-16, 4.05237122e-10, 6.88771651e-10, 2.76936946e-11, 1.08857443e-12, 1.35836481e-12, 2.55610125e-17, 1.0, 1.78349887e-11, 2.73386147e-10], [0.000252794096, 5.05418676e-08, 0.999745309, 1.99162272e-07, 2.04035135e-08, 1.28374993e-11, 3.58009686e-07, 1.3919628e-10, 1.28257238e-06, 8.09815132e-11], [2.01749484e-09, 0.999998808, 1.47222934e-09, 2.86072266e-14, 3.45859632e-07, 2.4689697e-09, 1.66409855e-08, 1.32032545e-08, 8.31589603e-07, 5.41381411e-08]
-    ]
+  "0": 1.0,
+  "2": 1.7797361302828807e-16,
+  "9": 6.094195260341553e-19,
+  "6": 1.5410183526346253e-19,
+  "5": 7.889719768364669e-20
 }
-{"labels": [7, 2, 1]}
 ```
 
-响应体的预测数组中最大值的索引分别为 7、2、1（从 0 开始计数），与这三个样本的标签一致。
-
-或者，用户也可以运行下面的 Python 脚本以向推理服务发送请求并验证推理结果，其中 `url` 的值同样需要修改为用户的推理服务地址。
-
-```python
-import json
-import requests
-import numpy as np
-
-with open('data.json', 'rt') as f:
-    data = f.read()
-with open('target.json', 'rt') as f:
-    target = json.loads(f.read())['labels']
-
-# Modify this value to your URL of inference service
-url = 'http://mnist.demo.svc.cluster.local/v1/models/mnist:predict'
-headers = {'content-type': 'application/json'}
-resp = requests.post(url, data=data, headers=headers)
-pred = json.loads(resp.text)['predictions']
-pred = np.argmax(pred, axis=1).tolist()
-
-print('Inference:')
-print(pred)
-print('Target:')
-print(target)
-
-```
-
-```shell
-python validate_inference.py 
-```
-
-输出为：
-
-```shell
-Inference:
-[7, 2, 1]
-Target:
-[7, 2, 1]
-```
+结束后，将当前教程产生的所有文件移动到名为 `deployment` 的新文件夹下。
 
 ## 下一步
 
