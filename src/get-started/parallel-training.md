@@ -1,4 +1,4 @@
-# 进行并行训练
+# 使用 Job 进行并行训练
 
 本教程将带领用户使用 [PyTorchTrainingJob](../modules/jobs/pytorchtrainingjob.md) 资源，将教程[训练你的第一个模型](./training-first-model.md)中的模型训练改进为使用 GPU 加速的数据并行训练。
 
@@ -41,7 +41,7 @@ PyTorchTrainingJob 是服务于 PyTorch 并行训练框架的执行机器学习�
 
 <details><summary><code class="hljs">job.yaml</code></summary>
 
-```python
+```yaml
 {{#include ../assets/get-started/parallel-training/job.yaml}}
 ```
 

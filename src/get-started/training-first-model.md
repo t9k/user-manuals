@@ -88,7 +88,7 @@
 <aside class="note info">
 <div class="title">调度器</div>
 
-调度器负责将工作负载调度到合适的节点上以运行。平台支持 Kubernetes 的默认调度器 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler">kube-scheduler</a>，同时提供了更加强大的 T9k 调度器。详情请参阅[调度](../modules/scheduling/index.md)。
+调度器负责将工作负载调度到合适的节点上以运行。平台支持 Kubernetes 的默认调度器 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler">kube-scheduler</a>，同时提供了更加强大的 T9k 调度器。详情请参阅：[计算资源](../modules/scheduling/index.md)。
 
 </aside>
 
@@ -143,5 +143,5 @@
 
 ## 下一步
 
-* 对上述模型[进行分布式训练](./training-using-job.md)
-* 了解[模型构建](../modules/building/index.md)
+* 针对同样的模型，[使用 Job 进行并行训练](./parallel-training.md)
+* 全面了解[模型构建](../modules/building/index.md)
