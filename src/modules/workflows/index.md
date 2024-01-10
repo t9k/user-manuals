@@ -15,8 +15,9 @@ AI 应用由很多基础计算步骤构成，具有很大灵活性，在不同�
 其中：
 
 * 控制台（Console）提供前端界面，方便用户对 WorkflowTemplate、WorkflowRun 等资源进行创建、查看、删除等操作。
+  * 用户也可以直接使用命令行工具 `kubectl` 创建 workflow 的资源。
 * 服务器（Server）向工作流控制台提供 API 接口，帮助获取 WorkflowTemplate、WorkflowRun 等资源的详细信息。
-* 操作器（Operator）是一个控制器，负责监控集群中的 WorkflowTemplate、WorkflowRun 等资源，并执行一些与资源相关的操作，使资源当前的状态与其理想状态一致。
+* 控制器（Controller），负责监控集群中的 WorkflowTemplate、WorkflowRun 等资源，并执行一些与资源相关的操作，使资源当前的状态与其理想状态一致。
 
 ## 与其他模块的关系
 
