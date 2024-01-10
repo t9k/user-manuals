@@ -1,34 +1,42 @@
 # 存储
 
-TensorStack 平台支持提供易于配置和管理的高性能网络存储服务，可方便的给各种类型的工作负载，例如 Notebook，T9k Jobs，推理服务等提供持久化存储卷 （Persistent Volumes）服务。
+TensorStack 平台支持多种类型的存储服务：Block Storage Volumes（块存储卷），Shared Filesystem Volumes (共享文件系统卷)，及基于 S3 协议的对象存储。
 
-- 支持在集群中使用不同性能等级的存储服务。例如，管理员可设置集群同时提供高性能的 SSD 和海量的 HDD 2 种等级的存储服务；
+## 存储卷（Storage Volumes）
+
+用户可申请使用两种类型的存储卷（Storage Volumes）：[块存储卷](#块存储卷block-storage-volumes)，或者[共享文件系统卷](#共享文件系统卷shared-filesystem-volumes)。
+
+这两种高性能的网络存储卷服务，可为各种类型的工作负载，如 Notebook、T9k Jobs、推理服务等提供持久化存储卷（Persistent Volumes）服务。
+
+- 支持在集群中使用不同性能等级的存储服务。例如，管理员可设置集群同时提供高性能的 SSD 和海量的 HDD 两种等级的存储服务；
 - 所有 SSD 和 HDD 等级均可创建为 Block Volumes（块存储卷）或 Shared Filesystem Volumes （共享文件系统存储卷）；
 - 可随时调整 Volume 大小以增加容量；
 - 存储与计算分开管理，并且可以在不同实例和硬件类型之间移动；
-- 可通过 UI 或 `kubectl` 轻松管理；
-- 支持快照、备份及恢复。
+- 可通过 UI 或 命令行工具 `kubectl` 轻松管理；
+- 支持存储卷的快照、备份及恢复。
 
-## 存储类型
 
-### Block Storage Volumes（块存储卷）
+### 块存储卷（Block Storage Volumes）
 
 Block Storage Volumes （块存储卷）可作为高性能虚拟存储盘挂载到各种类型的工作负载上。这些卷被呈现为通用 Block Device (块设备)，操作系统将其视为物理连接存储设备，并且独占使用。
 
 如果集群部署了高性能的 NVMe 的存储节点，并使用了足够快的网络，这种类型的存储卷的性能将会超过本地 SATA 接口的 SSD，并且可以扩展到 PB 级别容量。
 
-### Filesystem Volumes (文件系统卷)
+### 共享文件系统卷（Shared Filesystem Volumes）
 
 遵守 POSIX 标准的 Filesystem Volumes（文件系统卷）可以挂载到各种工作负载上，以提供原生共享文件系统。
 
 同时，这些卷可以同时附加到多个工作负载实例上，非常适合作在 Notebook、大规模并行计算 Job、推理服务等场景的存储卷。
 
+## 对象存储
+
+平台提供基于 S3 协议的对象存储服务，支持方便、通用的数据共享机制及低成本的数据归档服务。
 
 ## 使用
 
-TensorStack 的存储系统支持建立在 Kubernetes 的 Storage API 基础之上，主要通过 API [Persistent Volumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)，[Storage Class](https://kubernetes.io/docs/concepts/storage/storage-classes/) 提供用户接口。
+TensorStack 的存储卷（Storage Volumes）系统支持建立在 Kubernetes 的 [Storage API](https://kubernetes.io/docs/concepts/storage/) 基础之上，通过 API [Persistent Volumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)，[Storage Class](https://kubernetes.io/docs/concepts/storage/storage-classes/) 等提供用户接口。
 
-同时，为了支持一些特定场景的使用，TensorStack 提供 CRD [StorageShim](storageshim.md)，[Explorer](explorer.md) 增加了额外的支持。
+同时，为了支持一些特定场景的使用，TensorStack 提供 CRD [StorageShim](storageshim.md)，[Explorer](explorer.md) 以提供扩展支持。
 
 例 1：获得集群中的存储类型：
 
