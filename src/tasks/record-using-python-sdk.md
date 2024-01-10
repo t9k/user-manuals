@@ -25,7 +25,7 @@ run = em.create_run(name='mnist_torch')    # 返回Run实例
 
 ### 自动上传
 
-如果想要自动异步上传 Run 的更新，可以设定 `auto_upload=True`，并提供文件夹路径，以及设定是否创建不存在的各级文件夹。在这种情况下，您在创建 Run 之前需要先[登录到 EM 服务器](#基本方法-2)。
+如果想要自动异步上传 Run 的更新，可以设定 `auto_upload=True`，并提供文件夹路径，以及设定是否创建不存在的各级文件夹。在这种情况下，您在创建 Run 之前需要先[登录到 AIStore 服务器](#基本方法-2)。
 
 ```python
 run = em.create_run(name='mnist_torch',
@@ -344,7 +344,7 @@ Model、Dataset、Branch、Tag 和 Commit 实例也可以被标记为 Run 的输
 
 ### 基本方法
 
-上传数据之前，您需要先登录到服务器，通过调用 `t9k.em.login()` 函数。
+上传数据之前，您需要先登录到 [AIStore](../modules/asset-management.md#产品架构) 服务器，通过调用 `t9k.em.login()` 函数。
 
 ```python
 em.login(ais_host='<your-server-host>', api_key='<your-api-key>')
@@ -362,7 +362,7 @@ em.login(ais_host='<your-server-host>', api_key='<your-api-key>')
 <aside class="note tip">
 <div class="title">提示</div>
 
-服务器位于平台主机域名的 `/t9k/aistore/server` 路径下。例如，如果平台首页的 URL 为 `https://www.tensorstack.net/t9k/landing-page/`，那么服务器的 URL 为 `https://www.tensorstack.net/t9k/asset-hub/server`。
+AIStore 服务器位于平台主机域名的 `/t9k/aistore/server` 路径下。例如，如果平台首页的 URL 为 `https://www.tensorstack.net/t9k/landing-page/`，那么 AIStore 服务器的 URL 为 `https://www.tensorstack.net/t9k/aistore/server`。
 
 </aside>
 
@@ -389,9 +389,9 @@ artifact.upload()
 
 ### 上传本地保存的数据
 
-您也可以在训练结束之后将本地保存的数据上传到服务器，以应对训练时无网络连接、最初未打算上传、误删服务器中的数据等情形。
+您也可以在训练结束之后将本地保存的数据上传到 AIStore 服务器，以应对训练时无网络连接、最初未打算上传、误删服务器中的数据等情形。
 
-首先[登录到服务器](#基本方法-2)，然后加载保存在本地的 Run 或 Artifact，调用其 `upload()` 方法。
+首先[登录到 AIStore 服务器](#基本方法-2)，然后加载保存在本地的 Run 或 Artifact，调用其 `upload()` 方法。
 
 ```python
 run = em.load_run(path='.em/runs/mnist_torch_231222_141932_61p5jc')

@@ -5,7 +5,7 @@
     * [进行并行训练](get-started/parallel-training.md)<!-- * [使用 job 进行并行训练] -->
     * [部署模型](get-started/deploy-model.md)<!-- * [保存数据集和模型文件] -->
 
-* [AI 开发及应用](modules/index.md)
+* [AI 开发和应用](modules/index.md)
 
     * [模型构建](modules/building/index.md)
         * [Notebook](modules/building/notebook.md)
@@ -177,3 +177,6 @@
     * [部署 LLM 聊天机器人](examples/deploy-llm-chatbot.md)
     * [部署 Stable Diffusion 图像生成模型](examples/deploy-sd-drawing-model.md)
     * [使用 AutoGen 构建下一代 LLM 应用](examples/build-next-generation-llm-app-using-autogen.md)
+
+modules/index
+examples/index

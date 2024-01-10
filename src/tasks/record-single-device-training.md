@@ -299,7 +299,7 @@ if __name__ == '__main__':
 
 ## 结束和上传 Run
 
-模型的训练和测试结束后，调用 `Run` 实例的 `finish()` 和 `upload()` 方法以结束和上传 Run（Artifact 也会被一并上传）。在上传之前需要调用 `em.login()` 函数以登录到服务器。
+模型的训练和测试结束后，调用 `Run` 实例的 `finish()` 和 `upload()` 方法以结束和上传 Run（Artifact 也会被一并上传）。在上传之前需要调用 `em.login()` 函数以登录到 AIStore 服务器。
 
 ```python
 if __name__ == '__main__':
