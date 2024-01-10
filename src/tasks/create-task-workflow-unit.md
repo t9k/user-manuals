@@ -5,7 +5,7 @@
 ## 准备工作
 
 * 完成教程[创建工作流的基本单元](./create-workflow-unit.md)。
-* 成为一个 [Project](../modules/account-and-security.md#project) 的所有者或者成员。
+* 成为一个[项目](../modules/security/project.md)的管理员或[成员](./add-project-member.md)。
 
 ## 创建类型为 `Pod` 和 `SeqPod` 的 WorkflowTemplate
 

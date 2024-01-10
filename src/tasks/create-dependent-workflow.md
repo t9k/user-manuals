@@ -6,7 +6,7 @@
 
 * 完成教程[创建工作流的基本单元](./create-workflow-unit.md)。
 * 了解 [DAG WorkflowTemplate](../modules/workflows/workflowtemplate.md#dag-workflowtemplate) 的基本概念。
-* 成为一个 [Project](../modules/account-and-security.md#project) 的所有者或者成员。
+* 成为一个[项目](../modules/security/project.md)的管理员或[成员](./add-project-member.md)。
 
 ## 创建一些简单的 WorkflowTemplate
 

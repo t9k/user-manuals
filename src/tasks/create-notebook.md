@@ -5,7 +5,7 @@
 ## 准备工作
 
 * 了解 [Notebook](../modules/building/notebook.md) 的基本概念。
-* 成为一个 [Project](../modules/account-and-security.md#project) 的所有者或者成员。
+* 成为一个[项目](../modules/security/project.md)的管理员或[成员](./add-project-member.md)。
 
 ## 创建持久卷申领
 

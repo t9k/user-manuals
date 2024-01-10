@@ -1,44 +1,38 @@
 # 管理 PVC
 
-本教程演示如何在模型构建控制台中管理和使用 PVC。
-
-**PVC**（<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh/docs/concepts/storage/persistent-volumes/">PersistentVolumeClaim</a>）是 Kubernetes 提供的一种声明式的存储卷请求，用于向 Kubernetes 集群申请持久化存储卷。PVC 使应用程序与存储资源进行解耦，提高了存储资源的管理和使用效率。PVC 可以被 Pod 挂载、作为 Pod 的卷被访问。
+本教程演示如何在模型构建控制台中管理和使用 [PVC](../modules/storage/pvc.md)。
 
 ## 准备工作
 
 * 了解 PVC 的<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh/docs/concepts/storage/persistent-volumes/">概念</a>和 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/">Kubernetes API</a>。
-* 成为一个 [Project](../modules/account-and-security.md#project) 的所有者或[成员](./add-project-member.md)。
+* 成为一个[项目](../modules/security/project.md)的管理员或[成员](./add-project-member.md)。
 
 ## 创建 PVC
 
-进入模型构建控制台之后，选择一个 Project 点击 **Enter** 进入 Project 主页面。
+进入模型构建控制台，在左侧导航菜单（或右侧卡片）中点击**存储&nbsp;> 持久卷**进入 PVC 管理页面。
 
 <figure class="screenshot">
-  <img alt="build-console-web" src="../assets/tasks/manage-auxiliary-resources/building-console.png" class="screenshot"/>
+  <img alt="overview-pvc" src="../assets/tasks/manage-pvc/overview-pvc.png" class="screenshot"/>
 </figure>
 
-在 Project 主页面左侧导航菜单（或右侧卡片）中点击 **Data&nbsp;> Volumes** 进入 PVC 管理页面。
+点击 PVC 管理页面右上角的**创建 PersistentVolumeClaim** 进入 PVC 创建页面。
 
 <figure class="screenshot">
-  <img alt="project-page-volume" src="../assets/tasks/manage-auxiliary-resources/project-page-volume.png" class="screenshot"/>
+  <img alt="create-pvc" src="../assets/tasks/manage-pvc/create-pvc.png" class="screenshot"/>
 </figure>
 
-点击 PVC 管理页面右上角的 **Create PersistentVolumeClaim** 进入 PVC 创建页面。
+在 PVC 创建页面填写名称和存储卷大小，选择存储卷访问模式和存储类，然后点击**创建**。
 
 <figure class="screenshot">
-  <img alt="pvc-table" src="../assets/tasks/manage-auxiliary-resources/pvc-table.png" class="screenshot"/>
+  <img alt="create-pvc-detail" src="../assets/tasks/manage-pvc/create-pvc-detail.png" class="screenshot"/>
 </figure>
 
-在 PVC 创建页面分别填写 PVC 名称、存储卷大小、存储卷访问模式和存储类型，然后点击 **Create** 创建 PVC。
-
-<figure class="screenshot">
-  <img alt="create-pvc" src="../assets/tasks/manage-auxiliary-resources/create-pvc.png" class="screenshot"/>
-</figure>
+您可以点击左上角的**导入 PersistentVolumeClaim** 以加载当前存在的 PVC 的配置。
 
 ## 删除 PVC
 
-进入 PVC 管理页面后，选择所要删除的 PVC，在列表右侧点击 **:material-dots-vertical:&nbsp;> Delete PersistentVolumeClaim**，然后在弹出框中点击 **Yes**。
+在 PVC 管理页面，点击要删除的 PVC 右侧的**更多按钮&nbsp;> 删除**。
 
 <figure class="screenshot">
-  <img alt="delete-pvc" src="../assets/tasks/manage-auxiliary-resources/delete-pvc.png" class="screenshot"/>
+  <img alt="delete-pvc" src="../assets/tasks/manage-pvc/delete-pvc.png" class="screenshot"/>
 </figure>
