@@ -107,7 +107,12 @@ PVC 的生命周期独立于 Pod。一个 PVC 可以被多个 Pod 使用。当 P
 
 创建 PVC 时，`spec.resources.requests.storage` 字段用于指定 PVC 的容量，您无法在 PVC 中存储超过此容量限制的文件。
 
-注意：当 PVC 由 StorageShim 管理时，由于具体容量限制由底层存储系统决定，`spec.resources.requests.storage` 字段可能没有意义。
+<aside class="note">
+<div class="title">注意</div>
+
+当 PVC 由 StorageShim 管理时，由于具体容量限制由底层存储系统决定，`spec.resources.requests.storage` 字段可能没有意义。
+
+</aside>
 
 ## 访问模式
 

@@ -346,8 +346,12 @@ spec:
       mpiHome: /usr/local
 ```
 
-注意：与 Resource WorkflowTemplate 相同，T9k Jobs WorkflowTemplate 对应的 WorkflowRun 也需要一个 Service Account。同样，在网页中创建 WorkflowRun 时，系统将自动为您配置名为 `managed-project-sa` 的 Service Account，您不用关心这一项的填写。
+<aside class="note">
+<div class="title">注意</div>
 
+与 Resource WorkflowTemplate 相同，T9k Jobs WorkflowTemplate 对应的 WorkflowRun 也需要一个 Service Account。同样，在网页中创建 WorkflowRun 时，系统将自动为您配置名为 `managed-project-sa` 的 Service Account，您不用关心这一项的填写。
+
+</aside>
 
 ### DAG WorkflowTemplate
 

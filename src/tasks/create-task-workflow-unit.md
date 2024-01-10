@@ -82,7 +82,12 @@ spec:
   <img alt="script-4" src="../assets/tasks/build-automatic-workflow/create-various-unit-of-workflow/script-4.png" class="screenshot"/>
 </figure>
 
-注意：WorkflowRun 和 Notebook 必须绑定同一个 PVC。
+<aside class="note">
+<div class="title">注意</div>
+
+WorkflowRun 和 Notebook 必须绑定同一个 PVC。
+
+</aside>
 
 WorkflowRun 运行完成后，可以看到打印结果与所编写的脚本运行预期结果一致。
 

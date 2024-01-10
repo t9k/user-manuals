@@ -64,11 +64,11 @@ git: git.yaml
 log: stdout.log
 ```
 
-* hypterparameters：机器学习超参数。
-* metrics：训练指标，由于指标可能产生自不同阶段，同一阶段也可能有多种指标，所以使用上例中的结构记录多个指标文件。
-* platform：平台信息，包括系统版本、python 包版本等。
-* git：代码存储位置，我们一半会将机器学习脚本存储在 github 中。
-* log：日志文件。
+* `hypterparameters`：机器学习超参数。
+* `metrics`：训练指标，由于指标可能产生自不同阶段，同一阶段也可能有多种指标，所以使用上例中的结构记录多个指标文件。
+* `platform`：平台信息，包括系统版本、python 包版本等。
+* `git`：代码存储位置，我们一半会将机器学习脚本存储在 GitHub 中。
+* `log`：日志文件。
 
 上述文件的生成可以由 em 工具自动完成，用户只需要了解如何使用 em 工具。参考 [em API 文档](../tools/python-sdk-t9k/api/t9k-em.md)。
 
@@ -87,10 +87,10 @@ AutoTune 节点的文件结构如下：
 ...
 ```
 
-* profile.json：记录超参数调优实验的训练配置、超参数搜索空间和调优配置等信息
-* “17671”：超参数调优过程中，每一次训练都会创建一个文件夹用来记录训练数据，文件夹名称即训练的 ID（随机生成）。
-  * metadata.json：记录训练参数和训练状态。
-  * metrics.yaml：记录训练指标，超参数调优创建的训练都只会产生一个指标，调优控制器会根据该指标调整超参数。
+* `profile.json`：记录超参数调优实验的训练配置、超参数搜索空间和调优配置等信息
+* `17671`：超参数调优过程中，每一次训练都会创建一个文件夹用来记录训练数据，文件夹名称即训练的 ID（随机生成）。
+  * `metadata.json`：记录训练参数和训练状态。
+  * `metrics.yaml`：记录训练指标，超参数调优创建的训练都只会产生一个指标，调优控制器会根据该指标调整超参数。
 
 ## 可视化
 
@@ -129,7 +129,7 @@ EM 支持节点粒度的权限控制：
 
 ## EM 和 AssetHub 之间的关系
 
-AssetHub 是 [TensorStack AI 平台的资产管理模块](./asset-management.md)，用于管理数据集和模型。
+AssetHub 是 TensorStack AI 平台的[资产管理模块](./asset-management.md)，用于管理数据集和模型。
 
 数据集和模型作为实验的输入和输出，也应当作为实验管理的一部分，所以在 EM 中也可以看到 AssetHub 中的数据集和模型数据，如下图所示：
 
@@ -148,7 +148,12 @@ user:demo
 
 数据集和模型分别记录在 EM 的 `./t9k-assethub/dataset` 和 `./t9k-assethub/model` 文件夹中，model 文件夹（dataset 文件夹同样）维护文件夹和模型两级结构，每一个模型都是一个具有版本管理功能的节点。
 
-注意：在使用 EM 的时候，非必要请勿修改 t9k-assethub 文件夹中的数据，避免影响 AssetHub 的使用。
+<aside class="note">
+<div class="title">注意</div>
+
+在使用 EM 的时候，非必要请勿修改 t9k-assethub 文件夹中的数据，以避免影响 AssetHub 的使用。
+
+</aside>
 
 ## 下一步
 
