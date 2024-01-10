@@ -23,5 +23,5 @@ AI 应用由很多基础计算步骤构成，具有很大灵活性，在不同�
 如下图所示，Workflow 可以将分布式并行作业、非并行作业组合在一起成为复合作业，而且复合作业中可以嵌套复合作业，并通过 T9k 调度器进行计算资源的匹配，最终完成复杂的多步骤计算。
 
 <figure> 
-<img alt="workflow-and-jobs" src="../../assets/modules/workflow/workflow-and-jobs.png"/>
+<img alt="workflow-and-jobs" src="../../assets/modules/workflow/workflow-and-jobs.drawio.svg"/>
 </figure>
