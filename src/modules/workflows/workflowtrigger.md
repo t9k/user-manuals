@@ -9,7 +9,7 @@ Workflow Trigger 模块额外提供了一种基于特定事件自动触发执行
 Workflow Trigger 模块提供了 EventListener 和 WorkflowTrigger 自定义扩展资源，整体架构如下图所示：
 
 <figure> 
-<img alt="workflow-trigger-architecture" src="../../assets/modules/workflow/workflow-trigger-architecture.png"/>
+<img alt="workflow-trigger-architecture" src="../../assets/modules/workflow/workflow-trigger-architecture.drawio.svg"/>
 </figure>
 
 
