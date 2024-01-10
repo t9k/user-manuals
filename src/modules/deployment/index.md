@@ -25,6 +25,6 @@ TensorStack AI 平台的模型部署模块可以帮助您快速地将训练完�
 
 ## 下一步
 
-- 了解 [MLService](mlservice.md)
 - 了解 [SimpleMLService](simplemlservice.md)
+- 了解 [MLService](mlservice.md)
 - 了解 [模型存储](storage.md)

@@ -2,7 +2,7 @@
 
 * [快速入门](get-started/index.md)
     * [训练你的第一个模型](get-started/training-first-model.md)<!-- * [在 notebook 完成训练] -->
-    * [使用 Job 进行并行训练](get-started/parallel-training.md)<!-- * [使用 job 进行并行训练] -->
+    * [进行并行训练](get-started/parallel-training.md)<!-- * [使用 job 进行并行训练] -->
     * [部署模型](get-started/deploy-model.md)<!-- * [保存数据集和模型文件] -->
 
 * [AI 开发及应用](modules/index.md)
@@ -16,8 +16,8 @@
             * [超参数调优算法](modules/building/hpo-algorithm.md)
 
     * [模型部署](modules/deployment/index.md)
-        * [MLService](modules/deployment/mlservice.md)
         * [SimpleMLService](modules/deployment/simplemlservice.md)
+        * [MLService](modules/deployment/mlservice.md)
         * [模型存储](modules/deployment/storage.md)
 
     * [作业](modules/jobs/index.md)

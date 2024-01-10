@@ -22,3 +22,9 @@
 `Project` 是 TensorStack AI 平台提供的一种机制，旨在有效利用集群资源，实现多用户、多项目共享使用集群。`Project` 可被视为为用户准备的“虚拟集群”。详细信息请参阅 [Project](../modules/security/project.md)。
 
 </aside>
+
+## 下一步
+
+* 使用 Notebook [训练你的第一个模型](./training-first-model.md)
+* 使用 Job [进行并行训练](./parallel-training.md)
+* 使用 SimpleMLService [部署模型](./deploy-model.md)
