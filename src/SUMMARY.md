@@ -160,6 +160,7 @@
         * [BeamJob](references/api-reference/beamjob.md)
         * [TensorBoard](references/api-reference/tensorboard.md)
         * [Notebook](references/api-reference/notebook.md)
+        * [AutoTuneExperiment](references/api-reference/autotune.md)
         * [Explorer](references/api-reference/explorer.md)
         * [StorageShim](references/api-reference/storageshim.md)
         * [Scheduler](references/api-reference/scheduler.md)
