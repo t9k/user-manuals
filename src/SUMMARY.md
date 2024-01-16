@@ -44,10 +44,13 @@
     * [项目](modules/security/project.md)
 
 * [计算资源](modules/scheduling/index.md)
+    * [GPU 使用](modules/scheduling/use-gpu.md)
+    * [T9k Scheduler](modules/scheduling/t9k-scheduler.md)
+        * [队列](modules/scheduling/queue.md)
+        * [PodGroup](modules/scheduling/podgroup.md)
     * [资源配额](modules/scheduling/quota.md)
     * [资源回收](modules/scheduling/reclaim.md)
-    * [队列](modules/scheduling/queue.md)
-    * [PodGroup](modules/scheduling/podgroup.md)
+    * [资源使用监控](modules/scheduling/monitoring.md)
 
 * [存储](modules/storage/index.md)
     * [PVC](modules/storage/pvc.md)
@@ -114,6 +117,7 @@
     * [调度工作负载](tasks/schedule-workload.md)
         * [使用 Queue](tasks/use-queue.md)
         * [使用 PodGroup](tasks/use-podgroup.md)
+        * [查看工作负载的资源使用](tasks/monitor-workload-resources.md)
 
     * [管理个人账户](tasks/manage-personal-account.md)
         * [生成 API Key](tasks/generate-api-key.md)
