@@ -114,6 +114,7 @@
     * [调度工作负载](tasks/schedule-workload.md)
         * [使用 Queue](tasks/use-queue.md)
         * [使用 PodGroup](tasks/use-podgroup.md)
+        * [使用 Profiler 分析模型训练性能](tasks/profile-model-training.md)
 
     * [管理个人账户](tasks/manage-personal-account.md)
         * [生成 API Key](tasks/generate-api-key.md)
