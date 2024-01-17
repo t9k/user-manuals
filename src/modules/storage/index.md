@@ -8,12 +8,12 @@ TensorStack 平台支持多种类型的存储服务：Block Storage Volumes（�
 
 这两种高性能的网络存储卷服务，可为各种类型的工作负载，如 Notebook、T9k Jobs、推理服务等提供持久化存储卷（Persistent Volumes）服务。
 
-- 支持在集群中使用不同性能等级的存储服务。例如，管理员可设置集群同时提供高性能的 SSD 和海量的 HDD 两种等级的存储服务；
-- 所有 SSD 和 HDD 等级均可创建为 Block Volumes（块存储卷）或 Shared Filesystem Volumes （共享文件系统存储卷）；
-- 可随时调整 Volume 大小以增加容量；
-- 存储与计算分开管理，并且可以在不同实例和硬件类型之间移动；
-- 可通过 UI 或 命令行工具 `kubectl` 轻松管理；
-- 支持存储卷的快照、备份及恢复。
+* 支持在集群中使用不同性能等级的存储服务。例如，管理员可设置集群同时提供高性能的 SSD 和海量的 HDD 两种等级的存储服务；
+* 所有 SSD 和 HDD 等级均可创建为 Block Volumes（块存储卷）或 Shared Filesystem Volumes （共享文件系统存储卷）；
+* 可随时调整 Volume 大小以增加容量；
+* 存储与计算分开管理，并且可以在不同实例和硬件类型之间移动；
+* 支持存储卷的快照、备份及恢复。
+* 可通过 UI 或 命令行工具 `kubectl` 轻松管理；
 
 
 ### 块存储卷（Block Storage Volumes）
@@ -76,5 +76,5 @@ spec:
 
 ## 参考
 
-- API reference [Explorer](../../references/api-reference/explorer.md)
-- API reference [StorageShim](../../references/api-reference/storageshim.md)
+* API reference [Explorer](../../references/api-reference/explorer.md)
+* API reference [StorageShim](../../references/api-reference/storageshim.md)

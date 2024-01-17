@@ -186,7 +186,7 @@ T9k 系统提供空闲 Notebook 资源回收的支持。系统在检测到 Noteb
 
 </aside>
 
-## Notebook镜像
+## Notebook 镜像
 
 T9k 提供了一些预先构建的镜像，与 JupyterLab 原生镜像相比内置了更丰富的工具包，请参阅 [Notebook 标准镜像列表](../../references/standard-images.md#notebook-标准镜像列表)。
 
@@ -209,5 +209,5 @@ T9k 提供了一些预先构建的镜像，与 JupyterLab 原生镜像相比内�
 
 ## 参考
 
-- T9k 提供的 [Notebook 标准镜像列表](../../references/standard-images.md#notebook-标准镜像列表)
-- <https://jupyterlab.readthedocs.io/en/latest/>
+* T9k 提供的 [Notebook 标准镜像列表](../../references/standard-images.md#notebook-标准镜像列表)
+* <https://jupyterlab.readthedocs.io/en/latest/>

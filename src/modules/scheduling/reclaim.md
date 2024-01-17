@@ -46,5 +46,5 @@ while True:
 
 ## 下一步
 
-- [创建 Notebook](../../tasks/create-notebook.md)
-- [使用 Notebook](../../tasks/use-notebook.md)
+* [创建 Notebook](../../tasks/create-notebook.md)
+* [使用 Notebook](../../tasks/use-notebook.md)

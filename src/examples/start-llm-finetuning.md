@@ -47,8 +47,8 @@ git clone https://huggingface.co/baichuan-inc/Baichuan2-7B-Base
 
 选用 <a target="_blank" rel="noopener noreferrer" href="https://github.com/Instruction-Tuning-with-GPT-4/GPT-4-LLM">alpaca_gpt4_data_zh 和 comparison_gpt4_data_zh</a>作为训练数据集：
 
-- 前者包含 Alpaca 收集的 52,000 条指令（由 ChatGPT 翻译为中文），以及 GPT-4 对于每条指令的中文回答；
-- 后者包含约 36,000 条中文指令，以及 GPT-4 评估的一对高/低质量回答。
+* 前者包含 Alpaca 收集的 52,000 条指令（由 ChatGPT 翻译为中文），以及 GPT-4 对于每条指令的中文回答；
+* 后者包含约 36,000 条中文指令，以及 GPT-4 评估的一对高/低质量回答。
 
 ## 启动三步训练
 
