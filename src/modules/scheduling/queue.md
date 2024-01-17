@@ -11,7 +11,7 @@ T9k Scheduler 通过队列来管理集群资源，使用 T9k Scheduler 进行作
 更详细地，队列的使用权限通过两种方式进行设置：
 
 * 管理员直接设置有权使用队列的用户/用户组。
-* 管理员设置队列的 `spec.namespaceSelector`（类型是 [labelSelector](https://github.com/kubernetes/apimachinery/blob/v0.29.0/pkg/apis/meta/v1/types.go#L1213)）字段。
+* 管理员设置队列的 `spec.namespaceSelector`（类型是 <a target="_blank" rel="noopener noreferrer" href="https://github.com/kubernetes/apimachinery/blob/v0.29.0/pkg/apis/meta/v1/types.go#L1213">labelSelector</a>）字段。
 
 当项目满足下列任一条件时，用户有权在项目下创建使用某个队列的工作负载：
 
@@ -22,7 +22,7 @@ T9k Scheduler 通过队列来管理集群资源，使用 T9k Scheduler 进行作
 
 队列的节点权限用于限制队列有权限使用哪些集群节点，T9k Scheduler 只会将队列内的工作负载分配到有权使用的节点上。
 
-队列的 `spec.nodeSelector` （类型是 [labelSelector](https://github.com/kubernetes/apimachinery/blob/v0.29.0/pkg/apis/meta/v1/types.go#L1213)）字段用于设置队列的节点权限：
+队列的 `spec.nodeSelector` （类型是 <a target="_blank" rel="noopener noreferrer" href="https://github.com/kubernetes/apimachinery/blob/v0.29.0/pkg/apis/meta/v1/types.go#L1213">labelSelector</a>）字段用于设置队列的节点权限：
 * 字段未设置时，队列可以使用集群内所有的节点
 * 字段设置后，队列可以使用节点标签满足 nodeSelector 的节点。
 

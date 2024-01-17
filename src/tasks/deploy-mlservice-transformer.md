@@ -6,7 +6,7 @@
 
 请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备此次部署需要用到的 PVC。
 
-请在本地的 Linux 或 macOS 平台上完成本教程，并确认安装了 [docker](https://www.docker.com/)。
+请在本地的 Linux 或 macOS 平台上完成本教程，并确认安装了 <a target="_blank" rel="noopener noreferrer" href="https://www.docker.com/">docker</a>。
 
 执行以下命令以安装 Python 依赖包：
 

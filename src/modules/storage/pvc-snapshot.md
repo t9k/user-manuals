@@ -8,9 +8,9 @@
 
 |              | 来源 | 说明                              |
 | ------------ | --------------- | --------------------------------- |
-| [PVC](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)          | Kubernetes              | 动态申请集群持久存储；用户可日常创建此 Resource 以申请存储资源    |
-| [Volume Snapshot](https://kubernetes.io/docs/concepts/storage/volume-snapshots/)          | Kubernetes              | 针对某一个 PVC 进行快照；用户可日常创建此 Resource    |
-| [Volume Snapshot Class](https://kubernetes.io/docs/concepts/storage/volume-snapshot-classes/) | Kubernetes              | 指明快照的类别，与 StorageClass 一一对应；管理员创建，用户创建 Volume Snapshot 时引用    |
+| <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims">PVC</a>          | Kubernetes              | 动态申请集群持久存储；用户可日常创建此 Resource 以申请存储资源    |
+| <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/storage/volume-snapshots/">Volume Snapshot</a>          | Kubernetes              | 针对某一个 PVC 进行快照；用户可日常创建此 Resource    |
+| <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/storage/volume-snapshot-classes/">Volume Snapshot Class</a> | Kubernetes              | 指明快照的类别，与 StorageClass 一一对应；管理员创建，用户创建 Volume Snapshot 时引用    |
 
 
 ## 创建快照

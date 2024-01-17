@@ -34,7 +34,7 @@ Block Storage Volumes （块存储卷）可作为高性能虚拟存储盘挂载�
 
 ## 使用
 
-TensorStack 的存储卷（Storage Volumes）系统支持建立在 Kubernetes 的 [Storage API](https://kubernetes.io/docs/concepts/storage/) 基础之上，通过 API [Persistent Volumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)，[Storage Class](https://kubernetes.io/docs/concepts/storage/storage-classes/) 等提供用户接口。
+TensorStack 的存储卷（Storage Volumes）系统支持建立在 Kubernetes 的 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/storage/">Storage API</a> 基础之上，通过 API <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/">Persistent Volumes</a>，<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/storage/storage-classes/">Storage Class</a> 等提供用户接口。
 
 同时，为了支持一些特定场景的使用，TensorStack 提供 CRD [StorageShim](storageshim.md)，[Explorer](explorer.md) 以提供扩展支持。
 
@@ -68,8 +68,8 @@ spec:
 
 |              | 来源 | 说明                              |
 | ------------ | --------------- | --------------------------------- |
-| [PVC](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)          | Kubernetes              | 动态申请集群持久存储；用户可日常创建此 Resource 以申请存储资源    |
-| [Storage Class](https://kubernetes.io/docs/concepts/storage/storage-classes/) | Kubernetes              | 指明存储的类别；管理员创建，用户创建 PVC 时引用    |
+| <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims">PVC</a>          | Kubernetes              | 动态申请集群持久存储；用户可日常创建此 Resource 以申请存储资源    |
+| <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/storage/storage-classes/">Storage Class</a> | Kubernetes              | 指明存储的类别；管理员创建，用户创建 PVC 时引用    |
 | [StorageShim](../../references/api-reference/storageshim.md)  | TensorStack             | 对各种存储系统的便捷支持，为用户自动创建 PVC；用户可日常创建此 Resource |
 | [Explorer](../../references/api-reference/explorer.md)     | TensorStack             | 文件浏览器，查看和管理 PVC 中的文件       |
 

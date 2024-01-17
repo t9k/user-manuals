@@ -28,7 +28,7 @@ git clone https://github.com/t9k/examples.git
 <aside class="note info">
 <div class="title">Megatron-LM</div>
 
-[Megatron-LM](https://github.com/NVIDIA/Megatron-LM) 是 NVIDIA 应用深度学习研究团队开发的大型 transformer 代码库，用于高效地训练多达 1 trillion 参数的 LLM，并实现了多种并行技术。[Megatron-DeepSpeed](https://github.com/microsoft/Megatron-DeepSpeed) 是 DeepSpeed 版本的 Megatron-LM，其增加了对几个功能的额外支持，如 MoE 训练、课程学习、3D 并行性等。
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/NVIDIA/Megatron-LM">Megatron-LM</a> 是 NVIDIA 应用深度学习研究团队开发的大型 transformer 代码库，用于高效地训练多达 1 trillion 参数的 LLM，并实现了多种并行技术。<a target="_blank" rel="noopener noreferrer" href="https://github.com/microsoft/Megatron-DeepSpeed">Megatron-DeepSpeed</a> 是 DeepSpeed 版本的 Megatron-LM，其增加了对几个功能的额外支持，如 MoE 训练、课程学习、3D 并行性等。
 
 本示例所使用的训练代码即来自这两个项目。
 

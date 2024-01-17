@@ -754,7 +754,7 @@ Login succeeded!
 ```
 
 !!! note "注意" 
-    Context 的名称需要满足 [DNS Subdomain Names](https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names) 的要求，如果 Context 名字重复，可以选择覆盖原内容或者重新输入。
+    Context 的名称需要满足 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names">DNS Subdomain Names</a> 的要求，如果 Context 名字重复，可以选择覆盖原内容或者重新输入。
 
 ##### 通过 API Key 完成认证
 

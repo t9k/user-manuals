@@ -210,4 +210,4 @@ T9k 提供了一些预先构建的镜像，与 JupyterLab 原生镜像相比内�
 ## 参考
 
 * T9k 提供的 [Notebook 标准镜像列表](../../references/standard-images.md#notebook-标准镜像列表)
-* <https://jupyterlab.readthedocs.io/en/latest/>
+* <a target="_blank" rel="noopener noreferrer" href="https://jupyterlab.readthedocs.io/en/stable/">JupyterLab 文档</a>
