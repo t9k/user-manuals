@@ -178,3 +178,6 @@
     * [部署 LLM 聊天机器人](examples/deploy-llm-chatbot.md)
     * [部署 Stable Diffusion 图像生成模型](examples/deploy-sd-drawing-model.md)
     * [使用 AutoGen 构建下一代 LLM 应用](examples/build-next-generation-llm-app-using-autogen.md)
+
+* [第三方应用集成](integrations/index.md)
+    * [Label Studio](integrations/label-studio.md)
