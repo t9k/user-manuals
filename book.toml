@@ -10,6 +10,9 @@ additional-css = ["theme/sidebar.css", "theme/custom.css"]
 additional-js = ["theme/sidebar.js"]
 curly-quotes = true
 
+[output.html.fold]
+enable = false
+
 [preprocessor.tabulate]
 command = "./util-tabulate.sh"
 
