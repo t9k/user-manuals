@@ -1,5 +1,9 @@
 # Summary
 
+[导言](./introduction.md)
+
+---
+
 * [快速入门](get-started/index.md)
     * [训练你的第一个模型](get-started/training-first-model.md)<!-- * [在 notebook 完成训练] -->
     * [进行并行训练](get-started/parallel-training.md)<!-- * [使用 job 进行并行训练] -->
