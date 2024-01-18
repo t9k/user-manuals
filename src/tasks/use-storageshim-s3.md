@@ -1,14 +1,26 @@
-# 管理 StorageShim
+# 使用 StorageShim 适配 S3 服务
 
 ## 概述
 
-TensorStack AI 平台支持用户在多个环节使用 <a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Amazon_S3">S3 协议</a>的存储服务。本教程演示如何使用平台提供的 StorageShim 通过 PVC 的形式使用 S3。
+TensorStack AI 平台支持用户在多个环节使用 <a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Amazon_S3">S3 协议</a>的存储服务。本教程演示如何通过 StorageShim 把 S3 存储服务转换成 PVC，以方便在一些需要使用 POSIX 文件系统接口的场景。
+
+<aside class="note info">
+<div class="title"> 注意</div>
+
+通过 PVC 使用 S3 仅是为了方便而提供的一个机制。用户应当意识到这种方式的缺点：
+
+- 性能受影响；通过 StorageShim 提供的转换机制使用 S3 服务有性能损失；如果性能对用户的使用场景极端重要，需要考虑使用：
+    1. S3 原生的 API 直接访问 S3 存储服务；
+    2. 直接使用集群提供的共享文件系统服务;
+- 不完整的 POSIX 文件系统语义；这种转换方式提供的 API 并不是支持所有的 POSIX 文件系统 API。
+
+</aside>
 
 本教程涉及如下基本概念：
 
 * <a target="_blank" rel="noopener noreferrer" href="https://aws.amazon.com/cn/s3/">**S3（Simple Storage Service）**</a>提供可扩展、安全、高可用的对象存储服务，可以存储和检索任意数量和类型的数据，包括文档、图片、视频、音频等。更多详细信息请参阅[附录](#附录)。
 * <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/">**PVC（PersistentVolumeClaim）**</a>是 Kubernetes 提供的一种声明式的存储卷请求，用于向 Kubernetes 集群申请持久化存储卷。PVC 使应用程序与存储资源解耦，提高了存储资源的管理和使用效率。
-* **T9k StorageShim** 提供了把 S3 服务转换为 PVC 的能力，让用户能够以 Kubernetes 原生的方式使用 S3。
+* **StorageShim** 提供了把 S3 服务转换为 PVC 的能力，让用户能够以 Kubernetes 原生的方式使用 S3。
 
 ## 详细过程
 

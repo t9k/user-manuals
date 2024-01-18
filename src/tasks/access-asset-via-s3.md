@@ -64,7 +64,7 @@ pip install s3cmd
 
 </aside>
 
-例如，在上述示例中，所创建的 S3 凭证 `s3-rw` 仅可用于访问名为 `neox` 的模型。根据页面上的提示，此模型对应的 bucket 名称为 `adb2a768-f01a-467b-b146-e82c0693c16b`，您可以通过以下命令查看此模型的 `main` 分支的 `README.md` 文件：
+例如，在上述示例中，所创建的 S3 凭证 `s3-rw` 仅可用于访问名为 `neox` 的模型。根据页面上的提示，此模型对应的 bucket 名称为 `adb2a768-f01a-467b-b146-e82c0693c16b`，用户可以通过以下命令查看此模型的 `main` 分支的 `README.md` 文件：
 
 ```bash
 s3cmd ls s3://baa98ded-2f93-4e9b-835a-6515a63a6eb4/main/README.md
@@ -78,9 +78,9 @@ s3cmd get s3://baa98ded-2f93-4e9b-835a-6515a63a6eb4/branch-name/path/to/object
 
 ## 通过 StorageShim 访问模型
 
-除了通过命令行工具访问，您还可以创建一个 [StorageShim](./manage-storageshim.md)，将 S3 bucket 的某个子路径形式化为一个持久卷，以便在 Notebook、Job、Workflow 等工作负载中挂载，直接以文件系统的形式查看、编辑 S3 bucket 中的文件。
+除了通过命令行工具访问，用户还可以创建一个 [StorageShim](./use-storageshim-s3.md)，将 S3 bucket 的某个子路径形式化为一个持久卷，以便在 Notebook、Job、Workflow 等工作负载中挂载，直接以文件系统的形式查看、编辑 S3 bucket 中的文件。
 
-在创建 StorageShim 之前，您首先需要创建一个 Secret 保存 S3 bucket 的相关信息。在 S3 凭证的详情页面，点击左侧的 **S3-cfg Secret** 标签，然后点击右上角的**复制**：
+在创建 StorageShim 之前，用户首先需要创建一个 Secret 保存 S3 bucket 的相关信息。在 S3 凭证的详情页面，点击左侧的 **S3-cfg Secret** 标签，然后点击右上角的**复制**：
 
 <figure class="screenshot">
   <img alt="s3-cred-detail-s3-cfg-secret" src="../assets/tasks/manage-asset/access-asset-by-s3/s3-cred-detail-s3-cfg-secret.png" class="screenshot"/>
@@ -117,7 +117,7 @@ s3cmd get s3://baa98ded-2f93-4e9b-835a-6515a63a6eb4/branch-name/path/to/object
   <img alt="storageshim-create" src="../assets/tasks/manage-asset/access-asset-by-s3/storageshim-create.png" class="screenshot"/>
 </figure>
 
-StorageShim 创建完成后，等待其阶段变为 **Bound**，您即可通过以下方式使用这个名为 `neox` 的持久卷：
+StorageShim 创建完成后，等待其阶段变为 **Bound**，用户即可通过以下方式使用这个名为 `neox` 的持久卷：
 
 1. 点击**启动**，创建一个 Explorer 来浏览持久卷中的文件。
 2. 在创建 Notebook 时，添加持久卷 `neox`，以便在 Notebook 中查看和编辑此模型中的文件。
