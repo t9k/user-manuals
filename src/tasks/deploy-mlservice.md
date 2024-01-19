@@ -26,7 +26,7 @@
 您可以直接使用命令行工具访问 MLService 的预测服务。运行命令获取 MLService 的 URL：
 
 ``` shell
-url=$(kubectl get mlservice keras-mnist-mlservice -o jsonpath='{.status.address.url}') && echo $url
+url=$(kubectl get mlservice torch-mnist-pvc -o jsonpath='{.status.address.url}') && echo $url
 ```
 
 发送推理请求：
@@ -37,7 +37,7 @@ curl -T test_data/0.png ${url}/v1/models/mnist:predict # or use `1.png`, `2.png`
 
 ## 监控推理服务
 
-在模型部署控制台，点击左侧导航栏**总览**，可以查看项目内 MLService 的资源统计：
+在模型部署控制台，点击对应的 MLService，然后切换到**指标**页面，可以查看该 MLService 的资源统计：
 
 <figure class="screenshot">
   <img alt="resource-usage" src="../assets/tasks/deploy-model-reference-serving/mlservice/resource-usage.png" class="screenshot"/>
