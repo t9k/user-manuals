@@ -14,7 +14,7 @@
 pip install tensorflow==2.8.0 numpy
 ```
 
-### 制作 Transformer 镜像
+## 制作 Transformer 镜像
 
 <aside class="note tip">
 <div class="title">提示</div>
@@ -26,9 +26,9 @@ pip install tensorflow==2.8.0 numpy
 接下来制作供 MLService 使用的 Transformer 镜像。返回工作目录，创建并进入目录 `transformer`：
 
 ```bash
-$ cd ..
-$ mkdir transformer
-$ cd transformer
+cd ..
+mkdir transformer
+cd transformer
 ```
 
 使用 TensorStack SDK 编写 Transformer 的代码文件 `__main__.py` ，内容如下：
@@ -106,18 +106,48 @@ ENTRYPOINT ["python", "server.py"]
 最后制作并上传 Transformer 镜像：
 
 ```bash
-$ docker build -t <your-docker-registry-address>/mnist-transformer:test -f Dockerfile.transformer .
-$ docker push <your-docker-registry-address>/mnist-transformer:test
+docker build -t <your-docker-registry-address>/mnist-transformer:test -f Dockerfile.transformer .
+docker push <your-docker-registry-address>/mnist-transformer:test
 ```
 
-### 部署 MLService
+## 部署 MLService
 
-进入模型部署控制台的 MLService 创建页面，如下图所示，将 `image_transformer.yaml` 的内容复制到右侧的 YAML 编辑框，然后点击 **Create MLService** 创建 MLService：
+进入模型部署控制台，先点击左侧导航栏辅助一栏下的的 **MLServiceRuntime**，再点击 **创建 MLServiceRuntime** ，然后点击 **预览 YAML**， 并将下面 `tensorflow_serving.yaml` 的内容复制到 YAML 编辑框中，最后点击 **创建** 创建 MLServiceRuntime。
+
+```yaml title=tensorflow_serving.yaml
+apiVersion: tensorstack.dev/v1beta1
+kind: MLServiceRuntime
+metadata:
+  name: t9k-tensorflow-serving
+spec:
+  enabled: true
+  template:
+    spec:
+      containers:
+      - name: user-container
+        image: t9kpublic/tensorflow-serving:2.13.1
+        command:
+          - /usr/bin/tensorflow_model_server
+        args:
+          - --model_name={{if .MODEL_NAME}}{{.MODEL_NAME}}{{else}}model{{end}}
+          - --port={{if .GRPC_PORT}}{{.GRPC_PORT}}{{else}}9000{{end}}
+          - --rest_api_port=8000
+          - --model_base_path=/var/lib/t9k/model
+        resources:
+          limits:
+            cpu: "200m"
+            memory: 200Mi
+        ports:
+        - containerPort: 8000
+          protocol: TCP
+```
+
+进入模型部署控制台的 MLService 页面，点击右上角**创建 MLService**，然后点击**预览 YAML**。如下图所示，将 `image_transformer.yaml` 的内容复制到右侧的 YAML 编辑框，最后点击 **创建** 创建 MLService：
 
 <aside class="note">
 <div class="title">注意</div>
 
-确保 MLService `metadata.namespace` 指定的命名空间存在于集群中。
+请将 transformer 定义中的 `image` 替换为刚制作好的镜像地址。
 
 </aside>
 
@@ -140,22 +170,20 @@ spec:
       predictor:
         minReplicas: 1
         model:
-          modelFormat:
-            name: tensorflow
-            version: "1"
+          runtime: t9k-tensorflow-serving
           modelUri: pvc://tutorial/tutorial-examples/deployment/mlservice-v2/mlservice-transformer/model/
 ```
 
 <figure class="screenshot">
-  <img alt="create-mlservcie-transformer" src="../../assets/tasks/deploy-model-reference-serving/transformer/create-mlservcie.png" class="screenshot" />
+  <img alt="create-mlservcie-transformer" src="../../assets/tasks/deploy-model-reference-serving/transformer/create-mlservice.png" class="screenshot" />
 </figure>
 
 
-### 发送预测请求
+## 发送预测请求
 
 使用图片 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/master/deployment/mlservice-v2/mlservice-transformer/shoe.png">shoe.png</a> 作为发送预测请求的测试数据。
 
 ``` shell
-address=$(kubectl get mls pic-mnist -ojsonpath='{.status.address.url}')
+address=$(kubectl get mls pic-mnist -ojsonpath='{.status.address.url}') && echo $address
 curl --data-binary @./shoe.png ${address}/v1/models/model:predict
 ```

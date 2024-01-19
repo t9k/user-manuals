@@ -66,43 +66,33 @@ spec:
         model:
           parameters:
             "MODEL_PATH": "mnist=model.mar"
-          runtime: t9k-torchserve
-          modelFormat:
-            name: pytorch
+          runtime: torchserve
           modelUri: pvc://tutorial/tutorial-examples/deployment/pvc/mlservice-torch/
 ```
 
-该示例部署的推理服务只包含一个版本 `version1`，其使用 MLServiceRuntime `t9k-torchserve`，使用的模型是 `pytorch`，存储在 pvc `tutorial` 中，服务的工作负载数量会根据流量动态变化，最小为 1，最大为 3。
+该示例部署的推理服务只包含一个版本 `version1`，其使用 MLServiceRuntime `torchserve`，使用的模型存储在 pvc `tutorial` 中，服务的工作负载数量会根据流量动态变化，最小为 1，最大为 3。
 
 ## MLServiceRuntimes
 
-在[基本示例](#基本示例)中，我们使用了 MLServiceRuntime `t9k-torchserve`。在此章节中我们将向用户详细介绍 MLServiceRuntimes 的工作机制。
+在[基本示例](#基本示例)中，我们使用了 MLServiceRuntime `torchserve`。在此章节中我们将向用户详细介绍 MLServiceRuntimes 的工作机制。
 
-MLService 提供了 MLServiceRuntime 和 ClusterMLServiceRuntime 来支持多种机器学习框架，从而帮助用户快速部署推理服务。两者的区别是前者只能被用于单个项目，后者被整个集群所共享。
+MLService 提供了 MLServiceRuntime 来支持多种机器学习框架，从而帮助用户快速部署推理服务。
 
-Runtime （MLServiceRuntime 或者 ClusterMLServiceRuntime，下文统称为 Runtime）定义了推理服务 Pod 的模版，模版中包含了推理服务的关键信息，例如镜像、启动命令、资源需求等。
+MLServiceRuntime 定义了推理服务 Pod 的模版，模版中包含了推理服务的关键信息，例如镜像、启动命令、资源需求等。
 
-Runtime 需要显式的声明支持的模型框架，一个 Runtime 可以支持多种框架。只有 Runtime 支持的模型框架和 MLService 使用的模型匹配才能正常部署服务。
+### MLServiceRuntime 基本示例
 
-### Runtime 基本示例
+下面是一个基本的 MLServiceRuntime 的例子：
 
-下面是一个基本的 Runtime 的例子：
-
-* 该 Runtime 是一个 ClusterMLServiceRuntime，它可以被集群中所有的项目使用
-* 该 Runtime 只支持 pytorch 模型
-* 该 Runtime 在 `.spec.template` 中定义了 pod 模版
+该 MLServiceRuntime 在 spec.template 中定义了推理服务 Pod 的模版，服务会运行 torchserve 指令。
 
 ```yaml
 apiVersion: tensorstack.dev/v1beta1
-kind: ClusterMLServiceRuntime
+kind: MLServiceRuntime
 metadata:
-  name: t9k-torchserve
-  namespace: t9k-system
+  name: torchserve
 spec:
-  enable: true
-  supportedModelFormats:
-    - name: pytorch
-      priority: 1
+  enabled: true
   template:
     spec:
       containers:
@@ -119,13 +109,9 @@ spec:
             memory: 200Mi
 ```
 
-### 使用 Runtime
+### 使用 MLServiceRuntime
 
-MLService 支持两种方式使用 Runtime：按名称指定和自动匹配。
-
-#### 按名称指定
-
-用户可以在 MLService 的 Predictor 定义中指定要使用的 Runtime 名称，例如：
+用户可以在 MLService 的 Predictor 定义中指定要使用的 MLServiceRuntime 名称，例如：
 
 ```yaml
 apiVersion: tensorstack.dev/v1beta1
@@ -138,47 +124,32 @@ spec:
   - name: version1
     predictor:
       model:
-        modelFormat:
-          name: pytorch
-        runtime: t9k-torchserve  
+        runtime: torchserve
         modelUri: "<your-model-registry/your-model-path>"
 ```
 
-用户在 Predictor `version1` 的 `.model.runtime` 中指定了 `t9k-torchserve`。在创建 pod 时，只会使用当前项目下名称为 `t9k-torchserve` 的 MLServiceRuntime 或者名称为 `t9k-torchserve` 的 ClusterMLServiceRuntime （如果两者都存在，优先使用 MLServiceRuntime）。需要注意，被指定的 Runtime 一定要支持 `.model.modelFormat` 所指定的模型框架。
+用户在 Predictor `version1` 的 `.model.runtime` 中指定了 `torchserve`。在创建 Pod 时，会使用当前项目下名称为 `torchserve` 的 MLServiceRuntime。
 
-#### 自动匹配
+### MLServiceRuntime 的更新
 
-如果用户没有通过 `.model.runtime` 指定 Runtime，MLService 控制器会自动在集群中匹配支持 Predictor 框架的 Runtime。
+如果用户更新了一个 MLServiceRuntime，所有使用了该 MLServiceRuntime 的 MLService 所创建的 Pod 也会随之进行更新。
 
-匹配规则和优先级如下：
+<aside class="note warning">
+<div class="title">提醒</div>
 
-* predictor 的 `.model.modelFormat` 的 `name` 和 `version` 必须和 Runtime 的 `.spec.supportModelFormat[*]` 中某一项完全匹配。即 `name` 相同且`version` 相同。
-* 优先匹配当前项目下的 MLServiceRuntime，如果没有匹配上，再从 ClusterMLServiceRuntime 中匹配。
-* 当有多个 Runtime 都符合匹配，选择 priority 最大的。如果 priority 相等，按名字字母序选择。
-* priority 为 0 的 Runtime 不参与自动匹配。
-
-### Runtime 的更新
-
-如果用户更新了一个 Runtime，所有使用了该 Runtime 的 MLService 所创建的 pod 也会随之进行更新。
-
-如果用户新创建了一个优先级高的 Runtime，而某个 MLService 根据[自动匹配](#自动匹配)规则与新创建的 Runtime 匹配上，MLService 控制器会更新 MLService 之前已经创建的 pod。
-
-<aside class="note tip">
-<div class="title">提示</div>
-
-如果你正在测试一个不稳定的 Runtime ，可以先将其优先级设为 0（不参与自动匹配），只通过指定 Runtime 的方式来测试它。待测试通过后再调高优先级。
+MLService 的更新并不是实时的。建议最好不要修改 MLServiceRuntime，这可能会影响正在运行的服务。
 
 </aside>
 
 ### 个性化改动
 
-除了直接使用 Runtime 定义好的 pod 模版，MLService 还支持两种对其进行个性化改动的方式。
+除了直接使用 MLServiceRuntime 定义好的 Pod 模版，MLService 还支持两种对其进行个性化改动的方式。
 
 #### Parameters
 
 MLService 支持在 Predictor 的 `.model.parameters` 设置参数，该字段是一个 map 类型，key 为参数名，value 为参数值。
 
-在之前的 [Runtime 基本示例](#runtime-基本示例)中，我们可以看到 `--models {{if .MODEL_PATH}}{{.MODEL_PATH}}{{else}}all{{end}}` 这样一行。这里使用了 <a target="_blank" rel="noopener noreferrer" href="https://pkg.go.dev/text/template">golang template</a> 的语法，意思是：
+在之前的 [MLServiceRuntime 基本示例](#mlserviceruntime-基本示例)中，我们可以看到 `--models {{if .MODEL_PATH}}{{.MODEL_PATH}}{{else}}all{{end}}` 这样一行。这里使用了 <a target="_blank" rel="noopener noreferrer" href="https://pkg.go.dev/text/template">golang template</a> 的语法，意思是：
 
 * 如果用户指定了 `MODEL_PATH`，这一行会被设置为 `--model <用户指定的 MODEL_PATH>`
 * 如果用户没有指定 `MODEL_PATH`，这一行会被设置为 `--model all`
@@ -198,17 +169,15 @@ spec:
       model:
         parameters:
           "MODEL_PATH": "mnist=model.mar"
-        runtime: t9k-torchserve
-        modelFormat:
-          name: pytorch
+        runtime: torchserve
         modelUri: "<your-model-registry/your-model-path>"
 ```
 
-上述 MLService 最终产生的 pod 的 args 中会有一行 `--model mnist=model.mar`，指定了使用模型的名称和文件。
+上述 MLService 最终产生的 Pod 的 args 中会有一行 `--model mnist=model.mar`，指定了使用模型的名称和文件。
 
 #### StrategicMergePatch
 
-Runtime 定义了 Pod 模版，但不一定能适用于所有场景。MLService 支持用户在 Runtime 的基础上，进行覆盖或者添加。例如：
+Runtime 定义了 Pod 模版，但不一定能适用于所有场景。MLService 支持用户在 MLServiceRuntime 的基础上，进行覆盖或者添加。例如：
 
 ```yaml
 apiVersion: tensorstack.dev/v1beta1
@@ -231,7 +200,7 @@ spec:
               image: self-torchserve:latest
 ```
 
-将上面 MLService 中 predictor `version1` 的 `template.spec` 和之前的 [Runtime 基本示例](#runtime-基本示例)相比，可以发现他们都定义了一个名为 `user-container` 的 container，但是 `image` 不同。于是最终生成的 pod 中，MLService 中定义的 `image` 会覆盖 Runtime 中的 `image`，但是 Runtime 中 `args` 等其余设置都会被保留。
+将上面 MLService 中 predictor `version1` 的 `template.spec` 和之前的 [Runtime 基本示例](#runtime-基本示例)相比，可以发现他们都定义了一个名为 `user-container` 的 container，但是 `image` 不同。于是最终生成的 Pod 中，MLService 中定义的 `image` 会覆盖 MLServiceRuntime 中的 `image`，但是 MLServiceRuntime 中 `args` 等其余设置都会被保留。
 
 这里的覆盖合并原则采用的是 StrategicMergePatch。
 用户可以通过阅览以下参考资料，进一步了解  StrategicMergePatch：
@@ -242,25 +211,25 @@ spec:
 
 1. 添加 container， containers 数组中不同名的都会被保留。
 
-| Runtime| MLService| Result|
+| MLServiceRuntime| MLService| Result|
 |-|-|-|
 |containers:<br>- name: user-container<br>&nbsp;&nbsp;...|containers:<br>- name: proxy<br>&nbsp;&nbsp;...|containers:<br>- name: user-container<br>&nbsp;&nbsp;...<br>- name: proxy<br>&nbsp;&nbsp;...|
 
 2. 修改 image，相同名称 container 的 image 会被覆盖。
 
-| Runtime| MLService| Result|
+| MLServiceRuntime| MLService| Result|
 |-|-|-|
 |containers:<br>- name: user-container<br>&nbsp;&nbsp;image: torchserve:alpha|containers:<br>- name: user-container<br>&nbsp;&nbsp;image: torchserve:beta|containers:<br>- name: user-container<br>&nbsp;&nbsp;image: torchserve:beta|
 
 3. 修改 args，相同名称 container 的 args 数组会整个被覆盖。
 
-| Runtime| MLService| Result|
+| MLServiceRuntime| MLService| Result|
 |-|-|-|
 |containers:<br>- name: user-container<br>&nbsp;&nbsp;args: ["--k1=v1", "--k2=v2"]|containers:<br>- name: user-container<br>&nbsp;&nbsp;args: ["--k2=v3"]|containers:<br>- name: user-container<br>&nbsp;&nbsp;args: ["--k2=v3"]|
 
 #### 设置资源
 
-上述的 [StrategicMergePatch](#strategicmergepatch) 提供给了用户完整的个性化改动的方案。除此以外，针对改动频率更高的资源要求（resource），MLService 提供了更方便的个性化改动方案。用户可以直接通过 Predictor 中的 `resources` 覆盖 Runtime 的资源要求，例如：
+上述的 [StrategicMergePatch](#strategicmergepatch) 给用户提供了完整的个性化改动方案。除此以外，针对改动频率更高的资源要求（resources），MLService 提供了更方便的个性化改动方案。用户可以直接通过 Predictor 中的 `resources` 覆盖 Runtime 的资源要求，例如：
 
 ```yaml
 apiVersion: tensorstack.dev/v1beta1
@@ -300,8 +269,6 @@ S3 是一种对象存储服务和协议，具有良好的可扩展性、数据�
     - name: test1
       predictor:
         model:
-          modelFormat:
-            name: tensorflow
           modelUri: "s3://models/example/"
         storage:
           s3Storage:
@@ -323,13 +290,11 @@ MLService 支持使用 [PVC](../storage/pvc.md) 中的模型。
     - name: test1
       predictor:
         model:
-          modelFormat:
-            name: tensorflow
           modelUri: "pvc://tutorial/models/example"
 ...
 ```
 
-其中模型存储在 pvc `tutorial` 的 `models/example/` 路径下。
+其中模型存储在 PVC `tutorial` 的 `models/example/` 路径下。
 
 ## 访问推理服务
 
@@ -365,7 +330,7 @@ $ curl -T test_data/0.png http://torch-mnist.<project-name>.<domain-name>/v1/mod
 
 一个 MLService 可以同时部署多个版本的 Predictor，在 `spec.releases` 字段中设置配置详情。
 
-在下面的示例中，MLService 同时部署了 `nov-02`、`nov-05` 和 `nov-11` 三个版本的服务，这三个版本都会经过自动匹配使用同一个 Runtime，但是使用的模型不同：
+在下面的示例中，MLService 同时部署了 `nov-02`、`nov-05` 和 `nov-11` 三个版本的服务，这三个版本都使用同一个 MLServiceRuntime，但是使用的模型不同：
 
 ```yaml
 apiVersion: tensorstack.dev/v1beta1
@@ -378,20 +343,17 @@ spec:
     - name: nov-02
       predictor:
         model:
-          modelFormat:
-            name: pytorch
+          runtime: torchserve
           modelUri: pvc://tutorial/model-11-02
     - name: nov-05
       predictor:
         model:
-          modelFormat:
-            name: pytorch
+          runtime: torchserve
           modelUri: pvc://tutorial/model-11-05
     - name: nov-11
       predictor:
         model:
-          modelFormat:
-            name: pytorch
+          runtime: torchserve
           modelUri: pvc://tutorial/model-11-11
 ```
 
@@ -529,7 +491,7 @@ MLService 支持使用两种调度器：Kubernetes 默认调度器（默认）�
 ```yaml
 ...
 spec:
-  scheduler: 
+  scheduler:
     t9kScheduler:
       queue: default
 ...
@@ -563,27 +525,18 @@ status:
   - name: nov-02
     ready: true
     readyReplicas: 1
-    runtime:
-      kind: ClusterMLServiceRuntime
-      name: t9k-torchserve
     totalReplicas: 1
     trafficPercent: 80
     url: http://multi-releases-predict-nov-02.<project>.<domain>
   - name: nov-05
     ready: true
     readyReplicas: 1
-    runtime:
-      kind: ClusterMLServiceRuntime
-      name: t9k-torchserve
     totalReplicas: 1
     trafficPercent: 20
     url: http://multi-releases-predict-nov-05.<project>.<domain>
   - name: nov-11
     ready: true
     readyReplicas: 1
-    runtime:
-      kind: ClusterMLServiceRuntime
-      name: t9k-torchserve
     totalReplicas: 1
     trafficPercent: 0
     url: http://multi-releases-predict-nov-11.<project>.<domain>
