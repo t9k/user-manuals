@@ -1,4 +1,4 @@
-# 制作并部署含有 Transformer 的模型推理服务
+# 包含 Transformer 的推理服务
 
 本教程演示如何使用 TensorStack SDK 创建 Transformer 镜像，然后部署包含该 Transformer 的 MLService。
 

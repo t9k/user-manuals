@@ -92,10 +92,10 @@
     * [进行超参数优化](tasks/hyperparameter-tuning.md)
         * [使用 AutoTune 进行超参数优化](tasks/autotune.md)
 
-    * [部署模型推理服务](tasks/deploy-inference-service.md)
-        * [简单模型推理服务](tasks/deploy-simplemlservice.md)
-        * [生产环境的模型推理服务](tasks/deploy-mlservice.md)
-        * [制作并部署含有 Transformer 的模型推理服务](tasks/deploy-mlservice-transformer.md)
+    * [部署推理服务](tasks/deploy-inference-service.md)
+        * [简单推理服务](tasks/deploy-simplemlservice.md)
+        * [生产环境推理服务](tasks/deploy-mlservice.md)
+        * [包含 Transformer 的推理服务](tasks/deploy-mlservice-transformer.md)
 
     * [管理 AI 资产](tasks/manage-ai-assets.md)
         * [操作文件夹、模型和数据集](tasks/manipulate-folder-asset.md)

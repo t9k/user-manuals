@@ -17,7 +17,7 @@ PVC 可以扩容，即增加存储卷大小。因此用户在创建 PVC 时可�
 
 ### Notebook
 
-把 PVC 挂载到 Notebook 上，然后本地的文件和 PVC 之间的文件传输，可直接在 Notebook 的前端页面上操作：
+把 PVC 挂载到 Notebook 上，本地文件系统和 PVC 之间的文件传输，可直接在 Notebook 的前端页面上操作：
 
 <figure class="screenshot">
   <img alt="notebook-upload-download" src="../assets/tasks/pvc-importing-and-exporting-files/notebook-upload-download.png" class="screenshot"/>
@@ -25,7 +25,7 @@ PVC 可以扩容，即增加存储卷大小。因此用户在创建 PVC 时可�
 
 ### File Browser
 
-在 PVC 上启动 Explorer 之后，则可通过 [File Browser](../tasks/use-explorer.md#使用-file-browser) ：
+在 PVC 上启动 [Explorer](./use-explorer.md) 之后，则可通过 [File Browser](./use-explorer.md#使用-file-browser) ：
 <figure class="screenshot">
   <img alt="file-browser-upload-download" src="../assets/tasks/pvc-importing-and-exporting-files/file-browser-upload-download.png" class="screenshot"/>
 </figure>
