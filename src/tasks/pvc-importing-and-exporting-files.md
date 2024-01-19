@@ -1,26 +1,31 @@
-# PVC 导入和导出文件
+# 上传和下载文件
 
-[PVC](../modules/storage/pvc.md) 是平台上最简单和通用的存储方式，它作为卷可以被挂载到 Notebook、Job、MLService 等各种工作负载的 Pod 中。例如进行模型训练需要有训练脚本以及数据集文件，我们可以将包含这些文件的 PVC 挂载在 Job 的 Pod 中。
+通过 [PVC](../modules/storage/pvc.md) 使用集群存储非常方便，它可作为存储卷被挂载到 Notebook、Job、MLService 等各种工作负载的 Pod 中。例如在进行模型训练时，用户可以把训练脚本以及训练数据存放到 PVC，然后挂载在 Job 的 Pod 中。
 
-本教程将分场景介绍如何从外部存储导入文件到 PVC，以及如何从 PVC 导出文件到外部存储。由于下面的部分方法需要使用到命令行工具，而 Notebook 提供了终端并且 Notebook 的镜像中预装了这些命令行工具，因此我们推荐在 Notebook 中进行操作。
+本教程将分场景介绍如何从集群外部上传文件到 PVC，以及如何从 PVC 下载文件到集群外部。
+
+由于下面的部分方法需要使用到命令行工具，而 Notebook 提供了终端并且 Notebook 的镜像中预装了这些命令行工具，因此我们推荐把 PVC 挂载到一个 Notebook 上，然后在 Notebook 中进行操作。
 
 <aside class="note tip">
 <div class="title">提示</div>
 
-PVC 可以扩容，即增加存储卷大小（反之则不可以）。因此用户在创建 PVC 时可以先指定一个较为保守的存储卷大小的值，之后如有需要则继续增加。
+PVC 可以扩容，即增加存储卷大小。因此用户在创建 PVC 时可以先指定一个较为保守的存储卷大小的值，之后如有需要则继续增加。
 
 </aside>
 
-## 与本地文件系统传输文件
+## 本地文件系统
 
-**方法一**
+### Notebook
 
-将本地的文件上传到 PVC，或者将 PVC 中的文件下载到本地，最直观的方法是在 Notebook（或 [File Browser](../tasks/use-explorer.md#使用-file-browser)）的前端页面点击上传按钮或者下载按钮：
+把 PVC 挂载到 Notebook 上，然后本地的文件和 PVC 之间的文件传输，可直接在 Notebook 的前端页面上操作：
 
 <figure class="screenshot">
   <img alt="notebook-upload-download" src="../assets/tasks/pvc-importing-and-exporting-files/notebook-upload-download.png" class="screenshot"/>
 </figure>
 
+### File Browser
+
+在 PVC 上启动 Explorer 之后，则可通过 [File Browser](../tasks/use-explorer.md#使用-file-browser) ：
 <figure class="screenshot">
   <img alt="file-browser-upload-download" src="../assets/tasks/pvc-importing-and-exporting-files/file-browser-upload-download.png" class="screenshot"/>
 </figure>
@@ -28,23 +33,19 @@ PVC 可以扩容，即增加存储卷大小（反之则不可以）。因此用�
 <aside class="note">
 <div class="title">注意</div>
 
-在与本地文件系统传输文件时，上传对于 PVC 是导入，下载对于 PVC 是导出；而在后面的场景中，下载对于 PVC 是导入，上传对于 PVC 是导出。
-
-</aside>
-
-<aside class="note">
-<div class="title">注意</div>
-
-* Notebook 不限制上传或下载的单个文件的大小（File Browser 则限制上传的单个文件不能 >  ~800MB）；但上传过程容易因为网络波动而出错，建议 > ~5GB（也取决于具体网络环境）的单个文件使用其他方法上传。
+* Notebook 不限制上传或下载的单个文件的大小（根据管理员配置，File Browser 有可能限制上传的单个文件的大小）；但上传过程容易因为网络波动而出错，建议 > ~5GB（也取决于具体网络环境）的单个文件使用其他方法上传。
 * 可以一次上传或下载多个文件；但在文件数量较多（> ~50）的情况下容易出错，推荐打包成压缩文件再上传或下载。
 
 </aside>
 
-**方法二**
+### 云存储中转
 
-更加可靠的方法是通过云存储进行中转。本地与云存储之间的文件传输方法请参阅相应云存储的文档，云存储与 PVC 之间的文件传输方法请参阅[与云存储传输文件](#与云存储传输文件)。
+也可通过其它云存储服务进行中转，即 `本地 -> 云存储 -> 集群 PVC`：
 
-## 与云存储传输文件
+1. 本地与云存储之间的文件传输方法请参阅相应云存储的文档；
+2. 云存储与 PVC 之间的文件传输方法请参阅[与云存储传输文件](#与云存储传输文件)。
+
+## 云存储服务
 
 要在云存储与 PVC 之间复制或同步文件，可以在 Notebook 的终端中使用命令行工具 <a target="_blank" rel="noopener noreferrer" href="https://rclone.org">rclone</a>。这里以 Amazon S3 为例，首先参照 <a target="_blank" rel="noopener noreferrer" href="https://rclone.org/s3/">Amazon S3 Config</a> 进行配置，完成后执行以下命令：
 
@@ -63,9 +64,11 @@ rclone 支持的云存储提供商请参阅 <a target="_blank" rel="noopener nor
 
 </aside>
 
-## 从网络下载文件
+rclone 之外，还有其他方便的工具可供使用，例如 <a target="_blank" rel="noopener noreferrer" href="https://github.com/s3tools/s3cmd">s3cmd</a>, <a target="_blank" rel="noopener noreferrer" href="https://github.com/peak/s5cmd">s5cmd</a> 等。
 
-要通过 HTTP(S)、FTP(S) 等协议从网络下载文件到 PVC，可以在 Notebook 的终端中使用 `wget` 或 `curl` 命令进行下载：
+## HTTP/FTP 服务
+
+要通过 HTTP(S)、(S)FTP 等协议从网络下载文件到 PVC，可以在 Notebook 的终端中使用 `wget` 或 `curl` 命令进行下载：
 
 ```bash
 wget <URL>
@@ -75,11 +78,11 @@ curl -O <URL>
 <aside class="note tip">
 <div class="title">提示</div>
 
-用户也可以在终端中使用命令行工具 rclone 来访问和下载存储在 HTTP(S) 和 FTP(S) 服务器上的文件（对于 FTP(S) 服务器还可以上传文件）。rclone 将这些服务器视为特殊类型的云存储，请参阅 <a target="_blank" rel="noopener noreferrer" href="https://rclone.org/http/">HTTP Config</a> 和 <a target="_blank" rel="noopener noreferrer" href="https://rclone.org/ftp/">FTP Config</a>。
+用户也可以在终端中使用命令行工具 rclone 来访问和下载存储在 HTTP(S) 和 FTP(S) 服务器上的文件（对于 FTP(S) 服务器还可以上传文件）。rclone 将这些服务器视为一种类型的云存储，请参阅 <a target="_blank" rel="noopener noreferrer" href="https://rclone.org/http/">HTTP Config</a> 和 <a target="_blank" rel="noopener noreferrer" href="https://rclone.org/ftp/">FTP Config</a>。
 
 </aside>
 
-## 拉取和推送 Git 仓库
+## Git 仓库
 
 可以在 Notebook 的终端中使用 `git` 命令，从 GitHub 等代码托管平台克隆或拉取项目，并在提交修改后推送回去：
 
@@ -90,7 +93,7 @@ git fetch
 git push
 ```
 
-## 从 Hugging Face Hub 下载文件
+## Hugging Face Hub
 
 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/models">Hugging Face Hub</a> 是一个拥有超过 35 万个模型和 7.5 万个数据集的平台，所有这些模型和数据集都是开源并且公开可用的。从 Hugging Face Hub 下载一个模型或数据集有多种方法，下面以模型 `mistralai/Mistral-7B-v0.1` 为例进行演示，首先来到该模型的 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/mistralai/Mistral-7B-v0.1/tree/main">Files and versions 标签页</a>：
 
@@ -164,15 +167,25 @@ wget https://huggingface.co/mistralai/Mistral-7B-v0.1/resolve/main/model-00001-o
 wget https://huggingface.co/mistralai/Mistral-7B-v0.1/resolve/main/model-00002-of-00002.safetensors?download=true
 ```
 
-## 导入和导出大规模数据
+## 大规模数据
 
 在处理大规模数据（如 100TB 级别）的导入和导出时，根据数据源的不同，我们采用不同的策略以确保数据传输的效率和安全性。以下是针对不同数据源的一些方法：
 
-数据源为硬盘驱动器时：
-
-* 请求管理员操作，将硬盘驱动器连接到集群中的计算机上，直接进行物理数据传输。这种方法的数据传输速度最快，但需要操作集群设备。
-* 将硬盘驱动器连接到集群外的与集群网络连接速度较快的计算机上，然后参照[与本地文件系统传输文件](#与本地文件系统传输文件)继续操作。
-
 数据源为云存储时：
 
-* 参照[与云存储传输文件](#与云存储传输文件)操作。
+* 参照[云存储服务](#云存储服务)操作。
+
+数据源为硬盘驱动器时：
+
+1. 将硬盘驱动器连接到集群外的与集群网络连接速度较快的计算机上，然后参照[本地文件系统](#本地文件系统)继续操作。
+2. 请求管理员操作，将硬盘驱动器连接到存储集群的节点上，直接使用存储系统的工具进行数据传输。这种方法的数据传输速度一般较快，但需要能够访问存储集群的工具和接口。
+
+## 参考
+
+<https://rclone.org/>
+
+<https://huggingface.co/models>
+
+<https://github.com/peak/s5cmd>
+
+<https://github.com/s3tools/s3cmd>
