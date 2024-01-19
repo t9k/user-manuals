@@ -48,6 +48,7 @@
     * [项目](modules/security/project.md)
 
 * [计算资源](modules/scheduling/index.md)
+    * [使用 GPU](modules/scheduling/use-gpu.md)
     * [资源配额](modules/scheduling/quota.md)
     * [队列](modules/scheduling/queue.md)
     * [PodGroup](modules/scheduling/podgroup.md)
@@ -86,6 +87,7 @@
         * [使用 TensorFlowTrainingJob 进行参数服务器训练](tasks/tensorflow-training-ps.md)
         * [使用 Horovod 进行 PyTorch 模型的数据并行训练](tasks/horovod-pytorch-parallel.md)
         * [使用 Horovod 进行 Keras 模型的数据并行训练](tasks/horovod-keras-parallel.md)
+        * [使用 Profiler 分析模型训练性能](tasks/profile-model-training.md)
 
     * [进行超参数优化](tasks/hyperparameter-tuning.md)
         * [使用 AutoTune 进行超参数优化](tasks/autotune.md)
@@ -118,7 +120,6 @@
     * [调度工作负载](tasks/schedule-workload.md)
         * [使用 Queue](tasks/use-queue.md)
         * [使用 PodGroup](tasks/use-podgroup.md)
-        * [使用 Profiler 分析模型训练性能](tasks/profile-model-training.md)
 
     * [使用集群存储](tasks/use-platform-storage.md)
         * [上传和下载文件](tasks/pvc-importing-and-exporting-files.md)
