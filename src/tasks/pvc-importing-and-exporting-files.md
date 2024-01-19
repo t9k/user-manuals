@@ -43,7 +43,7 @@ PVC 可以扩容，即增加存储卷大小。因此用户在创建 PVC 时可�
 也可通过其它云存储服务进行中转，即 `本地 -> 云存储 -> 集群 PVC`：
 
 1. 本地与云存储之间的文件传输方法请参阅相应云存储的文档；
-2. 云存储与 PVC 之间的文件传输方法请参阅[与云存储传输文件](#与云存储传输文件)。
+2. 云存储与 PVC 之间的文件传输方法请参阅[云存储服务](#云存储服务)。
 
 ## 云存储服务
 
@@ -101,7 +101,7 @@ git push
   <img alt="files-and-versions" src="../assets/tasks/pvc-importing-and-exporting-files/files-and-versions.png" class="screenshot"/>
 </figure>
 
-**方法一**
+### 使用脚本
 
 点击 **Use in Transformers**，按照提示进行操作，即在 Python 程序中调用 `transformers` 库加载模型。首次加载时，模型文件会被下载到缓存目录下，即 PVC 的 `.cache/huggingface/hub/models--mistralai--Mistral-7B-v0.1/` 路径下。
 
@@ -134,7 +134,7 @@ model = AutoModelForCausalLM.from_pretrained("mistralai/Mistral-7B-v0.1")
 
 </aside>
 
-**方法二**
+### 使用 git
 
 点击 **Clone repository**，按照提示进行操作，即使用 `git` 命令将模型的 Git 仓库直接克隆到 PVC 中：
 
@@ -158,7 +158,7 @@ git clone https://huggingface.co/mistralai/Mistral-7B-v0.1
 
 </aside>
 
-**方法三**
+### 单个文件
 
 如果只需要下载个别文件，例如只下载模型的 safetensors 文件，那么可以复制相应文件的下载链接，然后在终端中使用 `wget` 命令下载：
 
@@ -175,10 +175,10 @@ wget https://huggingface.co/mistralai/Mistral-7B-v0.1/resolve/main/model-00002-o
 
 * 参照[云存储服务](#云存储服务)操作。
 
-数据源为硬盘驱动器时：
+数据源为 HDD/SDD 外置驱动器或类似设备时：
 
-1. 将硬盘驱动器连接到集群外的与集群网络连接速度较快的计算机上，然后参照[本地文件系统](#本地文件系统)继续操作。
-2. 请求管理员操作，将硬盘驱动器连接到存储集群的节点上，直接使用存储系统的工具进行数据传输。这种方法的数据传输速度一般较快，但需要能够访问存储集群的工具和接口。
+1. 将驱动器连接到集群外的与集群网络连接速度较快的计算机上，然后参照[本地文件系统](#本地文件系统)继续操作。
+2. 或者，请求管理员操作，将驱动器连接到存储集群的节点上，直接使用存储系统的工具进行数据传输。这种方法的数据传输速度一般较快，但需要能够访问存储集群的工具和接口。
 
 ## 参考
 
