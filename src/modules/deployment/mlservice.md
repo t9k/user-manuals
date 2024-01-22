@@ -107,7 +107,22 @@ spec:
           limits:
             cpu: "200m"
             memory: 200Mi
+        ports:
+        - containerPort: 8080
+          protocol: TCP
 ```
+
+MLServiceRuntime 中的 Pod 模版有以下规范必须遵守：
+
+1. 必须要有一个名为 `user-container` 的容器，后续所介绍的[模型存储](#模型存储)、[日志收集](#日志收集)等功能都只对 `user-container` 生效。
+2. `user-container` 的容器中最多只能定义一个 `containerPort`，且其余的容器定义中不能有 `containerPort`。
+
+<aside class="note info">
+<div class="title">信息</div>
+
+`user-container` 容器中定义的唯一 `containerPort` 就是推理服务对应的端口，如果没有定义，默认访问 `8080` 端口。
+
+</aside>
 
 ### 使用 MLServiceRuntime
 
@@ -201,6 +216,13 @@ spec:
 ```
 
 将上面 MLService 中 predictor `version1` 的 `template.spec` 和之前的 [Runtime 基本示例](#runtime-基本示例)相比，可以发现他们都定义了一个名为 `user-container` 的 container，但是 `image` 不同。于是最终生成的 Pod 中，MLService 中定义的 `image` 会覆盖 MLServiceRuntime 中的 `image`，但是 MLServiceRuntime 中 `args` 等其余设置都会被保留。
+
+<aside class="note warning">
+<div class="title">提醒</div>
+
+使用 StrategicMergePatch 在 MLService 中定义容器时，不可以设置 `ports` 字段。否则会导致合并后的 Pod 中定义了多个 `port`。
+
+</aside>
 
 这里的覆盖合并原则采用的是 StrategicMergePatch。
 用户可以通过阅览以下参考资料，进一步了解  StrategicMergePatch：
