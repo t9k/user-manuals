@@ -9,8 +9,6 @@
 Package v1beta1 contains API Schema definitions for the  v1beta1 API group
 
 ### Resource Types
-- [ClusterMLServiceRuntime](#clustermlserviceruntime)
-- [ClusterMLServiceRuntimeList](#clustermlserviceruntimelist)
 - [MLService](#mlservice)
 - [MLServiceList](#mlservicelist)
 - [MLServiceRuntime](#mlserviceruntime)
@@ -30,42 +28,6 @@ _Appears in:_
 | Field | Description |
 | --- | --- |
 | `url` _string_ | URL used for predictor. |
-
-
-#### ClusterMLServiceRuntime
-
-
-
-ClusterMLServiceRuntime is the Schema for the clustermlserviceruntimes API
-
-_Appears in:_
-- [ClusterMLServiceRuntimeList](#clustermlserviceruntimelist)
-
-| Field | Description |
-| --- | --- |
-| `apiVersion` _string_ | `tensorstack.dev/v1beta1`
-| `kind` _string_ | `ClusterMLServiceRuntime`
-| `metadata` _[ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
-| `spec` _[MLServiceRuntimeSpec](#mlserviceruntimespec)_ |  |
-| `status` _[ClusterMLServiceRuntimeStatus](#clustermlserviceruntimestatus)_ |  |
-
-
-#### ClusterMLServiceRuntimeList
-
-
-
-ClusterMLServiceRuntimeList contains a list of ClusterMLServiceRuntime
-
-
-
-| Field | Description |
-| --- | --- |
-| `apiVersion` _string_ | `tensorstack.dev/v1beta1`
-| `kind` _string_ | `ClusterMLServiceRuntimeList`
-| `metadata` _[ListMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#listmeta-v1-meta)_ | Refer to Kubernetes API documentation for fields of `metadata`. |
-| `items` _[ClusterMLServiceRuntime](#clustermlserviceruntime) array_ |  |
-
-
 
 
 #### DeploymentSpec
@@ -232,13 +194,11 @@ MLServiceRuntimeList contains a list of MLServiceRuntime
 
 
 _Appears in:_
-- [ClusterMLServiceRuntime](#clustermlserviceruntime)
 - [MLServiceRuntime](#mlserviceruntime)
 
 | Field | Description |
 | --- | --- |
 | `enabled` _boolean_ | Set true if enabled |
-| `supportedModelFormats` _[SupportedModelFormat](#supportedmodelformat) array_ | Supported model format array |
 | `template` _[RuntimeTemplateSpec](#runtimetemplatespec)_ | Template defines the knative revision that will be created from this pod template. |
 
 
@@ -283,21 +243,6 @@ _Appears in:_
 | `address` _[AddressStatus](#addressstatus)_ | Address |
 
 
-#### ModelFormat
-
-
-
-
-
-_Appears in:_
-- [ModelSpec](#modelspec)
-
-| Field | Description |
-| --- | --- |
-| `name` _string_ | Name of the model format. |
-| `version` _string_ | Version of the model format. Used in validating that a predictor is supported by a runtime. Can be "major", "major.minor" or "major.minor.patch". |
-
-
 #### ModelSpec
 
 
@@ -309,9 +254,8 @@ _Appears in:_
 
 | Field | Description |
 | --- | --- |
-| `modelFormat` _[ModelFormat](#modelformat)_ | ModelFormat being served. |
 | `parameters` _object (keys:string, values:string)_ | Model parameters |
-| `runtime` _string_ | Specific ClusterServingRuntime/ServingRuntime name to use for deployment. |
+| `runtime` _string_ | Specific ServingRuntime name to use for deployment. |
 | `modelUri` _string_ | Model storage URI. |
 
 
@@ -395,21 +339,6 @@ _Appears in:_
 | `resources` _[ResourceRequirements](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#resourcerequirements-v1-core)_ | UserContainer's resources |
 
 
-#### ReleaseRuntimeStatus
-
-
-
-
-
-_Appears in:_
-- [ReleaseStatus](#releasestatus)
-
-| Field | Description |
-| --- | --- |
-| `kind` _string_ | kind of runtime currently in use |
-| `name` _string_ | Name of runtime currently in use |
-
-
 #### ReleaseSpec
 
 
@@ -442,7 +371,6 @@ _Appears in:_
 | `url` _string_ | Service url |
 | `reason` _string_ | Reason for not ready, empty if ready |
 | `message` _string_ | Message for not ready, empty if ready |
-| `runtime` _[ReleaseRuntimeStatus](#releaseruntimestatus)_ | Status of runtime currently in use |
 | `readyReplicas` _integer_ | Ready replicas numbers |
 | `totalReplicas` _integer_ | Total replicas numbers |
 
@@ -514,22 +442,6 @@ _Appears in:_
 | Field | Description |
 | --- | --- |
 | `s3Storage` _[S3Storage](#s3storage)_ | S3 storage |
-
-
-#### SupportedModelFormat
-
-
-
-
-
-_Appears in:_
-- [MLServiceRuntimeSpec](#mlserviceruntimespec)
-
-| Field | Description |
-| --- | --- |
-| `name` _string_ | Name of the model format. |
-| `version` _string_ | Version of the model format. Used in validating that a predictor is supported by a runtime. Can be "major", "major.minor" or "major.minor.patch". |
-| `priority` _integer_ | Priority of this serving runtime for auto selection. This is used to select the serving runtime if more than one serving runtime supports the same model format. The value should be greater than zero.  The higher the value, the higher the priority. Priority is not considered if AutoSelect is either false or not specified. Priority can be overridden by specifying the runtime in the InferenceService. |
 
 
 #### T9kScheduler
