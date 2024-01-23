@@ -148,7 +148,7 @@ Kubernetes 有时候被称为 “平台的平台，母平台” ，被用来构�
 
 ## TensorStack AI 计算平台
 
-TensorStack AI 计算平台构建于以 Kubernetes 为核心的云原生技术支行，采用开放的、标准的、被普遍采用的、无厂商锁定风险的技术和协议，并能够：
+TensorStack AI 计算平台构建于以 Kubernetes 为核心的<a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Cloud-native_computing">云原生技术</a>，采用开放的、标准的、被普遍采用的、无厂商锁定风险的技术和协议，并能够：
 
 1. 长期稳定迭代、不断进步；
 2. 提供高度可靠性；
@@ -210,3 +210,12 @@ Omega: flexible, scalable schedulers for large compute clusters, 2013
          
 Kubernetes as a Platform for building Platforms with Mario-Leander Reimer, 2022  
 <https://www.youtube.com/watch?v=wDMbBSVNzWY>
+
+Cloud-native computing  
+<https://en.wikipedia.org/wiki/Cloud-native_computing>
+
+Cloud Native Computing Foundation  
+<https://www.cncf.io/>
+
+Infrastructure As Code  
+<https://en.wikipedia.org/wiki/Infrastructure_as_code>
