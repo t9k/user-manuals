@@ -88,11 +88,16 @@ AI 计算场景的典型需求：
 
 ## Kubernetes
 
+Kubernetes 是一个灵活、可扩展的容器集群管理平台，它通过 Master 节点的集中控制和调度，工作节点（Worker Nodes) 负责运行应用工作负载。工作节点可方便地动态伸缩规模。
+
+<aside class="note info">
+<div class="title">Kubernetes</div>
+
 Kubernetes 这个单词源自希腊语，意思是指舵手（helmsman）或导航员（pilot）。       
 
 Kubernetes 的历史可以追溯到 Google 的 Borg 系统 （据说名字取自 Star Trek）。Borg 是 Google 内部使用的第一个容器编排系统，于 2003 年开始开发。Borg 是一个集中式的系统，使用一个单一的控制器来管理集群中的所有资源。
 
-Kubernetes 是一个灵活、可扩展的容器集群管理平台，它通过 Master 节点的集中控制和调度，工作节点（Worker Nodes) 负责运行应用工作负载。工作节点可方便地动态伸缩规模。
+</aside>
 
 <figure>
   <img alt="k8s-arch" src="./assets/overview/k8s-arch.png" class="architecture"/>
@@ -123,7 +128,8 @@ Kubernetes 还包括其它辅助模块（Add-ons），例如:
 - 日志模块：提供日志收集、存储功能。
 - 安全模块：提供认证、授权、准入控制等安全功能。        
 
-**平台的平台**
+<aside class="note info">
+<div class="title">平台的平台</div>
 
 Kubernetes 是一个为云原生应用提供核心抽象和服务层的平台，提供了合理、良好的机制支持和下层硬件及其它基础设施服务（如容器运行时、存储、网络等）进行交互。         
 
@@ -136,6 +142,9 @@ Kubernetes 有时候被称为 “平台的平台，母平台” ，被用来构�
 1. Kubernetes 生态系统丰富，有大量的工具和服务，可以扩展其功能，构建自定义平台。         
 
 总之，Kubernetes 提供了一个云原生应用的标准化基础架构和管理平台，使得构建上层平台更加简单高效。
+
+</aside>
+
 
 ## TensorStack AI 计算平台
 
