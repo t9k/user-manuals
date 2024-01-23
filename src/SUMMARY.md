@@ -190,3 +190,6 @@
 
 * [第三方应用集成](integrations/index.md)
     * [Label Studio](integrations/label-studio.md)
+---
+
+[背景](./background.md)
