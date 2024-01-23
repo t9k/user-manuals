@@ -23,9 +23,24 @@ AI 集群的拥有者可以使用这套软件，构建自己的 “AI 私有云�
   <figcaption>图 1：TensorStack AI 计算平台采用云原生架构，由 AI 引擎层（AI Engine, AIE）和 AI 基础层（AI Base, AIB）组成，为上层 AI 应用和底层 AI 算力建立有机连接，提供先进、可扩展的 AI 系统层面的能力。</figcaption>
 </figure>
 
-## 使用模式
+## 基本流程
 
-用户通过创建各种 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/">CRD</a> 的实例（instance），来使用产品的功能。例如：
+用户使用 “TensorStack AI 计算平台” 的基本交互流程：
+
+1. 管理员 - 创建 - [项目（Project）](./modules/security/project.md)并设定项目管理员。用户以项目管理员或者普通成员的方式使用项目，用户可以同时使用多个项目。
+1. 管理员 - 创建 - [用户帐户](./modules/security/account.md)。
+1. 用户 - 使用其帐户 - 登录系统。
+2. 用户 - 在项目中 - 完成工作（创建各种计算任务）。
+
+<figure class="architecture">
+  <img alt="t9k-flow" src="./assets/overview/t9k-flow.drawio.svg" class="architecture"/>
+  <figcaption>图 2：用户登陆系统后在 “项目” 中创建计算任务以完成各种工作。</figcaption>
+</figure>
+
+
+## 使用功能
+
+用户通过创建各种类型 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/">CRD</a> 的实例（instance）使用产品的功能。例如：
 
 - 创建一个 `Notebook` CRD 的实例，以使用 Jupyter Notebook；
 - 为了使用 DeepSpeed 进行大规模并行的 LLM 预训练，创建一个 `DeepSpeedJob` CRD 的实例；
@@ -33,8 +48,18 @@ AI 集群的拥有者可以使用这套软件，构建自己的 “AI 私有云�
 
 <figure class="architecture">
   <img alt="use-t9k" src="./assets/overview/use-t9k.drawio.svg" class="architecture"/>
-  <figcaption>图 2：用户可以通过命令行接口（CLI） 或者可视化的 Web 页面（UI） 创建这些 CRD 的实例。</figcaption>
+  <figcaption>图 3：用户可以通过命令行接口（CLI） 或者可视化的 Web 页面（UI） 创建这些 CRD 的实例。</figcaption>
 </figure>
+
+<aside class="note info">
+<div class="title">TensorStack 通过 CRD 提供系统功能</div>
+
+平台目前提供了 ～30 个 CRD，以支持各种 AI 计算场景。用户可通过下列命令查看集群中部署的 TensorStack CRD：
+
+```bash
+kubectl api-resources |grep tensorstack
+```
+</aside>
 
 ### CLI
 
@@ -55,13 +80,13 @@ kubectle create -f notebook-tutorial.yaml
 
 ### UI
 
-对于很多 CRD，TensorStack 的 Web 控制台（console）提供了通过表单（form）创建 CRD 实例的方式。
+对于很多 CRD，TensorStack 的 Web 控制台（console）提供了通过表单（form）创建其实例的方式。
 
-例如，可使用如下表单创建 Notebook：
+例如，可使用如下表单创建 Notebook 实例：
 
 <figure class="screenshot">
   <img alt="create-notebook-detail" src="./assets/get-started/training-first-model/create-notebook-detail.png" class="screenshot"/>
-  <figcaption>图 3：使用 UI 创建 Notebook。 </figcaption>
+  <figcaption>图 4：使用 UI 创建 Notebook。 </figcaption>
 </figure>
 
 
