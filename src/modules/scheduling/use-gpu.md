@@ -7,17 +7,55 @@
 
 ### 独占使用
 
-独占模式：在特定时间段，GPU 卡分配给单一工作负载单独使用。
+独占模式是指在特定时间段，GPU 卡分配给单一工作负载单独使用。
 
 适用场景：GPU 被满负荷使用，并且计算需要尽快完成。例如 AI 模型的训练。
 
 ### 共享使用
 
-背景：对于有些计算，例如交互式的 Notebook，小规模或者低使用量的模型推理服务，经常只需要使用 GPU 的部分计算能力。在这些情况下，让多个计算任务共享使用 GPU，将能极大地提高 GPU 的利用率，进而获得有益的投资回报率。
+共享模式是指单个物理 GPU 可以同时被多个工作负载使用。
 
-共享模式：单个物理 GPU 可以同时被多个工作负载使用。
+适用场景：对于有些计算，例如交互式的 Notebook，小规模或者低使用量的模型推理服务，经常只需要使用 GPU 的部分计算能力。在这些情况下，让多个计算任务共享使用 GPU，将能极大地提高 GPU 的利用率，进而获得有益的投资回报率。
+
+### 共享 NVIDIA  GPU
 
 以 NVIDIA GPU 为例，下面是 NVIDIA 提供的多种 GPU 共享和并发使用的机制，以支持不同的场景。
+
+<aside class="note tip">
+<div class="title">GPU 并发机制</div>
+
+<figure>
+  <img alt="simplemlservice-detail" src="../../assets/modules/scheduling/nv-gpu-sharing.png" class="architecture"/>
+</figure>
+
+NVIDIA GPU 的并发（concurrency）使用机制。包括：1）应用程序级别（需要修改应用代码才能使用）的 CUDA streams API；2）对应用程序透明的系统软件和硬件分区（partitioning）技术，例如 MPS、Time-slicing、MIG、虚拟化。Source: NVIDIA。
+
+</aside>
+
+#### MPS
+
+CUDA <a target="_blank" rel="noopener noreferrer" href="https://docs.nvidia.com/deploy/mps/index.html">MPS</a>（多进程服务 / Multi-Process Service）是 CUDA API 的客户端-服务器架构的实现，用于提供同一 GPU 同时给多个进程使用。MPS 是一个 “AI 史前”（深度学习尚未在 GPU 上运行）的方案，是 NVIDIA 为了解决在科学计算领域单个 MPI 进程无法有效利用 GPU 的计算能力而推出的技术。
+
+与时间切片（Time Slicing）相比，MPS 通过在多个客户端之间共享一个 CUDA Context 消除了多个 CUDA 应用之间上下文切换的开销，从而带来更好的计算性能。 此外，MPS 为每个 CUDA 程序提供了单独的内存地址空间，因而可以实现对单个 CUDA 程序实施内存大小使用限制，克服了 Time Slicing 机制在这方面的不足。
+
+优点：
+
+- 可以控制单个应用的内存大小使用限制；
+- 由于消除了多个 CUDA 应用之间 context swtich 的代价，具有更好的性能；
+- 是一个 CUDA 层面的方案，不依赖于 GPU 的特定架构，支持较早的 GPU 硬件。
+
+缺点：
+
+- CUDA 应用之间隔离不足：单个应用的错误可以导致整个 GPU 重置（reset）；
+- NVIDIA 还未（截止2024/01）正式在 K8s 环境下提供支持。
+
+<aside class="note tip">
+<div class="title">提示</div>
+
+一些第三方，例如  <a target="_blank" rel="noopener noreferrer" href="https://github.com/nebuly-ai/nos">neuly-ai/nos</a> 提供了在 K8s 环境下使用 MPS 的方案.
+
+</aside>
+
 
 #### Time Slicing
 
@@ -48,27 +86,20 @@
 - 重新配置分区布局需在 GPU 空闲（驱逐所有正在运行的进程）时；
 - 一些分区配置会导致部分 SM / DRAM 无法被利用。
 
-#### MPS
+#### vGPU
 
-CUDA <a target="_blank" rel="noopener noreferrer" href="https://docs.nvidia.com/deploy/mps/index.html">MPS</a>（多进程服务 / Multi-Process Service）是 CUDA API 的客户端-服务器架构的实现，用于提供同一 GPU 同时给多个进程使用。MPS 是一个 “AI 史前”（深度学习尚未在 GPU 上运行）的方案，是 NVIDIA 为了解决在科学计算领域单个 MPI 进程无法有效利用 GPU 的计算能力而推出的技术。
+NVIDIA vGPU 是 NVIDIA 在数据中心提供的 GPU 虚拟化技术，它对具有完整输入输出内存管理单元 (IOMMU) 保护的 VM 提供支持，使得这些 VM 能够同时、直接地访问单个物理 GPU。
 
-与时间切片（Time Slicing）相比，MPS 通过在多个客户端之间共享一个 CUDA Context 消除了多个 CUDA 应用之间上下文切换的开销，从而带来更好的计算性能。 此外，MPS 为每个 CUDA 程序提供了单独的内存地址空间，因而可以实现对单个 CUDA 程序实施内存大小使用限制，克服了 Time Slicing 机制在这方面的不足。
+除了安全性之外，NVIDIA vGPU 还有其它优势，例如：
+- 支持实时虚拟机迁移（live VM migration）；
+- 可设置不同的调度策略，包括 best-effort、equal-share 和 fixed-sharez：
+    - 当使用 fixed-share 调度器时可提供可预知的性能；
+- 运行混合的 VDI (Virtual Desktop Infrastructure) 和计算工作负载的能力；
+- 与业界广泛使用的虚拟机管理程序（hypervisor，如 vmware）的集成能力。
 
-优点：
-可以控制单个应用的内存大小使用限制；
-由于消除了多个 CUDA 应用之间 context swtich 的代价，具有更好的性能；
-是一个 CUDA 层面的方案，不依赖于 GPU 的特定架构，支持较早的 GPU 硬件。
-缺点：
-CUDA 应用之间隔离不足：单个应用的错误可以导致整个 GPU 重置（reset）；
-NVIDIA 还未（2023/8）正式在 K8s 环境下提供支持。
-
-
-<aside class="note tip">
-<div class="title">提示</div>
-
-一些第三方，例如  <a target="_blank" rel="noopener noreferrer" href="https://github.com/nebuly-ai/nos">neuly-ai/nos</a> 提供了在 K8s 环境下使用 MPS 的方案.
-
-</aside>
+缺点:
+- 部署 vGPU 需要额外的软件授权费用；
+- 分区仍然通过时间片（time-slicing）完成。
 
 ## 扩展资源名称
 
