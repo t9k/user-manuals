@@ -33,12 +33,6 @@
         * [MPIJob](modules/jobs/mpijob.md)
         * [BeamJob](modules/jobs/beamjob.md)
 
-    * [工作流](modules/workflows/index.md)
-        * [WorkflowTemplate](modules/workflows/workflowtemplate.md)
-        * [WorkflowRun](modules/workflows/workflowrun.md)
-        * [CronWorkflowRun](modules/workflows/cronworkflowrun.md)
-        * [WorkflowTrigger](modules/workflows/workflowtrigger.md)
-
     * [资产管理](modules/asset-management.md)
 
     * [实验管理](modules/experiment-management.md)
@@ -66,7 +60,13 @@
     * [Pod](modules/auxiliary/pod.md)
     * [ImageBuilder](modules/auxiliary/imagebuilder.md)
 
-* [任务](tasks/index.md)
+* [工作流](modules/workflows/index.md)
+    * [WorkflowTemplate](modules/workflows/workflowtemplate.md)
+    * [WorkflowRun](modules/workflows/workflowrun.md)
+    * [CronWorkflowRun](modules/workflows/cronworkflowrun.md)
+    * [WorkflowTrigger](modules/workflows/workflowtrigger.md)
+
+* [操作示例](tasks/index.md)
     * [使用模型构建控制台](tasks/model-building.md)
         * [创建 Notebook](tasks/create-notebook.md)
         * [使用 Notebook](tasks/use-notebook.md)
@@ -188,7 +188,7 @@
     * [部署 Stable Diffusion 图像生成模型](examples/deploy-sd-drawing-model.md)
     * [使用 AutoGen 构建下一代 LLM 应用](examples/build-next-generation-llm-app-using-autogen.md)
 
-* [第三方应用集成](integrations/index.md)
+* [应用集成](integrations/index.md)
     * [Label Studio](integrations/label-studio.md)
 ---
 

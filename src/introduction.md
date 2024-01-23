@@ -31,7 +31,7 @@
 - [存储](./modules/storage/index.md) 章节对平台的存储方面的支持进行了说明。
 - [辅助](./modules/auxiliary/index.md) 章节描述平台提供的一些重要辅助功能，例如如何处理敏感秘密信息，打包容器镜像等。
 - [命令行工具和 SDK](./tools/index.md) 讨论 TensorStack 平台的提供的命令行工具和 Python SDK 。
-- [任务](./tasks/index.md) 章节提供了一些具体的操作指南。
+- [操作示例](./tasks/index.md) 章节提供了一些具体的操作指南。
 - [参考](./references/index.md) 章节对 API 提供了完整的描述。
 - [示例](./examples/index.md) 章节提供了一些具体的应用示例，特别是对 LLM 领域的场景提供了全面的支持演示。
 - [集成](./integrations/index.md) 章节讨论了一些优秀的第三方工具在 TensorStack 平台上的集成及使用。
