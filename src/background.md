@@ -2,7 +2,13 @@
 
 人工智能（AI）技术的发展已经取得了显著的成果，并对各行业的发展产生了深远的影响。其中最为突出的成就是以深度学习为基础在计算机视觉、LLM 等领域的突破性成果。
 
+
+<aside class="note info">
+<div class="title">通用人工智能（AGI）</div>
+
 预计在不远的将来我们将能够实现通用人工智能（AGI）。AGI 代表着机器不仅能在特定任务上表现出人类水平的智能，而且能够具备广泛的理解力和学习能力，适应各种不同的环境和挑战。这样的技术进步将彻底改变科学研究、工业生产、教育、医疗保健等领域的面貌。
+
+</aside>
 
 AI 计算平台对于 AI 技术的开发和应用具有重要意义。它提供了一个集成化、高效的环境，让开发者和企业能够轻松地构建、训练和部署机器学习模型。这种便捷性极大地降低了 AI 技术的门槛，使得更多的组织和个人能够利用先进的 AI 能力。
 
@@ -22,16 +28,11 @@ AI 是一种崭新的计算范式，它具有数据驱动、基于实验的特�
 总的来说，AI 的数据驱动计算范式更加强调数据本身和从数据中学习的能力，而不是像传统软件那样依赖于硬编码的指令和规则。
 这种方法使得 AI 在处理复杂、动态和模糊的问题时更加有效，但也带来了对数据质量和巨大计算处理能力的依赖。
 
-<aside class="note tip">
-<div class="title">AI 计算中的要素</div>
-
 <figure>
   <img alt="computation-paradigm-for-ai" src="./assets/overview/ai-compute-paradigm.png" class="architecture"/>
+  <figcaption>图 1: AI 计算的要素。模型架构程序 + 数据集经过训练（模型参数优化）后产生 AI 模型。</figcaption>
 </figure>
 
-AI 计算的要素：模型架构程序 + 数据集经过训练（模型参数优化）后产生 AI 模型。
-
-</aside>
 
 
 ## 系统需求
@@ -48,17 +49,10 @@ AI 计算过程中读取或者产生的数据可以分为两类：主干数据�
 - 主干数据：训练数据集、模型等大体量数据。
 - 元数据：计算过程中的各种配置、超参数、指标等。
 
-
-<aside class="note tip">
-<div class="title">AI 计算在数据方面的核心需求</div>
-
 <figure>
   <img alt="ai-data" src="./assets/overview/ai-data.png" class="architecture"/>
+  <figcaption>图 2：AI 计算在数据方面的核心需求。1）针对大规模的数据（训练数据集、模型等）提供高性能、大容量和完善的生命周期管理支持；2）对 AI 实验过程中的各种配置、超参数、指标等进行方便地记录、存取、查询等，并提供丰富的可视化支持。</figcaption>
 </figure>
-
-1）针对大规模的数据（训练数据集、模型等）提供高性能、大容量和完善的生命周期管理支持；2）对 AI 实验过程中的各种配置、超参数、指标等进行方便地记录、存取、查询等，并提供丰富的可视化支持。
-
-</aside>
 
 用户希望通过一致、多维度高度可扩展的机制来支持对数据的各种操作。例如，训练数据无论是100KiB 还是 100TiB，都能够使用同一套工具、SDK，API：
 
@@ -77,16 +71,10 @@ AI 计算过程中读取或者产生的数据可以分为两类：主干数据�
 
 用户希望能够通过便捷的方式使用大规模分布式并行、异构、加速计算等技术以快速、高效地运行大规模的数据处理、训练和推理计算等。
 
-<aside class="note tip">
-<div class="title">方便的进行计算</div>
-
 <figure>
   <img alt="scalable-ai-compute" src="./assets/overview/scalable-ai-compute.png" class="architecture"/>
+  <figcaption>图 3: 方便的进行计算。系统支持以同样的方式定义、运行、调试 AI 领域的各种计算任务。例如，使用 1 张 GPU 的训练任务和使用 1000 张 GPU  的训练任务可以使用一致的方式来完成。</figcaption>
 </figure>
-
-系统支持以同样的方式定义、运行、调试 AI 领域的各种计算任务。例如，使用 1 张 GPU 的训练任务和使用 1000 张 GPU  的训练任务可以使用一致的方式来完成。
-
-</aside>
 
 AI 计算场景的典型需求：
 
@@ -108,7 +96,7 @@ Kubernetes 是一个灵活、可扩展的容器集群管理平台，它通过 Ma
 
 <figure>
   <img alt="k8s-arch" src="./assets/overview/k8s-arch.png" class="architecture"/>
-  <figcaption>Kuberntes 架构图。Source: https://en.wikipedia.org/wiki/Kubernetes </figcaption>
+  <figcaption>图 4：Kubernetes 架构图。Source: https://en.wikipedia.org/wiki/Kubernetes </figcaption>
 </figure>
 
 如上图所示，Kubernetes 的整体架构主要包含以下组件:
@@ -158,16 +146,11 @@ TensorStack AI 计算平台构建于以 Kubernetes 为核心的云原生技术�
 3. 提供高度安全性；
 4. 支持在多个维度（计算规模、数据规模、硬件架构等）方便进行扩展。
 
-<aside class="note tip">
-<div class="title"> AI 计算平台</div>
-
 <figure>
   <img alt="ai-infra" src="./assets/overview/ai-infra.png" class="architecture"/>
+  <figcaption>图 5：TensorStack AI 计算平台。 平台采用开放的、标准的、被普遍采用的、无厂商锁定风险的技术和协议；并在稳定性、可靠性、扩展性、安全性多方面具备优异的能力。<figcaption>
 </figure>
 
-TensorStack AI 计算平台采用开放的、标准的、被普遍采用的、无厂商锁定风险的技术和协议；并在稳定性、可靠性、扩展性、安全性多方面具备优异的能力。
-
-</aside>
 
 TensorStack 对 AI 计算中的主要系统问题及解决方法：
 
