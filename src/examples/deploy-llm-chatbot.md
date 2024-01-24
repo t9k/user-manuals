@@ -2,11 +2,11 @@
 
 TensorStack 提供的 [SimpleMLService](../modules/deployment/simplemlservice.md) 和 [MLService](../modules/deployment/mlservice.md) 可以让用户方便地部署各种基于 LLM 的服务或应用。
 
-本教程演示如何使用 SimpleMLService 快速部署一个类似于 ChatGPT 的基于 LLM 的聊天机器人应用。
+本示例使用 SimpleMLService 快速部署一个类似于 ChatGPT 的基于 LLM 的聊天机器人应用。
 
 ## 模型
 
-在用户的项目中创建一个名为 `chat`、大小 50 GiB 以上的 PVC，然后创建一个同样名为 `chat` 的 Notebook 挂载该 PVC（镜像类型和模板不限）。
+在项目中创建一个名为 `chat`、大小 50 GiB 以上的 PVC，然后创建一个同样名为 `chat` 的 Notebook 挂载该 PVC（镜像类型和模板不限）。
 
 进入 Notebook 或远程连接到 Notebook，启动一个终端，执行以下命令以下载 ChatGLM3-6B 的模型文件：
 

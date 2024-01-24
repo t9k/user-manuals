@@ -83,7 +83,7 @@ kubectl create -f examples/llama-factory/training/rm.yaml
 kubectl create -f examples/llama-factory/training/ppo.yaml
 ```
 
-三步训练均在单节点 4 个 A100 GPU 进行，总共花费约 13 小时。
+三步训练均在单节点 4 个 A100 GPU 上进行，总共花费约 13 小时。
 
 ## 与 LLM 聊天
 
