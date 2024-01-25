@@ -192,6 +192,8 @@
 
 * [应用集成](integrations/index.md)
     * [Label Studio](integrations/label-studio.md)
+    * [向量数据库](integrations/vector-database.md)
+
 ---
 
 [附录1：背景](./background.md)

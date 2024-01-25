@@ -135,7 +135,7 @@ helm delete label-studio-demo
   <img alt="get-pod-name" src="../assets/integrations/label-studio/get-pod-name.png" class="screenshot"/>
 </figure>
 
-通过 t9k-pf 进行端口转发来访问 Label Studio 应用：
+然后通过 t9k-pf 进行端口转发来访问 Label Studio 应用：
 
 ```bash
 t9k-pf -n <APP_PROJECT> pod <POD_NAME> 8080:8085
