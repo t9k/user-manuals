@@ -1,7 +1,7 @@
 <aside class="note tip">
 <div class="title">提示</div>
 
-着急的读者请转到[快速开始](./get-started/index.md)。
+着急的读者请 --> [快速开始](./get-started/index.md)。
 
 </aside>
 
@@ -16,6 +16,14 @@
 - AI 应用开发工程师等
 
 系统管理员、运维人员需要参考另外的《TensorStack AI 计算平台 - 管理员手册》系列。
+
+<aside class="note tip">
+<div class="title">提示</div>
+
+本手册仍在不断完善中，如有任何问题，请谅解并随时 --> [反馈](#反馈)。
+
+</aside>
+
 
 ## 如何使用
 
@@ -37,7 +45,12 @@
 - [集成](./integrations/index.md) 章节讨论了一些优秀的第三方工具在 TensorStack 平台上的集成及使用。
 - [附录1：背景](./background.md) 介绍了产品的技术架构和设计思路等。
 
-“TensorStack AI 计算平台” 是一个复杂的产品，支持在大规模（10^3 节点）集群上进行各种 AI 场景的计算。用户在一定的时间的学习、使用、探索、积累之后，就能对其功能有深入的理解，并在上面完成各种优秀的工作。
+“TensorStack AI 计算平台” 是一个功能强大且灵活的产品，支持在大规模（10^3 节点）集群上进行各种 AI 场景的计算。用户在一定的时间的学习、使用、探索、积累之后，就能对其功能有深入的理解，并在上面完成各种优秀的工作。
+
+本手册使用的例子一般存放在下列 repos：
+
+- <https://github.com/t9k/examples>
+- <https://github.com/t9k/tutorial-examples>
 
 ## 反馈
 
@@ -47,4 +60,4 @@
 
 &copy; 2023-2024 TensorStack.
 
-本书/网站的内容版权由 TensorStack 所有，欢迎引用。
+本书/网站的内容版权由 TensorStack 所有，欢迎使用。
