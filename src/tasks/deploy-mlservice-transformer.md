@@ -175,7 +175,7 @@ spec:
 ```
 
 <figure class="screenshot">
-  <img alt="create-mlservcie-transformer" src="../../assets/tasks/deploy-model-reference-serving/transformer/create-mlservice.png" class="screenshot" />
+  <img alt="create-mlservcie-transformer" src="../assets/tasks/deploy-model-reference-serving/transformer/create-mlservice.png" class="screenshot" />
 </figure>
 
 
