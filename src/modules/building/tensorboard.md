@@ -26,7 +26,6 @@ metadata:
   namespace: t9k-example
 spec:
   image: docker.mirrors.ustc.edu.cn/tensorflow/serving:2.6.0-gpu
-  runMode: running
   trainingLogFilesets:
   - t9k://pvc/pytorchtrainingjob-tensorboard-pvc/log
 ```

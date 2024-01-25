@@ -77,17 +77,6 @@ ExplorerList contains a list of Explorer
 | `items` _[Explorer](#explorer) array_ |  |
 
 
-#### ExplorerRunMode
-
-_Underlying type:_ `string`
-
-
-
-_Appears in:_
-- [ExplorerSpec](#explorerspec)
-
-
-
 #### ExplorerSpec
 
 
@@ -101,7 +90,7 @@ _Appears in:_
 | --- | --- |
 | `storageType` _[StorageType](#storagetype)_ | Type of storage, only `pvc` is supported for now. |
 | `storageName` _string_ | Name of the StorageType instance. |
-| `runMode` _[ExplorerRunMode](#explorerrunmode)_ |  |
+| `suspend` _boolean_ | suspend specifies whether the Explorer controller should delete Pods or not. If true, the associated v1.Pod can be terminated. However, other API resources, such as ConfigMaps and Services, will be preserved for use upon resuming the Explorer. Defaults to false. |
 | `scheduler` _[SchedulePolicy](#schedulepolicy)_ |  |
 
 

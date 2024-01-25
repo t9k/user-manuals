@@ -14,6 +14,35 @@ Package v1beta1 contains API Schema definitions for the  v1beta1 API group
 
 
 
+#### HttpDataSource
+
+
+
+Details of HTTP data source.
+
+_Appears in:_
+- [TensorBoardDataSource](#tensorboarddatasource)
+
+| Field | Description |
+| --- | --- |
+| `url` _string array_ | Url pointing to the log files. |
+
+
+#### PVCDataSource
+
+
+
+Details of PVC data source.
+
+_Appears in:_
+- [TensorBoardDataSource](#tensorboarddatasource)
+
+| Field | Description |
+| --- | --- |
+| `name` _string_ | PVC name. |
+| `subPath` _string array_ | The relative paths of logs in the PVC. |
+
+
 #### PodReference
 
 
@@ -44,6 +73,21 @@ _Appears in:_
 | `phase` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#podphase-v1-core">PodPhase</a>_ | Replicated from the corresponding field in the subordinate `v1.Pod`. |
 
 
+#### S3DataSource
+
+
+
+Details of S3 data source.
+
+_Appears in:_
+- [TensorBoardDataSource](#tensorboarddatasource)
+
+| Field | Description |
+| --- | --- |
+| `secretRef` _[SecretRef](#secretref)_ | S3 data source uses a secret to transmit access/secret key and service enpoint. |
+| `uri` _string array_ | S3 object uri. |
+
+
 #### SchedulePolicy
 
 
@@ -56,6 +100,20 @@ _Appears in:_
 | Field | Description |
 | --- | --- |
 | `t9kScheduler` _[T9kScheduler](#t9kscheduler)_ |  |
+
+
+#### SecretRef
+
+
+
+
+
+_Appears in:_
+- [S3DataSource](#s3datasource)
+
+| Field | Description |
+| --- | --- |
+| `name` _string_ | Secret name. |
 
 
 #### T9kScheduler
@@ -119,6 +177,22 @@ _Appears in:_
 
 
 
+#### TensorBoardDataSource
+
+
+
+TensorBoardDataSource represents the location and type of the tensorboard data source. It includes three types of data sources: PVC, S3, and HTTP. In a tensorboard service, these three types of data sources can be used simultaneously.
+
+_Appears in:_
+- [TensorBoardSpec](#tensorboardspec)
+
+| Field | Description |
+| --- | --- |
+| `pvc` _[PVCDataSource](#pvcdatasource) array_ | PVC represents PVCs that are mounted to workload as directories to provide log data. |
+| `s3` _[S3DataSource](#s3datasource)_ | S3 represents a s3 service and access/secret key to access the service. |
+| `http` _[HttpDataSource](#httpdatasource)_ | HTTP provides several urls. |
+
+
 #### TensorBoardList
 
 
@@ -146,17 +220,6 @@ _Appears in:_
 
 
 
-#### TensorBoardRunMode
-
-_Underlying type:_ `string`
-
-
-
-_Appears in:_
-- [TensorBoardSpec](#tensorboardspec)
-
-
-
 #### TensorBoardSpec
 
 
@@ -168,9 +231,10 @@ _Appears in:_
 
 | Field | Description |
 | --- | --- |
-| `trainingLogFilesets` _string array_ | TrainingLogFilesets is the list of filesets containing training log. TODO: Document the syntax of this field. |
+| `trainingLogFilesets` _string array_ | TrainingLogFilesets is the list of filesets containing training log. The format of fileset:   t9k://pvc/[pvc-name]/[subpath]   t9k://minio/[secret-name]/[bucket]/[subpath] To be deprecated: Use spec.logDir instead. |
+| `logDir` _[TensorBoardDataSource](#tensorboarddatasource)_ | LogDir is a series of data source containing training log. |
 | `image` _string_ | The container image used to run the tensorboard. |
-| `runMode` _[TensorBoardRunMode](#tensorboardrunmode)_ |  |
+| `suspend` _boolean_ | suspend specifies whether the TensorBoard controller should delete Pods or not. If true, the associated v1.Pod can be terminated. However, other API resources, such as ConfigMaps and Services, will be preserved for use upon resuming the TensorBoard. Defaults to false. |
 | `scheduler` _[SchedulePolicy](#schedulepolicy)_ |  |
 | `resources` _<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#resourcerequirements-v1-core">ResourceRequirements</a>_ | Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/ |
 
