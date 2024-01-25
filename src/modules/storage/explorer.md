@@ -12,7 +12,6 @@ kind: Explorer
 metadata:
   name: example
 spec:
-  runMode: running
   storageName: test
   storageType: pvc
 ```

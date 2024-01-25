@@ -88,17 +88,6 @@ _Appears in:_
 
 
 
-#### NotebookRunMode
-
-_Underlying type:_ `string`
-
-
-
-_Appears in:_
-- [NotebookSpec](#notebookspec)
-
-
-
 #### NotebookSSHSpec
 
 
@@ -149,7 +138,7 @@ _Appears in:_
 | `scheduler` _[SchedulePolicy](#schedulepolicy)_ |  |
 | `ssh` _[NotebookSSHSpec](#notebooksshspec)_ |  |
 | `type` _[NotebookType](#notebooktype)_ |  |
-| `runMode` _[NotebookRunMode](#notebookrunmode)_ |  |
+| `suspend` _boolean_ | suspend specifies whether the Notebook controller should delete Pods or not. If true, the associated v1.Pod can be terminated. However, other API resources, such as ConfigMaps and Services, will be preserved for use upon resuming the notebook. Defaults to false. |
 
 
 #### NotebookStatus
