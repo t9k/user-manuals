@@ -30,10 +30,10 @@ url=$(kubectl get mlservice torch-mnist-pvc -o jsonpath='{.status.address.url}')
 ```
 
 发送推理请求：
+
 ``` shell
 curl -T test_data/0.png ${url}/v1/models/mnist:predict # or use `1.png`, `2.png`
 ```
-
 
 ## 监控推理服务
 
