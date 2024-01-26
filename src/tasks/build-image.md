@@ -43,3 +43,21 @@
 <figure class="screenshot">
   <img alt="pushed-to-registry" src="../assets/tasks/build-image/pushed-to-registry.png" class="screenshot"/>
 </figure>
+
+## 常见问题解答
+
+### `Unpacking rootfs` 失败
+
+使用 ImageBuilder 制作镜像时，有时会出现类似以下的错误：
+
+```
+INFO[0009] Unpacking rootfs as cmd RUN apt-get -qq update &&     apt-get -qq install --no-install-recommends -y curl requires it. 
+error building image: error building stage: failed to get filesystem from image: stream error: stream ID 17; PROTOCOL_ERROR; received from peer
+```
+
+该错误出现的直接原因是：镜像提取失败（此处镜像指，Dockerfile 中 FROM 语句所引用的镜像）。
+
+镜像提取失败可能有以下原因：
+
+* 镜像来源于国外仓库，国内无法访问或下载速度过慢
+  * 解决方法：先在有代理环境下，将镜像下载并上传到国内可访问的镜像仓库，比如 dockerhub 或私有仓库，然后修改 Dockerfile 从该仓库中获取镜像
