@@ -64,7 +64,7 @@ rclone 支持的云存储提供商请参阅 <a target="_blank" rel="noopener nor
 
 </aside>
 
-rclone 之外，还有其他方便的工具可供使用，例如 <a target="_blank" rel="noopener noreferrer" href="https://github.com/s3tools/s3cmd">s3cmd</a>, <a target="_blank" rel="noopener noreferrer" href="https://github.com/peak/s5cmd">s5cmd</a> 等。
+rclone 之外，还有其他方便的工具可供使用，例如 <a target="_blank" rel="noopener noreferrer" href="https://github.com/s3tools/s3cmd">s3cmd</a>、<a target="_blank" rel="noopener noreferrer" href="https://github.com/peak/s5cmd">s5cmd</a> 等。
 
 ## HTTP/FTP 服务
 

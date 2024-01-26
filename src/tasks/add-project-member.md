@@ -23,7 +23,7 @@
   <img alt="project-detail" src="../assets/tasks/account/add-project-member/project-detail.png" class="screenshot"/>
 </figure>
 
-点击成员右侧的**修改按钮**，再点击 **⊕** 为该项目添加成员。在弹出的对话框中，您需要填写所要添加的成员名以及该成员可使用的范围（scope），填写完成之后点击**保存**提交更改，右下角会有悬浮框提示是否添加成功。
+点击成员右侧的**修改按钮**，再点击 **⊕** 为该项目添加成员。在弹出的对话框中，您需要选择所要添加的成员名以及该成员可使用的范围（scope），填写完成之后点击**保存**提交更改，右下角会有悬浮框提示是否添加成功。
 
 <figure class="screenshot">
   <img alt="add-member" src="../assets/tasks/account/add-project-member/add-member.png" class="screenshot"/>

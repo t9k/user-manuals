@@ -11,7 +11,7 @@
 
 创建 Notebook 时，需要至少绑定一个持久卷申领来存储代码、数据等文件。如果您的项目中已有合适的持久卷，则可以直接进入下一节。
 
-在模型构建控制台的左侧导航菜单中点击**存储 > 持久卷** 进入持久卷申领（PersistentVolumeClaim）管理页面。然后点击右上角的**创建 PersistentVolumeClaim** 进入创建页面：
+在模型构建控制台的左侧导航菜单中点击**存储 > 持久卷**进入持久卷申领（PersistentVolumeClaim）管理页面。然后点击右上角的**创建 PersistentVolumeClaim** 进入创建页面：
 
 <figure class="screenshot">
   <img alt="pvc-manage" src="../assets/tasks/develop-and-test-model/create-notebook/pvc-manage.png" class="screenshot"/>

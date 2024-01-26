@@ -33,7 +33,7 @@
     <img alt="replicas" src="../assets/tasks/run-distributed-training/horovod/multiworker-training-of-pytorch-model/replicas.png" class="screenshot"/>
 </figure>
 
-点击 Pod 列表右侧，**更多信息**下的 **:material-dots-vertical:&nbsp;> 日志**以查看训练脚本执行过程中的日志输出：
+点击副本右侧的**更多按钮&nbsp;> 日志**以查看训练脚本执行过程中的日志输出：
 
 <figure class="screenshot">
     <img alt="view-log" src="../assets/tasks/run-distributed-training/horovod/multiworker-training-of-pytorch-model/view-log.png" class="screenshot"/>
