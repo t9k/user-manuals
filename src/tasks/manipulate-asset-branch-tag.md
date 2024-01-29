@@ -157,7 +157,7 @@ pprint(ah.list('model/llm/gpt2', resource='branch'))
 继续使用 `ah.create()` 函数为模型创建一个 tag：
 
 ```python
-tag = ah.create('model/llm/gpt2:20230101', resource='tag', source='v1')
+tag = ah.create('model/llm/gpt2:20230101', create_tag=True, source='v1')
 ```
 
 ```
