@@ -31,10 +31,10 @@ $ ah create model/llm/gpt2:v1
 AH INFO: Branch v1 created for Model /demo/t9k-assethub/model/llm/gpt2
 ```
 
-使用 `ah commit` 命令向该分支上传本地文件作为对象存储：
+使用 `ah commit` 命令向该分支上传本地文件（这里以 `model_state_dict.pt` 和 `README.md` 为例）作为对象存储：
 
 ```shell
-$ ah commit model/llm/gpt2:v1 --message "Add model file" --add ./model_state_dict.pt --add README.md
+$ ah commit model/llm/gpt2:v1 --message "Add model file" --add model_state_dict.pt --add README.md
 AH INFO: Committing changes to branch /demo/t9k-assethub/model/llm/gpt2:v1
 AH INFO: Uploading object 1/2 model_state_dict.pt:
          Done        
@@ -366,4 +366,9 @@ AH INFO: Downloading object 1/1 model_state_dict.pt:
   <img alt="model-object-list-readme" src="../assets/tasks/manage-asset/operate-asset-objects/model-object-list-readme.png" class="screenshot"/>
 </figure>
 
-注：控制台主要用来查看对象，上传、下载对象的操作实现的较为简单，一次仅能处理一个对象。如果希望大批量下载、上传或执行其他更精细的操作，请使用 Python SDK。
+<aside class="note">
+<div class="title">注意</div>
+
+控制台主要用来查看对象，上传、下载对象的操作实现的较为简单，一次仅能处理一个对象。如果希望大批量下载、上传或执行其他更精细的操作，请使用 Python SDK。
+
+</aside>

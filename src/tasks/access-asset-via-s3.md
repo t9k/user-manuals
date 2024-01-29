@@ -111,7 +111,7 @@ s3cmd get s3://baa98ded-2f93-4e9b-835a-6515a63a6eb4/branch-name/path/to/object
 3. S3 URI 填写 `s3://adb2a768-f01a-467b-b146-e82c0693c16b/main`，以便把上述示例模型的 main 分支挂载为持久卷；
 4. S3 Secret 选择刚刚创建的 `s3-rw`。
 
-最后点击**创建 StorageShim**。
+最后点击**创建**。
 
 <figure class="screenshot">
   <img alt="storageshim-create" src="../assets/tasks/manage-asset/access-asset-by-s3/storageshim-create.png" class="screenshot"/>

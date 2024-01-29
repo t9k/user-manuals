@@ -35,4 +35,4 @@
   <img alt="workflowrun-detail" src="../assets/tasks/build-automatic-workflow/build-automatic-workflow-from-data-sampling-to-model-exporting/workflowrun-detail.png" class="screenshot"/>
 </figure>
 
-本页面会自动刷新以获取 WorkflowRun 的最新状态，您也可以点击右上角的 :material-reload: 手动刷新。
+本页面会自动刷新以获取 WorkflowRun 的最新状态，您也可以点击右上角的**刷新图标**手动刷新。
