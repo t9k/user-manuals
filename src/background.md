@@ -28,12 +28,10 @@ AI 是一种崭新的计算范式，它具有数据驱动、基于实验的特�
 总的来说，AI 的数据驱动计算范式更加强调数据本身和从数据中学习的能力，而不是像传统软件那样依赖于硬编码的指令和规则。
 这种方法使得 AI 在处理复杂、动态和模糊的问题时更加有效，但也带来了对数据质量和巨大计算处理能力的依赖。
 
-<figure>
+<figure class="architecture">
   <img alt="computation-paradigm-for-ai" src="./assets/overview/ai-compute-paradigm.png" class="architecture"/>
   <figcaption>图 1: AI 计算的要素。模型架构程序 + 数据集经过训练（模型参数优化）后产生 AI 模型。</figcaption>
 </figure>
-
-
 
 ## 系统需求
 
@@ -49,7 +47,7 @@ AI 计算过程中读取或者产生的数据可以分为两类：主干数据�
 - 主干数据：训练数据集、模型等大体量数据。
 - 元数据：计算过程中的各种配置、超参数、指标等。
 
-<figure>
+<figure class="architecture">
   <img alt="ai-data" src="./assets/overview/ai-data.png" class="architecture"/>
   <figcaption>图 2：AI 计算在数据方面的核心需求。1）针对大规模的数据（训练数据集、模型等）提供高性能、大容量和完善的生命周期管理支持；2）对 AI 实验过程中的各种配置、超参数、指标等进行方便地记录、存取、查询等，并提供丰富的可视化支持。</figcaption>
 </figure>
@@ -71,9 +69,9 @@ AI 计算过程中读取或者产生的数据可以分为两类：主干数据�
 
 用户希望能够通过便捷的方式使用大规模分布式并行、异构、加速计算等技术以快速、高效地运行大规模的数据处理、训练和推理计算等。
 
-<figure>
+<figure class="architecture">
   <img alt="scalable-ai-compute" src="./assets/overview/scalable-ai-compute.png" class="architecture"/>
-  <figcaption>图 3: 方便的进行计算。系统支持以同样的方式定义、运行、调试 AI 领域的各种计算任务。例如，使用 1 张 GPU 的训练任务和使用 1000 张 GPU  的训练任务可以使用一致的方式来完成。</figcaption>
+  <figcaption>图 3: 方便地进行计算。系统支持以同样的方式定义、运行、调试 AI 领域的各种计算任务。例如，使用 1 张 GPU 的训练任务和使用 1000 张 GPU  的训练任务可以使用一致的方式来完成。</figcaption>
 </figure>
 
 AI 计算场景的典型需求：
@@ -99,7 +97,7 @@ Kubernetes 的历史可以追溯到 Google 的 Borg 系统 （据说名字取自
 
 </aside>
 
-<figure>
+<figure class="architecture">
   <img alt="k8s-arch" src="./assets/overview/k8s-arch.png" class="architecture"/>
   <figcaption>图 4：Kubernetes 架构图。Source: https://en.wikipedia.org/wiki/Kubernetes </figcaption>
 </figure>
@@ -155,7 +153,7 @@ TensorStack AI 计算平台构建于以 Kubernetes 为核心的<a target="_blank
 3. 提供高度安全性；
 4. 支持在多个维度（计算规模、数据规模、硬件架构等）方便进行扩展。
 
-<figure>
+<figure class="architecture">
   <img alt="ai-infra" src="./assets/overview/ai-infra.png" class="architecture"/>
   <figcaption>图 5：TensorStack AI 计算平台。 平台采用开放的、标准的、被普遍采用的、无厂商锁定风险的技术和协议；并在稳定性、可靠性、扩展性、安全性多方面具备优异的能力。<figcaption>
 </figure>

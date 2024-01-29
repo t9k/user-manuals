@@ -1,12 +1,31 @@
-/* screen shot */
+/* screenshot */
 figure.screenshot {
     margin: 20px auto;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
 }
 
+figure.screenshot > figcaption {
+    margin-top: 10px;
+    font-size: 1.3rem;
+    color: rgba(0, 0, 0, 0.75);
+}
+
 img.screenshot {
     box-shadow: 0px 0px 10px rgba(0,0,0,.5);
+}
+
+/* architecture */
+figure.architecture {
+    margin: 20px auto;
+    margin-inline-start: 40px;
+    margin-inline-end: 40px;
+}
+
+figure.architecture > figcaption {
+    margin-top: 10px;
+    font-size: 1.3rem;
+    color: rgba(0, 0, 0, 0.75);
 }
 
 :root {

@@ -1,6 +1,6 @@
 # Job（作业）
 
-TensorStack 定义了一系列 CRDs 以支持 <a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Batch_processing">批处理 (Batch Processing)</a> 性质的的计算任务，特别是 AI 领域的大规模分布式并行训练类型性质的计算。
+TensorStack 定义了一系列 CRDs 以支持<a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Batch_processing">批处理 (Batch Processing)</a> 性质的的计算任务，特别是 AI 领域的大规模分布式并行训练类型性质的计算。
 
 <figure class="architecture">
   <img alt="t9k-job" src="../../assets/modules/jobs/jobs.drawio.svg" class="architecture"/>
