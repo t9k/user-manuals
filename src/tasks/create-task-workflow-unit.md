@@ -260,33 +260,28 @@ spec:
 
 ### 创建推理服务
 
-与[创建分布式训练](#创建分布式训练)类似，我们可以对推理服务的 YAML 配置文件做一些修改，加入一些可变的参数：
+与[创建分布式训练](#创建分布式训练)类似，我们可以在[简单推理服务](./deploy-simplemlservice.md)的 YAML 配置文件基础上，加入可变的参数：
 
 ```yaml
 apiVersion: tensorstack.dev/v1beta1
-kind: MLService
+kind: SimpleMLService
 metadata:
-  name: $(params.mlservice_name)
+  name: $(params.simplemlservice_name)
 spec:
-  default: test
-  releases:
-    - name: test
-      predictor:
-        maxReplicas: 1
-        minReplicas: 1
-        tensorflow:
-          image: 't9kpublic/tensorflow-serving:2.6.0'
-          modelUri: 'mms://$(params.mms_host)/$(params.model_name):$(params.model_tag)'
-          resources:
-            limits:
-              cpu: 200m
-              memory: 500M
+  replicas: 1
+  storage:
+    pvc:
+      containerPath: /var/lib/t9k/models/mnist
+      name: tutorial
+      subPath: tutorial-examples/deployment/model/tensorflow/mnist
+  tensorflow:
+    image: t9kpublic/tensorflow-serving:2.6.0
 ```
 
 在 WorkflowTemplate 创建页面，将上述 YAML 配置文件复制粘贴到 **Resource Manifest** 文本框中，并为 WorkflowTemplate 添加一些参数。
 
 <figure class="screenshot">
-  <img alt="mlservice-1" src="../assets/tasks/build-automatic-workflow/create-various-unit-of-workflow/mlservice-1.png" class="screenshot"/>
+  <img alt="simplemlservice-1" src="../assets/tasks/build-automatic-workflow/create-various-unit-of-workflow/simplemlservice-1.png" class="screenshot"/>
 </figure>
 
 创建 WorkflowTemplate，然后创建对应的 WorkflowRun 并提供参数的实际值。
@@ -294,5 +289,5 @@ spec:
 与分布式训练不同，推理服务是一个长时间运行的服务，没有结束时间。因此所创建的 WorkflowRun 也不会结束运行，而是一直处于 Running 状态。
 
 <figure class="screenshot">
-  <img alt="mlservice-2" src="../assets/tasks/build-automatic-workflow/create-various-unit-of-workflow/mlservice-2.png" class="screenshot"/>
+  <img alt="simplemlservice-2" src="../assets/tasks/build-automatic-workflow/create-various-unit-of-workflow/simplemlservice-2.png" class="screenshot"/>
 </figure>
