@@ -79,7 +79,7 @@ spec:
 torchserve \
   --start \
   --model-store=<mode-dir> \
-  --models <models-flag>
+  --models <spec.pytorch.modelsFlag>
 ```
 
 ## 自定义框架
@@ -87,7 +87,7 @@ torchserve \
 可以通过设置 `spec.custom` 字段来自定义框架，在 `spec.custom.spec` 字段中定义 PodSpec，并需要满足下列要求：
 * 至少设置一个 Container。
 * 启动推理服务运行命令时，指定正确的模型路径。
-* 未设置 [Service](#service) 时，推理服务的服务端口应该被设置为 8080。
+* 未设置 [spec.service](#暴露服务) 时，推理服务的服务端口应该被设置为 8080。
 
 示例如下：
 ```yaml
@@ -122,17 +122,24 @@ spec:
 
 ## 暴露服务
 
-通过设置 `spec.service` 字段来选择将服务的哪个端口暴露出来，未设置时，默认暴露 8080 端口。
+通过设置 `spec.service` 字段来选择将服务的哪个端口暴露出来。未设置时，默认将 Pod 的 8080 端口映射到 Service 的 80 端口。
 
-在下面的示例中，暴露端口 7070：
+下面是一个示例：
 
 ```yaml
 spec:
   service:
     ports:
     - name: http
-      port: 7070
+      port: 80
+      targetPort: 8080
+      protocol: TCP
+    type: ClusterIP
 ```
+
+在该例中：
+* 将 Pod 的 8080 端口映射到 Service 的 80 端口，协议是 TCP。
+* Service 的 Type 是 [ClusterIP](https://kubernetes.io/docs/concepts/services-networking/service/#type-clusterip)。
 
 ## 调度器
 
@@ -141,8 +148,8 @@ SimpleMLService 支持使用两种调度器：
 * [T9k Scheduler 调度器](../scheduling/index.md)
 
 通过 `spec.scheduler` 字段可以设置使用哪个调度器：
-* 不设置 `spec.scheduler` 字段，默认使用 Kubernetes 调度器
-* 设置 `spec.scheduler.t9kScheduler` 字段，使用 T9k Scheduler 调度器
+* 不设置 `spec.scheduler` 字段，默认使用 Kubernetes 调度器。
+* 设置 `spec.scheduler.t9kScheduler` 字段，使用 T9k Scheduler 调度器。
 
 在下面的示例中，SimpleMLService 使用 T9k Scheduler 调度器，并将副本放入 default [队列](../scheduling/queue.md)中进行资源调度。
 
@@ -210,7 +217,7 @@ spec:
 ### PVC
 
 通过配置 `spec.storage.pvc` 字段可以使用存储在 PVC 中的模型数据。`spec.storage.pvc` 字段包含下列子字段：
-* `name`: 存储模型数据的 PVC 的名称
+* `name`: 存储模型数据的 PVC 的名称。
 * `subPath`: 模型在 PVC 中的路径，不可以是绝对路径（即开头不能是 `/`）。
 * `containerPath`: 模型在容器中的存储路径。
 
@@ -229,7 +236,7 @@ spec:
 SimpleMLService 的状态记录在 status 字段中。
 
 `status.address` 字段记录了推理服务在集群内的访问地址，子字段如下：
-* `dns`: 推理服务在集群内的访问地址
+* `url`: 推理服务在集群内的访问地址
 * `ports`: 推理服务可供访问的服务端口
 
 `status.conditions` 字段记录了当前 SimpleMLService 的状态，包括下列 2 种类型：
@@ -244,7 +251,7 @@ SimpleMLService 的状态记录在 status 字段中。
 ```yaml
 status:
   address:
-    dns: sample.czx.svc.cluster.local
+    url: sample.czx.svc.cluster.local
     ports:
     - port: 80
       protocol: TCP
@@ -258,6 +265,6 @@ status:
     status: "True"
     type: Ready
 ```
-## 应用示例
+## 下一步
 
-TODO
+* 了解如何部署一个[简单推理服务](../../tasks/deploy-simplemlservice.md)
