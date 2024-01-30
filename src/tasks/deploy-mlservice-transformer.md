@@ -4,36 +4,19 @@
 
 ## 准备工作
 
-请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备此次部署需要用到的 PVC。
+请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备此次部署需要用到的 PVC 和 Notebook。
 
-请在本地的 Linux 或 macOS 平台上完成本教程，并确认安装了 <a target="_blank" rel="noopener noreferrer" href="https://www.docker.com/">docker</a>。
+## 编写 Transformer 逻辑
 
-执行以下命令以安装 Python 依赖包：
-
-```bash
-pip install tensorflow==2.8.0 numpy
-```
-
-## 制作 Transformer 镜像
-
-<aside class="note tip">
-<div class="title">提示</div>
-
-您可以跳过此步，直接使用我们制作好的镜像
-
-</aside>
-
-接下来制作供 MLService 使用的 Transformer 镜像。返回工作目录，创建并进入目录 `transformer`：
+接下来开始制作供 MLService 使用的 Transformer 镜像。首先进入 Notebook，启动一个终端，切换到对应目录：
 
 ```bash
-cd ..
-mkdir transformer
-cd transformer
+cd ~/tutorial-examples/deployment/mlservice/transformer
 ```
 
-使用 TensorStack SDK 编写 Transformer 的代码文件 `__main__.py` ，内容如下：
+查看文件 `server.py` ，内容如下：
 
-```py title="__main__.py"
+```py title="server.py"
 import json
 from t9k import mlservice
 
@@ -78,16 +61,18 @@ if __name__ == "__main__":
     server.start(transformer=transformer)
 ```
 
-如文件 `__main__.py` 所示，使用 TensorStack SDK 编写 Transformer 只需要重载 `preprocess` 和 `postprocess` 函数即可：
+代码中使用了 TensorStack SDK，通过重载 `preprocess` 和 `postprocess` 方法实现了一个 Transformer：
 
 * `preprocess`：预处理函数，Transformer 收到用户发送的数据，使用 `preprocess` 对数据进行处理，然后再发送给推理服务。在这个示例中，先转换输入图片的数据格式，需要保持与训练的模型的输入数据一致，然后再转换为推理服务的输入格式。
 * `postprocess`：后处理函数，Transformer 收到推理服务返回的结果，使用 `postprocess` 对其进行处理，然后再返回给用户。在这个示例中，模型用于处理分类问题，从推理服务返回的预测概率向量中解析出该图片的分类类别，并返回给用户。
 
-下载 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/master/deployment/mlservice-v2/mlservice-transformer/t9k-sdk.tar.gz">t9k-sdk.tar.gz</a> 至本地 `transformer` 文件夹下。
+用户可以参考该文件来实现自定义的 Transformer 逻辑。
 
-然后编写 Transformer 镜像的 Dockerfile，内容如下：
+## 制作镜像
 
-```dockerfile title="Dockerfile.transformer"
+基于上述代码，我们创建对应的 Dockerfile 如下：
+
+```dockerfile
 FROM python:3.8-slim
 
 COPY t9k-sdk.tar.gz t9k-sdk.tar.gz
@@ -103,18 +88,27 @@ RUN pip install t9k-sdk.tar.gz  -i https://pypi.tuna.tsinghua.edu.cn/simple
 ENTRYPOINT ["python", "server.py"]
 ```
 
-最后制作并上传 Transformer 镜像：
+上述 Dockerfile 引入了相关依赖，并将上一步的 `server.py` 文件作为启动命令。用户可以参考该文件来实现自定义的镜像。
 
-```bash
-docker build -t <your-docker-registry-address>/mnist-transformer:test -f Dockerfile.transformer .
-docker push <your-docker-registry-address>/mnist-transformer:test
+然后我们通过运行一个 ImageBuilder 来制作镜像，为了使用 ImageBuilder，首先我们需要参照[创建 Secret](https://github.com/t9k/tutorial-examples/blob/master/build-image/build-image-on-platform/README.md#%E5%88%9B%E5%BB%BA-secret)准备上传镜像所需要的 DockerConfig `Secret`。
+
+完成后修改 `imagebuilder.yaml` 文件，将 `spec.dockerConfig.secret` 修改为上一步中创建的 DockerConfig `Secret` 的名称，并将 `spec.tag` 修改为目标镜像，并执行以下命令：
+
+```
+kubectl apply -f imagebuilder.yaml
+```
+
+查看 `ImageBuilder` 状态，等待 Phase 一栏变为 `Succeeded`：
+
+```sh
+kubectl get -f imagebuilder.yaml -w
 ```
 
 ## 部署 MLService
 
-进入模型部署控制台，先点击左侧导航栏辅助一栏下的的 **MLServiceRuntime**，再点击 **创建 MLServiceRuntime** ，然后点击 **预览 YAML**， 并将下面 `tensorflow_serving.yaml` 的内容复制到 YAML 编辑框中，最后点击 **创建** 创建 MLServiceRuntime。
+进入模型部署控制台，先点击左侧导航栏辅助一栏下的的 **MLServiceRuntime**，再点击 **创建 MLServiceRuntime** ，然后点击 **预览 YAML**， 并将下面内容复制到 YAML 编辑框中，最后点击 **创建** 创建 MLServiceRuntime。
 
-```yaml title=tensorflow_serving.yaml
+```yaml
 apiVersion: tensorstack.dev/v1beta1
 kind: MLServiceRuntime
 metadata:
@@ -142,16 +136,16 @@ spec:
           protocol: TCP
 ```
 
-进入模型部署控制台的 MLService 页面，点击右上角**创建 MLService**，然后点击**预览 YAML**。如下图所示，将 `image_transformer.yaml` 的内容复制到右侧的 YAML 编辑框，最后点击 **创建** 创建 MLService：
+进入模型部署控制台的 MLService 页面，点击右上角**创建 MLService**，然后点击**预览 YAML**。如下图所示，将下述内容复制到右侧的 YAML 编辑框，最后点击 **创建** 创建 MLService：
 
 <aside class="note">
 <div class="title">注意</div>
 
-请将 transformer 定义中的 `image` 替换为刚制作好的镜像地址。
+请将 transformer 定义中的 `image` 替换为上一步中制作好的镜像地址。
 
 </aside>
 
-```yaml title="image_transformer.yaml"
+```yaml
 apiVersion: tensorstack.dev/v1beta1
 kind: MLService
 metadata:
@@ -171,7 +165,7 @@ spec:
         minReplicas: 1
         model:
           runtime: t9k-tensorflow-serving
-          modelUri: pvc://tutorial/tutorial-examples/deployment/mlservice-v2/mlservice-transformer/model/
+          modelUri: pvc://tutorial/tutorial-examples/deployment/mlservice/transformer/model/
 ```
 
 <figure class="screenshot">
@@ -181,7 +175,7 @@ spec:
 
 ## 发送预测请求
 
-使用图片 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/master/deployment/mlservice-v2/mlservice-transformer/shoe.png">shoe.png</a> 作为发送预测请求的测试数据。
+使用图片 `shoe.png` 作为测试数据发送预测请求。
 
 ``` shell
 address=$(kubectl get mls pic-mnist -ojsonpath='{.status.address.url}') && echo $address
