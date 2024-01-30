@@ -25,7 +25,7 @@
 <div class="title">GPU 并发机制</div>
 
 <figure>
-  <img alt="simplemlservice-detail" src="../../assets/modules/scheduling/nv-gpu-sharing.png" class="architecture"/>
+  <img alt="simplemlservice-detail" src="../../assets/modules/scheduling/nv-gpu-sharing.png" />
 </figure>
 
 NVIDIA GPU 的并发（concurrency）使用机制。包括：1）应用程序级别（需要修改应用代码才能使用）的 CUDA streams API；2）对应用程序透明的系统软件和硬件分区（partitioning）技术，例如 MPS、Time-slicing、MIG、虚拟化。Source: NVIDIA。

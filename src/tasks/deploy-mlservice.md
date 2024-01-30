@@ -18,7 +18,7 @@
 部署完成后，进入模型部署控制台的 MLService 页面，可以看到名为 **torch-mnist-pvc** 的 MLService，稍等片刻，等其进入 Ready 状态：
 
 <figure class="screenshot">
-    <img alt="ready" src="../assets/tasks/deploy-model-reference-serving/mlservice/running-status.png" class="screenshot"/>
+    <img alt="ready" src="../assets/tasks/deploy-model-reference-serving/mlservice/running-status.png" />
 </figure>
 
 ## 使用推理服务
@@ -40,5 +40,5 @@ curl -T test_data/0.png ${url}/v1/models/mnist:predict # or use `1.png`, `2.png`
 在模型部署控制台，点击对应的 MLService，然后切换到**指标**页面，可以查看该 MLService 的资源统计：
 
 <figure class="screenshot">
-  <img alt="resource-usage" src="../assets/tasks/deploy-model-reference-serving/mlservice/resource-usage.png" class="screenshot"/>
+  <img alt="resource-usage" src="../assets/tasks/deploy-model-reference-serving/mlservice/resource-usage.png" />
 </figure>

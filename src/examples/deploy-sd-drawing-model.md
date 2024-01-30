@@ -99,7 +99,7 @@ kubectl logs -l deployment=managed-simplemlservice-stable-diffusion-webui -f --t
 ```
 
 <figure class="screenshot">
-  <img alt="service-log" src="../assets/examples/deploy-sd-drawing-model/service-log.png" class="screenshot"/>
+  <img alt="service-log" src="../assets/examples/deploy-sd-drawing-model/service-log.png" />
 </figure>
 
 接下来就可以开始生成图片了！
@@ -119,7 +119,7 @@ t9k-pf service stable-diffusion-webui 7860:7860 -n <PROJECT NAME>
 然后使用浏览器访问 `127.0.0.1:7860`，绘制喜欢的图片：
 
 <figure class="screenshot">
-  <img alt="webui" src="../assets/examples/deploy-sd-drawing-model/webui.png" class="screenshot"/>
+  <img alt="webui" src="../assets/examples/deploy-sd-drawing-model/webui.png" />
 </figure>
 
 生成的图片可以通过 Web UI 下载，同时也会保存到 PVC 的 `outputs/` 路径下。

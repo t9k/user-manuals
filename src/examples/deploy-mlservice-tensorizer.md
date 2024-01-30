@@ -49,7 +49,7 @@ kubectl apply -f ./mlservice.yaml
 部署后进入模型部署控制台的 MLService 页面，可以看到名为 **tensorizer-gptj** 的 MLService，稍等片刻，等其进入 Ready 状态：
 
 <figure class="screenshot">
-    <img alt="ready" src="../assets/examples/deploy-tensorizer/running-status.png" class="screenshot"/>
+    <img alt="ready" src="../assets/examples/deploy-tensorizer/running-status.png" />
 </figure>
 
 ## 使用推理服务

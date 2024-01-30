@@ -65,13 +65,13 @@ kubectl logs baichuan2-sft-single-node-worker-0 -f
 ```
 
 <figure class="screenshot">
-  <img alt="log" src="../assets/examples/start-llm-finetuning/log.png" class="screenshot"/>
+  <img alt="log" src="../assets/examples/start-llm-finetuning/log.png" />
 </figure>
 
 训练完成之后，模型文件将保存到 `output/sft-ckpts/baichuan2/7b/` 路径下（以下简称 SFT 模型），可被直接部署为聊天应用或进一步用于 PPO 训练。训练日志也被保存到同一路径下，例如绘制的损失曲线如下图所示：
 
 <figure class="screenshot">
-  <img alt="loss" src="../assets/examples/start-llm-finetuning/loss.png" class="screenshot"/>
+  <img alt="loss" src="../assets/examples/start-llm-finetuning/loss.png" />
 </figure>
 
 <p style="color: gray; text-align: center; font-size: 14px">SFT 训练的损失曲线，横轴：迭代步数，纵轴：PaLM 风格的损失。</p>

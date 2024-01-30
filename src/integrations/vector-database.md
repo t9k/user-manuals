@@ -278,7 +278,7 @@ t9k-pf -n <APP_PROJECT> pod qdrant-demo-0 6333:6333
 在浏览器中访问 <a target="_blank" rel="noopener noreferrer" href="http://127.0.0.1:6333/dashboard">http://127.0.0.1:6333/dashboard</a> 进入 Web UI。在 Console 页面中，用户可以直接调用 REST API 并得到响应结果：
 
 <figure class="screenshot">
-  <img alt="loss" src="../assets/integrations/vector-database/console.png" class="screenshot"/>
+  <img alt="loss" src="../assets/integrations/vector-database/console.png" />
 </figure>
 
 在 Collections 页面中，用户可以进行以下操作：
@@ -290,15 +290,15 @@ t9k-pf -n <APP_PROJECT> pod qdrant-demo-0 6333:6333
 * 删除 collection
 
 <figure class="screenshot">
-  <img alt="loss" src="../assets/integrations/vector-database/collections.png" class="screenshot"/>
+  <img alt="loss" src="../assets/integrations/vector-database/collections.png" />
 </figure>
 
 <figure class="screenshot">
-  <img alt="loss" src="../assets/integrations/vector-database/collections-points.png" class="screenshot"/>
+  <img alt="loss" src="../assets/integrations/vector-database/collections-points.png" />
 </figure>
 
 <figure class="screenshot">
-  <img alt="loss" src="../assets/integrations/vector-database/collections-visualization.png" class="screenshot"/>
+  <img alt="loss" src="../assets/integrations/vector-database/collections-visualization.png" />
 </figure>
 
 Web UI 的其他功能这里不再一一介绍，用户可以自行探索。

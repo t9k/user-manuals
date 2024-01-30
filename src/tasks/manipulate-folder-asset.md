@@ -247,59 +247,59 @@ AH INFO: Folder /demo/t9k-assethub/dataset/text deleted
 在左侧的导航菜单中点击**模型**，选择查看范围为 **My Own**，查看当前用户的所有模型文件夹。然后点击右上角的 **+** 创建新的模型文件夹：
 
 <figure class="screenshot">
-  <img alt="model-all" src="../assets/tasks/manage-asset/manipulate-folder-and-asset/model-owned.png" class="screenshot"/>
+  <img alt="model-all" src="../assets/tasks/manage-asset/manipulate-folder-and-asset/model-owned.png" />
 </figure>
 
 填写名称 `image-classification`，点击**创建**：
 
 <figure class="screenshot">
-  <img alt="folder-create" src="../assets/tasks/manage-asset/manipulate-folder-and-asset/folder-create.png" class="screenshot"/>
+  <img alt="folder-create" src="../assets/tasks/manage-asset/manipulate-folder-and-asset/folder-create.png" />
 </figure>
 
 接下来分享这个文件夹。点击文件夹右侧的 **更多 > 分享**：
 
 <figure class="screenshot">
-  <img alt="folder-share" src="../assets/tasks/manage-asset/manipulate-folder-and-asset/folder-share.png" class="screenshot"/>
+  <img alt="folder-share" src="../assets/tasks/manage-asset/manipulate-folder-and-asset/folder-share.png" />
 </figure>
 
 点击**添加分享目标**，选择分享的对象为 **Public**（所有用户可见），分享的权限是 **Edit**，最后点击**分享**：
 
 <figure class="screenshot">
-  <img alt="folder-share-setting" src="../assets/tasks/manage-asset/manipulate-folder-and-asset/folder-share-setting.png" class="screenshot"/>
+  <img alt="folder-share-setting" src="../assets/tasks/manage-asset/manipulate-folder-and-asset/folder-share-setting.png" />
 </figure>
 
 回到 Asset Hub 控制台，点击模型文件夹 **image-classification** 查看其中的模型：
 
 <figure class="screenshot">
-  <img alt="folder-list" src="../assets/tasks/manage-asset/manipulate-folder-and-asset/folder-list.png" class="screenshot"/>
+  <img alt="folder-list" src="../assets/tasks/manage-asset/manipulate-folder-and-asset/folder-list.png" />
 </figure>
 
 新创建的模型文件夹中没有模型，点击右上角的 **+** 创建一个模型：
 
 <figure class="screenshot">
-  <img alt="model-list" src="../assets/tasks/manage-asset/manipulate-folder-and-asset/model-list.png" class="screenshot"/>
+  <img alt="model-list" src="../assets/tasks/manage-asset/manipulate-folder-and-asset/model-list.png" />
 </figure>
 
 填写名称 `mnist`，然后点击**创建**：
 
 <figure class="screenshot">
-  <img alt="model-create" src="../assets/tasks/manage-asset/manipulate-folder-and-asset/model-create.png" class="screenshot"/>
+  <img alt="model-create" src="../assets/tasks/manage-asset/manipulate-folder-and-asset/model-create.png" />
 </figure>
 
 创建成功后，在模型文件夹中可以看到模型信息：
 
 <figure class="screenshot">
-  <img alt="model-created" src="../assets/tasks/manage-asset/manipulate-folder-and-asset/model-created.png" class="screenshot"/>
+  <img alt="model-created" src="../assets/tasks/manage-asset/manipulate-folder-and-asset/model-created.png" />
 </figure>
 
 点击**更多 > 删除**，删除创建的模型，然后点击左上角的**返回**，返回模型文件夹的页面：
 
 <figure class="screenshot">
-  <img alt="model-delete" src="../assets/tasks/manage-asset/manipulate-folder-and-asset/model-delete.png" class="screenshot"/>
+  <img alt="model-delete" src="../assets/tasks/manage-asset/manipulate-folder-and-asset/model-delete.png" />
 </figure>
 
 最后，返回 Asset Hub 控制台，点击**更多 > 删除**，删除模型文件夹：
 
 <figure class="screenshot">
-  <img alt="folder-delete" src="../assets/tasks/manage-asset/manipulate-folder-and-asset/folder-delete.png" class="screenshot"/>
+  <img alt="folder-delete" src="../assets/tasks/manage-asset/manipulate-folder-and-asset/folder-delete.png" />
 </figure>

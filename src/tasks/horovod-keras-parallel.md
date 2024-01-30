@@ -18,37 +18,37 @@
 训练开始后，进入模型构建控制台的 Job 页面，可以看到名为 **keras-mnist-mpijob** 的 MPIJob 正在运行：
 
 <figure class="screenshot">
-    <img alt="running" src="../assets/tasks/run-distributed-training/horovod/multiworker-training-of-keras-model/running.png" class="screenshot"/>
+    <img alt="running" src="../assets/tasks/run-distributed-training/horovod/multiworker-training-of-keras-model/running.png" />
 </figure>
 
 点击**该名称**进入详情页面，可以看到刚才创建的 MPIJob 的基本信息、状况信息和事件信息：
 
 <figure class="screenshot">
-    <img alt="details" src="../assets/tasks/run-distributed-training/horovod/multiworker-training-of-keras-model/details.png" class="screenshot"/>
+    <img alt="details" src="../assets/tasks/run-distributed-training/horovod/multiworker-training-of-keras-model/details.png" />
 </figure>
 
 点击上方标签页的**副本**，查看 MPIJob 的 Pod 信息：
 
 <figure class="screenshot">
-    <img alt="replicas" src="../assets/tasks/run-distributed-training/horovod/multiworker-training-of-keras-model/replicas.png" class="screenshot"/>
+    <img alt="replicas" src="../assets/tasks/run-distributed-training/horovod/multiworker-training-of-keras-model/replicas.png" />
 </figure>
 
 点击副本右侧的**更多按钮&nbsp;> 日志**以查看训练脚本执行过程中的日志输出：
 
 <figure class="screenshot">
-    <img alt="view-log" src="../assets/tasks/run-distributed-training/horovod/multiworker-training-of-keras-model/view-log.png" class="screenshot"/>
+    <img alt="view-log" src="../assets/tasks/run-distributed-training/horovod/multiworker-training-of-keras-model/view-log.png" />
 </figure>
 
 点击上方标签页的**指标**，查看 MPIJob 运行过程中使用集群计算资源、网络资源和存储资源的情况：
 
 <figure class="screenshot">
-    <img alt="replicas" src="../assets/tasks/run-distributed-training/horovod/multiworker-training-of-keras-model/metrics.png" class="screenshot"/>
+    <img alt="replicas" src="../assets/tasks/run-distributed-training/horovod/multiworker-training-of-keras-model/metrics.png" />
 </figure>
 
 一段时间之后，MPIJob 的状态变为 **Succeeded**，表示训练成功完成：
 
 <figure class="screenshot">
-    <img alt="done" src="../assets/tasks/run-distributed-training/horovod/multiworker-training-of-keras-model/done.png" class="screenshot"/>
+    <img alt="done" src="../assets/tasks/run-distributed-training/horovod/multiworker-training-of-keras-model/done.png" />
 </figure>
 
 若 MPIJob 在运行过程中出错，其状态会变为 **Error**，并在事件信息和 Pod 信息部分显示错误信息，此时需要根据给出的错误信息进行问题排查。

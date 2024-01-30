@@ -13,13 +13,13 @@
 在 AssetHub 控制台进入模型详情页面，点击 **S3 凭证**可以查看目前已有的所有 S3 凭证。然后点击表格右上角的 **+** 创建一个 S3 凭证：
 
 <figure class="screenshot">
-  <img alt="s3-cred-list" src="../assets/tasks/manage-asset/access-asset-by-s3/s3-cred-list.png" class="screenshot"/>
+  <img alt="s3-cred-list" src="../assets/tasks/manage-asset/access-asset-by-s3/s3-cred-list.png" />
 </figure>
 
 填写名称 `s3-rw`，选择类型为**可读/可写**，最后点击**创建**：
 
 <figure class="screenshot">
-  <img alt="s3-cred-create" src="../assets/tasks/manage-asset/access-asset-by-s3/s3-cred-create.png" class="screenshot"/>
+  <img alt="s3-cred-create" src="../assets/tasks/manage-asset/access-asset-by-s3/s3-cred-create.png" />
 </figure>
 
 ## 查看 S3 凭证
@@ -27,13 +27,13 @@
 创建完成后，点击表格左上角的**可读/可写**，查看所有类型为可读/可写的 S3 凭证：
 
 <figure class="screenshot">
-  <img alt="s3-cred-list-rw" src="../assets/tasks/manage-asset/access-asset-by-s3/s3-cred-list-rw.png" class="screenshot"/>
+  <img alt="s3-cred-list-rw" src="../assets/tasks/manage-asset/access-asset-by-s3/s3-cred-list-rw.png" />
 </figure>
 
 点击刚刚创建的 S3 凭证 `s3-rw`，查看其详情：
 
 <figure class="screenshot">
-  <img alt="s3-cred-detail" src="../assets/tasks/manage-asset/access-asset-by-s3/s3-cred-detail.png" class="screenshot"/>
+  <img alt="s3-cred-detail" src="../assets/tasks/manage-asset/access-asset-by-s3/s3-cred-detail.png" />
 </figure>
 
 S3 凭证有三种格式：
@@ -83,25 +83,25 @@ s3cmd get s3://baa98ded-2f93-4e9b-835a-6515a63a6eb4/branch-name/path/to/object
 在创建 StorageShim 之前，用户首先需要创建一个 Secret 保存 S3 bucket 的相关信息。在 S3 凭证的详情页面，点击左侧的 **S3-cfg Secret** 标签，然后点击右上角的**复制**：
 
 <figure class="screenshot">
-  <img alt="s3-cred-detail-s3-cfg-secret" src="../assets/tasks/manage-asset/access-asset-by-s3/s3-cred-detail-s3-cfg-secret.png" class="screenshot"/>
+  <img alt="s3-cred-detail-s3-cfg-secret" src="../assets/tasks/manage-asset/access-asset-by-s3/s3-cred-detail-s3-cfg-secret.png" />
 </figure>
 
 在模型构建控制台的左侧导航菜单中点击**辅助 > Secret** 进入 Secret 管理页面，然后点击右上角的**创建 Secret**进入 Secret 创建页面：
 
 <figure class="screenshot">
-  <img alt="secret-list" src="../assets/tasks/manage-asset/access-asset-by-s3/secret-list.png" class="screenshot"/>
+  <img alt="secret-list" src="../assets/tasks/manage-asset/access-asset-by-s3/secret-list.png" />
 </figure>
 
 在 Secret 创建页面，点击**预览 YAML**，将所复制的 `S3-cfg Secret` 粘贴到 YAML 编辑框中，最后点击**创建**。
 
 <figure class="screenshot">
-  <img alt="secret-create" src="../assets/tasks/manage-asset/access-asset-by-s3/secret-create.png" class="screenshot"/>
+  <img alt="secret-create" src="../assets/tasks/manage-asset/access-asset-by-s3/secret-create.png" />
 </figure>
 
 在模型构建控制台的左侧导航菜单中点击**存储 > 持久卷**进入持久卷管理页面，然后点击上方的 **S3** 进入 S3 类型的持久卷管理页面，最后点击右上角的**创建**进入 StorageShim 创建页面：
 
 <figure class="screenshot">
-  <img alt="storageshim-list" src="../assets/tasks/manage-asset/access-asset-by-s3/storageshim-list.png" class="screenshot"/>
+  <img alt="storageshim-list" src="../assets/tasks/manage-asset/access-asset-by-s3/storageshim-list.png" />
 </figure>
 
 在 StorageShim 创建页面，
@@ -114,7 +114,7 @@ s3cmd get s3://baa98ded-2f93-4e9b-835a-6515a63a6eb4/branch-name/path/to/object
 最后点击**创建**。
 
 <figure class="screenshot">
-  <img alt="storageshim-create" src="../assets/tasks/manage-asset/access-asset-by-s3/storageshim-create.png" class="screenshot"/>
+  <img alt="storageshim-create" src="../assets/tasks/manage-asset/access-asset-by-s3/storageshim-create.png" />
 </figure>
 
 StorageShim 创建完成后，等待其阶段变为 **Bound**，用户即可通过以下方式使用这个名为 `neox` 的持久卷：
@@ -124,5 +124,5 @@ StorageShim 创建完成后，等待其阶段变为 **Bound**，用户即可通�
 3. 在创建 Job 时，添加持久卷 `neox`，以便在 Job 中使用此模型中的文件。
 
 <figure class="screenshot">
-  <img alt="storageshim-list-after-create" src="../assets/tasks/manage-asset/access-asset-by-s3/storageshim-list-after-create.png" class="screenshot"/>
+  <img alt="storageshim-list-after-create" src="../assets/tasks/manage-asset/access-asset-by-s3/storageshim-list-after-create.png" />
 </figure>

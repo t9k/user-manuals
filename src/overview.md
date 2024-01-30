@@ -19,7 +19,7 @@ AI 集群的拥有者可以使用这套软件，构建自己的 “AI 私有云�
 通过先进的架构和丰富的 API + 系统服务，“TensorStack AI 计算平台” 合理地隐藏了分布式并行、异构计算、加速计算等技术的复杂细节，提高了抽象层次，并为 AI 领域的各种计算提供了针对性的支持，极大地提升了 AI 技术研究、开发、应用的工作效率。
 
 <figure class="architecture">
-  <img alt="t9k-arch" src="./assets/overview/t9k-arch.png" class="architecture"/>
+  <img alt="t9k-arch" src="./assets/overview/t9k-arch.png" />
   <figcaption>图 1：TensorStack AI 计算平台采用云原生架构，由 AI 引擎层（AI Engine, AIE）和 AI 基础层（AI Base, AIB）组成，为上层 AI 应用和底层 AI 算力建立有机连接，提供先进、可扩展的 AI 系统层面的能力。</figcaption>
 </figure>
 
@@ -33,7 +33,7 @@ AI 集群的拥有者可以使用这套软件，构建自己的 “AI 私有云�
 1. 用户 - 在项目中 - 完成工作（创建各种计算任务）。
 
 <figure class="architecture">
-  <img alt="t9k-flow" src="./assets/overview/t9k-flow.drawio.svg" class="architecture"/>
+  <img alt="t9k-flow" src="./assets/overview/t9k-flow.drawio.svg" />
   <figcaption>图 2：用户登陆系统后在 “项目” 中创建计算任务以完成各种工作。</figcaption>
 </figure>
 
@@ -47,7 +47,7 @@ AI 集群的拥有者可以使用这套软件，构建自己的 “AI 私有云�
 - 为了部署一个模型推理服务，并支持服务规模的自动伸缩，创建一个 `MLService` CRD 的实例；
 
 <figure class="architecture">
-  <img alt="use-t9k" src="./assets/overview/use-t9k.drawio.svg" class="architecture"/>
+  <img alt="use-t9k" src="./assets/overview/use-t9k.drawio.svg" />
   <figcaption>图 3：用户可以通过命令行接口（CLI） 或者可视化的 Web 页面（UI） 创建这些 CRD 的实例。</figcaption>
 </figure>
 
@@ -85,7 +85,7 @@ kubectle create -f notebook-tutorial.yaml
 例如，可使用如下表单创建 Notebook 实例：
 
 <figure class="screenshot">
-  <img alt="create-notebook-detail" src="./assets/get-started/training-first-model/create-notebook-detail.png" class="screenshot"/>
+  <img alt="create-notebook-detail" src="./assets/get-started/training-first-model/create-notebook-detail.png" />
   <figcaption>图 4：使用 UI 创建 Notebook。 </figcaption>
 </figure>
 

@@ -7,21 +7,21 @@
 创建完成之后，进入实验管理控制台，可以看到 `em-examples/` 路径下出现了一个名为 keras-mnist-autotune 的 AutoTune：
 
 <figure class="screenshot">
-    <img alt="created" src="../assets/tasks/view-autotune-in-experiment-console/created.png" class="screenshot"/>
+    <img alt="created" src="../assets/tasks/view-autotune-in-experiment-console/created.png" />
 </figure>
 
 点击**其名称**进入详情页面，可以看到 AutoTuneExperiment 的信息、当前进度、各试验的信息以及可视化图表：
 
 <figure class="screenshot">
-    <img alt="details" src="../assets/tasks/view-autotune-in-experiment-console/details.png" class="screenshot"/>
+    <img alt="details" src="../assets/tasks/view-autotune-in-experiment-console/details.png" />
 </figure>
 
 点击任意一个试验的右侧的**详情**可以看到试验使用的超参数以及指标：
 
 <figure class="screenshot">
-    <img alt="trial-hparams" src="../assets/tasks/view-autotune-in-experiment-console/trial-hparams.png" class="screenshot"/>
+    <img alt="trial-hparams" src="../assets/tasks/view-autotune-in-experiment-console/trial-hparams.png" />
 </figure>
 
 <figure class="screenshot">
-    <img alt="trial-metrics" src="../assets/tasks/view-autotune-in-experiment-console/trial-metrics.png" class="screenshot"/>
+    <img alt="trial-metrics" src="../assets/tasks/view-autotune-in-experiment-console/trial-metrics.png" />
 </figure>

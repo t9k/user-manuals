@@ -20,14 +20,14 @@ PVC 可以扩容，即增加存储卷大小。因此用户在创建 PVC 时可�
 把 PVC 挂载到 Notebook 上，本地文件系统和 PVC 之间的文件传输，可直接在 Notebook 的前端页面上操作：
 
 <figure class="screenshot">
-  <img alt="notebook-upload-download" src="../assets/tasks/pvc-importing-and-exporting-files/notebook-upload-download.png" class="screenshot"/>
+  <img alt="notebook-upload-download" src="../assets/tasks/pvc-importing-and-exporting-files/notebook-upload-download.png" />
 </figure>
 
 ### File Browser
 
 在 PVC 上启动 [Explorer](./use-explorer.md) 之后，则可通过 [File Browser](./use-explorer.md#使用-file-browser) ：
 <figure class="screenshot">
-  <img alt="file-browser-upload-download" src="../assets/tasks/pvc-importing-and-exporting-files/file-browser-upload-download.png" class="screenshot"/>
+  <img alt="file-browser-upload-download" src="../assets/tasks/pvc-importing-and-exporting-files/file-browser-upload-download.png" />
 </figure>
 
 <aside class="note">
@@ -98,7 +98,7 @@ git push
 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/models">Hugging Face Hub</a> 是一个拥有超过 35 万个模型和 7.5 万个数据集的平台，所有这些模型和数据集都是开源并且公开可用的。从 Hugging Face Hub 下载一个模型或数据集有多种方法，下面以模型 `mistralai/Mistral-7B-v0.1` 为例进行演示，首先来到该模型的 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/mistralai/Mistral-7B-v0.1/tree/main">Files and versions 标签页</a>：
 
 <figure class="screenshot">
-  <img alt="files-and-versions" src="../assets/tasks/pvc-importing-and-exporting-files/files-and-versions.png" class="screenshot"/>
+  <img alt="files-and-versions" src="../assets/tasks/pvc-importing-and-exporting-files/files-and-versions.png" />
 </figure>
 
 ### 使用脚本
@@ -106,11 +106,11 @@ git push
 点击 **Use in Transformers**，按照提示进行操作，即在 Python 程序中调用 `transformers` 库加载模型。首次加载时，模型文件会被下载到缓存目录下，即 PVC 的 `.cache/huggingface/hub/models--mistralai--Mistral-7B-v0.1/` 路径下。
 
 <figure class="screenshot">
-  <img alt="use-in-transformers" src="../assets/tasks/pvc-importing-and-exporting-files/use-in-transformers.png" class="screenshot"/>
+  <img alt="use-in-transformers" src="../assets/tasks/pvc-importing-and-exporting-files/use-in-transformers.png" />
 </figure>
 
 <figure class="screenshot">
-  <img alt="use-in-transformers-detail" src="../assets/tasks/pvc-importing-and-exporting-files/use-in-transformers-detail.png" class="screenshot"/>
+  <img alt="use-in-transformers-detail" src="../assets/tasks/pvc-importing-and-exporting-files/use-in-transformers-detail.png" />
 </figure>
 
 ```python
@@ -139,11 +139,11 @@ model = AutoModelForCausalLM.from_pretrained("mistralai/Mistral-7B-v0.1")
 点击 **Clone repository**，按照提示进行操作，即使用 `git` 命令将模型的 Git 仓库直接克隆到 PVC 中：
 
 <figure class="screenshot">
-  <img alt="clone-repository" src="../assets/tasks/pvc-importing-and-exporting-files/clone-repository.png" class="screenshot"/>
+  <img alt="clone-repository" src="../assets/tasks/pvc-importing-and-exporting-files/clone-repository.png" />
 </figure>
 
 <figure class="screenshot">
-  <img alt="clone-repository-detail" src="../assets/tasks/pvc-importing-and-exporting-files/clone-repository-detail.png" class="screenshot"/>
+  <img alt="clone-repository-detail" src="../assets/tasks/pvc-importing-and-exporting-files/clone-repository-detail.png" />
 </figure>
 
 ```bash

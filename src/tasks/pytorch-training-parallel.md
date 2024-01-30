@@ -18,43 +18,43 @@
 训练开始后，进入模型构建控制台的 Job 页面，可以看到名为 **torch-mnist-trainingjob** 的 PyTorchTrainingJob 正在运行：
 
 <figure class="screenshot">
-    <img alt="running" src="../assets/tasks/run-distributed-training/pytorch/ddp-training/running.png" class="screenshot"/>
+    <img alt="running" src="../assets/tasks/run-distributed-training/pytorch/ddp-training/running.png" />
 </figure>
 
 点击**该名称**进入详情页面，可以看到刚才创建的 PyTorchTrainingJob 的基本信息、状况信息和事件信息：
 
 <figure class="screenshot">
-    <img alt="details" src="../assets/tasks/run-distributed-training/pytorch/ddp-training/details.png" class="screenshot"/>
+    <img alt="details" src="../assets/tasks/run-distributed-training/pytorch/ddp-training/details.png" />
 </figure>
 
 点击 **TensorBoard** 右侧的 **Running** 打开 TensorBoard，可以查看可视化展示的训练和验证指标：
 
 <figure class="screenshot">
-    <img alt="tensorboard" src="../assets/tasks/run-distributed-training/pytorch/ddp-training/tensorboard.png" class="screenshot"/>
+    <img alt="tensorboard" src="../assets/tasks/run-distributed-training/pytorch/ddp-training/tensorboard.png" />
 </figure>
 
 点击上方标签页的**副本**，查看 PyTorchTrainingJob 的 Pod 信息：
 
 <figure class="screenshot">
-    <img alt="replicas" src="../assets/tasks/run-distributed-training/pytorch/ddp-training/replicas.png" class="screenshot"/>
+    <img alt="replicas" src="../assets/tasks/run-distributed-training/pytorch/ddp-training/replicas.png" />
 </figure>
 
 点击副本右侧的**更多按钮&nbsp;> 日志**以查看训练脚本执行过程中的日志输出：
 
 <figure class="screenshot">
-    <img alt="view-log" src="../assets/tasks/run-distributed-training/pytorch/ddp-training/view-log.png" class="screenshot"/>
+    <img alt="view-log" src="../assets/tasks/run-distributed-training/pytorch/ddp-training/view-log.png" />
 </figure>
 
 点击上方标签页的**资源监测**，查看 PyTorchTrainingJob 运行过程中使用集群计算资源、网络资源和存储资源的情况：
 
 <figure class="screenshot">
-    <img alt="replicas" src="../assets/tasks/run-distributed-training/pytorch/ddp-training/metrics.png" class="screenshot"/>
+    <img alt="replicas" src="../assets/tasks/run-distributed-training/pytorch/ddp-training/metrics.png" />
 </figure>
 
 一段时间之后，PyTorchTrainingJob 的状态变为 **Succeeded**，表示训练成功完成。
 
 <figure class="screenshot">
-    <img alt="done" src="../assets/tasks/run-distributed-training/pytorch/ddp-training/done.png" class="screenshot"/>
+    <img alt="done" src="../assets/tasks/run-distributed-training/pytorch/ddp-training/done.png" />
 </figure>
 
 若 PyTorchTrainingJob 在运行过程中出错，其状态会变为 **Error**，并在事件信息和 Pod 信息部分显示错误信息，此时需要根据给出的错误信息进行问题排查。

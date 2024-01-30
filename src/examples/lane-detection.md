@@ -62,7 +62,7 @@ kubectl logs $POD -f
 ```
 
 <figure class="screenshot">
-  <img alt="log" src="../assets/examples/lane-detection/log.png" class="screenshot"/>
+  <img alt="log" src="../assets/examples/lane-detection/log.png" />
 </figure>
 
 训练共进行 100 个 epoch，每个 epoch 结束时进行验证（使用测试图像作为验证集），计算准确率、假阳性率和假阴性率。训练完成之后，模型文件将保存到 `output/TuSimple/0/*/` 路径下。训练花费约 3 小时，最终准确率可以达到约 0.94。

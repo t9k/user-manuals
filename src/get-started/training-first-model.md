@@ -16,13 +16,13 @@
 在 TensorStack AI 平台首页，点击**模型构建**进入模型构建控制台。
 
 <figure class="screenshot">
-  <img alt="landing-page" src="../assets/get-started/training-first-model/landing-page.png" class="screenshot"/>
+  <img alt="landing-page" src="../assets/get-started/training-first-model/landing-page.png" />
 </figure>
 
 模型构建控制台的总览页面展示了多种资源，用户可以点击右上角的按钮切换 Project，也可以点击**事件**和**配额**标签页以查看当前 Project 最近发生的事件以及计算资源（CPU、Memory、GPU 等）配额。
 
 <figure class="screenshot">
-  <img alt="project" src="../assets/get-started/training-first-model/overview.png" class="screenshot"/>
+  <img alt="project" src="../assets/get-started/training-first-model/overview.png" />
 </figure>
 
 ### 创建 PVC
@@ -37,7 +37,7 @@
 </aside>
 
 <figure class="screenshot">
-  <img alt="project" src="../assets/get-started/training-first-model/create-pvc.png" class="screenshot"/>
+  <img alt="project" src="../assets/get-started/training-first-model/create-pvc.png" />
 </figure>
 
 在 PVC 创建页面，如下填写各个参数：
@@ -48,13 +48,13 @@
 其他参数保持默认即可。完成之后，点击**创建**。
 
 <figure class="screenshot">
-  <img alt="project" src="../assets/get-started/training-first-model/create-pvc-detail.png" class="screenshot"/>
+  <img alt="project" src="../assets/get-started/training-first-model/create-pvc-detail.png" />
 </figure>
 
 在跳转回到 PVC 管理页面之后，可点击右上角的**刷新图标**来手动刷新 PVC 状态。下图展示 PVC `mnist` 已经创建完成。
 
 <figure class="screenshot">
-  <img alt="project" src="../assets/get-started/training-first-model/create-pvc-finish.png" class="screenshot"/>
+  <img alt="project" src="../assets/get-started/training-first-model/create-pvc-finish.png" />
 </figure>
 
 ### 创建 Notebook
@@ -69,7 +69,7 @@
 </aside>
 
 <figure class="screenshot">
-  <img alt="create-notebook" src="../assets/get-started/training-first-model/create-notebook.png" class="screenshot"/>
+  <img alt="create-notebook" src="../assets/get-started/training-first-model/create-notebook.png" />
 </figure>
 
 在 Notebook 创建页面，如下填写各个参数：
@@ -82,7 +82,7 @@
 完成之后，点击**创建**。
 
 <figure class="screenshot">
-  <img alt="create-notebook-detail" src="../assets/get-started/training-first-model/create-notebook-detail.png" class="screenshot"/>
+  <img alt="create-notebook-detail" src="../assets/get-started/training-first-model/create-notebook-detail.png" />
 </figure>
 
 <aside class="note info">
@@ -95,13 +95,13 @@
 在跳转回到 Notebook 管理页面之后，等待刚才创建的 Notebook 准备就绪。第一次拉取镜像可能会花费较长的时间，具体取决于用户集群的网络状况。点击右上角的**刷新图标**来手动刷新 Notebook 状态，待 Notebook 开始运行之后，点击右侧的**打开**进入其前端页面。
 
 <figure class="screenshot">
-  <img alt="connect-notebook" src="../assets/get-started/training-first-model/connect-notebook.png" class="screenshot"/>
+  <img alt="connect-notebook" src="../assets/get-started/training-first-model/connect-notebook.png" />
 </figure>
 
 现在 Notebook 已经可以使用了，用户可以在这里进行模型的开发与测试。
 
 <figure class="screenshot">
-  <img alt="jupyter" src="../assets/get-started/training-first-model/jupyter.png" class="screenshot"/>
+  <img alt="jupyter" src="../assets/get-started/training-first-model/jupyter.png" />
 </figure>
 
 ## 使用 Notebook 训练模型
@@ -116,7 +116,7 @@
 在 Notebook 的前端页面，点击左上角的 **+**，然后点击 Notebook 下的 **Python3** 以新建一个 `.ipynb` 文件。
 
 <figure class="screenshot">
-  <img alt="jupyter-create-notebook" src="../assets/get-started/training-first-model/jupyter-create-notebook.png" class="screenshot"/>
+  <img alt="jupyter-create-notebook" src="../assets/get-started/training-first-model/jupyter-create-notebook.png" />
 </figure>
 
 复制下面的训练脚本到该 `.ipynb` 文件的代码框中。该脚本基于 PyTorch 框架，建立一个简单的卷积神经网络模型，并使用 MNIST 数据集的手写数字图像进行训练和测试。
@@ -132,13 +132,13 @@
 点击上方的运行按钮，可以看到训练开始进行：
 
 <figure class="screenshot">
-  <img alt="jupyter-training" src="../assets/get-started/training-first-model/jupyter-training.png" class="screenshot"/>
+  <img alt="jupyter-training" src="../assets/get-started/training-first-model/jupyter-training.png" />
 </figure>
 
 训练结束后，点击左上角的**新建文件夹按钮**，为新文件夹命名 **first-model**，并将当前教程产生的所有文件拖拽移动到其中。
 
 <figure class="screenshot">
-  <img alt="create-folder" src="../assets/get-started/training-first-model/create-folder.png" class="screenshot"/>
+  <img alt="create-folder" src="../assets/get-started/training-first-model/create-folder.png" />
 </figure>
 
 ## 下一步

@@ -12,19 +12,19 @@
 进入模型构建控制台，在左侧导航菜单（或右侧卡片）中点击**辅助&nbsp;> ConfigMap** 进入 ConfigMap 管理页面。
 
 <figure class="screenshot">
-  <img alt="overview-configmap" src="../assets/tasks/manage-configmap/overview-configmap.png" class="screenshot"/>
+  <img alt="overview-configmap" src="../assets/tasks/manage-configmap/overview-configmap.png" />
 </figure>
 
 点击 ConfigMap 管理页面右上角的**创建 ConfigMap** 进入 ConfigMap 创建页面。
 
 <figure class="screenshot">
-  <img alt="create-configmap" src="../assets/tasks/manage-configmap/create-configmap.png" class="screenshot"/>
+  <img alt="create-configmap" src="../assets/tasks/manage-configmap/create-configmap.png" />
 </figure>
 
 在 ConfigMap 创建页面填写名称、标签和要存储的数据，然后点击**创建**。
 
 <figure class="screenshot">
-  <img alt="create-configmap-detail" src="../assets/tasks/manage-configmap/create-configmap-detail.png" class="screenshot"/>
+  <img alt="create-configmap-detail" src="../assets/tasks/manage-configmap/create-configmap-detail.png" />
 </figure>
 
 您可以点击左上角的**导入 ConfigMap** 以加载当前存在的 ConfigMap 的配置。
@@ -34,5 +34,5 @@
 在 ConfigMap 管理页面，点击要删除的 ConfigMap 右侧的**更多按钮&nbsp;> 删除**。
 
 <figure class="screenshot">
-  <img alt="delete-configmap" src="../assets/tasks/manage-configmap/delete-configmap.png" class="screenshot"/>
+  <img alt="delete-configmap" src="../assets/tasks/manage-configmap/delete-configmap.png" />
 </figure>

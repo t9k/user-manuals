@@ -48,7 +48,7 @@ kubectl logs -l deployment=managed-simplemlservice-fastchat-openai -f --tail -1
 ```
 
 <figure class="screenshot">
-  <img alt="service-log" src="../assets/examples/deploy-llm-chatbot/service-log.png" class="screenshot"/>
+  <img alt="service-log" src="../assets/examples/deploy-llm-chatbot/service-log.png" />
 </figure>
 
 当打印 Uvicorn running on http://0.0.0.0:21002 表示服务已经准备就绪，接下来就可以开始聊天了！
@@ -62,7 +62,7 @@ t9k-pf service fastchat-openai 8000:8000 -n <PROJECT NAME>
 ```
 
 <figure class="screenshot">
-  <img alt="pf" src="../assets/examples/deploy-llm-chatbot/pf.png" class="screenshot"/>
+  <img alt="pf" src="../assets/examples/deploy-llm-chatbot/pf.png" />
 </figure>
 
 我们可以直接使用 `curl` 发送包含聊天内容的请求：
