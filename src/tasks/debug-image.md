@@ -13,35 +13,35 @@
 进入模型构建控制台后，点击**构建 > Pod** 进入 Pod 管理页面。
 
 <figure class="screenshot">
-  <img alt="pod-list" src="../assets/tasks/run-image/pod-list.png" class="screenshot"/>
+  <img alt="pod-list" src="../assets/tasks/run-image/pod-list.png" />
 </figure>
 
 点击右上角的**创建**以创建一个 Pod，执行 `sleep` 命令使镜像保持运行状态，以便我们连接镜像中的 `bash`（或 `sh`）终端。
 
 <figure class="screenshot">
-  <img alt="pod-create" src="../assets/tasks/run-image/pod-create-1.png" class="screenshot"/>
+  <img alt="pod-create" src="../assets/tasks/run-image/pod-create-1.png" />
 </figure>
 
 <figure class="screenshot">
-  <img alt="pod-create" src="../assets/tasks/run-image/pod-create-2.png" class="screenshot"/>
+  <img alt="pod-create" src="../assets/tasks/run-image/pod-create-2.png" />
 </figure>
 
 分别填写项目名称、镜像名称、运行命令和资源使用量，然后点击**创建**。
 
 <figure class="screenshot">
-  <img alt="pod-list-2" src="../assets/tasks/run-image/pod-list-2.png" class="screenshot"/>
+  <img alt="pod-list-2" src="../assets/tasks/run-image/pod-list-2.png" />
 </figure>
 
 所创建的 Pod 变为运行状态后，点击 Pod 名称进入 Pod 详情页面。
 
 <figure class="screenshot">
-  <img alt="pod-detail" src="../assets/tasks/run-image/pod-detail.png" class="screenshot"/>
+  <img alt="pod-detail" src="../assets/tasks/run-image/pod-detail.png" />
 </figure>
 
 点击终端按钮，打开终端。
 
 <figure class="screenshot">
-  <img alt="pod-terminal" src="../assets/tasks/run-image/pod-terminal.png" class="screenshot"/>
+  <img alt="pod-terminal" src="../assets/tasks/run-image/pod-terminal.png" />
 </figure>
 
 在打开的终端中，输入 `pip list` 显示该镜像中安装的所有 pip 包，或者输入其他任何命令。

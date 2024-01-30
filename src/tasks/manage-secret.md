@@ -12,19 +12,19 @@
 进入模型构建控制台，在左侧导航菜单（或右侧卡片）中点击**辅助&nbsp;> Secret** 进入 Secret 管理页面。
 
 <figure class="screenshot">
-  <img alt="overview-secret" src="../assets/tasks/manage-secret/overview-secret.png" class="screenshot"/>
+  <img alt="overview-secret" src="../assets/tasks/manage-secret/overview-secret.png" />
 </figure>
 
 点击 Secret 管理页面右上角的**创建 Secret** 进入 Secret 创建页面。
 
 <figure class="screenshot">
-  <img alt="create-secret" src="../assets/tasks/manage-secret/create-secret.png" class="screenshot"/>
+  <img alt="create-secret" src="../assets/tasks/manage-secret/create-secret.png" />
 </figure>
 
 在 Secret 创建页面选择模板，填写名称和要存储的数据，然后点击**创建**。
 
 <figure class="screenshot">
-  <img alt="create-secret-detail" src="../assets/tasks/manage-secret/create-secret-detail.png" class="screenshot"/>
+  <img alt="create-secret-detail" src="../assets/tasks/manage-secret/create-secret-detail.png" />
 </figure>
 
 <aside class="note info">
@@ -43,5 +43,5 @@ Secret 存储的数据类型是通过其标签进行识别的。
 在 Secret 管理页面，点击要删除的 Secret 右侧的**更多按钮&nbsp;> 删除**。
 
 <figure class="screenshot">
-  <img alt="delete-secret" src="../assets/tasks/manage-secret/delete-secret.png" class="screenshot"/>
+  <img alt="delete-secret" src="../assets/tasks/manage-secret/delete-secret.png" />
 </figure>

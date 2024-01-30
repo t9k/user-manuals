@@ -181,19 +181,19 @@ if __name__ == '__main__':
 训练结束后，进入实验管理控制台，可以看到名为 mnist_torch_distributed 的 Run 及其输出的 Artifact 被上传：
 
 <figure class="screenshot">
-    <img alt="uploaded" src="../assets/tasks/record-distributed-training/uploaded.png" class="screenshot"/>
+    <img alt="uploaded" src="../assets/tasks/record-distributed-training/uploaded.png" />
 </figure>
 
 点击 Run 或 Artifact 的名称进入其详情页面，可以看到 Run 的平台信息、指标、超参数和数据流，以及 Artifact 的文件和数据流。并且它们的数据流是连通的。
 
 <figure class="screenshot">
-    <img alt="run" src="../assets/tasks/record-distributed-training/run.png" class="screenshot"/>
+    <img alt="run" src="../assets/tasks/record-distributed-training/run.png" />
 </figure>
 
 <figure class="screenshot">
-    <img alt="artifact" src="../assets/tasks/record-distributed-training/artifact.png" class="screenshot"/>
+    <img alt="artifact" src="../assets/tasks/record-distributed-training/artifact.png" />
 </figure>
 
 <figure class="screenshot">
-    <img alt="dataflow" src="../assets/tasks/record-distributed-training/dataflow.png" class="screenshot"/>
+    <img alt="dataflow" src="../assets/tasks/record-distributed-training/dataflow.png" />
 </figure>

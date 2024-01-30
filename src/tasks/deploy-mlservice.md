@@ -4,7 +4,7 @@
 
 ## 运行示例
 
-请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/deployment/mlservice-v2/mlservice-torch-pvc">本教程的示例</a>，参照其 README 文档运行。本示例使用 PVC 中存储的模型创建了一个 MLService 服务。
+请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/deployment/mlservice/torch-pvc">本教程的示例</a>，参照其 README 文档运行。本示例使用 PVC 中存储的模型创建了一个 MLService 服务。
 
 <aside class="note tip">
 <div class="title">提示</div>
@@ -18,7 +18,7 @@
 部署完成后，进入模型部署控制台的 MLService 页面，可以看到名为 **torch-mnist-pvc** 的 MLService，稍等片刻，等其进入 Ready 状态：
 
 <figure class="screenshot">
-    <img alt="ready" src="../assets/tasks/deploy-model-reference-serving/mlservice/running-status.png" class="screenshot"/>
+    <img alt="ready" src="../assets/tasks/deploy-model-reference-serving/mlservice/running-status.png" />
 </figure>
 
 ## 使用推理服务
@@ -40,5 +40,5 @@ curl -T test_data/0.png ${url}/v1/models/mnist:predict # or use `1.png`, `2.png`
 在模型部署控制台，点击对应的 MLService，然后切换到**指标**页面，可以查看该 MLService 的资源统计：
 
 <figure class="screenshot">
-  <img alt="resource-usage" src="../assets/tasks/deploy-model-reference-serving/mlservice/resource-usage.png" class="screenshot"/>
+  <img alt="resource-usage" src="../assets/tasks/deploy-model-reference-serving/mlservice/resource-usage.png" />
 </figure>

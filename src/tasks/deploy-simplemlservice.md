@@ -21,11 +21,11 @@
 列表页面：
 
 <figure class="screenshot">
-    <img alt="list" src="../assets/tasks/deploy-simplemlservice/list.png" class="screenshot"/>
+    <img alt="list" src="../assets/tasks/deploy-simplemlservice/list.png" />
 </figure>
 
 SimpleMLService **mnist** 的详情页面：
 
 <figure class="screenshot">
-    <img alt="detail" src="../assets/tasks/deploy-simplemlservice/details.png" class="screenshot"/>
+    <img alt="detail" src="../assets/tasks/deploy-simplemlservice/details.png" />
 </figure>

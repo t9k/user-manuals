@@ -57,13 +57,13 @@ kubectl logs gpt-125m-4xdp-worker-0 -f
 ```
 
 <figure class="screenshot">
-  <img alt="log" src="../assets/tasks/profile-model-training/log.png" class="screenshot"/>
+  <img alt="log" src="../assets/tasks/profile-model-training/log.png" />
 </figure>
 
 性能分析完成之后，结果文件被保存在 `output/gpt-125m-4xdp/profiling` 路径下，前往该路径并启动一个 TensorBoard 实例以查看可视化结果。
 
 <figure class="screenshot">
-  <img alt="create-tensorboard" src="../assets/tasks/profile-model-training/create-tensorboard.png" class="screenshot"/>
+  <img alt="create-tensorboard" src="../assets/tasks/profile-model-training/create-tensorboard.png" />
 </figure>
 
 ## 查看可视化结果
@@ -71,25 +71,25 @@ kubectl logs gpt-125m-4xdp-worker-0 -f
 Overview 展示了训练性能的总体情况，包含 GPU 的总体情况、不同执行类别花费的时间和占比，以及自动生成的性能优化建议：
 
 <figure class="screenshot">
-  <img alt="overview" src="../assets/tasks/profile-model-training/overview.png" class="screenshot"/>
+  <img alt="overview" src="../assets/tasks/profile-model-training/overview.png" />
 </figure>
 
 Operator View 展示了所有 PyTorch 算子被调用的次数、花费的时间以及它的调用栈：
 
 <figure class="screenshot">
-  <img alt="operator-view" src="../assets/tasks/profile-model-training/operator-view.png" class="screenshot"/>
+  <img alt="operator-view" src="../assets/tasks/profile-model-training/operator-view.png" />
 </figure>
 
 Kernel View 展示了所有 GPU 内核被调用的次数、花费的时间的统计以及它是否使用了 Tensor Core 等：
 
 <figure class="screenshot">
-  <img alt="kernel-view" src="../assets/tasks/profile-model-training/kernel-view.png" class="screenshot"/>
+  <img alt="kernel-view" src="../assets/tasks/profile-model-training/kernel-view.png" />
 </figure>
 
 Memory View 展示了内存使用曲线图、内存事件（分配和释放）以及内存统计数据：
 
 <figure class="screenshot">
-  <img alt="memory-view" src="../assets/tasks/profile-model-training/memory-view.png" class="screenshot"/>
+  <img alt="memory-view" src="../assets/tasks/profile-model-training/memory-view.png" />
 </figure>
 
 TensorBoard 所展示的数据和提供的功能还远不止这些，请参阅<a target="_blank" rel="noopener noreferrer" href="https://pytorch.org/tutorials/intermediate/tensorboard_profiler_tutorial.html">官方教程</a>以了解更多。这些数据应当能为用户分析和改进性能提供非常有用的帮助。

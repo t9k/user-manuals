@@ -15,19 +15,19 @@
 从模型构建控制台进入 Notebook 列表，点击右上角的**创建 Notebook**。
 
 <figure class="screenshot">
-  <img alt="notebook-table" src="../assets/tasks/run-hyperparameter-optimization/notebook-table.png" class="screenshot"/>
+  <img alt="notebook-table" src="../assets/tasks/run-hyperparameter-optimization/notebook-table.png" />
 </figure>
 
 创建 Notebook 时，在**存储卷**选择前面创建的 PVC 的名称 `autotune-mnist-keras`。
 
 <figure class="screenshot">
-  <img alt="create-notebook" src="../assets/tasks/run-hyperparameter-optimization/create-notebook.png" class="screenshot"/>
+  <img alt="create-notebook" src="../assets/tasks/run-hyperparameter-optimization/create-notebook.png" />
 </figure>
 
 创建完成之后，点击**打开**进入 Notebook。
 
 <figure class="screenshot">
-  <img alt="after-creating-notebook" src="../assets/tasks/run-hyperparameter-optimization/after-creating-notebook.png" class="screenshot"/>
+  <img alt="after-creating-notebook" src="../assets/tasks/run-hyperparameter-optimization/after-creating-notebook.png" />
 </figure>
 
 ### 在 Notebook 中编辑训练脚本
@@ -333,7 +333,7 @@ if task_index > 0:
 在 Notebook 中创建文件 `main.py`，写入上述脚本并保存文件。
 
 <figure class="screenshot">
-  <img alt="notebook-detail" src="../assets/tasks/run-hyperparameter-optimization/notebook-detail.png" class="screenshot"/>
+  <img alt="notebook-detail" src="../assets/tasks/run-hyperparameter-optimization/notebook-detail.png" />
 </figure>
 
 创建 `download_dataset.py` 文件，写入并执行以下脚本来下载实验数据。
@@ -346,11 +346,11 @@ _, _ = tf.keras.datasets.mnist.load_data(os.path.join(os.getcwd(), 'mnist.npz'))
 ```
 
 <figure class="screenshot">
-  <img alt="notebook-download-script" src="../assets/tasks/run-hyperparameter-optimization/notebook-download-script.png" class="screenshot"/>
+  <img alt="notebook-download-script" src="../assets/tasks/run-hyperparameter-optimization/notebook-download-script.png" />
 </figure>
 
 <figure class="screenshot">
-  <img alt="download-data" src="../assets/tasks/run-hyperparameter-optimization/download-data.png" class="screenshot"/>
+  <img alt="download-data" src="../assets/tasks/run-hyperparameter-optimization/download-data.png" />
 </figure>
 
 ## 准备数据库
@@ -362,13 +362,13 @@ _, _ = tf.keras.datasets.mnist.load_data(os.path.join(os.getcwd(), 'mnist.npz'))
 EM 的实验数据是以文件夹形式管理的，所以您首先需要在实验管理控制台点击右上角的 **+** 新建一个文件夹。
 
 <figure class="screenshot">
-  <img alt="create-aistore-folder" src="../assets/tasks/run-hyperparameter-optimization/create-aistore-folder.png" class="screenshot"/>
+  <img alt="create-aistore-folder" src="../assets/tasks/run-hyperparameter-optimization/create-aistore-folder.png" />
 </figure>
 
 进入文件夹，点击 **ID** 来复制该文件夹的 ID。
 
 <figure class="screenshot">
-  <img alt="folder-id" src="../assets/tasks/run-hyperparameter-optimization/folder-id.png" class="screenshot"/>
+  <img alt="folder-id" src="../assets/tasks/run-hyperparameter-optimization/folder-id.png" />
 </figure>
 
 <aside class="note info">
@@ -392,19 +392,19 @@ EM 的更详细信息请参阅[实验管理](../modules/experiment-management.md
 您需要按照[生成 API Key](./generate-api-key.md) 教程中的步骤，在安全控制台中生成一个 API Key，其中必须勾选 AIStore 选项。
 
 <figure class="screenshot">
-  <img alt="create-apikey" src="../assets/tasks/run-hyperparameter-optimization/create-apikey.png" class="screenshot"/>
+  <img alt="create-apikey" src="../assets/tasks/run-hyperparameter-optimization/create-apikey.png" />
 </figure>
 
 生成 API Key 之后，点击**复制按钮**复制该 API Key。
 
 <figure class="screenshot">
-  <img alt="after-creating-apikey" src="../assets/tasks/run-hyperparameter-optimization/after-creating-apikey.png" class="screenshot"/>
+  <img alt="after-creating-apikey" src="../assets/tasks/run-hyperparameter-optimization/after-creating-apikey.png" />
 </figure>
 
 然后，您需要按照[管理 Secret](./manage-secret.md) 教程中的步骤，在模型构建控制台中将所复制的 API Key 存入名为 `aistore` 的 Secret 中，以方便后续实验使用。
 
 <figure class="screenshot">
-  <img alt="create-apikey-secret" src="../assets/tasks/run-hyperparameter-optimization/create-apikey-secret.png" class="screenshot"/>
+  <img alt="create-apikey-secret" src="../assets/tasks/run-hyperparameter-optimization/create-apikey-secret.png" />
 </figure>
 
 ## 开始实验
@@ -412,7 +412,7 @@ EM 的更详细信息请参阅[实验管理](../modules/experiment-management.md
 在模型构建控制台的 AutoTune 列表页面，点击右上角的**创建 AutoTuneExperiment** 进入 AutoTuneExperiment 创建页面。
 
 <figure class="screenshot">
-  <img alt="autotune-table" src="../assets/tasks/run-hyperparameter-optimization/autotune-table.png" class="screenshot"/>
+  <img alt="autotune-table" src="../assets/tasks/run-hyperparameter-optimization/autotune-table.png" />
 </figure>
 
 在 AutoTuneExperiment 创建页面，点击**预览 YAML**，输入以下配置，点击**创建**：
@@ -480,7 +480,7 @@ spec:
 在此例中，实验绑定了准备过程中创建的名为 `autotune-mnist-keras` 的 PVC，其中存有在 Notebook 中编辑的训练脚本；使用了名为 `aistore` 的存有 API Key 的 Secret；填入了前面创建的 EM Folder 的 ID。
 
 <figure class="screenshot">
-  <img alt="create-autotune" src="../assets/tasks/run-hyperparameter-optimization/create-autotune.png" class="screenshot"/>
+  <img alt="create-autotune" src="../assets/tasks/run-hyperparameter-optimization/create-autotune.png" />
 </figure>
 
 ## 查看实验
@@ -488,15 +488,15 @@ spec:
 您可以在 AutoTune 列表页面看到已创建的 AutoTuneExperiment，点击**连接**进入实验详情页面。
 
 <figure class="screenshot">
-  <img alt="after-creating-autotune" src="../assets/tasks/run-hyperparameter-optimization/after-creating-autotune.png" class="screenshot"/>
+  <img alt="after-creating-autotune" src="../assets/tasks/run-hyperparameter-optimization/after-creating-autotune.png" />
 </figure>
 
 下图为实验详情页面，您可以在该页面查看实验基本信息、各试验的参数与结果，以及查看试验之间的对比。
 
 <figure class="screenshot">
-  <img alt="autotune-detail" src="../assets/tasks/run-hyperparameter-optimization/autotune-detail.png" class="screenshot"/>
+  <img alt="autotune-detail" src="../assets/tasks/run-hyperparameter-optimization/autotune-detail.png" />
 </figure>
 
 <figure class="screenshot">
-  <img alt="trial-detail" src="../assets/tasks/run-hyperparameter-optimization/trial-detail.png" class="screenshot"/>
+  <img alt="trial-detail" src="../assets/tasks/run-hyperparameter-optimization/trial-detail.png" />
 </figure>

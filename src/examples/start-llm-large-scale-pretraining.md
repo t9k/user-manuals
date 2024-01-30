@@ -78,13 +78,13 @@ kubectl logs gpt-125m-worker-0 -f
 ```
 
 <figure class="screenshot">
-  <img alt="log" src="../assets/examples/start-llm-large-scale-pretraining/log.png" class="screenshot"/>
+  <img alt="log" src="../assets/examples/start-llm-large-scale-pretraining/log.png" />
 </figure>
 
 训练过程中产生的 TensorBoard 日志文件保存在 `output/gpt-1-3b/tensorboard` 路径下，同样可以在 Notebook 中创建一个 TensorBoard 实例以查看：
 
 <figure class="screenshot">
-  <img alt="tensorboard" src="../assets/examples/start-llm-large-scale-pretraining/tensorboard.png" class="screenshot"/>
+  <img alt="tensorboard" src="../assets/examples/start-llm-large-scale-pretraining/tensorboard.png" />
 </figure>
 
 训练完成之后，模型文件将保存到 `output/gpt-125m/model` 路径下，后续用于文本生成或进一步的微调。

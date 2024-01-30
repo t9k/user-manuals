@@ -200,35 +200,35 @@ pprint(ah.list('model/chat'))
 在模型文件夹列表中，选中需要修改的模型文件夹，点击**更多 > 编辑**：
 
 <figure class="screenshot">
-  <img alt="folder-list" src="../assets/tasks/manage-asset/modify-folder-asset/folder-list.png" class="screenshot"/>
+  <img alt="folder-list" src="../assets/tasks/manage-asset/modify-folder-asset/folder-list.png" />
 </figure>
 
 填写新的名称和描述信息，添加新标签，点击**更新**按钮：
 
 <figure class="screenshot">
-  <img alt="folder-edit" src="../assets/tasks/manage-asset/modify-folder-asset/folder-edit.png" class="screenshot"/>
+  <img alt="folder-edit" src="../assets/tasks/manage-asset/modify-folder-asset/folder-edit.png" />
 </figure>
 
 回到文件夹列表，可以看到文件夹信息发生改变：
 
 <figure class="screenshot">
-  <img alt="folder-list-after-edit" src="../assets/tasks/manage-asset/modify-folder-asset/folder-list-after-edit.png" class="screenshot"/>
+  <img alt="folder-list-after-edit" src="../assets/tasks/manage-asset/modify-folder-asset/folder-list-after-edit.png" />
 </figure>
 
 点击文件夹名称，进入模型列表，选中需要修改的模型，点击**更多 > 编辑**：
 
 <figure class="screenshot">
-  <img alt="model-list" src="../assets/tasks/manage-asset/modify-folder-asset/model-list.png" class="screenshot"/>
+  <img alt="model-list" src="../assets/tasks/manage-asset/modify-folder-asset/model-list.png" />
 </figure>
 
 填写新的名称和描述信息，添加新标签，点击**更新**按钮：
 
 <figure class="screenshot">
-  <img alt="model-edit" src="../assets/tasks/manage-asset/modify-folder-asset/model-edit.png" class="screenshot"/>
+  <img alt="model-edit" src="../assets/tasks/manage-asset/modify-folder-asset/model-edit.png" />
 </figure>
 
 回到模型列表，可以看到模型信息发生改变：
 
 <figure class="screenshot">
-  <img alt="model-list-after-edit" src="../assets/tasks/manage-asset/modify-folder-asset/model-list-after-edit.png" class="screenshot"/>
+  <img alt="model-list-after-edit" src="../assets/tasks/manage-asset/modify-folder-asset/model-list-after-edit.png" />
 </figure>

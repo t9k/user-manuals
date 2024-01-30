@@ -327,43 +327,43 @@ AH INFO: Downloading object 1/1 model_state_dict.pt:
 进入模型详情页后，点击**所有文件 > 上传图标**：
 
 <figure class="screenshot">
-  <img alt="model-detail" src="../assets/tasks/manage-asset/operate-asset-objects/model-detail.png" class="screenshot"/>
+  <img alt="model-detail" src="../assets/tasks/manage-asset/operate-asset-objects/model-detail.png" />
 </figure>
 
 点击**选择文件**选择所要上传的文件，填写描述信息，然后点击**提交**：
 
 <figure class="screenshot">
-  <img alt="model-upload" src="../assets/tasks/manage-asset/operate-asset-objects/model-upload.png" class="screenshot"/>
+  <img alt="model-upload" src="../assets/tasks/manage-asset/operate-asset-objects/model-upload.png" />
 </figure>
 
 完成提交后，可以在**所有文件**中看到刚刚上传的文件，点击**下载图标**下载该文件：
 
 <figure class="screenshot">
-  <img alt="model-object-list" src="../assets/tasks/manage-asset/operate-asset-objects/model-object-list.png" class="screenshot"/>
+  <img alt="model-object-list" src="../assets/tasks/manage-asset/operate-asset-objects/model-object-list.png" />
 </figure>
 
 点击**介绍 > 添加介绍**：
 
 <figure class="screenshot">
-  <img alt="model-introduce" src="../assets/tasks/manage-asset/operate-asset-objects/model-introduce.png" class="screenshot"/>
+  <img alt="model-introduce" src="../assets/tasks/manage-asset/operate-asset-objects/model-introduce.png" />
 </figure>
 
 在编辑框中按照 `markdown` 格式编辑模型的描述信息，填写提交信息，点击**提交**：
 
 <figure class="screenshot">
-  <img alt="model-readme" src="../assets/tasks/manage-asset/operate-asset-objects/model-readme.png" class="screenshot"/>
+  <img alt="model-readme" src="../assets/tasks/manage-asset/operate-asset-objects/model-readme.png" />
 </figure>
 
 添加完介绍后，在模型详情页可以看到模型介绍：
 
 <figure class="screenshot">
-  <img alt="model-introduce-after-add" src="../assets/tasks/manage-asset/operate-asset-objects/model-introduce-after-add.png" class="screenshot"/>
+  <img alt="model-introduce-after-add" src="../assets/tasks/manage-asset/operate-asset-objects/model-introduce-after-add.png" />
 </figure>
 
 模型介绍本质上是 **README.md** 文件，在**所有文件**中可以看到：
 
 <figure class="screenshot">
-  <img alt="model-object-list-readme" src="../assets/tasks/manage-asset/operate-asset-objects/model-object-list-readme.png" class="screenshot"/>
+  <img alt="model-object-list-readme" src="../assets/tasks/manage-asset/operate-asset-objects/model-object-list-readme.png" />
 </figure>
 
 <aside class="note">

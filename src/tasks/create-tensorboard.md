@@ -23,12 +23,12 @@
 TensorBoard 处于 `Running` 状态后，进入模型构建控制台的 TensorBoard 页面，可以看到 TensorBoard `tensorboard` 正在运行：
 
 <figure class="screenshot">
-    <img alt="running" src="../assets/tasks/create-tensorboard/tensorboard-manage.png" class="screenshot"/>
+    <img alt="running" src="../assets/tasks/create-tensorboard/tensorboard-manage.png" />
 </figure>
 
 
 点击 **TensorBoard** 右侧的 **打开** 进入 TensorBoard 页面，查看可视化展示的训练和验证指标：
 
 <figure class="screenshot">
-    <img alt="tensorboard" src="../assets/tasks/create-tensorboard/tensorboard-open.png" class="screenshot"/>
+    <img alt="tensorboard" src="../assets/tasks/create-tensorboard/tensorboard-open.png" />
 </figure>

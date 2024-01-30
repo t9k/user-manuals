@@ -22,15 +22,15 @@
 在模型构建控制台的左侧导航菜单中点击**构建 > Image Builder**，然后点击刚创建的 Image Builder 右侧的**详情**，查看其详情和日志。拉取基础镜像、构建镜像和推送镜像都需要花费一定的时间，请耐心等待。
 
 <figure class="screenshot">
-  <img alt="image-builder" src="../assets/tasks/build-image/image-builder.png" class="screenshot"/>
+  <img alt="image-builder" src="../assets/tasks/build-image/image-builder.png" />
 </figure>
 
 <figure class="screenshot">
-  <img alt="detail" src="../assets/tasks/build-image/detail.png" class="screenshot"/>
+  <img alt="detail" src="../assets/tasks/build-image/detail.png" />
 </figure>
 
 <figure class="screenshot">
-  <img alt="log" src="../assets/tasks/build-image/log.png" class="screenshot"/>
+  <img alt="log" src="../assets/tasks/build-image/log.png" />
 </figure>
 
 <aside class="note">
@@ -43,7 +43,7 @@
 一段时间后，构建完成的镜像被推送到相应的 registry 中。
 
 <figure class="screenshot">
-  <img alt="pushed-to-registry" src="../assets/tasks/build-image/pushed-to-registry.png" class="screenshot"/>
+  <img alt="pushed-to-registry" src="../assets/tasks/build-image/pushed-to-registry.png" />
 </figure>
 
 ## FAQs

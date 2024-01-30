@@ -27,7 +27,7 @@
 点击左上角的 **+**，然后点击 Other 下的 **Terminal** 以新建一个终端。
 
 <figure class="screenshot">
-  <img alt="create-terminal" src="../assets/get-started/deployment/create-terminal.png" class="screenshot"/>
+  <img alt="create-terminal" src="../assets/get-started/deployment/create-terminal.png" />
 </figure>
 
 执行以下命令以打包一个 torch model archive：
@@ -43,7 +43,7 @@ torch-model-archiver --model-name mnist --version 1.0 --model-file model.py \
 在 TensorStack AI 平台首页，点击**Deploy**进入模型部署控制台。
 
 <figure class="screenshot">
-  <img alt="landing-page" src="../assets/get-started/deployment/landing-page.png" class="screenshot"/>
+  <img alt="landing-page" src="../assets/get-started/deployment/landing-page.png" />
 </figure>
 
 模型部署控制台的总览页面展示了当前部署服务的数量以及资源使用情况。在左侧的导航菜单中点击**部署&nbsp;> SimpleMLService**，点击右上角的 **+** 弹出创建对话框，然后复制下面的 YAML 配置文件并粘贴到编辑框中，最后点击**创建**。
@@ -70,7 +70,7 @@ spec:
 ```
 
 <figure class="screenshot">
-  <img alt="create-simplemlservice" src="../assets/get-started/deployment/create-simplemlservice.png" class="screenshot"/>
+  <img alt="create-simplemlservice" src="../assets/get-started/deployment/create-simplemlservice.png" />
 </figure>
 
 <aside class="note info">
@@ -89,13 +89,13 @@ spec:
 待 SimpleMLService 就绪之后，点击其**名称**进入详情页面。
 
 <figure class="screenshot">
-  <img alt="enter-simplemlservice" src="../assets/get-started/deployment/enter-simplemlservice.png" class="screenshot"/>
+  <img alt="enter-simplemlservice" src="../assets/get-started/deployment/enter-simplemlservice.png" />
 </figure>
 
 页面中展示的 DNS 即为推理服务地址，注意该地址只能从集群内部访问。
 
 <figure class="screenshot">
-  <img alt="simplemlservice-detail" src="../assets/get-started/deployment/simplemlservice-detail.png" class="screenshot"/>
+  <img alt="simplemlservice-detail" src="../assets/get-started/deployment/simplemlservice-detail.png" />
 </figure>
 
 

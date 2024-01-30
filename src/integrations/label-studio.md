@@ -132,7 +132,7 @@ helm delete label-studio-demo
 如果在部署应用时配置了 Ingress，那么直接在浏览器中访问相应的地址即可，否则需要进行端口转发。在用户的计算机上，前往模型构建控制台获取应用 Pod 的名称（前缀为 label-studio-demo-ls-app-）：
 
 <figure class="screenshot">
-  <img alt="get-pod-name" src="../assets/integrations/label-studio/get-pod-name.png" class="screenshot"/>
+  <img alt="get-pod-name" src="../assets/integrations/label-studio/get-pod-name.png" />
 </figure>
 
 然后通过 t9k-pf 进行端口转发来访问 Label Studio 应用：
@@ -144,57 +144,57 @@ t9k-pf -n <APP_PROJECT> pod <POD_NAME> 8080:8085
 在浏览器中访问 <a target="_blank" rel="noopener noreferrer" href="http://127.0.0.1:8080/">http://127.0.0.1:8080/</a> 进入应用的 Web UI。注册一个用户，Email 和密码可以任意指定：
 
 <figure class="screenshot">
-  <img alt="sign-up" src="../assets/integrations/label-studio/sign-up.png" class="screenshot"/>
+  <img alt="sign-up" src="../assets/integrations/label-studio/sign-up.png" />
 </figure>
 
 假定任务是图像分类，我们准备了 10 张图片（来自数据集 <a target="_blank" rel="noopener noreferrer" href="https://www.microsoft.com/en-us/download/details.aspx?id=54765">Cats and Dogs</a>），需要将每一张图片标注为猫或狗。点击 **Create Project**：
 
 <figure class="screenshot">
-  <img alt="create-project" src="../assets/integrations/label-studio/create-project.png" class="screenshot"/>
+  <img alt="create-project" src="../assets/integrations/label-studio/create-project.png" />
 </figure>
 
 在 Project Name 页面可选地修改 Project 的名称：
 
 <figure class="screenshot">
-  <img alt="project-name" src="../assets/integrations/label-studio/project-name.png" class="screenshot"/>
+  <img alt="project-name" src="../assets/integrations/label-studio/project-name.png" />
 </figure>
 
 在 Data Import 页面上传 10 张图片：
 
 <figure class="screenshot">
-  <img alt="data-import" src="../assets/integrations/label-studio/data-import.png" class="screenshot"/>
+  <img alt="data-import" src="../assets/integrations/label-studio/data-import.png" />
 </figure>
 
 <figure class="screenshot">
-  <img alt="file-uploaded" src="../assets/integrations/label-studio/file-uploaded.png" class="screenshot"/>
+  <img alt="file-uploaded" src="../assets/integrations/label-studio/file-uploaded.png" />
 </figure>
 
 在 Labeling Setup 页面，选择模板 **Computer Vision > Image Classification**，并将选项编辑为 **Cat** 和 **Dog**，最后点击 **Save**：
 
 <figure class="screenshot">
-  <img alt="labeling-setup" src="../assets/integrations/label-studio/labeling-setup.png" class="screenshot"/>
+  <img alt="labeling-setup" src="../assets/integrations/label-studio/labeling-setup.png" />
 </figure>
 
 <figure class="screenshot">
-  <img alt="config-template" src="../assets/integrations/label-studio/config-template.png" class="screenshot"/>
+  <img alt="config-template" src="../assets/integrations/label-studio/config-template.png" />
 </figure>
 
 自动跳转到 Project 的默认标签页，点击 **Label All Tasks** 以开始标注：
 
 <figure class="screenshot">
-  <img alt="task-list" src="../assets/integrations/label-studio/task-list.png" class="screenshot"/>
+  <img alt="task-list" src="../assets/integrations/label-studio/task-list.png" />
 </figure>
 
 对于每一张图片，勾选其为 Cat 或 Dog，然后点击 **Submit**：
 
 <figure class="screenshot">
-  <img alt="labeling" src="../assets/integrations/label-studio/labeling.png" class="screenshot"/>
+  <img alt="labeling" src="../assets/integrations/label-studio/labeling.png" />
 </figure>
 
 标注结束后，点击 **Export** 以下载指定格式的标注数据。
 
 <figure class="screenshot">
-  <img alt="export" src="../assets/integrations/label-studio/export.png" class="screenshot"/>
+  <img alt="export" src="../assets/integrations/label-studio/export.png" />
 </figure>
 
 ### 导入大量数据
@@ -233,23 +233,23 @@ Transferring:
 在 Label Studio 的项目设置中点击 **Cloud Storage > Add Source Storage**，选择存储类型 AWS S3，并填写相关的配置，点击 **Check Connection** 验证连接是否成功，最后点击 **Add Storage**。
 
 <figure class="screenshot">
-  <img alt="add-source-storage" src="../assets/integrations/label-studio/add-source-storage.png" class="screenshot"/>
+  <img alt="add-source-storage" src="../assets/integrations/label-studio/add-source-storage.png" />
 </figure>
 
 <figure class="screenshot">
-  <img alt="add-source-storage-detail" src="../assets/integrations/label-studio/add-source-storage-detail.png" class="screenshot"/>
+  <img alt="add-source-storage-detail" src="../assets/integrations/label-studio/add-source-storage-detail.png" />
 </figure>
 
 创建完成之后，点击 **Sync Storage**，即可从导入数据文件：
 
 <figure class="screenshot">
-  <img alt="sync-storage" src="../assets/integrations/label-studio/sync-storage.png" class="screenshot"/>
+  <img alt="sync-storage" src="../assets/integrations/label-studio/sync-storage.png" />
 </figure>
 
 回到项目，可以看到数据被导入：
 
 <figure class="screenshot">
-  <img alt="synced" src="../assets/integrations/label-studio/synced.png" class="screenshot"/>
+  <img alt="synced" src="../assets/integrations/label-studio/synced.png" />
 </figure>
 
 ### 自定义标注 UI
@@ -258,11 +258,11 @@ Transferring:
 
 
 <figure class="screenshot">
-  <img alt="customize-ui" src="../assets/integrations/label-studio/customize-ui.png" class="screenshot"/>
+  <img alt="customize-ui" src="../assets/integrations/label-studio/customize-ui.png" />
 </figure>
 
 <figure class="screenshot">
-  <img alt="customize-ui-detail" src="../assets/integrations/label-studio/customize-ui-detail.png" class="screenshot"/>
+  <img alt="customize-ui-detail" src="../assets/integrations/label-studio/customize-ui-detail.png" />
 </figure>
 
 ### 自动化标注
@@ -274,7 +274,7 @@ Label Studio 支持添加 ML backend，使用其自动标注或进行在线训�
 在应用的 Web UI 点击 **Account & Settings**，以获取用户的 **Access Token**：
 
 <figure class="screenshot">
-  <img alt="access-token" src="../assets/integrations/label-studio/access-token.png" class="screenshot"/>
+  <img alt="access-token" src="../assets/integrations/label-studio/access-token.png" />
 </figure>
 
 回到 Notebook app 的终端，获取应用 service 的 IP 地址：
@@ -334,17 +334,17 @@ kubectl get svc label-studio-sam -o jsonpath="{.spec.ports[0].port}"
 在 Label Studio 的项目设置中点击 **Machine Learning > Add Model**，填写 SAM 服务的 URL 和模型名称，勾选 **Use for interactive preannotations**，然后点击 **Validate and Save**：
 
 <figure class="screenshot">
-  <img alt="add-model" src="../assets/integrations/label-studio/add-model.png" class="screenshot"/>
+  <img alt="add-model" src="../assets/integrations/label-studio/add-model.png" />
 </figure>
 
 <figure class="screenshot">
-  <img alt="add-model-detail" src="../assets/integrations/label-studio/add-model-detail.png" class="screenshot"/>
+  <img alt="add-model-detail" src="../assets/integrations/label-studio/add-model-detail.png" />
 </figure>
 
 标注时按照下图的顺序进行操作，可以看到图片中的柯基被正确地分割出来：
 
 <figure class="screenshot">
-  <img alt="auto-annotation" src="../assets/integrations/label-studio/auto-annotation.png" class="screenshot"/>
+  <img alt="auto-annotation" src="../assets/integrations/label-studio/auto-annotation.png" />
 </figure>
 
 ### 团队协作

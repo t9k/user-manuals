@@ -7,7 +7,7 @@
 在模型构建控制台的左侧导航菜单中点击**存储 > 持久卷**进入 PVC 管理页面，点击 PVC 右侧的**启动**：
 
 <figure class="screenshot">
-  <img alt="start-explorer" src="../assets/tasks/use-explorer/start-explorer.png" class="screenshot"/>
+  <img alt="start-explorer" src="../assets/tasks/use-explorer/start-explorer.png" />
 </figure>
 
 <aside class="note tip">
@@ -20,7 +20,7 @@
 将光标悬停在**打开**上，等待 File Browser 和 VS Code 就绪。随后点击 **File Browser** 和 **VS Code** 即可进入。
 
 <figure class="screenshot">
-  <img alt="enter" src="../assets/tasks/use-explorer/enter.png" class="screenshot"/>
+  <img alt="enter" src="../assets/tasks/use-explorer/enter.png" />
 </figure>
 
 </aside>
@@ -39,7 +39,7 @@
 进入 File Browser 的前端页面，我们可以看到 PVC 中的所有文件和目录：
 
 <figure class="screenshot">
-  <img alt="file-browser" src="../assets/tasks/use-explorer/file-browser.png" class="screenshot"/>
+  <img alt="file-browser" src="../assets/tasks/use-explorer/file-browser.png" />
 </figure>
 
 这里支持以下操作：
@@ -65,7 +65,7 @@ VS Code for the Web 拥有 VS Code 桌面版的许多功能，包括在浏览和
 进入 File Browser 的前端页面，我们可以看到 PVC 中的所有文件和目录：
 
 <figure class="screenshot">
-  <img alt="vs-code" src="../assets/tasks/use-explorer/vs-code.png" class="screenshot"/>
+  <img alt="vs-code" src="../assets/tasks/use-explorer/vs-code.png" />
 </figure>
 
 这里支持以下操作：
@@ -82,7 +82,7 @@ VS Code for the Web 拥有 VS Code 桌面版的许多功能，包括在浏览和
 使用结束后，我们可以**关闭** Explorer。之后重新启用即可。
 
 <figure class="screenshot">
-  <img alt="pause-close-explorer" src="../assets/tasks/use-explorer/pause-close-explorer.png" class="screenshot"/>
+  <img alt="pause-close-explorer" src="../assets/tasks/use-explorer/pause-close-explorer.png" />
 </figure>
 
 </aside>
