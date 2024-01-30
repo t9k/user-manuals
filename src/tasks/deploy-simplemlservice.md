@@ -1,4 +1,4 @@
-# 简单模型推理服务
+# 简单推理服务
 
 本教程演示使用 SimpleMLService 快速部署一个模型推理服务。
 
@@ -13,18 +13,15 @@
 
 </aside>
 
-
 ## 查看推理服务状态
 
 部署完成后，进入模型部署控制台的 SimpleMLService 页面，可以看到名为 **mnist** 的 SimpleMLService。
-
-列表页面：
 
 <figure class="screenshot">
     <img alt="list" src="../assets/tasks/deploy-simplemlservice/list.png" />
 </figure>
 
-SimpleMLService **mnist** 的详情页面：
+点击 SimpleMLService 的名称 **mnist** 可以看见 SimpleMLService 的基本信息，其中 URL 是在集群内访问这个推理服务的地址：
 
 <figure class="screenshot">
     <img alt="detail" src="../assets/tasks/deploy-simplemlservice/details.png" />
