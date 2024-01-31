@@ -15,7 +15,18 @@
 
 其中，创建包含身份信息的 Secret 这一步骤也可以在模型构建控制台中通过创建 `Docker` 类型的 Secret 来完成，如下图所示。详情请参阅[创建 Secret](../../guide/manage-auxiliary-resources/manage-secret.md#创建-secret)。
 
-图
+<figure class="screenshot">
+  <img alt="secret-form" src="../assets/tasks/build-image/secret-form.png" />
+</figure>
+
+<aside class="note tip">
+<div class="title">提示</div>
+
+`auth` 字段中填写的内容应为 `[username]:[password]` 经过 Base64 编码后的字符串。
+
+在已填写 `auth` 字段的情况下，可以删除 `username` 和 `password` 这两个字段，仍然能起到身份认证的作用。
+
+</aside>
 
 ## 检查构建进度和结果
 
