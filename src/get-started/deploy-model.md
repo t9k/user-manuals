@@ -1,12 +1,12 @@
 # 部署模型
 
-本教程带领用户使用 CRD [SimpleMLService](../modules/deployment/simplemlservice.md)，部署模型为推理服务。
+本教程带领用户使用 [SimpleMLService](../modules/deployment/simplemlservice.md) CRD，部署模型为推理服务。
 
 在教程[训练你的第一个模型](./training-first-model.md)和[进行并行训练](./parallel-training.md)中，训练完成的模型都被保存为文件 `model_state_dict.pt`，这两个模型文件所对应的模型是相同的。本教程将部署这个模型为推理服务。
 
 ## 准备模型文件
 
-这里我们使用 <a target="_blank" rel="noopener noreferrer" href="https://github.com/pytorch/serve">TorchServe</a> 部署 PyTorch 模型。回到 Notebook mnist，在 HOME 目录（即左侧边栏文件浏览器显示的根目录 `/`）下新建以下文件：
+这里我们使用 <a target="_blank" rel="noopener noreferrer" href="https://github.com/pytorch/serve">TorchServe</a> 部署 PyTorch 模型。回到 Notebook `mnist`，在 HOME 目录（即左侧边栏文件浏览器显示的根目录 `/`）下新建以下文件：
 
 <details><summary><code class="hljs">model.py</code></summary>
 
@@ -30,7 +30,7 @@
   <img alt="create-terminal" src="../assets/get-started/deployment/create-terminal.png" />
 </figure>
 
-执行以下命令以打包一个 torch model archive：
+执行以下命令以打包一个 torch 的模型包（model archive）：
 
 ```bash
 # 使用 Notebook 中训练的模型
@@ -82,7 +82,7 @@ spec:
 <aside class="note info">
 <div class="title">SimpleMLService</div>
 
-[SimpleMLService](../modules/deployment/simplemlservice.md) 是平台提供的用于部署模型推理服务的资源。与同样用于部署推理服务的 [MLService](../modules/deployment/mlservice.md) 相比，SimpleMLService 更加精简，适用于快速测试。
+[SimpleMLService](../modules/deployment/simplemlservice.md) 是平台提供的用于部署模型推理服务的 CRD。与同样用于部署推理服务的 [MLService](../modules/deployment/mlservice.md) 相比，SimpleMLService 更加精简，适用于快速测试。
 
 </aside>
 
@@ -110,9 +110,9 @@ spec:
 
 ### 访问推理服务
 
-回到 Notebook mnist，在终端中执行以下命令以下载测试数据，并向推理服务发送请求，其中 `URL` 变量的值需要修改为用户实际部署的推理服务的地址。
+回到 Notebook `mnist`，在终端中执行以下命令以下载测试数据，并向推理服务发送请求。注意，其中 `URL` 变量的值需要修改为用户实际部署的推理服务的地址。
 
-```bash
+```sh
 # 下载测试图像文件
 wget https://t9k.github.io/user-manuals/assets/get-started/deployment/{0,1,2}.png
 
@@ -147,5 +147,5 @@ kubectl delete SimpleMLService mnist
 ## 下一步
 
 * 了解[模型部署](../modules/deployment/index.md)
-* 进一步学习如何[部署用于测试环境的模型推理服务](../tasks/deploy-simplemlservice.md)
+* 进一步学习如何[部署简单推理服务](../tasks/deploy-simplemlservice.md)
 * 进一步学习如何[部署用于生产环境的模型推理服务](../tasks/deploy-mlservice.md)
