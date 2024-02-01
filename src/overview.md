@@ -52,6 +52,18 @@ AI 集群的拥有者可以使用这套软件，构建自己的 “AI 私有云�
 </figure>
 
 <aside class="note info">
+<div class="title"> CRD </div>
+
+**CRD （Custom Resource Defintion，定制资源定义）** 是 Kubernetes 提供的一种 API 扩展机制，可用于提供特定领域（例如 AI）的额外能力。
+
+TensorStack 平台通过 CRD 提供了丰富的系统功能，包括存储系统、开发环境、数据处理、模型训练、推理服务等。
+`Notebook` 是 TensorStack 提供的一个 CRD，用于支持在 TensorStack 平台上使用 JupyterLab，RStudio。
+
+有关 CRD 机制的详细信息请参阅 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/using-api/api-concepts/"> Kubernetes API Concepts </a> 及 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/"> Custom Resources </a>。
+
+</aside>
+
+<aside class="note info">
 <div class="title">TensorStack 通过 CRD 提供系统功能</div>
 
 平台目前提供了 ～30 个 CRD，以支持各种 AI 计算场景。用户可通过下列命令查看集群中部署的 TensorStack CRD：
