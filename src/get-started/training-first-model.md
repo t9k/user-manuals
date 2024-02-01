@@ -1,13 +1,16 @@
 # 训练你的第一个模型
 
-本教程将带领用户使用 [Notebook](../modules/building/notebook.md) 资源，来构建和训练用户的第一个机器学习模型。
+本教程带领用户使用 CRD [Notebook](../modules/building/notebook.md)，来构建和训练用户的第一个机器学习模型。
 
 <aside class="note info">
-<div class="title"> Resources（资源）</div>
+<div class="title"> CRD （Custom Resource Defintion，定制资源定义）</div>
 
-在 Kubernetes 中，Resources（资源）是用于描述集群中工作负载的概念。资源可分为 Kubernetes 原生资源，例如 `Pod`，`Service` 等；及 Custom Resource Defintion（CRD，定制资源），其扩展 Kubernetes，提供特定领域（例如 AI）的额外能力。 `Notebook` 和 `PyTorchTrainingJob` 是 TensorStack 提供的 CRD。
+CRD （Custom Resource Defintion，定制资源定义）是 Kubernetes 提供的 API 扩展机制，提供特定领域（例如 AI）的额外能力。
 
-详细信息请参阅 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/"> Custom Resources （定制资源）</a>。
+`Notebook` 是 TensorStack 提供的一个 CRD，用于支持在 TensorStack 平台上使用 Jupyter，RStudio 类型的 Notebook 应用。
+TensorStack 平台通过 CRD 提供了丰富的系统功能，包括存储系统、数据处理、模型训练、推理服务等。
+
+有关 CRD 的详细信息请参阅 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/using-api/api-concepts/"> Kubernetes API Concepts </a> 及 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/"> Custom Resources （定制资源）</a>。
 
 </aside>
 

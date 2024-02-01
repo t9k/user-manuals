@@ -1,6 +1,6 @@
 # 部署模型
 
-本教程将带领用户使用 [SimpleMLService](../modules/deployment/simplemlservice.md) 资源，部署模型为推理服务。
+本教程带领用户使用 CRD [SimpleMLService](../modules/deployment/simplemlservice.md)，部署模型为推理服务。
 
 在教程[训练你的第一个模型](./training-first-model.md)和[进行并行训练](./parallel-training.md)中，训练完成的模型都被保存为文件 `model_state_dict.pt`，这两个模型文件所对应的模型是相同的。本教程将部署这个模型为推理服务。
 
@@ -33,9 +33,15 @@
 执行以下命令以打包一个 torch model archive：
 
 ```bash
-torch-model-archiver --model-name mnist --version 1.0 --model-file model.py \
---serialized-file first-model/model_state_dict.pt --handler handler.py
-# 或 --serialized-file parallel-training/model_state_dict.pt
+# 使用 Notebook 中训练的模型
+torch-model-archiver --model-name mnist \
+  --version 1.0 \
+  --model-file model.py \
+  --handler handler.py \
+  --serialized-file first-model/model_state_dict.pt
+
+# 如果使用 Job 中训练的模型，切换参数
+# --serialized-file parallel-training/model_state_dict.pt
 ```
 
 ## 部署推理服务
@@ -80,7 +86,10 @@ spec:
 
 </aside>
 
-在跳转回到 SimpleMLService 管理页面之后，等待刚才创建的 SimpleMLService 准备就绪。第一次拉取镜像可能会花费较长的时间，具体取决于用户集群的网络状况。点击右上角的**刷新按钮**以手动刷新 SimpleMLService 状态。
+在跳转回到 SimpleMLService 管理页面之后，等待刚才创建的 SimpleMLService 准备就绪。
+
+- 第一次拉取镜像可能会花费较长的时间，具体取决于用户集群的网络状况。
+- 点击右上角的**刷新按钮**以手动刷新 SimpleMLService 状态。
 
 ## 使用推理服务
 
@@ -104,8 +113,11 @@ spec:
 回到 Notebook mnist，在终端中执行以下命令以下载测试数据，并向推理服务发送请求，其中 `URL` 变量的值需要修改为用户实际部署的推理服务的地址。
 
 ```bash
+# 下载测试图像文件
 wget https://t9k.github.io/user-manuals/assets/get-started/deployment/{0,1,2}.png
-export URL="http://mnist.demo.svc.cluster.local/v1/models/mnist:predict"
+
+# 注意：此 URL 只适合在集群内当前项目（Project）内部（例如当前项目的 Notebook 中）访问使用
+URL="http://mnist.demo.svc.cluster.local/v1/models/mnist:predict"
 curl -T 0.png $URL    # 或使用 `1.png`, `2.png`
 ```
 
@@ -121,7 +133,16 @@ curl -T 0.png $URL    # 或使用 `1.png`, `2.png`
 }
 ```
 
-结束后，将当前教程产生的所有文件移动到名为 `deployment` 的新文件夹下。
+## 清理
+
+体验结束后，可将当前教程产生的所有文件移动到名为 `deployment` 的新文件夹下。
+
+也可以将部署的推理服务删除：
+
+```bash
+# optional, delete service if desired.
+kubectl delete SimpleMLService mnist
+```
 
 ## 下一步
 

@@ -1,6 +1,6 @@
 # 进行并行训练
 
-本教程将带领用户使用 [PyTorchTrainingJob](../modules/jobs/pytorchtrainingjob.md) 资源，将教程[训练你的第一个模型](./training-first-model.md)中的模型训练改进为使用 GPU 加速的数据并行训练。
+本教程带领用户使用 CRD [PyTorchTrainingJob](../modules/jobs/pytorchtrainingjob.md)，将教程[训练你的第一个模型](./training-first-model.md)中的模型训练改进为使用 GPU 加速的数据并行训练。
 
 ## 在 Notebook 中准备并行训练
 
