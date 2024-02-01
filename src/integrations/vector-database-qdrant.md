@@ -1,4 +1,4 @@
-# 向量数据库
+# 向量数据库：Qdrant
 
 向量数据库是一种专门设计用于存储、索引和检索向量数据的数据库。它适用于处理大规模的高维向量，这些向量通常代表了图像、视频、文本或音频内容的特征，甚至整个世界本身。向量数据库通常用于支持机器学习应用，例如检索增强生成（RAG）、图像检索、推荐系统等。
 
@@ -7,8 +7,6 @@
 目前市面上存在数量众多的向量数据库产品，即便是开源向量数据库也有不少选择，例如 <a target="_blank" rel="noopener noreferrer" href="https://github.com/milvus-io/milvus">Milvus</a>、<a target="_blank" rel="noopener noreferrer" href="https://github.com/qdrant/qdrant">Qdrant</a>、<a target="_blank" rel="noopener noreferrer" href="https://github.com/chroma-core/chroma">Chroma</a>、<a target="_blank" rel="noopener noreferrer" href="https://github.com/weaviate/weaviate">Weaviate</a> 等。关于这些向量数据库的比较，可以参阅博客 <a target="_blank" rel="noopener noreferrer" href="https://thedataquarry.com/posts/vector-db-1/">Vector databases (1): What makes each one different?</a>。
 
 ![vector-db-lang](../assets/integrations/vector-database/vector-db-lang.png)
-
-## 部署
 
 这里以 <a target="_blank" rel="noopener noreferrer" href="https://github.com/qdrant/qdrant">Qdrant</a> 为例进行部署。Qdrant 官方提供了 <a target="_blank" rel="noopener noreferrer" href="https://artifacthub.io/packages/helm/qdrant/qdrant">Helm chart</a>，部署更加简单、便捷。
 
@@ -23,6 +21,8 @@ Qdrant 的一些特性如下：
 * **分布式**：云原生且横向可扩展。无论用户需要伺服多少数据，Qdrant 总是可以使用恰到好处的计算资源。
 
 Qdrant 提供了 REST API 和 gRPC API 作为接口，所有与 Qdrant 的交互都通过这些 API 进行。此外，Qdrant 还提供了多种语言的客户端库和一个 Web UI 界面，[使用](#使用)部分将演示使用 Python 客户端以及 Web UI 与 Qdrant 交互。
+
+## 部署
 
 ### 安装
 
