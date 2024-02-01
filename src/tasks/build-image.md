@@ -75,13 +75,15 @@ error building image: error building stage: failed to get filesystem from image:
 
 解决方法：
 1. 切换到服务质量更好的的 Registry，例如本地网络部署的私有化 Registry，或其它 caching Regisry。
-2. 部署一个与镜像仓库和当前集群都连接良好的的代理服务器，通过该服务器下载镜像。
+2. 使用代理服务器，通过该代理下载镜像。
 
 
 <aside class="note">
 <div class="title">如何在 ImageBuilder 中使用代理服务器</div>
 
-```
+可提供设置环境变量指定代理服务器。下面的 YAML 示例中，通过设置 `HTTPS_PROXY` 和 `HTTP_PROXY` 指定代理服务器地址为 `http://proxy.example.com:8080`。
+
+```yaml
 apiVersion: tensorstack.dev/v1beta1
 kind: ImageBuilder
 metadata:
@@ -93,12 +95,10 @@ spec:
   tag: example.io/nanogpt:latest
   env:
   - name: HTTPS_PROXY
-    value: http://proxy.example.com
+    value: http://proxy.example.com:8080
   - name: HTTP_PROXY
-    value: http://proxy.example.com
+    value: http://proxy.example.com:8080
   workspace: {}
 ```
-
-如上述 YAML 所示，用户通过设置 `HTTPS_PROXY` 和 `HTTP_PROXY` 环境变量来设置代理服务器地址。在构建镜像过程中，一切向外发送的请求都会由代理服务器转发。
 
 </aside>
