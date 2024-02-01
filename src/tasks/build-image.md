@@ -15,7 +15,18 @@
 
 其中，创建包含身份信息的 Secret 这一步骤也可以在模型构建控制台中通过创建 `Docker` 类型的 Secret 来完成，如下图所示。详情请参阅[创建 Secret](../../guide/manage-auxiliary-resources/manage-secret.md#创建-secret)。
 
-图
+<figure class="screenshot">
+  <img alt="secret-form" src="../assets/tasks/build-image/secret-form.png" />
+</figure>
+
+<aside class="note tip">
+<div class="title">提示</div>
+
+`auth` 字段中填写的内容应为 `[username]:[password]` 经过 Base64 编码后的字符串。
+
+在已填写 `auth` 字段的情况下，可以删除 `username` 和 `password` 这两个字段，仍然能起到身份认证的作用。
+
+</aside>
 
 ## 检查构建进度和结果
 
@@ -62,4 +73,32 @@ error building image: error building stage: failed to get filesystem from image:
 提取失败可能有以下原因：
 - 镜像来源于无法访问或下载速度过慢的仓库
 
-解决方法：切换到服务质量更好的的 Registry，例如本地网络部署的私有化 Registry，或其它 caching Regisry。
+解决方法：
+1. 切换到服务质量更好的的 Registry，例如本地网络部署的私有化 Registry，或其它 caching Regisry。
+2. 使用代理服务器，通过该代理下载镜像。
+
+
+<aside class="note">
+<div class="title">如何在 ImageBuilder 中使用代理服务器</div>
+
+可提供设置环境变量指定代理服务器。下面的 YAML 示例中，通过设置 `HTTPS_PROXY` 和 `HTTP_PROXY` 指定代理服务器地址为 `http://proxy.example.com:8080`。
+
+```yaml
+apiVersion: tensorstack.dev/v1beta1
+kind: ImageBuilder
+metadata:
+  name: build-image
+spec:
+  builder:
+    kaniko: {}
+  dockerConfig: {}
+  tag: example.io/nanogpt:latest
+  env:
+  - name: HTTPS_PROXY
+    value: http://proxy.example.com:8080
+  - name: HTTP_PROXY
+    value: http://proxy.example.com:8080
+  workspace: {}
+```
+
+</aside>
