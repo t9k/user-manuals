@@ -4,7 +4,7 @@
 
 ## 在 Notebook 中准备并行训练
 
-回到 Notebook mnist，在 HOME 目录（即左侧边栏文件浏览器显示的根目录 `/`）下，点击左上角的 **+**，然后点击 **Other** 下的 **Python File** 以新建一个 Python 脚本文件。
+回到 Notebook `mnist`，在 HOME 目录（即左侧边栏文件浏览器显示的根目录 `/`）下，点击左上角的 **+**，然后点击 **Other** 下的 **Python File** 以新建一个 Python 脚本文件。
 
 <figure class="screenshot">
   <img alt="create-py-file" src="../assets/get-started/parallel-training/create-py-file.png" />

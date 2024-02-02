@@ -4,18 +4,22 @@
 
 ## 创建 Notebook
 
-在 TensorStack AI 平台首页，点击**模型构建**进入模型构建控制台。
+在 TensorStack AI 平台首页，点击**模型构建**进入构建控制台（Build Console）。
 
 <figure class="screenshot">
   <img alt="landing-page" src="../assets/get-started/training-first-model/landing-page.png" />
+  <figcaption>图 1：平台首页。</figcaption>
 </figure>
 
-模型构建控制台的总览页面展示了多种**资源**，用户可以点击右上角的按钮切换 Project，也可以点击**事件**和**配额**标签页以查看当前 Project 最近发生的事件以及计算资源（CPU、Memory、GPU 等）配额。
+构建控制台（Build Console）的总览页面展示了多种**资源**，用户可以点击右上角的按钮切换 Project，也可以点击**事件**和**配额**标签页以查看当前 Project 最近发生的事件以及计算资源（CPU、Memory、GPU 等）配额。
 
 <aside class="note info">
 <div class="title"> API 资源 </div>
 
-**API 资源（Resources）**， **Kubernetes 资源（Resources）**，或者简称**资源（Resources）**：此术语用于统称 Kubernetes 管理的原生或通过 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/"> CRD </a> 扩展的的实体（entity）类型（type, kind）。这些资源包括原生标准类型，如 `Pods`、`Deployments`、`Services`、`ConfigMaps`，以及通过 CRD 定义的任何自定义资源，例如 TensorStack 提供的 `Notebook`。它们是 TensorStack AI 平台功能的基本构建模块。
+**API 资源（Resources）**， **Kubernetes 资源（Resources）**，或者简称**资源（Resources）**：
+此术语用于统称 Kubernetes 管理的原生或通过 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/"> CRD </a> 
+扩展的实体（entity）类型（type, kind）。这些资源包括原生标准类型，如 `Pods`、`Deployments`、`Services`、`ConfigMaps`，
+以及通过 CRD 定义的任何自定义资源，例如 TensorStack 提供的 `Notebook`。它们是 TensorStack AI 平台功能的基本构建模块。
 
 注意：**计算资源**，例如 CPU，Memory， GPU 也经常简称为**资源**，但一般可根据上下文判断其具体所指。
 
@@ -23,6 +27,7 @@
 
 <figure class="screenshot">
   <img alt="project" src="../assets/get-started/training-first-model/overview.png" />
+  <figcaption>图 2：构建控制台（Build Console）。</figcaption>
 </figure>
 
 ### 创建 PVC
@@ -38,6 +43,7 @@
 
 <figure class="screenshot">
   <img alt="project" src="../assets/get-started/training-first-model/create-pvc.png" />
+  <figcaption>图 3：创建 PVC。</figcaption>
 </figure>
 
 在 PVC 创建页面，如下填写各个参数：
@@ -49,12 +55,14 @@
 
 <figure class="screenshot">
   <img alt="project" src="../assets/get-started/training-first-model/create-pvc-detail.png" />
+  <figcaption>图 4：填写 PVC 参数。</figcaption>
 </figure>
 
 在跳转回到 PVC 管理页面之后，可点击右上角的**刷新图标**来手动刷新 PVC 状态。下图展示 PVC `mnist` 已经创建完成。
 
 <figure class="screenshot">
   <img alt="project" src="../assets/get-started/training-first-model/create-pvc-finish.png" />
+  <figcaption>图 5：PVC 管理页面。</figcaption>
 </figure>
 
 ### 创建 Notebook
@@ -70,6 +78,7 @@
 
 <figure class="screenshot">
   <img alt="create-notebook" src="../assets/get-started/training-first-model/create-notebook.png" />
+  <figcaption>图 6：Notebook 创建页面。</figcaption>
 </figure>
 
 在 Notebook 创建页面，如下填写各个参数：
@@ -83,6 +92,7 @@
 
 <figure class="screenshot">
   <img alt="create-notebook-detail" src="../assets/get-started/training-first-model/create-notebook-detail.png" />
+  <figcaption>图 7：Notebook 创建详情页面。</figcaption>
 </figure>
 
 <aside class="note info">
@@ -96,12 +106,14 @@
 
 <figure class="screenshot">
   <img alt="connect-notebook" src="../assets/get-started/training-first-model/connect-notebook.png" />
+  <figcaption>图 8：在 Notebook 管理页面打开 Notebook。</figcaption>
 </figure>
 
 现在 Notebook 已经可以使用了，用户可以在这里进行模型的开发与测试。
 
 <figure class="screenshot">
   <img alt="jupyter" src="../assets/get-started/training-first-model/jupyter.png" />
+  <figcaption>图 9：使用 Notebook。</figcaption>
 </figure>
 
 ## 使用 Notebook 训练模型
@@ -117,6 +129,7 @@
 
 <figure class="screenshot">
   <img alt="jupyter-create-notebook" src="../assets/get-started/training-first-model/jupyter-create-notebook.png" />
+  <figcaption>图 10：在 Notebook 中创建 .ipynb 文件。</figcaption>
 </figure>
 
 复制下面的训练脚本到该 `.ipynb` 文件的代码框中。该脚本基于 PyTorch 框架，建立一个简单的卷积神经网络模型，并使用 MNIST 数据集的手写数字图像进行训练和测试。
@@ -133,12 +146,14 @@
 
 <figure class="screenshot">
   <img alt="jupyter-training" src="../assets/get-started/training-first-model/jupyter-training.png" />
+  <figcaption>图 11：在 Notebook 中运行训练。</figcaption>
 </figure>
 
 训练结束后，点击左上角的**新建文件夹按钮**，为新文件夹命名 **first-model**，并将当前教程产生的所有文件拖拽移动到其中。
 
 <figure class="screenshot">
   <img alt="create-folder" src="../assets/get-started/training-first-model/create-folder.png" />
+  <figcaption>图 12：在 Notebook 中创建文件夹。</figcaption>
 </figure>
 
 ## 下一步

@@ -27,10 +27,12 @@ AI 集群的拥有者可以使用这套软件，构建自己的 “AI 私有云�
 
 用户使用 “TensorStack AI 计算平台” 的基本交互流程：
 
-1. 管理员 - 创建 - [项目（Project）](./modules/security/project.md)并设定项目管理员。用户以项目管理员或者普通成员的方式使用项目，用户可以同时使用多个项目。
-1. 管理员 - 创建 - [用户帐户](./modules/security/account.md)。
-1. 用户 - 使用其帐户 - 登录系统。
-1. 用户 - 在项目中 - 完成工作（创建各种计算任务）。
+1. 管理员 - 创建 - [项目（Project）](./modules/security/project.md)并设定项目管理员。
+    - 用户以项目管理员或者普通成员的方式使用项目。
+    - 用户可以同时使用多个项目。
+2. 管理员 - 创建 - [用户帐户](./modules/security/account.md)。
+3. 用户 - 使用其帐户 - 登录系统。
+4. 用户 - 在项目中 - 完成工作（创建各种计算任务）。
 
 <figure class="architecture">
   <img alt="t9k-flow" src="./assets/overview/t9k-flow.drawio.svg" />
@@ -40,7 +42,7 @@ AI 集群的拥有者可以使用这套软件，构建自己的 “AI 私有云�
 
 ## 使用功能
 
-用户通过创建各种类型 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/">CRD</a> 的实例（instance）使用产品的功能。例如：
+用户主要通过创建各种类型 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/">CRD</a> 的实例（instance）使用产品的功能。例如：
 
 - 创建一个 `Notebook` CRD 的实例，以使用 Jupyter Notebook；
 - 为了使用 DeepSpeed 进行大规模并行的 LLM 预训练，创建一个 `DeepSpeedJob` CRD 的实例；
