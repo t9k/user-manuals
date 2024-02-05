@@ -2,7 +2,7 @@
 
 部署 LLM 推理服务面临着多方面的挑战，包括计算资源需求、延迟和吞吐量、成本控制等。[vLLM](https://github.com/vllm-project/vllm) 是一个快速、灵活且易于使用的 LLM 推理和服务库，其利用 PagedAttention 注意力算法优化注意力机制的键值存储，有效节约内存空间以用于批处理请求，从而显著提高服务的吞吐量。vLLM 能够有效控制运行成本，利用有限的计算资源为更多用户提供高吞吐量和低延迟的 LLM 推理服务。
 
-本示例使用 MLService 部署一个 vLLM 推理服务。
+本示例使用 MLService 部署一个 vLLM 推理服务。模型存储使用 PVC。
 
 相比[部署 LLM 聊天机器人](./deploy-llm-chatbot.md)，本示例使用了更高效的推理后端，以及可用于生产环境的 MLService。
 
@@ -13,11 +13,14 @@
 进入 Notebook 或远程连接到 Notebook，启动一个终端，执行以下命令以下载 CodeLlama-7b-Instruct-hf 的模型文件：
 
 ```bash
-huggingface-cli download codellama/CodeLlama-7b-Instruct-hf --local-dir CodeLlama-7b-Instruct-hf --local-dir-use-symlinks False
+# 方法1：如果可以直接访问 huggingface
+huggingface-cli download codellama/CodeLlama-7b-Instruct-hf \
+  --local-dir CodeLlama-7b-Instruct-hf --local-dir-use-symlinks False
 
-# 对于国内用户
+# 方法2：对于国内用户，使用 modelscope
 pip install modelscope
-python -c "from modelscope import snapshot_download; snapshot_download('AI-ModelScope/CodeLlama-7b-Instruct-hf')"
+python -c \
+  "from modelscope import snapshot_download; snapshot_download('AI-ModelScope/CodeLlama-7b-Instruct-hf')"
 mv .cache/modelscope/hub/AI-ModelScope/CodeLlama-7b-Instruct-hf .
 ```
 
@@ -169,7 +172,7 @@ curl ${address}/v1/completions \
 
 ## 编写代码
 
-现在让它发挥自己的特长，写一个<a target="_blank" rel="noopener noreferrer" href="https://leetcode.cn/problems/roman-to-integer/">罗马数字转整数</a>的 Python 程序。一次聊天记录如下：
+现在让它发挥自己的特长，写一个<a target="_blank" rel="noopener noreferrer" href="https://leetcode.cn/problems/roman-to-integer/">罗马数字转整数</a>的 Python 程序。一次编写代码的聊天记录如下：
 
 <details><summary>聊天记录</summary>
 
@@ -182,3 +185,12 @@ curl ${address}/v1/completions \
 顺带一提，使用相同的 prompt（由于 CodeLlama-7b-Python-hf 未经过指令微调，prompt 的格式略有不同），CodeLlama-13b-Instruct-hf 和 CodeLlama-7b-Python-hf 提供的解答可以通过，GPT 3.5、GPT-4 和 Bard 提供的解答也都可以通过。
 
 用户可以自行尝试部署更大的 Code Llama 系列模型，并让其编写更加复杂的代码。
+
+
+## 参考
+
+<https://github.com/vllm-project/vllm>
+
+<https://github.com/facebookresearch/codellama>
+
+<https://huggingface.co/codellama/CodeLlama-7b-Instruct-hf>
