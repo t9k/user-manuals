@@ -1,0 +1,41 @@
+{
+    "id": "cmpl-5915c46dc6054ecfa4d57d07225c1264",
+    "object": "chat.completion",
+    "created": 5101130,
+    "model": "codellama-7b",
+    "choices": [
+        {
+            "index": 0,
+            "message": {
+                "role": "assistant",
+                "content": "  Hello! It's nice to meet you. Is there something I can help you with or would you like to chat?"
+            },
+            "finish_reason": "stop"
+        }
+    ],
+    "usage": {
+        "prompt_tokens": 10,
+        "total_tokens": 37,
+        "completion_tokens": 27
+    }
+}
+
+{
+    "id": "cmpl-afbd703626c44a12ad192d0861fadd6e",
+    "object": "text_completion",
+    "created": 5101200,
+    "model": "codellama-7b",
+    "choices": [
+        {
+            "index": 0,
+            "text": " a time when the world was dark and cold, and little light entered.\n\nA young girl named Kanna was born in this world. She was born with a burden on her back.\n\nKanna grew up in a small village, surrounded by snow and ice. The villagers were poor, and they lived in miserable huts. They were cold and hungry all the time.\n\nBut Kanna was different. She had a special gift. She could make light",
+            "logprobs": null,
+            "finish_reason": "length"
+        }
+    ],
+    "usage": {
+        "prompt_tokens": 7,
+        "total_tokens": 107,
+        "completion_tokens": 100
+    }
+}

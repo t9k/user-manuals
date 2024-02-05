@@ -1,14 +1,14 @@
 apiVersion: tensorstack.dev/v1beta1
 kind: MLServiceRuntime
 metadata:
-  name: vllm-openai
+  name: vllm-openai-2xtp
 spec:
   enabled: true
   template:
     spec:
       containers:
       - name: user-container
-        image: vllm/vllm-openai:v0.2.7
+        image: t9kpublic/vllm-openai:v0.2.7
         args:
           - --model={{.MODEL_PATH}}
           - --served-model-name={{.MODEL_NAME}}
@@ -18,11 +18,11 @@ spec:
           limits:
             cpu: 4
             memory: 64Gi
-            nvidia.com/gpu: 2  # A100 80GB
+            nvidia.com/gpu: 2    # 对于 CodeLlama-70b 须为 A100 80GB
         ports:
         - containerPort: 8000
         volumeMounts:
-          - mountPath: /dev/shm
+          - mountPath: /dev/shm  # 并行需要
             name: dshm
       volumes:
         - emptyDir:

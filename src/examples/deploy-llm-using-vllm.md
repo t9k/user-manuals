@@ -124,49 +124,13 @@ curl ${address}/v1/completions \
 
 返回的响应类似于：
 
-```json
-{
-    "id": "cmpl-5915c46dc6054ecfa4d57d07225c1264",
-    "object": "chat.completion",
-    "created": 5101130,
-    "model": "codellama-7b",
-    "choices": [
-        {
-            "index": 0,
-            "message": {
-                "role": "assistant",
-                "content": "  Hello! It's nice to meet you. Is there something I can help you with or would you like to chat?"
-            },
-            "finish_reason": "stop"
-        }
-    ],
-    "usage": {
-        "prompt_tokens": 10,
-        "total_tokens": 37,
-        "completion_tokens": 27
-    }
-}
+<details><summary>响应</summary>
 
-{
-    "id": "cmpl-afbd703626c44a12ad192d0861fadd6e",
-    "object": "text_completion",
-    "created": 5101200,
-    "model": "codellama-7b",
-    "choices": [
-        {
-            "index": 0,
-            "text": " a time when the world was dark and cold, and little light entered.\n\nA young girl named Kanna was born in this world. She was born with a burden on her back.\n\nKanna grew up in a small village, surrounded by snow and ice. The villagers were poor, and they lived in miserable huts. They were cold and hungry all the time.\n\nBut Kanna was different. She had a special gift. She could make light",
-            "logprobs": null,
-            "finish_reason": "length"
-        }
-    ],
-    "usage": {
-        "prompt_tokens": 7,
-        "total_tokens": 107,
-        "completion_tokens": 100
-    }
-}
+```json
+{{#include ../assets/examples/deploy-llm-using-vllm/response.log}}
 ```
+
+</details>
 
 [部署 LLM 聊天机器人](./deploy-llm-chatbot.md)提供的[聊天方法](./deploy-llm-chatbot.md#开始聊天)在这里同样适用。
 

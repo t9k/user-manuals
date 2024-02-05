@@ -8,7 +8,7 @@ spec:
     spec:
       containers:
       - name: user-container
-        image: vllm/vllm-openai:v0.2.7
+        image: t9kpublic/vllm-openai:v0.2.7
         args:
           - --model={{.MODEL_PATH}}
           - --served-model-name={{.MODEL_NAME}}
@@ -20,10 +20,3 @@ spec:
             nvidia.com/gpu: 1
         ports:
         - containerPort: 8000
-        volumeMounts:
-          - mountPath: /dev/shm
-            name: dshm
-      volumes:
-        - emptyDir:
-            medium: Memory
-          name: dshm
