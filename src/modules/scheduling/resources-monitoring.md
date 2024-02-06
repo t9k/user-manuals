@@ -2,22 +2,23 @@
 
 在 Tensorstack AI 平台创建工作负载后，用户可以通过 Tensorstack 的 Web 控制台查看工作负载的资源使用情况。
 
-## 示例 — 网页 UI
+## 网页 UI
 
-用户可以在下列工作负载的详情页面查看资源监测图表：
-* 模型构建：
+用户可以在下列控制台 Web UI 的工作负载的详情页面查看资源监测图表：
+
+* 模型构建（Build Console）：
     * Notebook
     * T9k Job
     * Tensorboard
     * Pod
-* 模型部署：
+* 模型部署（Deploy Console）：
     * MLService
+
+当用户定义工作负载时可以选择性地为每个容器设定所需要的资源数量，最常见的可设定资源是 CPU、内存和扩展资源。
 
 以 PytorchTrainingJob 为例，用户可以查看下面几类资源的使用情况。
 
-### 集群资源
-
-当用户定义工作负载时可以选择性地为每个容器设定所需要的资源数量，最常见的可设定资源是 CPU、内存和扩展资源。
+### CPU / Memory / 扩展资源
 
 CPU（内存）的资源监测图如下所示，图中包含三条折线：
 * 请求量：工作负载声明的 `resources.requests.cpu`（`resources.requests.memory`）
@@ -32,7 +33,9 @@ CPU（内存）的资源监测图如下所示，图中包含三条折线：
   <img alt="memory" src="../../assets/modules/scheduling/monitoring/memory.png"/>
 </figure>
 
-当工作负载声明扩展资源时，显示扩展资源的资源监测图。在本例中，PytorchTrainingJob 声明了扩展资源 `nvidia.com/gpu: 2`，页面显示了下面的资源监测图：只显示工作负载声明的 `resources.limits."nvidia.com/gpu"` 资源量。
+当工作负载声明扩展资源时，显示扩展资源的资源监测图。
+
+在本例中，PytorchTrainingJob 声明了扩展资源 `nvidia.com/gpu: 2`，页面显示了工作负载声明的 `resources.limits."nvidia.com/gpu"` 资源量。
 
 <figure class="screenshot">
   <img alt="nvidia.com/gpu" src="../../assets/modules/scheduling/monitoring/nvidia.com:gpu.png"/>
@@ -40,7 +43,7 @@ CPU（内存）的资源监测图如下所示，图中包含三条折线：
 
 ### NVIDIA GPU
 
-当工作负载声明的扩展资源是 `nvidia.com/gpu` 时，资源监测图会展示 GPU 的下列指标：利用率、温度、功率、显存使用率、已用显存量、SM Clock、TensorCore 利用率。
+当工作负载声明的扩展资源是 `nvidia.com/gpu` 时，资源监测图会展示额外的 GPU 相关指标，包括：利用率、温度、功率、显存使用率、已用显存量、SM Clock、TensorCore 利用率。
 
 下面是展示 GPU 利用率和显存使用率的图表：
 
@@ -80,11 +83,12 @@ CPU（内存）的资源监测图如下所示，图中包含三条折线：
   <img alt="storage-throughput" src="../../assets/modules/scheduling/monitoring/storage-throughput.png"/>
 </figure>
 
-## 示例 — Notebook 终端
+## 终端 CLI
 
-用户可以在 Notebook 的终端中，使用 kubectl top 查看 Pod 的 CPU、内存使用情况。
+用户可以在 Notebook 的终端中，使用 `kubectl top` 查看 Pod 的 CPU、内存使用情况。
 
-下面是一个示例：
+示例：
+
 ```bash
 (base) [/t9k/mnt t9kuser@managed-notebook-933f6-0]
 $ kubectl top pods
@@ -95,6 +99,6 @@ managed-project-event-ctl-854b96f4dd-f6hn8   1m           29Mi
 
 ## 下一步
 
-* [查看 T9k Job 的资源使用](../../tasks/pytorch-training-parallel.md#检查训练日志和指标)
-* [查看推理服务的资源使用](../../tasks/deploy-mlservice.md#监控推理服务)
-* 查看 Notebook 的资源使用(TODO: 等待`查看 Notebook 资源使用`相关用户文档的完成)
+* 查看：[T9k Job 的资源使用](../../tasks/pytorch-training-parallel.md#检查训练日志和指标)
+* 查看：[推理服务的资源使用](../../tasks/deploy-mlservice.md#监控推理服务)
+* 查看：Notebook 的资源使用（TODO: 完成 `查看 Notebook 资源使用` 相关用户文档）
