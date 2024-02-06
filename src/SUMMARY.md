@@ -47,6 +47,7 @@
     * [队列](modules/scheduling/queue.md)
     * [PodGroup](modules/scheduling/podgroup.md)
     * [资源回收](modules/scheduling/reclaim.md)
+    * [资源使用监控](modules/scheduling/resources-monitoring.md)
 
 * [存储](modules/storage/index.md)
     * [PVC](modules/storage/pvc.md)
