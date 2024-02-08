@@ -150,11 +150,8 @@ curl ${address}/v1/completions \
 
 用户可以自行尝试部署更大的 Code Llama 系列模型，并让其编写更加复杂的代码。
 
-
 ## 参考
 
-<https://github.com/vllm-project/vllm>
-
-<https://github.com/facebookresearch/codellama>
-
-<https://huggingface.co/codellama/CodeLlama-7b-Instruct-hf>
+* <https://github.com/vllm-project/vllm>
+* <https://github.com/facebookresearch/codellama>
+* <https://huggingface.co/codellama/CodeLlama-7b-Instruct-hf>

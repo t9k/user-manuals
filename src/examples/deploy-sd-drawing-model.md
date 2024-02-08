@@ -2,7 +2,7 @@
 
 自扩散模型问世以来，AI 绘图应用在艺术、设计和创意领域取得了显著的突破和广泛的应用。在 TensorStack 平台上，用户可以使用 [SimpleMLService](../modules/deployment/simplemlservice.md) 和 [MLService](../modules/deployment/mlservice.md) 方便地部署各种基于图像生成模型的服务或应用。
 
-本教程演示如何使用 SimpleMLService 快速部署一个基于 Stable Diffusion 图像生成模型的绘图应用。
+本示例使用 SimpleMLService 快速部署一个基于 Stable Diffusion 图像生成模型的绘图应用。
 
 ## 模型
 
