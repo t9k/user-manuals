@@ -191,6 +191,7 @@
     * [车道检测](examples/lane-detection.md)
     * [使用 CoreWeave Tensorizer 加速模型部署](examples/deploy-mlservice-tensorizer.md)
     * [使用 vLLM 部署 LLM 推理服务](examples/deploy-llm-using-vllm.md)
+    * [部署对话式搜索引擎](examples/deploy-conversational-search-engine.md)
 
 * [应用集成](integrations/index.md)
     * [Label Studio](integrations/label-studio.md)
