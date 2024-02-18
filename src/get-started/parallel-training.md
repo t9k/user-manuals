@@ -1,6 +1,6 @@
 # 进行并行训练
 
-本教程带领用户使用 [PyTorchTrainingJob](../modules/jobs/pytorchtrainingjob.md)，将教程[训练你的第一个模型](./training-first-model.md)中的模型训练改进为使用 GPU 加速的数据并行训练。
+本教程带领你使用 [PyTorchTrainingJob](../modules/jobs/pytorchtrainingjob.md)，将教程[训练你的第一个模型](./training-first-model.md)中的模型训练改进为使用 GPU 加速的数据并行训练。
 
 ## 在 Notebook 中准备并行训练
 
@@ -51,7 +51,7 @@ PyTorchTrainingJob 是服务于 PyTorch 并行训练框架的执行机器学习�
   <img alt="create-job-detail" src="../assets/get-started/parallel-training/create-job-detail.png" />
 </figure>
 
-在跳转回到 Job 管理页面之后，等待刚才创建的 Job 就绪。第一次拉取镜像可能会花费较长的时间，具体取决于用户集群的网络状况。点击右上角的**刷新图标**来手动刷新 Job 状态，待 Job 开始运行之后，点击其**名称**进入详情页面。
+在跳转回到 Job 管理页面之后，等待刚才创建的 Job 就绪。第一次拉取镜像可能会花费较长的时间，具体取决于集群的网络状况。点击右上角的**刷新图标**来手动刷新 Job 状态，待 Job 开始运行之后，点击其**名称**进入详情页面。
 
 <figure class="screenshot">
   <img alt="job-created" src="../assets/get-started/parallel-training/job-created.png" />

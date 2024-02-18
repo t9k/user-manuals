@@ -19,7 +19,7 @@ Qdrant 的一些特性如下：
 * **高效**：有效利用计算资源。Qdrant 完全用 Rust 语言开发，实现了动态查询计划和有效载荷数据索引。也为企业提供了硬件感知的构建版本。
 * **快速且准确**：实现了 HNSW 算法的独特自定义修改，用于近似最近邻搜索。以最先进的速度进行搜索，并在不影响结果的情况下应用搜索过滤器。
 * **易于使用的 API**：提供 OpenAPI v3 规范来生成几乎任何编程语言的客户端库。或者，利用为 Python 或其他编程语言准备的现成客户端以获得额外功能。
-* **丰富的数据类型**：向量负载支持大量的数据类型和查询条件，包括字符串匹配、数值范围、地理位置等。负载过滤条件允许您构建几乎任何自定义业务逻辑，这些逻辑应基于相似性匹配工作。
+* **丰富的数据类型**：向量负载支持大量的数据类型和查询条件，包括字符串匹配、数值范围、地理位置等。负载过滤条件允许你构建几乎任何自定义业务逻辑，这些逻辑应基于相似性匹配工作。
 * **分布式**：云原生且横向可扩展。无论用户需要伺服多少数据，Qdrant 总是可以使用恰到好处的计算资源。
 
 Qdrant 提供了 REST API 和 gRPC API 作为接口，所有与 Qdrant 的交互都通过这些 API 进行。此外，Qdrant 还提供了多种语言的客户端库和一个 Web UI 界面，[使用](#使用)部分将演示使用 Python 客户端以及 Web UI 与 Qdrant 交互。
@@ -58,7 +58,7 @@ helm install qdrant-demo qdrant/qdrant --version <CHART_VERSION>
 helm show values qdrant/qdrant --version=0.7.5 > values.yaml
 ```
 
-如要修改默认配置，用户可以将新配置（覆盖默认配置的字段）保存为一个 YAML 文件，通过 `-f` 选项提供给安装命令：
+如要修改默认配置，你可以将新配置（覆盖默认配置的字段）保存为一个 YAML 文件，通过 `-f` 选项提供给安装命令：
 
 ```bash
 # 使用修改后的 values.yaml
@@ -69,7 +69,7 @@ helm install qdrant-demo qdrant/qdrant -f values.yaml
 
 ### 计算资源
 
-默认配置没有指定计算资源，表示 Pod 可以无限制地使用节点的 CPU 和内存资源。用户可以根据实际需求指定请求值和实际值。
+默认配置没有指定计算资源，表示 Pod 可以无限制地使用节点的 CPU 和内存资源。你可以根据实际需求指定请求值和实际值。
 
 ```yaml
 # 默认配置
@@ -78,7 +78,7 @@ resources: {}
 
 ### 存储
 
-默认配置指定的卷大小为 10Gi，并且没有指定存储类型。用户可以根据数据规模修改卷大小，并选用高性能的存储类型。
+默认配置指定的卷大小为 10Gi，并且没有指定存储类型。你可以根据数据规模修改卷大小，并选用高性能的存储类型。
 
 ```yaml
 # 默认配置
@@ -92,11 +92,11 @@ config:
   storage: {}
 ```
 
-此外，用户还可以在 `config.storage` 字段下配置 Qdrant 实例的存储和索引的多个参数，请参阅 <a target="_blank" rel="noopener noreferrer" href="https://qdrant.tech/documentation/guides/configuration/#configuration-file-example">configuration file example</a>。
+此外，你还可以在 `config.storage` 字段下配置 Qdrant 实例的存储和索引的多个参数，请参阅 <a target="_blank" rel="noopener noreferrer" href="https://qdrant.tech/documentation/guides/configuration/#configuration-file-example">configuration file example</a>。
 
 ### 网络
 
-默认配置没有启动 Ingress，用户可以提供 Ingress 配置以提供外部访问。
+默认配置没有启动 Ingress，你可以提供 Ingress 配置以提供外部访问。
 
 ```yaml
 # 默认配置
@@ -139,11 +139,11 @@ config:
   tls: {}
 ```
 
-此外，用户还可以在 `config.service` 和 `config.tls` 字段下配置 Qdrant 实例的服务和 TLS 的多个参数，请参阅[安全](#安全)以及 <a target="_blank" rel="noopener noreferrer" href="https://qdrant.tech/documentation/guides/configuration/#configuration-file-example">configuration file example</a>。
+此外，你还可以在 `config.service` 和 `config.tls` 字段下配置 Qdrant 实例的服务和 TLS 的多个参数，请参阅[安全](#安全)以及 <a target="_blank" rel="noopener noreferrer" href="https://qdrant.tech/documentation/guides/configuration/#configuration-file-example">configuration file example</a>。
 
 ### 分布式部署
 
-Qdrant 支持分布式部署模式，在此模式下，多个 Qdrant 服务彼此通信，将数据分布到多个副本（replica）中，以扩展存储能力并增加稳定性。默认配置启用了分布式部署模式，并指定端口 6335 用于内部通信，但只创建了 1 个副本。用户可以增加副本数量以实现分布式部署。
+Qdrant 支持分布式部署模式，在此模式下，多个 Qdrant 服务彼此通信，将数据分布到多个副本（replica）中，以扩展存储能力并增加稳定性。默认配置启用了分布式部署模式，并指定端口 6335 用于内部通信，但只创建了 1 个副本。你可以增加副本数量以实现分布式部署。
 
 ```yaml
 # 默认配置
@@ -163,7 +163,7 @@ config:
 
 ### 安全
 
-默认配置没有为 Qdrant 实例提供任何保护，在投入生产使用之前，用户需要启用安全措施。首先，启用 TLS 以加密连接：
+默认配置没有为 Qdrant 实例提供任何保护，在投入生产使用之前需要启用安全措施。首先，启用 TLS 以加密连接：
 
 ```yaml
 config:
@@ -181,7 +181,7 @@ config:
 <aside class="note tip">
 <div class="title">提示</div>
 
-当 TLS 启用后，用户必须使用 HTTPS 连接。
+当 TLS 启用后，必须使用 HTTPS 连接。
 
 </aside>
 
@@ -196,7 +196,7 @@ config:
 <aside class="note tip">
 <div class="title">提示</div>
 
-设置 API key 后，用户必须在请求头中附带 API key。
+设置 API key 后，必须在请求头中附带 API key。
 
 </aside>
 

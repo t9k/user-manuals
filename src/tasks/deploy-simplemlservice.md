@@ -9,7 +9,7 @@
 <aside class="note tip">
 <div class="title">提示</div>
 
-除了上述直接提供 YAML 配置文件的方法外，您也可以选择从网页控制台创建 SimpleMLService。
+除了上述直接提供 YAML 配置文件的方法外，你也可以选择从网页控制台创建 SimpleMLService。
 
 </aside>
 

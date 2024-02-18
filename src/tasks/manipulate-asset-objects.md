@@ -10,7 +10,7 @@
 
 ## 通过命令行工具
 
-切换到您的工作路径下：
+切换到你的工作路径下：
 
 ```shell
 $ cd /your/workpath
@@ -72,7 +72,7 @@ model_state_dict.pt  375943B  1203ee282c235c9fb4c2ea932a7b7cc8  5m37s ago
     
 每个对象在模型或数据集中存储时都有自己的路径，例如 `file1.txt`、`folder/file2.txt`。多级路径在控制台中会以多级目录的形式展示。
 
-您可以通过 `-a LOCAL_PATH:PATH` 选项来自定义上传文件的存储路径。详细用法请参阅帮助信息 `ah commit --help`。
+你可以通过 `-a LOCAL_PATH:PATH` 选项来自定义上传文件的存储路径。详细用法请参阅帮助信息 `ah commit --help`。
 
 </aside>
 
@@ -114,7 +114,7 @@ model_state_dict.pt ...
 
 ## 通过 Python SDK
 
-切换到您的工作路径下，然后以任意方式执行下面的 Python 代码。
+切换到你的工作路径下，然后以任意方式执行下面的 Python 代码。
 
 导入 `t9k.ah` 模块，使用 `ah.login()` 函数登录到 Asset Hub 服务器（如果配置文件中的凭据仍有效，则无需提供参数）：
 
@@ -320,7 +320,7 @@ AH INFO: Downloading object 1/1 model_state_dict.pt:
 
 ## 通过控制台
 
-数据集的控制台操作和模型完全一致。本教程后续仅展示模型对象的上传和下载，您可以用同样的方式操作数据集。
+数据集的控制台操作和模型完全一致。本教程后续仅展示模型对象的上传和下载，你可以用同样的方式操作数据集。
 
 在进行教程之前，先按照[操作文件夹、模型和数据集](./manipulate-folder-asset.md)一节完成模型文件夹和模型的创建（chat/gpt3）。
 

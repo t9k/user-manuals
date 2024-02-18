@@ -47,12 +47,12 @@ use_https = <False | True>
 
 其中需要修改的内容包括：
 
-* `access_key`：您的访问密钥（access key）。
-* `secret_key`：您的秘密访问密钥（secret key）。
+* `access_key`：你的访问密钥（access key）。
+* `secret_key`：你的秘密访问密钥（secret key）。
 * `host_base`：S3 服务的地址（endpoint）。
 * `use_https`：是否使用 HTTPS。
 
-您可以[安装 s3cmd](#s3-基本使用s3cmd)，在本地运行命令来验证 s3cfg 是否正确配置：
+你可以[安装 s3cmd](#s3-基本使用s3cmd)，在本地运行命令来验证 s3cfg 是否正确配置：
 
 ``` shell
 s3cmd -c s3cfg ls s3://<my-bucket>
@@ -67,8 +67,8 @@ s3cmd -c s3cfg ls s3://<my-bucket>
 选择类型为 **S3-cfg**，填写名称，然后填写 Details 的内容：
 
 * 服务端点：S3 服务的地址（endpoint）
-* Access Key ID：您的访问密钥（access key）。
-* 密码：您的秘密访问密钥（secret key）。
+* Access Key ID：你的访问密钥（access key）。
+* 密码：你的秘密访问密钥（secret key）。
 
 最后点击**创建 Secret**：
 
@@ -78,7 +78,7 @@ s3cmd -c s3cfg ls s3://<my-bucket>
 
 #### 通过命令行工具
 
-您可以使用 kubectl 命令行工具创建 Secret：
+你可以使用 kubectl 命令行工具创建 Secret：
 
 ``` shell
 kubectl -n <project> create secret generic <s3cfg-secret> \
@@ -105,7 +105,7 @@ kubectl -n <project> get secret <s3cfg-secret> \
 * `<project>`：项目名称。
 * `<s3cfg-secret>`：Secret 的名称。
 
-对比输出内容与您本地的 `s3cfg`，确认内容一致，重点是 `access_key`、`host_base` 和 `secret_key` 字段。
+对比输出内容与你本地的 `s3cfg`，确认内容一致，重点是 `access_key`、`host_base` 和 `secret_key` 字段。
 
 ### 创建 PVC
 
@@ -151,7 +151,7 @@ EOF
 其中需要修改的内容包括：
 
 * `<project>`：项目名称。
-* `.spec.s3.uri`：S3 bucket 的路径，您也可以具体指定 bucket 中的一个文件夹。
+* `.spec.s3.uri`：S3 bucket 的路径，你也可以具体指定 bucket 中的一个文件夹。
 * `.spec.secretRef.name`：保存 S3 凭证的 Secret 名称。
 * `readOnly`：如果为 true，那么用户只能读取这个 StorageShim 的内容，而不能修改它。
 

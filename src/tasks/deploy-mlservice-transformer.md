@@ -16,7 +16,7 @@ Transformer 是 MLService 中的一个组件，它可以对推理的请求进行
 <aside class="note info">
 <div class="title">信息</div>
 
-用户可以使用 Tensorstack SDK 编写 Transformer 代码，并使用 ImageBuilder 制作自定义 Transformer 镜像。详情请参考 [制作 Transformer 镜像](https://github.com/t9k/tutorial-examples/tree/master/deployment/mlservice/transformer#%E5%88%B6%E4%BD%9C-transformer-%E9%95%9C%E5%83%8F)
+你可以使用 Tensorstack SDK 编写 Transformer 代码，并使用 ImageBuilder 制作自定义 Transformer 镜像。详情请参考 [制作 Transformer 镜像](https://github.com/t9k/tutorial-examples/tree/master/deployment/mlservice/transformer#%E5%88%B6%E4%BD%9C-transformer-%E9%95%9C%E5%83%8F)
 
 </aside>
 
@@ -30,7 +30,7 @@ Transformer 是 MLService 中的一个组件，它可以对推理的请求进行
 
 ## 使用推理服务
 
-您可以直接使用命令行工具访问 MLService 的预测服务。运行命令获取 MLService 的 URL：
+你可以直接使用命令行工具访问 MLService 的预测服务。运行命令获取 MLService 的 URL：
 
 ``` shell
 address=$(kubectl get mls pic-mnist -ojsonpath='{.status.address.url}') && echo $address

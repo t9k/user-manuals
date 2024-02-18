@@ -9,7 +9,7 @@
 <aside class="note tip">
 <div class="title">提示</div>
 
-上述操作使用 YAML 配置文件创建 Secret 和 Image Builder，用户也可以在模型构建控制台进行创建。
+上述操作使用 YAML 配置文件创建 Secret 和 Image Builder，你也可以在模型构建控制台进行创建。
 
 </aside>
 

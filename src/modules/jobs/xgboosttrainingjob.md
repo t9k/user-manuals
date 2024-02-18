@@ -2,7 +2,7 @@
 
 XGBoostTrainingJob 是服务于 <a target="_blank" rel="noopener noreferrer" href="https://xgboost.readthedocs.io/en/latest/">XGBoost</a> 分布式计算框架的 T9k Job。
 
-您可以较为方便地使用 XGBoostTrainingJob 为 XGBoost 计算程序提供训练环境，并监控训练进程。
+你可以较为方便地使用 XGBoostTrainingJob 为 XGBoost 计算程序提供训练环境，并监控训练进程。
 
 ## 创建 XGBoostTrainingJob
 
@@ -116,7 +116,7 @@ XGBoostTrainingJob 提供以下三种策略：
 
 </aside>
     
-    `None` 策略主要用于训练脚本调试阶段。如果需要从副本中读取训练日志，则可以选用此策略。但由于这些副本可能占用资源并影响后续训练，建议您在调试完毕后手动删除这些副本或删除整个 XGBoostTrainingJob。
+    `None` 策略主要用于训练脚本调试阶段。如果需要从副本中读取训练日志，则可以选用此策略。但由于这些副本可能占用资源并影响后续训练，建议你在调试完毕后手动删除这些副本或删除整个 XGBoostTrainingJob。
 
 ## 调度器
 

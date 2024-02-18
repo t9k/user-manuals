@@ -9,7 +9,7 @@
 <aside class="note info">
 <div class="title">信息</div>
 
-如果 Notebook 处于暂停状态，那么您需要先点击右侧的**恢复**，等待 Notebook 运行后再使用。TensorStack AI 平台会自动暂停长时间闲置的 Notebook 以释放集群资源，您也可以主动暂停 Notebook。
+如果 Notebook 处于暂停状态，那么你需要先点击右侧的**恢复**，等待 Notebook 运行后再使用。TensorStack AI 平台会自动暂停长时间闲置的 Notebook 以释放集群资源，你也可以主动暂停 Notebook。
 
 </aside>
 
@@ -31,7 +31,7 @@
   <img alt="jupyterLab-select-notebook" src="../assets/tasks/develop-and-test-model/use-notebook/jupyterLab-select-notebook.png" />
 </figure>
 
-Jupyter Notebook 提供了交互式的 Python 开发环境。您可以在这里分块编辑并运行 Python 代码。比如运行 `keras_mnist.py`：
+Jupyter Notebook 提供了交互式的 Python 开发环境。你可以在这里分块编辑并运行 Python 代码。比如运行 `keras_mnist.py`：
 
 ``` python
 from tensorflow.keras import callbacks, datasets, layers, models, optimizers
@@ -87,7 +87,7 @@ model.evaluate(test_images, test_labels)
 
 ## 使用 Terminal
 
-点击左上角蓝色底色的 **+** 符号打开新的 **Launcher** 标签页，然后点击 **Other** 中的 **Terminal** 进入命令行终端。您可以在这里运行各种 bash 命令，例如运行 `python ./keras_mnist.py` 来进行模型训练：
+点击左上角蓝色底色的 **+** 符号打开新的 **Launcher** 标签页，然后点击 **Other** 中的 **Terminal** 进入命令行终端。你可以在这里运行各种 bash 命令，例如运行 `python ./keras_mnist.py` 来进行模型训练：
 
 <figure class="screenshot">
   <img alt="jupyterLab-terminal" src="../assets/tasks/develop-and-test-model/use-notebook/jupyterLab-terminal.png" />

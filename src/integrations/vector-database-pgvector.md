@@ -53,7 +53,7 @@ helm install pgvector-demo bitnami/postgresql \
 helm show values bitnami/postgresql --version=14.0.4 > values.yaml
 ```
 
-如要修改默认配置，用户可以将新配置（覆盖默认配置的字段）保存为一个 YAML 文件，通过 `-f` 选项提供给安装命令：
+如要修改默认配置，你可以将新配置（覆盖默认配置的字段）保存为一个 YAML 文件，通过 `-f` 选项提供给安装命令：
 
 ```bash
 # 使用修改后的 values.yaml
@@ -69,7 +69,7 @@ helm install pgvector-demo t9kpublic/bitnami-pgvector \
 #### 计算资源
 
 默认配置为计算资源指定了较小的请求值，但没有指定限制值，Pod 依然可以无限制地使用节点的 CPU 和内存资源。
-用户可以根据实际需求指定请求值和限制值，可以参阅<a target="_blank" rel="noopener noreferrer" href="https://cloud.google.com/sql/docs/postgres/manage-memory-usage-best-practices?hl=zh-cn">管理内存用量的最佳实践</a>。
+你可以根据实际需求指定请求值和限制值，可以参阅<a target="_blank" rel="noopener noreferrer" href="https://cloud.google.com/sql/docs/postgres/manage-memory-usage-best-practices?hl=zh-cn">管理内存用量的最佳实践</a>。
 
 ```yaml
 # 默认配置
@@ -83,7 +83,7 @@ primary:
 
 #### 存储
 
-默认配置指定的卷大小为 `8Gi`，并且没有指定存储类型。用户可以根据数据规模修改卷大小，并选用高性能的存储类型。
+默认配置指定的卷大小为 `8Gi`，并且没有指定存储类型。你可以根据数据规模修改卷大小，并选用高性能的存储类型。
 
 ```yaml
 # 默认配置
@@ -99,7 +99,7 @@ primary:
 
 #### 网络
 
-用户可以按需修改 Service 配置，提供 tls 配置以提供外部安全访问。
+你可以按需修改 Service 配置，提供 tls 配置以提供外部安全访问。
 
 ```yaml
 # 默认配置
@@ -125,7 +125,7 @@ primary:
 
 #### 安全
 
-用户可以设置 `postgres` 管理员用户的密码，
+你可以设置 `postgres` 管理员用户的密码，
 请参阅 <a target="_blank" rel="noopener noreferrer" href="https://github.com/bitnami/containers/tree/main/bitnami/postgresql#setting-the-root-password-on-first-run">Setting the root password on first run</a>。
 
 ```yaml
@@ -136,7 +136,7 @@ auth:
 
 #### 备份
 
-用户可以启用数据库的定时备份并提供相应配置。注意这里的备份方法是转储（dump）而不是快照（snapshot）。
+你可以启用数据库的定时备份并提供相应配置。注意这里的备份方法是转储（dump）而不是快照（snapshot）。
 
 ```yaml
 # 默认配置

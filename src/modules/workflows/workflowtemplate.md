@@ -115,7 +115,7 @@ spec:
 
 SeqPod 中的每个步骤（step）对应 Kubernetes Pod 中的一个容器，但 SeqPod 会按照顺序依次执行每个步骤，直到所有的步骤成功运行完毕，或者其中某个步骤失败（后续的步骤不会再运行）。
 
-在 `pod.containers[*].command`、`pod.containers[*].args`、`seqPod.steps[*].command`、`seqPod.steps[*].args` 等字段中，您有时候可能需要填写带有引号的字符串，有以下几种合法的方式：
+在 `pod.containers[*].command`、`pod.containers[*].args`、`seqPod.steps[*].command`、`seqPod.steps[*].args` 等字段中，你有时候可能需要填写带有引号的字符串，有以下几种合法的方式：
 
 ```yaml
 command: ["echo"]
@@ -176,8 +176,8 @@ set -e # Immediately exit if any command exited with non-zero status.
 
 为了 SeqPod WorkflowTemplate 的正常工作，最终生成的 Pod 有一些特殊的保留目录：
 
-* `/t9k/workspaces`：用于挂载 [workspaces](#指定工作空间)，您可以通过 `$(workspaces.<workspaceName>.path)` 来使用该路径。
-* `/t9k/results`：用于存储 [results](#输出结果)，您可以通过 `$(results.<resultName>.path)` 来使用该路径。
+* `/t9k/workspaces`：用于挂载 [workspaces](#指定工作空间)，你可以通过 `$(workspaces.<workspaceName>.path)` 来使用该路径。
+* `/t9k/results`：用于存储 [results](#输出结果)，你可以通过 `$(results.<resultName>.path)` 来使用该路径。
 * `/t9k/tools`：用于保证 SeqPod 中 `steps` 顺序执行的辅助工具，与用户无关。
 * `/t9k/termination`：用于写入 Pod 的 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/tasks/debug-application-cluster/determine-reason-pod-failure/#writing-and-reading-a-termination-message">termination message</a>，与用户无关。
 
@@ -255,7 +255,7 @@ spec:
         status: "True"
 ```
 
-如果所创建的资源类型是下列 [T9k Jobs](../jobs/index.md) 之一，系统将自动帮助填写 `successRules` 和 `failureRules`，以减轻您的负担：
+如果所创建的资源类型是下列 [T9k Jobs](../jobs/index.md) 之一，系统将自动帮助填写 `successRules` 和 `failureRules`，以减轻你的负担：
 
 * GenericJob
 * MPIJob
@@ -276,7 +276,7 @@ spec:
   serviceAccountName: managed-project-sa
 ```
 
-在网页中创建 WorkflowRun 时，系统将自动为您配置名为 `managed-project-sa` 的 Service Account，您不用关心这一项的填写。
+在网页中创建 WorkflowRun 时，系统将自动为你配置名为 `managed-project-sa` 的 Service Account，你不用关心这一项的填写。
 
 ### T9k Jobs WorkflowTemplate
 
@@ -349,7 +349,7 @@ spec:
 <aside class="note">
 <div class="title">注意</div>
 
-与 Resource WorkflowTemplate 相同，T9k Jobs WorkflowTemplate 对应的 WorkflowRun 也需要一个 Service Account。同样，在网页中创建 WorkflowRun 时，系统将自动为您配置名为 `managed-project-sa` 的 Service Account，您不用关心这一项的填写。
+与 Resource WorkflowTemplate 相同，T9k Jobs WorkflowTemplate 对应的 WorkflowRun 也需要一个 Service Account。同样，在网页中创建 WorkflowRun 时，系统将自动为你配置名为 `managed-project-sa` 的 Service Account，你不用关心这一项的填写。
 
 </aside>
 
@@ -392,7 +392,7 @@ b1   b2
 
 ## 指定参数
 
-您可以为 WorkflowTemplate 指定一些参数，并在 `spec` 中用 `$(params.<paramName>)` 来引用参数。[WorkflowRun](./workflowrun.md) 会在运行时为这些参数提供实际值。支持 `params` 的 WorkflowTemplate 类型有 Pod、SeqPod、DAG，详见[支持变量替换的 WorkflowTemplate 字段](../../../reference/tensorstack-resources/workflow-api/variable-substitution-rules.md#支持变量替换的-workflowtemplate-字段)。
+你可以为 WorkflowTemplate 指定一些参数，并在 `spec` 中用 `$(params.<paramName>)` 来引用参数。[WorkflowRun](./workflowrun.md) 会在运行时为这些参数提供实际值。支持 `params` 的 WorkflowTemplate 类型有 Pod、SeqPod、DAG，详见[支持变量替换的 WorkflowTemplate 字段](../../../reference/tensorstack-resources/workflow-api/variable-substitution-rules.md#支持变量替换的-workflowtemplate-字段)。
 
 Pod WorkflowTemplate 示例：
 
@@ -478,7 +478,7 @@ spec:
 
 ## 指定工作空间
 
-您可以为 WorkflowTemplate 指定可用的存储空间，并在 `spec` 中用 `$(workspaces.<workspaceName>.path)` 来引用存储空间的路径。[WorkflowRun](./workflowrun.md) 会在运行时指定具体挂载何种存储空间，例如 PVC、Secret、ConfigMap 等。支持 `workspaces` 的 WorkflowTemplate 类型有 Pod、SeqPod、DAG。
+你可以为 WorkflowTemplate 指定可用的存储空间，并在 `spec` 中用 `$(workspaces.<workspaceName>.path)` 来引用存储空间的路径。[WorkflowRun](./workflowrun.md) 会在运行时指定具体挂载何种存储空间，例如 PVC、Secret、ConfigMap 等。支持 `workspaces` 的 WorkflowTemplate 类型有 Pod、SeqPod、DAG。
 
 Pod WorkflowTemplate 示例：
 
@@ -564,7 +564,7 @@ spec:
 
 WorkflowTemplate 可以在运行过程中输出一些字符串，并最终展示在 WorkflowRun 的 `status` 中。支持 `results` 的 WorkflowTemplate 类型有 SeqPod、DAG。
 
-每个 `result` 本质上是一个文件，如下例所示，您可以向 `$(results.<resultName>.path)` 这个路径写入想要输出的内容。注意写入内容的总和不能超过 4096 字节。
+每个 `result` 本质上是一个文件，如下例所示，你可以向 `$(results.<resultName>.path)` 这个路径写入想要输出的内容。注意写入内容的总和不能超过 4096 字节。
 
 ```yaml
 apiVersion: batch.tensorstack.dev/v1beta1

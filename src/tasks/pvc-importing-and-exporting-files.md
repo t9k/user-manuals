@@ -1,6 +1,6 @@
 # 上传和下载文件
 
-通过 [PVC](../modules/storage/pvc.md) 使用集群存储非常方便，它可作为存储卷被挂载到 Notebook、Job、MLService 等各种工作负载的 Pod 中。例如在进行模型训练时，用户可以把训练脚本以及训练数据存放到 PVC，然后挂载在 Job 的 Pod 中。
+通过 [PVC](../modules/storage/pvc.md) 使用集群存储非常方便，它可作为存储卷被挂载到 Notebook、Job、MLService 等各种工作负载的 Pod 中。例如在进行模型训练时，你可以把训练脚本以及训练数据存放到 PVC，然后挂载在 Job 的 Pod 中。
 
 本教程将分场景介绍如何从集群外部上传文件到 PVC，以及如何从 PVC 下载文件到集群外部。
 
@@ -9,7 +9,7 @@
 <aside class="note tip">
 <div class="title">提示</div>
 
-PVC 可以扩容，即增加存储卷大小。因此用户在创建 PVC 时可以先指定一个较为保守的存储卷大小的值，之后如有需要则继续增加。
+PVC 可以扩容，即增加存储卷大小。因此你在创建 PVC 时可以先指定一个较为保守的存储卷大小的值，之后如有需要则继续增加。
 
 </aside>
 
@@ -78,7 +78,7 @@ curl -O <URL>
 <aside class="note tip">
 <div class="title">提示</div>
 
-用户也可以在终端中使用命令行工具 rclone 来访问和下载存储在 HTTP(S) 和 FTP(S) 服务器上的文件（对于 FTP(S) 服务器还可以上传文件）。rclone 将这些服务器视为一种类型的云存储，请参阅 <a target="_blank" rel="noopener noreferrer" href="https://rclone.org/http/">HTTP Config</a> 和 <a target="_blank" rel="noopener noreferrer" href="https://rclone.org/ftp/">FTP Config</a>。
+你也可以在终端中使用命令行工具 rclone 来访问和下载存储在 HTTP(S) 和 FTP(S) 服务器上的文件（对于 FTP(S) 服务器还可以上传文件）。rclone 将这些服务器视为一种类型的云存储，请参阅 <a target="_blank" rel="noopener noreferrer" href="https://rclone.org/http/">HTTP Config</a> 和 <a target="_blank" rel="noopener noreferrer" href="https://rclone.org/ftp/">FTP Config</a>。
 
 </aside>
 

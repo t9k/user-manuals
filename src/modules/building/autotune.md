@@ -19,4 +19,4 @@
 * AutoTune Server 是执行实验的主体，其中包括：
     * Optimizer：超参数调优器，在限定的搜索空间内用特定的调优算法选择合适的超参数组合。
     * Training Manager：训练任务管理器，使用 Optimizer 产生的超参数，创建 TrainingJob 进行训练，并将训练结果反馈给 Optimizer 用于下一次超参数选择。AutoTune 可以同时创建多组 TrainingJob 来测试不同的超参数组合以加快训练效率。目前 AutoTune 支持使用 [TensorFlowTrainingJob](../jobs/tensorflowtrainingjob.md)、[PyTorchTrainingJob](../jobs/pytorchtrainingjob.md) 和 [XGBoostTrainingJob](../jobs/xgboosttrainingjob.md) 进行训练。
-* AutoTune Web 是 AutoTune 的可视化界面，您可以通过此界面实时查看实验状态，对比各组超参数对实验产生的影响。
+* AutoTune Web 是 AutoTune 的可视化界面，你可以通过此界面实时查看实验状态，对比各组超参数对实验产生的影响。

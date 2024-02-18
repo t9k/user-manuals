@@ -6,7 +6,7 @@
 
 ### 基本方法
 
-在模型的训练脚本中，您需要首先创建一个 Run，通过调用 `t9k.em.create_run()` 函数。其返回的 `Run` 实例即代表了一次训练的运行。此方法调用后，Run 将被创建，具有状态“Running”，其本地文件默认保存在相对路径 `.em/runs` 下，每个 Run 拥有一个独立的名为 `<run_name>_<date>_<time>_<random_suffix>`（称为该 Run 的备用名称）的子目录。
+在模型的训练脚本中，你需要首先创建一个 Run，通过调用 `t9k.em.create_run()` 函数。其返回的 `Run` 实例即代表了一次训练的运行。此方法调用后，Run 将被创建，具有状态“Running”，其本地文件默认保存在相对路径 `.em/runs` 下，每个 Run 拥有一个独立的名为 `<run_name>_<date>_<time>_<random_suffix>`（称为该 Run 的备用名称）的子目录。
 
 最基本的初始化方法只需要提供名称作为参数。
 
@@ -19,13 +19,13 @@ run = em.create_run(name='mnist_torch')    # 返回Run实例
 <aside class="note tip">
 <div class="title">提示</div>
 
-您可以通过设置环境变量 `EM_RUN_PARENT_DIR` 来修改 Run 的本地文件的保存路径。
+你可以通过设置环境变量 `EM_RUN_PARENT_DIR` 来修改 Run 的本地文件的保存路径。
 
 </aside>
 
 ### 自动上传
 
-如果想要自动异步上传 Run 的更新，可以设定 `auto_upload=True`，并提供文件夹路径，以及设定是否创建不存在的各级文件夹。在这种情况下，您在创建 Run 之前需要先[登录到 AIStore 服务器](#基本方法-2)。
+如果想要自动异步上传 Run 的更新，可以设定 `auto_upload=True`，并提供文件夹路径，以及设定是否创建不存在的各级文件夹。在这种情况下，你在创建 Run 之前需要先[登录到 AIStore 服务器](#基本方法-2)。
 
 ```python
 run = em.create_run(name='mnist_torch',
@@ -53,7 +53,7 @@ run = em.create_run(name='mnist_torch',
 
 ### 提供标签和描述
 
-您可以为创建的 Run 提供用于分类或介绍的标签或描述。
+你可以为创建的 Run 提供用于分类或介绍的标签或描述。
 
 ```python
 run = em.create_run(
@@ -65,7 +65,7 @@ run = em.create_run(
 
 ### 提供配置文件
 
-您可以将上面的所有配置（以及下面将要提到的超参数）都写进一个 YAML 文件里，然后传入该配置文件的路径即可。
+你可以将上面的所有配置（以及下面将要提到的超参数）都写进一个 YAML 文件里，然后传入该配置文件的路径即可。
 
 ```python
 run = em.create_run(config_path='./run_config.yaml')  # 提供配置文件
@@ -89,7 +89,7 @@ description: Train a simple CNN model that classifies images of handwritten digi
 
 ### 基本方法
 
-超参数是影响模型训练效果的重要因素，记录训练的超参数十分必要，尤其是当您聚焦于某几个特定的超参数时。`Run` 实例的 `hparams` 属性是一个容器对象，用于保存您想要记录的所有超参数，您可以像操作 Python 字典一样操作它。一种推荐的设定超参数的方法是调用一次该容器对象的 `update()` 方法完成所有超参数的设定。
+超参数是影响模型训练效果的重要因素，记录训练的超参数十分必要，尤其是当你聚焦于某几个特定的超参数时。`Run` 实例的 `hparams` 属性是一个容器对象，用于保存你想要记录的所有超参数，你可以像操作 Python 字典一样操作它。一种推荐的设定超参数的方法是调用一次该容器对象的 `update()` 方法完成所有超参数的设定。
 
 ```python
 run.hparams.update({
@@ -139,7 +139,7 @@ hparams:
   linear_features: 64
 ```
 
-当然，您也可以多次调用 `update()` 方法，或者使用类似 Python 字典的键值对赋值方法设定单个超参数。
+当然，你也可以多次调用 `update()` 方法，或者使用类似 Python 字典的键值对赋值方法设定单个超参数。
 
 ```python
 run.hparams['batch_size'] = 32
@@ -169,7 +169,7 @@ model.fit(train_images,
 
 ### 设定作为标记的超参数
 
-在上面的示例中，所有超参数都是直接传入各函数以配置模型。您也可以设定一些作为标记的超参数，例如网络类型、优化器类型、损失函数类型、激活函数类型等，以便日后快速回顾重要信息。
+在上面的示例中，所有超参数都是直接传入各函数以配置模型。你也可以设定一些作为标记的超参数，例如网络类型、优化器类型、损失函数类型、激活函数类型等，以便日后快速回顾重要信息。
 
 ```python
 run.hparams.update({
@@ -229,7 +229,7 @@ for epoch in range(1, epochs + 1):
 <aside class="note">
 <div class="title">注意</div>
 
-训练指标、验证指标和测试指标请分别使用指标类型 `'train'`（或 `'training'`）、`'val'`（或 `'validate'`、`'validation'`）和 `'test'`（或 `'testing'`、`'eval'`、`'evaluate'`、`'evaluation'`）。除此之外，您也可以使用其他任意字符串作为自定义指标类型。
+训练指标、验证指标和测试指标请分别使用指标类型 `'train'`（或 `'training'`）、`'val'`（或 `'validate'`、`'validation'`）和 `'test'`（或 `'testing'`、`'eval'`、`'evaluate'`、`'evaluation'`）。除此之外，你也可以使用其他任意字符串作为自定义指标类型。
 
 指标的值可以是 Python 数字类型，或仅有一个元素的 NumPy 数组、TensorFlow 张量或 PyTorch 张量。
 
@@ -273,7 +273,7 @@ trainer = Trainer(max_epochs=10,
 
 ## 结束 Run
 
-模型的训练与测试全部完成后，您需要结束 Run，通过调用 `Run` 实例的 `finish()` 方法。此方法调用后，Run 的状态将更新为“Complete”。
+模型的训练与测试全部完成后，你需要结束 Run，通过调用 `Run` 实例的 `finish()` 方法。此方法调用后，Run 的状态将更新为“Complete”。
 
 ```python
 run.finish()
@@ -283,7 +283,7 @@ run.finish()
 
 ### 基本方法
 
-如要记录和保存与训练过程有关的文件，您需要创建一个 Artifact，通过调用 `t9k.em.create_artifact()` 函数。此方法调用后，Artifact 将被创建，其本地文件默认保存在相对路径 `.em/artifacts` 下。与 Run 相同，每个 Artifact 拥有一个独立的名为 <artifact_name>_<date>_<time>_<random_suffix>（称为该 Artifact 的备用名称）的子目录。
+如要记录和保存与训练过程有关的文件，你需要创建一个 Artifact，通过调用 `t9k.em.create_artifact()` 函数。此方法调用后，Artifact 将被创建，其本地文件默认保存在相对路径 `.em/artifacts` 下。与 Run 相同，每个 Artifact 拥有一个独立的名为 <artifact_name>_<date>_<time>_<random_suffix>（称为该 Artifact 的备用名称）的子目录。
 
 最基本的初始化方法只需要提供名称作为参数。
 
@@ -293,7 +293,7 @@ dateset_artifact = em.create_artifact(name='mnist_dataset')
 
 ### 提供标签和描述
 
-您可以为创建的 Artifact 提供用于分类或介绍的标签或描述。
+你可以为创建的 Artifact 提供用于分类或介绍的标签或描述。
 
 ```python
 dateset_artifact = em.create_artifact(
@@ -311,7 +311,7 @@ dateset_artifact.add_file(file_path='./mnist.npz')    # 添加单个文件
 dateset_artifact.add_dir(dir_path='./mnist/')         # 添加目录
 ```
 
-Artifact 中的文件对象具有层次结构，您可以指定文件或目录位于 Artifact 的何路径下。
+Artifact 中的文件对象具有层次结构，你可以指定文件或目录位于 Artifact 的何路径下。
 
 ```python
 dateset_artifact.add_file(file_path='./mnist.npz', obj_path='dataset/')
@@ -344,7 +344,7 @@ Model、Dataset、Branch、Tag 和 Commit 实例也可以被标记为 Run 的输
 
 ### 基本方法
 
-上传数据之前，您需要先登录到 [AIStore](../modules/asset-management.md#产品架构) 服务器，通过调用 `t9k.em.login()` 函数。
+上传数据之前，你需要先登录到 [AIStore](../modules/asset-management.md#产品架构) 服务器，通过调用 `t9k.em.login()` 函数。
 
 ```python
 em.login(ais_host='<your-server-host>', api_key='<your-api-key>')
@@ -369,7 +369,7 @@ AIStore 服务器位于平台主机域名的 `/t9k/aistore/server` 路径下。�
 <aside class="note tip">
 <div class="title">提示</div>
 
-如果您在 [Python SDK 配置文件](../tools/python-sdk-t9k/guide.md#配置文件)中提供了 `contexts[*].prefixes.aistore` 或 `contexts[*].auth.api_key` 字段的值，则它们将作为调用 `login()` 函数时相应参数的默认值。
+如果你在 [Python SDK 配置文件](../tools/python-sdk-t9k/guide.md#配置文件)中提供了 `contexts[*].prefixes.aistore` 或 `contexts[*].auth.api_key` 字段的值，则它们将作为调用 `login()` 函数时相应参数的默认值。
 
 </aside>
 
@@ -389,7 +389,7 @@ artifact.upload()
 
 ### 上传本地保存的数据
 
-您也可以在训练结束之后将本地保存的数据上传到 AIStore 服务器，以应对训练时无网络连接、最初未打算上传、误删服务器中的数据等情形。
+你也可以在训练结束之后将本地保存的数据上传到 AIStore 服务器，以应对训练时无网络连接、最初未打算上传、误删服务器中的数据等情形。
 
 首先[登录到 AIStore 服务器](#基本方法-2)，然后加载保存在本地的 Run 或 Artifact，调用其 `upload()` 方法。
 

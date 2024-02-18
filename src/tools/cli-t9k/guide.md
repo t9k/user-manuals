@@ -8,7 +8,7 @@ TensorStack CLI（以下简称 T9k CLI）可以从平台首页下载。请根据
 
 ### 安装
 
-您需要根据下载的版本，设置 T9k CLI 的版本和系统架构等变量：
+你需要根据下载的版本，设置 T9k CLI 的版本和系统架构等变量：
 
 ``` bash
 version=1.78.6
@@ -24,7 +24,7 @@ mv t9k-$os-$arch /usr/local/bin/t9k
 rm -f "$HOME/Downloads/t9k-$version-$os-$arch.tar.gz"
 ```
 
-您可以运行以下命令来验证 T9k CLI 安装完成：
+你可以运行以下命令来验证 T9k CLI 安装完成：
 
 ``` bash
 t9k version
@@ -68,7 +68,7 @@ contexts:
 
 T9k Config 包括以下两个部分：
 
-* `current-context`：字符串，记录默认使用的 Context 名称。您可以通过设置命令行参数 `-x, --context` 访问其他的 Context。
+* `current-context`：字符串，记录默认使用的 Context 名称。你可以通过设置命令行参数 `-x, --context` 访问其他的 Context。
 * `contexts`：数组，包含集群相关信息。
     * `name`：字符串，Context 的名称。
     * `server`：字符串，记录访问这个集群服务的域名。
@@ -101,6 +101,6 @@ TensorStack CLI 定义了以下的全局命令行参数：
 
 项目（命名空间）的使用优先级是（排在前面的优先级更高）：
 
-1. 您通过命令行参数 `-p, --project` 设置的项目。
-2. 您通过命令行参数 `-n, --namespace` 设置的项目。
+1. 你通过命令行参数 `-p, --project` 设置的项目。
+2. 你通过命令行参数 `-n, --namespace` 设置的项目。
 3. 使用项目 `default`。

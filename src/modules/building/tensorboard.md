@@ -11,7 +11,7 @@ TensorBoard 是 TensorFlow 提供的一种可视化机器学习过程和结果�
 
 </aside>
 
-您可以使用本产品在集群中一键部署 TensorBoard，可视化训练模型。
+你可以使用本产品在集群中一键部署 TensorBoard，可视化训练模型。
 
 ## 创建 TensorBoard
 
@@ -59,7 +59,7 @@ MinIO 的相关介绍（比如 Bucket 的含义）请参阅<a target="_blank" re
 
 ## TrainingJob 自动创建 TensorBoard
 
-我们在 [TensorFlowTrainingJob](../jobs/tensorflowtrainingjob.md#tensorboard-的使用) 和 [PyTorchTrainingJob](../jobs/pytorchtrainingjob.md#tensorboard-的使用) 中集成了 TensorBoard 的创建，您可以在创建 TrainingJob 后直接进入 TensorBoard 监控训练进程和查看训练结果。
+我们在 [TensorFlowTrainingJob](../jobs/tensorflowtrainingjob.md#tensorboard-的使用) 和 [PyTorchTrainingJob](../jobs/pytorchtrainingjob.md#tensorboard-的使用) 中集成了 TensorBoard 的创建，你可以在创建 TrainingJob 后直接进入 TensorBoard 监控训练进程和查看训练结果。
 
 ## 资源回收
 
@@ -68,4 +68,4 @@ TensorBoard 提供空闲资源回收的支持，在检测到 TensorBoard 处于�
 * TensorBoard 无人使用超过 1h 后，标记该 TensorBoard 为 `Idle`。
 * TensorBoard 进入 `Idle` 状态超过 24h 后，删除该 TensorBoard 底层工作负载。
 
-如果需要再次使用该 TensorBoard，您可以在模型构建控制台中手动点击**恢复**按钮。
+如果需要再次使用该 TensorBoard，你可以在模型构建控制台中手动点击**恢复**按钮。

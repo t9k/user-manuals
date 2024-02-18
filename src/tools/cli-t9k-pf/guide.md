@@ -42,7 +42,7 @@ rm -f /usr/local/bin/t9k-pf
 
 ### 通过 T9k Config 进行身份认证和授权
 
-t9k-pf 默认使用 [T9k Config](../tensorstack-cli/user-guide.md#配置文件) 来进行身份认证和授权。您可以通过命令行参数 `-c, --config` 来指定 t9k-pf 使用的 T9k Config 文件的路径，未指定时，默认使用 `$HOME/.t9k/t9k-config.yaml` 路径下 T9k Config 中 current-context 的认证信息。
+t9k-pf 默认使用 [T9k Config](../tensorstack-cli/user-guide.md#配置文件) 来进行身份认证和授权。你可以通过命令行参数 `-c, --config` 来指定 t9k-pf 使用的 T9k Config 文件的路径，未指定时，默认使用 `$HOME/.t9k/t9k-config.yaml` 路径下 T9k Config 中 current-context 的认证信息。
 
 下面是一个 T9k Config 的示例，其中 current-context 为 `demo1`，该 Context 的 token 字段不为空，因此最终 t9k-pf 使用该值 `demo1-token` 来完成身份验证（如果 apikey 和 token 均不为空，t9k-pf 优先使用 apikey）。
 
@@ -81,7 +81,7 @@ t9k-pf 支持通过命令行参数 `-k,--apikey` 直接指定 API Key，完成�
 t9k-pf notebook <url> --apikey
 ```
 
-命令行会进入交互式输入界面，粘贴您的 API Key 再按下回车即可。
+命令行会进入交互式输入界面，粘贴你的 API Key 再按下回车即可。
 
 <aside class="note">
 <div class="title">注意</div>

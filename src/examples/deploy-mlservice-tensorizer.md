@@ -54,7 +54,7 @@ kubectl apply -f ./mlservice.yaml
 
 ## 使用推理服务
 
-您可以直接使用命令行工具访问 MLService 的预测服务。运行命令获取 MLService 的 URL：
+你可以直接使用命令行工具访问 MLService 的预测服务。运行命令获取 MLService 的 URL：
 
 ``` shell
 url=$(kubectl get mlservice tensorizer-gptj -o jsonpath='{.status.address.url}') && echo $url

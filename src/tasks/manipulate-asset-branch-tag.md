@@ -10,7 +10,7 @@
 
 ## 通过命令行工具
 
-切换到您的工作路径下：
+切换到你的工作路径下：
 
 ```shell
 $ cd /your/workpath
@@ -86,7 +86,7 @@ AH INFO: Tag 20230101 deleted for Model /demo/t9k-assethub/model/llm/gpt2
 
 ## 通过 Python SDK
 
-切换到您的工作路径下，然后以任意方式执行下面的 Python 代码。
+切换到你的工作路径下，然后以任意方式执行下面的 Python 代码。
 
 导入 `t9k.ah` 模块，使用 `ah.login()` 函数登录到 AssetHub 服务器（如果配置文件中的凭据仍有效，则无需提供参数）：
 

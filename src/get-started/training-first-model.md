@@ -1,6 +1,6 @@
 # 训练你的第一个模型
 
-本教程带领用户使用 [Notebook](../modules/building/notebook.md)，来构建和训练一个 AI 模型。
+本教程带领你使用 [Notebook](../modules/building/notebook.md)，来构建和训练一个 AI 模型。
 
 ## 创建 Notebook
 
@@ -11,7 +11,7 @@
   <figcaption>图 1：平台首页。</figcaption>
 </figure>
 
-构建控制台（Build Console）的总览页面展示了多种**资源**，用户可以点击右上角的按钮切换 Project，也可以点击**事件**和**配额**标签页以查看当前 Project 最近发生的事件以及计算资源（CPU、Memory、GPU 等）配额。
+构建控制台（Build Console）的总览页面展示了多种**资源**，你可以点击右上角的按钮切换 Project，也可以点击**事件**和**配额**标签页以查看当前 Project 最近发生的事件以及计算资源（CPU、Memory、GPU 等）配额。
 
 <aside class="note info">
 <div class="title"> API 资源 </div>
@@ -102,14 +102,14 @@
 
 </aside>
 
-在跳转回到 Notebook 管理页面之后，等待刚才创建的 Notebook 准备就绪。第一次拉取镜像可能会花费较长的时间，具体取决于用户集群的网络状况。点击右上角的**刷新图标**来手动刷新 Notebook 状态，待 Notebook 开始运行之后，点击右侧的**打开**进入其前端页面。
+在跳转回到 Notebook 管理页面之后，等待刚才创建的 Notebook 准备就绪。第一次拉取镜像可能会花费较长的时间，具体取决于集群的网络状况。点击右上角的**刷新图标**来手动刷新 Notebook 状态，待 Notebook 开始运行之后，点击右侧的**打开**进入其前端页面。
 
 <figure class="screenshot">
   <img alt="connect-notebook" src="../assets/get-started/training-first-model/connect-notebook.png" />
   <figcaption>图 8：在 Notebook 管理页面打开 Notebook。</figcaption>
 </figure>
 
-现在 Notebook 已经可以使用了，用户可以在这里进行模型的开发与测试。
+现在 Notebook 已经可以使用了，你可以在这里进行模型的开发与测试。
 
 <figure class="screenshot">
   <img alt="jupyter" src="../assets/get-started/training-first-model/jupyter.png" />
@@ -121,7 +121,7 @@
 <aside class="note tip">
 <div class="title">提示</div>
 
-如果用户之前从未使用过 JupyterLab，建议在使用之前先阅读<a target="_blank" rel="noopener noreferrer" href="https://jupyterlab.readthedocs.io/en/stable/">官方文档</a>以熟悉 JupyterLab 的功能特性以及基本操作。
+如果你之前从未使用过 JupyterLab，建议在使用之前先阅读<a target="_blank" rel="noopener noreferrer" href="https://jupyterlab.readthedocs.io/en/stable/">官方文档</a>以熟悉 JupyterLab 的功能特性以及基本操作。
 
 </aside>
 

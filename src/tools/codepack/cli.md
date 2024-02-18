@@ -6,7 +6,7 @@ Codepack CLI（命令行工具）用于在命令行终端中运行 Codepack。
 
 ### 前置条件
 
-Codepack CLI 使用 Python 3 编写，在安装之前请确保您的本地环境安装了 3.6 或以上版本的 Python 以及 pip 工具。
+Codepack CLI 使用 Python 3 编写，在安装之前请确保你的本地环境安装了 3.6 或以上版本的 Python 以及 pip 工具。
 
 为使 Codepack CLI 提供的文件复制功能正常运行，还需要安装 3.1.0 及以上版本的 rsync。macOS 执行以下命令安装：
 
@@ -26,7 +26,7 @@ apt-get install rsync
 yum install rsync
 ```
 
-然后您可以执行以下命令来验证安装完成，并且确认安装的 rsync 版本。
+然后你可以执行以下命令来验证安装完成，并且确认安装的 rsync 版本。
 
 ```shell
 rsync --version
@@ -34,7 +34,7 @@ rsync --version
 
 ### 安装
 
-目前 TensorStack SDK 仅提供用于本地安装的 Python 包，您可以从平台首页下载。
+目前 TensorStack SDK 仅提供用于本地安装的 Python 包，你可以从平台首页下载。
 
 然后使用以下命令进行安装：
 
@@ -190,7 +190,7 @@ Codepack CLI 没有单独的配置文件，而是使用 [TensorStack CLI 的配�
 
 ## 身份验证
 
-Codepack CLI 支持下列身份验证方式，您可以选择其中的一种进行相应的配置。
+Codepack CLI 支持下列身份验证方式，你可以选择其中的一种进行相应的配置。
 
 ### 平台内运行（incluster）
 

@@ -1,6 +1,6 @@
 # 术语表
 
-本术语表记录了 TensorStack AI 平台的一些专有名词，方便您随时查阅。
+本术语表记录了 TensorStack AI 平台的一些专有名词，方便用户随时查阅。
 
 ## API Key
 
@@ -44,7 +44,7 @@ ConfigMap 是一种以键值对的形式存储非机密信息的 Kubernetes 资�
 
 ## CRD（Custom Resource Definition，定制资源定义）
 
-CRD 是 Kubernetes 提供的一种扩展机制，允许开发者定制自己的资源，并开发对应的控制器。TensorStack AI 平台定义了一系列资源，以方便您在 Kubernetes 集群上构建机器学习应用。
+CRD 是 Kubernetes 提供的一种扩展机制，允许开发者定制自己的资源，并开发对应的控制器。TensorStack AI 平台定义了一系列资源，以方便你在 Kubernetes 集群上构建机器学习应用。
 
 ## CronWorkflowRun
 
@@ -64,7 +64,7 @@ GenericJob 是一种 TensorStack 资源，用于统一协调多个 Pod 共同完
 
 ## Image（镜像）
 
-镜像是保存的容器实例，它打包了应用运行所需的一组软件。您可以将镜像存储在容器镜像仓库、拉取到本地系统并作为应用来运行。
+镜像是保存的容器实例，它打包了应用运行所需的一组软件。你可以将镜像存储在容器镜像仓库、拉取到本地系统并作为应用来运行。
 
 ## Job
 
@@ -76,7 +76,7 @@ Kubernetes 是一个开源的容器编排引擎，用来对容器化应用进行
 
 ## Label（标签）
 
-标签是附属在资源上的键值对，用于标明资源的属性。您可以通过标签来选取一组资源的某个子集。
+标签是附属在资源上的键值对，用于标明资源的属性。你可以通过标签来选取一组资源的某个子集。
 
 ## MLService
 
@@ -112,7 +112,7 @@ Project 是 TensorStack AI 平台对计算集群的抽象，建立在 Kubernetes
 
 ## PVC（PersistentVolumeClaim，持久卷申领）
 
-PVC 是一种持久化的存储资源，可以被 Pod 挂载、作为 Pod 的卷被访问。您可以在 TensorStack AI 平台的模型构建控制台中创建一个 PVC，并指定它的存储空间（例如 100M、1G）和访问模式（例如只读、可读写、可运行），详见 [PVC](../modules/storage/pvc.md) 和[管理 PVC](../tasks/manage-pvc.md)。
+PVC 是一种持久化的存储资源，可以被 Pod 挂载、作为 Pod 的卷被访问。你可以在 TensorStack AI 平台的模型构建控制台中创建一个 PVC，并指定它的存储空间（例如 100M、1G）和访问模式（例如只读、可读写、可运行），详见 [PVC](../modules/storage/pvc.md) 和[管理 PVC](../tasks/manage-pvc.md)。
 
 ## PyTorchTrainingJob
 
@@ -124,7 +124,7 @@ PyTorchTrainingJob 是一种 TensorStack 资源，用于通过 PyTorch 框架进
 
 ## RBAC（Role Based Access Control）
 
-RBAC 是一种管理访问控制的方式，详见 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh/docs/reference/access-authn-authz/rbac/">Kubernetes 文档</a>。您可以通过 ServiceAccount、Role、RoleBinding、ClusterRole、ClusterRoleBinding 等资源来管理访问控制。
+RBAC 是一种管理访问控制的方式，详见 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh/docs/reference/access-authn-authz/rbac/">Kubernetes 文档</a>。你可以通过 ServiceAccount、Role、RoleBinding、ClusterRole、ClusterRoleBinding 等资源来管理访问控制。
 
 ## Role
 
@@ -144,7 +144,7 @@ Secret 是一种存储密码、令牌、SSH Key 等敏感信息的 Kubernetes �
 
 ## ServiceAccount
 
-ServiceAccount 为 Pod 提供一个身份凭证。当您创建一个 Pod 时，如果没有指定 ServiceAccount，该 Pod 会默认绑定一个名为 `default` 的 ServiceAccount。
+ServiceAccount 为 Pod 提供一个身份凭证。当你创建一个 Pod 时，如果没有指定 ServiceAccount，该 Pod 会默认绑定一个名为 `default` 的 ServiceAccount。
 
 ## SimpleMLService
 

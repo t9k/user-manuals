@@ -2,7 +2,7 @@
 
 <a target="_blank" rel="noopener noreferrer" href="https://www.open-mpi.org/">OpenMPI</a> 是一个开源的 MPI（Message Passing Interface）协议的实现项目。
 
-MPIJob 是一种使用 OpenMPI 进行分布式计算的 T9k Job，此资源让您能够方便地在集群环境中使用 OpenMPI 进行训练。
+MPIJob 是一种使用 OpenMPI 进行分布式计算的 T9k Job，此资源让你能够方便地在集群环境中使用 OpenMPI 进行训练。
 
 ## 创建 MPIJob
 
@@ -274,7 +274,7 @@ MPIJob 使用 `mpirun` 实现 MPI 计算，并将其移植到 Kubernetes 上，`
 
 同理，`conditions` 和 `phase` 中的 `Failed` 表示的也不是 MPIJob 任务运行失败，而是启动副本、执行副本因为某些原因（集群故障、网络错误等）无法正确工作。
 
-因此在 MPIJob 结束后，您需要通过查看启动副本的日志来确定任务的具体执行情况。
+因此在 MPIJob 结束后，你需要通过查看启动副本的日志来确定任务的具体执行情况。
 
 </aside>
 

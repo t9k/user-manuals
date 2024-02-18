@@ -16,7 +16,7 @@
 <aside class="note tip">
 <div class="title">提示</div>
 
-上述操作使用 YAML 配置文件创建 WorkflowTemplate 及 WorkflowRun，您也可以在工作流控制台进行创建。
+上述操作使用 YAML 配置文件创建 WorkflowTemplate 及 WorkflowRun，你也可以在工作流控制台进行创建。
 
 </aside>
 
@@ -35,4 +35,4 @@
   <img alt="workflowrun-detail" src="../assets/tasks/build-automatic-workflow/build-automatic-workflow-from-data-sampling-to-model-exporting/workflowrun-detail.png" />
 </figure>
 
-本页面会自动刷新以获取 WorkflowRun 的最新状态，您也可以点击右上角的**刷新图标**手动刷新。
+本页面会自动刷新以获取 WorkflowRun 的最新状态，你也可以点击右上角的**刷新图标**手动刷新。

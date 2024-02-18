@@ -4,7 +4,7 @@
 
 ## 在 TensorStack CLI 中使用 API Key
 
-您可以使用以下命令并按照提示信息完成 API Key 的录入，随后命令行工具将使用该 API Key 作为用户身份凭证向平台服务器发送请求。
+你可以使用以下命令并按照提示信息完成 API Key 的录入，随后命令行工具将使用该 API Key 作为用户身份凭证向平台服务器发送请求。
 
 ```bash
 t9k config auth <server-address> -u <user-name> -k
@@ -29,13 +29,13 @@ CURRENT   NAME            SERVER                     AUTH_TYPE
 
 ## 使用 API Key 作为凭证向 AIStore 上传数据
 
-您可以在模型训练中使用 API Key 作为凭证向 AIStore 上传数据。
+你可以在模型训练中使用 API Key 作为凭证向 AIStore 上传数据。
 
 ### 通常的模型训练
 
-<!-- 在通常的模型训练中（不论是单个设备训练还是分布式训练）使用 AIStore 记录训练数据时，您需要在调用 `t9k.em` 模块的 `login()` 函数时提供 API Key，如下所示： -->
+<!-- 在通常的模型训练中（不论是单个设备训练还是分布式训练）使用 AIStore 记录训练数据时，你需要在调用 `t9k.em` 模块的 `login()` 函数时提供 API Key，如下所示： -->
 
-在使用 [Python SDK](../tools/python-sdk-t9k/index.md) 将数据上传到 AIStore 中时，您需要调用 `t9k.em` 模块的 `login()` 函数进行身份验证，在不设置 `login()` 函数参数的情况下，SDK 会自动使用 [T9k Config 文件](../tools/cli-t9k/guide.md#配置文件)中当前上下文中的身份信息，如果您想在训练时使用其他身份信息，则可以设置 `ais_host` 和 `api_key` 参数。
+在使用 [Python SDK](../tools/python-sdk-t9k/index.md) 将数据上传到 AIStore 中时，你需要调用 `t9k.em` 模块的 `login()` 函数进行身份验证，在不设置 `login()` 函数参数的情况下，SDK 会自动使用 [T9k Config 文件](../tools/cli-t9k/guide.md#配置文件)中当前上下文中的身份信息，如果你想在训练时使用其他身份信息，则可以设置 `ais_host` 和 `api_key` 参数。
 
 ```python
 from t9k import em
@@ -49,7 +49,7 @@ em.login(ais_host='url-of-em-server', api_key='api-key-of-user')
 
 ### AutoTuneExperiment
 
-为了让 AutoTuneExperiment 能够使用 API Key，您需要创建一个 Secret 来存储 API Key，Secret 的格式如下：
+为了让 AutoTuneExperiment 能够使用 API Key，你需要创建一个 Secret 来存储 API Key，Secret 的格式如下：
 
 ```yaml
 apiVersion: v1

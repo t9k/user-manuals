@@ -5,7 +5,7 @@ TensorStack CLI（简称 T9k CLI）是 TensorStack AI 平台的命令行工具�
 <aside class="note info">
 <div class="title">信息</div>
 
-如果您使用过 kubectl，那么您可以将 T9k CLI 看作面向 T9k 资源的 kubectl（但是 T9k CLI 采用了资源对象在前、操作在后的语法格式，例如 `t9k notebook get -A`）。这样的类比能帮助您非常快速地理解 T9k CLI 的用法。但是不了解 kubectl 也不会影响您阅读本文档，您可以从本文档中学会 T9k CLI 的使用方式。
+如果你使用过 kubectl，那么你可以将 T9k CLI 看作面向 T9k 资源的 kubectl（但是 T9k CLI 采用了资源对象在前、操作在后的语法格式，例如 `t9k notebook get -A`）。这样的类比能帮助你非常快速地理解 T9k CLI 的用法。但是不了解 kubectl 也不会影响你阅读本文档，你可以从本文档中学会 T9k CLI 的使用方式。
 
 </aside>
 

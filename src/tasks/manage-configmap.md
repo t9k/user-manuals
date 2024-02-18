@@ -27,7 +27,7 @@
   <img alt="create-configmap-detail" src="../assets/tasks/manage-configmap/create-configmap-detail.png" />
 </figure>
 
-您可以点击左上角的**导入 ConfigMap** 以加载当前存在的 ConfigMap 的配置。
+你可以点击左上角的**导入 ConfigMap** 以加载当前存在的 ConfigMap 的配置。
 
 ## 删除 ConfigMap
 

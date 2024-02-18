@@ -27,7 +27,7 @@
   <img alt="create-pvc-detail" src="../assets/tasks/manage-pvc/create-pvc-detail.png" />
 </figure>
 
-您可以点击左上角的**导入 PersistentVolumeClaim** 以加载当前存在的 PVC 的配置。
+你可以点击左上角的**导入 PersistentVolumeClaim** 以加载当前存在的 PVC 的配置。
 
 ## 删除 PVC
 

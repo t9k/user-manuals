@@ -14,7 +14,7 @@
 <aside class="note tip">
 <div class="title">提示</div>
 
-上述操作使用 YAML 配置文件创建 TensorBoard，您也可以在模型构建控制台进行创建。
+上述操作使用 YAML 配置文件创建 TensorBoard，你也可以在模型构建控制台进行创建。
 
 </aside>
 

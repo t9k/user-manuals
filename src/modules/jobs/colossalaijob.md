@@ -2,7 +2,7 @@
 
 ColossalAIJob 是服务于 <a target="_blank" rel="noopener noreferrer" href="https://colossalai.org/">ColossalAI</a> 分布式训练框架的 T9k Job。
 
-您可以较为方便地使用 ColossalAIJob 为 ColossalAI 训练脚本提供训练环境，并监控训练进程。
+你可以较为方便地使用 ColossalAIJob 为 ColossalAI 训练脚本提供训练环境，并监控训练进程。
 
 ## 创建 ColossalAIJob
 
@@ -88,7 +88,7 @@ spec:
 
 ## 清除策略
 
-在 ColossalAIJob 训练结束后，ColossalAIJob 控制器可以清理所创建的 Kubernetes 资源，使 ColossalAIJob 不再浪费集群资源（内存、CPU 等）。一般来说，您需要查看启动副本的日志来确定训练结果，所以启动副本不在清理范围之内，ColossalAIJob 控制器只清理执行副本（通过 `spec.runPolicy.cleanUpWorkers` 字段设置）。
+在 ColossalAIJob 训练结束后，ColossalAIJob 控制器可以清理所创建的 Kubernetes 资源，使 ColossalAIJob 不再浪费集群资源（内存、CPU 等）。一般来说，你需要查看启动副本的日志来确定训练结果，所以启动副本不在清理范围之内，ColossalAIJob 控制器只清理执行副本（通过 `spec.runPolicy.cleanUpWorkers` 字段设置）。
 
 在下面的示例中，ColossalAIJob 在训练结束后会自动删除所有执行副本：
 

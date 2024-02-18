@@ -51,7 +51,7 @@ spec:
 
 在该例中，`pod-demo` 将 `pvc-demo` 作为一个数据卷（volume）来使用，其中容器 `myfrontend` 将该数据卷挂载到 `/var/www/html` 目录下。
 
-在 TensorStack AI 平台中，PVC 是通用的持久化存储资源，您在 [Notebook](../building/notebook.md)、[Job](../jobs/index.md)、[MLService](../deployment/index.md)、[Workflow](../workflows/index.md) 等 TensorStack 资源中都可以使用 PVC。以 Notebook 为例：
+在 TensorStack AI 平台中，PVC 是通用的持久化存储资源，你在 [Notebook](../building/notebook.md)、[Job](../jobs/index.md)、[MLService](../deployment/index.md)、[Workflow](../workflows/index.md) 等 TensorStack 资源中都可以使用 PVC。以 Notebook 为例：
 
 ```yaml
 apiVersion: tensorstack.dev/v1beta1
@@ -98,14 +98,14 @@ PVC 的生命周期独立于 Pod。一个 PVC 可以被多个 Pod 使用。当 P
 
 ### PVC 与 StorageShim
 
-在 TensorStack AI 平台中，您可以：
+在 TensorStack AI 平台中，你可以：
 
 1. 创建一个独立的 PVC，申请全新的存储空间。
 2. 创建一个 [StorageShim](./storageshim.md)，将已有存储系统的某个子目录挂载为一个 PVC。此时 StorageShim 控制器将为所创建的 StorageShim 创建一个同名的 PVC，此 PVC 的生命周期由 StorageShim 管理。
 
 ## 容量请求
 
-创建 PVC 时，`spec.resources.requests.storage` 字段用于指定 PVC 的容量，您无法在 PVC 中存储超过此容量限制的文件。
+创建 PVC 时，`spec.resources.requests.storage` 字段用于指定 PVC 的容量，你无法在 PVC 中存储超过此容量限制的文件。
 
 <aside class="note">
 <div class="title">注意</div>

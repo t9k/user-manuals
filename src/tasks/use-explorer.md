@@ -56,9 +56,9 @@
 <aside class="note info">
 <div class="title">VS Code for the Web</div>
 
-<a target="_blank" rel="noopener noreferrer" href="https://code.visualstudio.com/docs/editor/vscode-web">VS Code for the Web</a> 提供了一个免费的、无需安装的 VS Code 体验，完全在浏览器中运行，允许您快速安全地浏览源代码库并进行轻量级代码更改。
+<a target="_blank" rel="noopener noreferrer" href="https://code.visualstudio.com/docs/editor/vscode-web">VS Code for the Web</a> 提供了一个免费的、无需安装的 VS Code 体验，完全在浏览器中运行，允许你快速安全地浏览源代码库并进行轻量级代码更改。
 
-VS Code for the Web 拥有 VS Code 桌面版的许多功能，包括在浏览和编辑时的搜索和语法高亮显示，以及支持扩展以便于您处理代码库和进行简单编辑。除了可以打开来自 GitHub 等源代码控制提供商的代码库、分支和拉取请求外，您还可以处理存储在本地计算机上的代码。
+VS Code for the Web 拥有 VS Code 桌面版的许多功能，包括在浏览和编辑时的搜索和语法高亮显示，以及支持扩展以便于你处理代码库和进行简单编辑。除了可以打开来自 GitHub 等源代码控制提供商的代码库、分支和拉取请求外，你还可以处理存储在本地计算机上的代码。
 
 </aside>
 

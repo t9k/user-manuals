@@ -12,7 +12,7 @@
 
 在浏览器中进入工作流控制台之后，点击左侧导航菜单的 **WorkflowTemplate** 进入 WorkflowTemplate 列表页面，然后点击右上角的 **Project 选择框**选择一个 Project。
 
-本教程使用[创建工作流的基本单元](./create-workflow-unit.md#创建-workflowtemplate)教程中创建好的 WorkflowTemplate **hello** 即可。如果有需要，您可以点击列表右上角的加号，按照[创建工作流的基本单元](./create-workflow-unit.md#创建-workflowtemplate)教程中的步骤，创建一些简单的 WorkflowTemplate。
+本教程使用[创建工作流的基本单元](./create-workflow-unit.md#创建-workflowtemplate)教程中创建好的 WorkflowTemplate **hello** 即可。如果有需要，你可以点击列表右上角的加号，按照[创建工作流的基本单元](./create-workflow-unit.md#创建-workflowtemplate)教程中的步骤，创建一些简单的 WorkflowTemplate。
 
 ## 创建 DAG WorkflowTemplate
 
@@ -22,19 +22,19 @@
   <img alt="workflowtemplate-list" src="../assets/tasks/build-automatic-workflow/create-workflow-including-dependencies/workflowtemplate-list.png" />
 </figure>
 
-进入创建 DAG WorkflowTemplate 页面之后，除了最左侧的导航菜单之外整个页面分为三个部分，左边是 WorkflowTemplate 列表，中间是用于组建 DAG 的画布，右边是 DAG WorkflowTemplate 的详情。您可以从左边的 WorkflowTemplate 列表中用鼠标选取一个 WorkflowTemplate 拖拽到中间的画布上，然后通过绿色锚点连接多个 WorkflowTemplate，表示它们的执行顺序。画布中所有的 WorkflowTemplate 由依赖关系组成一个有向无环图（DAG）。
+进入创建 DAG WorkflowTemplate 页面之后，除了最左侧的导航菜单之外整个页面分为三个部分，左边是 WorkflowTemplate 列表，中间是用于组建 DAG 的画布，右边是 DAG WorkflowTemplate 的详情。你可以从左边的 WorkflowTemplate 列表中用鼠标选取一个 WorkflowTemplate 拖拽到中间的画布上，然后通过绿色锚点连接多个 WorkflowTemplate，表示它们的执行顺序。画布中所有的 WorkflowTemplate 由依赖关系组成一个有向无环图（DAG）。
 
 <figure class="screenshot">
   <img alt="create-workflowtemplate" src="../assets/tasks/build-automatic-workflow/create-workflow-including-dependencies/create-workflowtemplate.png" />
 </figure>
 
-建立好有向无环图之后，您可以在右边的表格编辑 DAG WorkflowTemplate 的详情，例如 WorkflowTemplate 的名称、工作空间、参数等。点击画布中的方块即可编辑该节点的详情，点击画布的空白处可以编辑整个 DAG WorkflowTemplate 的详情。
+建立好有向无环图之后，你可以在右边的表格编辑 DAG WorkflowTemplate 的详情，例如 WorkflowTemplate 的名称、工作空间、参数等。点击画布中的方块即可编辑该节点的详情，点击画布的空白处可以编辑整个 DAG WorkflowTemplate 的详情。
 
 最后，点击表格上方的 **Create DAG WorkflowTemplate** 创建该 DAG WorkflowTemplate，右下角会有悬浮框提示是否创建成功。
 
 ## 创建 WorkflowRun
 
-再次点击左侧导航菜单的 **WorkflowTemplate** 进入 WorkflowTemplate 列表页面，找到您刚刚创建的 WorkflowTemplate **hello-again**，点击 WorkflowTemplate 的名称进入 WorkflowTemplate 的详情页面。
+再次点击左侧导航菜单的 **WorkflowTemplate** 进入 WorkflowTemplate 列表页面，找到你刚刚创建的 WorkflowTemplate **hello-again**，点击 WorkflowTemplate 的名称进入 WorkflowTemplate 的详情页面。
 
 <figure class="screenshot">
   <img alt="workflowtemplate-detail" src="../assets/tasks/build-automatic-workflow/create-workflow-including-dependencies/workflowtemplate-detail.png" />
@@ -50,13 +50,13 @@
 
 ## 查看 WorkflowRun 运行情况
 
-点击左侧导航菜单的 **WorkflowRun** 进入 WorkflowRun 列表页面，找到您刚刚创建的 WorkflowRun **hello-again-run-9214x**，点击 WorkflowRun 的名称进入 WorkflowRun 的详情页面。
+点击左侧导航菜单的 **WorkflowRun** 进入 WorkflowRun 列表页面，找到你刚刚创建的 WorkflowRun **hello-again-run-9214x**，点击 WorkflowRun 的名称进入 WorkflowRun 的详情页面。
 
 <figure class="screenshot">
   <img alt="workflowrun-detail" src="../assets/tasks/build-automatic-workflow/create-workflow-including-dependencies/workflowrun-detail.png" />
 </figure>
 
-在 WorkflowRun 的详情页面，您可以点击 **GRAPH** 标签，查看 DAG 的详细情况，点击 DAG 的节点可以在弹框中查看节点的详细情况。
+在 WorkflowRun 的详情页面，你可以点击 **GRAPH** 标签，查看 DAG 的详细情况，点击 DAG 的节点可以在弹框中查看节点的详细情况。
 
 <figure class="screenshot">
   <img alt="workflowrun-detail-node" src="../assets/tasks/build-automatic-workflow/create-workflow-including-dependencies/workflowrun-detail-node.png" />

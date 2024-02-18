@@ -2,7 +2,7 @@
 
 DeepSpeedJob 是服务于 <a target="_blank" rel="noopener noreferrer" href="https://www.deepspeed.ai/">DeepSpeed</a> 分布式训练框架的 T9k Job。
 
-您可以较为方便地使用 DeepSpeedJob 为 DeepSpeed 训练脚本提供训练环境，并监控训练进程。
+你可以较为方便地使用 DeepSpeedJob 为 DeepSpeed 训练脚本提供训练环境，并监控训练进程。
 
 ## 创建 DeepSpeedJob
 
@@ -117,7 +117,7 @@ DeepSpeedJob 提供以下三种策略：
 
 </aside>
     
-    `None` 策略主要用于训练脚本调试阶段。如果需要从副本中读取训练日志，则可以选用此策略。但由于这些副本可能占用资源并影响后续训练，建议您在调试完毕后手动删除这些副本或删除整个 DeepSpeedJob。
+    `None` 策略主要用于训练脚本调试阶段。如果需要从副本中读取训练日志，则可以选用此策略。但由于这些副本可能占用资源并影响后续训练，建议你在调试完毕后手动删除这些副本或删除整个 DeepSpeedJob。
 
 ## 调度策略
 

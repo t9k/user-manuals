@@ -1,6 +1,6 @@
 # 部署模型
 
-本教程带领用户使用 [SimpleMLService](../modules/deployment/simplemlservice.md)，部署模型为推理服务。
+本教程带领你使用 [SimpleMLService](../modules/deployment/simplemlservice.md)，部署模型为推理服务。
 
 在教程[训练你的第一个模型](./training-first-model.md)和[进行并行训练](./parallel-training.md)中，训练完成的模型都被保存为文件 `model_state_dict.pt`，这两个模型文件所对应的模型是相同的。本教程将部署这个模型为推理服务。
 
@@ -88,8 +88,8 @@ spec:
 
 在跳转回到 SimpleMLService 管理页面之后，等待刚才创建的 SimpleMLService 准备就绪。
 
-- 第一次拉取镜像可能会花费较长的时间，具体取决于用户集群的网络状况。
-- 点击右上角的**刷新按钮**以手动刷新 SimpleMLService 状态。
+* 第一次拉取镜像可能会花费较长的时间，具体取决于集群的网络状况。
+* 点击右上角的**刷新按钮**以手动刷新 SimpleMLService 状态。
 
 ## 使用推理服务
 
@@ -107,10 +107,9 @@ spec:
   <img alt="simplemlservice-detail" src="../assets/get-started/deployment/simplemlservice-detail.png" />
 </figure>
 
-
 ### 访问推理服务
 
-回到 Notebook `mnist`，在终端中执行以下命令以下载测试数据，并向推理服务发送请求。注意，其中 `URL` 变量的值需要修改为用户实际部署的推理服务的地址。
+回到 Notebook `mnist`，在终端中执行以下命令以下载测试数据，并向推理服务发送请求。注意变量 `URL` 的值需要修改为实际部署的推理服务的地址。
 
 ```sh
 # 下载测试图像文件

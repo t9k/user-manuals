@@ -9,7 +9,7 @@
 <aside class="note tip">
 <div class="title">提示</div>
 
-除了上述直接提供 YAML 配置文件的方法外，您也可以选择从网页控制台创建 MLService。
+除了上述直接提供 YAML 配置文件的方法外，你也可以选择从网页控制台创建 MLService。
 
 </aside>
 
@@ -23,7 +23,7 @@
 
 ## 使用推理服务
 
-您可以直接使用命令行工具访问 MLService 的预测服务。运行命令获取 MLService 的 URL：
+你可以直接使用命令行工具访问 MLService 的预测服务。运行命令获取 MLService 的 URL：
 
 ``` shell
 url=$(kubectl get mlservice torch-mnist-pvc -o jsonpath='{.status.address.url}') && echo $url

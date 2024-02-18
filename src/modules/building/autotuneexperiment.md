@@ -1,6 +1,6 @@
 # AutoTuneExperiment
 
-您可以通过创建 AutoTuneExperiment 来实现自动优化模型超参数。
+你可以通过创建 AutoTuneExperiment 来实现自动优化模型超参数。
 
 ## 创建 AutoTuneExperiment
 

@@ -157,7 +157,7 @@ T9k 系统提供空闲 Notebook 资源回收的支持。系统在检测到 Noteb
 * Notebook 没有活跃运行超过 1h （管理员可修改此时长）后，标记该 Notebook 为 `Idle`。
 * Notebook 进入 `Idle` 状态超过 24h （管理员可修改此时长）后，删除该 Notebook 底层工作负载。
 
-如果需要再次使用该 Notebook，您可以在模型构建控制台中手动点击**恢复**按钮。
+如果需要再次使用该 Notebook，你可以在模型构建控制台中手动点击**恢复**按钮。
 
 <aside class="note info">
 <div class="title">判定 Notebook 是否活跃</div>
@@ -182,7 +182,7 @@ T9k 系统提供空闲 Notebook 资源回收的支持。系统在检测到 Noteb
       time.sleep(60)
   ```
 
-如果您的任务运行完成，您可以手动停止该代码块的执行，以恢复空闲资源回收的功能。
+如果你的任务运行完成，你可以手动停止该代码块的执行，以恢复空闲资源回收的功能。
 
 </aside>
 
@@ -195,7 +195,7 @@ T9k 提供了一些预先构建的镜像，与 JupyterLab 原生镜像相比内�
 * 默认启动一个 JupyterLab 服务。
 * 预装了 Python3 以及 `tensorflow`、`pytorch`、`keras`、`pandas`、`scikit-learn` 等常用 Python 包。
 * 身份是一个名为 `t9kuser` 的非 `root` 用户（用户 ID 为 1000，组 ID 为 1000），`$HOME` 目录为 `/t9k/mnt`。
-* 预装了 `tensorboard` 插件，您可以在网页中创建 <a target="_blank" rel="noopener noreferrer" href="https://www.tensorflow.org/tensorboard">TensorBoard</a> 以可视化数据。
+* 预装了 `tensorboard` 插件，你可以在网页中创建 <a target="_blank" rel="noopener noreferrer" href="https://www.tensorflow.org/tensorboard">TensorBoard</a> 以可视化数据。
 
 用户也可以自行构建镜像，并上载到镜像 registry 中供使用。
 

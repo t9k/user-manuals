@@ -9,7 +9,7 @@
 <aside class="note tip">
 <div class="title">提示</div>
 
-上述操作使用 YAML 配置文件创建 TensorFlowTrainingJob，您也可以在模型构建控制台进行创建。
+上述操作使用 YAML 配置文件创建 TensorFlowTrainingJob，你也可以在模型构建控制台进行创建。
 
 </aside>
 
@@ -62,6 +62,6 @@
 <aside class="note tip">
 <div class="title">提示</div>
 
-除了上述方法外，您也可以在 Notebook 中直接使用 `kubectl` 命令查看 TensorFlowTrainingJob 以及其下各个 Pod 的状态、基本信息、事件、日志等以检查训练的进度和结果。
+除了上述方法外，你也可以在 Notebook 中直接使用 `kubectl` 命令查看 TensorFlowTrainingJob 以及其下各个 Pod 的状态、基本信息、事件、日志等以检查训练的进度和结果。
 
 </aside>

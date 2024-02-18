@@ -4,7 +4,7 @@
 
 ## 准备训练脚本
 
-在开始超参数优化实验之前，您需要提前准备训练脚本。您可以使用模型构建控制台中的 Notebook 编辑训练脚本。
+在开始超参数优化实验之前，你需要提前准备训练脚本。你可以使用模型构建控制台中的 Notebook 编辑训练脚本。
 
 ### 创建 PVC
 
@@ -355,11 +355,11 @@ _, _ = tf.keras.datasets.mnist.load_data(os.path.join(os.getcwd(), 'mnist.npz'))
 
 ## 准备数据库
 
-您可以使用实验管理平台（以下称 EM）记录超参数调优实验中的超参数组合和训练结果。（如果您选择不使用 EM 持久记录 AutoTune 实验结果，请忽略这一步，并在开始实验时删掉 AutoTuneExperiment 的 `spec.aistore` 字段）
+你可以使用实验管理平台（以下称 EM）记录超参数调优实验中的超参数组合和训练结果。（如果你选择不使用 EM 持久记录 AutoTune 实验结果，请忽略这一步，并在开始实验时删掉 AutoTuneExperiment 的 `spec.aistore` 字段）
 
 ### 在实验管理控制台中新建文件夹
 
-EM 的实验数据是以文件夹形式管理的，所以您首先需要在实验管理控制台点击右上角的 **+** 新建一个文件夹。
+EM 的实验数据是以文件夹形式管理的，所以你首先需要在实验管理控制台点击右上角的 **+** 新建一个文件夹。
 
 <figure class="screenshot">
   <img alt="create-aistore-folder" src="../assets/tasks/run-hyperparameter-optimization/create-aistore-folder.png" />
@@ -380,7 +380,7 @@ EM 的更详细信息请参阅[实验管理](../modules/experiment-management.md
 
 ### 获得访问 EM 所需的 API Key
 
-在超参数优化实验中，如果您希望使用 EM 来存储实验数据，需要生成一个具有访问 EM 文件夹权限的 API Key，您可以通过这个 API Key 上传实验数据。
+在超参数优化实验中，如果你希望使用 EM 来存储实验数据，需要生成一个具有访问 EM 文件夹权限的 API Key，你可以通过这个 API Key 上传实验数据。
 
 <aside class="note info">
 <div class="title">什么是 API Key</div>
@@ -389,7 +389,7 @@ EM 的更详细信息请参阅[实验管理](../modules/experiment-management.md
 
 </aside>
 
-您需要按照[生成 API Key](./generate-api-key.md) 教程中的步骤，在安全控制台中生成一个 API Key，其中必须勾选 AIStore 选项。
+你需要按照[生成 API Key](./generate-api-key.md) 教程中的步骤，在安全控制台中生成一个 API Key，其中必须勾选 AIStore 选项。
 
 <figure class="screenshot">
   <img alt="create-apikey" src="../assets/tasks/run-hyperparameter-optimization/create-apikey.png" />
@@ -401,7 +401,7 @@ EM 的更详细信息请参阅[实验管理](../modules/experiment-management.md
   <img alt="after-creating-apikey" src="../assets/tasks/run-hyperparameter-optimization/after-creating-apikey.png" />
 </figure>
 
-然后，您需要按照[管理 Secret](./manage-secret.md) 教程中的步骤，在模型构建控制台中将所复制的 API Key 存入名为 `aistore` 的 Secret 中，以方便后续实验使用。
+然后，你需要按照[管理 Secret](./manage-secret.md) 教程中的步骤，在模型构建控制台中将所复制的 API Key 存入名为 `aistore` 的 Secret 中，以方便后续实验使用。
 
 <figure class="screenshot">
   <img alt="create-apikey-secret" src="../assets/tasks/run-hyperparameter-optimization/create-apikey-secret.png" />
@@ -485,13 +485,13 @@ spec:
 
 ## 查看实验
 
-您可以在 AutoTune 列表页面看到已创建的 AutoTuneExperiment，点击**连接**进入实验详情页面。
+你可以在 AutoTune 列表页面看到已创建的 AutoTuneExperiment，点击**连接**进入实验详情页面。
 
 <figure class="screenshot">
   <img alt="after-creating-autotune" src="../assets/tasks/run-hyperparameter-optimization/after-creating-autotune.png" />
 </figure>
 
-下图为实验详情页面，您可以在该页面查看实验基本信息、各试验的参数与结果，以及查看试验之间的对比。
+下图为实验详情页面，你可以在该页面查看实验基本信息、各试验的参数与结果，以及查看试验之间的对比。
 
 <figure class="screenshot">
   <img alt="autotune-detail" src="../assets/tasks/run-hyperparameter-optimization/autotune-detail.png" />

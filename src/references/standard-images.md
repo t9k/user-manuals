@@ -1,8 +1,8 @@
 # 标准镜像
 
-部分 CRD，如 Notebook、T9k Job 和 MLService，需要 Docker 镜像来提供模型开发、训练或推理所需的具体运行环境。平台提供并维护了一系列镜像以满足您的基本使用需求，这些镜像被称为标准镜像。
+部分 CRD，如 Notebook、T9k Job 和 MLService，需要 Docker 镜像来提供模型开发、训练或推理所需的具体运行环境。平台提供并维护了一系列镜像以满足你的基本使用需求，这些镜像被称为标准镜像。
 
-您也可以[构建自定义镜像](../tasks/build-image.md)，以满足更加特定的需求。
+你也可以[构建自定义镜像](../tasks/build-image.md)，以满足更加特定的需求。
 
 ## Notebook 标准镜像列表
 
@@ -19,7 +19,7 @@
 
 说明：
 
-1. 您可以在[创建 Notebook](../tasks/create-notebook.md#创建标准的-notebook) 时选择以使用这些镜像，也可以直接从 Docker Hub 的 <a target="_blank" rel="noopener noreferrer" href="https://hub.docker.com/u/t9kpublic">t9kpublic</a> Namespace 下拉取这些镜像以使用。
+1. 你可以在[创建 Notebook](../tasks/create-notebook.md#创建标准的-notebook) 时选择以使用这些镜像，也可以直接从 Docker Hub 的 <a target="_blank" rel="noopener noreferrer" href="https://hub.docker.com/u/t9kpublic">t9kpublic</a> Namespace 下拉取这些镜像以使用。
 2. 这些镜像会持续更新，直到相应机器学习框架的小版本更新后被新镜像替代，此时旧镜像会被移除。镜像的标签（tag）是它的版本号，其跟随平台的版本号进行更新；镜像的每一次更新可能包含修复问题、更新包或工具、更新 Notebook 的扩展程序等内容。
 3. 标签中包含 `-sudo` 的镜像包含 `sudo` 命令，其中用户（`t9kuser`）的密码为 `tensorstack`。
 4. 所有镜像包含以下命令行工具：

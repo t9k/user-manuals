@@ -17,7 +17,7 @@
 
 * TensorStack AI 平台预先提供的镜像：例如 [Notebook 镜像](../modules/building/notebook.md#预先编译好的镜像)，或者 <a target="_blank" rel="noopener noreferrer" href="https://registry.tensorstack.cn/">TensorStack 镜像站</a>中的任何镜像。
 * 第三方镜像：例如来自 Docker 官方镜像站 <a target="_blank" rel="noopener noreferrer" href="https://hub.docker.com/">Docker Hub</a> 的镜像。
-* 自制镜像：您可以利用 [TensorStack 命令行工具](../tools/cli-t9k/index.md)、<a target="_blank" rel="noopener noreferrer" href="https://docs.docker.com/engine/reference/commandline/cli/">Docker 命令行工具</a>自行编译镜像。
+* 自制镜像：你可以利用 [TensorStack 命令行工具](../tools/cli-t9k/index.md)、<a target="_blank" rel="noopener noreferrer" href="https://docs.docker.com/engine/reference/commandline/cli/">Docker 命令行工具</a>自行编译镜像。
 
 准备好镜像之后，在 **Image** 框中填入镜像的地址。
 
@@ -27,7 +27,7 @@
 
 ### 执行 PVC 中的脚本
 
-当您在 [Notebook](../modules/building/notebook.md) 中编写了一些 Python 脚本或 Shell 脚本后，您可以创建 WorkflowTemplate 以及对应的 WorkflowRun 来运行该脚本。只要 WorkflowRun 和 Notebook 绑定的是同一个 PVC，WorkflowRun 就能访问到您在 Notebook 中编写的脚本。
+当你在 [Notebook](../modules/building/notebook.md) 中编写了一些 Python 脚本或 Shell 脚本后，你可以创建 WorkflowTemplate 以及对应的 WorkflowRun 来运行该脚本。只要 WorkflowRun 和 Notebook 绑定的是同一个 PVC，WorkflowRun 就能访问到你在 Notebook 中编写的脚本。
 
 首先，在 Notebook 中编写想要运行的脚本，并 **Ctrl+S** 保存。
 
@@ -47,7 +47,7 @@
   <img alt="script-3" src="../assets/tasks/build-automatic-workflow/create-various-unit-of-workflow/script-3.png" />
 </figure>
 
-或者，您也可以复制粘贴下面的 YAML 配置文件来创建 WorkflowTemplate：
+或者，你也可以复制粘贴下面的 YAML 配置文件来创建 WorkflowTemplate：
 
 ```yaml
 apiVersion: batch.tensorstack.dev/v1beta1
@@ -98,7 +98,7 @@ WorkflowRun 运行完成后，可以看到打印结果与所编写的脚本运�
 
 ### 执行自定义脚本
 
-除了在 Notebook 中编写脚本，您还可以在创建 WorkflowTemplate 的过程中现场编写 Python 或 Shell 脚本。
+除了在 Notebook 中编写脚本，你还可以在创建 WorkflowTemplate 的过程中现场编写 Python 或 Shell 脚本。
 
 如下图所示，创建 WorkflowTemplate 时选择类型为 `SeqPod`，然后点击 **Add Step**，在 Step 中选择 **Script** 即可嵌入自定义脚本。
 
@@ -126,7 +126,7 @@ WorkflowRun 运行完成后，可以看到打印结果与所编写的脚本运�
 
 ### 创建分布式训练
 
-假设您已经有一个可以运行的 TrainingJob YAML 配置文件：
+假设你已经有一个可以运行的 TrainingJob YAML 配置文件：
 
 ```yaml
 apiVersion: batch.tensorstack.dev/v1beta1
@@ -175,7 +175,7 @@ spec:
                 claimName: mnist
 ```
 
-如果您想将创建 TrainingJob 插入工作流中成为其中一个步骤，可以使用 `Resource` 类型的 WorkflowTemplate。如下图所示，在 WorkflowTemplate 创建页面，选择类型为 `Resource`，然后将上面的 YAML 配置文件复制粘贴到 **Resource Manifest** 文本框中，即可创建一个 WorkflowTemplate 来运行这个 TrainingJob。
+如果你想将创建 TrainingJob 插入工作流中成为其中一个步骤，可以使用 `Resource` 类型的 WorkflowTemplate。如下图所示，在 WorkflowTemplate 创建页面，选择类型为 `Resource`，然后将上面的 YAML 配置文件复制粘贴到 **Resource Manifest** 文本框中，即可创建一个 WorkflowTemplate 来运行这个 TrainingJob。
 
 <figure class="screenshot">
   <img alt="trainingjob-1" src="../assets/tasks/build-automatic-workflow/create-various-unit-of-workflow/trainingjob-1.png" />

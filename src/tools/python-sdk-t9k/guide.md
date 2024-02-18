@@ -2,7 +2,7 @@
 
 ## 安装
 
-目前 TensorStack SDK 仅提供用于本地安装的 Python 包，您可以从平台首页下载。
+目前 TensorStack SDK 仅提供用于本地安装的 Python 包，你可以从平台首页下载。
 
 然后使用以下命令进行安装：
 
@@ -18,7 +18,7 @@ TensorStack SDK 没有单独的配置文件，而是使用 [TensorStack CLI 的�
 
 ### 使用和修改配置
 
-在 Python 脚本中导入 `t9k` 模块之后，`t9k.CONFIG` 对象就代表了 TensorStack SDK 的配置，您可以像操作 Python 字典一样操作它，例如获取、设置、更新值。
+在 Python 脚本中导入 `t9k` 模块之后，`t9k.CONFIG` 对象就代表了 TensorStack SDK 的配置，你可以像操作 Python 字典一样操作它，例如获取、设置、更新值。
 
 ```python
 import t9k
@@ -31,7 +31,7 @@ t9k.CONFIG.update({'api_key': 'e4ccd2a3-3425-44b0-8b44-148bd303a0f9'})
 <aside class="note">
 <div class="title">注意</div>
 
-您对于配置的任何修改都只是临时的，这些修改不会被保存到配置文件中。
+你对于配置的任何修改都只是临时的，这些修改不会被保存到配置文件中。
 
 </aside>
 

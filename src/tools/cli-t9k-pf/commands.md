@@ -2,7 +2,7 @@
 
 ## notebook
 
-针对 TensorStack AI 平台的 Notebook 资源，我们提供了直接通过其 URL 地址获取 SSH 连接方式的功能。使用该命令，您不需要指定名称、命名空间等信息。关于 SSH 连接的详细内容请参阅[通过 SSH 连接远程使用 Notebook](../../tasks/ssh-notebook.md)。
+针对 TensorStack AI 平台的 Notebook 资源，我们提供了直接通过其 URL 地址获取 SSH 连接方式的功能。使用该命令，你不需要指定名称、命名空间等信息。关于 SSH 连接的详细内容请参阅[通过 SSH 连接远程使用 Notebook](../../tasks/ssh-notebook.md)。
 
 ### 使用
 
@@ -10,7 +10,7 @@
 t9k-pf notebook <url> <localPort>
 ```
 
-其中 `<url>` 代表地址栏中的地址，`<localPort>` 代表您指定的本地端口号（小于 1024 的本地端口需要管理员权限才可以绑定），如果不指定，会随机使用一个本地端口。
+其中 `<url>` 代表地址栏中的地址，`<localPort>` 代表你指定的本地端口号（小于 1024 的本地端口需要管理员权限才可以绑定），如果不指定，会随机使用一个本地端口。
 
 `t9k-pf notebook` 也可以用 `t9k-pf nb` 代替。
     
@@ -18,7 +18,7 @@ t9k-pf notebook <url> <localPort>
 <aside class="note">
 <div class="title">注意</div>
 
-为了方便用户快速连接 SSH，t9k-pf 命令行不支持指定 Notebook 资源的目标端口。如果您有相关需求，可以先获取 Notebook 对应的 Pod 资源，然后参照[访问 Pod ](#pod)来访问特定的目标端口。
+为了方便用户快速连接 SSH，t9k-pf 命令行不支持指定 Notebook 资源的目标端口。如果你有相关需求，可以先获取 Notebook 对应的 Pod 资源，然后参照[访问 Pod ](#pod)来访问特定的目标端口。
 
 </aside>
 
@@ -57,7 +57,7 @@ t9k-pf nb <tensorstack-host>/t9k/build-console/projects/demo/notebooks/ml-labs/l
 <aside class="note">
 <div class="title">注意</div>
 
-在 port-forward 成功后，您仍然需要保持您的 t9k-pf 命令行窗口一直保持运行状态。
+在 port-forward 成功后，你仍然需要保持你的 t9k-pf 命令行窗口一直保持运行状态。
 
 </aside>
 
@@ -108,7 +108,7 @@ t9k-pf pod example 2222 -n dev
 <aside class="note">
 <div class="title">注意</div>
 
-在 port-forward 成功后，您仍然需要保持您的 t9k-pf 命令行窗口一直保持运行状态。
+在 port-forward 成功后，你仍然需要保持你的 t9k-pf 命令行窗口一直保持运行状态。
 
 </aside>
 
@@ -161,6 +161,6 @@ t9k-pf service myservice 80 -n dev
 <aside class="note">
 <div class="title">注意</div>
 
-在 port-forward 成功后，您仍然需要保持您的 t9k-pf 命令行窗口一直保持运行状态。
+在 port-forward 成功后，你仍然需要保持你的 t9k-pf 命令行窗口一直保持运行状态。
 
 </aside>

@@ -59,7 +59,7 @@ spec:
 
 在该例中：
 
-* 您需要准备好一个名为 `mypvc` 的 PVC，并将名为 `input.txt` 的输入文件存放在 PVC 的根路径下。
+* 你需要准备好一个名为 `mypvc` 的 PVC，并将名为 `input.txt` 的输入文件存放在 PVC 的根路径下。
 * `flinkClusterTemplate` 字段描述了所要创建的 Flink 集群，其中包含 1 个 <a target="_blank" rel="noopener noreferrer" href="https://nightlies.apache.org/flink/flink-docs-release-1.11/concepts/flink-architecture.html#jobmanager) 和 2 个 [Task Manager](https://nightlies.apache.org/flink/flink-docs-release-1.11/concepts/flink-architecture.html#taskmanagers">Job Manager</a>{target=_blank}，所使用的 Flink 版本为 1.10.1。
 * `jobTemplate` 字段描述了用户如何将所要运行的任务提交给 Flink 集群，其中所使用的 Apache Beam Python SDK 版本为 2.22.0，所运行的程序为 Apache Beam Python SDK 自带的单词统计程序 `apache_beam.examples.wordcount`。
 
@@ -142,7 +142,7 @@ status:
 
 ## 清除策略
 
-在 BeamJob 成功或失败后，所创建的 Flink 集群仍然在运行，占据较多的计算资源。在下面的示例中，您可以在 `spec.runPolicy` 字段中将 `cleanUpCluster` 设置为 `true`，在 BeamJob 运行完毕（无论成功还是失败）之后删除 Flink 集群。
+在 BeamJob 成功或失败后，所创建的 Flink 集群仍然在运行，占据较多的计算资源。在下面的示例中，你可以在 `spec.runPolicy` 字段中将 `cleanUpCluster` 设置为 `true`，在 BeamJob 运行完毕（无论成功还是失败）之后删除 Flink 集群。
 
 ```yaml
 ...
