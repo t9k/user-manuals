@@ -1,4 +1,4 @@
-# 向量数据库 Qdrant
+# 向量数据库：Qdrant
 
 ## 背景
 
@@ -9,8 +9,6 @@
 目前市面上存在数量众多的向量数据库产品，即便是开源向量数据库也有不少选择，例如 <a target="_blank" rel="noopener noreferrer" href="https://github.com/milvus-io/milvus">Milvus</a>、<a target="_blank" rel="noopener noreferrer" href="https://github.com/qdrant/qdrant">Qdrant</a>、<a target="_blank" rel="noopener noreferrer" href="https://github.com/chroma-core/chroma">Chroma</a>、<a target="_blank" rel="noopener noreferrer" href="https://github.com/weaviate/weaviate">Weaviate</a> 等。关于这些向量数据库的比较，可以参阅博客 <a target="_blank" rel="noopener noreferrer" href="https://thedataquarry.com/posts/vector-db-1/">Vector databases (1): What makes each one different?</a>。
 
 ![vector-db-lang](../assets/integrations/vector-database/vector-db-lang.png)
-
-## 部署
 
 这里以 <a target="_blank" rel="noopener noreferrer" href="https://github.com/qdrant/qdrant">Qdrant</a> 为例进行部署。Qdrant 官方提供了 <a target="_blank" rel="noopener noreferrer" href="https://artifacthub.io/packages/helm/qdrant/qdrant">Helm chart</a>，部署更加简单、便捷。
 
@@ -26,12 +24,17 @@ Qdrant 的一些特性如下：
 
 Qdrant 提供了 REST API 和 gRPC API 作为接口，所有与 Qdrant 的交互都通过这些 API 进行。此外，Qdrant 还提供了多种语言的客户端库和一个 Web UI 界面，[使用](#使用)部分将演示使用 Python 客户端以及 Web UI 与 Qdrant 交互。
 
+## 部署
+
 ### 安装
 
-进入 Notebook app 的终端，添加相应的 Helm Chart repository，列出 Chart `qdrant/qdrant` 的所有版本：
+进入 Notebook `app` 的终端，添加相应的 Helm Chart repository，列出 Chart `qdrant/qdrant` 的所有版本：
 
 ```bash
 helm repo add qdrant https://qdrant.github.io/qdrant-helm
+
+# 注意 CHART VERSION 和 APP VERSION（Qdrant 版本）之间的对应关系
+# 例如 CHART VERSION 0.7.5 和 0.7.4 中的 Qdrant 版本都是 v1.7.3
 helm search repo qdrant/qdrant --versions
 ```
 
@@ -42,16 +45,24 @@ helm search repo qdrant/qdrant --versions
 helm repo update qdrant
 helm install qdrant-demo qdrant/qdrant
 
-# 安装指定版本，注意这不是 Qdrant 应用的版本
-helm install qdrant-demo qdrant/qdrant --version <VERSION_NUMBER>
+# 安装指定 CHART VERSION，注意这不是 APP VERSION（Qdrant 版本）
+helm install qdrant-demo qdrant/qdrant --version <CHART_VERSION>
 ```
 
 ## 配置
 
-以上安装全部使用默认配置，完整的默认配置请参阅 <a target="_blank" rel="noopener noreferrer" href="https://github.com/qdrant/qdrant-helm/blob/main/charts/qdrant/values.yaml">`values.yaml`</a>。如要修改默认配置，用户可以将新配置（覆盖默认配置的字段）保存为一个 YAML 文件，通过 `-f` 选项提供给安装命令：
+以上安装全部使用默认配置，完整的默认配置请参阅相应的 `values.yaml`：
 
 ```bash
-helm install qdrant-demo qdrant/qdrant -f <NEW_CONFIG_FILE>
+# 获取 CHART VERSION 0.7.5 的 values.yaml
+helm show values qdrant/qdrant --version=0.7.5 > values.yaml
+```
+
+如要修改默认配置，用户可以将新配置（覆盖默认配置的字段）保存为一个 YAML 文件，通过 `-f` 选项提供给安装命令：
+
+```bash
+# 使用修改后的 values.yaml
+helm install qdrant-demo qdrant/qdrant -f values.yaml
 ```
 
 下面将分主题介绍部分关键配置。
@@ -232,7 +243,7 @@ kubectl delete pvc -l app.kubernetes.io/instance=qdrant-demo
 
 ## 使用
 
-继续使用 Notebook app 的终端，获取应用 service 的公开的端口号：
+继续使用 Notebook `app` 的终端，获取应用 service 的公开的端口号：
 
 ```bash
 kubectl get svc qdrant-demo -o jsonpath="{.spec.ports}"

@@ -1,48 +1,39 @@
 # 向量数据库：PostgreSQL + pgvector
 
-<a target="_blank" rel="noopener noreferrer" href=""> </a>
+在[向量数据库：Qdrant](./vector-database-qdrant.md)中我们介绍了向量数据库的概念以及开源产品 Qdrant。这里我们介绍另一个优秀的开源方案：PostgreSQL + pgvector。
 
-在 “[向量数据库：Qdrant](./vector-database.md)” 中我们介绍了向量数据库的概念以及开源产品 Qdrant。这里我们介绍另一个优秀的开源方案：PostgreSQL + pgvector。
+<a target="_blank" rel="noopener noreferrer" href="https://www.postgresql.org/">PostgreSQL</a> 是一个稳定可靠、功能强大的开源对象关系型数据库系统，第一个公开版本于 1989 年发布。此后，它经历了多次迭代，并逐渐成为世界上最流行的开源数据库之一。它支持 SQL 标准，并提供复杂查询、事务完整性、多版本并发控制等多种现代数据库技术特性。PostgreSQL 以其高度的扩展性和对大型数据集的强大处理能力而闻名，适用于从小型应用程序到大型企业系统的各种环境。此外，它还拥有一个活跃的开发社区，为开发者提供丰富的资源和工具。
 
-<a target="_blank" rel="noopener noreferrer" href="https://www.postgresql.org/">PostgreSQL</a> 是一个稳定可靠、功能强大的开源对象关系型数据库系统，
-第一个公开版本于 1989 年发布。此后，它经历了多次迭代，并逐渐成为世界上最流行的开源数据库之一。
-它支持 SQL 标准，并提供复杂查询、事务完整性、多版本并发控制等多种现代数据库技术特性。
-PostgreSQL 以其高度的扩展性和对大型数据集的强大处理能力而闻名，适用于从小型应用程序到大型企业系统的各种环境。
-此外，它还拥有一个活跃的开发社区，为开发者提供丰富的资源和工具。
-
-<a target="_blank" rel="noopener noreferrer" href="https://github.com/pgvector/pgvector">pgvector</a> 是一个用于向量相似性搜索的 PostgreSQL 扩展，
-PostgreSQL 安装上这个扩展，就可用于支持向量数据的存取、查询等。
-
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/pgvector/pgvector">pgvector</a> 是一个用于向量相似性搜索的 PostgreSQL 扩展。安装此扩展后，PostgreSQL 可以支持向量数据的存储、检索和查询等操作。
 
 ## 部署
 
 ### 安装
 
-进入 Notebook 的终端，添加相应的 Helm Chart repository，列出 Chart `bitnami/postgresql` 的所有版本：
+进入 Notebook `app` 的终端，添加相应的 Helm Chart repository，列出 Chart `bitnami/postgresql` 的所有版本：
 
-```sh
+```bash
 helm repo add bitnami https://charts.bitnami.com/bitnami
 
-# 注意 helm chart 的 version 和 postgresql 的对应关系
-# 例如：CHART VERSION 14.0.4，14.0.3  里面的 posgresql 都是 16.2.0
+# 注意 CHART VERSION 和 APP VERSION（PostgreSQL 版本）之间的对应关系
+# 例如 CHART VERSION 14.0.4 和 14.0.3 中的 PostgreSQL 版本都是 16.2.0
 helm search repo bitnami/postgresql --versions
 ```
 
 安装指定版本的 Chart 并指定 `t9kpublic/bitnami-pgvector` 镜像，以部署包含 pgvector 的 PostgreSQL 应用：
 
-```sh
+```bash
 # 安装最新版本
 helm repo update bitnami
 helm install pgvector-demo bitnami/postgresql \
   --set image.repository=t9kpublic/bitnami-pgvector \
   --set image.tag=0.6.0-pg16
 
-# 安装指定 CHART VERSION，注意这不是 postgresql 应用的版本 （APP VERSION)
+# 安装指定 CHART VERSION，注意这不是 APP VERSION（PostgreSQL 版本）
 helm install pgvector-demo bitnami/postgresql \
   --version <CHART_VERSION> \
   --set image.repository=t9kpublic/bitnami-pgvector \
   --set image.tag=0.6.0-pg16
-
 ```
 
 <aside class="note tip">
@@ -55,17 +46,16 @@ helm install pgvector-demo bitnami/postgresql \
 
 ### 配置
 
+以上安装全部使用默认配置，完整的默认配置请参阅 <a target="_blank" rel="noopener noreferrer" href="https://artifacthub.io/packages/helm/bitnami/postgresql#parameters">Parameters</a> 以及相应的 `values.yaml`：
 
-以上安装全部使用默认配置，完整的默认配置请参阅 <a target="_blank" rel="noopener noreferrer" href="https://artifacthub.io/packages/helm/bitnami/postgresql#parameters">Parameters</a> 以及 `values.yaml`：
-
-```sh
-# 获得 chart version 14.0.4 的 values.yaml
-helm show values bitnami/postgresql  --version=14.0.4 > values.yaml
+```bash
+# 获取 CHART VERSION 14.0.4 的 values.yaml
+helm show values bitnami/postgresql --version=14.0.4 > values.yaml
 ```
 
 如要修改默认配置，用户可以将新配置（覆盖默认配置的字段）保存为一个 YAML 文件，通过 `-f` 选项提供给安装命令：
 
-```sh
+```bash
 # 使用修改后的 values.yaml
 helm install pgvector-demo t9kpublic/bitnami-pgvector \
   --version=14.0.4 \
@@ -79,7 +69,7 @@ helm install pgvector-demo t9kpublic/bitnami-pgvector \
 #### 计算资源
 
 默认配置为计算资源指定了较小的请求值，但没有指定限制值，Pod 依然可以无限制地使用节点的 CPU 和内存资源。
-用户可以根据实际需求指定请求值和限制值，具体细节可参考 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/">Resource Management for Pods and Containers</a>。
+用户可以根据实际需求指定请求值和限制值，可以参阅<a target="_blank" rel="noopener noreferrer" href="https://cloud.google.com/sql/docs/postgres/manage-memory-usage-best-practices?hl=zh-cn">管理内存用量的最佳实践</a>。
 
 ```yaml
 # 默认配置
@@ -144,7 +134,6 @@ auth:
   postgresPassword: ""         # postgres 管理员用户的密码
 ```
 
-
 #### 备份
 
 用户可以启用数据库的定时备份并提供相应配置。注意这里的备份方法是转储（dump）而不是快照（snapshot）。
@@ -191,25 +180,24 @@ backup:
 
 Helm 在部署应用时创建的主要 Kubernetes 资源如下表所示：
 
-| 类型 | 名称 | 作用 | 备注 | 
-|----|----|----|----|
-| Service | pgvector-demo-postgresql | 暴露服务 |  |
-| StatefulSet | pgvector-demo-postgresql | 部署 postgresql + pgvector | |
-| PVC | data-pgvector-demo-postgresql-*| 数据库的持久化存储 | |
-| Secret | pgvector-demo-postgresql | 存储密钥 | |
-
+| 类型        | 名称                            | 作用                       | 备注 |
+| ----------- | ------------------------------- | -------------------------- | ---- |
+| Service     | pgvector-demo-postgresql        | 暴露服务                   |      |
+| StatefulSet | pgvector-demo-postgresql        | 部署 postgresql + pgvector |      |
+| PVC         | data-pgvector-demo-postgresql-* | 数据库的持久化存储         |      |
+| Secret      | pgvector-demo-postgresql        | 存储密钥                   |      |
 
 ### 运维
 
 查看应用的状态
 
-```sh
+```bash
 helm status pgvector-demo
 ```
 
 更新应用，下面的 `image.tag` 可能需要设置为其它值。
 
-```sh
+```bash
 # 更新到最新版本
 helm upgrade pgvector-demo t9kpublic/bitnami-pgvector \
   --set image.repository=t9kpublic/bitnami-pgvector \
@@ -228,7 +216,7 @@ helm rollback pgvector-demo [REVISION]
 
 移除应用
 
-```sh
+```bash
 helm delete pgvector-demo
 kubectl delete pvc -l app.kubernetes.io/instance=pgvector-demo
 ```
@@ -237,7 +225,7 @@ kubectl delete pvc -l app.kubernetes.io/instance=pgvector-demo
 
 继续使用 Notebook `app` 的终端，获取应用的密钥，并连接到 PostgreSQL 实例：
 
-```sh
+```bash
 export POSTGRES_PASSWORD=$(kubectl get secret --namespace demo pgvector-demo-postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)
 kubectl run pgvector-demo-postgresql-client \
   --rm --tty -i --restart='Never' --namespace demo \
@@ -262,23 +250,23 @@ SELECT * FROM items ORDER BY embedding <-> '[3,1,2]' LIMIT 5;
 DROP TABLE items;
 ```
 
-接下来运行一个 Python 语言的官方示例。先安装必要的 Python 库：
+接下来运行一个 <a target="_blank" rel="noopener noreferrer" href="https://github.com/pgvector/pgvector-python/blob/master/examples/sentence_embeddings.py">Python 语言的官方示例</a>。先安装必要的 Python 库：
 
-```sh
+```bash
 pip install pgvector "psycopg[binary]" sentence_transformers
 ```
 
 然后执行如下 Python 脚本，命令行参数需要提供连接字符串：
 
-<details><summary><code class="hljs">pgvector-test.py</code></summary>
+<details><summary><code class="hljs">sentence_embeddings.py</code></summary>
 
 ```python
-{{#include ../assets/integrations/vector-database/pgvector-test.py}}
+{{#include ../assets/integrations/vector-database/sentence_embeddings.py}}
 ```
 
 </details>
 
-```sh
+```bash
 export POSTGRES_PASSWORD=$(kubectl get secret --namespace demo pgvector-demo-postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)
 python pgvector-test.py "host=pgvector-demo-postgresql port=5432 dbname=postgres user=postgres password=$POSTGRES_PASSWORD"
 ```

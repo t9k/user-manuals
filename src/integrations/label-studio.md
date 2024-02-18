@@ -6,10 +6,13 @@
 
 ### 安装与配置
 
-进入 Notebook app 的终端，添加相应的 Helm Chart repository，列出 Chart `heartex/label-studio` 的所有版本：
+进入 Notebook `app` 的终端，添加相应的 Helm Chart repository，列出 Chart `heartex/label-studio` 的所有版本：
 
 ```bash
 helm repo add heartex https://charts.heartex.com/
+
+# 注意 CHART VERSION 和 APP VERSION（Label Studio 版本）之间的对应关系
+# 例如 CHART VERSION 1.4.0 和 1.3.4 中的 Label Studio 版本都是 1.11.0
 helm search repo heartex/label-studio --versions
 ```
 
@@ -20,18 +23,25 @@ helm search repo heartex/label-studio --versions
 helm repo update heartex
 helm install label-studio-demo heartex/label-studio
 
-# 安装指定版本，注意这不是 Label Studio 应用的版本
-helm install label-studio-demo heartex/label-studio --version <VERSION_NUMBER>
+# 安装指定 CHART VERSION，注意这不是 APP VERSION（Label Studio 版本）
+helm install label-studio-demo heartex/label-studio --version <CHART_VERSION>
 ```
 
-以上安装全部使用默认配置，其中部分关键配置如下所示（使用命令 `helm get values -a label-studio-demo` 以查看完整配置）：
+以上安装全部使用默认配置，完整的默认配置请参阅相应的 `values.yaml`：
+
+```bash
+# 获取 CHART VERSION 1.4.0 的 values.yaml
+helm show values heartex/label-studio --version=1.4.0 > values.yaml
+```
+
+其中部分关键配置如下所示：
 
 ```yaml
 app:
   ingress:           # Ingress 配置
+    enabled: false
     annotations: {}
     className: ""
-    enabled: false
     host: ""
     tls: []
   replicas: 1        # 副本数
@@ -74,7 +84,8 @@ Ingress 配置也可以采用其他方案，需要结合集群的具体配置。
 然后将新配置（覆盖默认配置的部分）保存为一个 YAML 文件，通过 `-f` 选项提供给安装命令：
 
 ```bash
-helm install label-studio-demo heartex/label-studio -f <NEW_CONFIG_FILE>
+# 使用修改后的 values.yaml
+helm install label-studio-demo heartex/label-studio -f values.yaml
 ```
 
 ### Kubernetes 资源清单
@@ -277,7 +288,7 @@ Label Studio 支持添加 ML backend，使用其自动标注或进行在线训�
   <img alt="access-token" src="../assets/integrations/label-studio/access-token.png" />
 </figure>
 
-回到 Notebook app 的终端，获取应用 service 的 IP 地址：
+回到 Notebook `app` 的终端，获取应用 service 的 IP 地址：
 
 ```bash
 kubectl get svc label-studio-demo-ls-app -o jsonpath="{.spec.clusterIP}"
