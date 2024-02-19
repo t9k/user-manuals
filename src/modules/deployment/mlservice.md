@@ -6,26 +6,26 @@ MLService 用于在 TensorStack AI 平台上部署 AI 推理服务，其功能�
 
 `MLService` 是推理服务的核心 API，由 `releases` 和 `transformer` 两部分构成：
 
-- `spec.releases` 定义一个或多个 `releases`，以提供多版本支持；
+- `spec.releases` 定义一个或多个 `releases`，以提供多版本模型推理服务的支持；
 - 可选的 `transformer` 定义前处理（pre-processing）和后处理（post-processing）计算。
 
 
 <figure class="architecture">
   <img alt="mlservice-architecture" src="../../assets/modules/deployment/mlservice-flow.drawio.svg" class="architecture">
-  <figcaption> 图 1: MLService 组成。一个 MLService 由 releases 和 transformer（非必需）构成。</figcaption>
+  <figcaption> 图 1: MLService 的组成。一个 MLService 由一个或多个模型服务版本（releases） 及前后处理模块（transformer，非必需）构成；不同的 release 和 transformer 可独立进行规模伸缩。</figcaption>
 </figure>
 
 
 `MLService` 的主要特性包括：
 
-- 支持 <a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Feature_toggle#Canary_release">金丝雀（canary release）</a>发布模式 ；
-- 每个 `release` 包含一个 `predictor`，其定义了：
+- 支持定义多个版本（`release`）的推理服务，每个 `release` 包含一个 `predictor`，其定义了：
     - 模型存储（`storage`）
     - 模型规约（`model`），包括 `modelUri`，`parameters`，`runtime`（引用 `MLServiceRuntime` 定义运行推理服务 `Pod` 的模版）；
     - 计算资源（`resources`）
     - 其它部署参数（`minReplicas, maxRelicas, logger ...`）
 - 每个 `release` 服务的容量可独立自动伸缩，可通过 `minReplicas`，`maxReplicas` 设置容量的上下限；
-- 用户可定制 `transformer` 组件，以在调用推理服务时进行前处理（pre-processing），及获得推理结果后进行后处理（post-processingss）；
+- 支持 <a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Feature_toggle#Canary_release">金丝雀（canary release）</a>发布模式 ；
+- 用户可定制 `transformer` 组件，以在调用推理服务时进行前处理（pre-processing），及获得推理结果后进行后处理（post-processing）；
 - `transformer`  的容量也可独立自动伸缩，可通过 `minReplicas`，`maxReplicas` 设置容量的上下限。
 
 
@@ -61,7 +61,7 @@ spec:
 <aside class="note info">
 <div class="title">信息</div>
 
-该示例部署的推理服务 `torch-mnist`，只包含一个推理服务版本 `version1`：
+该示例部署的推理服务 `torch-mnist`，只包含一个推理服务版本（`release`） `version1`：
 
 - 推理服务定义使用了 MLServiceRuntime `torchserve`，其详细定义见下文；
 - 模型存储在 pvc `tutorial` 中；
@@ -73,14 +73,15 @@ spec:
 
 ## MLServiceRuntime
 
-在[示例](#示例)中，我们使用了 MLServiceRuntime `torchserve`。MLServiceRuntime 定义了推理服务的模版，包含了推理服务的关键信息，例如镜像、启动命令、资源需求。
+在 [示例](#示例) 中，我们使用了 MLServiceRuntime `torchserve`。
+MLServiceRuntime 定义了推理服务的模版，包含了推理服务的关键信息，例如镜像、启动命令、资源需求等，能够方便地帮助用户快速部署多种模型推理服务程序。
 
-一个 MLServiceRuntime 可以被多个 MLService 使用，能够方便地帮助用户快速部署多种模型推理服务程序。
+一个 MLServiceRuntime 可以被多个 MLService 使用。
 
 
 ### 定义
 
-下面是一个基本的 MLServiceRuntime 的例子：
+一个基本的 MLServiceRuntime 的例子：
 
 ```yaml
 apiVersion: tensorstack.dev/v1beta1
@@ -93,7 +94,7 @@ spec:
     spec:
       containers:
       - name: user-container
-        image: torchserve:latest
+        image: torchserve:0.9.0-cpu
         args:
           - torchserve
           - --start
@@ -108,7 +109,7 @@ spec:
           protocol: TCP
 ```
 
-该 MLServiceRuntime 在 `spec.template` 中定义了推理服务 Pod 的模版，以指定运行 `torchserve` 指令及其它命令行参数。
+该 MLServiceRuntime 在 `spec.template` 中定义了推理服务的副本（Pod）的模版，以指定容器镜像 `torchserve:0.9.0-cpu`、启动命令 `torchserve` 及其它命令行参数等。
 
 <aside class="note info">
 <div class="title">信息</div>
@@ -116,14 +117,14 @@ spec:
 MLServiceRuntime 中的 Pod 模版有以下规范必须遵守：
 
 1. 必须要有一个名为 `user-container` 的容器，后续所介绍的[模型存储](#模型存储)、[日志收集](#日志收集)等功能都只对 `user-container` 生效。
-1. `user-container` 的容器中最多只能定义一个 `containerPort`，且其它的容器定义中不能有 `containerPort`。
-1. `user-container` 容器中定义的唯一 `containerPort` 就是推理服务对应的端口，如果没有定义，默认使用 `8080` 端口。
+2. `user-container` 的容器中最多只能定义一个 `containerPort`，且其它的容器定义中不能有 `containerPort`。
+3. `user-container` 容器中定义的唯一 `containerPort` 就是推理服务对应的端口，如果没有定义，默认使用 `8080` 端口。
 
 </aside>
 
 ### 使用
 
-用户可以在 MLService 的 Predictor 定义中指定要使用的 MLServiceRuntime 名称，例如：
+用户可以在 MLService 的 `predictor` 定义中指定要使用的 MLServiceRuntime 名称，例如：
 
 ```yaml
 apiVersion: tensorstack.dev/v1beta1
@@ -146,20 +147,20 @@ spec:
 <aside class="note warning">
 <div class="title">提醒</div>
 
-如果用户更新了一个 MLServiceRuntime，所有使用了该 MLServiceRuntime 的 MLService 所创建的副本（Pod）也会随之进行更新，但 MLService 的更新采用 “懒惰” 策略：
+如果用户更新了一个 MLServiceRuntime，所有使用了该 MLServiceRuntime 的 MLService 所创建的副本（Pod）也会随之进行更新，但此更新采取 “懒惰” 策略：
 
 - 单纯的 MLServiceRuntime 修改并不会触发系统修改 MLServiceRuntime 更新之前创建的副本（Pod）；
 - 只会在有必要时，例如伸缩 MLService 规模，或者其它 MLService 的变更，导致需要重新创建副本的场景时，系统才会使用新的 MLServiceRuntime。
 
 </aside>
 
-### 个性化改动
+### 进一步的配置
 
 除了直接使用 MLServiceRuntime 定义好的 Pod 模版，MLService 还支持对其进行进一步的配置和修改。
 
 #### Parameters
 
-MLService 支持在 Predictor 的 `.model.parameters` 设置参数，该字段是一个 map 类型，key 为参数名，value 为参数值。
+MLService 支持在 `predictor` 的 `.model.parameters` 设置参数，该字段是一个 map 类型，key 为参数名，value 为参数值。
 
 在之前的 [MLServiceRuntime 示例](#定义) 中包含了 `--models {{if .MODEL_PATH}}{{.MODEL_PATH}}{{else}}all{{end}}` 的内容。这里使用了 <a target="_blank" rel="noopener noreferrer" href="https://pkg.go.dev/text/template">golang template</a> 的语法，含义为：
 
@@ -258,7 +259,7 @@ spec:
 
 #### 计算资源
 
-MLServiceRuntime 定义了 Pod 模版，但对于容器的资源要求，不同场景之间的差异巨大。因此， MLServiceRuntime 中定义的容器资源要求只是一个缺省时的默认值。
+MLServiceRuntime 定义了 Pod 模版，但对于容器的资源要求，不同场景之间存在差异。因此， MLServiceRuntime 中定义的容器资源要求只是一个缺省时的默认值。
 
 用户可以直接在 MLService `predictor` 中的 `containersResources` 定义容器的资源要求，例如：
 
@@ -287,7 +288,7 @@ spec:
 <aside class="note info">
 <div class="title">信息</div>
 
-用户还可以使用上一节 [StrategicMergePatch](#strategicmergepatch) 定义容器资源要求, 但 `containersResources` 的优先级更高，如果两者定义了同一个 container 的资源要求，`containersResources` 会完全覆盖 `template.spec` 中的值。
+用户还可以使用上一节 [StrategicMergePatch](#strategicmergepatch) 定义容器资源要求，但 `containersResources` 的优先级更高，如果两者定义了同一个 container 的资源要求，`containersResources` 会完全覆盖 `template.spec` 中的值。
 
 </aside>
 
@@ -316,7 +317,7 @@ MLService 支持 S3 和 PVC 两种存储模型的方式，用户需要根据模�
 
 S3 是一种对象存储服务和协议，具有良好的可扩展性、数据可用性和安全性等优点，其协议被多种商业和开源产品支持，并且被广泛部署。
 
-可在 MLService 中设置 `spec.releases[*].predictor.model.modelUri` 和
+可在 MLService 中通过 `spec.releases[*].predictor.model.modelUri` 和
 `spec.releases[*].predictor.storage.s3Storage.secretName` 设定 S3 的配置参数，其中：
 
 -  `modelUri` 必需包含前缀 `s3://`；
@@ -343,9 +344,9 @@ S3 是一种对象存储服务和协议，具有良好的可扩展性、数据�
 
 #### 多版本支持
 
-一个 MLService 可以同时部署多个版本的推理服务（predictor），以使用不同的模型版本，或者其它配置等。
+一个 MLService 可以同时部署多个版本（release）的推理服务，以使用不同的模型文件，或者其它配置等。
 
-在下面的示例中，MLService 同时部署了 `nov-02`（设置为默认）、`nov-05` 和 `nov-11` 三个版本的服务，这三个版本都使用同一个 MLServiceRuntime，但是使用的模型不同：
+在下面的示例中，MLService 同时部署了 `nov-02`（设置为默认）、`nov-05` 和 `nov-11` 三个版本的服务，这三个版本都使用同一个 MLServiceRuntime，但是使用的模型不同（不同的 `modelUri`）：
 
 ```yaml
 apiVersion: tensorstack.dev/v1beta1
@@ -374,9 +375,9 @@ spec:
 
 #### 金丝雀发布
 
-MLService 支持金丝雀（canary release）发布策略。用户可以通过 `spec.canary` 字段设置金丝雀发布对应的模型版本，`spec.canaryTrafficPercent` 字段设置金丝雀发布的路由权重。`spec.default` 是必需字段，用于设置默认发布。
+MLService 支持金丝雀（canary release）发布策略。用户可以通过 `spec.canary` 字段设置金丝雀发布对应的模型版本（`release`），`spec.canaryTrafficPercent` 字段设置金丝雀发布的路由权重。`spec.default` 是必需字段，用于设置默认发布。
 
-例如上一节中我们部署了 3 个版本的模型，我们想主要使用 `nov-02` 这个版本，并且将刚刚训练好的 `nov-11` 作为金丝雀版本：
+例如上一节中我们部署了 3 个版本的模型，我们想主要（`80%` 流量）使用 `nov-02` 这个版本，并且将刚刚训练好的 `nov-11` 作为金丝雀版本：
 
 * 默认发布：`nov-02`，路由权重为 80%。
 * 金丝雀发布：`nov-11`，路由权重为 20%。
@@ -454,7 +455,7 @@ MLService 在本地的日志信息会存储在 <a target="_blank" rel="noopener 
 
 ### 前处理及后处理
 
-MLService 支持部署含有 `transformer` 模块的前处理(pre-processing)及后处理(post-processing)的推理服务：
+MLService 支持部署含有 `transformer` 模块的前处理（pre-processing）及后处理（post-processing）的推理服务：
 
 * 预处理：用户发向推理服务的原始数据，先经过 transformer 预处理，然后再被发送到推理服务。
 * 后处理：推理服务返回的预测结果，先经过 transformer 后处理，然后再返回给用户。
@@ -487,7 +488,7 @@ spec:
 
 ### 容量伸缩
 
-MLService 支持自动伸缩服务容量，即根据服务负载的变化，自动调节推理服务的部署规模（副本数量），具体原理可以查看 <a target="_blank" rel="noopener noreferrer" href="https://knative.dev/docs/serving/autoscaling/">Knative Autoscaling</a>。
+MLService 支持自动伸缩服务容量：即根据服务负载的变化，自动调节推理服务的部署规模（副本数量）。具体原理可以查看 <a target="_blank" rel="noopener noreferrer" href="https://knative.dev/docs/serving/autoscaling/">Knative Autoscaling</a>。
 
 用户可以通过设置 `spec.releases[*].predictor.minReplicas` 字段和 `spec.releases[*].predictor.maxReplicas` 字段来指定 Predictor 工作负载数量的下限和上限。
 
@@ -625,5 +626,4 @@ $ curl -T test_data/0.png http://torch-mnist.<project-name>.<domain-name>/v1/mod
 
 - API 参考：[MLService](../../references/api-reference/mlservice.md)
 - API 参考：[MLServiceRuntime](../../references/api-reference/mlservice.md#mlserviceruntime)
-
-<a target="_blank" rel="noopener noreferrer" href=""></a>
+- <a target="_blank" rel="noopener noreferrer" href="https://knative.dev/docs/serving/autoscaling/">Knative autoscaling</a>
