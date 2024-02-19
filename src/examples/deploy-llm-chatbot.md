@@ -39,8 +39,6 @@ git clone --depth 1 https://huggingface.co/THUDM/chatglm3-6b
 kubectl create -f smls.yaml
 ```
 
-## 启动
-
 查看 SimpleMLService 创建的 Pod 打印的日志：
 
 ```bash

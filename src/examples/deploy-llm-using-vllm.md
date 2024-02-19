@@ -2,7 +2,7 @@
 
 部署 LLM 推理服务面临着多方面的挑战，包括计算资源需求、延迟和吞吐量、成本控制等。[vLLM](https://github.com/vllm-project/vllm) 是一个快速、灵活且易于使用的 LLM 推理和服务库，其利用 PagedAttention 注意力算法优化注意力机制的键值存储，有效节约内存空间以用于批处理请求，从而显著提高服务的吞吐量。vLLM 能够有效控制运行成本，利用有限的计算资源为更多用户提供高吞吐量和低延迟的 LLM 推理服务。
 
-本示例使用 MLService 部署一个 vLLM 推理服务。模型存储使用 PVC。
+本示例使用 MLService 部署一个 LLM 推理服务。模型存储使用 PVC。
 
 相比[部署 LLM 聊天机器人](./deploy-llm-chatbot.md)，本示例使用了更高效的推理后端，以及可用于生产环境的 MLService。
 
@@ -31,7 +31,7 @@ mv .cache/modelscope/hub/AI-ModelScope/CodeLlama-7b-Instruct-hf .
 
 </aside>
 
-## 部署推理服务
+## 部署
 
 这里将 vLLM 部署为兼容 OpenAI API 的服务器，这样 vLLM 可以作为使用 OpenAI API 的应用程序的即插即用替代品。
 

@@ -54,22 +54,22 @@ helm install qdrant-demo qdrant/qdrant --version <CHART_VERSION>
 以上安装全部使用默认配置，完整的默认配置请参阅相应的 `values.yaml`：
 
 ```bash
-# 获取 CHART VERSION 0.7.5 的 values.yaml
-helm show values qdrant/qdrant --version=0.7.5 > values.yaml
+# 获取指定 CHART VERSION 的 values.yaml
+helm show values qdrant/qdrant --version <CHART_VERSION> > values.yaml
 ```
 
 如要修改默认配置，你可以将新配置（覆盖默认配置的字段）保存为一个 YAML 文件，通过 `-f` 选项提供给安装命令：
 
 ```bash
 # 使用修改后的 values.yaml
-helm install qdrant-demo qdrant/qdrant -f values.yaml
+helm install qdrant-demo qdrant/qdrant --version <CHART_VERSION> -f values.yaml
 ```
 
-下面将分主题介绍部分关键配置。
+下面将分主题介绍部分关键配置（对于 CHART VERSION 0.7.6）。
 
 ### 计算资源
 
-默认配置没有指定计算资源，表示 Pod 可以无限制地使用节点的 CPU 和内存资源。你可以根据实际需求指定请求值和实际值。
+默认配置没有指定计算资源，表示 Pod 可以无限制地使用节点的 CPU 和内存资源。你可以根据实际需求指定请求值和限制值。
 
 ```yaml
 # 默认配置
@@ -206,11 +206,11 @@ config:
 
 Helm 在部署应用时创建的主要 Kubernetes 资源如下表所示：
 
-| 类型        | 名称                         | 作用                 | 备注 |
-| ----------- | ---------------------------- | -------------------- | ---- |
-| Service     | qdrant-demo                  | 作为应用服务         |      |
-| StatefulSet | qdrant-demo                  | 部署应用             |      |
-| PVC         | qdrant-storage-qdrant-demo-* | 作为应用的持久化存储 |      |
+| 类型        | 名称                         | 作用                 | 备注                |
+| ----------- | ---------------------------- | -------------------- | ------------------- |
+| Service     | qdrant-demo                  | 作为应用服务         |                     |
+| StatefulSet | qdrant-demo                  | 部署应用             | 默认计算资源为 `{}` |
+| PVC         | qdrant-storage-qdrant-demo-* | 作为应用的持久化存储 | 默认卷大小为 `10Gi` |
 
 ### 运维
 

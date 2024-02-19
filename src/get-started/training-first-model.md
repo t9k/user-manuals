@@ -11,17 +11,14 @@
   <figcaption>图 1：平台首页。</figcaption>
 </figure>
 
-构建控制台（Build Console）的总览页面展示了多种**资源**，你可以点击右上角的按钮切换 Project，也可以点击**事件**和**配额**标签页以查看当前 Project 最近发生的事件以及计算资源（CPU、Memory、GPU 等）配额。
+构建控制台（Build Console）的总览页面展示了多种**资源**，你可以点击右上角的按钮切换 Project，也可以点击**事件**和**配额**标签页以查看当前 Project 最近发生的事件以及计算资源（CPU、内存、GPU 等）配额。
 
 <aside class="note info">
 <div class="title"> API 资源 </div>
 
-**API 资源（Resources）**， **Kubernetes 资源（Resources）**，或者简称**资源（Resources）**：
-此术语用于统称 Kubernetes 管理的原生或通过 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/"> CRD </a> 
-扩展的实体（entity）类型（type, kind）。这些资源包括原生标准类型，如 `Pods`、`Deployments`、`Services`、`ConfigMaps`，
-以及通过 CRD 定义的任何自定义资源，例如 TensorStack 提供的 `Notebook`。它们是 TensorStack AI 平台功能的基本构建模块。
+**API 资源（resources）**，**Kubernetes 资源（resources）**，或者简称**资源（resources）**：此术语用于统称 Kubernetes 管理的原生或通过 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/">CRD</a> 扩展的实体（entity）类型（type，kind）。这些资源包括原生标准类型，如 `Pod`、`Deployment`、`Service`、`ConfigMap`，以及通过 CRD 定义的任何自定义资源，例如 TensorStack 提供的 `Notebook`。它们是 TensorStack AI 平台功能的基本构建模块。
 
-注意：**计算资源**，例如 CPU，Memory， GPU 也经常简称为**资源**，但一般可根据上下文判断其具体所指。
+需要注意的是，**计算资源（compute resources）**，例如 CPU、内存、GPU，也经常被简称为**资源**，但一般可根据上下文判断其具体所指。
 
 </aside>
 
@@ -98,7 +95,7 @@
 <aside class="note info">
 <div class="title">调度器</div>
 
-调度器负责将工作负载调度到合适的节点上以运行。平台支持 Kubernetes 的默认调度器 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler">kube-scheduler</a>，同时提供了更加强大的 T9k 调度器。详情请参阅：[计算资源](../modules/scheduling/index.md)。
+调度器负责将工作负载调度到合适的节点上以运行。平台支持 Kubernetes 的默认调度器 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler">kube-scheduler</a>，同时提供了更加强大的 T9k 调度器。详情请参阅[计算资源](../modules/scheduling/index.md)。
 
 </aside>
 

@@ -30,28 +30,27 @@ helm install label-studio-demo heartex/label-studio --version <CHART_VERSION>
 以上安装全部使用默认配置，完整的默认配置请参阅相应的 `values.yaml`：
 
 ```bash
-# 获取 CHART VERSION 1.4.0 的 values.yaml
-helm show values heartex/label-studio --version=1.4.0 > values.yaml
+# 获取指定 CHART VERSION 的 values.yaml
+helm show values heartex/label-studio --version <CHART_VERSION> > values.yaml
 ```
 
-其中部分关键配置如下所示：
+其中部分关键配置如下所示（对于 CHART VERSION 1.4.0）：
 
 ```yaml
 app:
+  replicas: 1        # 副本数
+
+  resources:         # 计算资源
+    limits: {}
+    requests: {}
+
   ingress:           # Ingress 配置
     enabled: false
     annotations: {}
     className: ""
     host: ""
     tls: []
-  replicas: 1        # 副本数
-  resources:         # 计算资源
-    limits:
-      cpu: 4000m
-      memory: 6144Mi
-    requests:
-      cpu: 1000m
-      memory: 1024Mi
+
 global:
   persistence:       # 持久化
     config:
@@ -67,10 +66,10 @@ global:
     type: volume         # 卷
 ```
 
-用户可以根据需要对这些配置进行修改：
+你可以根据需要对这些配置进行修改：
 
-* 如果有超过 10 个用户同时在线标注，可以适当增加计算资源的请求值和限制值。
 * 如要提高容错，可以增加副本数。
+* 可以根据实际需求指定计算资源的请求值和限制值。
 * 可以提供 Ingress 配置以提供外部访问，请参阅 <a target="_blank" rel="noopener noreferrer" href="https://labelstud.io/guide/ingress_config">Set up an ingress controller for Label Studio Kubernetes deployments</a>。
 * 可以修改卷大小，或使用其他类型的持久化方案（如 Amazon S3），请参阅 <a target="_blank" rel="noopener noreferrer" href="https://labelstud.io/guide/persistent_storage">Set up persistent storage</a>。
 
@@ -85,22 +84,22 @@ Ingress 配置也可以采用其他方案，需要结合集群的具体配置。
 
 ```bash
 # 使用修改后的 values.yaml
-helm install label-studio-demo heartex/label-studio -f values.yaml
+helm install label-studio-demo heartex/label-studio --version <CHART_VERSION> -f values.yaml
 ```
 
 ### Kubernetes 资源清单
 
 Helm 在部署应用时创建的主要 Kubernetes 资源如下表所示：
 
-| 类型        | 名称                                | 作用                                           | 备注                       |
-| ----------- | ----------------------------------- | ---------------------------------------------- | -------------------------- |
-| Service     | label-studio-demo-ls-app            | 作为应用服务                                   |                            |
-| Service     | label-studio-demo-postgresql        | 作为数据库服务                                 |                            |
-| Deployment  | label-studio-demo-ls-app            | 部署应用                                       |                            |
-| StatefulSet | label-studio-demo-postgresql        | 部署数据库                                     |                            |
-| PVC         | label-studio-demo-ls-pvc            | 作为应用的持久化存储，存储用户上传的数据文件等 | 选择卷作为持久化方案时存在 |
-| PVC         | data-label-studio-demo-postgresql-* | 作为数据库的持久化存储                         |                            |
-| Ingress     | label-studio-demo-ls-app            | 提供外部访问                                   | 启用 Ingress 时存在        |
+| 类型        | 名称                                | 作用                                           | 备注                                                                            |
+| ----------- | ----------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------- |
+| Service     | label-studio-demo-ls-app            | 作为应用服务                                   |                                                                                 |
+| Service     | label-studio-demo-postgresql        | 作为数据库服务                                 |                                                                                 |
+| Deployment  | label-studio-demo-ls-app            | 部署应用                                       | 默认计算资源为 `{"limits": {}, "requests": {}}`                                 |
+| StatefulSet | label-studio-demo-postgresql        | 部署数据库                                     | 默认计算资源为 `{"limits": {}, "requests": {"cpu": "250m", "memory": "256Mi"}}` |
+| PVC         | label-studio-demo-ls-pvc            | 作为应用的持久化存储，存储用户上传的数据文件等 | 选择卷作为持久化方案时存在；默认卷大小为 `10Gi`                                 |
+| PVC         | data-label-studio-demo-postgresql-* | 作为数据库的持久化存储                         | 默认卷大小为 `8Gi`                                                              |
+| Ingress     | label-studio-demo-ls-app            | 提供外部访问                                   | 启用 Ingress 时存在                                                             |
 
 ### 运维
 

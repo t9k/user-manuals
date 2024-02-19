@@ -16,7 +16,7 @@
 helm repo add bitnami https://charts.bitnami.com/bitnami
 
 # 注意 CHART VERSION 和 APP VERSION（PostgreSQL 版本）之间的对应关系
-# 例如 CHART VERSION 14.0.4 和 14.0.3 中的 PostgreSQL 版本都是 16.2.0
+# 例如 CHART VERSION 14.1.x 中的 PostgreSQL 版本都是 16.2.0
 helm search repo bitnami/postgresql --versions
 ```
 
@@ -49,8 +49,8 @@ helm install pgvector-demo bitnami/postgresql \
 以上安装全部使用默认配置，完整的默认配置请参阅 <a target="_blank" rel="noopener noreferrer" href="https://artifacthub.io/packages/helm/bitnami/postgresql#parameters">Parameters</a> 以及相应的 `values.yaml`：
 
 ```bash
-# 获取 CHART VERSION 14.0.4 的 values.yaml
-helm show values bitnami/postgresql --version=14.0.4 > values.yaml
+# 获取指定 CHART VERSION 的 values.yaml
+helm show values bitnami/postgresql --version <CHART_VERSION> > values.yaml
 ```
 
 如要修改默认配置，你可以将新配置（覆盖默认配置的字段）保存为一个 YAML 文件，通过 `-f` 选项提供给安装命令：
@@ -58,27 +58,22 @@ helm show values bitnami/postgresql --version=14.0.4 > values.yaml
 ```bash
 # 使用修改后的 values.yaml
 helm install pgvector-demo t9kpublic/bitnami-pgvector \
-  --version=14.0.4 \
+  --version <CHART_VERSION> \
   --set image.repository=t9kpublic/bitnami-pgvector \
   --set image.tag=0.6.0-pg16 \
   -f values.yaml
 ```
 
-下面将分主题介绍部分关键配置。
+下面将分主题介绍部分关键配置（对于 CHART VERSION 14.1.3）。
 
 #### 计算资源
 
-默认配置为计算资源指定了较小的请求值，但没有指定限制值，Pod 依然可以无限制地使用节点的 CPU 和内存资源。
-你可以根据实际需求指定请求值和限制值，可以参阅<a target="_blank" rel="noopener noreferrer" href="https://cloud.google.com/sql/docs/postgres/manage-memory-usage-best-practices?hl=zh-cn">管理内存用量的最佳实践</a>。
+默认配置没有指定计算资源，表示 Pod 可以无限制地使用节点的 CPU 和内存资源。你可以根据实际需求指定请求值和限制值，可以参阅<a target="_blank" rel="noopener noreferrer" href="https://cloud.google.com/sql/docs/postgres/manage-memory-usage-best-practices?hl=zh-cn">管理内存用量的最佳实践</a>。
 
 ```yaml
 # 默认配置
 primary:
-  resources:
-    limits: {}
-    requests:
-      memory: 256Mi
-      cpu: 250m
+  resources: {}
 ```
 
 #### 存储
@@ -180,12 +175,12 @@ backup:
 
 Helm 在部署应用时创建的主要 Kubernetes 资源如下表所示：
 
-| 类型        | 名称                            | 作用                       | 备注 |
-| ----------- | ------------------------------- | -------------------------- | ---- |
-| Service     | pgvector-demo-postgresql        | 暴露服务                   |      |
-| StatefulSet | pgvector-demo-postgresql        | 部署 postgresql + pgvector |      |
-| PVC         | data-pgvector-demo-postgresql-* | 数据库的持久化存储         |      |
-| Secret      | pgvector-demo-postgresql        | 存储密钥                   |      |
+| 类型        | 名称                            | 作用                       | 备注                |
+| ----------- | ------------------------------- | -------------------------- | ------------------- |
+| Service     | pgvector-demo-postgresql        | 暴露服务                   |                     |
+| StatefulSet | pgvector-demo-postgresql        | 部署 postgresql + pgvector | 默认计算资源为 `{}` |
+| PVC         | data-pgvector-demo-postgresql-* | 数据库的持久化存储         | 默认卷大小为 `8Gi`  |
+| Secret      | pgvector-demo-postgresql        | 存储密钥                   |                     |
 
 ### 运维
 

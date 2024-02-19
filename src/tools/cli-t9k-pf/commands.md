@@ -18,7 +18,7 @@ t9k-pf notebook <url> <localPort>
 <aside class="note">
 <div class="title">注意</div>
 
-为了方便用户快速连接 SSH，t9k-pf 命令行不支持指定 Notebook 资源的目标端口。如果你有相关需求，可以先获取 Notebook 对应的 Pod 资源，然后参照[访问 Pod ](#pod)来访问特定的目标端口。
+为了方便用户快速连接 SSH，t9k-pf 命令行不支持指定 Notebook 资源的目标端口。如果你有相关需求，可以先获取 Notebook 对应的 Pod 资源，然后参照[访问 Pod](#pod) 来访问特定的目标端口。
 
 </aside>
 
