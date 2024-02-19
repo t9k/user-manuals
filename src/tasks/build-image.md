@@ -74,7 +74,7 @@ error building image: error building stage: failed to get filesystem from image:
 - 镜像来源于无法访问或下载速度过慢的仓库
 
 解决方法：
-1. 切换到服务质量更好的的 Registry，例如本地网络部署的私有化 Registry，或其它 caching Regisry。
+1. 切换到服务质量更好的的 Registry，例如本地网络部署的私有化 Registry，或其他 caching Regisry。
 2. 使用代理服务器，通过该代理下载镜像。
 
 

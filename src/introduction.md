@@ -5,6 +5,8 @@
 
 </aside>
 
+# 导言
+
 ## 目标读者
 
 本书《TensorStack AI 计算平台 - 用户使用手册》 的目标读者是 “TensorStack AI 计算平台” 的使用者，包括：
@@ -24,7 +26,6 @@
 
 </aside>
 
-
 ## 如何使用
 
 [概述](./overview.md) 介绍了产品的基本功能和使用模式。
@@ -33,7 +34,8 @@
 
 然后，用户可以阅读 [AI 开发和应用](./modules/building/index.md)章节，以学习 AI 开发相关的概念。
 
-其它章节内容如下：
+其他章节内容如下：
+
 - [账户和安全](./modules/security/index.md) 讨论用户账户和系统安全问题。
 - [计算资源](./modules/scheduling/index.md) 讨论如何使用集群计算资源。
 - [存储](./modules/storage/index.md) 章节对平台的存储方面的支持进行了说明。

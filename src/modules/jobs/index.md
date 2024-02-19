@@ -28,7 +28,7 @@ Kubernetes 也定义了一个原生资源 <a target="_blank" rel="noopener noref
 * [BeamJob](./beamjob.md)：用于在集群中通过 <a target="_blank" rel="noopener noreferrer" href="https://beam.apache.org/documentation/sdks/python/">Apache Beam Python SDK</a> 运行分布式计算任务，并支持多种底层计算引擎（例如 Apache Spark, Apache Flink）。
 * [GenericJob](./genericjob.md)：一个通用的 T9k Job 资源，支持各种并行计算场景及 T9k 高级调度策略。
     * GenericJob 十分灵活，用户可以使用 GenericJob 实现 MPIJob、PyTorchTrainingJob 等特定功能的 T9k Job；但其自动化程度低，需要手工设置很多参数。
-    * GenericJob 的目的是提供一个总是可行的 “通用” 机制，以支持一些其它特定功能 T9k Jobs 还未支持的新的计算场景。 
+    * GenericJob 的目的是提供一个总是可行的 “通用” 机制，以支持一些其他特定功能 T9k Jobs 还未支持的新的计算场景。 
 
 ## 运行模式
 

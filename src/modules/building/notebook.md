@@ -9,7 +9,7 @@
 <aside class="note info">
 <div class="title">信息</div>
 
-除了 Jupyter 系列的 Notebook，用户也可创建其它类型（`spec.type` 指定）的 Notebook，例如 RStudio。
+除了 Jupyter 系列的 Notebook，用户也可创建其他类型（`spec.type` 指定）的 Notebook，例如 RStudio。
 
 </aside>
 

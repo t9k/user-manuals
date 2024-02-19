@@ -2,7 +2,7 @@
 
 ## 概念
 
-PodGroup 是 namespaced-scoped 资源对象，代表一组协同工作的 Pod。PodGroup spec 中定义了 coscheduling 和其它相关的配置信息，调度器 T9k Scheduler 会根据这些信息为 Pod 分配资源。
+PodGroup 是 namespaced-scoped 资源对象，代表一组协同工作的 Pod。PodGroup spec 中定义了 coscheduling 和其他相关的配置信息，调度器 T9k Scheduler 会根据这些信息为 Pod 分配资源。
 
 ## 使用 PodGroup
 

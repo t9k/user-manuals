@@ -67,7 +67,7 @@
     * [CronWorkflowRun](modules/workflows/cronworkflowrun.md)
     * [WorkflowTrigger](modules/workflows/workflowtrigger.md)
 
-* [操作示例](tasks/index.md)
+* [操作指南](tasks/index.md)
     * [使用模型构建控制台](tasks/model-building.md)
         * [创建 Notebook](tasks/create-notebook.md)
         * [使用 Notebook](tasks/use-notebook.md)
@@ -193,7 +193,7 @@
     * [使用 vLLM 部署 LLM 推理服务](examples/deploy-llm-using-vllm.md)
     * [部署对话式搜索引擎](examples/deploy-conversational-search-engine.md)
 
-* [应用集成](integrations/index.md)
+* [集成](integrations/index.md)
     * [Label Studio](integrations/label-studio.md)
     * [向量数据库：Qdrant](integrations/vector-database-qdrant.md)
     * [向量数据库：PostgreSQL + pgvector](integrations/vector-database-pgvector.md)

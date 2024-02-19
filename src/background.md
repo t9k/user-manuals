@@ -116,7 +116,7 @@ Node节点：Node 节点是 Kubernetes 集群中的工作节点，由 Master 节
 - kube-proxy：负责为 Service 提供 cluster 内部的服务发现和负载均衡。
 - 容器运行时（containerd，CRI-O，Docker 等）: 负责真正运行容器的软件。         
 
-Kubernetes 还包括其它辅助模块（Add-ons），例如:
+Kubernetes 还包括其他辅助模块（Add-ons），例如:
 
 - DNS 模块：负责为集群中的主机提供 DNS 解析服务。
 - 网络插件：负责提供底层的网络实现,例如 flannel 和 calico。
@@ -129,7 +129,7 @@ Kubernetes 还包括其它辅助模块（Add-ons），例如:
 <aside class="note info">
 <div class="title">平台的平台</div>
 
-Kubernetes 是一个为云原生应用提供核心抽象和服务层的平台，提供了合理、良好的机制支持和下层硬件及其它基础设施服务（如容器运行时、存储、网络等）进行交互。         
+Kubernetes 是一个为云原生应用提供核心抽象和服务层的平台，提供了合理、良好的机制支持和下层硬件及其他基础设施服务（如容器运行时、存储、网络等）进行交互。         
 
 Kubernetes 有时候被称为 “平台的平台，母平台” ，被用来构建特定领域的平台或者应用系统，是由于其如下特征：
 

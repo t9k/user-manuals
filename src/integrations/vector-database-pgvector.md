@@ -190,7 +190,7 @@ Helm 在部署应用时创建的主要 Kubernetes 资源如下表所示：
 helm status pgvector-demo
 ```
 
-更新应用，下面的 `image.tag` 可能需要设置为其它值。
+更新应用，下面的 `image.tag` 可能需要设置为其他值。
 
 ```bash
 # 更新到最新版本
