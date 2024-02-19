@@ -1,53 +1,35 @@
 # MLService
 
-MLService 用于在 TensorStack AI 平台上部署机器学习模型推理服务，主要用于生产环境。
+MLService 用于在 TensorStack AI 平台上部署 AI 推理服务，其功能全面，可用于生产环境。
 
-## 控制层
+## 概述
 
-控制层的任务是根据用户创建的 MLService ，在集群中生成相应的 `knative service`、 `virtual service` 等资源。
+`MLService` 是推理服务的核心 API，由 `releases` 和 `transformer` 两部分构成：
 
-MLService 控制层架构示意图如下：
+- `spec.releases` 定义一个或多个 `releases`，以提供多版本支持；
+- 可选的 `transformer` 定义前处理（pre-processing）和后处理（post-processing）计算。
 
-<figure class="architecture">
-  <img alt="mlservice-architecture" src="../../assets/modules/deployment/mlservice-controlplane-architecture.png" class="architecture">
-</figure>
-
-其中：
-
-* 控制器会为 MLService 中的每一个 Predictor 以及 Transformer 创建一个 `knative service`。MLService 基于 `knative service` 实现容量伸缩、多版本发布等功能。
-* 控制器会为 MLService 创建 k8s 原生 `service` 以及 istio 的 `virtual service` 来管理流量。MLService 基于这些服务以支持集群内，集群外的流量访问。
-* 机器学习模型存储在外部存储服务中，控制器会在部署服务前先下载/加载模型。
-
-## 数据层
-
-数据层描述了工作中的 MLService 各个组件之间数据的流动。
-
-MLService 目前包含 2 种组件：
-
-* Predictor：
-    * 每个 MLService 至少要有一个 Predictor。
-    * Predictor 是一个推理服务，用户向其发送预测请求，然后得到相应的推理结果。
-    * Predictor 自身可以独立的进行伸缩，并在自身的多个副本之间进行流量的负载均衡。
-    * MLService 可以同时包含多个 predictor，用户可以单独访问其中任意一个 predictor。
-* Transformer
-    * Transformer 是可选的。
-    * Transformer 允许用户在预测请求的流程中添加预处理和后处理流程。
-
-数据层图示如下：
-
-无 Transformer 的情况：
 
 <figure class="architecture">
-  <img alt="mlservice-architecture" src="../../assets/modules/deployment/mlservice-dataplane.png" class="architecture">
+  <img alt="mlservice-architecture" src="../../assets/modules/deployment/mlservice-flow.drawio.svg" class="architecture">
+  <figcaption> 图 1: MLService 组成。一个 MLService 由 releases 和 transformer（非必需）构成。</figcaption>
 </figure>
 
-有 Transformer 的情况：
 
-<figure class="architecture">
-  <img alt="mlservice-architecture" src="../../assets/modules/deployment/mlservice-dataplane-transformer.png" class="architecture">
-</figure>
+`MLService` 的主要特性包括：
 
-## 基本示例
+- 支持 <a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Feature_toggle#Canary_release">金丝雀（canary release）</a>发布模式 ；
+- 每个 `release` 包含一个 `predictor`，其定义了：
+    - 模型存储（`storage`）
+    - 模型规约（`model`），包括 `modelUri`，`parameters`，`runtime`（引用 `MLServiceRuntime` 定义运行推理服务 `Pod` 的模版）；
+    - 计算资源（`resources`）
+    - 其它部署参数（`minReplicas, maxRelicas, logger ...`）
+- 每个 `release` 服务的容量可独立自动伸缩，可通过 `minReplicas`，`maxReplicas` 设置容量的上下限；
+- 用户可定制 `transformer` 组件，以在调用推理服务时进行前处理（pre-processing），及获得推理结果后进行后处理（post-processingss）；
+- `transformer`  的容量也可独立自动伸缩，可通过 `minReplicas`，`maxReplicas` 设置容量的上下限。
+
+
+## 示例
 
 下面是一个基本的 MLService 示例：
 
@@ -76,21 +58,29 @@ spec:
               memory: 1Gi
 ```
 
-该示例部署的推理服务只包含一个版本 `version1`，其使用 MLServiceRuntime `torchserve`，使用的模型存储在 pvc `tutorial` 中，服务的工作负载数量会根据流量动态变化，最小为 1，最大为 3。
+<aside class="note info">
+<div class="title">信息</div>
 
-## MLServiceRuntimes
+该示例部署的推理服务 `torch-mnist`，只包含一个推理服务版本 `version1`：
 
-在[基本示例](#基本示例)中，我们使用了 MLServiceRuntime `torchserve`。在此章节中我们将向用户详细介绍 MLServiceRuntimes 的工作机制。
+- 推理服务定义使用了 MLServiceRuntime `torchserve`，其详细定义见下文；
+- 模型存储在 pvc `tutorial` 中；
+- 服务的部署规模（副本数量）会根据服务负载情况自动调节，最小为 1，最大为 3；
+- 运行模型推理服务器的副本（容器，container）的资源为：`{"limits": { "cpu": "500m", "memory": "1Gi"}}`。
 
-MLService 提供了 MLServiceRuntime 来支持多种机器学习框架，从而帮助用户快速部署推理服务。
+</aside>
 
-MLServiceRuntime 定义了推理服务 Pod 的模版，模版中包含了推理服务的关键信息，例如镜像、启动命令、资源需求等。
 
-### MLServiceRuntime 基本示例
+## MLServiceRuntime
+
+在[示例](#示例)中，我们使用了 MLServiceRuntime `torchserve`。MLServiceRuntime 定义了推理服务的模版，包含了推理服务的关键信息，例如镜像、启动命令、资源需求。
+
+一个 MLServiceRuntime 可以被多个 MLService 使用，能够方便地帮助用户快速部署多种模型推理服务程序。
+
+
+### 定义
 
 下面是一个基本的 MLServiceRuntime 的例子：
-
-该 MLServiceRuntime 在 spec.template 中定义了推理服务 Pod 的模版，服务会运行 torchserve 指令。
 
 ```yaml
 apiVersion: tensorstack.dev/v1beta1
@@ -118,19 +108,20 @@ spec:
           protocol: TCP
 ```
 
-MLServiceRuntime 中的 Pod 模版有以下规范必须遵守：
-
-1. 必须要有一个名为 `user-container` 的容器，后续所介绍的[模型存储](#模型存储)、[日志收集](#日志收集)等功能都只对 `user-container` 生效。
-2. `user-container` 的容器中最多只能定义一个 `containerPort`，且其余的容器定义中不能有 `containerPort`。
+该 MLServiceRuntime 在 `spec.template` 中定义了推理服务 Pod 的模版，以指定运行 `torchserve` 指令及其它命令行参数。
 
 <aside class="note info">
 <div class="title">信息</div>
 
-`user-container` 容器中定义的唯一 `containerPort` 就是推理服务对应的端口，如果没有定义，默认访问 `8080` 端口。
+MLServiceRuntime 中的 Pod 模版有以下规范必须遵守：
+
+1. 必须要有一个名为 `user-container` 的容器，后续所介绍的[模型存储](#模型存储)、[日志收集](#日志收集)等功能都只对 `user-container` 生效。
+1. `user-container` 的容器中最多只能定义一个 `containerPort`，且其它的容器定义中不能有 `containerPort`。
+1. `user-container` 容器中定义的唯一 `containerPort` 就是推理服务对应的端口，如果没有定义，默认使用 `8080` 端口。
 
 </aside>
 
-### 使用 MLServiceRuntime
+### 使用
 
 用户可以在 MLService 的 Predictor 定义中指定要使用的 MLServiceRuntime 名称，例如：
 
@@ -149,33 +140,33 @@ spec:
         modelUri: "<your-model-registry/your-model-path>"
 ```
 
-用户在 Predictor `version1` 的 `.model.runtime` 中指定了 `torchserve`。在创建 Pod 时，会使用当前项目下名称为 `torchserve` 的 MLServiceRuntime。
+用户在 release `version1` 的 `.predictor.model.runtime` 中指定了 `torchserve`，系统在创建推理服务器副本（Pod）时，将会使用名称为 `torchserve` 的 MLServiceRuntime。
 
-### MLServiceRuntime 的更新
-
-如果用户更新了一个 MLServiceRuntime，所有使用了该 MLServiceRuntime 的 MLService 所创建的 Pod 也会随之进行更新。
 
 <aside class="note warning">
 <div class="title">提醒</div>
 
-MLService 的更新并不是实时的。建议最好不要修改 MLServiceRuntime，这可能会影响正在运行的服务。
+如果用户更新了一个 MLServiceRuntime，所有使用了该 MLServiceRuntime 的 MLService 所创建的副本（Pod）也会随之进行更新，但 MLService 的更新采用 “懒惰” 策略：
+
+- 单纯的 MLServiceRuntime 修改并不会触发系统修改 MLServiceRuntime 更新之前创建的副本（Pod）；
+- 只会在有必要时，例如伸缩 MLService 规模，或者其它 MLService 的变更，导致需要重新创建副本的场景时，系统才会使用新的 MLServiceRuntime。
 
 </aside>
 
 ### 个性化改动
 
-除了直接使用 MLServiceRuntime 定义好的 Pod 模版，MLService 还支持两种对其进行个性化改动的方式。
+除了直接使用 MLServiceRuntime 定义好的 Pod 模版，MLService 还支持对其进行进一步的配置和修改。
 
 #### Parameters
 
 MLService 支持在 Predictor 的 `.model.parameters` 设置参数，该字段是一个 map 类型，key 为参数名，value 为参数值。
 
-在之前的 [MLServiceRuntime 基本示例](#mlserviceruntime-基本示例)中，我们可以看到 `--models {{if .MODEL_PATH}}{{.MODEL_PATH}}{{else}}all{{end}}` 这样一行。这里使用了 <a target="_blank" rel="noopener noreferrer" href="https://pkg.go.dev/text/template">golang template</a> 的语法，意思是：
+在之前的 [MLServiceRuntime 示例](#定义) 中包含了 `--models {{if .MODEL_PATH}}{{.MODEL_PATH}}{{else}}all{{end}}` 的内容。这里使用了 <a target="_blank" rel="noopener noreferrer" href="https://pkg.go.dev/text/template">golang template</a> 的语法，含义为：
 
-* 如果用户指定了 `MODEL_PATH`，这一行会被设置为 `--model <用户指定的 MODEL_PATH>`
-* 如果用户没有指定 `MODEL_PATH`，这一行会被设置为 `--model all`
+* 如果使用此 MLServiceRuntime 的 MLService 指定了 `MODEL_PATH`，这一行会被设置为 `--model <用户指定的 MODEL_PATH>`
+* 如果没有指定 `MODEL_PATH`，这一行会被设置为 `--model all`
 
-指定了 `MODEL_PATH` 的 MLService 如下：
+如下所示，在 MLService 中设置 `MODEL_PATH`：
 
 ```yaml
 apiVersion: tensorstack.dev/v1beta1
@@ -194,11 +185,11 @@ spec:
         modelUri: "<your-model-registry/your-model-path>"
 ```
 
-上述 MLService 最终产生的 Pod 的 args 中会有一行 `--model mnist=model.mar`，指定了使用模型的名称和文件。
+由上述 MLService 最终产生的副本（Pod）的 `args` 中会包含 `--model mnist=model.mar`，指定了使用模型的名称和文件。
 
 #### StrategicMergePatch
 
-Runtime 定义了 Pod 模版，但不一定能适用于所有场景。MLService 支持用户在 MLServiceRuntime 的基础上，进行覆盖或者添加。例如：
+MLServiceRuntime 定义了 Pod 模版，但不一定能适用于所有场景。MLService 支持用户在 MLServiceRuntime 的基础上，进行进一步的叠加修改，例如：
 
 ```yaml
 apiVersion: tensorstack.dev/v1beta1
@@ -211,8 +202,9 @@ spec:
   - name: version1
     predictor:
       model:
-        modelFormat:
-          name: pytorch
+        parameters:
+          "MODEL_PATH": "mnist=model.mar"
+        runtime: torchserve
         modelUri: "<your-model-registry/your-model-path>"
       template:
         spec:
@@ -221,7 +213,9 @@ spec:
               image: self-torchserve:latest
 ```
 
-将上面 MLService 中 predictor `version1` 的 `template.spec` 和之前的 [Runtime 基本示例](#runtime-基本示例)相比，可以发现他们都定义了一个名为 `user-container` 的 container，但是 `image` 不同。于是最终生成的 Pod 中，MLService 中定义的 `image` 会覆盖 MLServiceRuntime 中的 `image`，但是 MLServiceRuntime 中 `args` 等其余设置都会被保留。
+将上面 MLService 中 predictor `version1` 的 `template.spec` 和之前的 [Runtime 定义示例](#定义) 相比，
+可以发现他们都定义了一个名为 `user-container` 的 container，但是 `image` 不同。
+于是最终生成的 Pod 中，MLService 中定义的 `image` 会覆盖 MLServiceRuntime 中的 `image`，但是 MLServiceRuntime 中 `args` 等其余设置都会被保留。
 
 <aside class="note warning">
 <div class="title">提醒</div>
@@ -229,6 +223,9 @@ spec:
 使用 StrategicMergePatch 在 MLService 中定义容器时，不可以设置 `ports` 字段。否则会导致合并后的 Pod 中定义了多个 `port`。
 
 </aside>
+
+<aside class="note info">
+<div class="title">信息</div>
 
 这里的覆盖合并原则采用的是 StrategicMergePatch。
 用户可以通过阅览以下参考资料，进一步了解  StrategicMergePatch：
@@ -255,9 +252,15 @@ spec:
 |-|-|-|
 |containers:<br>- name: user-container<br>&nbsp;&nbsp;args: ["--k1=v1", "--k2=v2"]|containers:<br>- name: user-container<br>&nbsp;&nbsp;args: ["--k2=v3"]|containers:<br>- name: user-container<br>&nbsp;&nbsp;args: ["--k2=v3"]|
 
-#### 设置资源
+</aside>
 
-Runtime 定义了 Pod 模版，但对于容器的资源要求，不同场景之间的差异巨大。因此， Runtime 中定义的容器资源要求只是一个参考值，不会实际生效。对此，MLService 提供了更直接的设置方案。用户可以直接通过 Predictor 中的 `containersResources` 定义容器的资源要求。例如：
+
+
+#### 计算资源
+
+MLServiceRuntime 定义了 Pod 模版，但对于容器的资源要求，不同场景之间的差异巨大。因此， MLServiceRuntime 中定义的容器资源要求只是一个缺省时的默认值。
+
+用户可以直接在 MLService `predictor` 中的 `containersResources` 定义容器的资源要求，例如：
 
 ```yaml
 apiVersion: tensorstack.dev/v1beta1
@@ -293,34 +296,11 @@ spec:
 
 MLService 支持 S3 和 PVC 两种存储模型的方式，用户需要根据模型存储的类型填写 MLService 的配置。
 
-### S3
-
-S3 是一种对象存储服务和协议，具有良好的可扩展性、数据可用性和安全性等优点，其协议被多种商业和开源产品支持，并且被广泛部署。
-
-在MLService中使用 S3 存储模式需要在 `spec.releases[*].predictor.model.modelUri` 中设置模型路径并在 `spec.releases[*].predictor.storage.s3Storage.secretName` 中指定存储 S3 配置的 Secret 的名称。其中存储路径必需包含前缀 `s3://`，Secret 存储的 S3 配置格式是 <a target="_blank" rel="noopener noreferrer" href="https://s3tools.org/s3cmd">s3cmd</a> 配置文件格式。
-
-例如：
-
-```yaml
-...
-  releases:
-    - name: test1
-      predictor:
-        model:
-          modelUri: "s3://models/example/"
-        storage:
-          s3Storage:
-            secretName: s3-security
-...
-```
-
-模型在 S3 中的存储路径为 `s3://models/example/`，S3 的配置信息存储在 Secret `s3-security` 中。
-
 ### PVC
 
-MLService 支持使用 [PVC](../storage/pvc.md) 中的模型。
+在MLService中使用 [PVC](../storage/pvc.md) 存储模式需要在 `spec.releases[*].predictor.model.modelUri` 中设置包含前缀 `pvc://` 的模型路径。
 
-在MLService中使用 PVC 存储模式需要在 `spec.releases[*].predictor.model.modelUri` 中设置包含前缀 `pvc://` 的模型路径。例如：
+例如，下面的例子指定模型存储在 PVC `tutorial` 的 `models/example/` 路径下：
 
 ```yaml
 ...
@@ -332,43 +312,40 @@ MLService 支持使用 [PVC](../storage/pvc.md) 中的模型。
 ...
 ```
 
-其中模型存储在 PVC `tutorial` 的 `models/example/` 路径下。
+### S3
 
-## 访问推理服务
+S3 是一种对象存储服务和协议，具有良好的可扩展性、数据可用性和安全性等优点，其协议被多种商业和开源产品支持，并且被广泛部署。
 
-MLService 部署成功后，通过状态字段 `status.address.url` 可以查询到全局推理服务的 Base URL，再加上部署模型对应的路径即可得到访问推理服务的地址。
+可在 MLService 中设置 `spec.releases[*].predictor.model.modelUri` 和
+`spec.releases[*].predictor.storage.s3Storage.secretName` 设定 S3 的配置参数，其中：
 
-以[基本示例](#基本示例)中的服务为例，全局推理服务地址的状态字段如下：
+-  `modelUri` 必需包含前缀 `s3://`；
+-  `secretName` 指向的Secret 存储的 S3 配置格式应当是 <a target="_blank" rel="noopener noreferrer" href="https://s3tools.org/s3cmd">s3cmd</a> 配置文件格式。
+
+例如，下面的例子指定模型在 S3 中的存储 `Uri` 前缀为 `s3://models/example/`，S3 的配置信息存储在 Secret `s3-model` 中：
 
 ```yaml
 ...
-status:
-  address:
-    url: http://torch-mnist.<project>.<domain>
+  releases:
+    - name: test1
+      predictor:
+        model:
+          modelUri: "s3://models/example/"
+        storage:
+          s3Storage:
+            secretName: s3-model
 ...
 ```
 
-由于服务使用的是 TorchServe 框架，按照其<a target="_blank" rel="noopener noreferrer" href="https://pytorch.org/serve/inference_api.html"> API 规范</a>，用户可以通过下述命令查看服务状态，并进行模型服务预测：
+## 更多配置
 
-```bash
-$ curl http://torch-mnist.<project-name>.<domain-name>/v1/models/mnist
-{
-    "model_version_status": <model-status>
-}
-# 模型预测（所用数据在 https://github.com/t9k/tutorial-examples/blob/master/deployment/pvc/mlservice-torch/test_data/0.png）
-$ curl -T test_data/0.png http://torch-mnist.<project-name>.<domain-name>/v1/models/mnist:predict
-{
-    "predictions": <predict-result>
-}
-```
+### 发布策略
 
-## 发布策略
+#### 多版本支持
 
-### 多版本支持
+一个 MLService 可以同时部署多个版本的推理服务（predictor），以使用不同的模型版本，或者其它配置等。
 
-一个 MLService 可以同时部署多个版本的 Predictor，在 `spec.releases` 字段中设置配置详情。
-
-在下面的示例中，MLService 同时部署了 `nov-02`、`nov-05` 和 `nov-11` 三个版本的服务，这三个版本都使用同一个 MLServiceRuntime，但是使用的模型不同：
+在下面的示例中，MLService 同时部署了 `nov-02`（设置为默认）、`nov-05` 和 `nov-11` 三个版本的服务，这三个版本都使用同一个 MLServiceRuntime，但是使用的模型不同：
 
 ```yaml
 apiVersion: tensorstack.dev/v1beta1
@@ -395,25 +372,25 @@ spec:
           modelUri: pvc://tutorial/model-11-11
 ```
 
-### 金丝雀发布
+#### 金丝雀发布
 
-MLService 支持金丝雀发布，用户可以通过 `spec.canary` 字段设置金丝雀发布对应的模型版本，`spec.canaryTrafficPercent` 字段设置金丝雀发布的路由权重。`spec.default` 是必需字段，用于设置默认发布对应的模型版本。
+MLService 支持金丝雀（canary release）发布策略。用户可以通过 `spec.canary` 字段设置金丝雀发布对应的模型版本，`spec.canaryTrafficPercent` 字段设置金丝雀发布的路由权重。`spec.default` 是必需字段，用于设置默认发布。
 
-例如上一节中我们部署了 3 个版本的模型，我们想主要使用 `nov-05` 这个版本，并且将刚刚训练好的 `nov-11` 作为金丝雀版本：
+例如上一节中我们部署了 3 个版本的模型，我们想主要使用 `nov-02` 这个版本，并且将刚刚训练好的 `nov-11` 作为金丝雀版本：
 
-* 默认发布：`nov-05`，路由权重为 80%。
+* 默认发布：`nov-02`，路由权重为 80%。
 * 金丝雀发布：`nov-11`，路由权重为 20%。
 
 ```yaml
 ...
 spec:
-  default: nov-05
+  default: nov-02
   canary: nov-11
   canaryTrafficPercent: 20
 ...
 ```
 
-## 日志收集
+### 日志收集
 
 MLService 支持对预测请求在日志中进行收集，日志收集对于每一个组件来说是独立的，可以通过组件定义中的 `logger` 来设置。设置后，每一条预测请求经过组件时，会以 <a target="_blank" rel="noopener noreferrer" href="https://cloudevents.io">CloudEvent</a> 的形式打印在日志当中，同时该 CloudEvent 也会被发送给指定的下游。
 
@@ -428,7 +405,7 @@ MLService 支持对预测请求在日志中进行收集，日志收集对于每�
 
 下面是一个日志信息示例
 
-```text
+```
 Context Attributes,
   specversion: 1.0
   type:tensorstack.dev.mlservice.request
@@ -442,7 +419,7 @@ Extensions,
   namespace: example
   traceparent: 00-9b81bc9a3531a1e4357e236054d86b47-546e4c891883d512-00
 Data,
-  �PNG
+  ...
 
 Validation: valid
 Context Attributes,
@@ -475,26 +452,50 @@ MLService 在本地的日志信息会存储在 <a target="_blank" rel="noopener 
 
 </aside>
 
-## 前处理及后处理
+### 前处理及后处理
 
-MLService 支持部署含有前处理及后处理服务（Transformer） 的推理服务：
+MLService 支持部署含有 `transformer` 模块的前处理(pre-processing)及后处理(post-processing)的推理服务：
 
-* 预处理：用户发向推理服务的原始数据，先经过 Transformer 预处理，然后再被发送到推理服务。
-* 后处理：推理服务返回的预测结果，先经过 Transformer 后处理，然后再返回给用户。
+* 预处理：用户发向推理服务的原始数据，先经过 transformer 预处理，然后再被发送到推理服务。
+* 后处理：推理服务返回的预测结果，先经过 transformer 后处理，然后再返回给用户。
 
-用户可以使用 [Tensorstack SDK](../../../tools/python-sdk-t9k/index.md) 编写 Transformer 代码，制作镜像，并基于该镜像创建含有 Transformer 的推理服务。详细示例请参考 [制作并部署含有 Transformer 的模型推理服务](../../tasks/deploy-mlservice-transformer.md)。
+用户可以使用 [Tensorstack SDK](../../../tools/python-sdk-t9k/index.md) 编写 transformer 代码，制作镜像，并基于该镜像创建含有 transformer 的推理服务。
+详细示例请参考 [制作并部署含有 Transformer 的模型推理服务](../../tasks/deploy-mlservice-transformer.md)。
 
-## 容量伸缩
+下文展示了一个使用 transformer 的推理服务：
 
-MLService 支持容量自动伸缩，工作负载的变化是根据请求负荷指标来变化的，具体原理可以查看 <a target="_blank" rel="noopener noreferrer" href="https://knative.dev/docs/serving/autoscaling/">Knative Autoscaling</a>。
+```yaml
+apiVersion: tensorstack.dev/v1beta1
+kind: MLService
+metadata:
+  name: pic-mnist
+spec:
+  default: origin
+  transformer:
+    minReplicas: 1
+    minReplicas: 5
+    template:
+      spec:
+        containers:
+        - name: user-container
+          image: t9kpublic/transformer-example:0.1.0
+          resources:
+            limits:
+              cpu: "500m"
+              memory: 500Mi
+```
+
+### 容量伸缩
+
+MLService 支持自动伸缩服务容量，即根据服务负载的变化，自动调节推理服务的部署规模（副本数量），具体原理可以查看 <a target="_blank" rel="noopener noreferrer" href="https://knative.dev/docs/serving/autoscaling/">Knative Autoscaling</a>。
 
 用户可以通过设置 `spec.releases[*].predictor.minReplicas` 字段和 `spec.releases[*].predictor.maxReplicas` 字段来指定 Predictor 工作负载数量的下限和上限。
 
 同样的，如果用户启用了 Transformer，可以通过 `spec.transformer.minReplicas` 字段和 `spec.transformer.maxReplicas` 字段来指定 Transformer 工作负载数量的下限和上限。
 
 以下是一些特殊情况：
-* `minReplicas` 不填时，工作负载数量的默认最小值为 1。
-* `minReplicas` 等于 0 时，当没有流量请求时，MLService 会缩容到 0，删掉所有的工作负载。
+* `minReplicas` 不填时，工作负载数量的默认最小值为 1；
+* `minReplicas` 等于 0 时，当没有流量请求时，MLService 会缩容到 0，不再占用系统资源；
 * `maxReplicas` 不填或设为 0 时，工作负载数量没有上限。
 
 除了负载数量的限制，用户还可以在具体的 Runtime 或者组件（Predictor 或者 Transformer）的 Pod 定义中设置 Knative Autoscaling 相关的 Annotation，例如：
@@ -517,7 +518,7 @@ spec:
 
 在上面的示例中，我们设置了工作负载数量的范围为 `[1,3]`，自动伸缩指标(metric)为 `rps`，自动伸缩目标(target)为 `100`。这意味着当每个工作负载每秒处理的请求数量（requests-per-second）达到 100 时，负载会开始扩容，且扩容最大数量为 3，最小数量为 1。
 
-## 调度器
+### 调度器
 
 MLService 支持使用两种调度器：Kubernetes 默认调度器（默认）和 [T9k Scheduler](../../cluster/scheduling/index.md)。MLService 通过 `spec.scheduler` 字段设置调度器：
 
@@ -582,6 +583,47 @@ status:
 
 如果推理服务没有就绪，你可以通过查看 `status.conditions` 中 type 为 `Ready` 的 reason 以及 message 来查看具体信息，同时 Event 中也会有相关的错误信息。
 
+## 访问推理服务
+
+MLService 部署成功后，通过状态字段 `status.address.url` 可以查询到全局推理服务的 Base URL，再加上部署模型对应的路径即可得到访问推理服务的地址。
+
+以 [示例](#示例) 中的服务为例，推理服务地址的状态字段如下：
+
+```yaml
+...
+status:
+  address:
+    url: http://torch-mnist.<project>.<domain>
+...
+```
+
+由于服务使用的是 TorchServe 框架，按照其<a target="_blank" rel="noopener noreferrer" href="https://pytorch.org/serve/inference_api.html"> API 规范</a>，用户可以通过下述命令查看服务状态：
+
+```bash
+$ curl http://torch-mnist.<project-name>.<domain-name>/v1/models/mnist
+{
+    "model_version_status": <model-status>
+}
+```
+
+并调用推理服务：
+
+```bash
+# 数据在 https://github.com/t9k/tutorial-examples/blob/master/deployment/pvc/mlservice-torch/test_data/0.png
+$ curl -T test_data/0.png http://torch-mnist.<project-name>.<domain-name>/v1/models/mnist:predict
+{
+    "predictions": <predict-result>
+}
+```
+
 ## 应用示例
 
-TODO
+- [使用 vLLM 部署 LLM 推理服务](../../examples/deploy-llm-using-vllm.md)
+- [部署对话式搜索引擎](../../examples/deploy-conversational-search-engine.md)
+
+## 参考
+
+- API 参考：[MLService](../../references/api-reference/mlservice.md)
+- API 参考：[MLServiceRuntime](../../references/api-reference/mlservice.md#mlserviceruntime)
+
+<a target="_blank" rel="noopener noreferrer" href=""></a>
