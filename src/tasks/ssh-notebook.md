@@ -2,71 +2,46 @@
 
 本教程演示如何通过 SSH 连接远程使用 Notebook。
 
-## 获取连接方式
+## 准备工作
 
-为了使用 SSH 连接到 Notebook，你首先要获取 SSH 的用户名（Username）、主机地址（Host）和端口（Port）。其中主机地址和端口需要从控制台获取。下文中我们会用 `<Host>` 代表获取的主机地址，`<Port>` 代表使用的端口。
+* 创建了一个[启用 SSH 选项](./create-notebook.md#启用-ssh-选项) 的 Notebook。
+* 确认该 Notebook 处于正常运行状态。
 
-<aside class="note info">
-<div class="title">信息</div>
 
-标准 Notebook 镜像的默认用户是 `t9kuser`，其主目录（home directory）是 `/t9k/mnt`。
+## 进行端口转发
 
-</aside>
+### 了解并安装命令行工具 t9k-pf
 
-TODO: 等待前端的修改。
+[t9k-pf 命令行工具](../tools/cli-t9k-pf/index.md)的功能类似于 `kubectl port-forward`，可以让您能够在本地通过端口转发的方式访问 TensorStack AI 平台的各种资源。
 
-### 通过 t9k-pf 命令行工具获取连接方式
+t9k-pf 可以从平台首页下载。您需要参考[用户指南](../tools/cli-t9k-pf/guide.md#用户指南)，下载安装 t9k-pf 并配置[身份认证和授权](../tools/cli-t9k-pf/guide.md#身份认证和授权)。
 
-[t9k-pf 命令行工具](../tools/cli-t9k-pf/index.md)的功能类似于 `kubectl port-forward`，可以让你在本地通过端口转发的方式获取 Notebook 的 SSH 连接方式。
+### 获取端口转发命令
 
-#### 准备 t9k-pf 命令行工具
-
-首先你需要参照 t9k-pf [安装教程](../tools/cli-t9k-pf/guide.md#下载安装)完成命令行工具的安装。
-
-然后你需要参照 t9k-pf [身份认证和授权教程](../tools/cli-t9k-pf/guide.md#身份认证和授权)完成相应的身份认证和授权。
-
-#### 通过 URL 获取 Notebook 的 SSH 连接方式
-
-你可以通过 Notebook 在浏览器地址栏中的地址来获取其 SSH 连接方式，例如下面我们打开了目标 Notebook 的一个 `.ipynb` 文件。
+在 Notebook 详情页面，您可以查看并复制 “SSH 服务”提示的命令：
 
 <figure class="screenshot">
-    <img alt="the-image" src="../assets/tasks/develop-and-test-model/use-notebook-remotely-via-ssh-connection/notebook-address-bar.png" />
+  <img alt="copy-t9k-pf-command" src="../assets/tasks/develop-and-test-model/use-notebook-remotely-via-ssh-connection/copy-t9k-pf-command.png" />
 </figure>
 
-在浏览器中复制红框中的内容，然后在命令行中输入 `t9k-pf notebook` （或者 `t9k-pf nb`）并粘贴所复制的内容，便可开启 port-forward。
+在终端输入该命令进行端口转发：
 
 ``` bash
-t9k-pf notebook <tensorstack-host>/t9k/build-console/projects/demo/notebooks/demo-notebook/lab/tree/demo.ipynb
+$ t9k-pf notebook <URL> <Port>
+now you can forward to your target by 127.0.0.1:<Port>
 ```
 
-输入以上命令后，命令行会随机返回一个本地端口。例如 `127.0.0.1:57873`，那么获取的 `<Host>` 便为 `127.0.0.1`, `<Port>` 便为 `57873`，然后你便可参照 [SSH 远程连接教程](#ssh-远程连接)与目标 Notebook 建立 SSH 连接。
+参数说明如下：
+1. `URL`：Notebook 的 Web UI 地址。除上述获取方式外，您也可以“打开” Notebook 后，复制浏览器地址栏中的地址作为 `URL` 参数使用。
+2. `Port`：转发的本地端口。在 [SSH 远程连接教程](#ssh-远程连接)中会使用到该端口。
 
-除了上述图中的例子，输入以下地址、或者其他不同结尾的地址也都能起到相同的作用：
-
-``` bash
-<tensorstack-host>/t9k/build-console/projects/demo/notebooks/demo-notebook/tree?
-<tensorstack-host>/t9k/build-console/projects/demo/notebooks/demo-notebook/lab
-<tensorstack-host>/t9k/build-console/projects/demo/notebooks/demo-notebook/<any-url>
-```
-
-你还可以通过下述格式指定你的本地端口，其中 `<url>` 代表地址栏的地址，`<localPort>` 代表你指定的端口号（小于 1024 的端口需要管理员权限才可以绑定）：
-
-``` bash
-t9k-pf notebook <url> <localPort>
-```
-
-例如输入：
-
-``` bash
-t9k-pf notebook <tensorstack-host>/t9k/build-console/projects/demo/notebooks/demo-notebook/lab/tree/demo.ipynb 3333
-```
-
-命令行会打印出 `127.0.0.1:3333`，即 `<Port>` 被指定为 `3333`。然后同样参照 [SSH 远程连接教程](#ssh-远程连接)与目标 Notebook 建立 SSH 连接。
+根据终端打印的提示信息，您可以使用本地的端口与目标 Notebook 建立 SSH 连接，具体命令参照 [SSH 远程连接教程](#ssh-远程连接)。
 
 <aside class="note">
-<div class="title">注意</div>
+<div class="title">信息</div>
 
-在 port-forward 成功后，你仍然需要保持 t9k-pf 命令行窗口一直保持运行状态。
+1. 在 port-forward 成功后，您仍然需要保持 t9k-pf 命令行窗口一直保持运行状态。
+2. 标准 Notebook 镜像的默认用户是 `t9kuser`，其主目录（home directory）是 `/t9k/mnt`。
 
 </aside>
 
@@ -77,7 +52,7 @@ t9k-pf notebook <tensorstack-host>/t9k/build-console/projects/demo/notebooks/dem
 在 Terminal 中运行以下命令以连接到 Notebook：
 
 ``` bash
-ssh t9kuser@<Host> -p <Port> \
+ssh t9kuser@localhost -p <Port> \
   -o StrictHostKeyChecking=no \
   -o GlobalKnownHostsFile=/dev/null \
   -o UserKnownHostsFile=/dev/null
@@ -116,8 +91,8 @@ Notebook 的 Pod 没有固定的主机密钥（Host Key），上面的命令设�
 如果你熟悉 SSH，直接编辑位于 `$HOME/.ssh/config` 的配置文件，添加以下信息：
 
 ``` bash
-Host <Host>
-  HostName <Host>
+Host localhost
+  HostName 127.0.0.1
   User t9kuser
   Port <Port>
 ```
@@ -135,7 +110,7 @@ VSCode 提供了编辑 SSH Config 的方式。点击左下角的绿色 **><** �
 根据提示，输入以下内容，然后按下回车键（Enter）：
 
 ``` bash
-ssh t9kuser@<Host> -p <Port>
+ssh t9kuser@localhost -p <Port>
 ```
 
 <figure class="screenshot">
@@ -152,7 +127,7 @@ VSCode 会提示 **Select SSH configuration file to update**，第一个选择�
   <img alt="vscode-connect" src="../assets/tasks/develop-and-test-model/use-notebook-remotely-via-ssh-connection/vscode-connect.png" />
 </figure>
 
-然后选择 SSH Config 中对应的主机名：
+然后选择 SSH Config 中对应的主机名（使用上述配置方式时，主机名为 `localhost`）：
 
 <figure class="screenshot">
   <img alt="vscode-connect-select" src="../assets/tasks/develop-and-test-model/use-notebook-remotely-via-ssh-connection/vscode-connect-select.png" />
@@ -187,7 +162,7 @@ VSCode 会新建一个窗口，等待连接建立之后，左下角会提示 **S
 在弹出的对话框中填写如下参数：
 
 * `Username`：SSH 使用的用户名。
-* `Host`：主机地址。
+* `Host`：主机地址，通常为 `127.0.0.1`。
 * `Port`：端口。
 * `Specify private key`：建议勾选，并选择与你[存储的公钥](create-notebook.md#存储-ssh-公钥)对应的私钥。
 
