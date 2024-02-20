@@ -14,33 +14,34 @@
 
 命令行工具 [t9k-pf](../tools/cli-t9k-pf/index.md) 的功能类似于 `kubectl port-forward`，可以让用户能够在本地通过端口转发的方式访问 TensorStack AI 平台的各种资源。
 
-用户可参考[用户指南](../tools/cli-t9k-pf/guide.md#用户指南)，下载安装 t9k-pf 并配置[身份认证和授权](../tools/cli-t9k-pf/guide.md#身份认证和授权)。
+请参照[用户指南](../tools/cli-t9k-pf/guide.md#用户指南)，下载安装 t9k-pf 并配置[身份认证和授权](../tools/cli-t9k-pf/guide.md#身份认证和授权)。
 
 ### 端口转发命令
 
-在 Notebook 详情页面，用户可以查看并复制 “SSH 服务”提示的命令：
+在 Notebook 详情页面，查看并复制**SSH 服务**提示的命令：
 
 <figure class="screenshot">
   <img alt="copy-t9k-pf-command" src="../assets/tasks/develop-and-test-model/use-notebook-remotely-via-ssh-connection/copy-t9k-pf-command.png" />
 </figure>
 
-在终端输入该命令进行端口转发：
+在终端执行该命令以进行端口转发：
 
-``` bash
+```bash
 $ t9k-pf notebook <URL> <Port>
 now you can forward to your target by 127.0.0.1:<Port>
 ```
 
 参数说明如下：
-1. `URL`：Notebook 的 Web UI 地址。除上述获取方式外，用户也可以“打开” Notebook 后，复制浏览器地址栏中的地址作为 `URL` 参数使用。
-2. `Port`：转发的本地端口。在 [SSH 远程连接教程](#ssh-远程连接)中会使用到该端口。
 
-根据终端打印的提示信息，用户可以使用本地的端口与目标 Notebook 建立 SSH 连接，具体命令参照 [SSH 远程连接](#ssh-远程连接)。
+* `URL`：Notebook 的 Web UI 地址。除上述获取方式外，你也可以在打开 Notebook 后，复制浏览器地址栏中的地址作为 `URL` 参数使用。
+* `Port`：转发的本地端口。在 [SSH 远程连接教程](#ssh-远程连接)中会使用到该端口。
+
+根据终端打印的提示信息，使用本地的端口与目标 Notebook 建立 SSH 连接，具体命令请参阅 [SSH 远程连接](#ssh-远程连接)。
 
 <aside class="note">
-<div class="title">信息</div>
+<div class="title">注意</div>
 
-1. 在 port-forward 成功后，用户仍然需要保持 t9k-pf 命令行窗口一直保持运行状态。
+1. 端口转发成功后，需要保持执行 `t9k-pf` 命令的终端一直处于运行状态。
 2. 标准 Notebook 镜像的默认用户是 `t9kuser`，其主目录（home directory）是 `/t9k/mnt`。
 
 </aside>
@@ -91,7 +92,7 @@ ssh t9kuser@localhost -p <Port> \
 <aside class="note tip">
 <div class="title">提示</div>
 
-如果用户熟悉 SSH，直接编辑位于 `$HOME/.ssh/config` 的配置文件，添加以下信息：
+如果你熟悉 SSH，直接编辑位于 `$HOME/.ssh/config` 的配置文件，添加以下信息：
 
 ``` bash
 Host localhost
@@ -120,7 +121,7 @@ ssh t9kuser@localhost -p <Port>
   <img alt="vscode-ssh-command" src="../assets/tasks/develop-and-test-model/use-notebook-remotely-via-ssh-connection/vscode-ssh-command.png" />
 </figure>
 
-VSCode 会提示 **Select SSH configuration file to update**，第一个选择项通常是位于 `$HOME/.ssh/config` 的配置文件，用户可以选择将主机的信息存储在第一个配置文件中。
+VSCode 会提示 **Select SSH configuration file to update**，第一个选择项通常是位于 `$HOME/.ssh/config` 的配置文件，你可以选择将主机的信息存储在第一个配置文件中。
 
 #### 连接到 Notebook
 
@@ -145,8 +146,7 @@ VSCode 会新建一个窗口，等待连接建立之后，左下角会提示 **S
 
 </aside>
 
-
-点击 Open Folder 可以选择打开的目录或者文件。用户可以和本地开发一样使用 VSCode 来操作 Notebook：
+点击 **Open Folder** 可以选择打开的目录或者文件。你可以和本地开发一样使用 VSCode 来操作 Notebook：
 
 <figure class="screenshot">
   <img alt="vscode-connected" src="../assets/tasks/develop-and-test-model/use-notebook-remotely-via-ssh-connection/vscode-connected.png" />
@@ -177,7 +177,7 @@ VSCode 会新建一个窗口，等待连接建立之后，左下角会提示 **S
 * `Username`：SSH 使用的用户名。
 * `Host`：主机地址，通常为 `127.0.0.1`。
 * `Port`：端口。
-* `Specify private key`：建议勾选，并选择与用户[存储的公钥](create-notebook.md#启用-ssh-选项)对应的私钥。
+* `Specify private key`：建议勾选，并选择与你[上传的公钥](create-notebook.md#启用-ssh-选项)对应的私钥。
 
 <figure class="screenshot">
   <img alt="pycharm-connect" src="../assets/tasks/develop-and-test-model/use-notebook-remotely-via-ssh-connection/pycharm-connect.png" />
@@ -202,9 +202,9 @@ VSCode 会新建一个窗口，等待连接建立之后，左下角会提示 **S
   <img alt="pycharm-edit" src="../assets/tasks/develop-and-test-model/use-notebook-remotely-via-ssh-connection/pycharm-edit.png" />
 </figure>
 
-用户可以和本地开发一样使用 PyCharm 来操作 Notebook：
+你可以和本地开发一样使用 PyCharm 来操作 Notebook：
 
 ## 参考
 
-- <https://code.visualstudio.com/docs/remote/ssh>
-- <https://www.jetbrains.com/help/pycharm/remote-development-overview.html>
+* <https://code.visualstudio.com/docs/remote/ssh>
+* <https://www.jetbrains.com/help/pycharm/remote-development-overview.html>
