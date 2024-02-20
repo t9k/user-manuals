@@ -4,7 +4,7 @@
 
 ## 准备
 
-* 创建了一个[启用 SSH 选项](./create-notebook.md#启用-ssh-选项) 的 Notebook。
+* 创建了一个[启用 SSH 选项](./create-notebook.md#启用-ssh-选项)的 Notebook。
 * 确认该 Notebook 处于正常运行状态。
 
 
@@ -177,7 +177,7 @@ VSCode 会新建一个窗口，等待连接建立之后，左下角会提示 **S
 * `Username`：SSH 使用的用户名。
 * `Host`：主机地址，通常为 `127.0.0.1`。
 * `Port`：端口。
-* `Specify private key`：建议勾选，并选择与用户[存储的公钥](create-notebook.md#存储-ssh-公钥)对应的私钥。
+* `Specify private key`：建议勾选，并选择与用户[存储的公钥](create-notebook.md#启用-ssh-选项)对应的私钥。
 
 <figure class="screenshot">
   <img alt="pycharm-connect" src="../assets/tasks/develop-and-test-model/use-notebook-remotely-via-ssh-connection/pycharm-connect.png" />
