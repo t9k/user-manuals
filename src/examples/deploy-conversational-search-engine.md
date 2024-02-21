@@ -2,48 +2,52 @@
 
 对话式搜索引擎（conversational search engine）是利用自然语言处理技术来理解和响应用户查询的下一代搜索引擎。与传统的基于关键字的搜索引擎不同，对话式搜索引擎能够与用户以自然语言对话的形式进行互动，从而提供更为精准和个性化的搜索结果。这种搜索引擎通过分析用户的查询意图和上下文信息，能够提出问题、澄清疑惑，并给出更加直观和详细的回答。
 
-当下最火热的对话式搜索引擎产品无疑是 Perplexity，但最近广受好评的开源项目 <a target="_blank" rel="noopener noreferrer" href="https://github.com/leptonai/search_with_lepton">Search with Lepton</a> 仅用 500 行 Python 代码就实现了类似的功能。阅读这 500 行代码，其核心逻辑为：
 
-1. 获取用户的查询文本，调用传统搜索引擎的 API 以获取上下文，即结果页面的片段（snippet）。
-1. 将上下文添加到 system prompt（用于编写回答）中，将查询文本作为 user prompt，调用 LLM 生成回答。
-1. 将同样的上下文添加到另一个 system prompt（用于产生关联问题）中，将查询文本作为 user prompt，调用 LLM 生成关联问题。
-1. 将上下文、回答和关联问题返回给 UI 以供展示。
-1. （可选）将当次查询结果存储到数据库中，若用户再次进行相同的查询则直接返回该结果。
+当下（2024 Q1）最火热的对话式搜索引擎产品无疑是 <a target="_blank" rel="noopener noreferrer" href="https://www.perplexity.ai/">Perplexity</a>，但最近广受好评的开源项目 <a target="_blank" rel="noopener noreferrer" href="https://github.com/leptonai/search_with_lepton">“Search with Lepton”</a> 仅用 ~500 行 Python 代码就实现了类似的功能，其核心逻辑为：
 
-<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/search_with_lepton">`t9k/search_with_lepton`</a> fork 了 Search with Lepton 项目并进行了以下修改：
+1. 获取用户的查询文本，调用传统搜索引擎的 API 以获取上下文，即结果页面的片段（snippets）。
+2. 将上下文添加到 system prompt（用于编写回答）中，将查询文本作为 user prompt，调用 LLM 生成回答。
+3. 将同样的上下文添加到另一个 system prompt（用于产生关联问题）中，将查询文本作为 user prompt，调用 LLM 生成关联问题。
+4. 将上下文、回答和关联问题返回给 UI 以供展示。
+5. （可选）将当次查询结果存储到数据库中，若用户再次进行相同的查询则直接返回该结果。
+
+用户也可以在 “TensorStack AI 计算平台” 上方便的实现这个功能。项目 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/search_with_lepton">`t9k/search_with_lepton`</a> fork 了 “Search with Lepton” 项目并进行了以下修改：
 
 * 移除使用 Lepton AI 云服务的代码。
 * 增加 Dockerfile 并构建镜像 `t9kpublic/search-with-lepton`。
 
-本示例使用 Kubernetes 原生资源和 Tensorstack 资源部署该修改后的对话式搜索引擎应用，微服务架构如下图所示：
+本示例使用 Kubernetes 原生资源和 TensorStack 资源部署该修改后的对话式搜索引擎应用，系统架构如下图所示：
 
 <figure class="architecture">
-  <img alt="architecture" src="../../assets/examples/deploy-conversational-search-engine/resources.drawio.svg" class="architecture">
+  <img alt="architecture" src="../assets/examples/deploy-conversational-search-engine/resources.drawio.svg" class="architecture">
+  <figcaption>图 1：在 TensorStack 上实现的对话式搜索引擎的系统架构。</figcaption>
 </figure>
 
 创建的资源如下表所示：
 
 | 类型             | 名称             | 作用                    | 备注                                                                                      |
-| ---------------- | ---------------- | ----------------------- | ----------------------------------------------------------------------------------------- |
-| PVC              | search           | 存储代码和模型文件      | 卷大小为 `180Gi`                                                                          |
-| MLServiceRuntime | vllm-openai-2xtp | 定义 LLM 推理服务的模板 |                                                                                           |
-| MLService        | mixtral-8x7b     | 部署 LLM 推理服务       | 计算资源为 `{"limits":{"cpu": 4, "memory": "64Gi", "nvidia.com/gpu": 2}, "requests": {}}` |
-| Secret           | search           | 存储搜索引擎的 API key  |                                                                                           |
-| Deployment       | search           | 部署对话式搜索服务      | 计算资源为 `{"limits":{"cpu": 2, "memory": "8Gi"}, "requests": {}}`                       |
-| Service          | search           | 暴露服务                |                                                                                           |
+| ---------------- | ---------------- | ----------------------- | ------------ |
+| PVC              | `search`           | 存储代码和模型文件      | 卷大小为 `180Gi`                                                                          |
+| MLServiceRuntime | `vllm-openai-2xtp `| 定义 LLM 推理服务的模板 |      |
+| MLService        | `mixtral-8x7b `    | 部署 LLM 推理服务      | 计算资源为 `{"limits":{"cpu": 4, "memory": "64Gi", "nvidia.com/gpu": 2}, "requests": {}}` |
+| Secret           | `search`           | 存储搜索引擎的 API key |     |
+| Deployment       | `search`           | 部署对话式搜索服务      | 计算资源为 `{"limits":{"cpu": 2, "memory": "8Gi"}, "requests": {}}`                       |
+| Service          | `search`           | 暴露服务                |    |
 
 ## 准备
 
 在项目中创建一个名为 `search`、大小 180 GiB 以上的 PVC，然后创建一个同样名为 `search` 的 Notebook 挂载该 PVC（镜像类型和模板不限）。
 
-进入 Notebook 或远程连接到 Notebook，启动一个终端，执行以下命令以克隆 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/examples">`t9k/examples` 仓库</a>：
+进入 Notebook 或远程连接到 Notebook，启动一个终端，执行以下命令以克隆 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/examples">`t9k/examples`</a> 仓库：
 
 ```bash
 cd ~
 git clone https://github.com/t9k/examples.git
 ```
 
-## 部署 LLM 推理服务
+## 部署
+
+### LLM 推理服务
 
 <aside class="note tip">
 <div class="title">提示</div>
@@ -56,11 +60,11 @@ git clone https://github.com/t9k/examples.git
 Mixtral-8x7B-Instruct-v0.1 的模型文件：
 
 ```bash
-# 方法1：如果可以直接访问 huggingface
+# 方法 1：如果可以直接访问 huggingface
 huggingface-cli download mistralai/Mixtral-8x7B-Instruct-v0.1 \
   --local-dir Mixtral-8x7B-Instruct-v0.1 --local-dir-use-symlinks False
 
-# 方法2：对于国内用户，使用 modelscope
+# 方法 2：对于国内用户，使用 modelscope 可能网络联通性更好
 pip install modelscope
 python -c \
   "from modelscope import snapshot_download; snapshot_download('AI-ModelScope/Mixtral-8x7B-Instruct-v0.1')"
@@ -81,13 +85,13 @@ cd examples/applications/search
 kubectl apply -f mlservice-runtime.yaml
 ```
 
-再使用以下 YAML 配置文件创建 MLService 以部署服务（必要时修改 `spec.scheduler.t9kScheduler.queue` 字段指定的队列）：
+再使用以下 YAML 配置文件创建 MLService 以部署服务（必要时修改 [`spec.scheduler`](../references/api-reference/mlservice.md#schedulepolicy) 字段以使用 `t9k-scheduler` 及特定的队列）：
 
 ```bash
 kubectl create -f mlservice.yaml
 ```
 
-## 部署对话式搜索服务
+### 搜索服务
 
 在以下 YAML 配置文件中提供所调用搜索引擎的 API key，使用它创建 Secret：
 
@@ -110,13 +114,13 @@ kubectl apply -f secret.yaml
 kubectl create -f deployment.yaml
 ```
 
-然后暴露 Deployment 为 Service：
+然后为 Deployment 创建 Service：
 
 ```bash
-kubectl create -f secret.yaml
+kubectl create -f service.yaml
 ```
 
-## 搜索
+## 使用
 
 在本地的终端中，使用 [t9k-pf 命令行工具](../tools/cli-t9k-pf/index.md)，将服务的 8080 端口转发到本地的 8080 端口：
 
@@ -124,7 +128,7 @@ kubectl create -f secret.yaml
 t9k-pf service search 8080:8080 -n <PROJECT NAME>
 ```
 
-然后使用浏览器访问 `127.0.0.1:8080`，搜索以下问题：
+然后使用浏览器访问 <a target="_blank" rel="noopener noreferrer" href="http://127.0.0.1:8080">http://127.0.0.1:8080</a>，搜索以下问题：
 
 1. when will nvidia RTX 5000 series be released?
 1. 二进制小品是什么
@@ -144,7 +148,7 @@ t9k-pf service search 8080:8080 -n <PROJECT NAME>
   <img alt="search-with-lepton-q3" src="../assets/examples/deploy-conversational-search-engine/search-with-lepton-q3.png" />
 </figure>
 
-作为比较，我们在 Perplexity 搜索相同的问题：
+作为比较，我们在 <a target="_blank" rel="noopener noreferrer" href="https://www.perplexity.ai/">Perplexity</a> 搜索相同的问题：
 
 <figure class="screenshot">
   <img alt="perplexity-q1" src="../assets/examples/deploy-conversational-search-engine/perplexity-q1.png" />
@@ -162,7 +166,7 @@ t9k-pf service search 8080:8080 -n <PROJECT NAME>
 
 1. 尽管该应用可以理解中文查询和上下文，但它仅以英文回复，这是因为其调用的 Mixtral 8x7B 模型<a target="_blank" rel="noopener noreferrer" href="https://mistral.ai/news/mixtral-of-experts">仅支持英语和一些欧洲语言</a>。你可以自行尝试调用其他支持中文的 LLM。
 
-1. 在回答问题 2 时，应用给出的解释“It is a form of light and humorous artistic work that explores the characteristics, applications, nad computer-related topics of binary.（它是一种轻松幽默的艺术作品形式，探索了二进制的特征、应用和与计算机相关的话题。）”存在明显误解，追溯其引用的<a target="_blank" rel="noopener noreferrer" href="https://zhidao.baidu.com/question/274974338041104445.html">参考源</a>，我们发现该来源的解释就存在错误，且很有可能是由另一个 LLM 产生的虚构的信息。这提示我们在对话式搜索引擎中，搜索的准确性比内容生成更为关键，凸显了优化获取和处理上下文信息步骤的重要性。
+1. 在回答问题 2 时，应用给出的解释 “It is a form of light and humorous artistic work that explores the characteristics, applications, nad computer-related topics of binary.（它是一种轻松幽默的艺术作品形式，探索了二进制的特征、应用和与计算机相关的话题。）” 存在明显误解，追溯其引用的<a target="_blank" rel="noopener noreferrer" href="https://zhidao.baidu.com/question/274974338041104445.html">参考源</a>，我们发现该来源的解释就存在错误，且很有可能是由另一个 LLM 产生的虚构的信息。这提示我们在对话式搜索引擎中，搜索的准确性比内容生成更为关键，凸显了优化获取和处理上下文信息步骤的重要性。
 
 相比之下，Perplexity 支持中文，并且生成回答的速度更快。尽管如此，其回答的质量并没有更好，尤其是对于问题 2 的回答出现了问题，完全没有引用参考源，而是由 LLM 直接生成的。其对于问题 3 的回答所包含的有用信息也较少。
 
