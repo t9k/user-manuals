@@ -10,7 +10,27 @@
 1. 将上下文、回答和关联问题返回给 UI 以供展示。
 1. （可选）将当次查询结果存储到数据库中，若用户再次进行相同的查询则直接返回该结果。
 
-本示例使用 Kubernetes 原生资源 Deployment 部署 Search with Lepton 对话式搜索引擎应用。
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/search_with_lepton">`t9k/search_with_lepton`</a> fork 了 Search with Lepton 项目并进行了以下修改：
+
+* 移除使用 Lepton AI 云服务的代码。
+* 增加 Dockerfile 并构建镜像 `t9kpublic/search-with-lepton`。
+
+本示例使用 Kubernetes 原生资源和 Tensorstack 资源部署该修改后的对话式搜索引擎应用，微服务架构如下图所示：
+
+<figure class="architecture">
+  <img alt="architecture" src="../../assets/examples/deploy-conversational-search-engine/resources.drawio.svg" class="architecture">
+</figure>
+
+创建的资源如下表所示：
+
+| 类型             | 名称             | 作用                    | 备注                                                                                      |
+| ---------------- | ---------------- | ----------------------- | ----------------------------------------------------------------------------------------- |
+| PVC              | search           | 存储代码和模型文件      | 卷大小为 `180Gi`                                                                          |
+| MLServiceRuntime | vllm-openai-2xtp | 定义 LLM 推理服务的模板 |                                                                                           |
+| MLService        | mixtral-8x7b     | 部署 LLM 推理服务       | 计算资源为 `{"limits":{"cpu": 4, "memory": "64Gi", "nvidia.com/gpu": 2}, "requests": {}}` |
+| Secret           | search           | 存储搜索引擎的 API key  |                                                                                           |
+| Deployment       | search           | 部署对话式搜索服务      | 计算资源为 `{"limits":{"cpu": 2, "memory": "8Gi"}, "requests": {}}`                       |
+| Service          | search           | 暴露服务                |                                                                                           |
 
 ## 准备
 
@@ -23,9 +43,7 @@ cd ~
 git clone https://github.com/t9k/examples.git
 ```
 
-## 部署
-
-### 部署 LLM 推理服务
+## 部署 LLM 推理服务
 
 <aside class="note tip">
 <div class="title">提示</div>
@@ -58,44 +76,24 @@ mv .cache/modelscope/hub/AI-ModelScope/Mixtral-8x7B-Instruct-v0.1 .
 
 然后使用 vLLM 部署兼容 OpenAI API 的 LLM 推理服务。使用以下 YAML 配置文件创建 MLServiceRuntime：
 
-<details><summary><code class="hljs">mlservice-runtime.yaml</code></summary>
-
-```yaml
-{{#include ../assets/examples/deploy-conversational-search-engine/mlservice-runtime.yaml}}
-```
-
-</details>
-
 ```bash
+cd examples/applications/search
 kubectl apply -f mlservice-runtime.yaml
 ```
 
 再使用以下 YAML 配置文件创建 MLService 以部署服务（必要时修改 `spec.scheduler.t9kScheduler.queue` 字段指定的队列）：
 
-<details><summary><code class="hljs">mlservice.yaml</code></summary>
-
-```yaml
-{{#include ../assets/examples/deploy-conversational-search-engine/mlservice.yaml}}
-```
-
-</details>
-
 ```bash
 kubectl create -f mlservice.yaml
 ```
 
-### 部署应用
+## 部署对话式搜索服务
 
-<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/search_with_lepton">`t9k/search_with_lepton`</a> fork 了 Search with Lepton 项目并进行了以下修改：
-
-* 移除使用 Lepton AI 云服务的代码。
-* 增加 Dockerfile 并构建应用镜像 `t9kpublic/search-with-lepton`。
-
-接下来使用上述镜像部署该应用。在以下 YAML 配置文件中提供所调用搜索引擎的 API key，使用它创建 Secret：
+在以下 YAML 配置文件中提供所调用搜索引擎的 API key，使用它创建 Secret：
 
 ```bash
-vim examples/applications/search-with-lepton/secret.yaml
-kubectl apply -f examples/applications/search-with-lepton/secret.yaml
+# 修改 secret.yaml
+kubectl apply -f secret.yaml
 ```
 
 <aside class="note tip">
@@ -105,38 +103,25 @@ kubectl apply -f examples/applications/search-with-lepton/secret.yaml
 
 </aside>
 
-在以下 YAML 配置文件中提供环境变量，使用它创建 Deployment 以部署应用：
+在以下 YAML 配置文件中提供环境变量，使用它创建 Deployment：
 
 ```bash
-vim examples/applications/search-with-lepton/deployment.yaml
-kubectl create -f examples/applications/search-with-lepton/deployment.yaml
+# 修改 deployment.yaml
+kubectl create -f deployment.yaml
 ```
 
-然后暴露 Deployment 为 Service（ClusterIP 类型）：
+然后暴露 Deployment 为 Service：
 
 ```bash
-kubectl expose deployment search-with-lepton --name=search-with-lepton
+kubectl create -f secret.yaml
 ```
-
-### Kubernetes 资源清单
-
-上述部署所创建的 Kubernetes 资源如下表所示：
-
-| 类型             | 名称               | 作用                    | 备注                                                                                      |
-| ---------------- | ------------------ | ----------------------- | ----------------------------------------------------------------------------------------- |
-| PVC              | search             | 存储代码和模型文件      | 卷大小为 `180Gi`                                                                          |
-| MLServiceRuntime | vllm-openai-2xtp   | 定义 LLM 推理服务的模板 |                                                                                           |
-| MLService        | mixtral-8x7b       | 部署 LLM 推理服务       | 计算资源为 `{"limits":{"cpu": 4, "memory": "64Gi", "nvidia.com/gpu": 2}, "requests": {}}` |
-| Secret           | search-with-lepton | 存储密钥                |                                                                                           |
-| Deployment       | search-with-lepton | 部署应用                | 计算资源为 `{"limits":{"cpu": 2, "memory": "8Gi"}, "requests": {}}`                       |
-| Service          | search-with-lepton | 暴露服务                |                                                                                           |
 
 ## 搜索
 
 在本地的终端中，使用 [t9k-pf 命令行工具](../tools/cli-t9k-pf/index.md)，将服务的 8080 端口转发到本地的 8080 端口：
 
 ```bash
-t9k-pf service search-with-lepton 8080:8080 -n <PROJECT NAME>
+t9k-pf service search 8080:8080 -n <PROJECT NAME>
 ```
 
 然后使用浏览器访问 `127.0.0.1:8080`，搜索以下问题：
@@ -145,7 +130,7 @@ t9k-pf service search-with-lepton 8080:8080 -n <PROJECT NAME>
 1. 二进制小品是什么
 1. 武汉火车站是否已经恢复正常运行
 
-需要说明的是，这里 Search with Lepton 所使用的搜索引擎后端是 Bing，调用的 LLM 是 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1">Mixtral-8x7B-Instruct-v0.1</a>。以下搜索于 2024 年 2 月 8 日进行。
+需要说明的是，这里对话式搜索引擎所使用的搜索引擎后端是 Bing，调用的 LLM 是 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1">Mixtral-8x7B-Instruct-v0.1</a>。以下搜索于 2024 年 2 月 8 日进行。
 
 <figure class="screenshot">
   <img alt="search-with-lepton-q1" src="../assets/examples/deploy-conversational-search-engine/search-with-lepton-q1.png" />
@@ -173,10 +158,16 @@ t9k-pf service search-with-lepton 8080:8080 -n <PROJECT NAME>
   <img alt="perplexity-q3" src="../assets/examples/deploy-conversational-search-engine/perplexity-q3.png" />
 </figure>
 
-可以看到，Search with Lepton 的回答基本准确且详细，但存在以下问题：
+可以看到，该应用的回答基本准确且详细，但存在以下问题：
 
 1. 尽管该应用可以理解中文查询和上下文，但它仅以英文回复，这是因为其调用的 Mixtral 8x7B 模型<a target="_blank" rel="noopener noreferrer" href="https://mistral.ai/news/mixtral-of-experts">仅支持英语和一些欧洲语言</a>。你可以自行尝试调用其他支持中文的 LLM。
 
 1. 在回答问题 2 时，应用给出的解释“It is a form of light and humorous artistic work that explores the characteristics, applications, nad computer-related topics of binary.（它是一种轻松幽默的艺术作品形式，探索了二进制的特征、应用和与计算机相关的话题。）”存在明显误解，追溯其引用的<a target="_blank" rel="noopener noreferrer" href="https://zhidao.baidu.com/question/274974338041104445.html">参考源</a>，我们发现该来源的解释就存在错误，且很有可能是由另一个 LLM 产生的虚构的信息。这提示我们在对话式搜索引擎中，搜索的准确性比内容生成更为关键，凸显了优化获取和处理上下文信息步骤的重要性。
 
 相比之下，Perplexity 支持中文，并且生成回答的速度更快。尽管如此，其回答的质量并没有更好，尤其是对于问题 2 的回答出现了问题，完全没有引用参考源，而是由 LLM 直接生成的。其对于问题 3 的回答所包含的有用信息也较少。
+
+## 参考
+
+* GitHub 上的 <a target="_blank" rel="noopener noreferrer" href="https://github.com/leptonai/search_with_lepton">Search with Lepton</a> 原项目，以及 fork 项目 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/search_with_lepton">t9k/search_with_lepton</a>
+* <a target="_blank" rel="noopener noreferrer" href="https://www.perplexity.ai/">Perplexity</a>
+* <a target="_blank" rel="noopener noreferrer" href="https://mistral.ai/news/mixtral-of-experts/">Mistral AI News: Mixtral of experts</a>

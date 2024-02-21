@@ -278,11 +278,5 @@ The cat is purring
 
 ## 参考
 
-- <a target="_blank" rel="noopener noreferrer" href="https://github.com/pgvector/pgvector">GitHub 上的 pgvector</a>
-- <a target="_blank" rel="noopener noreferrer" href="https://github.com/pgvector/pgvector-python">GitHub 上的 pgvector-python</a>
-
-
-
-
-
-
+* <a target="_blank" rel="noopener noreferrer" href="https://github.com/pgvector/pgvector">GitHub 上的 pgvector</a>
+* <a target="_blank" rel="noopener noreferrer" href="https://github.com/pgvector/pgvector-python">GitHub 上的 pgvector-python</a>
