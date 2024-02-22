@@ -58,7 +58,7 @@ use_https = <False | True>
 s3cmd -c s3cfg ls s3://<my-bucket>
 ```
 
-### 创建 Secret 来保存 S3 凭证
+### 创建 Secret
 
 #### 通过控制台
 
@@ -78,7 +78,7 @@ s3cmd -c s3cfg ls s3://<my-bucket>
 
 #### 通过命令行工具
 
-你可以使用 kubectl 命令行工具创建 Secret：
+用户也可以使用 `kubectl` 命令行工具创建 Secret：
 
 ``` shell
 kubectl -n <project> create secret generic <s3cfg-secret> \
@@ -107,7 +107,7 @@ kubectl -n <project> get secret <s3cfg-secret> \
 
 对比输出内容与你本地的 `s3cfg`，确认内容一致，重点是 `access_key`、`host_base` 和 `secret_key` 字段。
 
-### 创建 PVC
+### 创建 StorageShim
 
 #### 通过控制台
 
@@ -237,3 +237,10 @@ s3cmd setacl --acl-public s3://my-bucket-name/path/to/remote/file
 * 安全性：对象存储提供了许多安全功能，包括加密和访问控制。
 
 对象存储是一种强大而灵活的数据存储架构，是存储大量非结构化数据、需要从多个位置访问的数据以及需要高可用性和安全性的数据的不错选择。
+
+## 参考
+
+- <a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Amazon_S3">Wikipedia: S3 协议</a>
+- <a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Object_storage">Wikipedia: 对象存储</a>
+- <a target="_blank" rel="noopener noreferrer" href="https://aws.amazon.com/cn/s3/">AWS: S3 (Simple Storage Service)</a>
+- <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/">Kubernetes: PVC(PersistentVolumeClaim)</a>
