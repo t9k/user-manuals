@@ -64,7 +64,7 @@ helm install pgvector-demo t9kpublic/bitnami-pgvector \
   -f values.yaml
 ```
 
-下面将分主题介绍部分关键配置（对于 CHART VERSION 14.1.3）。
+下面将分主题介绍部分关键配置（CHART VERSION 14.1.3）。
 
 #### 计算资源
 
@@ -171,16 +171,21 @@ backup:
       subPath: ""
 ```
 
-### Kubernetes 资源清单
+### 微服务架构
 
-Helm 在部署应用时创建的主要 Kubernetes 资源如下表所示：
+应用的微服务架构如下图所示（CHART VERSION 14.1.3，默认配置）：
 
-| 类型        | 名称                            | 作用                       | 备注                |
-| ----------- | ------------------------------- | -------------------------- | ------------------- |
-| Service     | pgvector-demo-postgresql        | 暴露服务                   |                     |
-| StatefulSet | pgvector-demo-postgresql        | 部署 postgresql + pgvector | 默认计算资源为 `{}` |
-| PVC         | data-pgvector-demo-postgresql-* | 数据库的持久化存储         | 默认卷大小为 `8Gi`  |
-| Secret      | pgvector-demo-postgresql        | 存储密钥                   |                     |
+<figure class="architecture">
+  <img alt="architecture" src="../../assets/integrations/vector-database-pgvector/microservice.drawio.svg" class="architecture">
+</figure>
+
+创建的主要 Kubernetes 资源如下表所示：
+
+| 类型        | 名称                     | 作用                                         | 备注                                    |
+| ----------- | ------------------------ | -------------------------------------------- | --------------------------------------- |
+| Service     | pgvector-demo-postgresql | 暴露服务                                     |                                         |
+| StatefulSet | pgvector-demo-postgresql | 部署 PostgreSQL + pgvector（包括持久化存储） | 默认计算资源为 `{}`，默认卷大小为 `8Gi` |
+| Secret      | pgvector-demo-postgresql | 存储 postgres 密钥                           |                                         |
 
 ### 运维
 
@@ -256,7 +261,7 @@ pip install pgvector "psycopg[binary]" sentence_transformers
 <details><summary><code class="hljs">sentence_embeddings.py</code></summary>
 
 ```python
-{{#include ../assets/integrations/vector-database/sentence_embeddings.py}}
+{{#include ../assets/integrations/vector-database-pgvector/sentence_embeddings.py}}
 ```
 
 </details>

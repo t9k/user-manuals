@@ -34,7 +34,7 @@ helm install label-studio-demo heartex/label-studio --version <CHART_VERSION>
 helm show values heartex/label-studio --version <CHART_VERSION> > values.yaml
 ```
 
-其中部分关键配置如下所示（对于 CHART VERSION 1.4.0）：
+其中部分关键配置如下所示（CHART VERSION 1.4.0）：
 
 ```yaml
 app:
@@ -87,19 +87,25 @@ Ingress 配置也可以采用其他方案，需要结合集群的具体配置。
 helm install label-studio-demo heartex/label-studio --version <CHART_VERSION> -f values.yaml
 ```
 
-### Kubernetes 资源清单
+### 微服务架构
 
-Helm 在部署应用时创建的主要 Kubernetes 资源如下表所示：
+应用的微服务架构如下图所示（CHART VERSION 1.4.0，默认配置）：
 
-| 类型        | 名称                                | 作用                                           | 备注                                                                            |
-| ----------- | ----------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------- |
-| Service     | label-studio-demo-ls-app            | 作为应用服务                                   |                                                                                 |
-| Service     | label-studio-demo-postgresql        | 作为数据库服务                                 |                                                                                 |
-| Deployment  | label-studio-demo-ls-app            | 部署应用                                       | 默认计算资源为 `{"limits": {}, "requests": {}}`                                 |
-| StatefulSet | label-studio-demo-postgresql        | 部署数据库                                     | 默认计算资源为 `{"limits": {}, "requests": {"cpu": "250m", "memory": "256Mi"}}` |
-| PVC         | label-studio-demo-ls-pvc            | 作为应用的持久化存储，存储用户上传的数据文件等 | 选择卷作为持久化方案时存在；默认卷大小为 `10Gi`                                 |
-| PVC         | data-label-studio-demo-postgresql-* | 作为数据库的持久化存储                         | 默认卷大小为 `8Gi`                                                              |
-| Ingress     | label-studio-demo-ls-app            | 提供外部访问                                   | 启用 Ingress 时存在                                                             |
+<figure class="architecture">
+  <img alt="architecture" src="../../assets/integrations/label-studio/microservice.drawio.svg" class="architecture">
+</figure>
+
+创建的主要 Kubernetes 资源如下表所示：
+
+| 类型        | 名称                         | 作用                                           | 备注                                                                                                |
+| ----------- | ---------------------------- | ---------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| Service     | label-studio-demo-ls-app     | 作为应用服务                                   |                                                                                                     |
+| Deployment  | label-studio-demo-ls-app     | 部署应用                                       | 默认计算资源为 `{"limits": {}, "requests": {}}`                                                     |
+| Ingress     | label-studio-demo-ls-app     | 提供外部访问                                   | 启用 Ingress 时存在                                                                                 |
+| Service     | label-studio-demo-postgresql | 作为数据库服务                                 |                                                                                                     |
+| StatefulSet | label-studio-demo-postgresql | 部署数据库（包括持久化存储）                   | 默认计算资源为 `{"limits": {}, "requests": {"cpu": "250m", "memory": "256Mi"}}`，默认卷大小为 `8Gi` |
+| Secret      | label-studio-demo-postgresql | 存储数据库密钥                                 |                                                                                                     |
+| PVC         | label-studio-demo-ls-pvc     | 作为应用的持久化存储，存储用户上传的数据文件等 | 选择卷作为持久化方案时存在；默认卷大小为 `10Gi`                                                     |
 
 ### 运维
 

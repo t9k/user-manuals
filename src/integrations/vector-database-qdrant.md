@@ -8,11 +8,11 @@
 
 目前市面上存在数量众多的向量数据库产品，即便是开源向量数据库也有不少选择，例如 <a target="_blank" rel="noopener noreferrer" href="https://github.com/milvus-io/milvus">Milvus</a>、<a target="_blank" rel="noopener noreferrer" href="https://github.com/qdrant/qdrant">Qdrant</a>、<a target="_blank" rel="noopener noreferrer" href="https://github.com/chroma-core/chroma">Chroma</a>、<a target="_blank" rel="noopener noreferrer" href="https://github.com/weaviate/weaviate">Weaviate</a> 等。关于这些向量数据库的比较，可以参阅博客 <a target="_blank" rel="noopener noreferrer" href="https://thedataquarry.com/posts/vector-db-1/">Vector databases (1): What makes each one different?</a>。
 
-![vector-db-lang](../assets/integrations/vector-database/vector-db-lang.png)
+![vector-db-lang](../assets/integrations/vector-database-qdrant/vector-db-lang.png)
 
 这里以 <a target="_blank" rel="noopener noreferrer" href="https://github.com/qdrant/qdrant">Qdrant</a> 为例进行部署。Qdrant 官方提供了 <a target="_blank" rel="noopener noreferrer" href="https://artifacthub.io/packages/helm/qdrant/qdrant">Helm chart</a>，部署更加简单、便捷。
 
-![qdrant](../assets/integrations/vector-database/qdrant.svg)
+![qdrant](../assets/integrations/vector-database-qdrant/qdrant.svg)
 
 Qdrant 的一些特性如下：
 
@@ -65,7 +65,7 @@ helm show values qdrant/qdrant --version <CHART_VERSION> > values.yaml
 helm install qdrant-demo qdrant/qdrant --version <CHART_VERSION> -f values.yaml
 ```
 
-下面将分主题介绍部分关键配置（对于 CHART VERSION 0.7.6）。
+下面将分主题介绍部分关键配置（CHART VERSION 0.7.6）。
 
 ### 计算资源
 
@@ -202,15 +202,20 @@ config:
 
 更多信息请参阅 <a target="_blank" rel="noopener noreferrer" href="https://qdrant.tech/documentation/guides/security/">Security</a>。
 
-### Kubernetes 资源清单
+### 微服务架构
 
-Helm 在部署应用时创建的主要 Kubernetes 资源如下表所示：
+应用的微服务架构如下图所示（CHART VERSION 0.7.6，默认配置）：
 
-| 类型        | 名称                         | 作用                 | 备注                |
-| ----------- | ---------------------------- | -------------------- | ------------------- |
-| Service     | qdrant-demo                  | 作为应用服务         |                     |
-| StatefulSet | qdrant-demo                  | 部署应用             | 默认计算资源为 `{}` |
-| PVC         | qdrant-storage-qdrant-demo-* | 作为应用的持久化存储 | 默认卷大小为 `10Gi` |
+<figure class="architecture">
+  <img alt="architecture" src="../../assets/integrations/vector-database-qdrant/microservice.drawio.svg" class="architecture">
+</figure>
+
+创建的主要 Kubernetes 资源如下表所示：
+
+| 类型        | 名称        | 作用                          | 备注                                     |
+| ----------- | ----------- | ----------------------------- | ---------------------------------------- |
+| Service     | qdrant-demo | 暴露服务                      |                                          |
+| StatefulSet | qdrant-demo | 部署 Qdrant（包括持久化存储） | 默认计算资源为 `{}`，默认卷大小为 `10Gi` |
 
 ### 运维
 
@@ -266,7 +271,7 @@ pip install qdrant-client
 <details><summary><code class="hljs">quick_start.py</code></summary>
 
 ```python
-{{#include ../assets/integrations/vector-database/quick_start.py}}
+{{#include ../assets/integrations/vector-database-qdrant/quick_start.py}}
 ```
 
 </details>
@@ -291,7 +296,7 @@ t9k-pf -n <APP_PROJECT> pod qdrant-demo-0 6333:6333
 在浏览器中访问 <a target="_blank" rel="noopener noreferrer" href="http://127.0.0.1:6333/dashboard">http://127.0.0.1:6333/dashboard</a> 进入 Web UI。在 Console 页面中，用户可以直接调用 REST API 并得到响应结果：
 
 <figure class="screenshot">
-  <img alt="loss" src="../assets/integrations/vector-database/console.png" />
+  <img alt="loss" src="../assets/integrations/vector-database-qdrant/console.png" />
 </figure>
 
 在 Collections 页面中，用户可以进行以下操作：
@@ -303,15 +308,15 @@ t9k-pf -n <APP_PROJECT> pod qdrant-demo-0 6333:6333
 * 删除 collection
 
 <figure class="screenshot">
-  <img alt="loss" src="../assets/integrations/vector-database/collections.png" />
+  <img alt="loss" src="../assets/integrations/vector-database-qdrant/collections.png" />
 </figure>
 
 <figure class="screenshot">
-  <img alt="loss" src="../assets/integrations/vector-database/collections-points.png" />
+  <img alt="loss" src="../assets/integrations/vector-database-qdrant/collections-points.png" />
 </figure>
 
 <figure class="screenshot">
-  <img alt="loss" src="../assets/integrations/vector-database/collections-visualization.png" />
+  <img alt="loss" src="../assets/integrations/vector-database-qdrant/collections-visualization.png" />
 </figure>
 
 Web UI 的其他功能这里不再一一介绍，用户可以自行探索。
