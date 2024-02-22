@@ -1,4 +1,4 @@
-# 生产环境的模型推理服务
+# 模型推理服务
 
 本教程演示使用 MLService 部署一个功能完善、自动化程度高，可用于生产环境的模型推理服务。
 
@@ -42,3 +42,9 @@ curl -T test_data/0.png ${url}/v1/models/mnist:predict # or use `1.png`, `2.png`
 <figure class="screenshot">
   <img alt="resource-usage" src="../assets/tasks/deploy-model-reference-serving/mlservice/resource-usage.png" />
 </figure>
+
+## 参考
+
+- [MLService 介绍](../modules/deployment/mlservice.md)
+- API 参考：[MLService](../../references/api-reference/mlservice.md)
+- API 参考：[MLServiceRuntime](../../references/api-reference/mlservice.md#mlserviceruntime)

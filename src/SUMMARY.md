@@ -95,7 +95,7 @@
 
     * [部署推理服务](tasks/deploy-inference-service.md)
         * [简单推理服务](tasks/deploy-simplemlservice.md)
-        * [生产环境推理服务](tasks/deploy-mlservice.md)
+        * [推理服务](tasks/deploy-mlservice.md)
         * [包含 Transformer 的推理服务](tasks/deploy-mlservice-transformer.md)
 
     * [管理 AI 资产](tasks/manage-ai-assets.md)
@@ -189,7 +189,7 @@
     * [部署 Stable Diffusion 图像生成模型](examples/deploy-sd-drawing-model.md)
     * [使用 AutoGen 构建下一代 LLM 应用](examples/build-next-generation-llm-app-using-autogen.md)
     * [车道检测](examples/lane-detection.md)
-    * [使用 CoreWeave Tensorizer 加速模型部署](examples/deploy-mlservice-tensorizer.md)
+    * [使用 Tensorizer 加速模型部署](examples/deploy-mlservice-tensorizer.md)
     * [使用 vLLM 部署 LLM 推理服务](examples/deploy-llm-using-vllm.md)
     * [部署对话式搜索引擎](examples/deploy-conversational-search-engine.md)
 

@@ -41,3 +41,9 @@ address=$(kubectl get mls pic-mnist -ojsonpath='{.status.address.url}') && echo 
 ``` shell
 curl --data-binary @./shoe.png ${address}/v1/models/model:predict
 ```
+
+## 参考
+
+- [MLService 介绍](../modules/deployment/mlservice.md)
+- API 参考：[MLService](../../references/api-reference/mlservice.md)
+- API 参考：[MLServiceRuntime](../../references/api-reference/mlservice.md#mlserviceruntime)

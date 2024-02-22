@@ -1,10 +1,10 @@
-# 使用 CoreWeave Tensorizer 加速模型部署
+# 使用 Tensorizer 加速模型部署
 
-在部署模型的过程中，加载模型尤其是大模型往往耗时很长。对此，CoreWeave 发布了 [Tensorizer](https://docs.coreweave.com/coreweave-machine-learning-and-ai/inference/tensorizer) 用于模型和张量的序列化和反序列化。它能以更少的资源和更快的速度加载模型。
+在部署模型的过程中，加载模型尤其是大模型往往耗时很长。对此，CoreWeave 发布了 <a target="_blank" rel="noopener noreferrer" href="https://docs.coreweave.com/coreweave-machine-learning-and-ai/inference/tensorizer">Tensorizer</a> 用于模型和张量的序列化和反序列化。它能以更少的资源和更快的速度加载模型。
 
 TensorStack 提供的 [SimpleMLService](../modules/deployment/simplemlservice.md) 和 [MLService](../modules/deployment/mlservice.md) 可以让用户方便地部署各种模型。
 
-本示例通过 MLService 部署一个 [GPT-J-6B](https://huggingface.co/EleutherAI/gpt-j-6b) 大模型，并使用 [CoreWeave Tensorizer](https://docs.coreweave.com/coreweave-machine-learning-and-ai/inference/tensorizer) 加速模型加载。
+本示例通过 MLService 部署一个 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/EleutherAI/gpt-j-6b">GPT-J-6B</a> 大模型，并使用 <a target="_blank" rel="noopener noreferrer" href="https://docs.coreweave.com/coreweave-machine-learning-and-ai/inference/tensorizer">CoreWeave Tensorizer</a>  加速模型加载。
 
 
 ## 准备
@@ -77,3 +77,8 @@ curl ${url}/v1/models/gptj:predict -X POST -H 'Content-Type: application/json' -
 ## 扩展
 
 上述例子演示了如何下载以及部署 GPT-J-6B 大模型。用户可以参考[制作 Tensorizer 相关的镜像](https://github.com/t9k/examples/blob/master/inference/tensorizer/README.md#%E5%88%B6%E4%BD%9C-tensorizer-%E7%9B%B8%E5%85%B3%E7%9A%84%E9%95%9C%E5%83%8F)将 Tensorizer 用于自定义模型的部署。
+
+## 参考
+
+- <a target="_blank" rel="noopener noreferrer" href="https://docs.coreweave.com/coreweave-machine-learning-and-ai/inference/tensorizer">CoreWeave Tensorizer 介绍</a> 
+- API 参考：[MLService](../../references/api-reference/mlservice.md)

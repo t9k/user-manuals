@@ -607,13 +607,15 @@ $ curl -T test_data/0.png http://torch-mnist.<project-name>.<domain-name>/v1/mod
 }
 ```
 
-## 应用示例
+## 下一步
 
-- [使用 vLLM 部署 LLM 推理服务](../../examples/deploy-llm-using-vllm.md)
-- [部署对话式搜索引擎](../../examples/deploy-conversational-search-engine.md)
+- 了解如何部署一个[模型推理服务](../../tasks/deploy-mlservice.md)
+- 了解如何部署一个[包含 Transformer 的推理服务](../../tasks/deploy-mlservice-transformer.md)
+- 应用示例：[使用 vLLM 部署 LLM 推理服务](../../examples/deploy-llm-using-vllm.md)
+- 应用示例：[部署对话式搜索引擎](../../examples/deploy-conversational-search-engine.md)
 
 ## 参考
 
 - API 参考：[MLService](../../references/api-reference/mlservice.md)
 - API 参考：[MLServiceRuntime](../../references/api-reference/mlservice.md#mlserviceruntime)
-- <a target="_blank" rel="noopener noreferrer" href="https://knative.dev/docs/serving/autoscaling/">Knative autoscaling</a>
+- <a target="_blank" rel="noopener noreferrer" href="https://knative.dev/docs/serving/autoscaling/">Knative Autoscaling</a>

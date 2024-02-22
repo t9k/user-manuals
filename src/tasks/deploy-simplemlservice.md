@@ -26,3 +26,8 @@
 <figure class="screenshot">
     <img alt="detail" src="../assets/tasks/deploy-simplemlservice/details.png" />
 </figure>
+
+## 参考
+
+- [SimpleMLService 介绍](../modules/deployment/simplemlservice.md)
+- API 参考：[SimpleMLService](../../references/api-reference/simplemlservice.md)

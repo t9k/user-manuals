@@ -282,4 +282,4 @@ status:
 ## 下一步
 
 * 了解如何部署一个[简单推理服务](../../tasks/deploy-simplemlservice.md)
-* 详细 API 参考： [SimpleMLService](../../references/api-reference/simplemlservice.md)
+* API 参考：[SimpleMLService](../../references/api-reference/simplemlservice.md)
