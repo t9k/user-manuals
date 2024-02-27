@@ -202,20 +202,21 @@ config:
 
 更多信息请参阅 <a target="_blank" rel="noopener noreferrer" href="https://qdrant.tech/documentation/guides/security/">Security</a>。
 
-### 微服务架构
+### 应用架构
 
-应用的微服务架构如下图所示（CHART VERSION 0.7.6，默认配置）：
+应用的系统架构如下图所示（CHART VERSION 0.7.6，默认配置）：
 
 <figure class="architecture">
-  <img alt="architecture" src="../../assets/integrations/vector-database-qdrant/microservice.drawio.svg" class="architecture">
+  <img alt="architecture" src="../assets/integrations/vector-database-qdrant/microservice.drawio.svg" class="architecture">
 </figure>
 
 创建的主要 Kubernetes 资源如下表所示：
 
-| 类型        | 名称        | 作用                          | 备注                                     |
-| ----------- | ----------- | ----------------------------- | ---------------------------------------- |
-| Service     | qdrant-demo | 暴露服务                      |                                          |
-| StatefulSet | qdrant-demo | 部署 Qdrant（包括持久化存储） | 默认计算资源为 `{}`，默认卷大小为 `10Gi` |
+| 类型        | 名称                         | 作用                     | 备注                |
+| ----------- | ---------------------------- | ------------------------ | ------------------- |
+| Service     | qdrant-demo                  | 暴露 Qdrant 服务         |                     |
+| StatefulSet | qdrant-demo                  | 部署 Qdrant              | 默认计算资源为 `{}` |
+| PVC         | qdrant-storage-qdrant-demo-* | 作为 Qdrant 的持久化存储 | 默认卷大小为 `10Gi` |
 
 ### 运维
 

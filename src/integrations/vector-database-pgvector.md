@@ -171,21 +171,22 @@ backup:
       subPath: ""
 ```
 
-### 微服务架构
+### 应用架构
 
-应用的微服务架构如下图所示（CHART VERSION 14.1.3，默认配置）：
+应用的系统架构如下图所示（CHART VERSION 14.1.3，默认配置）：
 
 <figure class="architecture">
-  <img alt="architecture" src="../../assets/integrations/vector-database-pgvector/microservice.drawio.svg" class="architecture">
+  <img alt="architecture" src="../assets/integrations/vector-database-pgvector/microservice.drawio.svg" class="architecture">
 </figure>
 
 创建的主要 Kubernetes 资源如下表所示：
 
-| 类型        | 名称                     | 作用                                         | 备注                                    |
-| ----------- | ------------------------ | -------------------------------------------- | --------------------------------------- |
-| Service     | pgvector-demo-postgresql | 暴露服务                                     |                                         |
-| StatefulSet | pgvector-demo-postgresql | 部署 PostgreSQL + pgvector（包括持久化存储） | 默认计算资源为 `{}`，默认卷大小为 `8Gi` |
-| Secret      | pgvector-demo-postgresql | 存储 postgres 密钥                           |                                         |
+| 类型        | 名称                            | 作用                                         | 备注                |
+| ----------- | ------------------------------- | -------------------------------------------- | ------------------- |
+| Service     | pgvector-demo-postgresql        | 暴露 PostgreSQL 服务                         |                     |
+| StatefulSet | pgvector-demo-postgresql        | 部署 PostgreSQL + pgvector（包括持久化存储） | 默认计算资源为 `{}` |
+| PVC         | data-pgvector-demo-postgresql-* | 作为 PostgreSQL 的持久化存储                 | 默认卷大小为 `8Gi`  |
+| Secret      | pgvector-demo-postgresql        | 存储 postgres 密钥                           |                     |
 
 ### 运维
 
