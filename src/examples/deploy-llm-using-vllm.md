@@ -1,23 +1,30 @@
 # 使用 vLLM 部署 LLM 推理服务
 
-部署 LLM 推理服务面临着多方面的挑战，包括计算资源需求、延迟和吞吐量、成本控制等。[vLLM](https://github.com/vllm-project/vllm) 是一个快速、灵活且易于使用的 LLM 推理和服务库，其利用 PagedAttention 注意力算法优化注意力机制的键值存储，有效节约内存空间以用于批处理请求，从而显著提高服务的吞吐量。vLLM 能够有效控制运行成本，利用有限的计算资源为更多用户提供高吞吐量和低延迟的 LLM 推理服务。
+部署 LLM 推理服务面临着多方面的挑战，包括计算资源需求、延迟和吞吐量、成本控制等。<a target="_blank" rel="noopener noreferrer" href="https://github.com/vllm-project/vllm">vLLM</a> 是一个快速、灵活且易于使用的 LLM 推理和服务库，其利用 PagedAttention 注意力算法优化注意力机制的键值存储，有效节约内存空间以用于批处理请求，从而显著提高服务的吞吐量。vLLM 能够有效控制运行成本，利用有限的计算资源为更多用户提供高吞吐量和低延迟的 LLM 推理服务。
 
-本示例使用 MLService 部署一个 LLM 推理服务。模型存储使用 PVC。
+本示例使用 MLService 和 vLLM 框架部署一个 LLM 推理服务。模型存储使用 PVC。
 
-相比[部署 LLM 聊天机器人](./deploy-llm-chatbot.md)，本示例使用了更高效的推理后端，以及可用于生产环境的 MLService。
+相比[使用 FastChat 部署 LLM 推理服务](./deploy-llm-using-fastchat.md)，本示例使用了更高效的推理后端，以及可用于生产环境的 MLService。
 
 ## 准备
 
 在项目中创建一个名为 `vllm`、大小 30 GiB 以上的 PVC，然后创建一个同样名为 `vllm` 的 Notebook 挂载该 PVC（镜像类型和模板不限）。
 
-进入 Notebook 或远程连接到 Notebook，启动一个终端，执行以下命令以下载 CodeLlama-7b-Instruct-hf 的模型文件：
+进入 Notebook 或远程连接到 Notebook，启动一个终端，执行以下命令以克隆 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/examples">`t9k/examples`</a> 仓库：
 
 ```bash
-# 方法1：如果可以直接访问 huggingface
+cd ~
+git clone https://github.com/t9k/examples.git
+```
+
+然后从 Hugging Face Hub 或魔搭社区下载要部署的模型，这里以 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/codellama/CodeLlama-7b-Instruct-hf">CodeLlama-7b-Instruct-hf</a> 模型为例：
+
+```bash
+# 方法 1：如果可以直接访问 huggingface
 huggingface-cli download codellama/CodeLlama-7b-Instruct-hf \
   --local-dir CodeLlama-7b-Instruct-hf --local-dir-use-symlinks False
 
-# 方法2：对于国内用户，使用 modelscope
+# 方法 2：对于国内用户，访问 modelscope 网络连通性更好
 pip install modelscope
 python -c \
   "from modelscope import snapshot_download; snapshot_download('AI-ModelScope/CodeLlama-7b-Instruct-hf')"
@@ -35,61 +42,35 @@ mv .cache/modelscope/hub/AI-ModelScope/CodeLlama-7b-Instruct-hf .
 
 这里将 vLLM 部署为兼容 OpenAI API 的服务器，这样 vLLM 可以作为使用 OpenAI API 的应用程序的即插即用替代品。
 
-使用以下 YAML 配置文件创建 MLServiceRuntime：
-
-<details><summary><code class="hljs">mlservice-runtime.yaml</code></summary>
-
-```yaml
-{{#include ../assets/examples/deploy-llm-using-vllm/mlservice-runtime.yaml}}
-```
-
-</details>
+使用以下 YAML 配置文件创建 MLServiceRuntime 和 MLService 以部署服务：
 
 ```bash
+cd examples/deployments/vllm
 kubectl apply -f mlservice-runtime.yaml
-```
-
-再使用以下 YAML 配置文件创建 MLService 以部署服务（必要时修改 `spec.scheduler.t9kScheduler.queue` 字段指定的队列）：
-
-<details><summary><code class="hljs">mlservice.yaml</code></summary>
-
-```yaml
-{{#include ../assets/examples/deploy-llm-using-vllm/mlservice.yaml}}
-```
-
-</details>
-
-```bash
 kubectl create -f mlservice.yaml
 ```
+
+监控服务是否准备就绪：
+
+```bash
+kubectl get -f mlservice.yaml -w
+```
+
+待其 `READY` 值变为 `true` 后，便可开始使用该服务。第一次拉取镜像可能会花费较长的时间，具体取决于集群的网络状况。
 
 <aside class="note tip">
 <div class="title">提示</div>
 
-本示例以 7B 模型为例，用户也可以尝试部署 13B、34B 和 70B 模型，但需要提供更多的计算资源。下面给出了相应的计算资源需求，以及部署 70B 模型的 YAML 配置文件：
+本示例以 7B 模型为例，用户也可以尝试部署 13B、34B 和 70B 模型，但需要提供更多的计算资源。下面给出了相应的计算资源需求：
 
-| 大小 | PVC 大小 | 并行度×显存大小          |
-| ---- | -------- | ------------------------ |
-| 7B   | 30GiB    | 1×24GB                   |
-| 13B  | 55GiB    | 2×24GB / 1×40GB          |
-| 34B  | 130GiB   | 4×24GB / 2×40GB / 1×80GB |
-| 70B  | 260GiB   | 4×40GB / 2×80GB          |
+| 模型大小 | PVC 大小 | 并行度×显存大小          |
+| -------- | -------- | ------------------------ |
+| 7B       | 30GiB    | 1×24GB                   |
+| 13B      | 55GiB    | 2×24GB / 1×40GB          |
+| 34B      | 130GiB   | 4×24GB / 2×40GB / 1×80GB |
+| 70B      | 260GiB   | 4×40GB / 2×80GB          |
 
-<details><summary><code class="hljs">mlservice-runtime-70b.yaml</code></summary>
-
-```yaml
-{{#include ../assets/examples/deploy-llm-using-vllm/mlservice-runtime-70b.yaml}}
-```
-
-</details>
-
-<details><summary><code class="hljs">mlservice-70b.yaml</code></summary>
-
-```yaml
-{{#include ../assets/examples/deploy-llm-using-vllm/mlservice-70b.yaml}}
-```
-
-</details>
+部署 70B 模型的 YAML 配置文件请参阅 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/examples/blob/master/deployments/vllm/mlservice-runtime-70b.yaml">`mlservice-runtime-70b.yaml`</a> 和 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/examples/blob/master/deployments/vllm/mlservice-70b.yaml">`mlservice-70b.yaml`</a>
 
 如果没有足够的显存，可以尝试<a target="_blank" rel="noopener noreferrer" href="https://docs.vllm.ai/en/latest/quantization/auto_awq.html">量化</a>方法。
 
@@ -132,8 +113,6 @@ curl ${address}/v1/completions \
 
 </details>
 
-[部署 LLM 聊天机器人](./deploy-llm-chatbot.md)提供的[聊天方法](./deploy-llm-chatbot.md#开始聊天)在这里同样适用。
-
 ## 编写代码
 
 现在让它发挥自己的特长，写一个<a target="_blank" rel="noopener noreferrer" href="https://leetcode.cn/problems/roman-to-integer/">罗马数字转整数</a>的 Python 程序。一次编写代码的聊天记录如下：
@@ -150,8 +129,63 @@ curl ${address}/v1/completions \
 
 用户可以自行尝试部署更大的 Code Llama 系列模型，并让其编写更加复杂的代码。
 
+## 扩展：部署其他 LLM
+
+我们可以使用同样的方法部署其他<a target="_blank" rel="noopener noreferrer" href="https://github.com/lm-sys/FastChat?tab=readme-ov-file#supported-models">支持的模型</a>，例如要将本示例部署的模型从 CodeLlama-7b-Instruct-hf 换成 Mistral-7B-Instruct-v0.1，只需：
+
+1. 下载 Mistral-7B-Instruct-v0.1 的模型文件：
+
+```bash
+# 方法 1：如果可以直接访问 huggingface
+# 需要登录
+huggingface-cli download mistralai/Mistral-7B-Instruct-v0.1 \
+  --local-dir Mistral-7B-Instruct-v0.1 --local-dir-use-symlinks False
+
+# 方法 2：对于国内用户，访问 modelscope 网络连通性更好
+pip install modelscope
+python -c \
+  "from modelscope import snapshot_download; snapshot_download('AI-ModelScope/Mistral-7B-Instruct-v0.1')"
+mv .cache/modelscope/hub/AI-ModelScope/Mistral-7B-Instruct-v0___1 ./Mistral-7B-Instruct-v0.1
+```
+
+2. 对 MLService 的 YAML 配置文件作以下修改，再次创建即可：
+
+```diff
+$ diff --color -u mlservice.yaml mlservice-mistral.yaml
+--- mlservice.yaml
++++ mlservice-mistral.yaml
+@@ -1,22 +1,22 @@
+ apiVersion: tensorstack.dev/v1beta1
+ kind: MLService
+ metadata:
+-  name: codellama-7b
++  name: mistral-7b
+ spec:
+   # scheduler:
+   #   t9kScheduler:
+   #     queue: default
+-  default: codellama-7b
++  default: mistral-7b
+   releases:
+-    - name: codellama-7b
++    - name: mistral-7b
+       predictor:
+         minReplicas: 1
+         model:
+           runtime: vllm-openai
+           parameters:
+             MODEL_PATH: /var/lib/t9k/model
+-            MODEL_NAME: codellama-7b
+-          modelUri: pvc://vllm/CodeLlama-7b-Instruct-hf
++            MODEL_NAME: mistral-7b
++          modelUri: pvc://vllm/Mistral-7B-Instruct-v0.1
+         containersResources:
+         - name: user-container
+           resources:
+```
+
 ## 参考
 
-* <https://github.com/vllm-project/vllm>
-* <https://github.com/facebookresearch/codellama>
-* <https://huggingface.co/codellama/CodeLlama-7b-Instruct-hf>
+* <a target="_blank" rel="noopener noreferrer" href="https://github.com/vllm-project/vllm">GitHub 上的 vLLM</a>
+* <a target="_blank" rel="noopener noreferrer" href="https://github.com/facebookresearch/codellama">GitHub 上的 Code Llama 模型介绍</a>
+* <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/codellama/CodeLlama-7b-Instruct-hf">HuggingFace 上的 CodeLlama-7b-Instruct-hf 模型</a>

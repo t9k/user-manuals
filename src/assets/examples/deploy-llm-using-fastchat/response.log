@@ -1,0 +1,21 @@
+{
+    "id": "chatcmpl-3NXy9QnaD8FzH3PJrjaNVL",
+    "object": "chat.completion",
+    "created": 1708941050,
+    "model": "chatglm3-6b",
+    "choices": [
+        {
+            "index": 0,
+            "message": {
+                "role": "assistant",
+                "content": "你好👋！我是人工智能助手 ChatGLM3-6B，很高兴见到你，欢迎问我任何问题。"
+            },
+            "finish_reason": "stop"
+        }
+    ],
+    "usage": {
+        "prompt_tokens": 8,
+        "total_tokens": 38,
+        "completion_tokens": 30
+    }
+}
