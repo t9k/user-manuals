@@ -93,15 +93,15 @@ model.evaluate(test_images, test_labels)
   <img alt="jupyterLab-terminal" src="../assets/tasks/develop-and-test-model/use-notebook/jupyterLab-terminal.png" />
 </figure>
 
-## 查看 Notebook 详情
+## 查看详情
 
-在 Notebook 管理页面点击 Notebook 名称，进入 Notebook 的详情页面：
+在 Notebook 管理页面，点击 Notebook 的名称进入其详情页面：
 
 <figure class="screenshot">
   <img alt="notebook-show-details" src="../assets/tasks/develop-and-test-model/use-notebook/notebook-show-details.png" />
 </figure>
 
-Notebook 的详情页面中，展示了 Notebook 的基本信息，状况和事件。在 Pod 右侧，用户可以通过链接查看 Pod 的日志、状况、事件、资源监测信息：
+Notebook 的详情页面展示了 Notebook 的基本信息、状况和事件。点击 **Pod** 右侧的链接可以查看 Pod 的日志、状况、事件、资源监测等信息：
 
 <figure class="screenshot">
   <img alt="notebook-details" src="../assets/tasks/develop-and-test-model/use-notebook/notebook-details.png" />
@@ -109,16 +109,15 @@ Notebook 的详情页面中，展示了 Notebook 的基本信息，状况和事�
 
 ### 查看日志
 
-点击“日志”，查看 Notebook Pod 的运行日志：
+点击**日志**，查看 Notebook Pod 的运行日志：
 
 <figure class="screenshot">
   <img alt="notebook-logs" src="../assets/tasks/develop-and-test-model/use-notebook/notebook-logs.png" />
 </figure>
 
-
 ### 查看资源监测
 
-点击“资源监测”，查看 Notebook Pod 运行时实际使用的资源，包括 CPU，内存，存储 I/O 的使用量：
+点击**资源监测**，查看 Notebook Pod 运行时实际使用的资源，包括 CPU、内存、存储 I/O 的使用量：
 
 <figure class="screenshot">
   <img alt="notebook-resource-1" src="../assets/tasks/develop-and-test-model/use-notebook/notebook-resource-1.png" />
