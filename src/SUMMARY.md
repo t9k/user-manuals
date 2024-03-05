@@ -89,6 +89,7 @@
         * [使用 Horovod 进行 PyTorch 模型的数据并行训练](tasks/horovod-pytorch-parallel.md)
         * [使用 Horovod 进行 Keras 模型的数据并行训练](tasks/horovod-keras-parallel.md)
         * [使用 Profiler 分析模型训练性能](tasks/profile-model-training.md)
+        * [通过 SSH 远程调试 Job](tasks/ssh-job.md)
 
     * [进行超参数优化](tasks/hyperparameter-tuning.md)
         * [使用 AutoTune 进行超参数优化](tasks/autotune.md)
@@ -187,6 +188,8 @@
     * [启动 LLM 微调](examples/start-llm-finetuning.md)
     * [使用 FastChat 部署 LLM 推理服务](examples/deploy-llm-using-fastchat.md)
     * [使用 vLLM 部署 LLM 推理服务](examples/deploy-llm-using-vllm.md)
+    * [使用 Triton 部署 Hugging Face 模型（Python 后端）](examples/deploy-hf-model-using-triton-python.md)
+    * [使用 Triton 部署 LLM 推理服务（TensorRT-LLM 后端）](examples/deploy-llm-using-triton-tensorrtllm.md)
     * [使用 Tensorizer 加速模型部署](examples/deploy-mlservice-tensorizer.md)
     * [使用 AutoGen 构建下一代 LLM 应用](examples/build-next-generation-llm-app-using-autogen.md)
     * [部署对话式搜索引擎](examples/deploy-conversational-search-engine.md)
