@@ -53,7 +53,7 @@ helm install pgvector-demo bitnami/postgresql \
 helm show values bitnami/postgresql --version <CHART_VERSION> > values.yaml
 ```
 
-如要修改默认配置，你可以将新配置（覆盖默认配置的字段）保存为一个 YAML 文件，通过 `-f` 选项提供给安装命令：
+如果想要修改默认配置，你可以将新配置（覆盖默认配置的字段）保存为一个 YAML 文件，通过 `-f` 选项提供给安装命令：
 
 ```bash
 # 使用修改后的 values.yaml

@@ -23,7 +23,7 @@
         * [SimpleMLService](modules/deployment/simplemlservice.md)
         * [MLService](modules/deployment/mlservice.md)
 
-    * [作业](modules/jobs/index.md)
+    * [Job](modules/jobs/index.md)
         * [GenericJob](modules/jobs/genericjob.md)
         * [PyTorchTrainingJob](modules/jobs/pytorchtrainingjob.md)
         * [TensorFlowTrainingJob](modules/jobs/tensorflowtrainingjob.md)
@@ -130,6 +130,8 @@
         * [生成 API Key](tasks/generate-api-key.md)
         * [使用 API Key](tasks/use-api-key.md)
         * [添加项目成员](tasks/add-project-member.md)
+
+    * [小技巧](tasks/tricks.md)
 
 * [命令行工具和 SDK](tools/index.md)
 

@@ -1,10 +1,10 @@
 # 资源使用监控
 
-在 Tensorstack AI 平台创建工作负载后，用户可以通过 Tensorstack 的 Web 控制台查看工作负载的资源使用情况。
+在 Tensorstack AI 平台创建工作负载后，用户可以通过控制台或命令行工具查看工作负载的资源使用情况。
 
-## 网页 UI
+## 控制台
 
-用户可以在下列控制台 Web UI 的工作负载的详情页面查看资源监测图表：
+用户可以在下列控制台的工作负载的详情页面查看资源监测图表：
 
 * 模型构建（Build Console）：
     * Notebook
@@ -16,7 +16,7 @@
 
 当用户定义工作负载时可以选择性地为每个容器设定所需要的资源数量，最常见的可设定资源是 CPU、内存和扩展资源。
 
-以 PytorchTrainingJob 为例，用户可以查看下面几类资源的使用情况。
+以 PyTorchTrainingJob 为例，用户可以查看下面几类资源的使用情况。
 
 ### CPU / Memory / 扩展资源
 
@@ -83,11 +83,9 @@ CPU（内存）的资源监测图如下所示，图中包含三条折线：
   <img alt="storage-throughput" src="../../assets/modules/scheduling/monitoring/storage-throughput.png"/>
 </figure>
 
-## 终端 CLI
+## 命令行工具
 
-用户可以在 Notebook 的终端中，使用 `kubectl top` 查看 Pod 的 CPU、内存使用情况。
-
-示例：
+用户可以在 Notebook 的终端中，使用 `kubectl top` 命令查看 Pod 的 CPU、内存使用情况。例如：
 
 ```bash
 (base) [/t9k/mnt t9kuser@managed-notebook-933f6-0]
@@ -99,6 +97,6 @@ managed-project-event-ctl-854b96f4dd-f6hn8   1m           29Mi
 
 ## 下一步
 
-* 查看：[T9k Job 的资源使用](../../tasks/pytorch-training-parallel.md#检查训练日志和指标)
-* 查看：[推理服务的资源使用](../../tasks/deploy-mlservice.md#监控推理服务)
-* 查看：Notebook 的资源使用（TODO: 完成 `查看 Notebook 资源使用` 相关用户文档）
+* 监控 [T9k Job 的资源使用](../../tasks/pytorch-training-parallel.md#检查训练日志和指标)
+* 监控[推理服务的资源使用](../../tasks/deploy-mlservice.md#监控推理服务)
+* 监控 Notebook 的资源使用（TODO: 完成 `查看 Notebook 资源使用` 相关用户文档）

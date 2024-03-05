@@ -123,7 +123,7 @@ spec:
 
 ## 副本数量
 
-副本数量通过字段 `spec.replicas` 设置，用于定义 SimpleMLService 的 Pods 数量，默认值是 1。
+副本数量通过字段 `spec.replicas` 设置，用于定义 SimpleMLService 的 Pod 数量，默认值是 1。
 
 ## 暴露服务
 

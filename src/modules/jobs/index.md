@@ -1,27 +1,27 @@
-# Job（作业）
+# Job
 
-TensorStack 定义了一系列 CRDs 以支持<a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Batch_processing">批处理 (Batch Processing)</a> 性质的的计算任务，特别是 AI 领域的大规模分布式并行训练类型性质的计算。
+TensorStack 定义了一系列 CRD（称为 Job）以支持<a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Batch_processing">批处理（Batch Processing）</a>计算任务，特别是 AI 领域的大规模分布式并行训练类型性质的计算。
 
 <figure class="architecture">
   <img alt="t9k-job" src="../../assets/modules/jobs/jobs.drawio.svg" />
-  <figcaption>图 1：Job 系统的基本原理。用户提交 Job 的定义；Job Controller 1）分析 job 定义；2）请求计算资源（CPU、RAM、GPU、高速网络、存储...)；3）启动、监控、暂停、继续 、终止、调试 job。</figcaption>
+  <figcaption>图 1：Job 系统的基本原理。用户提交 Job 的定义；Job Controller 1）分析 Job 定义；2）请求计算资源（CPU、RAM、GPU、高速网络、存储...)；3）启动、监控、暂停、继续 、终止、调试 Job。</figcaption>
 </figure>
 
-## Job 类型
-
-为了支持不同性质的计算任务，TensorStack 提供了一系列 Job 性质的 CRDs：
-
 <aside class="note info">
-<div class="title"> Job </div>
+<div class="title">Job</div>
 
-Kubernetes 也定义了一个原生资源 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/job/">batch/v1 Job</a> 以支持通用计算性质的批处理任务。本手册提到 Job 时，一般可根据上下文区分；当上下文不足以提供区分时，本手册将会明确使用 `T9k Job` 或者 `batch/v1 Job`。
+Kubernetes 也定义了一个原生资源 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/job/">batch/v1 Job</a> 以支持通用计算性质的批处理任务。本手册提到 Job 时，一般可根据上下文区分；当上下文不足以提供区分时，本手册将会明确使用 **T9k Job** 或者 **batch/v1 Job**。
 
 </aside>
 
+## Job 类型
+
+为了支持不同框架的计算任务，TensorStack 提供了一系列 Job：
+
 * TrainingJob：一类使用分布式计算框架进行机器学习的 T9k Job。
-    * [PyTorchTrainingJob](./pytorchtrainingjob.md)：服务于 <a target="_blank" rel="noopener noreferrer" href="https://pytorch.org/">PyTorch</a> 分布式训练框架的 TrainingJob。
-    * [TensorFlowTrainingJob](./tensorflowtrainingjob.md)：服务于 <a target="_blank" rel="noopener noreferrer" href="https://www.tensorflow.org/guide/distributed_training">TensorFlow</a> 分布式训练框架的 TrainingJob。
-    * [XGBoostTrainingJob](./xgboosttrainingjob.md)：服务于 <a target="_blank" rel="noopener noreferrer" href="https://xgboost.readthedocs.io/en/latest/">XGBoost</a> 分布式计算框架的 TrainingJob。  
+    * [PyTorchTrainingJob](./pytorchtrainingjob.md)：服务于 <a target="_blank" rel="noopener noreferrer" href="https://pytorch.org/">PyTorch</a> 分布式训练框架的 T9k Job。
+    * [TensorFlowTrainingJob](./tensorflowtrainingjob.md)：服务于 <a target="_blank" rel="noopener noreferrer" href="https://www.tensorflow.org/guide/distributed_training">TensorFlow</a> 分布式训练框架的 T9k Job。
+    * [XGBoostTrainingJob](./xgboosttrainingjob.md)：服务于 <a target="_blank" rel="noopener noreferrer" href="https://xgboost.readthedocs.io/en/latest/">XGBoost</a> 分布式计算框架的 T9k Job。
     * [ColossalAIJob](./colossalaijob.md)：服务于 <a target="_blank" rel="noopener noreferrer" href="https://colossalai.org/">ColossalAI</a> 分布式训练框架的 T9k Job。
     * [DeepSpeedJob](./deepspeedjob.md)：服务于 <a target="_blank" rel="noopener noreferrer" href="https://www.deepspeed.ai/">DeepSpeed</a> 分布式训练框架的 T9k Job。
 * [MPIJob](./mpijob.md)：MPIJob 使用户能够方便地在集群环境中使用 <a target="_blank" rel="noopener noreferrer" href="https://www.open-mpi.org/">OpenMPI</a> 进行并行计算。
@@ -41,15 +41,15 @@ T9k Job 支持多种运行模式（`spec.runMode`）：
 
 以下是各类型 Job 支持的模式列表：
 
-|        作业类型        | 立即模式 | 调试模式 | 暂停模式 | 弹性伸缩模式 |  
-| --------------------- | ------ | ------- | ------ | ----------- |  
-| GenricJob             | *      | *       | *      |             | 
-| PyTorchTrainingJob    | *      | *       | *      | *           | 
-| TensorFlowTrainingJob | *      | *       | *      |             |
-| XGBoostTrainingJob    | *      | *       | *      |             |
-| MPIJob                | *      | *       | *      |             |
-| ColossalAIJob         | *      | *       | *      |             |
-| DeepSpeedJob          | *      | *       | *      | *           |
-| BeamJob               | *      |         |        |             |
+| Job 类型              | 立即模式 | 调试模式 | 暂停模式 | 弹性伸缩模式 |
+| --------------------- | -------- | -------- | -------- | ------------ |
+| GenricJob             | *        | *        | *        |              |
+| PyTorchTrainingJob    | *        | *        | *        | *            |
+| TensorFlowTrainingJob | *        | *        | *        |              |
+| XGBoostTrainingJob    | *        | *        | *        |              |
+| MPIJob                | *        | *        | *        |              |
+| ColossalAIJob         | *        | *        | *        |              |
+| DeepSpeedJob          | *        | *        | *        | *            |
+| BeamJob               | *        |          |          |              |
 
-各种模式的具体使用方式，请参考对应作业类型的文档。
+各种模式的具体使用方式，请参考对应 Job 类型的文档。

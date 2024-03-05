@@ -84,6 +84,6 @@ PyTorchTrainingJob 是服务于 PyTorch 并行训练框架的执行机器学习�
 ## 下一步
 
 * 将训练完成的模型[部署为推理服务](./deploy-model.md)
-* 了解[作业](../modules/jobs/index.md)
+* 了解 [Job](../modules/jobs/index.md)
 * 进一步学习如何[进行并行训练](../tasks/model-training.md)
 * 学习如何[进行超参数优化](../tasks/hyperparameter-tuning.md)

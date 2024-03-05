@@ -68,7 +68,7 @@ global:
 
 你可以根据需要对这些配置进行修改：
 
-* 如要提高容错，可以增加副本数。
+* 如果想要提高容错，可以增加副本数。
 * 可以根据实际需求指定计算资源的请求值和限制值。
 * 可以提供 Ingress 配置以提供外部访问，请参阅 <a target="_blank" rel="noopener noreferrer" href="https://labelstud.io/guide/ingress_config">Set up an ingress controller for Label Studio Kubernetes deployments</a>。
 * 可以修改卷大小，或使用其他类型的持久化方案（如 Amazon S3），请参阅 <a target="_blank" rel="noopener noreferrer" href="https://labelstud.io/guide/persistent_storage">Set up persistent storage</a>。

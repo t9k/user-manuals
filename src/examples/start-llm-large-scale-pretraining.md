@@ -8,7 +8,7 @@ LLM（大型语言模型）是当前 AI 领域备受瞩目的研究和应用领�
 * 数据的并行加载和分发以及模型参数的同步和更新，需要高效的通信和协调机制，以确保训练的一致性和速度。
 * 故障容错和中断恢复必不可少，因为在大规模集群上运行时硬件故障和网络问题可能导致训练中断。
 
-<a target="_blank" rel="noopener noreferrer" href="https://github.com/microsoft/DeepSpeed">DeepSpeed</a> 是目前最受欢迎的大规模分布式训练框架，而平台提供了 [DeepSpeedJob](../modules/jobs/deepspeedjob.md)，这是专为使用 DeepSpeed 框架的分布式训练而设计的作业类型。
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/microsoft/DeepSpeed">DeepSpeed</a> 是目前最受欢迎的大规模分布式训练框架，而平台提供了 [DeepSpeedJob](../modules/jobs/deepspeedjob.md)，这是专为使用 DeepSpeed 框架的分布式训练而设计的 Job 类型。
 
 本示例将使用 DeepSpeedJob 以简便迅速的方式启动 Megatron-LM GPT-3 系列（125M、1.3B、13B 和 175B）模型的预训练任务。
 
