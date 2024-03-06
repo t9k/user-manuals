@@ -5,9 +5,9 @@
 ---
 
 * [快速入门](get-started/index.md)
-    * [训练你的第一个模型](get-started/training-first-model.md)<!-- * [在 notebook 完成训练] -->
-    * [进行并行训练](get-started/parallel-training.md)<!-- * [使用 job 进行并行训练] -->
-    * [部署模型](get-started/deploy-model.md)<!-- * [保存数据集和模型文件] -->
+    * [训练你的第一个模型](get-started/training-first-model.md)<!--在 notebook 完成训练-->
+    * [进行并行训练](get-started/parallel-training.md)<!--使用 job 进行并行训练-->
+    * [部署模型](get-started/deploy-model.md)<!--保存数据集和模型文件-->
 
 * [AI 开发和应用](modules/index.md)
 
@@ -191,12 +191,12 @@
     * [使用 FastChat 部署 LLM 推理服务](examples/deploy-llm-using-fastchat.md)
     * [使用 vLLM 部署 LLM 推理服务](examples/deploy-llm-using-vllm.md)
     * [使用 Triton 部署 Hugging Face 模型（Python 后端）](examples/deploy-hf-model-using-triton-python.md)
-    <!-- * [使用 Triton 部署 LLM 推理服务（TensorRT-LLM 后端）](examples/deploy-llm-using-triton-tensorrtllm.md) -->
     * [使用 Tensorizer 加速模型部署](examples/deploy-mlservice-tensorizer.md)
     * [使用 AutoGen 构建下一代 LLM 应用](examples/build-next-generation-llm-app-using-autogen.md)
     * [部署对话式搜索引擎](examples/deploy-conversational-search-engine.md)
     * [部署 Stable Diffusion 图像生成模型](examples/deploy-sd-drawing-model.md)
     * [车道检测](examples/lane-detection.md)
+    <!-- * [使用 Triton 部署 LLM 推理服务（TensorRT-LLM 后端）](examples/deploy-llm-using-triton-tensorrtllm.md) -->
 
 * [集成](integrations/index.md)
     * [Label Studio](integrations/label-studio.md)
