@@ -4,9 +4,9 @@ AI 模型可以存储在集群的[文件系统](../storage/index.md)里，或者
 
 SimpleMLService 和 MLService 采用相同的方式指定模型的存储细节，用户可以明确、方便地指定模型在集群文件系统或者 S3 对象存储服务中的位置，并设置模型在容器中的挂载路径。
 
-## [PVC](../storage/pvc.md)
+## 文件系统
 
-通过配置 `storage.pvc` 字段可以使用存储在 PVC 中的模型数据。`storage.pvc` 字段包含下列子字段：
+通过配置 `storage.pvc` 字段可以通过 [PVC](../storage/pvc.md) 使用集群文件系统中的模型。`storage.pvc` 字段包含下列子字段：
 * `name`: 存储模型数据的 PVC 的名称。
 * `subPath`: 模型在 PVC 中的路径，不可以是绝对路径（即开头不能是 `/`）。
 * `mountPath`: 模型在容器中的挂载路径，必须是绝对路径。未设置时，默认值是 `/var/lib/t9k/model`。

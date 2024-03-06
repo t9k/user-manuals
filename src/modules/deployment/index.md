@@ -2,7 +2,7 @@
 
 TensorStack AI 平台的模型部署模块可以帮助你快速地将训练完成的 AI 模型部署为推理服务。
 
-针对不同的应用场景，有以下两种 TensorStack 资源可供使用：
+针对不同的应用场景，有以下两种 TensorStack API可供使用：
 
 * **[MLService](./mlservice.md)** 是完善的模型推理服务，可用于生产环境，具有以下特性：
     * 基于 Serverless 架构，服务容量（serving capacity）可根据负载自动伸缩；
@@ -21,7 +21,7 @@ TensorStack AI 平台的模型部署模块可以帮助你快速地将训练完�
   <img alt="architecture" src="../../assets/modules/deployment/architecture.drawio.svg" class="architecture">
 </figure>
 
-根据用户提供的模型存储和 AI 框架等设置，模型部署模块先从模型存储服务中下载模型，然后创建模型推理服务。
+根据用户提供的[模型存储](storage.md)位置和 AI 框架等设置，模型部署模块的控制器（controller）协调模型下载并启动模型推理服务。
 
 ## 下一步
 
