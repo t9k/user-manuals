@@ -20,6 +20,7 @@
             * [超参数调优算法](modules/building/hpo-algorithm.md)
 
     * [模型部署](modules/deployment/index.md)
+        * [模型存储](modules/deployment/storage.md)
         * [SimpleMLService](modules/deployment/simplemlservice.md)
         * [MLService](modules/deployment/mlservice.md)
 
