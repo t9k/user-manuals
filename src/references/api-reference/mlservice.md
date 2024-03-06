@@ -30,6 +30,21 @@ _Appears in:_
 | `url` _string_ | URL used for predictor. |
 
 
+#### ContainerResources
+
+
+
+
+
+_Appears in:_
+- [PredictorSpec](#predictorspec)
+
+| Field | Description |
+| --- | --- |
+| `name` _string_ | Name of container |
+| `resources` _[ResourceRequirements](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#resourcerequirements-v1-core)_ | Resource requirements |
+
+
 #### DeploymentSpec
 
 
@@ -88,6 +103,7 @@ _Appears in:_
 | --- | --- |
 | `urls` _string array_ | Logger sink url array |
 | `mode` _[LoggerMode](#loggermode)_ | Logger mode |
+| `resources` _[ResourceRequirements](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#resourcerequirements-v1-core)_ | Resource requirements |
 
 
 #### MLService
@@ -256,7 +272,22 @@ _Appears in:_
 | --- | --- |
 | `parameters` _object (keys:string, values:string)_ | Model parameters |
 | `runtime` _string_ | Specific ServingRuntime name to use for deployment. |
-| `modelUri` _string_ | Model storage URI. |
+
+
+#### PVCStorage
+
+
+
+PVCStorage defines infos of pvc
+
+_Appears in:_
+- [Storage](#storage)
+
+| Field | Description |
+| --- | --- |
+| `name` _string_ | PVC name |
+| `subPath` _string_ | Directory path where model is located in PVC. Must be a relative path. e.g. "model/mnist" Defaults to "" (volume's root). |
+| `mountPath` _string_ | Directory path where model locates in container, default is "/var/lib/t9k/model" |
 
 
 #### PatchTemplateSpec
@@ -317,7 +348,7 @@ _Appears in:_
 | `runtimeClassName` _string_ | RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md This is a beta feature as of Kubernetes v1.14. |
 | `enableServiceLinks` _boolean_ | EnableServiceLinks indicates whether information about services should be injected into pod's environment variables, matching the syntax of Docker links. Optional: Defaults to true. |
 | `preemptionPolicy` _[PreemptionPolicy](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#preemptionpolicy-v1-core)_ | PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate. |
-| `overhead` _[ResourceList](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#resourcelist-v1-core)_ | Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.16, and is only honored by servers that enable the PodOverhead feature. |
+| `overhead` _object (keys:[ResourceName](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#resourcename-v1-core), values:Quantity)_ | Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.16, and is only honored by servers that enable the PodOverhead feature. |
 | `topologySpreadConstraints` _[TopologySpreadConstraint](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#topologyspreadconstraint-v1-core) array_ | TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. All topologySpreadConstraints are ANDed. |
 | `setHostnameAsFQDN` _boolean_ | If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false. |
 
@@ -336,7 +367,7 @@ _Appears in:_
 | `model` _[ModelSpec](#modelspec)_ | Model info |
 | `storage` _[Storage](#storage)_ | Model storage spec |
 | `DeploymentSpec` _[DeploymentSpec](#deploymentspec)_ | Model deploy spec |
-| `resources` _[ResourceRequirements](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#resourcerequirements-v1-core)_ | UserContainer's resources |
+| `containersResources` _[ContainerResources](#containerresources) array_ | Container's resources |
 
 
 #### ReleaseSpec
@@ -405,14 +436,16 @@ _Appears in:_
 
 
 
-S3Storage defines s3 storage
+S3Storage defines infos of s3
 
 _Appears in:_
 - [Storage](#storage)
 
 | Field | Description |
 | --- | --- |
-| `secretName` _string_ | S3 secret name |
+| `secretRef` _[LocalObjectReference](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#localobjectreference-v1-core)_ | SecretRef is reference to the secret storing s3cmd config |
+| `uri` _string_ | Directory path where model locates in s3. e.g. `"s3://<bucket>/<dir>/"` |
+| `mountPath` _string_ | Directory path where model locates in container, default is "/var/lib/t9k/model" |
 
 
 #### SchedulePolicy
@@ -441,7 +474,8 @@ _Appears in:_
 
 | Field | Description |
 | --- | --- |
-| `s3Storage` _[S3Storage](#s3storage)_ | S3 storage |
+| `s3` _[S3Storage](#s3storage)_ | Model locates in S3 |
+| `pvc` _[PVCStorage](#pvcstorage)_ | Model locates in pvc |
 
 
 #### T9kScheduler
@@ -471,7 +505,6 @@ _Appears in:_
 | --- | --- |
 | `DeploymentSpec` _[DeploymentSpec](#deploymentspec)_ | Transformer deployment spec |
 | `storage` _[Storage](#storage)_ | Transformer model storage spec |
-| `modelUri` _string_ | Transformer model uri |
 
 
 #### TransformerStatus

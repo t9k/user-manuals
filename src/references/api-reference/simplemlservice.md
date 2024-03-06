@@ -106,7 +106,7 @@ _Appears in:_
 | --- | --- |
 | `name` _string_ | PVC name |
 | `subPath` _string_ | Directory path where model is located in PVC. Must be a relative path. e.g. "model/mnist" |
-| `containerPath` _string_ | Directory path where model locates in container. Must be absolute path, default is "/var/lib/t9k/model" |
+| `mountPath` _string_ | Directory path where model locates in container. Must be absolute path, default is "/var/lib/t9k/model" |
 
 
 #### PyTorchSpec
@@ -136,9 +136,9 @@ _Appears in:_
 
 | Field | Description |
 | --- | --- |
-| `secretName` _string_ | Name of secret storing s3cmd config |
+| `secretRef` _[LocalObjectReference](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#localobjectreference-v1-core)_ | SecretRef is reference to the secret storing s3cmd config |
 | `uri` _string_ | Directory path where model locates in s3. e.g. `"s3://<bucket>/<dir>/"` |
-| `containerPath` _string_ | Directory path where model locates in container, default is "/var/lib/t9k/model" |
+| `mountPath` _string_ | Directory path where model locates in container, default is "/var/lib/t9k/model" |
 
 
 #### SchedulePolicy
