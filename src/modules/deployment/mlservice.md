@@ -377,64 +377,7 @@ spec:
 
 ### 日志收集
 
-MLService 支持对预测请求在日志中进行收集，日志收集对于每一个组件来说是独立的，可以通过组件定义中的 `logger` 来设置。设置后，每一条预测请求经过组件时，会以 <a target="_blank" rel="noopener noreferrer" href="https://cloudevents.io">CloudEvent</a> 的形式打印在日志当中，同时该 CloudEvent 也会被发送给指定的下游。
-
-`logger` 的字段如下：
-
-* urls：下游地址数组。设置接受 CloudEvent 的下游服务地址。
-* mode：日志信息的类型，可选值 request、response、all。
-    * all(默认)：记录预测请求和响应
-    * request：只记录预测请求
-    * response：只记录预测响应
-
-下面是一个日志信息示例
-
-```
-Context Attributes,
-  specversion: 1.0
-  type:tensorstack.dev.mlservice.request
-  source: torch-mnist-logger-predict-origin
-  id: 0009174a-24a8-4603-b098-09c8799950e9
-  time: 2021-04-10T00:23:26.0789529Z
-Extensions,
-  component: predict
-  inferenceurl: /v1/models/mnist:predict
-  mlservicename: torch-mnist-logger
-  namespace: example
-  traceparent: 00-9b81bc9a3531a1e4357e236054d86b47-546e4c891883d512-00
-Data,
-  ...
-
-Validation: valid
-Context Attributes,
-  specversion: 1.0
-  type: tensorstack.dev.mlservice.response
-  source: torch-mnist-logger-predict-origin
-  id: 0009174a-24a8-4603-b098-09c8799950e9
-  time: 2021-04-10T00:23:26.080736102Z
-  datacontenttype: application/json
-Extensions,
-  component: predict
-  inferenceurl: 
-  mlservicename: torch-mnist-logger
-  namespace: example
-  traceparent: 00-6d69e2d3917689ee301610780af06de8-be01c3cfdf8e446e-00
-Data,
-{
-  "0": 1.0,
-  "2": 1.3369853835154544e-10,
-  "6": 7.10219507987428e-14,
-  "5": 5.859705488843112e-14,
-  "9": 3.2580891499658536e-15
-}
-```
-
-<aside class="note info">
-<div class="title">信息</div>
-
-MLService 在本地的日志信息会存储在 <a target="_blank" rel="noopener noreferrer" href="https://www.elastic.co/guide/en/elasticsearch/reference/7.10/index.html">Elasticsearch</a> 中。在 Elasticsearch 中，每个 Index 是一个命名空间，Index 之间互相独立。MLService 日志信息的 Index 模式是 `mlservice-<date>`，例如 `mlservice-2022.04.27`。
-
-</aside>
+MLService 支持对预测请求进行日志收集，详情见[2.2.2.1日志收集](./mlservice-logger.md)
 
 ### 前处理及后处理
 
