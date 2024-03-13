@@ -7,7 +7,6 @@
 * 创建了一个[启用 SSH 选项](./create-notebook.md#启用-ssh-选项)的 Notebook。
 * 确认该 Notebook 处于正常运行状态。
 
-
 ## 端口转发
 
 ### 命令行工具 t9k-pf
@@ -46,11 +45,11 @@ now you can forward to your target by 127.0.0.1:<Port>
 
 </aside>
 
-## SSH 远程连接
+## 建立 SSH 连接
 
-### 使用 Terminal
+### 使用终端
 
-在 Terminal 中运行以下命令以连接到 Notebook：
+在终端中运行以下命令以连接到 Notebook：
 
 ``` bash
 ssh t9kuser@localhost -p <Port> \
@@ -69,7 +68,7 @@ ssh t9kuser@localhost -p <Port> \
 
 </aside>
 
-然后在 Terminal 中操作 Notebook：
+然后在终端中操作 Notebook：
 
 <figure class="screenshot">
   <img alt="terminal-ssh" src="../assets/tasks/develop-and-test-model/use-notebook-remotely-via-ssh-connection/terminal-ssh.png" />

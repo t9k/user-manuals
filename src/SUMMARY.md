@@ -91,7 +91,7 @@
         * [使用 Horovod 进行 PyTorch 模型的数据并行训练](tasks/horovod-pytorch-parallel.md)
         * [使用 Horovod 进行 Keras 模型的数据并行训练](tasks/horovod-keras-parallel.md)
         * [使用 Profiler 分析模型训练性能](tasks/profile-model-training.md)
-        <!-- * [通过 SSH 远程调试 Job](tasks/ssh-job.md) -->
+        * [调试 Job](tasks/debug-job.md)
 
     * [进行超参数优化](tasks/hyperparameter-tuning.md)
         * [使用 AutoTune 进行超参数优化](tasks/autotune.md)
