@@ -1,0 +1,32 @@
+apiVersion: tensorstack.dev/v1beta1
+kind: MLService
+metadata:
+ name: logger-example
+spec:
+ default: origin
+ releases:
+   - name: origin
+     predictor:
+       logger:
+         mode: all
+         resources:
+           limits:
+             cpu: "1"
+             memory: 2Gi
+           requests:
+             cpu: "0.5"
+             memory: 1Gi
+         urls:
+         - http://event-display
+       minReplicas: 1
+       model:
+         parameters:
+           "MODEL_PATH": "mnist=model.mar"
+         runtime: t9k-torchserve
+         modelUri: pvc://tutorial/tutorial-examples/deployment/mlservice/torch-pvc/
+       containersResources:
+       - name: user-container
+         resources:
+           limits:
+             cpu: "500m"
+             memory: 1Gi
