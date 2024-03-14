@@ -1,0 +1,30 @@
+apiVersion: codepack.tensorstack.dev/v1beta1
+name: mnist-keras
+description: A simple image classifier based on CNN using tf2.
+project: dev-xyx
+default: prepare-env
+targets:
+  - name: prepare-env        # Prepare running env
+    actions:
+      - name: workspace-for-training
+        verb: apply
+        files: [pvc.yaml]
+  - name: copy-file          # Copy training code and dataset to PVC
+    deps: ["prepare-env"]
+    actions:
+      - name: copy-code
+        verb: copy
+        src: .
+        dst: codepack-example:.
+  - name: create-notebook    # Create a notebook with the codepack in it
+    deps: ["prepare-env", "copy-file"]
+    actions:
+      - name: notebook
+        verb: create
+        files: [notebook.yaml]
+  - name: run-distributed-training    # Run a distributed training
+    deps: ["prepare-env", "copy-file"]
+    actions:
+      - name: trainingjob
+        verb: create
+        files: [trainingjob.yaml]

@@ -1,0 +1,869 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Workflow - TensorStack AI 计算平台 - 用户使用手册</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../../theme/sidebar.css">
+        <link rel="stylesheet" href="../../theme/custom.css">
+        <link rel="stylesheet" href="../../theme/version-dropdown.css">
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../introduction.html">导言</a></li><li class="chapter-item expanded affix "><a href="../../overview.html">概述</a></li><li class="chapter-item expanded "><a href="../../get-started/index.html"><strong aria-hidden="true">1.</strong> 快速入门</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../get-started/training-first-model.html"><strong aria-hidden="true">1.1.</strong> 训练你的第一个模型</a></li><li class="chapter-item expanded "><a href="../../get-started/parallel-training.html"><strong aria-hidden="true">1.2.</strong> 进行并行训练</a></li><li class="chapter-item expanded "><a href="../../get-started/deploy-model.html"><strong aria-hidden="true">1.3.</strong> 部署模型</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/index.html"><strong aria-hidden="true">2.</strong> AI 开发和应用</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/building/index.html"><strong aria-hidden="true">2.1.</strong> 模型构建</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/building/notebook.html"><strong aria-hidden="true">2.1.1.</strong> Notebook</a></li><li class="chapter-item expanded "><a href="../../modules/building/tensorboard.html"><strong aria-hidden="true">2.1.2.</strong> TensorBoard</a></li><li class="chapter-item expanded "><a href="../../modules/building/autotune.html"><strong aria-hidden="true">2.1.3.</strong> AutoTune</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/building/autotuneexperiment.html"><strong aria-hidden="true">2.1.3.1.</strong> AutoTuneExperiment</a></li><li class="chapter-item expanded "><a href="../../modules/building/autotune-search-space.html"><strong aria-hidden="true">2.1.3.2.</strong> 搜索空间</a></li><li class="chapter-item expanded "><a href="../../modules/building/hpo-algorithm.html"><strong aria-hidden="true">2.1.3.3.</strong> 超参数调优算法</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../modules/deployment/index.html"><strong aria-hidden="true">2.2.</strong> 模型部署</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/deployment/simplemlservice.html"><strong aria-hidden="true">2.2.1.</strong> SimpleMLService</a></li><li class="chapter-item expanded "><a href="../../modules/deployment/mlservice.html"><strong aria-hidden="true">2.2.2.</strong> MLService</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/jobs/index.html"><strong aria-hidden="true">2.3.</strong> 作业</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/jobs/genericjob.html"><strong aria-hidden="true">2.3.1.</strong> GenericJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/pytorchtrainingjob.html"><strong aria-hidden="true">2.3.2.</strong> PyTorchTrainingJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/tensorflowtrainingjob.html"><strong aria-hidden="true">2.3.3.</strong> TensorFlowTrainingJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/deepspeedjob.html"><strong aria-hidden="true">2.3.4.</strong> DeepSpeedJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/colossalaijob.html"><strong aria-hidden="true">2.3.5.</strong> ColossalAIJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/xgboosttrainingjob.html"><strong aria-hidden="true">2.3.6.</strong> XGBoostTrainingJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/mpijob.html"><strong aria-hidden="true">2.3.7.</strong> MPIJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/beamjob.html"><strong aria-hidden="true">2.3.8.</strong> BeamJob</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/asset-management.html"><strong aria-hidden="true">2.4.</strong> 资产管理</a></li><li class="chapter-item expanded "><a href="../../modules/experiment-management.html"><strong aria-hidden="true">2.5.</strong> 实验管理</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/security/index.html"><strong aria-hidden="true">3.</strong> 账户和安全</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/security/account.html"><strong aria-hidden="true">3.1.</strong> 账户</a></li><li class="chapter-item expanded "><a href="../../modules/security/project.html"><strong aria-hidden="true">3.2.</strong> 项目</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/scheduling/index.html"><strong aria-hidden="true">4.</strong> 计算资源</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/scheduling/use-gpu.html"><strong aria-hidden="true">4.1.</strong> 使用 GPU</a></li><li class="chapter-item expanded "><a href="../../modules/scheduling/quota.html"><strong aria-hidden="true">4.2.</strong> 资源配额</a></li><li class="chapter-item expanded "><a href="../../modules/scheduling/queue.html"><strong aria-hidden="true">4.3.</strong> 队列</a></li><li class="chapter-item expanded "><a href="../../modules/scheduling/podgroup.html"><strong aria-hidden="true">4.4.</strong> PodGroup</a></li><li class="chapter-item expanded "><a href="../../modules/scheduling/reclaim.html"><strong aria-hidden="true">4.5.</strong> 资源回收</a></li><li class="chapter-item expanded "><a href="../../modules/scheduling/resources-monitoring.html"><strong aria-hidden="true">4.6.</strong> 资源使用监控</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/storage/index.html"><strong aria-hidden="true">5.</strong> 存储</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/storage/pvc.html"><strong aria-hidden="true">5.1.</strong> PVC</a></li><li class="chapter-item expanded "><a href="../../modules/storage/pvc-snapshot.html"><strong aria-hidden="true">5.2.</strong> PVC 快照</a></li><li class="chapter-item expanded "><a href="../../modules/storage/storageshim.html"><strong aria-hidden="true">5.3.</strong> StorageShim</a></li><li class="chapter-item expanded "><a href="../../modules/storage/explorer.html"><strong aria-hidden="true">5.4.</strong> Explorer</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/auxiliary/index.html"><strong aria-hidden="true">6.</strong> 辅助</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/auxiliary/secret.html"><strong aria-hidden="true">6.1.</strong> Secret</a></li><li class="chapter-item expanded "><a href="../../modules/auxiliary/configmap.html"><strong aria-hidden="true">6.2.</strong> ConfigMap</a></li><li class="chapter-item expanded "><a href="../../modules/auxiliary/pod.html"><strong aria-hidden="true">6.3.</strong> Pod</a></li><li class="chapter-item expanded "><a href="../../modules/auxiliary/imagebuilder.html"><strong aria-hidden="true">6.4.</strong> ImageBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/workflows/index.html"><strong aria-hidden="true">7.</strong> 工作流</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/workflows/workflowtemplate.html"><strong aria-hidden="true">7.1.</strong> WorkflowTemplate</a></li><li class="chapter-item expanded "><a href="../../modules/workflows/workflowrun.html"><strong aria-hidden="true">7.2.</strong> WorkflowRun</a></li><li class="chapter-item expanded "><a href="../../modules/workflows/cronworkflowrun.html"><strong aria-hidden="true">7.3.</strong> CronWorkflowRun</a></li><li class="chapter-item expanded "><a href="../../modules/workflows/workflowtrigger.html"><strong aria-hidden="true">7.4.</strong> WorkflowTrigger</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/index.html"><strong aria-hidden="true">8.</strong> 操作示例</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/model-building.html"><strong aria-hidden="true">8.1.</strong> 使用模型构建控制台</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/create-notebook.html"><strong aria-hidden="true">8.1.1.</strong> 创建 Notebook</a></li><li class="chapter-item expanded "><a href="../../tasks/use-notebook.html"><strong aria-hidden="true">8.1.2.</strong> 使用 Notebook</a></li><li class="chapter-item expanded "><a href="../../tasks/ssh-notebook.html"><strong aria-hidden="true">8.1.3.</strong> 通过 SSH 远程使用 Notebook</a></li><li class="chapter-item expanded "><a href="../../tasks/create-tensorboard.html"><strong aria-hidden="true">8.1.4.</strong> 创建 TensorBoard</a></li><li class="chapter-item expanded "><a href="../../tasks/build-image.html"><strong aria-hidden="true">8.1.5.</strong> 构建镜像</a></li><li class="chapter-item expanded "><a href="../../tasks/debug-image.html"><strong aria-hidden="true">8.1.6.</strong> 调试镜像</a></li><li class="chapter-item expanded "><a href="../../tasks/manage-pvc.html"><strong aria-hidden="true">8.1.7.</strong> 管理 PVC</a></li><li class="chapter-item expanded "><a href="../../tasks/use-explorer.html"><strong aria-hidden="true">8.1.8.</strong> 使用 Explorer</a></li><li class="chapter-item expanded "><a href="../../tasks/use-storageshim-s3.html"><strong aria-hidden="true">8.1.9.</strong> 使用 StorageShim 适配 S3 服务</a></li><li class="chapter-item expanded "><a href="../../tasks/manage-secret.html"><strong aria-hidden="true">8.1.10.</strong> 管理 Secret</a></li><li class="chapter-item expanded "><a href="../../tasks/manage-configmap.html"><strong aria-hidden="true">8.1.11.</strong> 管理 ConfigMap</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/model-training.html"><strong aria-hidden="true">8.2.</strong> 运行模型训练</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/pytorch-training-parallel.html"><strong aria-hidden="true">8.2.1.</strong> 使用 PyTorchTrainingJob 进行数据并行训练</a></li><li class="chapter-item expanded "><a href="../../tasks/pytorch-training-ps.html"><strong aria-hidden="true">8.2.2.</strong> 使用 PyTorchTrainingJob 进行参数服务器训练</a></li><li class="chapter-item expanded "><a href="../../tasks/tensorflow-training-parallel.html"><strong aria-hidden="true">8.2.3.</strong> 使用 TensorFlowTrainingJob 进行数据并行训练</a></li><li class="chapter-item expanded "><a href="../../tasks/tensorflow-training-ps.html"><strong aria-hidden="true">8.2.4.</strong> 使用 TensorFlowTrainingJob 进行参数服务器训练</a></li><li class="chapter-item expanded "><a href="../../tasks/horovod-pytorch-parallel.html"><strong aria-hidden="true">8.2.5.</strong> 使用 Horovod 进行 PyTorch 模型的数据并行训练</a></li><li class="chapter-item expanded "><a href="../../tasks/horovod-keras-parallel.html"><strong aria-hidden="true">8.2.6.</strong> 使用 Horovod 进行 Keras 模型的数据并行训练</a></li><li class="chapter-item expanded "><a href="../../tasks/profile-model-training.html"><strong aria-hidden="true">8.2.7.</strong> 使用 Profiler 分析模型训练性能</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/hyperparameter-tuning.html"><strong aria-hidden="true">8.3.</strong> 进行超参数优化</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/autotune.html"><strong aria-hidden="true">8.3.1.</strong> 使用 AutoTune 进行超参数优化</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/deploy-inference-service.html"><strong aria-hidden="true">8.4.</strong> 部署推理服务</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/deploy-simplemlservice.html"><strong aria-hidden="true">8.4.1.</strong> 简单推理服务</a></li><li class="chapter-item expanded "><a href="../../tasks/deploy-mlservice.html"><strong aria-hidden="true">8.4.2.</strong> 生产环境推理服务</a></li><li class="chapter-item expanded "><a href="../../tasks/deploy-mlservice-transformer.html"><strong aria-hidden="true">8.4.3.</strong> 包含 Transformer 的推理服务</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/manage-ai-assets.html"><strong aria-hidden="true">8.5.</strong> 管理 AI 资产</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/manipulate-folder-asset.html"><strong aria-hidden="true">8.5.1.</strong> 操作文件夹、模型和数据集</a></li><li class="chapter-item expanded "><a href="../../tasks/access-asset-via-s3.html"><strong aria-hidden="true">8.5.2.</strong> 通过 S3 访问模型和数据集</a></li><li class="chapter-item expanded "><a href="../../tasks/modify-folder-asset.html"><strong aria-hidden="true">8.5.3.</strong> 修改文件夹、模型和数据集的基本信息</a></li><li class="chapter-item expanded "><a href="../../tasks/manipulate-asset-branch-tag.html"><strong aria-hidden="true">8.5.4.</strong> 操作模型和数据集的分支、tag 和 commit</a></li><li class="chapter-item expanded "><a href="../../tasks/manipulate-asset-objects.html"><strong aria-hidden="true">8.5.5.</strong> 操作模型和数据集的对象</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/track-model-training.html"><strong aria-hidden="true">8.6.</strong> 追踪模型训练</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/use-experiment-console.html"><strong aria-hidden="true">8.6.1.</strong> 在实验管理控制台查看和管理数据</a></li><li class="chapter-item expanded "><a href="../../tasks/record-using-python-sdk.html"><strong aria-hidden="true">8.6.2.</strong> 使用 Python SDK 记录和上传数据</a></li><li class="chapter-item expanded "><a href="../../tasks/record-single-device-training.html"><strong aria-hidden="true">8.6.3.</strong> 单设备训练场景</a></li><li class="chapter-item expanded "><a href="../../tasks/record-distributed-training.html"><strong aria-hidden="true">8.6.4.</strong> 分布式训练场景</a></li><li class="chapter-item expanded "><a href="../../tasks/view-autotune-in-experiment-console.html"><strong aria-hidden="true">8.6.5.</strong> 在实验管理控制台查看 AutoTune</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/build-automation-workflow.html"><strong aria-hidden="true">8.7.</strong> 构建自动化工作流</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/create-workflow-unit.html"><strong aria-hidden="true">8.7.1.</strong> 创建工作流的基本单元</a></li><li class="chapter-item expanded "><a href="../../tasks/create-task-workflow-unit.html"><strong aria-hidden="true">8.7.2.</strong> 创建执行各类任务的工作流单元</a></li><li class="chapter-item expanded "><a href="../../tasks/create-dependent-workflow.html"><strong aria-hidden="true">8.7.3.</strong> 创建存在依赖关系的工作流</a></li><li class="chapter-item expanded "><a href="../../tasks/build-automated-workflow.html"><strong aria-hidden="true">8.7.4.</strong> 建立从数据采样到模型导出的自动化工作流</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/schedule-workload.html"><strong aria-hidden="true">8.8.</strong> 调度工作负载</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/use-queue.html"><strong aria-hidden="true">8.8.1.</strong> 使用 Queue</a></li><li class="chapter-item expanded "><a href="../../tasks/use-podgroup.html"><strong aria-hidden="true">8.8.2.</strong> 使用 PodGroup</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/use-platform-storage.html"><strong aria-hidden="true">8.9.</strong> 使用集群存储</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/pvc-importing-and-exporting-files.html"><strong aria-hidden="true">8.9.1.</strong> 上传和下载文件</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/manage-personal-account.html"><strong aria-hidden="true">8.10.</strong> 管理个人账户</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/generate-api-key.html"><strong aria-hidden="true">8.10.1.</strong> 生成 API Key</a></li><li class="chapter-item expanded "><a href="../../tasks/use-api-key.html"><strong aria-hidden="true">8.10.2.</strong> 使用 API Key</a></li><li class="chapter-item expanded "><a href="../../tasks/add-project-member.html"><strong aria-hidden="true">8.10.3.</strong> 添加项目成员</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../tools/index.html"><strong aria-hidden="true">9.</strong> 命令行工具和 SDK</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/cli-t9k/index.html"><strong aria-hidden="true">9.1.</strong> 命令行工具：t9k</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/cli-t9k/guide.html"><strong aria-hidden="true">9.1.1.</strong> 用户指南</a></li><li class="chapter-item expanded "><a href="../../tools/cli-t9k/commands.html"><strong aria-hidden="true">9.1.2.</strong> 命令</a></li></ol></li><li class="chapter-item expanded "><a href="../../tools/cli-t9k-pf/index.html"><strong aria-hidden="true">9.2.</strong> 命令行工具：t9k-pf</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/cli-t9k-pf/guide.html"><strong aria-hidden="true">9.2.1.</strong> 用户指南</a></li><li class="chapter-item expanded "><a href="../../tools/cli-t9k-pf/commands.html"><strong aria-hidden="true">9.2.2.</strong> 命令</a></li></ol></li><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/index.html"><strong aria-hidden="true">9.3.</strong> Python SDK：t9k</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/guide.html"><strong aria-hidden="true">9.3.1.</strong> 用户指南</a></li><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/api/index.html"><strong aria-hidden="true">9.3.2.</strong> API</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/api/t9k-ah.html"><strong aria-hidden="true">9.3.2.1.</strong> t9k.ah</a></li><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/api/t9k-ah-core.html"><strong aria-hidden="true">9.3.2.2.</strong> t9k.ah.core</a></li><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/api/t9k-config.html"><strong aria-hidden="true">9.3.2.3.</strong> t9k.config</a></li><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/api/t9k-em.html"><strong aria-hidden="true">9.3.2.4.</strong> t9k.em</a></li><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/api/t9k-tuner.html"><strong aria-hidden="true">9.3.2.5.</strong> t9k.tuner</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../tools/codepack/index.html"><strong aria-hidden="true">9.4.</strong> Codepack</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/codepack/concepts.html"><strong aria-hidden="true">9.4.1.</strong> 概念</a></li><li class="chapter-item expanded "><a href="../../tools/codepack/definition.html"><strong aria-hidden="true">9.4.2.</strong> Codepack 定义</a></li><li class="chapter-item expanded "><a href="../../tools/codepack/cli.html"><strong aria-hidden="true">9.4.3.</strong> 命令行工具</a></li><li class="chapter-item expanded "><a href="../../tools/codepack/example.html"><strong aria-hidden="true">9.4.4.</strong> 示例</a></li><li class="spacer"></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../references/index.html"><strong aria-hidden="true">10.</strong> 参考</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../references/glossary.html"><strong aria-hidden="true">10.1.</strong> 术语表</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/index.html"><strong aria-hidden="true">10.2.</strong> API 参考</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../references/api-reference/project.html"><strong aria-hidden="true">10.2.1.</strong> Project</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/genericjob.html"><strong aria-hidden="true">10.2.2.</strong> GenericJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/tensorflowtrainingjob.html"><strong aria-hidden="true">10.2.3.</strong> TensorFlowTrainingJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/pytorchtrainingjob.html"><strong aria-hidden="true">10.2.4.</strong> PyTorchTrainingJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/xgboosttrainingjob.html"><strong aria-hidden="true">10.2.5.</strong> XGBoostTrainingJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/colossalaijob.html"><strong aria-hidden="true">10.2.6.</strong> ColossalAIJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/deepspeedjob.html"><strong aria-hidden="true">10.2.7.</strong> DeepSpeedJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/mpijob.html"><strong aria-hidden="true">10.2.8.</strong> MPIJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/beamjob.html"><strong aria-hidden="true">10.2.9.</strong> BeamJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/tensorboard.html"><strong aria-hidden="true">10.2.10.</strong> TensorBoard</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/notebook.html"><strong aria-hidden="true">10.2.11.</strong> Notebook</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/autotune.html"><strong aria-hidden="true">10.2.12.</strong> AutoTuneExperiment</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/explorer.html"><strong aria-hidden="true">10.2.13.</strong> Explorer</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/storageshim.html"><strong aria-hidden="true">10.2.14.</strong> StorageShim</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/scheduler.html"><strong aria-hidden="true">10.2.15.</strong> Scheduler</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/workflow.html" class="active"><strong aria-hidden="true">10.2.16.</strong> Workflow</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/workflowtrigger.html"><strong aria-hidden="true">10.2.17.</strong> WorkflowTrigger</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/simplemlservice.html"><strong aria-hidden="true">10.2.18.</strong> SimpleMLService</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/mlservice.html"><strong aria-hidden="true">10.2.19.</strong> MLService</a></li></ol></li><li class="chapter-item expanded "><a href="../../references/standard-images.html"><strong aria-hidden="true">10.3.</strong> 标准镜像</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="../../examples/index.html"><strong aria-hidden="true">11.</strong> 示例</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../examples/start-llm-large-scale-pretraining.html"><strong aria-hidden="true">11.1.</strong> 启动 LLM 大规模预训练</a></li><li class="chapter-item expanded "><a href="../../examples/start-llm-finetuning.html"><strong aria-hidden="true">11.2.</strong> 启动 LLM 微调</a></li><li class="chapter-item expanded "><a href="../../examples/deploy-llm-chatbot.html"><strong aria-hidden="true">11.3.</strong> 部署 LLM 聊天机器人</a></li><li class="chapter-item expanded "><a href="../../examples/deploy-sd-drawing-model.html"><strong aria-hidden="true">11.4.</strong> 部署 Stable Diffusion 图像生成模型</a></li><li class="chapter-item expanded "><a href="../../examples/build-next-generation-llm-app-using-autogen.html"><strong aria-hidden="true">11.5.</strong> 使用 AutoGen 构建下一代 LLM 应用</a></li><li class="chapter-item expanded "><a href="../../examples/lane-detection.html"><strong aria-hidden="true">11.6.</strong> 车道检测</a></li><li class="chapter-item expanded "><a href="../../examples/deploy-mlservice-tensorizer.html"><strong aria-hidden="true">11.7.</strong> 使用 CoreWeave Tensorizer 加速模型部署</a></li><li class="chapter-item expanded "><a href="../../examples/deploy-llm-using-vllm.html"><strong aria-hidden="true">11.8.</strong> 使用 vLLM 部署 LLM 推理服务</a></li></ol></li><li class="chapter-item expanded "><a href="../../integrations/index.html"><strong aria-hidden="true">12.</strong> 应用集成</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../integrations/label-studio.html"><strong aria-hidden="true">12.1.</strong> Label Studio</a></li><li class="chapter-item expanded "><a href="../../integrations/vector-database.html"><strong aria-hidden="true">12.2.</strong> 向量数据库</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="../../background.html">附录1：背景</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        <!-- custom code for adding release version dropdown menu -->
+                        <div class="version-dropdown">
+                            <button id="release-version" class="icon-button" type="button" title="Release version" aria-label="Release version" aria-haspopup="true" aria-expanded="false" aria-controls="release-versions">
+                                <i class="fa fa-book"></i>
+                            </button>
+                            <div class="version-dropdown-content">
+                                <a href="https://t9k.github.io/user-manuals/latest/index.html"target="_blank" rel="noopener noreferrer">latest</a>
+                                <a href="https://t9k.github.io/user-manuals/v20240206/index.html"target="_blank" rel="noopener noreferrer">v20240206</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h1 class="menu-title">TensorStack AI 计算平台 - 用户使用手册</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <div class="sidetoc"><nav class="pagetoc"></nav></div>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="api-reference"><a class="header" href="#api-reference">API Reference</a></h1>
+<h2 id="packages"><a class="header" href="#packages">Packages</a></h2>
+<ul>
+<li><a href="#batchtensorstackdevv1beta1">batch.tensorstack.dev/v1beta1</a></li>
+</ul>
+<h2 id="batchtensorstackdevv1beta1"><a class="header" href="#batchtensorstackdevv1beta1">batch.tensorstack.dev/v1beta1</a></h2>
+<p>Package v1beta1 defines the CRD types.</p>
+<h3 id="resource-types"><a class="header" href="#resource-types">Resource Types</a></h3>
+<ul>
+<li><a href="#cronworkflowrun">CronWorkflowRun</a></li>
+<li><a href="#cronworkflowrunlist">CronWorkflowRunList</a></li>
+<li><a href="#workflowrun">WorkflowRun</a></li>
+<li><a href="#workflowrunlist">WorkflowRunList</a></li>
+<li><a href="#workflowtemplate">WorkflowTemplate</a></li>
+<li><a href="#workflowtemplatelist">WorkflowTemplateList</a></li>
+</ul>
+<h4 id="beamjobworkflowtemplate"><a class="header" href="#beamjobworkflowtemplate">BeamJobWorkflowTemplate</a></h4>
+<p>BeamJobWorkflowTemplate creates a t9k beam job.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#workflowtemplatespec">WorkflowTemplateSpec</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>metadata</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta">ObjectMeta</a></em></td><td>Refer to Kubernetes API documentation for fields of <code>metadata</code>.</td></tr>
+<tr><td><code>spec</code> <em><a href="#beamjobspec">BeamJobSpec</a></em></td><td>Spec of the beam job.</td></tr>
+</tbody></table>
+</div>
+<h4 id="colossalaijobworkflowtemplate"><a class="header" href="#colossalaijobworkflowtemplate">ColossalAIJobWorkflowTemplate</a></h4>
+<p>ColossalAIJobWorkflowTemplate creates a t9k colossalai job.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#workflowtemplatespec">WorkflowTemplateSpec</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>metadata</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta">ObjectMeta</a></em></td><td>Refer to Kubernetes API documentation for fields of <code>metadata</code>.</td></tr>
+<tr><td><code>spec</code> <em><a href="#colossalaijobspec">ColossalAIJobSpec</a></em></td><td>Spec of the colossalai job.</td></tr>
+</tbody></table>
+</div>
+<h4 id="concurrencypolicy"><a class="header" href="#concurrencypolicy">ConcurrencyPolicy</a></h4>
+<p><em>Underlying type:</em> <code>string</code></p>
+<p>ConcurrencyPolicy describes how the WorkflowRun will be handled. Only one of the following concurrent policies may be specified. If none of the following policies is specified, the default one is AllowConcurrent.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#cronworkflowrunspec">CronWorkflowRunSpec</a></li>
+</ul>
+<h4 id="conditionselector"><a class="header" href="#conditionselector">ConditionSelector</a></h4>
+<p>ConditionSelector selects a k8s resource if its <code>status.conditions</code> contains a condition whose type and status are exactly the same as those of the condition selector.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#rules">Rules</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>type</code> <em>string</em></td><td>Type of the condition.</td></tr>
+<tr><td><code>status</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#conditionstatus-v1-core">ConditionStatus</a></em></td><td>Status of the condition, one of True, False, or Unknown.</td></tr>
+</tbody></table>
+</div>
+<h4 id="cronworkflowrun"><a class="header" href="#cronworkflowrun">CronWorkflowRun</a></h4>
+<p>CronWorkflowRun is the Schema for the CronWorkflowRun API</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#cronworkflowrunlist">CronWorkflowRunList</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>apiVersion</code> <em>string</em></td><td><code>batch.tensorstack.dev/apis</code></td></tr>
+<tr><td><code>kind</code> <em>string</em></td><td><code>CronWorkflowRun</code></td></tr>
+<tr><td><code>metadata</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta">ObjectMeta</a></em></td><td>Refer to Kubernetes API documentation for fields of <code>metadata</code>.</td></tr>
+<tr><td><code>spec</code> <em><a href="#cronworkflowrunspec">CronWorkflowRunSpec</a></em></td><td></td></tr>
+<tr><td><code>status</code> <em><a href="#cronworkflowrunstatus">CronWorkflowRunStatus</a></em></td><td></td></tr>
+</tbody></table>
+</div>
+<h4 id="cronworkflowruncondition"><a class="header" href="#cronworkflowruncondition">CronWorkflowRunCondition</a></h4>
+<p>CronWorkflowRunCondition is an observation of the condition of the CronWorkflowRun.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#cronworkflowrunstatus">CronWorkflowRunStatus</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>type</code> <em><a href="#cronworkflowrunconditiontype">CronWorkflowRunConditionType</a></em></td><td>Type of CronWorkflowRun condition.</td></tr>
+<tr><td><code>status</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#conditionstatus-v1-core">ConditionStatus</a></em></td><td>Status of the condition, one of True, False, or Unknown.</td></tr>
+<tr><td><code>reason</code> <em>string</em></td><td>The reason for the condition’s last transition.</td></tr>
+<tr><td><code>message</code> <em>string</em></td><td>A readable message indicating details about the transition.</td></tr>
+<tr><td><code>lastTransitionTime</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta">Time</a></em></td><td>Last time the condition transitioned from one status to another.</td></tr>
+</tbody></table>
+</div>
+<h4 id="cronworkflowrunconditiontype"><a class="header" href="#cronworkflowrunconditiontype">CronWorkflowRunConditionType</a></h4>
+<p><em>Underlying type:</em> <code>string</code></p>
+<p>CronWorkflowRunConditionType defines all possible types of CronWorkflowRunCondition. Can be one of: HasStarted, IsRunning, HasSuccessfulRun, HasFailedRun.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#cronworkflowruncondition">CronWorkflowRunCondition</a></li>
+</ul>
+<h4 id="cronworkflowrunlist"><a class="header" href="#cronworkflowrunlist">CronWorkflowRunList</a></h4>
+<p>CronWorkflowRunList contains a list of CronWorkflowRun</p>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>apiVersion</code> <em>string</em></td><td><code>batch.tensorstack.dev/apis</code></td></tr>
+<tr><td><code>kind</code> <em>string</em></td><td><code>CronWorkflowRunList</code></td></tr>
+<tr><td><code>metadata</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#listmeta-v1-meta">ListMeta</a></em></td><td>Refer to Kubernetes API documentation for fields of <code>metadata</code>.</td></tr>
+<tr><td><code>items</code> <em><a href="#cronworkflowrun">CronWorkflowRun</a> array</em></td><td></td></tr>
+</tbody></table>
+</div>
+<h4 id="cronworkflowrunspec"><a class="header" href="#cronworkflowrunspec">CronWorkflowRunSpec</a></h4>
+<p>CronWorkflowRunSpec defines the desired state of CronWorkflowRun.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#cronworkflowrun">CronWorkflowRun</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>schedule</code> <em>string</em></td><td>Schedule defines the schedule for the running of WorkflowRuns.</td></tr>
+<tr><td><code>concurrencyPolicy</code> <em><a href="#concurrencypolicy">ConcurrencyPolicy</a></em></td><td>Specifies how to treat concurrent executions of a WorkflowRun. Valid values are: - “Allow” (default): allows WorkflowRuns to run concurrently; - “Forbid”: forbids concurrent runs, skipping next run if previous run hasn’t finished yet; - “Replace”: cancels currently running WorkflowRun and replaces it with a new one</td></tr>
+<tr><td><code>successfulRunsHistoryLimit</code> <em>integer</em></td><td>The number of successful finished WorkflowRuns to retain. This is a pointer to distinguish between explicit zero and not specified.</td></tr>
+<tr><td><code>failedRunsHistoryLimit</code> <em>integer</em></td><td>The number of failed finished WorkflowRuns to retain. This is a pointer to distinguish between explicit zero and not specified.</td></tr>
+<tr><td><code>startingDeadlineSeconds</code> <em>integer</em></td><td>Deadline in seconds for starting the WorkflowRuns if it misses scheduled time for any reason.  Missed WorkflowRun runs will be counted as failed ones.</td></tr>
+<tr><td><code>suspend</code> <em>boolean</em></td><td>This flag tells the controller to suspend subsequent runs, it does not apply to already started runs.  Defaults to false.</td></tr>
+<tr><td><code>workflowRun</code> <em><a href="#workflowruntemplatespec">WorkflowRunTemplateSpec</a></em></td><td>Specifies the WorkflowRun that will be created when executing a CronWorkflowRun.</td></tr>
+</tbody></table>
+</div>
+<h4 id="cronworkflowrunstatus"><a class="header" href="#cronworkflowrunstatus">CronWorkflowRunStatus</a></h4>
+<p>CronWorkflowRunStatus defines the observed state of CronWorkflowRun.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#cronworkflowrun">CronWorkflowRun</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>active</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectreference-v1-core">ObjectReference</a> array</em></td><td>A list of pointers to currently running WorkflowRuns.</td></tr>
+<tr><td><code>lastScheduleTime</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta">Time</a></em></td><td>The last time when the WorkflowRun was successfully created.</td></tr>
+<tr><td><code>conditions</code> <em><a href="#cronworkflowruncondition">CronWorkflowRunCondition</a> array</em></td><td>The latest available observations of the CronWorkflowRun’s current state.</td></tr>
+</tbody></table>
+</div>
+<h4 id="dagnode"><a class="header" href="#dagnode">DAGNode</a></h4>
+<p>DAGNode represents a node in the graph during DAG execution.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#dagworkflowtemplate">DAGWorkflowTemplate</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>name</code> <em>string</em></td><td>Name is the name of this node within the DAG.</td></tr>
+<tr><td><code>workflowTemplateRef</code> <em>string</em></td><td>WorkflowTemplateRef is a reference to a workflowTemplate definition.</td></tr>
+<tr><td><code>when</code> <em><a href="#whenexpression">WhenExpression</a> array</em></td><td>WhenExpressions is a list of when expressions that need to be true for the node to run</td></tr>
+<tr><td><code>retries</code> <em>integer</em></td><td>Retries represents how many times this node should be retried in case of failure: Condition Succeeded set to False</td></tr>
+<tr><td><code>dependencies</code> <em>string array</em></td><td>Dependencies are name of other nodes which this depends on, to force a specific ordering in graph execution.</td></tr>
+<tr><td><code>params</code> <em><a href="#param">Param</a> array</em></td><td>Parameters declares parameters passed to this node.</td></tr>
+<tr><td><code>workspaces</code> <em><a href="#workspacedagbinding">WorkspaceDAGBinding</a> array</em></td><td>Workspaces maps workspaces from the DAG WorkflowTemplate spec to the workspaces declared in the node.</td></tr>
+</tbody></table>
+</div>
+<h4 id="dagworkflowtemplate"><a class="header" href="#dagworkflowtemplate">DAGWorkflowTemplate</a></h4>
+<p>DAGWorkflowTemplate creates a dag consisting of other WorkflowTemplates.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#workflowtemplatespec">WorkflowTemplateSpec</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>templates</code> <em><a href="#dagnode">DAGNode</a> array</em></td><td>Templates are a list of DAG nodes.</td></tr>
+<tr><td><code>failureStrategy</code> <em><a href="#failurestrategy">FailureStrategy</a></em></td><td>FailureStrategy is the strategy when a node in DAG fails.</td></tr>
+</tbody></table>
+</div>
+<h4 id="deepspeedjobworkflowtemplate"><a class="header" href="#deepspeedjobworkflowtemplate">DeepSpeedJobWorkflowTemplate</a></h4>
+<p>DeepSpeedJobWorkflowTemplate creates a t9k deepspeed job.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#workflowtemplatespec">WorkflowTemplateSpec</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>metadata</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta">ObjectMeta</a></em></td><td>Refer to Kubernetes API documentation for fields of <code>metadata</code>.</td></tr>
+<tr><td><code>spec</code> <em><a href="#deepspeedjobspec">DeepSpeedJobSpec</a></em></td><td>Spec of the deepspeed job.</td></tr>
+</tbody></table>
+</div>
+<h4 id="failurestrategy"><a class="header" href="#failurestrategy">FailureStrategy</a></h4>
+<p><em>Underlying type:</em> <code>string</code></p>
+<p>FailureStrategy defines the failure strategy of DAGWorkflowTemplate.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#dagworkflowtemplate">DAGWorkflowTemplate</a></li>
+</ul>
+<h4 id="genericjobworkflowtemplate"><a class="header" href="#genericjobworkflowtemplate">GenericJobWorkflowTemplate</a></h4>
+<p>GenericJobWorkflowTemplate creates a t9k generic job.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#workflowtemplatespec">WorkflowTemplateSpec</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>metadata</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta">ObjectMeta</a></em></td><td>Refer to Kubernetes API documentation for fields of <code>metadata</code>.</td></tr>
+<tr><td><code>spec</code> <em><a href="#genericjobspec">GenericJobSpec</a></em></td><td>Spec of the generic job.</td></tr>
+</tbody></table>
+</div>
+<h4 id="mpijobworkflowtemplate"><a class="header" href="#mpijobworkflowtemplate">MPIJobWorkflowTemplate</a></h4>
+<p>MPIJobWorkflowTemplate creates a t9k mpi job.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#workflowtemplatespec">WorkflowTemplateSpec</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>metadata</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta">ObjectMeta</a></em></td><td>Refer to Kubernetes API documentation for fields of <code>metadata</code>.</td></tr>
+<tr><td><code>spec</code> <em><a href="#mpijobspec">MPIJobSpec</a></em></td><td>Spec of the mpi job.</td></tr>
+</tbody></table>
+</div>
+<h4 id="nodephase"><a class="header" href="#nodephase">NodePhase</a></h4>
+<p><em>Underlying type:</em> <code>string</code></p>
+<p>NodePhase is the current state of a node. Node means the node in a DAG. PodWorkflowTemplate, SeqPodWorkflowTemplate and ResourceWorkflowTemplate are also considered as an independent node. DAGWorkflowTemplate itself is considered as a parent node.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#nodestatus">NodeStatus</a></li>
+<li><a href="#workflowrunstatusfields">WorkflowRunStatusFields</a></li>
+</ul>
+<h4 id="nodestatus"><a class="header" href="#nodestatus">NodeStatus</a></h4>
+<p>NodeStatus is the status of a node in DAG</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#workflowrunstatusfields">WorkflowRunStatusFields</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>workflowRunName</code> <em>string</em></td><td>WorkflowRunName is the name of WorkflowRun created from the node.</td></tr>
+<tr><td><code>phase</code> <em><a href="#nodephase">NodePhase</a></em></td><td>Phase is the phase of the node.</td></tr>
+<tr><td><code>whenExpressions</code> <em><a href="#whenexpression">WhenExpression</a> array</em></td><td>WhenExpressions show why if the node is skipped.</td></tr>
+</tbody></table>
+</div>
+<h4 id="param"><a class="header" href="#param">Param</a></h4>
+<p>Param declares a string to use for the parameter called name.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#dagnode">DAGNode</a></li>
+<li><a href="#workflowrunspec">WorkflowRunSpec</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>name</code> <em>string</em></td><td></td></tr>
+<tr><td><code>value</code> <em>string</em></td><td></td></tr>
+</tbody></table>
+</div>
+<h4 id="paramspec"><a class="header" href="#paramspec">ParamSpec</a></h4>
+<p>ParamSpec defines values that are provided by users as inputs on a WorkflowRun.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#workflowtemplatespec">WorkflowTemplateSpec</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>name</code> <em>string</em></td><td>Name declares the name by which a parameter is referenced.</td></tr>
+<tr><td><code>description</code> <em>string</em></td><td>Description is a user-facing description of the parameter that may be used to populate a UI.</td></tr>
+<tr><td><code>default</code> <em>string</em></td><td>Default is the value a parameter takes if no input value is supplied. If default is set, a WorkflowTemplate may be executed without a supplied value for the parameter. It serves as a pointer to distinguish between setting no default and setting empty string as default.</td></tr>
+</tbody></table>
+</div>
+<h4 id="podspecwithoutcontainers"><a class="header" href="#podspecwithoutcontainers">PodSpecWithoutContainers</a></h4>
+<p>PodSpecWithoutContainers is a helper struct for SeqPodWorkflowTemplate forked from https://github.com/kubernetes/api/blob/v0.20.0/core/v1/types.go#L2914</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#seqpodworkflowtemplate">SeqPodWorkflowTemplate</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>volumes</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#volume-v1-core">Volume</a> array</em></td><td>List of volumes that can be mounted by containers belonging to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes</td></tr>
+<tr><td><code>initContainers</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#container-v1-core">Container</a> array</em></td><td>List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/</td></tr>
+<tr><td><code>ephemeralContainers</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#ephemeralcontainer-v1-core">EphemeralContainer</a> array</em></td><td>List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod’s ephemeralcontainers subresource. This field is alpha-level and is only honored by servers that enable the EphemeralContainers feature.</td></tr>
+<tr><td><code>restartPolicy</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#restartpolicy-v1-core">RestartPolicy</a></em></td><td>Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy</td></tr>
+<tr><td><code>terminationGracePeriodSeconds</code> <em>integer</em></td><td>Optional duration in seconds the pod needs to terminate gracefully. May be decreased in delete request. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period will be used instead. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. Defaults to 30 seconds.</td></tr>
+<tr><td><code>activeDeadlineSeconds</code> <em>integer</em></td><td>Optional duration in seconds the pod may be active on the node relative to StartTime before the system will actively try to mark it failed and kill associated containers. Value must be a positive integer.</td></tr>
+<tr><td><code>dnsPolicy</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#dnspolicy-v1-core">DNSPolicy</a></em></td><td>Set DNS policy for the pod. Defaults to “ClusterFirst”. Valid values are ‘ClusterFirstWithHostNet’, ‘ClusterFirst’, ‘Default’ or ‘None’. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy. To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to ‘ClusterFirstWithHostNet’.</td></tr>
+<tr><td><code>nodeSelector</code> <em>object (keys:string, values:string)</em></td><td>NodeSelector is a selector which must be true for the pod to fit on a node. Selector which must match a node’s labels for the pod to be scheduled on that node. More info: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/</td></tr>
+<tr><td><code>serviceAccountName</code> <em>string</em></td><td>ServiceAccountName is the name of the ServiceAccount to use to run this pod. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/</td></tr>
+<tr><td><code>serviceAccount</code> <em>string</em></td><td>DeprecatedServiceAccount is a depreciated alias for ServiceAccountName. Deprecated: Use serviceAccountName instead.</td></tr>
+<tr><td><code>automountServiceAccountToken</code> <em>boolean</em></td><td>AutomountServiceAccountToken indicates whether a service account token should be automatically mounted.</td></tr>
+<tr><td><code>nodeName</code> <em>string</em></td><td>NodeName is a request to schedule this pod onto a specific node. If it is non-empty, the scheduler simply schedules this pod onto that node, assuming that it fits resource requirements.</td></tr>
+<tr><td><code>hostNetwork</code> <em>boolean</em></td><td>Host networking requested for this pod. Use the host’s network namespace. If this option is set, the ports that will be used must be specified. Default to false.</td></tr>
+<tr><td><code>hostPID</code> <em>boolean</em></td><td>Use the host’s pid namespace. Optional: Default to false.</td></tr>
+<tr><td><code>hostIPC</code> <em>boolean</em></td><td>Use the host’s ipc namespace. Optional: Default to false.</td></tr>
+<tr><td><code>shareProcessNamespace</code> <em>boolean</em></td><td>Share a single process namespace between all of the containers in a pod. When this is set containers will be able to view and signal processes from other containers in the same pod, and the first process in each container will not be assigned PID 1. HostPID and ShareProcessNamespace cannot both be set. Optional: Default to false.</td></tr>
+<tr><td><code>securityContext</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#podsecuritycontext-v1-core">PodSecurityContext</a></em></td><td>SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.</td></tr>
+<tr><td><code>imagePullSecrets</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#localobjectreference-v1-core">LocalObjectReference</a> array</em></td><td>ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. For example, in the case of docker, only DockerConfig type secrets are honored. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod</td></tr>
+<tr><td><code>hostname</code> <em>string</em></td><td>Specifies the hostname of the Pod If not specified, the pod’s hostname will be set to a system-defined value.</td></tr>
+<tr><td><code>subdomain</code> <em>string</em></td><td>If specified, the fully qualified Pod hostname will be “<hostname>.<subdomain>.<pod namespace>.svc.<cluster domain>”. If not specified, the pod will not have a domainname at all.</td></tr>
+<tr><td><code>affinity</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#affinity-v1-core">Affinity</a></em></td><td>If specified, the pod’s scheduling constraints</td></tr>
+<tr><td><code>schedulerName</code> <em>string</em></td><td>If specified, the pod will be dispatched by specified scheduler. If not specified, the pod will be dispatched by default scheduler.</td></tr>
+<tr><td><code>tolerations</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#toleration-v1-core">Toleration</a> array</em></td><td>If specified, the pod’s tolerations.</td></tr>
+<tr><td><code>hostAliases</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#hostalias-v1-core">HostAlias</a> array</em></td><td>HostAliases is an optional list of hosts and IPs that will be injected into the pod’s hosts file if specified. This is only valid for non-hostNetwork pods.</td></tr>
+<tr><td><code>priorityClassName</code> <em>string</em></td><td>If specified, indicates the pod’s priority. “system-node-critical” and “system-cluster-critical” are two special keywords which indicate the highest priorities with the former being the highest priority. Any other name must be defined by creating a PriorityClass object with that name. If not specified, the pod priority will be default or zero if there is no default.</td></tr>
+<tr><td><code>priority</code> <em>integer</em></td><td>The priority value. Various system components use this field to find the priority of the pod. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority.</td></tr>
+<tr><td><code>dnsConfig</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#poddnsconfig-v1-core">PodDNSConfig</a></em></td><td>Specifies the DNS parameters of a pod. Parameters specified here will be merged to the generated DNS configuration based on DNSPolicy.</td></tr>
+<tr><td><code>readinessGates</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#podreadinessgate-v1-core">PodReadinessGate</a> array</em></td><td>If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when all its containers are ready AND all conditions specified in the readiness gates have status equal to “True” More info: https://git.k8s.io/enhancements/keps/sig-network/0007-pod-ready%2B%2B.md</td></tr>
+<tr><td><code>runtimeClassName</code> <em>string</em></td><td>RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the “legacy” RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md This is a beta feature as of Kubernetes v1.14.</td></tr>
+<tr><td><code>enableServiceLinks</code> <em>boolean</em></td><td>EnableServiceLinks indicates whether information about services should be injected into pod’s environment variables, matching the syntax of Docker links. Optional: Defaults to true.</td></tr>
+<tr><td><code>preemptionPolicy</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#preemptionpolicy-v1-core">PreemptionPolicy</a></em></td><td>PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.</td></tr>
+<tr><td><code>overhead</code> <em>object (keys:<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#resourcename-v1-core">ResourceName</a>, values:Quantity)</em></td><td>Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.16, and is only honored by servers that enable the PodOverhead feature.</td></tr>
+<tr><td><code>topologySpreadConstraints</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#topologyspreadconstraint-v1-core">TopologySpreadConstraint</a> array</em></td><td>TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. All topologySpreadConstraints are ANDed.</td></tr>
+<tr><td><code>setHostnameAsFQDN</code> <em>boolean</em></td><td>If true the pod’s hostname will be configured as the pod’s FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.</td></tr>
+</tbody></table>
+</div>
+<h4 id="podworkflowtemplate"><a class="header" href="#podworkflowtemplate">PodWorkflowTemplate</a></h4>
+<p>PodWorkflowTemplate creates a pod.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#workflowtemplatespec">WorkflowTemplateSpec</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>PodSpec</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#podspec-v1-core">PodSpec</a></em></td><td></td></tr>
+</tbody></table>
+</div>
+<h4 id="pytorchtrainingjobworkflowtemplate"><a class="header" href="#pytorchtrainingjobworkflowtemplate">PyTorchTrainingJobWorkflowTemplate</a></h4>
+<p>PyTorchTrainingJobWorkflowTemplate creates a t9k pytorch training job.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#workflowtemplatespec">WorkflowTemplateSpec</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>metadata</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta">ObjectMeta</a></em></td><td>Refer to Kubernetes API documentation for fields of <code>metadata</code>.</td></tr>
+<tr><td><code>spec</code> <em><a href="#pytorchtrainingjobspec">PyTorchTrainingJobSpec</a></em></td><td>Spec of the pytorch training job.</td></tr>
+</tbody></table>
+</div>
+<h4 id="resourceworkflowtemplate"><a class="header" href="#resourceworkflowtemplate">ResourceWorkflowTemplate</a></h4>
+<p>ResourceWorkflowTemplate creates a k8s resource.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#workflowtemplatespec">WorkflowTemplateSpec</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>successRules</code> <em><a href="#rules">Rules</a></em></td><td>SuccessRules is an expression which describes the state of the k8s resource in which the task was considered succeeded.</td></tr>
+<tr><td><code>failureRules</code> <em><a href="#rules">Rules</a></em></td><td>FailureRules is an expression which describes the state of the k8s resource in which the task was considered failed.</td></tr>
+<tr><td><code>manifest</code> <em>string</em></td><td>Manifest is the full spec of the k8s resource to create.</td></tr>
+</tbody></table>
+</div>
+<h4 id="result"><a class="header" href="#result">Result</a></h4>
+<p>Result used to describe the results of a task</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#workflowtemplatespec">WorkflowTemplateSpec</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>name</code> <em>string</em></td><td>Name the given name</td></tr>
+<tr><td><code>description</code> <em>string</em></td><td>Description is a human-readable description of the result</td></tr>
+<tr><td><code>value</code> <em>string</em></td><td>Value is a expression to generate DAG result by combining node results Only required for DAG WorkflowTemplate</td></tr>
+</tbody></table>
+</div>
+<h4 id="rules"><a class="header" href="#rules">Rules</a></h4>
+<p>Rules describe the state of the k8s resource.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#resourceworkflowtemplate">ResourceWorkflowTemplate</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>fieldSelector</code> <em>string</em></td><td>FieldSelector selects k8s resources based on the value of one or more resource fields, examples: metadata.name=my-service metadata.namespace!=default status.phase!=Running,spec.restartPolicy=Always</td></tr>
+<tr><td><code>conditionSelector</code> <em><a href="#conditionselector">ConditionSelector</a></em></td><td>ConditionSelector selects k8s resources based on <resource>.status.conditions.</td></tr>
+</tbody></table>
+</div>
+<h4 id="schedulepolicy"><a class="header" href="#schedulepolicy">SchedulePolicy</a></h4>
+<p>SchedulePolicy defines how k8s schedules the WorkflowRun.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#workflowrunspec">WorkflowRunSpec</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>t9kScheduler</code> <em><a href="#t9kscheduler">T9kScheduler</a></em></td><td>T9k Scheduler.</td></tr>
+</tbody></table>
+</div>
+<h4 id="seqpodworkflowtemplate"><a class="header" href="#seqpodworkflowtemplate">SeqPodWorkflowTemplate</a></h4>
+<p>SeqPodWorkflowTemplate creates a pod whose containers run sequentially. The spec of SeqPodWorkflowTemplate is almost the same with corev1.PodSpec, except that the field <code>Containers</code> is replaced by <code>Steps</code>, to emphasize the sequential execution pattern.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#workflowtemplatespec">WorkflowTemplateSpec</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>PodSpecWithoutContainers</code> <em><a href="#podspecwithoutcontainers">PodSpecWithoutContainers</a></em></td><td></td></tr>
+<tr><td><code>steps</code> <em><a href="#step">Step</a> array</em></td><td>Steps are the sequentially running containers of the SeqPodWorkflowTemplate</td></tr>
+</tbody></table>
+</div>
+<h4 id="step"><a class="header" href="#step">Step</a></h4>
+<p>Step embeds the Container type, which allows it to include fields not provided by Container.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#seqpodworkflowtemplate">SeqPodWorkflowTemplate</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>Container</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#container-v1-core">Container</a></em></td><td></td></tr>
+<tr><td><code>script</code> <em>string</em></td><td>Script is the contents of an executable file to execute. If Script is not empty, the Step cannot have an Command and the Args will be passed to the Script.</td></tr>
+</tbody></table>
+</div>
+<h4 id="t9kscheduler"><a class="header" href="#t9kscheduler">T9kScheduler</a></h4>
+<p>T9kScheduler provides additonal configurations needed for the scheduling process.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#schedulepolicy">SchedulePolicy</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>queue</code> <em>string</em></td><td>Specifies the name of the queue should be used for running this workload.</td></tr>
+</tbody></table>
+</div>
+<h4 id="tensorflowtrainingjobworkflowtemplate"><a class="header" href="#tensorflowtrainingjobworkflowtemplate">TensorFlowTrainingJobWorkflowTemplate</a></h4>
+<p>TensorFlowTrainingJobWorkflowTemplate creates a t9k training job.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#workflowtemplatespec">WorkflowTemplateSpec</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>metadata</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta">ObjectMeta</a></em></td><td>Refer to Kubernetes API documentation for fields of <code>metadata</code>.</td></tr>
+<tr><td><code>spec</code> <em><a href="#tensorflowtrainingjobspec">TensorFlowTrainingJobSpec</a></em></td><td>Spec of the training job.</td></tr>
+</tbody></table>
+</div>
+<h4 id="whenexpression"><a class="header" href="#whenexpression">WhenExpression</a></h4>
+<p>WhenExpression allows a node in DAG to declare expressions to be evaluated before the node is run to determine whether the node should be executed or skipped.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#dagnode">DAGNode</a></li>
+<li><a href="#nodestatus">NodeStatus</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>input</code> <em>string</em></td><td>Input is the string for guard checking which can be a static input or an output from a parent node</td></tr>
+<tr><td><code>operator</code> <em>Operator</em></td><td>Operator that represents an Input’s relationship to the values</td></tr>
+<tr><td><code>values</code> <em>string array</em></td><td>Values is an array of strings, which is compared against the input, for guard checking It must be non-empty</td></tr>
+</tbody></table>
+</div>
+<h4 id="workflowrun"><a class="header" href="#workflowrun">WorkflowRun</a></h4>
+<p>WorkflowRun is the Schema for the workflowrun API</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#workflowrunlist">WorkflowRunList</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>apiVersion</code> <em>string</em></td><td><code>batch.tensorstack.dev/apis</code></td></tr>
+<tr><td><code>kind</code> <em>string</em></td><td><code>WorkflowRun</code></td></tr>
+<tr><td><code>metadata</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta">ObjectMeta</a></em></td><td>Refer to Kubernetes API documentation for fields of <code>metadata</code>.</td></tr>
+<tr><td><code>spec</code> <em><a href="#workflowrunspec">WorkflowRunSpec</a></em></td><td></td></tr>
+<tr><td><code>status</code> <em><a href="#workflowrunstatus">WorkflowRunStatus</a></em></td><td></td></tr>
+</tbody></table>
+</div>
+<h4 id="workflowruncondition"><a class="header" href="#workflowruncondition">WorkflowRunCondition</a></h4>
+<p>WorkflowRunCondition is an observation of the condition of the WorkflowRun.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#workflowrunstatusfields">WorkflowRunStatusFields</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>type</code> <em><a href="#workflowrunconditiontype">WorkflowRunConditionType</a></em></td><td>Type of WorkflowRun condition.</td></tr>
+<tr><td><code>status</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#conditionstatus-v1-core">ConditionStatus</a></em></td><td>Status of the condition, one of True, False, or Unknown.</td></tr>
+<tr><td><code>reason</code> <em>string</em></td><td>The reason for the condition’s last transition.</td></tr>
+<tr><td><code>message</code> <em>string</em></td><td>A readable message indicating details about the transition.</td></tr>
+<tr><td><code>lastTransitionTime</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta">Time</a></em></td><td>Last time the condition transitioned from one status to another.</td></tr>
+</tbody></table>
+</div>
+<h4 id="workflowrunconditiontype"><a class="header" href="#workflowrunconditiontype">WorkflowRunConditionType</a></h4>
+<p><em>Underlying type:</em> <code>string</code></p>
+<p>WorkflowRunConditionType defines all possible types of WorkflowRunConditionType. Can be one of: Running, Completed.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#workflowruncondition">WorkflowRunCondition</a></li>
+</ul>
+<h4 id="workflowrunlist"><a class="header" href="#workflowrunlist">WorkflowRunList</a></h4>
+<p>WorkflowRunList contains a list of WorkflowRun</p>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>apiVersion</code> <em>string</em></td><td><code>batch.tensorstack.dev/apis</code></td></tr>
+<tr><td><code>kind</code> <em>string</em></td><td><code>WorkflowRunList</code></td></tr>
+<tr><td><code>metadata</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#listmeta-v1-meta">ListMeta</a></em></td><td>Refer to Kubernetes API documentation for fields of <code>metadata</code>.</td></tr>
+<tr><td><code>items</code> <em><a href="#workflowrun">WorkflowRun</a> array</em></td><td></td></tr>
+</tbody></table>
+</div>
+<h4 id="workflowrunresult"><a class="header" href="#workflowrunresult">WorkflowRunResult</a></h4>
+<p>WorkflowRunResult used to describe the results of a workflowTemplate</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#workflowrunstatusfields">WorkflowRunStatusFields</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>name</code> <em>string</em></td><td>Name the given name</td></tr>
+<tr><td><code>value</code> <em>string</em></td><td>Value the given value of the result</td></tr>
+</tbody></table>
+</div>
+<h4 id="workflowrunspec"><a class="header" href="#workflowrunspec">WorkflowRunSpec</a></h4>
+<p>WorkflowRunSpec defines the desired state of WorkflowRun</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#workflowrun">WorkflowRun</a></li>
+<li><a href="#workflowruntemplatespec">WorkflowRunTemplateSpec</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>workspaces</code> <em><a href="#workspacebinding">WorkspaceBinding</a> array</em></td><td>Workspaces is a list of mappings from volumes to workspace names that will be supplied to WorkflowTemplate.</td></tr>
+<tr><td><code>params</code> <em><a href="#param">Param</a> array</em></td><td>Params is a list of input parameters that will be supplied to WorkflowTemplate.</td></tr>
+<tr><td><code>serviceAccountName</code> <em>string</em></td><td>ServiceAccountName is the name of the service account that the created pod will use.</td></tr>
+<tr><td><code>workflowTemplateRef</code> <em>string</em></td><td>WorkflowTemplateRef is the name of the WorkflowTemplate that WorkflowRun will use. No more than one of the WorkflowTemplateRef and WorkflowTemplateSpec may be specified.</td></tr>
+<tr><td><code>workflowTemplateSpec</code> <em><a href="#workflowtemplatespec">WorkflowTemplateSpec</a></em></td><td>WorkflowTemplateSpec is an embedded spec of WorkflowTemplate that WorkflowRun will use. No more than one of the WorkflowTemplateRef and WorkflowTemplateSpec may be specified.</td></tr>
+<tr><td><code>timeout</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#duration-v1-meta">Duration</a></em></td><td>Time after which the build times out. Defaults to never. Refer Go’s ParseDuration documentation for expected format: https://golang.org/pkg/time/#ParseDuration</td></tr>
+<tr><td><code>depth</code> <em>integer</em></td><td>Depth indicates the depth of the WorkflowRun in DAG. If Depth exceeds limit, the WorkflowRun will not be created.</td></tr>
+<tr><td><code>scheduler</code> <em><a href="#schedulepolicy">SchedulePolicy</a></em></td><td>Identifies the preferred scheduler for allocating resources to replicas. Defaults to cluster default scheduler.</td></tr>
+</tbody></table>
+</div>
+<h4 id="workflowrunstatus"><a class="header" href="#workflowrunstatus">WorkflowRunStatus</a></h4>
+<p>WorkflowRunStatus defines the observed state of WorkflowRun</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#workflowrun">WorkflowRun</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>WorkflowRunStatusFields</code> <em><a href="#workflowrunstatusfields">WorkflowRunStatusFields</a></em></td><td>WorkflowRunStatusFields inlines the status fields.</td></tr>
+<tr><td><code>retriedStatus</code> <em><a href="#workflowrunstatusfields">WorkflowRunStatusFields</a> array</em></td><td>RetriedStatus contains the history of WorkflowRunStatus in case of a retry in order to keep record of failures.</td></tr>
+</tbody></table>
+</div>
+<h4 id="workflowrunstatusfields"><a class="header" href="#workflowrunstatusfields">WorkflowRunStatusFields</a></h4>
+<p>WorkflowRunStatusFields are the main fields of WorkflowRunStatus</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#workflowrunstatus">WorkflowRunStatus</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>phase</code> <em><a href="#nodephase">NodePhase</a></em></td><td>Phase is a simple, high-level summary of where the WorkflowRun is in its lifecycle.</td></tr>
+<tr><td><code>message</code> <em>string</em></td><td>A human readable message indicating details about why the WorkflowRun is in this condition.</td></tr>
+<tr><td><code>nodes</code> <em>object (keys:string, values:<a href="#nodestatus">NodeStatus</a>)</em></td><td>Nodes is a map of DAG nodes status, with the node name as the key.</td></tr>
+<tr><td><code>startTime</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta">Time</a></em></td><td>StartTime is the time the build is actually started.</td></tr>
+<tr><td><code>completionTime</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta">Time</a></em></td><td>CompletionTime is the time the build completed.</td></tr>
+<tr><td><code>results</code> <em><a href="#workflowrunresult">WorkflowRunResult</a> array</em></td><td>Results are the list of results written out by the workflowTemplate’s containers</td></tr>
+<tr><td><code>workflowTemplateSpec</code> <em><a href="#workflowtemplatespec">WorkflowTemplateSpec</a></em></td><td>WorkflowTemplateSpec contains the Spec from the dereferenced WorkflowTemplate definition used to instantiate this WorkflowRun.</td></tr>
+<tr><td><code>podName</code> <em>string</em></td><td>PodName is the name of the pod created by WorkflowRun.</td></tr>
+<tr><td><code>conditions</code> <em><a href="#workflowruncondition">WorkflowRunCondition</a> array</em></td><td>The latest available observations of the WorkflowRun’s current state.</td></tr>
+</tbody></table>
+</div>
+<h4 id="workflowruntemplatespec"><a class="header" href="#workflowruntemplatespec">WorkflowRunTemplateSpec</a></h4>
+<p>WorkflowRunTemplateSpec describes the data a WorkflowRun should have when created from a template</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#cronworkflowrunspec">CronWorkflowRunSpec</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>metadata</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta">ObjectMeta</a></em></td><td>Refer to Kubernetes API documentation for fields of <code>metadata</code>.</td></tr>
+<tr><td><code>spec</code> <em><a href="#workflowrunspec">WorkflowRunSpec</a></em></td><td>Specification of the desired behavior of the WorkflowRun.</td></tr>
+</tbody></table>
+</div>
+<h4 id="workflowtemplate"><a class="header" href="#workflowtemplate">WorkflowTemplate</a></h4>
+<p>WorkflowTemplate is the Schema for the WorkflowTemplate API</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#workflowtemplatelist">WorkflowTemplateList</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>apiVersion</code> <em>string</em></td><td><code>batch.tensorstack.dev/apis</code></td></tr>
+<tr><td><code>kind</code> <em>string</em></td><td><code>WorkflowTemplate</code></td></tr>
+<tr><td><code>metadata</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta">ObjectMeta</a></em></td><td>Refer to Kubernetes API documentation for fields of <code>metadata</code>.</td></tr>
+<tr><td><code>spec</code> <em><a href="#workflowtemplatespec">WorkflowTemplateSpec</a></em></td><td></td></tr>
+<tr><td><code>status</code> <em><a href="#workflowtemplatestatus">WorkflowTemplateStatus</a></em></td><td></td></tr>
+</tbody></table>
+</div>
+<h4 id="workflowtemplatelist"><a class="header" href="#workflowtemplatelist">WorkflowTemplateList</a></h4>
+<p>WorkflowTemplateList contains a list of WorkflowTemplate</p>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>apiVersion</code> <em>string</em></td><td><code>batch.tensorstack.dev/apis</code></td></tr>
+<tr><td><code>kind</code> <em>string</em></td><td><code>WorkflowTemplateList</code></td></tr>
+<tr><td><code>metadata</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#listmeta-v1-meta">ListMeta</a></em></td><td>Refer to Kubernetes API documentation for fields of <code>metadata</code>.</td></tr>
+<tr><td><code>items</code> <em><a href="#workflowtemplate">WorkflowTemplate</a> array</em></td><td></td></tr>
+</tbody></table>
+</div>
+<h4 id="workflowtemplatespec"><a class="header" href="#workflowtemplatespec">WorkflowTemplateSpec</a></h4>
+<p>WorkflowTemplateSpec defines the desired state of WorkflowTemplate.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#workflowrunspec">WorkflowRunSpec</a></li>
+<li><a href="#workflowrunstatusfields">WorkflowRunStatusFields</a></li>
+<li><a href="#workflowtemplate">WorkflowTemplate</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>description</code> <em>string</em></td><td>Description is a user-facing description of the task that may be used to populate a UI.</td></tr>
+<tr><td><code>workspaces</code> <em><a href="#workspacedeclaration">WorkspaceDeclaration</a> array</em></td><td>Workspaces are the volumes that this WorkflowTemplate requires. Workspaces must be supplied as inputs in WorkflowRuns unless they are declared as optional.</td></tr>
+<tr><td><code>params</code> <em><a href="#paramspec">ParamSpec</a> array</em></td><td>Params is a list of input parameters required to run the task. Params must be supplied as inputs in WorkflowRuns unless they declare a default value.</td></tr>
+<tr><td><code>results</code> <em><a href="#result">Result</a> array</em></td><td>Results are values that this WorkflowTemplate can output</td></tr>
+<tr><td><code>type</code> <em><a href="#workflowtemplatetype">WorkflowTemplateType</a></em></td><td>Type defines the type of WorkflowTemplate. If empty, the first non-nil field in (pod, seqPod, resource, dag) will be the type.</td></tr>
+<tr><td><code>pod</code> <em><a href="#podworkflowtemplate">PodWorkflowTemplate</a></em></td><td>Pod is the spec of pod which WorkflowTemplate will create.</td></tr>
+<tr><td><code>seqPod</code> <em><a href="#seqpodworkflowtemplate">SeqPodWorkflowTemplate</a></em></td><td>SeqPod is the spec of pod with sequentially running containers which WorkflowTemplate will create.</td></tr>
+<tr><td><code>resource</code> <em><a href="#resourceworkflowtemplate">ResourceWorkflowTemplate</a></em></td><td>Resource is the spec of k8s resource which WorkflowTemplate will create.</td></tr>
+<tr><td><code>dag</code> <em><a href="#dagworkflowtemplate">DAGWorkflowTemplate</a></em></td><td>DAG is the spec of DAG which WorkflowTemplate will create.</td></tr>
+<tr><td><code>genericJob</code> <em><a href="#genericjobworkflowtemplate">GenericJobWorkflowTemplate</a></em></td><td>GenericJob is the spec of t9k generic job which WorkflowTemplate will create.</td></tr>
+<tr><td><code>tensorflowTrainingJob</code> <em><a href="#tensorflowtrainingjobworkflowtemplate">TensorFlowTrainingJobWorkflowTemplate</a></em></td><td>TensorFlowTrainingJob is the spec of t9k training job which WorkflowTemplate will create.</td></tr>
+<tr><td><code>pytorchTrainingJob</code> <em><a href="#pytorchtrainingjobworkflowtemplate">PyTorchTrainingJobWorkflowTemplate</a></em></td><td>PyTorchTrainingJob is the spec of t9k pytorch training job which WorkflowTemplate will create.</td></tr>
+<tr><td><code>xgboostTrainingJob</code> <em><a href="#xgboosttrainingjobworkflowtemplate">XGBoostTrainingJobWorkflowTemplate</a></em></td><td>XGBoostTrainingJob is the spec of t9k xgboost training job which WorkflowTemplate will create.</td></tr>
+<tr><td><code>colossalaiJob</code> <em><a href="#colossalaijobworkflowtemplate">ColossalAIJobWorkflowTemplate</a></em></td><td>ColossalAIJob is the spec of t9k colossalai job which WorkflowTemplate will create.</td></tr>
+<tr><td><code>deepspeedJob</code> <em><a href="#deepspeedjobworkflowtemplate">DeepSpeedJobWorkflowTemplate</a></em></td><td>DeepSpeedJob is the spec of t9k deepspeed job which WorkflowTemplate will create.</td></tr>
+<tr><td><code>mpiJob</code> <em><a href="#mpijobworkflowtemplate">MPIJobWorkflowTemplate</a></em></td><td>MPIJob is the spec of t9k mpi job which WorkflowTemplate will create.</td></tr>
+<tr><td><code>beamJob</code> <em><a href="#beamjobworkflowtemplate">BeamJobWorkflowTemplate</a></em></td><td>BeamJob is the spec of t9k beam job which WorkflowTemplate will create.</td></tr>
+</tbody></table>
+</div>
+<h4 id="workflowtemplatetype"><a class="header" href="#workflowtemplatetype">WorkflowTemplateType</a></h4>
+<p><em>Underlying type:</em> <code>string</code></p>
+<p>WorkflowTemplateType defines the type of WorkflowTemplate.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#workflowtemplatespec">WorkflowTemplateSpec</a></li>
+</ul>
+<h4 id="workspacebinding"><a class="header" href="#workspacebinding">WorkspaceBinding</a></h4>
+<p>WorkspaceBinding maps a WorkflowTemplate’s declared workspace to a Volume.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#workflowrunspec">WorkflowRunSpec</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>name</code> <em>string</em></td><td>Name is the name of the workspace populated by the volume.</td></tr>
+<tr><td><code>subPath</code> <em>string</em></td><td>SubPath is optionally a directory on the volume which should be used for this binding (i.e. the volume will be mounted at this sub directory).</td></tr>
+<tr><td><code>persistentVolumeClaim</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#persistentvolumeclaimvolumesource-v1-core">PersistentVolumeClaimVolumeSource</a></em></td><td>PersistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. Either this OR EmptyDir can be used.</td></tr>
+<tr><td><code>emptyDir</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#emptydirvolumesource-v1-core">EmptyDirVolumeSource</a></em></td><td>EmptyDir represents a temporary directory that shares a WorkflowTemplate’s lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir Either this OR PersistentVolumeClaim can be used.</td></tr>
+<tr><td><code>configMap</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#configmapvolumesource-v1-core">ConfigMapVolumeSource</a></em></td><td>ConfigMap represents a configMap that should populate this workspace.</td></tr>
+<tr><td><code>secret</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#secretvolumesource-v1-core">SecretVolumeSource</a></em></td><td>Secret represents a secret that should populate this workspace.</td></tr>
+</tbody></table>
+</div>
+<h4 id="workspacedagbinding"><a class="header" href="#workspacedagbinding">WorkspaceDAGBinding</a></h4>
+<p>WorkspaceDAGBinding describes how a workspace passed into a DAG WorkflowTemplate should be mapped to a node’s declared workspace.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#dagnode">DAGNode</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>name</code> <em>string</em></td><td>Name is the name of the workspace as declared by the node</td></tr>
+<tr><td><code>workspace</code> <em>string</em></td><td>Workspace is the name of the workspace declared by the DAG WorkflowTemplate</td></tr>
+<tr><td><code>subPath</code> <em>string</em></td><td>SubPath is optionally a directory on the volume which should be used for this binding (i.e. the volume will be mounted at this sub directory).</td></tr>
+</tbody></table>
+</div>
+<h4 id="workspacedeclaration"><a class="header" href="#workspacedeclaration">WorkspaceDeclaration</a></h4>
+<p>WorkspaceDeclaration is a declaration of a volume that a WorkflowTemplate requires.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#workflowtemplatespec">WorkflowTemplateSpec</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>name</code> <em>string</em></td><td>Name is the name by which you can bind the volume at runtime.</td></tr>
+<tr><td><code>description</code> <em>string</em></td><td>Description is an optional human readable description of this volume.</td></tr>
+<tr><td><code>mountPath</code> <em>string</em></td><td>MountPath overrides the directory that the volume will be made available at.</td></tr>
+<tr><td><code>readOnly</code> <em>boolean</em></td><td>ReadOnly dictates whether a mounted volume is writable. By default this field is false and so mounted volumes are writable.</td></tr>
+<tr><td><code>optional</code> <em>boolean</em></td><td>Optional marks a Workspace as not being required in WorkflowRuns. By default this field is false and so declared workspaces are required.</td></tr>
+</tbody></table>
+</div>
+<h4 id="xgboosttrainingjobworkflowtemplate"><a class="header" href="#xgboosttrainingjobworkflowtemplate">XGBoostTrainingJobWorkflowTemplate</a></h4>
+<p>XGBoostTrainingJobWorkflowTemplate creates a t9k xgboost training job.</p>
+<p><em>Appears in:</em></p>
+<ul>
+<li><a href="#workflowtemplatespec">WorkflowTemplateSpec</a></li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>metadata</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#objectmeta-v1-meta">ObjectMeta</a></em></td><td>Refer to Kubernetes API documentation for fields of <code>metadata</code>.</td></tr>
+<tr><td><code>spec</code> <em><a href="#xgboosttrainingjobspec">XGBoostTrainingJobSpec</a></em></td><td>Spec of the xgboost training job.</td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../references/api-reference/scheduler.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../references/api-reference/workflowtrigger.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../references/api-reference/scheduler.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../references/api-reference/workflowtrigger.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../../theme/sidebar.js"></script>
+
+
+    </div>
+    </body>
+</html>

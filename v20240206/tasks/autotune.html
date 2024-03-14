@@ -1,0 +1,678 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>使用 AutoTune 进行超参数优化 - TensorStack AI 计算平台 - 用户使用手册</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/sidebar.css">
+        <link rel="stylesheet" href="../theme/custom.css">
+        <link rel="stylesheet" href="../theme/version-dropdown.css">
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../introduction.html">导言</a></li><li class="chapter-item expanded affix "><a href="../overview.html">概述</a></li><li class="chapter-item expanded "><a href="../get-started/index.html"><strong aria-hidden="true">1.</strong> 快速入门</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../get-started/training-first-model.html"><strong aria-hidden="true">1.1.</strong> 训练你的第一个模型</a></li><li class="chapter-item expanded "><a href="../get-started/parallel-training.html"><strong aria-hidden="true">1.2.</strong> 进行并行训练</a></li><li class="chapter-item expanded "><a href="../get-started/deploy-model.html"><strong aria-hidden="true">1.3.</strong> 部署模型</a></li></ol></li><li class="chapter-item expanded "><a href="../modules/index.html"><strong aria-hidden="true">2.</strong> AI 开发和应用</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../modules/building/index.html"><strong aria-hidden="true">2.1.</strong> 模型构建</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../modules/building/notebook.html"><strong aria-hidden="true">2.1.1.</strong> Notebook</a></li><li class="chapter-item expanded "><a href="../modules/building/tensorboard.html"><strong aria-hidden="true">2.1.2.</strong> TensorBoard</a></li><li class="chapter-item expanded "><a href="../modules/building/autotune.html"><strong aria-hidden="true">2.1.3.</strong> AutoTune</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../modules/building/autotuneexperiment.html"><strong aria-hidden="true">2.1.3.1.</strong> AutoTuneExperiment</a></li><li class="chapter-item expanded "><a href="../modules/building/autotune-search-space.html"><strong aria-hidden="true">2.1.3.2.</strong> 搜索空间</a></li><li class="chapter-item expanded "><a href="../modules/building/hpo-algorithm.html"><strong aria-hidden="true">2.1.3.3.</strong> 超参数调优算法</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../modules/deployment/index.html"><strong aria-hidden="true">2.2.</strong> 模型部署</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../modules/deployment/simplemlservice.html"><strong aria-hidden="true">2.2.1.</strong> SimpleMLService</a></li><li class="chapter-item expanded "><a href="../modules/deployment/mlservice.html"><strong aria-hidden="true">2.2.2.</strong> MLService</a></li></ol></li><li class="chapter-item expanded "><a href="../modules/jobs/index.html"><strong aria-hidden="true">2.3.</strong> 作业</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../modules/jobs/genericjob.html"><strong aria-hidden="true">2.3.1.</strong> GenericJob</a></li><li class="chapter-item expanded "><a href="../modules/jobs/pytorchtrainingjob.html"><strong aria-hidden="true">2.3.2.</strong> PyTorchTrainingJob</a></li><li class="chapter-item expanded "><a href="../modules/jobs/tensorflowtrainingjob.html"><strong aria-hidden="true">2.3.3.</strong> TensorFlowTrainingJob</a></li><li class="chapter-item expanded "><a href="../modules/jobs/deepspeedjob.html"><strong aria-hidden="true">2.3.4.</strong> DeepSpeedJob</a></li><li class="chapter-item expanded "><a href="../modules/jobs/colossalaijob.html"><strong aria-hidden="true">2.3.5.</strong> ColossalAIJob</a></li><li class="chapter-item expanded "><a href="../modules/jobs/xgboosttrainingjob.html"><strong aria-hidden="true">2.3.6.</strong> XGBoostTrainingJob</a></li><li class="chapter-item expanded "><a href="../modules/jobs/mpijob.html"><strong aria-hidden="true">2.3.7.</strong> MPIJob</a></li><li class="chapter-item expanded "><a href="../modules/jobs/beamjob.html"><strong aria-hidden="true">2.3.8.</strong> BeamJob</a></li></ol></li><li class="chapter-item expanded "><a href="../modules/asset-management.html"><strong aria-hidden="true">2.4.</strong> 资产管理</a></li><li class="chapter-item expanded "><a href="../modules/experiment-management.html"><strong aria-hidden="true">2.5.</strong> 实验管理</a></li></ol></li><li class="chapter-item expanded "><a href="../modules/security/index.html"><strong aria-hidden="true">3.</strong> 账户和安全</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../modules/security/account.html"><strong aria-hidden="true">3.1.</strong> 账户</a></li><li class="chapter-item expanded "><a href="../modules/security/project.html"><strong aria-hidden="true">3.2.</strong> 项目</a></li></ol></li><li class="chapter-item expanded "><a href="../modules/scheduling/index.html"><strong aria-hidden="true">4.</strong> 计算资源</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../modules/scheduling/use-gpu.html"><strong aria-hidden="true">4.1.</strong> 使用 GPU</a></li><li class="chapter-item expanded "><a href="../modules/scheduling/quota.html"><strong aria-hidden="true">4.2.</strong> 资源配额</a></li><li class="chapter-item expanded "><a href="../modules/scheduling/queue.html"><strong aria-hidden="true">4.3.</strong> 队列</a></li><li class="chapter-item expanded "><a href="../modules/scheduling/podgroup.html"><strong aria-hidden="true">4.4.</strong> PodGroup</a></li><li class="chapter-item expanded "><a href="../modules/scheduling/reclaim.html"><strong aria-hidden="true">4.5.</strong> 资源回收</a></li><li class="chapter-item expanded "><a href="../modules/scheduling/resources-monitoring.html"><strong aria-hidden="true">4.6.</strong> 资源使用监控</a></li></ol></li><li class="chapter-item expanded "><a href="../modules/storage/index.html"><strong aria-hidden="true">5.</strong> 存储</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../modules/storage/pvc.html"><strong aria-hidden="true">5.1.</strong> PVC</a></li><li class="chapter-item expanded "><a href="../modules/storage/pvc-snapshot.html"><strong aria-hidden="true">5.2.</strong> PVC 快照</a></li><li class="chapter-item expanded "><a href="../modules/storage/storageshim.html"><strong aria-hidden="true">5.3.</strong> StorageShim</a></li><li class="chapter-item expanded "><a href="../modules/storage/explorer.html"><strong aria-hidden="true">5.4.</strong> Explorer</a></li></ol></li><li class="chapter-item expanded "><a href="../modules/auxiliary/index.html"><strong aria-hidden="true">6.</strong> 辅助</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../modules/auxiliary/secret.html"><strong aria-hidden="true">6.1.</strong> Secret</a></li><li class="chapter-item expanded "><a href="../modules/auxiliary/configmap.html"><strong aria-hidden="true">6.2.</strong> ConfigMap</a></li><li class="chapter-item expanded "><a href="../modules/auxiliary/pod.html"><strong aria-hidden="true">6.3.</strong> Pod</a></li><li class="chapter-item expanded "><a href="../modules/auxiliary/imagebuilder.html"><strong aria-hidden="true">6.4.</strong> ImageBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="../modules/workflows/index.html"><strong aria-hidden="true">7.</strong> 工作流</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../modules/workflows/workflowtemplate.html"><strong aria-hidden="true">7.1.</strong> WorkflowTemplate</a></li><li class="chapter-item expanded "><a href="../modules/workflows/workflowrun.html"><strong aria-hidden="true">7.2.</strong> WorkflowRun</a></li><li class="chapter-item expanded "><a href="../modules/workflows/cronworkflowrun.html"><strong aria-hidden="true">7.3.</strong> CronWorkflowRun</a></li><li class="chapter-item expanded "><a href="../modules/workflows/workflowtrigger.html"><strong aria-hidden="true">7.4.</strong> WorkflowTrigger</a></li></ol></li><li class="chapter-item expanded "><a href="../tasks/index.html"><strong aria-hidden="true">8.</strong> 操作示例</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tasks/model-building.html"><strong aria-hidden="true">8.1.</strong> 使用模型构建控制台</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tasks/create-notebook.html"><strong aria-hidden="true">8.1.1.</strong> 创建 Notebook</a></li><li class="chapter-item expanded "><a href="../tasks/use-notebook.html"><strong aria-hidden="true">8.1.2.</strong> 使用 Notebook</a></li><li class="chapter-item expanded "><a href="../tasks/ssh-notebook.html"><strong aria-hidden="true">8.1.3.</strong> 通过 SSH 远程使用 Notebook</a></li><li class="chapter-item expanded "><a href="../tasks/create-tensorboard.html"><strong aria-hidden="true">8.1.4.</strong> 创建 TensorBoard</a></li><li class="chapter-item expanded "><a href="../tasks/build-image.html"><strong aria-hidden="true">8.1.5.</strong> 构建镜像</a></li><li class="chapter-item expanded "><a href="../tasks/debug-image.html"><strong aria-hidden="true">8.1.6.</strong> 调试镜像</a></li><li class="chapter-item expanded "><a href="../tasks/manage-pvc.html"><strong aria-hidden="true">8.1.7.</strong> 管理 PVC</a></li><li class="chapter-item expanded "><a href="../tasks/use-explorer.html"><strong aria-hidden="true">8.1.8.</strong> 使用 Explorer</a></li><li class="chapter-item expanded "><a href="../tasks/use-storageshim-s3.html"><strong aria-hidden="true">8.1.9.</strong> 使用 StorageShim 适配 S3 服务</a></li><li class="chapter-item expanded "><a href="../tasks/manage-secret.html"><strong aria-hidden="true">8.1.10.</strong> 管理 Secret</a></li><li class="chapter-item expanded "><a href="../tasks/manage-configmap.html"><strong aria-hidden="true">8.1.11.</strong> 管理 ConfigMap</a></li></ol></li><li class="chapter-item expanded "><a href="../tasks/model-training.html"><strong aria-hidden="true">8.2.</strong> 运行模型训练</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tasks/pytorch-training-parallel.html"><strong aria-hidden="true">8.2.1.</strong> 使用 PyTorchTrainingJob 进行数据并行训练</a></li><li class="chapter-item expanded "><a href="../tasks/pytorch-training-ps.html"><strong aria-hidden="true">8.2.2.</strong> 使用 PyTorchTrainingJob 进行参数服务器训练</a></li><li class="chapter-item expanded "><a href="../tasks/tensorflow-training-parallel.html"><strong aria-hidden="true">8.2.3.</strong> 使用 TensorFlowTrainingJob 进行数据并行训练</a></li><li class="chapter-item expanded "><a href="../tasks/tensorflow-training-ps.html"><strong aria-hidden="true">8.2.4.</strong> 使用 TensorFlowTrainingJob 进行参数服务器训练</a></li><li class="chapter-item expanded "><a href="../tasks/horovod-pytorch-parallel.html"><strong aria-hidden="true">8.2.5.</strong> 使用 Horovod 进行 PyTorch 模型的数据并行训练</a></li><li class="chapter-item expanded "><a href="../tasks/horovod-keras-parallel.html"><strong aria-hidden="true">8.2.6.</strong> 使用 Horovod 进行 Keras 模型的数据并行训练</a></li><li class="chapter-item expanded "><a href="../tasks/profile-model-training.html"><strong aria-hidden="true">8.2.7.</strong> 使用 Profiler 分析模型训练性能</a></li></ol></li><li class="chapter-item expanded "><a href="../tasks/hyperparameter-tuning.html"><strong aria-hidden="true">8.3.</strong> 进行超参数优化</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tasks/autotune.html" class="active"><strong aria-hidden="true">8.3.1.</strong> 使用 AutoTune 进行超参数优化</a></li></ol></li><li class="chapter-item expanded "><a href="../tasks/deploy-inference-service.html"><strong aria-hidden="true">8.4.</strong> 部署推理服务</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tasks/deploy-simplemlservice.html"><strong aria-hidden="true">8.4.1.</strong> 简单推理服务</a></li><li class="chapter-item expanded "><a href="../tasks/deploy-mlservice.html"><strong aria-hidden="true">8.4.2.</strong> 生产环境推理服务</a></li><li class="chapter-item expanded "><a href="../tasks/deploy-mlservice-transformer.html"><strong aria-hidden="true">8.4.3.</strong> 包含 Transformer 的推理服务</a></li></ol></li><li class="chapter-item expanded "><a href="../tasks/manage-ai-assets.html"><strong aria-hidden="true">8.5.</strong> 管理 AI 资产</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tasks/manipulate-folder-asset.html"><strong aria-hidden="true">8.5.1.</strong> 操作文件夹、模型和数据集</a></li><li class="chapter-item expanded "><a href="../tasks/access-asset-via-s3.html"><strong aria-hidden="true">8.5.2.</strong> 通过 S3 访问模型和数据集</a></li><li class="chapter-item expanded "><a href="../tasks/modify-folder-asset.html"><strong aria-hidden="true">8.5.3.</strong> 修改文件夹、模型和数据集的基本信息</a></li><li class="chapter-item expanded "><a href="../tasks/manipulate-asset-branch-tag.html"><strong aria-hidden="true">8.5.4.</strong> 操作模型和数据集的分支、tag 和 commit</a></li><li class="chapter-item expanded "><a href="../tasks/manipulate-asset-objects.html"><strong aria-hidden="true">8.5.5.</strong> 操作模型和数据集的对象</a></li></ol></li><li class="chapter-item expanded "><a href="../tasks/track-model-training.html"><strong aria-hidden="true">8.6.</strong> 追踪模型训练</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tasks/use-experiment-console.html"><strong aria-hidden="true">8.6.1.</strong> 在实验管理控制台查看和管理数据</a></li><li class="chapter-item expanded "><a href="../tasks/record-using-python-sdk.html"><strong aria-hidden="true">8.6.2.</strong> 使用 Python SDK 记录和上传数据</a></li><li class="chapter-item expanded "><a href="../tasks/record-single-device-training.html"><strong aria-hidden="true">8.6.3.</strong> 单设备训练场景</a></li><li class="chapter-item expanded "><a href="../tasks/record-distributed-training.html"><strong aria-hidden="true">8.6.4.</strong> 分布式训练场景</a></li><li class="chapter-item expanded "><a href="../tasks/view-autotune-in-experiment-console.html"><strong aria-hidden="true">8.6.5.</strong> 在实验管理控制台查看 AutoTune</a></li></ol></li><li class="chapter-item expanded "><a href="../tasks/build-automation-workflow.html"><strong aria-hidden="true">8.7.</strong> 构建自动化工作流</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tasks/create-workflow-unit.html"><strong aria-hidden="true">8.7.1.</strong> 创建工作流的基本单元</a></li><li class="chapter-item expanded "><a href="../tasks/create-task-workflow-unit.html"><strong aria-hidden="true">8.7.2.</strong> 创建执行各类任务的工作流单元</a></li><li class="chapter-item expanded "><a href="../tasks/create-dependent-workflow.html"><strong aria-hidden="true">8.7.3.</strong> 创建存在依赖关系的工作流</a></li><li class="chapter-item expanded "><a href="../tasks/build-automated-workflow.html"><strong aria-hidden="true">8.7.4.</strong> 建立从数据采样到模型导出的自动化工作流</a></li></ol></li><li class="chapter-item expanded "><a href="../tasks/schedule-workload.html"><strong aria-hidden="true">8.8.</strong> 调度工作负载</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tasks/use-queue.html"><strong aria-hidden="true">8.8.1.</strong> 使用 Queue</a></li><li class="chapter-item expanded "><a href="../tasks/use-podgroup.html"><strong aria-hidden="true">8.8.2.</strong> 使用 PodGroup</a></li></ol></li><li class="chapter-item expanded "><a href="../tasks/use-platform-storage.html"><strong aria-hidden="true">8.9.</strong> 使用集群存储</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tasks/pvc-importing-and-exporting-files.html"><strong aria-hidden="true">8.9.1.</strong> 上传和下载文件</a></li></ol></li><li class="chapter-item expanded "><a href="../tasks/manage-personal-account.html"><strong aria-hidden="true">8.10.</strong> 管理个人账户</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tasks/generate-api-key.html"><strong aria-hidden="true">8.10.1.</strong> 生成 API Key</a></li><li class="chapter-item expanded "><a href="../tasks/use-api-key.html"><strong aria-hidden="true">8.10.2.</strong> 使用 API Key</a></li><li class="chapter-item expanded "><a href="../tasks/add-project-member.html"><strong aria-hidden="true">8.10.3.</strong> 添加项目成员</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../tools/index.html"><strong aria-hidden="true">9.</strong> 命令行工具和 SDK</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tools/cli-t9k/index.html"><strong aria-hidden="true">9.1.</strong> 命令行工具：t9k</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tools/cli-t9k/guide.html"><strong aria-hidden="true">9.1.1.</strong> 用户指南</a></li><li class="chapter-item expanded "><a href="../tools/cli-t9k/commands.html"><strong aria-hidden="true">9.1.2.</strong> 命令</a></li></ol></li><li class="chapter-item expanded "><a href="../tools/cli-t9k-pf/index.html"><strong aria-hidden="true">9.2.</strong> 命令行工具：t9k-pf</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tools/cli-t9k-pf/guide.html"><strong aria-hidden="true">9.2.1.</strong> 用户指南</a></li><li class="chapter-item expanded "><a href="../tools/cli-t9k-pf/commands.html"><strong aria-hidden="true">9.2.2.</strong> 命令</a></li></ol></li><li class="chapter-item expanded "><a href="../tools/python-sdk-t9k/index.html"><strong aria-hidden="true">9.3.</strong> Python SDK：t9k</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tools/python-sdk-t9k/guide.html"><strong aria-hidden="true">9.3.1.</strong> 用户指南</a></li><li class="chapter-item expanded "><a href="../tools/python-sdk-t9k/api/index.html"><strong aria-hidden="true">9.3.2.</strong> API</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tools/python-sdk-t9k/api/t9k-ah.html"><strong aria-hidden="true">9.3.2.1.</strong> t9k.ah</a></li><li class="chapter-item expanded "><a href="../tools/python-sdk-t9k/api/t9k-ah-core.html"><strong aria-hidden="true">9.3.2.2.</strong> t9k.ah.core</a></li><li class="chapter-item expanded "><a href="../tools/python-sdk-t9k/api/t9k-config.html"><strong aria-hidden="true">9.3.2.3.</strong> t9k.config</a></li><li class="chapter-item expanded "><a href="../tools/python-sdk-t9k/api/t9k-em.html"><strong aria-hidden="true">9.3.2.4.</strong> t9k.em</a></li><li class="chapter-item expanded "><a href="../tools/python-sdk-t9k/api/t9k-tuner.html"><strong aria-hidden="true">9.3.2.5.</strong> t9k.tuner</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../tools/codepack/index.html"><strong aria-hidden="true">9.4.</strong> Codepack</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tools/codepack/concepts.html"><strong aria-hidden="true">9.4.1.</strong> 概念</a></li><li class="chapter-item expanded "><a href="../tools/codepack/definition.html"><strong aria-hidden="true">9.4.2.</strong> Codepack 定义</a></li><li class="chapter-item expanded "><a href="../tools/codepack/cli.html"><strong aria-hidden="true">9.4.3.</strong> 命令行工具</a></li><li class="chapter-item expanded "><a href="../tools/codepack/example.html"><strong aria-hidden="true">9.4.4.</strong> 示例</a></li><li class="spacer"></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../references/index.html"><strong aria-hidden="true">10.</strong> 参考</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../references/glossary.html"><strong aria-hidden="true">10.1.</strong> 术语表</a></li><li class="chapter-item expanded "><a href="../references/api-reference/index.html"><strong aria-hidden="true">10.2.</strong> API 参考</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../references/api-reference/project.html"><strong aria-hidden="true">10.2.1.</strong> Project</a></li><li class="chapter-item expanded "><a href="../references/api-reference/genericjob.html"><strong aria-hidden="true">10.2.2.</strong> GenericJob</a></li><li class="chapter-item expanded "><a href="../references/api-reference/tensorflowtrainingjob.html"><strong aria-hidden="true">10.2.3.</strong> TensorFlowTrainingJob</a></li><li class="chapter-item expanded "><a href="../references/api-reference/pytorchtrainingjob.html"><strong aria-hidden="true">10.2.4.</strong> PyTorchTrainingJob</a></li><li class="chapter-item expanded "><a href="../references/api-reference/xgboosttrainingjob.html"><strong aria-hidden="true">10.2.5.</strong> XGBoostTrainingJob</a></li><li class="chapter-item expanded "><a href="../references/api-reference/colossalaijob.html"><strong aria-hidden="true">10.2.6.</strong> ColossalAIJob</a></li><li class="chapter-item expanded "><a href="../references/api-reference/deepspeedjob.html"><strong aria-hidden="true">10.2.7.</strong> DeepSpeedJob</a></li><li class="chapter-item expanded "><a href="../references/api-reference/mpijob.html"><strong aria-hidden="true">10.2.8.</strong> MPIJob</a></li><li class="chapter-item expanded "><a href="../references/api-reference/beamjob.html"><strong aria-hidden="true">10.2.9.</strong> BeamJob</a></li><li class="chapter-item expanded "><a href="../references/api-reference/tensorboard.html"><strong aria-hidden="true">10.2.10.</strong> TensorBoard</a></li><li class="chapter-item expanded "><a href="../references/api-reference/notebook.html"><strong aria-hidden="true">10.2.11.</strong> Notebook</a></li><li class="chapter-item expanded "><a href="../references/api-reference/autotune.html"><strong aria-hidden="true">10.2.12.</strong> AutoTuneExperiment</a></li><li class="chapter-item expanded "><a href="../references/api-reference/explorer.html"><strong aria-hidden="true">10.2.13.</strong> Explorer</a></li><li class="chapter-item expanded "><a href="../references/api-reference/storageshim.html"><strong aria-hidden="true">10.2.14.</strong> StorageShim</a></li><li class="chapter-item expanded "><a href="../references/api-reference/scheduler.html"><strong aria-hidden="true">10.2.15.</strong> Scheduler</a></li><li class="chapter-item expanded "><a href="../references/api-reference/workflow.html"><strong aria-hidden="true">10.2.16.</strong> Workflow</a></li><li class="chapter-item expanded "><a href="../references/api-reference/workflowtrigger.html"><strong aria-hidden="true">10.2.17.</strong> WorkflowTrigger</a></li><li class="chapter-item expanded "><a href="../references/api-reference/simplemlservice.html"><strong aria-hidden="true">10.2.18.</strong> SimpleMLService</a></li><li class="chapter-item expanded "><a href="../references/api-reference/mlservice.html"><strong aria-hidden="true">10.2.19.</strong> MLService</a></li></ol></li><li class="chapter-item expanded "><a href="../references/standard-images.html"><strong aria-hidden="true">10.3.</strong> 标准镜像</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="../examples/index.html"><strong aria-hidden="true">11.</strong> 示例</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/start-llm-large-scale-pretraining.html"><strong aria-hidden="true">11.1.</strong> 启动 LLM 大规模预训练</a></li><li class="chapter-item expanded "><a href="../examples/start-llm-finetuning.html"><strong aria-hidden="true">11.2.</strong> 启动 LLM 微调</a></li><li class="chapter-item expanded "><a href="../examples/deploy-llm-chatbot.html"><strong aria-hidden="true">11.3.</strong> 部署 LLM 聊天机器人</a></li><li class="chapter-item expanded "><a href="../examples/deploy-sd-drawing-model.html"><strong aria-hidden="true">11.4.</strong> 部署 Stable Diffusion 图像生成模型</a></li><li class="chapter-item expanded "><a href="../examples/build-next-generation-llm-app-using-autogen.html"><strong aria-hidden="true">11.5.</strong> 使用 AutoGen 构建下一代 LLM 应用</a></li><li class="chapter-item expanded "><a href="../examples/lane-detection.html"><strong aria-hidden="true">11.6.</strong> 车道检测</a></li><li class="chapter-item expanded "><a href="../examples/deploy-mlservice-tensorizer.html"><strong aria-hidden="true">11.7.</strong> 使用 CoreWeave Tensorizer 加速模型部署</a></li><li class="chapter-item expanded "><a href="../examples/deploy-llm-using-vllm.html"><strong aria-hidden="true">11.8.</strong> 使用 vLLM 部署 LLM 推理服务</a></li></ol></li><li class="chapter-item expanded "><a href="../integrations/index.html"><strong aria-hidden="true">12.</strong> 应用集成</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../integrations/label-studio.html"><strong aria-hidden="true">12.1.</strong> Label Studio</a></li><li class="chapter-item expanded "><a href="../integrations/vector-database.html"><strong aria-hidden="true">12.2.</strong> 向量数据库</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="../background.html">附录1：背景</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        <!-- custom code for adding release version dropdown menu -->
+                        <div class="version-dropdown">
+                            <button id="release-version" class="icon-button" type="button" title="Release version" aria-label="Release version" aria-haspopup="true" aria-expanded="false" aria-controls="release-versions">
+                                <i class="fa fa-book"></i>
+                            </button>
+                            <div class="version-dropdown-content">
+                                <a href="https://t9k.github.io/user-manuals/latest/index.html"target="_blank" rel="noopener noreferrer">latest</a>
+                                <a href="https://t9k.github.io/user-manuals/v20240206/index.html"target="_blank" rel="noopener noreferrer">v20240206</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h1 class="menu-title">TensorStack AI 计算平台 - 用户使用手册</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <div class="sidetoc"><nav class="pagetoc"></nav></div>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="使用-autotune-进行超参数优化"><a class="header" href="#使用-autotune-进行超参数优化">使用 AutoTune 进行超参数优化</a></h1>
+<p>本教程演示如何使用 <a href="../modules/building/autotune.html">AutoTune</a> 对模型进行超参数优化（以 Keras 模型的单机训练为例）。</p>
+<h2 id="准备训练脚本"><a class="header" href="#准备训练脚本">准备训练脚本</a></h2>
+<p>在开始超参数优化实验之前，您需要提前准备训练脚本。您可以使用模型构建控制台中的 Notebook 编辑训练脚本。</p>
+<h3 id="创建-pvc"><a class="header" href="#创建-pvc">创建 PVC</a></h3>
+<p>参照<a href="./manage-pvc.html#%E5%88%9B%E5%BB%BA-pvc">创建 PVC</a> 教程创建名为 <code>autotune-mnist-keras</code>、大小为 1Gi 的 PVC。</p>
+<h3 id="创建-notebook"><a class="header" href="#创建-notebook">创建 Notebook</a></h3>
+<p>从模型构建控制台进入 Notebook 列表，点击右上角的<strong>创建 Notebook</strong>。</p>
+<figure class="screenshot">
+  <img alt="notebook-table" src="../assets/tasks/run-hyperparameter-optimization/notebook-table.png" />
+</figure>
+<p>创建 Notebook 时，在<strong>存储卷</strong>选择前面创建的 PVC 的名称 <code>autotune-mnist-keras</code>。</p>
+<figure class="screenshot">
+  <img alt="create-notebook" src="../assets/tasks/run-hyperparameter-optimization/create-notebook.png" />
+</figure>
+<p>创建完成之后，点击<strong>打开</strong>进入 Notebook。</p>
+<figure class="screenshot">
+  <img alt="after-creating-notebook" src="../assets/tasks/run-hyperparameter-optimization/after-creating-notebook.png" />
+</figure>
+<h3 id="在-notebook-中编辑训练脚本"><a class="header" href="#在-notebook-中编辑训练脚本">在 Notebook 中编辑训练脚本</a></h3>
+<p>以下是一个 Keras 训练脚本，在此基础上做简单的修改以应用在 AutoTune 实验中。</p>
+<pre><code class="language-python">import argparse
+import json
+import logging
+import os
+import time
+
+import tensorflow as tf
+from tensorflow.keras import callbacks, datasets, layers, models, optimizers
+
+parser = argparse.ArgumentParser(
+    description='Distributed training of Keras model for MNIST with '
+    'MultiWorkerMirroredStrategy.')
+parser.add_argument('--log_dir',
+                    type=str,
+                    default=None,
+                    help='Path of the TensorBoard log directory.')
+parser.add_argument('--no_cuda',
+                    action='store_true',
+                    default=False,
+                    help='Disable CUDA training.')
+parser.add_argument('--save_path',
+                    type=str,
+                    default=None,
+                    help='Save path of the trained model.')
+args = parser.parse_args()
+logger = logging.getLogger('print')
+logger.setLevel(logging.INFO)
+logger.addHandler(logging.StreamHandler())
+logger.propagate = False
+
+if args.no_cuda:
+    tf.config.set_visible_devices([], 'GPU')
+gpus = tf.config.get_visible_devices('GPU')
+if gpus:
+    # Print GPU info
+    logger.info('NVIDIA_VISIBLE_DEVICES: {}'.format(
+        os.getenv('NVIDIA_VISIBLE_DEVICES')))
+    logger.info('T9K_GPU_PERCENT: {}'.format(os.getenv('T9K_GPU_PERCENT')))
+    logger.info('Visible GPUs: {}'.format(
+        tf.config.get_visible_devices('GPU')))
+    # Set memory growth
+    for gpu in gpus:
+        tf.config.experimental.set_memory_growth(gpu, True)
+    # # Set GPU memory limit
+    # tf.config.set_logical_device_configuration(
+    #     gpus[0], [tf.config.LogicalDeviceConfiguration(memory_limit=1024)])
+
+strategy = tf.distribute.MultiWorkerMirroredStrategy()
+
+# Get information for current worker.
+tf_config = json.loads(os.environ['TF_CONFIG'])
+world_size = len(tf_config['cluster']['worker'])
+task_index = tf_config['task']['index']
+
+params = {
+    # Search space:
+    # 'batch_size': ...
+    # 'learning_rate': ...
+    # 'conv_channels1': ...
+    'epochs': 10,
+    'conv_channels2': 64,
+    'conv_channels3': 64,
+    'conv_kernel_size': 3,
+    'maxpool_size': 2,
+    'linear_features1': 64,
+    'seed': 1,
+}
+
+with strategy.scope():
+    model = models.Sequential([
+        layers.Conv2D(params['conv_channels1'],
+                      params['conv_kernel_size'],
+                      activation='relu',
+                      input_shape=(28, 28, 1)),
+        layers.MaxPooling2D((params['maxpool_size'], params['maxpool_size'])),
+        layers.Conv2D(params['conv_channels2'],
+                      params['conv_kernel_size'],
+                      activation='relu'),
+        layers.MaxPooling2D((params['maxpool_size'], params['maxpool_size'])),
+        layers.Conv2D(params['conv_channels3'],
+                      params['conv_kernel_size'],
+                      activation='relu'),
+        layers.Flatten(),
+        layers.Dense(params['linear_features1'], activation='relu'),
+        layers.Dense(10, activation='softmax'),
+    ])
+    model.compile(
+        optimizer=optimizers.Adam(learning_rate=params['learning_rate']),
+        loss='sparse_categorical_crossentropy',
+        metrics=['accuracy'])
+
+(train_images, train_labels), (test_images,
+                               test_labels) = datasets.mnist.load_data(
+                                   path=os.path.join(os.getcwd(), 'mnist.npz'))
+train_images = train_images.reshape((60000, 28, 28, 1)).astype(&quot;float32&quot;) / 255
+test_images = test_images.reshape((10000, 28, 28, 1)).astype(&quot;float32&quot;) / 255
+train_images, val_images = train_images[:48000], train_images[48000:]
+train_labels, val_labels = train_labels[:48000], train_labels[48000:]
+train_dataset = tf.data.Dataset.from_tensor_slices(
+    (train_images, train_labels)).shuffle(
+        48000, seed=params['seed']).repeat().batch(params['batch_size'])
+val_dataset = tf.data.Dataset.from_tensor_slices(
+    (val_images, val_labels)).batch(400)
+test_dataset = tf.data.Dataset.from_tensor_slices(
+    (test_images, test_labels)).batch(1000)
+
+model.fit(train_images,
+          train_labels,
+          batch_size=params['batch_size'],
+          epochs=params['epochs'],
+          validation_split=0.2,
+          verbose=2)
+
+# TODO: Automatically save best n models.
+# if args.save_path and task_index == 0:
+#     t9k.autotune.utils.save_best_n_models(model, args.save_path)
+
+model.evaluate(test_images, test_labels, callbacks=test_callbacks, verbose=2)
+
+if task_index &gt; 0:
+    # wait a while for index 0
+    time.sleep(1)
+</code></pre>
+<p>在上述脚本中导入 <code>t9k.tuner</code> 模块，在训练模型之前调用 <code>get_next_parameter()</code> 函数获取训练超参数，替换原来的参数。</p>
+<pre><code class="language-python">from t9k import tuner
+
+def main():
+    ...
+    tuner_params = tuner.get_next_parameter()
+    params.update(tuner_params)
+    ...
+</code></pre>
+<p>在训练过程中，添加 <code>AutoTuneCallback</code> 上传实验指标。</p>
+<pre><code class="language-python">train_callbacks = []
+test_callbacks = []
+
+if task_index == 0:
+    from t9k.tuner.keras import AutoTuneFitCallback, AutoTuneEvalCallback
+    train_callbacks.append(AutoTuneFitCallback(metric='accuracy'))
+    test_callbacks.append(AutoTuneEvalCallback(metric='accuracy'))
+    if args.log_dir:
+        tensorboard_callback = callbacks.TensorBoard(log_dir=args.log_dir)
+        train_callbacks.append(tensorboard_callback)
+
+</code></pre>
+<p>如下为修改后的训练脚本：</p>
+<pre><code class="language-python">import argparse
+import json
+import logging
+import os
+import time
+
+import tensorflow as tf
+from tensorflow.keras import callbacks, datasets, layers, models, optimizers
+
+from t9k import tuner
+
+parser = argparse.ArgumentParser(
+    description='Distributed training of Keras model for MNIST with '
+    'MultiWorkerMirroredStrategy.')
+parser.add_argument('--log_dir',
+                    type=str,
+                    default=None,
+                    help='Path of the TensorBoard log directory.')
+parser.add_argument('--no_cuda',
+                    action='store_true',
+                    default=False,
+                    help='Disable CUDA training.')
+parser.add_argument('--save_path',
+                    type=str,
+                    default=None,
+                    help='Save path of the trained model.')
+args = parser.parse_args()
+logger = logging.getLogger('print')
+logger.setLevel(logging.INFO)
+logger.addHandler(logging.StreamHandler())
+logger.propagate = False
+
+if args.no_cuda:
+    tf.config.set_visible_devices([], 'GPU')
+gpus = tf.config.get_visible_devices('GPU')
+if gpus:
+    # Print GPU info
+    logger.info('NVIDIA_VISIBLE_DEVICES: {}'.format(
+        os.getenv('NVIDIA_VISIBLE_DEVICES')))
+    logger.info('T9K_GPU_PERCENT: {}'.format(os.getenv('T9K_GPU_PERCENT')))
+    logger.info('Visible GPUs: {}'.format(
+        tf.config.get_visible_devices('GPU')))
+    # Set memory growth
+    for gpu in gpus:
+        tf.config.experimental.set_memory_growth(gpu, True)
+    # # Set GPU memory limit
+    # tf.config.set_logical_device_configuration(
+    #     gpus[0], [tf.config.LogicalDeviceConfiguration(memory_limit=1024)])
+
+strategy = tf.distribute.MultiWorkerMirroredStrategy()
+
+# Get information for current worker.
+tf_config = json.loads(os.environ['TF_CONFIG'])
+world_size = len(tf_config['cluster']['worker'])
+task_index = tf_config['task']['index']
+
+tuner_params = tuner.get_next_parameter()
+params = {
+    # Search space:
+    # 'batch_size': ...
+    # 'learning_rate': ...
+    # 'conv_channels1': ...
+    'epochs': 10,
+    'conv_channels2': 64,
+    'conv_channels3': 64,
+    'conv_kernel_size': 3,
+    'maxpool_size': 2,
+    'linear_features1': 64,
+    'seed': 1,
+}
+params.update(tuner_params)
+
+with strategy.scope():
+    model = models.Sequential([
+        layers.Conv2D(params['conv_channels1'],
+                      params['conv_kernel_size'],
+                      activation='relu',
+                      input_shape=(28, 28, 1)),
+        layers.MaxPooling2D((params['maxpool_size'], params['maxpool_size'])),
+        layers.Conv2D(params['conv_channels2'],
+                      params['conv_kernel_size'],
+                      activation='relu'),
+        layers.MaxPooling2D((params['maxpool_size'], params['maxpool_size'])),
+        layers.Conv2D(params['conv_channels3'],
+                      params['conv_kernel_size'],
+                      activation='relu'),
+        layers.Flatten(),
+        layers.Dense(params['linear_features1'], activation='relu'),
+        layers.Dense(10, activation='softmax'),
+    ])
+    model.compile(
+        optimizer=optimizers.Adam(learning_rate=params['learning_rate']),
+        loss='sparse_categorical_crossentropy',
+        metrics=['accuracy'])
+
+(train_images, train_labels), (test_images,
+                               test_labels) = datasets.mnist.load_data(
+                                   path=os.path.join(os.getcwd(), 'mnist.npz'))
+train_images = train_images.reshape((60000, 28, 28, 1)).astype(&quot;float32&quot;) / 255
+test_images = test_images.reshape((10000, 28, 28, 1)).astype(&quot;float32&quot;) / 255
+train_images, val_images = train_images[:48000], train_images[48000:]
+train_labels, val_labels = train_labels[:48000], train_labels[48000:]
+train_dataset = tf.data.Dataset.from_tensor_slices(
+    (train_images, train_labels)).shuffle(
+        48000, seed=params['seed']).repeat().batch(params['batch_size'])
+val_dataset = tf.data.Dataset.from_tensor_slices(
+    (val_images, val_labels)).batch(400)
+test_dataset = tf.data.Dataset.from_tensor_slices(
+    (test_images, test_labels)).batch(1000)
+
+train_callbacks = []
+test_callbacks = []
+
+if task_index == 0:
+    from t9k.tuner.keras import AutoTuneFitCallback, AutoTuneEvalCallback
+    train_callbacks.append(AutoTuneFitCallback(metric='accuracy'))
+    test_callbacks.append(AutoTuneEvalCallback(metric='accuracy'))
+    if args.log_dir:
+        tensorboard_callback = callbacks.TensorBoard(log_dir=args.log_dir)
+        train_callbacks.append(tensorboard_callback)
+
+model.fit(train_images,
+          train_labels,
+          batch_size=params['batch_size'],
+          epochs=params['epochs'],
+          validation_split=0.2,
+          callbacks=train_callbacks,
+          verbose=2)
+
+# TODO: Automatically save best n models.
+# if args.save_path and task_index == 0:
+#     t9k.autotune.utils.save_best_n_models(model, args.save_path)
+
+model.evaluate(test_images, test_labels, callbacks=test_callbacks, verbose=2)
+
+if task_index &gt; 0:
+    # wait a while for index 0
+    time.sleep(1)
+</code></pre>
+<p>在 Notebook 中创建文件 <code>main.py</code>，写入上述脚本并保存文件。</p>
+<figure class="screenshot">
+  <img alt="notebook-detail" src="../assets/tasks/run-hyperparameter-optimization/notebook-detail.png" />
+</figure>
+<p>创建 <code>download_dataset.py</code> 文件，写入并执行以下脚本来下载实验数据。</p>
+<pre><code class="language-python">import os
+import tensorflow as tf
+
+_, _ = tf.keras.datasets.mnist.load_data(os.path.join(os.getcwd(), 'mnist.npz'))
+</code></pre>
+<figure class="screenshot">
+  <img alt="notebook-download-script" src="../assets/tasks/run-hyperparameter-optimization/notebook-download-script.png" />
+</figure>
+<figure class="screenshot">
+  <img alt="download-data" src="../assets/tasks/run-hyperparameter-optimization/download-data.png" />
+</figure>
+<h2 id="准备数据库"><a class="header" href="#准备数据库">准备数据库</a></h2>
+<p>您可以使用实验管理平台（以下称 EM）记录超参数调优实验中的超参数组合和训练结果。（如果您选择不使用 EM 持久记录 AutoTune 实验结果，请忽略这一步，并在开始实验时删掉 AutoTuneExperiment 的 <code>spec.aistore</code> 字段）</p>
+<h3 id="在实验管理控制台中新建文件夹"><a class="header" href="#在实验管理控制台中新建文件夹">在实验管理控制台中新建文件夹</a></h3>
+<p>EM 的实验数据是以文件夹形式管理的，所以您首先需要在实验管理控制台点击右上角的 <strong>+</strong> 新建一个文件夹。</p>
+<figure class="screenshot">
+  <img alt="create-aistore-folder" src="../assets/tasks/run-hyperparameter-optimization/create-aistore-folder.png" />
+</figure>
+<p>进入文件夹，点击 <strong>ID</strong> 来复制该文件夹的 ID。</p>
+<figure class="screenshot">
+  <img alt="folder-id" src="../assets/tasks/run-hyperparameter-optimization/folder-id.png" />
+</figure>
+<aside class="note info">
+<div class="title">信息</div>
+<p>EM 的更详细信息请参阅<a href="../modules/experiment-management.html">实验管理</a>。</p>
+</aside>
+<h3 id="获得访问-em-所需的-api-key"><a class="header" href="#获得访问-em-所需的-api-key">获得访问 EM 所需的 API Key</a></h3>
+<p>在超参数优化实验中，如果您希望使用 EM 来存储实验数据，需要生成一个具有访问 EM 文件夹权限的 API Key，您可以通过这个 API Key 上传实验数据。</p>
+<aside class="note info">
+<div class="title">什么是 API Key</div>
+<p>请参阅 <a href="../modules/account-and-security.html#api-key">API Key 介绍</a>。</p>
+</aside>
+<p>您需要按照<a href="./generate-api-key.html">生成 API Key</a> 教程中的步骤，在安全控制台中生成一个 API Key，其中必须勾选 AIStore 选项。</p>
+<figure class="screenshot">
+  <img alt="create-apikey" src="../assets/tasks/run-hyperparameter-optimization/create-apikey.png" />
+</figure>
+<p>生成 API Key 之后，点击<strong>复制按钮</strong>复制该 API Key。</p>
+<figure class="screenshot">
+  <img alt="after-creating-apikey" src="../assets/tasks/run-hyperparameter-optimization/after-creating-apikey.png" />
+</figure>
+<p>然后，您需要按照<a href="./manage-secret.html">管理 Secret</a> 教程中的步骤，在模型构建控制台中将所复制的 API Key 存入名为 <code>aistore</code> 的 Secret 中，以方便后续实验使用。</p>
+<figure class="screenshot">
+  <img alt="create-apikey-secret" src="../assets/tasks/run-hyperparameter-optimization/create-apikey-secret.png" />
+</figure>
+<h2 id="开始实验"><a class="header" href="#开始实验">开始实验</a></h2>
+<p>在模型构建控制台的 AutoTune 列表页面，点击右上角的<strong>创建 AutoTuneExperiment</strong> 进入 AutoTuneExperiment 创建页面。</p>
+<figure class="screenshot">
+  <img alt="autotune-table" src="../assets/tasks/run-hyperparameter-optimization/autotune-table.png" />
+</figure>
+<p>在 AutoTuneExperiment 创建页面，点击<strong>预览 YAML</strong>，输入以下配置，点击<strong>创建</strong>：</p>
+<pre><code class="language-yaml">apiVersion: tensorstack.dev/v1beta1
+kind: AutoTuneExperiment
+metadata:
+  name: autotune-mnist-keras
+spec:
+  maxExecSeconds: 3600
+  maxTrialNum: 20
+  trialConcurrency: 3
+  storage: 100Mi
+  aistore:
+    secret: 'aistore'
+    folder: 'b6c17378-965c-4467-9a43-eed65597f976'
+  searchSpace: |-
+    {
+      &quot;batch_size&quot;: {&quot;_type&quot;: &quot;choice&quot;, &quot;_value&quot;: [16, 32, 64, 128]},
+      &quot;learning_rate&quot;: {&quot;_type&quot;: &quot;choice&quot;, &quot;_value&quot;: [0.0001, 0.001, 0.01, 0.1]},
+      &quot;conv_channels1&quot;: {&quot;_type&quot;: &quot;choice&quot;, &quot;_value&quot;: [16, 32, 64, 128]}
+    }
+  trainingConfig:
+    type: tensorflow
+    tasks:
+      - type: worker
+        replicas: 4
+        template:
+          spec:
+            securityContext:
+              runAsUser: 1000
+            containers:
+              - command:
+                  - sh
+                  - -c
+                  - &quot;python3 main.py --log_dir /mnt/log --no_cuda&quot;
+                workingDir: /mnt/
+                imagePullPolicy: IfNotPresent
+                image: t9kpublic/tensorflow-2.5.1:20220216
+                name: tensorflow
+                resources:
+                  requests:
+                    cpu: 2000m
+                    memory: 2Gi
+                  limits:
+                    cpu: 4000m
+                    memory: 4Gi
+                volumeMounts:
+                  - mountPath: /mnt
+                    name: data
+            volumes:
+              - name: data
+                persistentVolumeClaim:
+                  claimName: autotune-mnist-keras
+  tuner:
+    builtinTunerName: TPE
+    classArgs: |-
+      {
+        &quot;optimize_mode&quot;: &quot;maximize&quot;, 
+        &quot;constant_liar_type&quot;: &quot;min&quot;
+      }
+</code></pre>
+<p>在此例中，实验绑定了准备过程中创建的名为 <code>autotune-mnist-keras</code> 的 PVC，其中存有在 Notebook 中编辑的训练脚本；使用了名为 <code>aistore</code> 的存有 API Key 的 Secret；填入了前面创建的 EM Folder 的 ID。</p>
+<figure class="screenshot">
+  <img alt="create-autotune" src="../assets/tasks/run-hyperparameter-optimization/create-autotune.png" />
+</figure>
+<h2 id="查看实验"><a class="header" href="#查看实验">查看实验</a></h2>
+<p>您可以在 AutoTune 列表页面看到已创建的 AutoTuneExperiment，点击<strong>连接</strong>进入实验详情页面。</p>
+<figure class="screenshot">
+  <img alt="after-creating-autotune" src="../assets/tasks/run-hyperparameter-optimization/after-creating-autotune.png" />
+</figure>
+<p>下图为实验详情页面，您可以在该页面查看实验基本信息、各试验的参数与结果，以及查看试验之间的对比。</p>
+<figure class="screenshot">
+  <img alt="autotune-detail" src="../assets/tasks/run-hyperparameter-optimization/autotune-detail.png" />
+</figure>
+<figure class="screenshot">
+  <img alt="trial-detail" src="../assets/tasks/run-hyperparameter-optimization/trial-detail.png" />
+</figure>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../tasks/hyperparameter-tuning.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../tasks/deploy-inference-service.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../tasks/hyperparameter-tuning.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../tasks/deploy-inference-service.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../theme/sidebar.js"></script>
+
+
+    </div>
+    </body>
+</html>

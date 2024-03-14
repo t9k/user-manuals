@@ -1,0 +1,915 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>WorkflowTemplate - TensorStack AI 计算平台 - 用户使用手册</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../../theme/sidebar.css">
+        <link rel="stylesheet" href="../../theme/custom.css">
+        <link rel="stylesheet" href="../../theme/version-dropdown.css">
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../introduction.html">导言</a></li><li class="chapter-item expanded affix "><a href="../../overview.html">概述</a></li><li class="chapter-item expanded "><a href="../../get-started/index.html"><strong aria-hidden="true">1.</strong> 快速入门</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../get-started/training-first-model.html"><strong aria-hidden="true">1.1.</strong> 训练你的第一个模型</a></li><li class="chapter-item expanded "><a href="../../get-started/parallel-training.html"><strong aria-hidden="true">1.2.</strong> 进行并行训练</a></li><li class="chapter-item expanded "><a href="../../get-started/deploy-model.html"><strong aria-hidden="true">1.3.</strong> 部署模型</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/index.html"><strong aria-hidden="true">2.</strong> AI 开发和应用</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/building/index.html"><strong aria-hidden="true">2.1.</strong> 模型构建</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/building/notebook.html"><strong aria-hidden="true">2.1.1.</strong> Notebook</a></li><li class="chapter-item expanded "><a href="../../modules/building/tensorboard.html"><strong aria-hidden="true">2.1.2.</strong> TensorBoard</a></li><li class="chapter-item expanded "><a href="../../modules/building/autotune.html"><strong aria-hidden="true">2.1.3.</strong> AutoTune</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/building/autotuneexperiment.html"><strong aria-hidden="true">2.1.3.1.</strong> AutoTuneExperiment</a></li><li class="chapter-item expanded "><a href="../../modules/building/autotune-search-space.html"><strong aria-hidden="true">2.1.3.2.</strong> 搜索空间</a></li><li class="chapter-item expanded "><a href="../../modules/building/hpo-algorithm.html"><strong aria-hidden="true">2.1.3.3.</strong> 超参数调优算法</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../modules/deployment/index.html"><strong aria-hidden="true">2.2.</strong> 模型部署</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/deployment/simplemlservice.html"><strong aria-hidden="true">2.2.1.</strong> SimpleMLService</a></li><li class="chapter-item expanded "><a href="../../modules/deployment/mlservice.html"><strong aria-hidden="true">2.2.2.</strong> MLService</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/jobs/index.html"><strong aria-hidden="true">2.3.</strong> 作业</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/jobs/genericjob.html"><strong aria-hidden="true">2.3.1.</strong> GenericJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/pytorchtrainingjob.html"><strong aria-hidden="true">2.3.2.</strong> PyTorchTrainingJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/tensorflowtrainingjob.html"><strong aria-hidden="true">2.3.3.</strong> TensorFlowTrainingJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/deepspeedjob.html"><strong aria-hidden="true">2.3.4.</strong> DeepSpeedJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/colossalaijob.html"><strong aria-hidden="true">2.3.5.</strong> ColossalAIJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/xgboosttrainingjob.html"><strong aria-hidden="true">2.3.6.</strong> XGBoostTrainingJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/mpijob.html"><strong aria-hidden="true">2.3.7.</strong> MPIJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/beamjob.html"><strong aria-hidden="true">2.3.8.</strong> BeamJob</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/asset-management.html"><strong aria-hidden="true">2.4.</strong> 资产管理</a></li><li class="chapter-item expanded "><a href="../../modules/experiment-management.html"><strong aria-hidden="true">2.5.</strong> 实验管理</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/security/index.html"><strong aria-hidden="true">3.</strong> 账户和安全</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/security/account.html"><strong aria-hidden="true">3.1.</strong> 账户</a></li><li class="chapter-item expanded "><a href="../../modules/security/project.html"><strong aria-hidden="true">3.2.</strong> 项目</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/scheduling/index.html"><strong aria-hidden="true">4.</strong> 计算资源</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/scheduling/use-gpu.html"><strong aria-hidden="true">4.1.</strong> 使用 GPU</a></li><li class="chapter-item expanded "><a href="../../modules/scheduling/quota.html"><strong aria-hidden="true">4.2.</strong> 资源配额</a></li><li class="chapter-item expanded "><a href="../../modules/scheduling/queue.html"><strong aria-hidden="true">4.3.</strong> 队列</a></li><li class="chapter-item expanded "><a href="../../modules/scheduling/podgroup.html"><strong aria-hidden="true">4.4.</strong> PodGroup</a></li><li class="chapter-item expanded "><a href="../../modules/scheduling/reclaim.html"><strong aria-hidden="true">4.5.</strong> 资源回收</a></li><li class="chapter-item expanded "><a href="../../modules/scheduling/resources-monitoring.html"><strong aria-hidden="true">4.6.</strong> 资源使用监控</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/storage/index.html"><strong aria-hidden="true">5.</strong> 存储</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/storage/pvc.html"><strong aria-hidden="true">5.1.</strong> PVC</a></li><li class="chapter-item expanded "><a href="../../modules/storage/pvc-snapshot.html"><strong aria-hidden="true">5.2.</strong> PVC 快照</a></li><li class="chapter-item expanded "><a href="../../modules/storage/storageshim.html"><strong aria-hidden="true">5.3.</strong> StorageShim</a></li><li class="chapter-item expanded "><a href="../../modules/storage/explorer.html"><strong aria-hidden="true">5.4.</strong> Explorer</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/auxiliary/index.html"><strong aria-hidden="true">6.</strong> 辅助</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/auxiliary/secret.html"><strong aria-hidden="true">6.1.</strong> Secret</a></li><li class="chapter-item expanded "><a href="../../modules/auxiliary/configmap.html"><strong aria-hidden="true">6.2.</strong> ConfigMap</a></li><li class="chapter-item expanded "><a href="../../modules/auxiliary/pod.html"><strong aria-hidden="true">6.3.</strong> Pod</a></li><li class="chapter-item expanded "><a href="../../modules/auxiliary/imagebuilder.html"><strong aria-hidden="true">6.4.</strong> ImageBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/workflows/index.html"><strong aria-hidden="true">7.</strong> 工作流</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/workflows/workflowtemplate.html" class="active"><strong aria-hidden="true">7.1.</strong> WorkflowTemplate</a></li><li class="chapter-item expanded "><a href="../../modules/workflows/workflowrun.html"><strong aria-hidden="true">7.2.</strong> WorkflowRun</a></li><li class="chapter-item expanded "><a href="../../modules/workflows/cronworkflowrun.html"><strong aria-hidden="true">7.3.</strong> CronWorkflowRun</a></li><li class="chapter-item expanded "><a href="../../modules/workflows/workflowtrigger.html"><strong aria-hidden="true">7.4.</strong> WorkflowTrigger</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/index.html"><strong aria-hidden="true">8.</strong> 操作示例</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/model-building.html"><strong aria-hidden="true">8.1.</strong> 使用模型构建控制台</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/create-notebook.html"><strong aria-hidden="true">8.1.1.</strong> 创建 Notebook</a></li><li class="chapter-item expanded "><a href="../../tasks/use-notebook.html"><strong aria-hidden="true">8.1.2.</strong> 使用 Notebook</a></li><li class="chapter-item expanded "><a href="../../tasks/ssh-notebook.html"><strong aria-hidden="true">8.1.3.</strong> 通过 SSH 远程使用 Notebook</a></li><li class="chapter-item expanded "><a href="../../tasks/create-tensorboard.html"><strong aria-hidden="true">8.1.4.</strong> 创建 TensorBoard</a></li><li class="chapter-item expanded "><a href="../../tasks/build-image.html"><strong aria-hidden="true">8.1.5.</strong> 构建镜像</a></li><li class="chapter-item expanded "><a href="../../tasks/debug-image.html"><strong aria-hidden="true">8.1.6.</strong> 调试镜像</a></li><li class="chapter-item expanded "><a href="../../tasks/manage-pvc.html"><strong aria-hidden="true">8.1.7.</strong> 管理 PVC</a></li><li class="chapter-item expanded "><a href="../../tasks/use-explorer.html"><strong aria-hidden="true">8.1.8.</strong> 使用 Explorer</a></li><li class="chapter-item expanded "><a href="../../tasks/use-storageshim-s3.html"><strong aria-hidden="true">8.1.9.</strong> 使用 StorageShim 适配 S3 服务</a></li><li class="chapter-item expanded "><a href="../../tasks/manage-secret.html"><strong aria-hidden="true">8.1.10.</strong> 管理 Secret</a></li><li class="chapter-item expanded "><a href="../../tasks/manage-configmap.html"><strong aria-hidden="true">8.1.11.</strong> 管理 ConfigMap</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/model-training.html"><strong aria-hidden="true">8.2.</strong> 运行模型训练</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/pytorch-training-parallel.html"><strong aria-hidden="true">8.2.1.</strong> 使用 PyTorchTrainingJob 进行数据并行训练</a></li><li class="chapter-item expanded "><a href="../../tasks/pytorch-training-ps.html"><strong aria-hidden="true">8.2.2.</strong> 使用 PyTorchTrainingJob 进行参数服务器训练</a></li><li class="chapter-item expanded "><a href="../../tasks/tensorflow-training-parallel.html"><strong aria-hidden="true">8.2.3.</strong> 使用 TensorFlowTrainingJob 进行数据并行训练</a></li><li class="chapter-item expanded "><a href="../../tasks/tensorflow-training-ps.html"><strong aria-hidden="true">8.2.4.</strong> 使用 TensorFlowTrainingJob 进行参数服务器训练</a></li><li class="chapter-item expanded "><a href="../../tasks/horovod-pytorch-parallel.html"><strong aria-hidden="true">8.2.5.</strong> 使用 Horovod 进行 PyTorch 模型的数据并行训练</a></li><li class="chapter-item expanded "><a href="../../tasks/horovod-keras-parallel.html"><strong aria-hidden="true">8.2.6.</strong> 使用 Horovod 进行 Keras 模型的数据并行训练</a></li><li class="chapter-item expanded "><a href="../../tasks/profile-model-training.html"><strong aria-hidden="true">8.2.7.</strong> 使用 Profiler 分析模型训练性能</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/hyperparameter-tuning.html"><strong aria-hidden="true">8.3.</strong> 进行超参数优化</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/autotune.html"><strong aria-hidden="true">8.3.1.</strong> 使用 AutoTune 进行超参数优化</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/deploy-inference-service.html"><strong aria-hidden="true">8.4.</strong> 部署推理服务</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/deploy-simplemlservice.html"><strong aria-hidden="true">8.4.1.</strong> 简单推理服务</a></li><li class="chapter-item expanded "><a href="../../tasks/deploy-mlservice.html"><strong aria-hidden="true">8.4.2.</strong> 生产环境推理服务</a></li><li class="chapter-item expanded "><a href="../../tasks/deploy-mlservice-transformer.html"><strong aria-hidden="true">8.4.3.</strong> 包含 Transformer 的推理服务</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/manage-ai-assets.html"><strong aria-hidden="true">8.5.</strong> 管理 AI 资产</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/manipulate-folder-asset.html"><strong aria-hidden="true">8.5.1.</strong> 操作文件夹、模型和数据集</a></li><li class="chapter-item expanded "><a href="../../tasks/access-asset-via-s3.html"><strong aria-hidden="true">8.5.2.</strong> 通过 S3 访问模型和数据集</a></li><li class="chapter-item expanded "><a href="../../tasks/modify-folder-asset.html"><strong aria-hidden="true">8.5.3.</strong> 修改文件夹、模型和数据集的基本信息</a></li><li class="chapter-item expanded "><a href="../../tasks/manipulate-asset-branch-tag.html"><strong aria-hidden="true">8.5.4.</strong> 操作模型和数据集的分支、tag 和 commit</a></li><li class="chapter-item expanded "><a href="../../tasks/manipulate-asset-objects.html"><strong aria-hidden="true">8.5.5.</strong> 操作模型和数据集的对象</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/track-model-training.html"><strong aria-hidden="true">8.6.</strong> 追踪模型训练</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/use-experiment-console.html"><strong aria-hidden="true">8.6.1.</strong> 在实验管理控制台查看和管理数据</a></li><li class="chapter-item expanded "><a href="../../tasks/record-using-python-sdk.html"><strong aria-hidden="true">8.6.2.</strong> 使用 Python SDK 记录和上传数据</a></li><li class="chapter-item expanded "><a href="../../tasks/record-single-device-training.html"><strong aria-hidden="true">8.6.3.</strong> 单设备训练场景</a></li><li class="chapter-item expanded "><a href="../../tasks/record-distributed-training.html"><strong aria-hidden="true">8.6.4.</strong> 分布式训练场景</a></li><li class="chapter-item expanded "><a href="../../tasks/view-autotune-in-experiment-console.html"><strong aria-hidden="true">8.6.5.</strong> 在实验管理控制台查看 AutoTune</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/build-automation-workflow.html"><strong aria-hidden="true">8.7.</strong> 构建自动化工作流</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/create-workflow-unit.html"><strong aria-hidden="true">8.7.1.</strong> 创建工作流的基本单元</a></li><li class="chapter-item expanded "><a href="../../tasks/create-task-workflow-unit.html"><strong aria-hidden="true">8.7.2.</strong> 创建执行各类任务的工作流单元</a></li><li class="chapter-item expanded "><a href="../../tasks/create-dependent-workflow.html"><strong aria-hidden="true">8.7.3.</strong> 创建存在依赖关系的工作流</a></li><li class="chapter-item expanded "><a href="../../tasks/build-automated-workflow.html"><strong aria-hidden="true">8.7.4.</strong> 建立从数据采样到模型导出的自动化工作流</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/schedule-workload.html"><strong aria-hidden="true">8.8.</strong> 调度工作负载</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/use-queue.html"><strong aria-hidden="true">8.8.1.</strong> 使用 Queue</a></li><li class="chapter-item expanded "><a href="../../tasks/use-podgroup.html"><strong aria-hidden="true">8.8.2.</strong> 使用 PodGroup</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/use-platform-storage.html"><strong aria-hidden="true">8.9.</strong> 使用集群存储</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/pvc-importing-and-exporting-files.html"><strong aria-hidden="true">8.9.1.</strong> 上传和下载文件</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/manage-personal-account.html"><strong aria-hidden="true">8.10.</strong> 管理个人账户</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/generate-api-key.html"><strong aria-hidden="true">8.10.1.</strong> 生成 API Key</a></li><li class="chapter-item expanded "><a href="../../tasks/use-api-key.html"><strong aria-hidden="true">8.10.2.</strong> 使用 API Key</a></li><li class="chapter-item expanded "><a href="../../tasks/add-project-member.html"><strong aria-hidden="true">8.10.3.</strong> 添加项目成员</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../tools/index.html"><strong aria-hidden="true">9.</strong> 命令行工具和 SDK</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/cli-t9k/index.html"><strong aria-hidden="true">9.1.</strong> 命令行工具：t9k</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/cli-t9k/guide.html"><strong aria-hidden="true">9.1.1.</strong> 用户指南</a></li><li class="chapter-item expanded "><a href="../../tools/cli-t9k/commands.html"><strong aria-hidden="true">9.1.2.</strong> 命令</a></li></ol></li><li class="chapter-item expanded "><a href="../../tools/cli-t9k-pf/index.html"><strong aria-hidden="true">9.2.</strong> 命令行工具：t9k-pf</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/cli-t9k-pf/guide.html"><strong aria-hidden="true">9.2.1.</strong> 用户指南</a></li><li class="chapter-item expanded "><a href="../../tools/cli-t9k-pf/commands.html"><strong aria-hidden="true">9.2.2.</strong> 命令</a></li></ol></li><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/index.html"><strong aria-hidden="true">9.3.</strong> Python SDK：t9k</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/guide.html"><strong aria-hidden="true">9.3.1.</strong> 用户指南</a></li><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/api/index.html"><strong aria-hidden="true">9.3.2.</strong> API</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/api/t9k-ah.html"><strong aria-hidden="true">9.3.2.1.</strong> t9k.ah</a></li><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/api/t9k-ah-core.html"><strong aria-hidden="true">9.3.2.2.</strong> t9k.ah.core</a></li><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/api/t9k-config.html"><strong aria-hidden="true">9.3.2.3.</strong> t9k.config</a></li><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/api/t9k-em.html"><strong aria-hidden="true">9.3.2.4.</strong> t9k.em</a></li><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/api/t9k-tuner.html"><strong aria-hidden="true">9.3.2.5.</strong> t9k.tuner</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../tools/codepack/index.html"><strong aria-hidden="true">9.4.</strong> Codepack</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/codepack/concepts.html"><strong aria-hidden="true">9.4.1.</strong> 概念</a></li><li class="chapter-item expanded "><a href="../../tools/codepack/definition.html"><strong aria-hidden="true">9.4.2.</strong> Codepack 定义</a></li><li class="chapter-item expanded "><a href="../../tools/codepack/cli.html"><strong aria-hidden="true">9.4.3.</strong> 命令行工具</a></li><li class="chapter-item expanded "><a href="../../tools/codepack/example.html"><strong aria-hidden="true">9.4.4.</strong> 示例</a></li><li class="spacer"></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../references/index.html"><strong aria-hidden="true">10.</strong> 参考</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../references/glossary.html"><strong aria-hidden="true">10.1.</strong> 术语表</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/index.html"><strong aria-hidden="true">10.2.</strong> API 参考</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../references/api-reference/project.html"><strong aria-hidden="true">10.2.1.</strong> Project</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/genericjob.html"><strong aria-hidden="true">10.2.2.</strong> GenericJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/tensorflowtrainingjob.html"><strong aria-hidden="true">10.2.3.</strong> TensorFlowTrainingJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/pytorchtrainingjob.html"><strong aria-hidden="true">10.2.4.</strong> PyTorchTrainingJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/xgboosttrainingjob.html"><strong aria-hidden="true">10.2.5.</strong> XGBoostTrainingJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/colossalaijob.html"><strong aria-hidden="true">10.2.6.</strong> ColossalAIJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/deepspeedjob.html"><strong aria-hidden="true">10.2.7.</strong> DeepSpeedJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/mpijob.html"><strong aria-hidden="true">10.2.8.</strong> MPIJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/beamjob.html"><strong aria-hidden="true">10.2.9.</strong> BeamJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/tensorboard.html"><strong aria-hidden="true">10.2.10.</strong> TensorBoard</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/notebook.html"><strong aria-hidden="true">10.2.11.</strong> Notebook</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/autotune.html"><strong aria-hidden="true">10.2.12.</strong> AutoTuneExperiment</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/explorer.html"><strong aria-hidden="true">10.2.13.</strong> Explorer</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/storageshim.html"><strong aria-hidden="true">10.2.14.</strong> StorageShim</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/scheduler.html"><strong aria-hidden="true">10.2.15.</strong> Scheduler</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/workflow.html"><strong aria-hidden="true">10.2.16.</strong> Workflow</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/workflowtrigger.html"><strong aria-hidden="true">10.2.17.</strong> WorkflowTrigger</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/simplemlservice.html"><strong aria-hidden="true">10.2.18.</strong> SimpleMLService</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/mlservice.html"><strong aria-hidden="true">10.2.19.</strong> MLService</a></li></ol></li><li class="chapter-item expanded "><a href="../../references/standard-images.html"><strong aria-hidden="true">10.3.</strong> 标准镜像</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="../../examples/index.html"><strong aria-hidden="true">11.</strong> 示例</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../examples/start-llm-large-scale-pretraining.html"><strong aria-hidden="true">11.1.</strong> 启动 LLM 大规模预训练</a></li><li class="chapter-item expanded "><a href="../../examples/start-llm-finetuning.html"><strong aria-hidden="true">11.2.</strong> 启动 LLM 微调</a></li><li class="chapter-item expanded "><a href="../../examples/deploy-llm-chatbot.html"><strong aria-hidden="true">11.3.</strong> 部署 LLM 聊天机器人</a></li><li class="chapter-item expanded "><a href="../../examples/deploy-sd-drawing-model.html"><strong aria-hidden="true">11.4.</strong> 部署 Stable Diffusion 图像生成模型</a></li><li class="chapter-item expanded "><a href="../../examples/build-next-generation-llm-app-using-autogen.html"><strong aria-hidden="true">11.5.</strong> 使用 AutoGen 构建下一代 LLM 应用</a></li><li class="chapter-item expanded "><a href="../../examples/lane-detection.html"><strong aria-hidden="true">11.6.</strong> 车道检测</a></li><li class="chapter-item expanded "><a href="../../examples/deploy-mlservice-tensorizer.html"><strong aria-hidden="true">11.7.</strong> 使用 CoreWeave Tensorizer 加速模型部署</a></li><li class="chapter-item expanded "><a href="../../examples/deploy-llm-using-vllm.html"><strong aria-hidden="true">11.8.</strong> 使用 vLLM 部署 LLM 推理服务</a></li></ol></li><li class="chapter-item expanded "><a href="../../integrations/index.html"><strong aria-hidden="true">12.</strong> 应用集成</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../integrations/label-studio.html"><strong aria-hidden="true">12.1.</strong> Label Studio</a></li><li class="chapter-item expanded "><a href="../../integrations/vector-database.html"><strong aria-hidden="true">12.2.</strong> 向量数据库</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="../../background.html">附录1：背景</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        <!-- custom code for adding release version dropdown menu -->
+                        <div class="version-dropdown">
+                            <button id="release-version" class="icon-button" type="button" title="Release version" aria-label="Release version" aria-haspopup="true" aria-expanded="false" aria-controls="release-versions">
+                                <i class="fa fa-book"></i>
+                            </button>
+                            <div class="version-dropdown-content">
+                                <a href="https://t9k.github.io/user-manuals/latest/index.html"target="_blank" rel="noopener noreferrer">latest</a>
+                                <a href="https://t9k.github.io/user-manuals/v20240206/index.html"target="_blank" rel="noopener noreferrer">v20240206</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h1 class="menu-title">TensorStack AI 计算平台 - 用户使用手册</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <div class="sidetoc"><nav class="pagetoc"></nav></div>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="workflowtemplate"><a class="header" href="#workflowtemplate">WorkflowTemplate</a></h1>
+<p>WorkflowTemplate 用于在 Kubernetes 中有序、高效、方便地组织运行各类工作负载，例如机器学习流水线中的数据处理、模型训练、推理测试等具有依赖关系的多个步骤。WorkflowTemplate 是一个静态模板，指定了任务的详细规范，最终由 <a href="./workflowrun.html">WorkflowRun</a> 实例化并真正开始运行。</p>
+<h2 id="创建-workflowtemplate"><a class="header" href="#创建-workflowtemplate">创建 WorkflowTemplate</a></h2>
+<p>下面的 WorkflowTemplate 示例创建并运行一个 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh/docs/concepts/workloads/pods/">Kubernetes Pod</a>。</p>
+<pre><code class="language-yaml">apiVersion: batch.tensorstack.dev/v1beta1
+kind: WorkflowTemplate
+metadata:
+  name: workflowtemplate-sample
+spec:
+  description: This WorkflowTemplate creates and runs a Pod.
+  type: Pod
+  pod:
+    containers:
+      - name: hello
+        image: ubuntu:latest
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+        command: [&quot;echo&quot;]
+        args: [&quot;Hello TensorStack!&quot;]
+</code></pre>
+<p>在该例中：</p>
+<ul>
+<li><code>description</code> 字段简要介绍了该 WorkflowTemplate 的用途，会在控制台中展示。</li>
+<li>WorkflowTemplate 的类型（由 <code>type</code> 字段指定）是 Pod，表示 WorkflowTemplate 会创建并运行一个 Pod。</li>
+<li><code>pod</code> 字段定义所要创建的 Pod 的规约，指示 Pod 运行一个 <code>hello</code> 容器，该容器运行镜像 <code>ubuntu:latest</code> 并打印一个字符串 <code>Hello TensorStack!</code>。</li>
+</ul>
+<h2 id="workflowtemplate-类型"><a class="header" href="#workflowtemplate-类型">WorkflowTemplate 类型</a></h2>
+<p>WorkflowTemplate 的 <code>spec.type</code> 字段用于指定 WorkflowTemplate 的类型，可能的取值有：</p>
+<ul>
+<li><a href="#pod-workflowtemplate"><code>Pod</code></a></li>
+<li><a href="#seqpod-workflowtemplate"><code>SeqPod</code></a></li>
+<li><a href="#resource-workflowtemplate"><code>Resource</code></a></li>
+<li><a href="#dag-workflowtemplate"><code>DAG</code></a></li>
+<li><a href="#t9k-jobs-workflowtemplate"><code>GenericJob</code></a></li>
+<li><a href="#t9k-jobs-workflowtemplate"><code>TensorFlowTrainingJob</code></a></li>
+<li><a href="#t9k-jobs-workflowtemplate"><code>PyTorchTrainingJob</code></a></li>
+<li><a href="#t9k-jobs-workflowtemplate"><code>XGBoostTrainingJob</code></a></li>
+<li><a href="#t9k-jobs-workflowtemplate"><code>ColossalAIJob</code></a></li>
+<li><a href="#t9k-jobs-workflowtemplate"><code>DeepSpeedJob</code></a></li>
+<li><a href="#t9k-jobs-workflowtemplate"><code>MPIJob</code></a></li>
+<li><a href="#t9k-jobs-workflowtemplate"><code>BeamJob</code></a></li>
+</ul>
+<h3 id="pod-workflowtemplate"><a class="header" href="#pod-workflowtemplate">Pod WorkflowTemplate</a></h3>
+<p>Pod WorkflowTemplate 用于创建一个原生的 Kubernetes Pod。</p>
+<pre><code class="language-yaml">apiVersion: batch.tensorstack.dev/v1beta1
+kind: WorkflowTemplate
+metadata:
+  name: pod-workflowtemplate-sample
+spec:
+  type: Pod
+  pod:
+    containers:
+      - name: hello
+        image: ubuntu
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+        command: [&quot;sh&quot;, &quot;-c&quot;]
+        args: [&quot;echo Hello World!&quot;]
+</code></pre>
+<p><code>spec.pod</code> 中可以填写的字段与 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#podspec-v1-core">Kubernetes Pod</a> 相同。</p>
+<h3 id="seqpod-workflowtemplate"><a class="header" href="#seqpod-workflowtemplate">SeqPod WorkflowTemplate</a></h3>
+<p>SeqPod WorkflowTemplate 用于创建一个经过包装的 Pod，在 Pod 中按顺序执行一些步骤。</p>
+<pre><code class="language-yaml">apiVersion: batch.tensorstack.dev/v1beta1
+kind: WorkflowTemplate
+metadata:
+  name: seqpod-workflowtemplate-sample
+spec:
+  type: SeqPod
+  seqPod:
+    steps:
+      - name: hello
+        image: ubuntu
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+        command: [&quot;sh&quot;, &quot;-c&quot;]
+        args: [&quot;echo Hello World!&quot;]
+      - name: working
+        image: ubuntu
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+        command: [&quot;sh&quot;, &quot;-c&quot;]
+        args: [&quot;echo I am working!&quot;]
+      - name: bye
+        image: ubuntu
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+        command: [&quot;sh&quot;, &quot;-c&quot;]
+        args: [&quot;echo Goodbye!&quot;]
+</code></pre>
+<p>SeqPod 中的每个步骤（step）对应 Kubernetes Pod 中的一个容器，但 SeqPod 会按照顺序依次执行每个步骤，直到所有的步骤成功运行完毕，或者其中某个步骤失败（后续的步骤不会再运行）。</p>
+<p>在 <code>pod.containers[*].command</code>、<code>pod.containers[*].args</code>、<code>seqPod.steps[*].command</code>、<code>seqPod.steps[*].args</code> 等字段中，您有时候可能需要填写带有引号的字符串，有以下几种合法的方式：</p>
+<pre><code class="language-yaml">command: [&quot;echo&quot;]
+args: [&quot;this is a 'quote'&quot;]
+</code></pre>
+<pre><code class="language-yaml">command: ['echo']
+args: ['this is a &quot;quote&quot;']
+</code></pre>
+<pre><code class="language-yaml">command:
+  - echo
+args:
+  - this is a &quot;quote&quot;
+</code></pre>
+<pre><code class="language-yaml">command:
+  - echo
+args:
+  - this is a 'quote'
+</code></pre>
+<h4 id="指定-script"><a class="header" href="#指定-script">指定 script</a></h4>
+<p>SeqPod 的每个步骤可以指定 <code>script</code> 字段，即一段脚本语言（例如 Bash、Python）编写的代码，用于代替 <code>command</code> 字段。<code>script</code> 脚本会在容器开始运行时代替 <code>command</code> 被调用，而 <code>args</code> 会被当做参数传递给 <code>script</code> 脚本。</p>
+<pre><code class="language-yaml">apiVersion: batch.tensorstack.dev/v1beta1
+kind: WorkflowTemplate
+metadata:
+  name: seqpod-workflowtemplate-sample-script
+spec:
+  type: SeqPod
+  seqPod:
+    steps:
+      - name: hello
+        image: python
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+        script: |
+          #!/usr/bin/env python3
+          print(&quot;Hello from Python!&quot;)
+</code></pre>
+<p>如果 <code>script</code> 脚本的开头不包含以 <code>#!</code> 开头的字符串（<a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Shebang_(Unix)">shebang</a>），以下字符串会被自动添加到 <code>script</code> 脚本的开头：</p>
+<pre><code class="language-bash">#!/bin/bash
+set -e # Immediately exit if any command exited with non-zero status. 
+</code></pre>
+<h4 id="保留目录"><a class="header" href="#保留目录">保留目录</a></h4>
+<p>为了 SeqPod WorkflowTemplate 的正常工作，最终生成的 Pod 有一些特殊的保留目录：</p>
+<ul>
+<li><code>/t9k/workspaces</code>：用于挂载 <a href="#%E6%8C%87%E5%AE%9A%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4">workspaces</a>，您可以通过 <code>$(workspaces.&lt;workspaceName&gt;.path)</code> 来使用该路径。</li>
+<li><code>/t9k/results</code>：用于存储 <a href="#%E8%BE%93%E5%87%BA%E7%BB%93%E6%9E%9C">results</a>，您可以通过 <code>$(results.&lt;resultName&gt;.path)</code> 来使用该路径。</li>
+<li><code>/t9k/tools</code>：用于保证 SeqPod 中 <code>steps</code> 顺序执行的辅助工具，与用户无关。</li>
+<li><code>/t9k/termination</code>：用于写入 Pod 的 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/tasks/debug-application-cluster/determine-reason-pod-failure/#writing-and-reading-a-termination-message">termination message</a>，与用户无关。</li>
+</ul>
+<h3 id="resource-workflowtemplate"><a class="header" href="#resource-workflowtemplate">Resource WorkflowTemplate</a></h3>
+<p>Resource WorkflowTemplate 用于创建另一个 Kubernetes 资源，并监测该资源的运行状态。</p>
+<pre><code class="language-yaml">apiVersion: batch.tensorstack.dev/v1beta1
+kind: WorkflowTemplate
+metadata:
+  name: resource-workflowtemplate-sample
+spec:
+  type: Resource
+  resource:
+    manifest: |
+      apiVersion: batch/v1
+      kind: Job
+      metadata:
+        generateName: pi-job-
+      spec:
+        template:
+          metadata:
+            name: pi
+          spec:
+            containers:
+            - name: pi
+              image: perl
+              command: [&quot;perl&quot;,  &quot;-Mbignum=bpi&quot;, &quot;-wle&quot;, &quot;print bpi(2000)&quot;]
+            restartPolicy: Never
+        backoffLimit: 4
+    successRules:
+      fieldSelector: status.succeeded &gt; 0
+    failureRules:
+      fieldSelector: status.failed &gt; 3
+</code></pre>
+<p><code>spec.resource</code> 的各个字段含义如下：</p>
+<ul>
+<li><code>manifest</code>：所要创建的 Kubernetes 资源的详细配置。</li>
+<li><code>successRules</code>：如果所创建的资源满足该条件，本 WorkflowTemplate 视为成功。</li>
+<li><code>failureRules</code>：如果所创建的资源满足该条件，本 WorkflowTemplate 视为失败。</li>
+</ul>
+<p><code>fieldSelector</code> 的写法与 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/">Kubernetes 标签选择器</a>的语法相同但更强大，除了标签之外还能应用到资源的任意字段，支持的运算符有 <code>&gt;</code>、<code>&lt;</code>、<code>==</code>、<code>!=</code>、<code>in</code>、<code>notin</code> 等，多个需要同时满足的条件可以用逗号连接。例如，以下都是合法的 <code>fieldSelector</code>：</p>
+<ul>
+<li><code>status.succeeded&gt;0</code></li>
+<li><code>status.succeeded &gt; 0</code></li>
+<li><code>status.succeeded &gt; 0,status.failed == 0</code></li>
+<li><code>status.phase in (Succeeded, Failed),status.workflowTemplateSpec.type == DAG</code></li>
+</ul>
+<p>另外，<code>successRules</code> 和 <code>failureRules</code> 还支持设置 <code>conditionSelector</code>。如果所创建的资源的 <code>status.conditions</code> 字段包含一个 <code>condition</code>，其 <code>type</code> 和 <code>status</code> 都与 <code>conditionSelector</code> 相同，就认为该资源满足条件。</p>
+<pre><code class="language-yaml">apiVersion: batch.tensorstack.dev/v1beta1
+kind: WorkflowTemplate
+metadata:
+  name: resource-workflowtemplate-sample-condition
+spec:
+  type: Resource
+  resource:
+    manifest: |
+      apiVersion: batch.tensorstack.dev
+      kind: TensorFlowTrainingJob
+      metadata:
+        generateName: t9k-training-job-
+      spec:
+        ...
+    successRules:
+      conditionSelector:
+        type: Succeeded
+        status: &quot;True&quot;
+    failureRules:
+      conditionSelector:
+        type: Failed
+        status: &quot;True&quot;
+</code></pre>
+<p>如果所创建的资源类型是下列 <a href="../jobs/index.html">T9k Jobs</a> 之一，系统将自动帮助填写 <code>successRules</code> 和 <code>failureRules</code>，以减轻您的负担：</p>
+<ul>
+<li>GenericJob</li>
+<li>MPIJob</li>
+<li>BeamJob</li>
+<li>TensorFlowTrainingJob</li>
+<li>PyTorchTrainingJob</li>
+<li>XGBoostTrainingJob</li>
+</ul>
+<p>创建 Resource WorkflowTemplate 对应的 WorkflowRun 时需要提供一个 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/kubernetes-api/authentication-resources/service-account-v1/">Service Account</a>，使得 WorkflowRun 具有在 Kubernetes 中创建该 Resource 的权限。例如：</p>
+<pre><code class="language-yaml">apiVersion: batch.tensorstack.dev/v1beta1
+kind: WorkflowRun
+metadata:
+  name: resource-workflowtemplate-sample-run
+spec:
+  workflowTemplateRef: resource-workflowtemplate-sample
+  serviceAccountName: managed-project-sa
+</code></pre>
+<p>在网页中创建 WorkflowRun 时，系统将自动为您配置名为 <code>managed-project-sa</code> 的 Service Account，您不用关心这一项的填写。</p>
+<h3 id="t9k-jobs-workflowtemplate"><a class="header" href="#t9k-jobs-workflowtemplate">T9k Jobs WorkflowTemplate</a></h3>
+<p>T9k Workflow 系统对 <a href="../jobs/index.html">T9k Jobs</a> 提供更进一步的原生支持，添加以下 WorkflowTemplate 类型：</p>
+<ul>
+<li>GenericJob</li>
+<li>TensorFlowTrainingJob</li>
+<li>PyTorchTrainingJob</li>
+<li>XGBoostTrainingJob</li>
+<li>ColossalAIJob</li>
+<li>DeepSpeedJob</li>
+<li>MPIJob</li>
+<li>BeamJob</li>
+</ul>
+<p>并在 WorkflowTemplate 的 <code>spec</code> 中添加了相应字段用于填写 T9k Job 的 <code>spec</code>：</p>
+<ul>
+<li><code>spec.genericJob</code></li>
+<li><code>spec.tensorflowTrainingJob</code></li>
+<li><code>spec.pytorchTrainingJob</code></li>
+<li><code>spec.xgboostTrainingJob</code></li>
+<li><code>spec.colossalaiJob</code></li>
+<li><code>spec.deepspeedJob</code></li>
+<li><code>spec.mpiJob</code></li>
+<li><code>spec.beamJob</code></li>
+</ul>
+<p>相比于在 Resource 类型中将资源的 <code>spec</code> 视作一个很长的字符串，添加原生类型支持的好处是在创建 WorkflowTemplate 时 T9k Job 的 <code>spec</code> 就会得到语法检查，能更早地发现错误，加深了 T9k Workflow 系统和 T9k Job 系统的集成配合。</p>
+<p>例如，创建一个 MPIJob 可以使用如下格式（其中 MPIJob 示例来自 <a href="../jobs/mpijob.html#%E5%88%9B%E5%BB%BA-mpijob">MPIJob 文档</a>）：</p>
+<pre><code class="language-yaml">apiVersion: batch.tensorstack.dev/v1beta1
+kind: WorkflowTemplate
+metadata:
+  name: mpijob-workflowtemplate-sample
+spec:
+  type: MPIJob
+  mpiJob:
+    spec:
+      worker:
+        replicas: 5
+        processesPerWorker: 3
+        processRecovery:
+          enable: true
+          limit: 100
+        cmd:
+          - ./random_walk
+          - &quot;20&quot;
+          - &quot;40&quot;
+          - &quot;2&quot;
+        template:
+          spec:
+            containers:
+              - name: mpi-worker
+                image: t9kpublic/mpi-tutorial:2021022-2
+                resources:
+                  limits:
+                    cpu: 100m
+                  requests:
+                    cpu: 50m
+                workingDir: /usr/local/code
+      mca:
+        btl: ^openib
+      runPolicy:
+        cleanUpWorkers: true
+      ssh:
+        sshdPath: /usr/sbin/sshd
+      mpiHome: /usr/local
+</code></pre>
+<aside class="note">
+<div class="title">注意</div>
+<p>与 Resource WorkflowTemplate 相同，T9k Jobs WorkflowTemplate 对应的 WorkflowRun 也需要一个 Service Account。同样，在网页中创建 WorkflowRun 时，系统将自动为您配置名为 <code>managed-project-sa</code> 的 Service Account，您不用关心这一项的填写。</p>
+</aside>
+<h3 id="dag-workflowtemplate"><a class="header" href="#dag-workflowtemplate">DAG WorkflowTemplate</a></h3>
+<p>DAG WorkflowTemplate 用于创建一个由其他 WorkflowTemplate 组成的有向无环图（DAG，Directed Acyclic Graph），按照有向无环图中的依赖关系按顺序执行这些 WorkflowTemplate。</p>
+<pre><code class="language-yaml">apiVersion: batch.tensorstack.dev/v1beta1
+kind: WorkflowTemplate
+metadata:
+  name: dag-workflowtemplate-sample
+spec:
+  type: DAG
+  dag:
+    templates:
+      - name: a
+        workflowTemplateRef: pod-workflowtemplate-sample
+        dependencies: []
+      - name: b1
+        workflowTemplateRef: pod-workflowtemplate-sample
+        dependencies: [&quot;a&quot;]
+      - name: b2
+        workflowTemplateRef: pod-workflowtemplate-sample
+        dependencies: [&quot;a&quot;]
+      - name: c
+        workflowTemplateRef: pod-workflowtemplate-sample
+        dependencies: [&quot;b1&quot;, &quot;b2&quot;]
+</code></pre>
+<p>在上面的示例中，首先运行 WorkflowTemplate a，等待 WorkflowTemplate a 运行完毕之后再同时运行 WorkflowTemplate b1 和 b2。WorkflowTemplate c 会在 b1 和 b2 都结束后运行。这些 WorkflowTemplates 组成一个从上往下顺序执行的有向无环图：</p>
+<pre><code class="language-yaml">   a
+ /   \
+b1   b2
+ \   /
+   c
+</code></pre>
+<h2 id="指定参数"><a class="header" href="#指定参数">指定参数</a></h2>
+<p>您可以为 WorkflowTemplate 指定一些参数，并在 <code>spec</code> 中用 <code>$(params.&lt;paramName&gt;)</code> 来引用参数。<a href="./workflowrun.html">WorkflowRun</a> 会在运行时为这些参数提供实际值。支持 <code>params</code> 的 WorkflowTemplate 类型有 Pod、SeqPod、DAG，详见<a href="../../../reference/tensorstack-resources/workflow-api/variable-substitution-rules.html#%E6%94%AF%E6%8C%81%E5%8F%98%E9%87%8F%E6%9B%BF%E6%8D%A2%E7%9A%84-workflowtemplate-%E5%AD%97%E6%AE%B5">支持变量替换的 WorkflowTemplate 字段</a>。</p>
+<p>Pod WorkflowTemplate 示例：</p>
+<pre><code class="language-yaml">apiVersion: batch.tensorstack.dev/v1beta1
+kind: WorkflowTemplate
+metadata:
+  name: pod-workflowtemplate-sample-params
+spec:
+  params:
+    - name: message
+      default: &quot;hi&quot;
+  type: Pod
+  pod:
+    containers:
+      - name: hello
+        image: ubuntu
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+        command: [&quot;sh&quot;, &quot;-c&quot;]
+        args: [&quot;echo $(params.message)&quot;]
+</code></pre>
+<p>SeqPod WorkflowTemplate 示例：</p>
+<pre><code class="language-yaml">apiVersion: batch.tensorstack.dev/v1beta1
+kind: WorkflowTemplate
+metadata:
+  name: seqpod-workflowtemplate-sample-params
+spec:
+  params:
+    - name: message
+      default: hi
+  type: SeqPod
+  seqPod:
+    steps:
+      - name: hello
+        image: ubuntu
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+        script: |
+          #!/bin/sh
+          echo $(params.message)
+</code></pre>
+<p>DAG WorkflowTemplate 在引用其他的 WorkflowTemplate 作为节点时，必须提供该节点需要的 <code>params</code>，可以是静态的字符串，也可以引用 DAG WorkflowTemplate 自身的 <code>params</code> 变量或<a href="../../../reference/tensorstack-resources/workflow-api/variable-substitution-rules.html">其他变量</a>。示例：</p>
+<pre><code class="language-yaml">apiVersion: batch.tensorstack.dev/v1beta1
+kind: WorkflowTemplate
+metadata:
+  name: dag-workflowtemplate-sample-params
+spec:
+  params:
+    - name: dag-param
+  type: DAG
+  dag:
+    templates:
+      - name: step0
+        workflowTemplateRef: pod-workflowtemplate-sample-params
+        dependencies: []
+        params:
+          - name: message
+            value: Hello World!
+      - name: step1
+        workflowTemplateRef: seqpod-workflowtemplate-sample-params
+        dependencies: [&quot;step0&quot;]
+        params:
+          - name: message
+            value: &quot;$(params.dag-param)&quot;
+      - name: step2
+        workflowTemplateRef: seqpod-workflowtemplate-sample-params
+        dependencies: [&quot;step1&quot;]
+        params:
+          - name: message
+            value: &quot;DAG WorkflowTemplate provides param $(params.dag-param) for you&quot;
+</code></pre>
+<h2 id="指定工作空间"><a class="header" href="#指定工作空间">指定工作空间</a></h2>
+<p>您可以为 WorkflowTemplate 指定可用的存储空间，并在 <code>spec</code> 中用 <code>$(workspaces.&lt;workspaceName&gt;.path)</code> 来引用存储空间的路径。<a href="./workflowrun.html">WorkflowRun</a> 会在运行时指定具体挂载何种存储空间，例如 PVC、Secret、ConfigMap 等。支持 <code>workspaces</code> 的 WorkflowTemplate 类型有 Pod、SeqPod、DAG。</p>
+<p>Pod WorkflowTemplate 示例：</p>
+<pre><code class="language-yaml">apiVersion: batch.tensorstack.dev/v1beta1
+kind: WorkflowTemplate
+metadata:
+  name: pod-workflowtemplate-sample-workspace
+spec:
+  workspaces:
+    - name: pod-workspace
+  type: Pod
+  pod:
+    containers:
+      - name: hello
+        image: ubuntu
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+        command: [&quot;sh&quot;, &quot;-c&quot;]
+        args: [&quot;echo Hello World! &gt; $(workspaces.pod-workspace.path)/output.txt&quot;]
+</code></pre>
+<p>SeqPod WorkflowTemplate 示例：</p>
+<pre><code class="language-yaml">apiVersion: batch.tensorstack.dev/v1beta1
+kind: WorkflowTemplate
+metadata:
+  name: seqpod-workflowtemplate-sample-workspaces
+spec:
+  workspaces:
+    - name: seqpod-workspace
+  type: SeqPod
+  seqPod:
+    steps:
+      - name: hello
+        image: ubuntu
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+        script: |
+          #!/bin/sh
+          echo Hello World! &gt; $(workspaces.seqpod-workspace.path)/output.txt
+</code></pre>
+<p>DAG WorkflowTemplate 在引用其他的 WorkflowTemplate 作为节点时，必须提供该节点需要的 <code>workspaces</code>，一般通过 DAG WorkflowTemplate 自身的 <code>workspaces</code> 继承而来。示例：</p>
+<pre><code class="language-yaml">apiVersion: batch.tensorstack.dev/v1beta1
+kind: WorkflowTemplate
+metadata:
+  name: dag-workflowtemplate-sample-workspaces
+spec:
+  workspaces:
+    - name: dag-workspace
+  type: DAG
+  dag:
+    templates:
+      - name: step0
+        workflowTemplateRef: pod-workflowtemplate-sample-workspace
+        dependencies: []
+        workspaces:
+          - name: pod-workspace
+            workspace: dag-workspace
+      - name: step1
+        workflowTemplateRef: seqpod-workflowtemplate-sample-workspace
+        dependencies: [&quot;step0&quot;]
+        workspaces:
+          - name: seqpod-workspace
+            workspace: dag-workspace
+      - name: step2
+        workflowTemplateRef: seqpod-workflowtemplate-sample-workspace
+        dependencies: [&quot;step1&quot;]
+        workspaces:
+          - name: seqpod-workspace
+            workspace: dag-workspace
+</code></pre>
+<h2 id="输出结果"><a class="header" href="#输出结果">输出结果</a></h2>
+<p>WorkflowTemplate 可以在运行过程中输出一些字符串，并最终展示在 WorkflowRun 的 <code>status</code> 中。支持 <code>results</code> 的 WorkflowTemplate 类型有 SeqPod、DAG。</p>
+<p>每个 <code>result</code> 本质上是一个文件，如下例所示，您可以向 <code>$(results.&lt;resultName&gt;.path)</code> 这个路径写入想要输出的内容。注意写入内容的总和不能超过 4096 字节。</p>
+<pre><code class="language-yaml">apiVersion: batch.tensorstack.dev/v1beta1
+kind: WorkflowTemplate
+metadata:
+  name: seqpod-workflowtemplate-sample-result
+spec:
+  results:
+    - name: my-status
+      description: &quot;My status&quot;
+  type: SeqPod
+  seqPod:
+    steps:
+      - name: echo
+        image: ubuntu
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+        script: |
+          echo I am OK &gt; $(results.my-status.path)
+</code></pre>
+<p><code>results</code> 更重要的用途是在 DAG WorkflowTemplate 的节点之间传递信息。DAG 的各个节点可以通过 <code>$(templates.&lt;workflowtemplateName&gt;.results.&lt;resultName&gt;)</code> 来引用这些 <code>results</code>，一般有两种用途：</p>
+<ul>
+<li>DAG 的下层节点可以在 <a href="#%E6%8C%87%E5%AE%9A%E5%8F%82%E6%95%B0"><code>params</code></a> 或 <a href="#%E6%9D%A1%E4%BB%B6%E5%88%86%E6%94%AF"><code>when</code></a> 字段引用上层节点的 <code>results</code>。</li>
+<li>DAG WorkflowTemplate 可以组合节点的 <code>results</code> 来输出自身的 <code>results</code>。</li>
+</ul>
+<pre><code class="language-yaml">apiVersion: batch.tensorstack.dev/v1beta1
+kind: WorkflowTemplate
+metadata:
+  name: add-workflowtemplate
+spec:
+  params:
+    - name: first
+      description: the first operand
+    - name: second
+      description: the second operand
+  results:
+    - name: sum
+      description: the sum of the first and second operand
+  type: SeqPod
+  seqPod:
+    steps:
+      - name: add
+        image: ubuntu
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+        env:
+          - name: OP1
+            value: $(params.first)
+          - name: OP2
+            value: $(params.second)
+        command: [&quot;/bin/sh&quot;, &quot;-c&quot;]
+        args:
+          - echo -n $((${OP1}+${OP2})) | tee $(results.sum.path);
+---
+apiVersion: batch.tensorstack.dev/v1beta1
+kind: WorkflowTemplate
+metadata:
+  name: sum-three-workflowtemplate
+spec:
+  params:
+    - name: first
+      description: the first operand
+    - name: second
+      description: the second operand
+    - name: third
+      description: the third operand
+  type: DAG
+  dag:
+    templates:
+      - name: first-add
+        workflowTemplateRef: add-workflowtemplate
+        params:
+          - name: first
+            value: $(params.first)
+          - name: second
+            value: $(params.second)
+      - name: second-add
+        workflowTemplateRef: add-workflowtemplate
+        params:
+          - name: first
+            value: $(templates.first-add.results.sum)
+          - name: second
+            value: $(params.third)
+  results:
+    - name: total-sum
+      description: the sum of all three operands
+      value: $(templates.second-add.results.sum)
+    - name: partial-sum
+      description: the sum of first two operands
+      value: $(templates.first-add.results.sum)
+</code></pre>
+<h2 id="条件分支"><a class="header" href="#条件分支">条件分支</a></h2>
+<p>在 DAG WorkflowTemplate 中，如果需要在某个条件满足时才执行某个节点，可以设置 <code>when</code> 字段。</p>
+<pre><code class="language-yaml">apiVersion: batch.tensorstack.dev/v1beta1
+kind: WorkflowTemplate
+metadata:
+  name: flip-coin
+spec:
+  results:
+    - name: coin
+      description: Which side? Heads or tails?
+  type: SeqPod
+  seqPod:
+    steps:
+      - name: flip-coin
+        image: python
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+        script: |
+          #!/usr/bin/env python3
+          import random
+          f = open(&quot;$(results.coin.path)&quot;, &quot;w&quot;)
+          if random.random() &gt; 0.5:
+            f.write(&quot;heads&quot;)
+          else:
+            f.write(&quot;tails&quot;)
+          f.close()
+---
+apiVersion: batch.tensorstack.dev/v1beta1
+kind: WorkflowTemplate
+metadata:
+  name: dag-workflowtemplate-sample-when
+spec:
+  type: DAG
+  dag:
+    templates:
+      - name: flip-coin
+        workflowTemplateRef: flip-coin
+      - name: execute-only-if-heads
+        workflowTemplateRef: pod-workflowtemplate-sample
+        dependencies: [&quot;flip-coin&quot;]
+        when:
+          - input: &quot;$(templates.flip-coin.results.coin)&quot;
+            operator: in
+            values: [&quot;heads&quot;]
+</code></pre>
+<p><code>when</code> 字段包含一些表达式：</p>
+<ul>
+<li><code>input</code>：表达式的输入，可以是静态字符串或 <a href="#%E6%8C%87%E5%AE%9A%E5%8F%82%E6%95%B0"><code>params</code></a>、<a href="#%E8%BE%93%E5%87%BA%E7%BB%93%E6%9E%9C"><code>results</code></a> 等变量。如果未填写，默认为一个空的字符串。</li>
+<li><code>operator</code>：表示 <code>input</code> 和 <code>values</code> 的关系，可以是 <code>in</code> 或者 <code>notin</code>。</li>
+<li><code>values</code>：字符串数组，可以是静态字符串或 <a href="#%E6%8C%87%E5%AE%9A%E5%8F%82%E6%95%B0"><code>params</code></a>、<a href="#%E8%BE%93%E5%87%BA%E7%BB%93%E6%9E%9C"><code>results</code></a> 等变量。</li>
+</ul>
+<p>只有当 <code>when</code> 字段包含的所有表达式结果都为真时，该节点才会被运行，否则会跳过该节点继续运行其他节点。</p>
+<p>如果一个节点的 <code>when</code> 表达式中引用了其他节点的 <code>results</code> 变量，相当于引入了前者对后者的依赖关系，前者会在后者运行结束后才开始运行。</p>
+<h2 id="失败处理"><a class="header" href="#失败处理">失败处理</a></h2>
+<p>对于 Pod/SeqPod/Resource WorkflowTemplate，一个 WorkflowRun 只对应一次运行，即使失败也不会重启。也就是说，一个 WorkflowRun 对应产生的 Pod 的 <code>spec</code> 中 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy"><code>restartPolicy</code></a> 永远是 <code>Never</code>。</p>
+<p>对于 DAG WorkflowTemplate，DAG 的每个节点都有可能会失败，我们使用 <code>retries</code> 字段来控制节点的重启。</p>
+<ul>
+<li><code>retries = 0</code>（默认选项）表示不重启失败的节点。</li>
+<li><code>retries &gt; 0</code> 表示会重启失败的节点，并用一个正整数来限制最多可重启的次数。</li>
+</ul>
+<p>如果 DAG 的某个节点失败并超过了最大可重启次数，该节点将被视为永久失败，并由 <code>spec.dag.failureStrategy</code> 决定接下来的行为：</p>
+<ul>
+<li><code>failureStrategy = StopAllWorkflowTemplates</code>（默认选项）表示停止创建任何新的节点。</li>
+<li><code>failureStrategy = StopDependentWorkflowTemplates</code> 表示只停止创建依赖于失败节点的节点，其他分支上的节点正常创建。</li>
+</ul>
+<p>注意无论是哪种策略，已开始运行的节点都会等待其运行结束。</p>
+<p>在下面的 DAG WorkflowTemplate 示例中，共有两个节点 <code>a</code> 和 <code>b</code>。</p>
+<ul>
+<li>如果 <code>a</code> 节点运行失败，它最多可以重试 5 次。</li>
+<li>如果 <code>b</code> 节点运行失败，它不能进行重试，直接被认定为失败。</li>
+<li>如果任意一个节点被认定为失败，整个 DAG WorkflowTemplate 也会被认定为失败，并且由于 <code>spec.dag.failureStrategy</code> 字段的值为 <code>StopAllWorkflowTemplates</code>，所有未开始运行的节点都不再运行。</li>
+</ul>
+<pre><code class="language-yaml">apiVersion: batch.tensorstack.dev/v1beta1
+kind: WorkflowTemplate
+metadata:
+  name: dag-workflowtemplate-sample-retries
+spec:
+  type: DAG
+  dag:
+    failureStrategy: StopAllWorkflowTemplates
+    templates:
+      - name: a
+        workflowTemplateRef: pod-workflowtemplate-sample
+        dependencies: []
+        retries: 5
+      - name: b
+        workflowTemplateRef: pod-workflowtemplate-sample
+        dependencies: [&quot;a&quot;]
+        retries: 0
+</code></pre>
+<h2 id="下一步"><a class="header" href="#下一步">下一步</a></h2>
+<ul>
+<li>了解 <a href="./workflowrun.html">WorkflowRun</a></li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../modules/workflows/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../modules/workflows/workflowrun.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../modules/workflows/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../modules/workflows/workflowrun.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../../theme/sidebar.js"></script>
+
+
+    </div>
+    </body>
+</html>
