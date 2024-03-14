@@ -1,0 +1,548 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>TensorFlowTrainingJob - TensorStack AI 计算平台 - 用户使用手册</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../../theme/sidebar.css">
+        <link rel="stylesheet" href="../../theme/custom.css">
+        <link rel="stylesheet" href="../../theme/version-dropdown.css">
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../introduction.html">导言</a></li><li class="chapter-item expanded affix "><a href="../../overview.html">概述</a></li><li class="chapter-item expanded "><a href="../../get-started/index.html"><strong aria-hidden="true">1.</strong> 快速入门</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../get-started/training-first-model.html"><strong aria-hidden="true">1.1.</strong> 训练你的第一个模型</a></li><li class="chapter-item expanded "><a href="../../get-started/parallel-training.html"><strong aria-hidden="true">1.2.</strong> 进行并行训练</a></li><li class="chapter-item expanded "><a href="../../get-started/deploy-model.html"><strong aria-hidden="true">1.3.</strong> 部署模型</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/index.html"><strong aria-hidden="true">2.</strong> AI 开发和应用</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/building/index.html"><strong aria-hidden="true">2.1.</strong> 模型构建</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/building/notebook.html"><strong aria-hidden="true">2.1.1.</strong> Notebook</a></li><li class="chapter-item expanded "><a href="../../modules/building/tensorboard.html"><strong aria-hidden="true">2.1.2.</strong> TensorBoard</a></li><li class="chapter-item expanded "><a href="../../modules/building/autotune.html"><strong aria-hidden="true">2.1.3.</strong> AutoTune</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/building/autotuneexperiment.html"><strong aria-hidden="true">2.1.3.1.</strong> AutoTuneExperiment</a></li><li class="chapter-item expanded "><a href="../../modules/building/autotune-search-space.html"><strong aria-hidden="true">2.1.3.2.</strong> 搜索空间</a></li><li class="chapter-item expanded "><a href="../../modules/building/hpo-algorithm.html"><strong aria-hidden="true">2.1.3.3.</strong> 超参数调优算法</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../modules/deployment/index.html"><strong aria-hidden="true">2.2.</strong> 模型部署</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/deployment/simplemlservice.html"><strong aria-hidden="true">2.2.1.</strong> SimpleMLService</a></li><li class="chapter-item expanded "><a href="../../modules/deployment/mlservice.html"><strong aria-hidden="true">2.2.2.</strong> MLService</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/deployment/mlservice-logger.html"><strong aria-hidden="true">2.2.2.1.</strong> 日志收集</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/deployment/storage.html"><strong aria-hidden="true">2.2.3.</strong> 模型存储</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/jobs/index.html"><strong aria-hidden="true">2.3.</strong> Job</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/jobs/genericjob.html"><strong aria-hidden="true">2.3.1.</strong> GenericJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/pytorchtrainingjob.html"><strong aria-hidden="true">2.3.2.</strong> PyTorchTrainingJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/tensorflowtrainingjob.html" class="active"><strong aria-hidden="true">2.3.3.</strong> TensorFlowTrainingJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/deepspeedjob.html"><strong aria-hidden="true">2.3.4.</strong> DeepSpeedJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/colossalaijob.html"><strong aria-hidden="true">2.3.5.</strong> ColossalAIJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/xgboosttrainingjob.html"><strong aria-hidden="true">2.3.6.</strong> XGBoostTrainingJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/mpijob.html"><strong aria-hidden="true">2.3.7.</strong> MPIJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/beamjob.html"><strong aria-hidden="true">2.3.8.</strong> BeamJob</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/asset-management.html"><strong aria-hidden="true">2.4.</strong> 资产管理</a></li><li class="chapter-item expanded "><a href="../../modules/experiment-management.html"><strong aria-hidden="true">2.5.</strong> 实验管理</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/security/index.html"><strong aria-hidden="true">3.</strong> 账户和安全</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/security/account.html"><strong aria-hidden="true">3.1.</strong> 账户</a></li><li class="chapter-item expanded "><a href="../../modules/security/project.html"><strong aria-hidden="true">3.2.</strong> 项目</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/scheduling/index.html"><strong aria-hidden="true">4.</strong> 计算资源</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/scheduling/use-gpu.html"><strong aria-hidden="true">4.1.</strong> 使用 GPU</a></li><li class="chapter-item expanded "><a href="../../modules/scheduling/quota.html"><strong aria-hidden="true">4.2.</strong> 资源配额</a></li><li class="chapter-item expanded "><a href="../../modules/scheduling/queue.html"><strong aria-hidden="true">4.3.</strong> 队列</a></li><li class="chapter-item expanded "><a href="../../modules/scheduling/podgroup.html"><strong aria-hidden="true">4.4.</strong> PodGroup</a></li><li class="chapter-item expanded "><a href="../../modules/scheduling/reclaim.html"><strong aria-hidden="true">4.5.</strong> 资源回收</a></li><li class="chapter-item expanded "><a href="../../modules/scheduling/resources-monitoring.html"><strong aria-hidden="true">4.6.</strong> 资源使用监控</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/storage/index.html"><strong aria-hidden="true">5.</strong> 存储</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/storage/pvc.html"><strong aria-hidden="true">5.1.</strong> PVC</a></li><li class="chapter-item expanded "><a href="../../modules/storage/pvc-snapshot.html"><strong aria-hidden="true">5.2.</strong> PVC 快照</a></li><li class="chapter-item expanded "><a href="../../modules/storage/storageshim.html"><strong aria-hidden="true">5.3.</strong> StorageShim</a></li><li class="chapter-item expanded "><a href="../../modules/storage/explorer.html"><strong aria-hidden="true">5.4.</strong> Explorer</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/auxiliary/index.html"><strong aria-hidden="true">6.</strong> 辅助</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/auxiliary/secret.html"><strong aria-hidden="true">6.1.</strong> Secret</a></li><li class="chapter-item expanded "><a href="../../modules/auxiliary/configmap.html"><strong aria-hidden="true">6.2.</strong> ConfigMap</a></li><li class="chapter-item expanded "><a href="../../modules/auxiliary/pod.html"><strong aria-hidden="true">6.3.</strong> Pod</a></li><li class="chapter-item expanded "><a href="../../modules/auxiliary/imagebuilder.html"><strong aria-hidden="true">6.4.</strong> ImageBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/workflows/index.html"><strong aria-hidden="true">7.</strong> 工作流</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/workflows/workflowtemplate.html"><strong aria-hidden="true">7.1.</strong> WorkflowTemplate</a></li><li class="chapter-item expanded "><a href="../../modules/workflows/workflowrun.html"><strong aria-hidden="true">7.2.</strong> WorkflowRun</a></li><li class="chapter-item expanded "><a href="../../modules/workflows/cronworkflowrun.html"><strong aria-hidden="true">7.3.</strong> CronWorkflowRun</a></li><li class="chapter-item expanded "><a href="../../modules/workflows/workflowtrigger.html"><strong aria-hidden="true">7.4.</strong> WorkflowTrigger</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/index.html"><strong aria-hidden="true">8.</strong> 操作指南</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/model-building.html"><strong aria-hidden="true">8.1.</strong> 使用模型构建控制台</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/create-notebook.html"><strong aria-hidden="true">8.1.1.</strong> 创建 Notebook</a></li><li class="chapter-item expanded "><a href="../../tasks/use-notebook.html"><strong aria-hidden="true">8.1.2.</strong> 使用 Notebook</a></li><li class="chapter-item expanded "><a href="../../tasks/ssh-notebook.html"><strong aria-hidden="true">8.1.3.</strong> 通过 SSH 远程使用 Notebook</a></li><li class="chapter-item expanded "><a href="../../tasks/create-tensorboard.html"><strong aria-hidden="true">8.1.4.</strong> 创建 TensorBoard</a></li><li class="chapter-item expanded "><a href="../../tasks/build-image.html"><strong aria-hidden="true">8.1.5.</strong> 构建镜像</a></li><li class="chapter-item expanded "><a href="../../tasks/debug-image.html"><strong aria-hidden="true">8.1.6.</strong> 调试镜像</a></li><li class="chapter-item expanded "><a href="../../tasks/manage-pvc.html"><strong aria-hidden="true">8.1.7.</strong> 管理 PVC</a></li><li class="chapter-item expanded "><a href="../../tasks/use-explorer.html"><strong aria-hidden="true">8.1.8.</strong> 使用 Explorer</a></li><li class="chapter-item expanded "><a href="../../tasks/use-storageshim-s3.html"><strong aria-hidden="true">8.1.9.</strong> 使用 StorageShim 适配 S3 服务</a></li><li class="chapter-item expanded "><a href="../../tasks/manage-secret.html"><strong aria-hidden="true">8.1.10.</strong> 管理 Secret</a></li><li class="chapter-item expanded "><a href="../../tasks/manage-configmap.html"><strong aria-hidden="true">8.1.11.</strong> 管理 ConfigMap</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/model-training.html"><strong aria-hidden="true">8.2.</strong> 运行模型训练</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/pytorch-training-parallel.html"><strong aria-hidden="true">8.2.1.</strong> 使用 PyTorchTrainingJob 进行数据并行训练</a></li><li class="chapter-item expanded "><a href="../../tasks/pytorch-training-ps.html"><strong aria-hidden="true">8.2.2.</strong> 使用 PyTorchTrainingJob 进行参数服务器训练</a></li><li class="chapter-item expanded "><a href="../../tasks/tensorflow-training-parallel.html"><strong aria-hidden="true">8.2.3.</strong> 使用 TensorFlowTrainingJob 进行数据并行训练</a></li><li class="chapter-item expanded "><a href="../../tasks/tensorflow-training-ps.html"><strong aria-hidden="true">8.2.4.</strong> 使用 TensorFlowTrainingJob 进行参数服务器训练</a></li><li class="chapter-item expanded "><a href="../../tasks/horovod-pytorch-parallel.html"><strong aria-hidden="true">8.2.5.</strong> 使用 Horovod 进行 PyTorch 模型的数据并行训练</a></li><li class="chapter-item expanded "><a href="../../tasks/horovod-keras-parallel.html"><strong aria-hidden="true">8.2.6.</strong> 使用 Horovod 进行 Keras 模型的数据并行训练</a></li><li class="chapter-item expanded "><a href="../../tasks/profile-model-training.html"><strong aria-hidden="true">8.2.7.</strong> 使用 Profiler 分析模型训练性能</a></li><li class="chapter-item expanded "><a href="../../tasks/debug-job.html"><strong aria-hidden="true">8.2.8.</strong> 调试 Job</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/hyperparameter-tuning.html"><strong aria-hidden="true">8.3.</strong> 进行超参数优化</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/autotune.html"><strong aria-hidden="true">8.3.1.</strong> 使用 AutoTune 进行超参数优化</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/deploy-inference-service.html"><strong aria-hidden="true">8.4.</strong> 部署推理服务</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/deploy-simplemlservice.html"><strong aria-hidden="true">8.4.1.</strong> 简单推理服务</a></li><li class="chapter-item expanded "><a href="../../tasks/deploy-mlservice.html"><strong aria-hidden="true">8.4.2.</strong> 推理服务</a></li><li class="chapter-item expanded "><a href="../../tasks/deploy-mlservice-transformer.html"><strong aria-hidden="true">8.4.3.</strong> 包含 Transformer 的推理服务</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/manage-ai-assets.html"><strong aria-hidden="true">8.5.</strong> 管理 AI 资产</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/manipulate-folder-asset.html"><strong aria-hidden="true">8.5.1.</strong> 操作文件夹、模型和数据集</a></li><li class="chapter-item expanded "><a href="../../tasks/access-asset-via-s3.html"><strong aria-hidden="true">8.5.2.</strong> 通过 S3 访问模型和数据集</a></li><li class="chapter-item expanded "><a href="../../tasks/modify-folder-asset.html"><strong aria-hidden="true">8.5.3.</strong> 修改文件夹、模型和数据集的基本信息</a></li><li class="chapter-item expanded "><a href="../../tasks/manipulate-asset-branch-tag.html"><strong aria-hidden="true">8.5.4.</strong> 操作模型和数据集的分支、tag 和 commit</a></li><li class="chapter-item expanded "><a href="../../tasks/manipulate-asset-objects.html"><strong aria-hidden="true">8.5.5.</strong> 操作模型和数据集的对象</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/track-model-training.html"><strong aria-hidden="true">8.6.</strong> 追踪模型训练</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/use-experiment-console.html"><strong aria-hidden="true">8.6.1.</strong> 在实验管理控制台查看和管理数据</a></li><li class="chapter-item expanded "><a href="../../tasks/record-using-python-sdk.html"><strong aria-hidden="true">8.6.2.</strong> 使用 Python SDK 记录和上传数据</a></li><li class="chapter-item expanded "><a href="../../tasks/record-single-device-training.html"><strong aria-hidden="true">8.6.3.</strong> 单设备训练场景</a></li><li class="chapter-item expanded "><a href="../../tasks/record-distributed-training.html"><strong aria-hidden="true">8.6.4.</strong> 分布式训练场景</a></li><li class="chapter-item expanded "><a href="../../tasks/view-autotune-in-experiment-console.html"><strong aria-hidden="true">8.6.5.</strong> 在实验管理控制台查看 AutoTune</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/build-automation-workflow.html"><strong aria-hidden="true">8.7.</strong> 构建自动化工作流</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/create-workflow-unit.html"><strong aria-hidden="true">8.7.1.</strong> 创建工作流的基本单元</a></li><li class="chapter-item expanded "><a href="../../tasks/create-task-workflow-unit.html"><strong aria-hidden="true">8.7.2.</strong> 创建执行各类任务的工作流单元</a></li><li class="chapter-item expanded "><a href="../../tasks/create-dependent-workflow.html"><strong aria-hidden="true">8.7.3.</strong> 创建存在依赖关系的工作流</a></li><li class="chapter-item expanded "><a href="../../tasks/build-automated-workflow.html"><strong aria-hidden="true">8.7.4.</strong> 建立从数据采样到模型导出的自动化工作流</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/schedule-workload.html"><strong aria-hidden="true">8.8.</strong> 调度工作负载</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/use-queue.html"><strong aria-hidden="true">8.8.1.</strong> 使用 Queue</a></li><li class="chapter-item expanded "><a href="../../tasks/use-podgroup.html"><strong aria-hidden="true">8.8.2.</strong> 使用 PodGroup</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/use-platform-storage.html"><strong aria-hidden="true">8.9.</strong> 使用集群存储</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/pvc-importing-and-exporting-files.html"><strong aria-hidden="true">8.9.1.</strong> 上传和下载文件</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/manage-personal-account.html"><strong aria-hidden="true">8.10.</strong> 管理个人账户</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/generate-api-key.html"><strong aria-hidden="true">8.10.1.</strong> 生成 API Key</a></li><li class="chapter-item expanded "><a href="../../tasks/use-api-key.html"><strong aria-hidden="true">8.10.2.</strong> 使用 API Key</a></li><li class="chapter-item expanded "><a href="../../tasks/add-project-member.html"><strong aria-hidden="true">8.10.3.</strong> 添加项目成员</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/tricks.html"><strong aria-hidden="true">8.11.</strong> 小技巧</a></li></ol></li><li class="chapter-item expanded "><a href="../../tools/index.html"><strong aria-hidden="true">9.</strong> 命令行工具和 SDK</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/cli-t9k/index.html"><strong aria-hidden="true">9.1.</strong> 命令行工具：t9k</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/cli-t9k/guide.html"><strong aria-hidden="true">9.1.1.</strong> 用户指南</a></li><li class="chapter-item expanded "><a href="../../tools/cli-t9k/commands.html"><strong aria-hidden="true">9.1.2.</strong> 命令</a></li></ol></li><li class="chapter-item expanded "><a href="../../tools/cli-t9k-pf/index.html"><strong aria-hidden="true">9.2.</strong> 命令行工具：t9k-pf</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/cli-t9k-pf/guide.html"><strong aria-hidden="true">9.2.1.</strong> 用户指南</a></li><li class="chapter-item expanded "><a href="../../tools/cli-t9k-pf/commands.html"><strong aria-hidden="true">9.2.2.</strong> 命令</a></li></ol></li><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/index.html"><strong aria-hidden="true">9.3.</strong> Python SDK：t9k</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/guide.html"><strong aria-hidden="true">9.3.1.</strong> 用户指南</a></li><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/api/index.html"><strong aria-hidden="true">9.3.2.</strong> API</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/api/t9k-ah.html"><strong aria-hidden="true">9.3.2.1.</strong> t9k.ah</a></li><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/api/t9k-ah-core.html"><strong aria-hidden="true">9.3.2.2.</strong> t9k.ah.core</a></li><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/api/t9k-config.html"><strong aria-hidden="true">9.3.2.3.</strong> t9k.config</a></li><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/api/t9k-em.html"><strong aria-hidden="true">9.3.2.4.</strong> t9k.em</a></li><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/api/t9k-tuner.html"><strong aria-hidden="true">9.3.2.5.</strong> t9k.tuner</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../tools/codepack/index.html"><strong aria-hidden="true">9.4.</strong> Codepack</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/codepack/concepts.html"><strong aria-hidden="true">9.4.1.</strong> 概念</a></li><li class="chapter-item expanded "><a href="../../tools/codepack/definition.html"><strong aria-hidden="true">9.4.2.</strong> Codepack 定义</a></li><li class="chapter-item expanded "><a href="../../tools/codepack/cli.html"><strong aria-hidden="true">9.4.3.</strong> 命令行工具</a></li><li class="chapter-item expanded "><a href="../../tools/codepack/example.html"><strong aria-hidden="true">9.4.4.</strong> 示例</a></li><li class="spacer"></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../references/index.html"><strong aria-hidden="true">10.</strong> 参考</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../references/glossary.html"><strong aria-hidden="true">10.1.</strong> 术语表</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/index.html"><strong aria-hidden="true">10.2.</strong> API 参考</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../references/api-reference/project.html"><strong aria-hidden="true">10.2.1.</strong> Project</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/genericjob.html"><strong aria-hidden="true">10.2.2.</strong> GenericJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/tensorflowtrainingjob.html"><strong aria-hidden="true">10.2.3.</strong> TensorFlowTrainingJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/pytorchtrainingjob.html"><strong aria-hidden="true">10.2.4.</strong> PyTorchTrainingJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/xgboosttrainingjob.html"><strong aria-hidden="true">10.2.5.</strong> XGBoostTrainingJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/colossalaijob.html"><strong aria-hidden="true">10.2.6.</strong> ColossalAIJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/deepspeedjob.html"><strong aria-hidden="true">10.2.7.</strong> DeepSpeedJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/mpijob.html"><strong aria-hidden="true">10.2.8.</strong> MPIJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/beamjob.html"><strong aria-hidden="true">10.2.9.</strong> BeamJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/tensorboard.html"><strong aria-hidden="true">10.2.10.</strong> TensorBoard</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/notebook.html"><strong aria-hidden="true">10.2.11.</strong> Notebook</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/autotune.html"><strong aria-hidden="true">10.2.12.</strong> AutoTuneExperiment</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/explorer.html"><strong aria-hidden="true">10.2.13.</strong> Explorer</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/storageshim.html"><strong aria-hidden="true">10.2.14.</strong> StorageShim</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/scheduler.html"><strong aria-hidden="true">10.2.15.</strong> Scheduler</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/workflow.html"><strong aria-hidden="true">10.2.16.</strong> Workflow</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/workflowtrigger.html"><strong aria-hidden="true">10.2.17.</strong> WorkflowTrigger</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/simplemlservice.html"><strong aria-hidden="true">10.2.18.</strong> SimpleMLService</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/mlservice.html"><strong aria-hidden="true">10.2.19.</strong> MLService</a></li></ol></li><li class="chapter-item expanded "><a href="../../references/standard-images.html"><strong aria-hidden="true">10.3.</strong> 标准镜像</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="../../examples/index.html"><strong aria-hidden="true">11.</strong> 示例</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../examples/start-llm-large-scale-pretraining.html"><strong aria-hidden="true">11.1.</strong> 启动 LLM 大规模预训练</a></li><li class="chapter-item expanded "><a href="../../examples/start-llm-finetuning.html"><strong aria-hidden="true">11.2.</strong> 启动 LLM 微调</a></li><li class="chapter-item expanded "><a href="../../examples/deploy-llm-using-fastchat.html"><strong aria-hidden="true">11.3.</strong> 使用 FastChat 部署 LLM 推理服务</a></li><li class="chapter-item expanded "><a href="../../examples/deploy-llm-using-vllm.html"><strong aria-hidden="true">11.4.</strong> 使用 vLLM 部署 LLM 推理服务</a></li><li class="chapter-item expanded "><a href="../../examples/deploy-hf-model-using-triton-python.html"><strong aria-hidden="true">11.5.</strong> 使用 Triton 部署 Hugging Face 模型（Python 后端）</a></li><li class="chapter-item expanded "><a href="../../examples/deploy-mlservice-tensorizer.html"><strong aria-hidden="true">11.6.</strong> 使用 Tensorizer 加速模型部署</a></li><li class="chapter-item expanded "><a href="../../examples/build-next-generation-llm-app-using-autogen.html"><strong aria-hidden="true">11.7.</strong> 使用 AutoGen 构建下一代 LLM 应用</a></li><li class="chapter-item expanded "><a href="../../examples/deploy-conversational-search-engine.html"><strong aria-hidden="true">11.8.</strong> 部署对话式搜索引擎</a></li><li class="chapter-item expanded "><a href="../../examples/deploy-sd-drawing-model.html"><strong aria-hidden="true">11.9.</strong> 部署 Stable Diffusion 图像生成模型</a></li><li class="chapter-item expanded "><a href="../../examples/lane-detection.html"><strong aria-hidden="true">11.10.</strong> 车道检测</a></li></ol></li><li class="chapter-item expanded "><a href="../../integrations/index.html"><strong aria-hidden="true">12.</strong> 集成</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../integrations/label-studio.html"><strong aria-hidden="true">12.1.</strong> Label Studio</a></li><li class="chapter-item expanded "><a href="../../integrations/vector-database-qdrant.html"><strong aria-hidden="true">12.2.</strong> 向量数据库：Qdrant</a></li><li class="chapter-item expanded "><a href="../../integrations/vector-database-pgvector.html"><strong aria-hidden="true">12.3.</strong> 向量数据库：PostgreSQL + pgvector</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="../../background.html">附录1：背景</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        <!-- custom code for adding release version dropdown menu -->
+                        <div class="version-dropdown">
+                            <button id="release-version" class="icon-button" type="button" title="Release version" aria-label="Release version" aria-haspopup="true" aria-expanded="false" aria-controls="release-versions">
+                                <i class="fa fa-book"></i>
+                            </button>
+                            <div class="version-dropdown-content">
+                                <a href="https://t9k.github.io/user-manuals/"target="_blank" rel="noopener noreferrer">latest</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h1 class="menu-title">TensorStack AI 计算平台 - 用户使用手册</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <div class="sidetoc"><nav class="pagetoc"></nav></div>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="tensorflowtrainingjob"><a class="header" href="#tensorflowtrainingjob">TensorFlowTrainingJob</a></h1>
+<p>TensorFlowTrainingJob 是服务于 <a target="_blank" rel="noopener noreferrer" href="https://www.tensorflow.org/guide/distributed_training">TensorFlow</a> 分布式训练框架的 T9k Job。</p>
+<p>你可以较为方便地使用 TensorFlowTrainingJob 为 TensorFlow 训练脚本提供训练环境，并监控训练进程。</p>
+<h2 id="创建-tensorflowtrainingjob"><a class="header" href="#创建-tensorflowtrainingjob">创建 TensorFlowTrainingJob</a></h2>
+<p>下面是一个基本的 TensorFlowTrainingJob 配置示例：</p>
+<pre><code class="language-yaml">apiVersion: batch.tensorstack.dev/v1beta1
+kind: TensorFlowTrainingJob
+metadata:
+  name: tensorflow-example
+spec:
+  replicaSpecs:
+  - replicas: 4
+    restartPolicy: OnFailure
+    template:
+      spec:
+        containers:
+        - command:
+          - python
+          - dist_mnist.py
+          image: tensorflow/tensorflow:2.11.0
+          name: tensorflow
+          resources:
+            limits:
+              cpu: 1
+              memory: 2Gi
+            requests:
+              cpu: 500m
+              memory: 1Gi
+    type: worker
+</code></pre>
+<p>在该例中：</p>
+<ul>
+<li>创建 4 个副本（由 <code>spec.replicaSpecs[*].replicas</code> 字段指定），副本的角色为 <code>worker</code>（由 <code>spec.replicaSpecs[*].type</code> 字段指定）。</li>
+<li>每个副本使用 <code>tensorflow/tensorflow:2.11.0</code> 镜像，执行命令 <code>python dist_mnist.py</code>（由 <code>spec.replicaSpecs&lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot; href=&quot;https://kubernetes.io/docs/concepts/workloads/pods/#pod-templates&quot;&gt;*].template</code> 字段指定，此处的填写方式参考 [PodTemplate</a>）。</li>
+<li>当副本失败后，会自动重启（由 <code>spec.replicaSpecs[*].restartPolicy</code> 字段指定）。</li>
+</ul>
+<aside class="note">
+<div class="title">注意</div>
+<p>TensorFlowTrainingJob 的 <code>spec.replicaSpecs[*].template</code> 字段一定要包含 <code>name</code> 为 <code>tensorflow</code> 的容器，以便控制器识别训练使用的主容器。</p>
+<p>TensorFlowTrainingJob 中执行的脚本应使用 TensorFlow 分布式训练框架，否则可能达不到训练效果。</p>
+</aside>
+<h2 id="副本的角色"><a class="header" href="#副本的角色">副本的角色</a></h2>
+<p>在 TensorFlow 分布式训练框架中，副本有 4 种类型：Chief、Worker、PS 和 Evaluator。</p>
+<p>在 TensorFlowTrainingJob 中，副本的类型由 <code>spec.replicaSpecs[*].type</code> 字段指定，分别是 <code>chief</code>、<code>worker</code>、<code>ps</code> 和 <code>evaluator</code>。</p>
+<h2 id="成功和失败"><a class="header" href="#成功和失败">成功和失败</a></h2>
+<p>在 TensorFlow 分布式训练框架中，Chief 是主节点。如果没有指定 Chief，则会选择第一个 Worker 作为主节点。当分布式训练的主节点执行完成时，TensorFlow 分布式训练成功；反之，当分布式训练的主节点执行失败时，TensorFlow 分布式训练失败。</p>
+<p>在 TensorFlowTrainingJob 中，如果没有 Chief 副本，则选取序号为 0 的 Worker 节点作为主节点。主节点的失败有时可能是因为环境因素导致的，比如集群网络断连、集群节点崩溃等等，此类原因导致的失败应该被允许自动恢复。针对这一情况，TensorFlowTrainingJob 允许副本重启（请参阅<a href="#%E9%87%8D%E5%90%AF%E6%9C%BA%E5%88%B6">重启机制</a>），并设定了重启次数限制（由 <code>spec.runPolicy.backoffLimit</code> 字段指定），当副本重启次数达到上限后，如果主节点再次失败，则 TensorFlowTrainingJob 失败。此外，TensorFlowTrainingJob 可以设置最长执行时间（由 <code>spec.runPolicy.activeDeadlineSeconds</code> 字段指定），当超过这个执行时间后，TensorFlowTrainingJob 失败。</p>
+<p>如果 TensorFlowTrainingJob 在没有超过重启次数和没有超过最长执行时间的情况下成功完成了主节点的运行，则 TensorFlowTrainingJob 成功。</p>
+<h2 id="重启机制"><a class="header" href="#重启机制">重启机制</a></h2>
+<p>TensorFlowTrainingJob 的 <code>spec.replicaSpec[*].template</code> 字段使用 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/workloads/pods/#pod-templates">PodTemplate</a> 的规范填写，但是 Pod 的重启策略并不能完全满足 TensorFlowTrainingJob 的需求，所以 TensorFlowTrainingJob 使用 <code>spec.replicaSpec[*].restartPolicy</code> 字段覆盖 <code>spec.replicaSpec[*].template</code> 中指定的重启策略。</p>
+<p>可选的重启策略有以下四种：</p>
+<ul>
+<li><code>Never</code>：不重启</li>
+<li><code>OnFailure</code>：失败后重启</li>
+<li><code>Always</code>：总是重启</li>
+<li><code>ExitCode</code>：特殊退出码重启</li>
+</ul>
+<p>使用 <code>Never</code> 重启策略时，Job 的副本失败后不会重启。如果需要调试代码错误，可以选择此策略，便于从副本中读取训练日志。</p>
+<p><code>ExitCode</code> 是一种比较特殊的重启策略，它将失败进程的返回值分为两类：一类是由于系统环境原因或用户操作导致的错误，此类错误可以通过重启解决；另一类是代码错误或者其他不可自动恢复的错误。可重启的退出码包括：</p>
+<ul>
+<li>130（128+2）：使用 <code>Control+C</code> 终止容器运行。</li>
+<li>137（128+9）：容器接收到 <code>SIGKILL</code> 信号。</li>
+<li>143（128+15）：容器接收到 <code>SIGTERM</code> 信号。</li>
+<li>138：用户可以自定义这个返回值的含义。如果用户希望程序在某处退出并重启，可以在代码中写入这个返回值。</li>
+</ul>
+<h3 id="重启次数限制"><a class="header" href="#重启次数限制">重启次数限制</a></h3>
+<p>如果因为某种原因（例如代码错误或者环境错误并且长时间没有修复），TensorFlowTrainingJob 不断地失败重启却无法解决问题，这会导致集群资源的浪费。用户可以通过设置 <code>spec.runPolicy.backoffLimit</code> 字段来设置副本的最大重启次数。重启次数为所有副本共享，即所有副本重启次数累计达到此数值后，副本将不能再次重启。</p>
+<h2 id="清除策略"><a class="header" href="#清除策略">清除策略</a></h2>
+<p>在训练结束后，可能有些副本仍处于运行状态，比如 TensorFlow 训练框架中的 PS 经常在训练完成后仍然保持运行。这些运行的副本仍然会占用集群资源，TensorFlowTrainingJob 提供清除策略，在训练结束后删除这些副本。</p>
+<p>TensorFlowTrainingJob 提供以下三种策略：</p>
+<ul>
+<li><code>None</code>：不删除副本。</li>
+<li><code>All</code>：删除所有副本。</li>
+<li><code>Unfinished</code>：只删除未结束的副本。</li>
+</ul>
+<aside class="note tip">
+<div class="title">提示</div>
+<p>已结束的副本不会继续消耗集群资源，因此在一定程度上，<code>Unfinished</code> 策略比 <code>All</code> 策略更优。但这并不总是适用，由于一个项目的资源配额的计算不考虑 Pod 是否已经结束，对于资源紧张的项目，如果确定不需要通过日志来调试 Job，则可以使用 <code>All</code> 策略。</p>
+</aside>
+<pre><code>`None` 策略主要用于训练脚本调试阶段。如果需要从副本中读取训练日志，则可以选用此策略。但由于这些副本可能占用资源并影响后续训练，建议你在调试完毕后手动删除这些副本或删除整个 TensorFlowTrainingJob。
+</code></pre>
+<h2 id="调度器"><a class="header" href="#调度器">调度器</a></h2>
+<p>目前 TensorFlowTrainingJob 支持使用以下两种调度器：</p>
+<ol>
+<li>Kubernetes 的<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler">默认调度器</a></li>
+<li><a href="../scheduling/index.html">T9k Scheduler 调度器</a></li>
+</ol>
+<p>调度器通过 <code>spec.scheduler</code> 字段设置：</p>
+<ul>
+<li>不设置 <code>spec.scheduler</code> 字段，则默认使用 Kubernetes 的默认调度器。</li>
+<li>设置 <code>spec.scheduler.t9kScheduler</code> 字段，则使用 T9k Scheduler 调度器。</li>
+</ul>
+<p>在下面的示例中，TensorFlowTrainingJob 启用 T9k Scheduler 调度器，将副本插入 <code>default</code> 队列中等待调度，其优先级为 50。</p>
+<pre><code class="language-yaml">...
+spec:
+  scheduler:
+    t9kScheduler:
+      queue: default
+      priority: 50
+</code></pre>
+<aside class="note info">
+<div class="title">信息</div>
+<p>队列和优先级都是 T9k Scheduler 的概念，具体含义请参阅 <a href="../scheduling/index.html">T9k Scheduler</a>。</p>
+</aside>
+<h2 id="tensorboard-的使用"><a class="header" href="#tensorboard-的使用">TensorBoard 的使用</a></h2>
+<p>TensorFlowTrainingJob 支持使用 TensorBoard 对训练过程和结果进行实时可视化（由 <code>spec.tensorboardSpec</code> 字段设置）。</p>
+<p>在下面的示例中，TensorFlowTrainingJob 使用 <code>t9kpublic/tensorflow-2.11.0:cpu-sdk-0.5.2</code> 镜像创建一个 TensorBoard，可视化名为 <code>tensorflow-tensorboard-pvc</code> 的 PVC 中 <code>/log</code> 路径下的模型数据。</p>
+<pre><code class="language-yaml">...
+spec:
+  tensorboardSpec:
+    image: t9kpublic/tensorflow-2.11.0:cpu-sdk-0.5.2
+    trainingLogFilesets:
+    - t9k://pvc/tensorflow-tensorboard-pvc/log
+...
+</code></pre>
+<aside class="note info">
+<div class="title">信息</div>
+<p>TensorBoard 的详细介绍请参阅 <a href="(../building/tensorboard.html">TensorBoard</a>。</p>
+</aside>
+<h2 id="调试模式"><a class="header" href="#调试模式">调试模式</a></h2>
+<p>TensorFlowTrainingJob 支持调试模式。在该模式下，训练环境会被部署好，但不会启动训练，用户可以连入副本测试环境或脚本。</p>
+<p>该模式可以通过 <code>spec.runMode.debug</code> 字段来设置：</p>
+<ul>
+<li><code>spec.runMode.debug.enabled</code> 表示是否启用调试模式。</li>
+<li><code>spec.runMode.debug.replicaSpecs</code> 表示如何配置各个副本的调试模式：
+<ul>
+<li><code>spec.runMode.debug.replicaSpecs.type</code> 表示作用于的副本类型。</li>
+<li><code>spec.runMode.debug.replicaSpecs.skipInitContainer</code> 表示让副本的 InitContainer 失效，默认为 <code>false</code>。</li>
+<li><code>spec.runMode.debug.replicaSpecs.command</code> 表示副本在等待调试的时候执行的命令，默认为 <code>sleep inf</code>。</li>
+<li>如果不填写 <code>spec.runMode.debug.replicaSpecs</code> 字段，则表示所有副本都使用默认设置。</li>
+</ul>
+</li>
+</ul>
+<p>在下面的示例中：</p>
+<ul>
+<li>示例一：开启了调试模式，并配置 worker 跳过 InitContainer，并执行 <code>/usr/bin/sshd</code>。</li>
+<li>示例二：开启了调试模式，副本使用默认调试设置，即不跳过 InitContainer，并执行 <code>sleep inf</code>。</li>
+</ul>
+<pre><code class="language-yaml"># 示例一
+...
+spec:
+  runMode:
+    debug:
+      enabled: true
+      replicaSpecs:
+        - type: worker
+          skipInitContainer: true
+          command: [&quot;/usr/bin/sshd&quot;]
+
+---
+# 示例二
+...
+spec:
+  runMode:
+    debug:
+      enabled: true
+</code></pre>
+<h2 id="暂停模式"><a class="header" href="#暂停模式">暂停模式</a></h2>
+<p>TensorFlowTrainingJob 支持暂停模式。在该模式下，删除（或不创建）副本，停止训练。</p>
+<p>该模式可以通过 <code>spec.runMode.pause</code> 字段来设置：</p>
+<ul>
+<li><code>spec.runMode.pause.enabled</code> 表示是否启用暂停模式。</li>
+<li><code>spec.runMode.pause.resumeSpecs</code> 表示结束暂停后，如何恢复各个副本：
+<ul>
+<li><code>spec.runMode.pause.resumeSpecs.type</code> 表示作用于的副本类型。</li>
+<li><code>spec.runMode.pause.resumeSpecs.skipInitContainer</code> 表示让副本的 InitContainer 失效，默认为 <code>false</code>。</li>
+<li><code>spec.runMode.pause.resumeSpecs.command</code> 和 <code>spec.runMode.pause.resumeSpecs.args</code> 表示副本在恢复运行时候执行的命令，默认使用 <code>spec.replicaSpecs[0].template</code> 中的命令。</li>
+<li>如果不填写 <code>spec.runMode.pause.resumeSpecs</code> 字段，则表示所有副本都使用默认设置。</li>
+</ul>
+</li>
+</ul>
+<p>用户可以随时修改 <code>spec.runMode.pause.enabled</code> 来控制任务暂停，但是不可以更改 <code>spec.runMode.pause.resumeSpecs</code>，所以如果有暂停 TensorFlowTrainingJob 的需求，请提前设置好恢复设置。</p>
+<p>在下面的示例中：</p>
+<ul>
+<li>示例一：开启了暂停模式，并配置 worker 跳过 InitContainer，并执行 <code>/usr/bin/sshd</code>。</li>
+<li>示例二：开启了暂停模式，副本使用默认恢复设置，即不跳过 InitContainer，并执行 <code>spec.replicaSpecs[0].template</code> 中设置的命令。</li>
+</ul>
+<pre><code class="language-yaml"># 示例一
+...
+spec:
+  runMode:
+    pause:
+      enabled: true
+      resumeSpecs:
+        - type: worker
+          skipInitContainer: true
+          command: [&quot;/usr/bin/sshd&quot;]
+
+---
+# 示例二
+...
+spec:
+  runMode:
+    pause:
+      enabled: true
+</code></pre>
+<h2 id="tensorflowtrainingjob-状态"><a class="header" href="#tensorflowtrainingjob-状态">TensorFlowTrainingJob 状态</a></h2>
+<h3 id="tensorflowtrainingjob-的状态和阶段"><a class="header" href="#tensorflowtrainingjob-的状态和阶段">TensorFlowTrainingJob 的状态和阶段</a></h3>
+<p><code>status.conditions</code> 字段用于描述当前 TensorFlowTrainingJob 的状态，包括以下 6 种类型：</p>
+<ol>
+<li><code>Initialized</code>：TensorFlowTrainingJob 已经成功创建各子资源，完成初始化。</li>
+<li><code>Running</code>：开始执行任务。</li>
+<li><code>ReplicaFailure</code>：有一个或多个副本出现错误。</li>
+<li><code>Completed</code>：TensorFlowTrainingJob 成功。</li>
+<li><code>Failed</code>：TensorFlowTrainingJob 失败。</li>
+<li><code>Paused</code>：TensorFlowTrainingJob 进入暂停模式，所有副本都已删除或正在删除。</li>
+</ol>
+<p><code>status.phase</code> 字段用于描述当前 TensorFlowTrainingJob 所处的阶段，TensorFlowTrainingJob 的整个生命周期主要有以下7个阶段：</p>
+<ol>
+<li><code>Pending</code>：TensorFlowTrainingJob 刚刚创建，等待副本启动。</li>
+<li><code>Running</code>：副本创建成功，开始执行任务。</li>
+<li><code>Paused</code>：TensorFlowTrainingJob 进入暂停模式。</li>
+<li><code>Resuming</code>：TensorFlowTrainingJob 正从暂停模式中恢复运行。恢复运行后，切换为 <code>Running</code> 阶段。</li>
+<li><code>Succeeded</code>：TensorFlowTrainingJob 成功。</li>
+<li><code>Failed</code>：TensorFlowTrainingJob 失败。</li>
+<li><code>Unknown</code>：控制器无法获得 TensorFlowTrainingJob 的阶段。</li>
+</ol>
+<p>在下面的示例中，TensorFlowTrainingJob 所有子资源创建成功，所以类型为 <code>Initalized</code> 的 <code>condition</code> 被设为 <code>True</code>；TensorFlowTrainingJob 运行结束，所以类型为 <code>Completed</code> 的 <code>condition</code> 被设置为 <code>True</code>；TensorFlowTrainingJob 的训练成功结束，所以类型为 <code>Completed</code> 的 <code>condition</code> 被设置为 <code>True</code>（原因是 <code>The job has finished successfully.</code>）。当前 TensorFlowTrainingJob 运行阶段为 <code>Succeeded</code>。</p>
+<pre><code class="language-yaml">...
+status:
+  conditions:
+    - lastTransitionTime: &quot;2023-12-19T02:40:25Z&quot;
+      message: The job has been initialized successfully.
+      reason: '-'
+      status: &quot;True&quot;
+      type: Initialized
+    - lastTransitionTime: &quot;2023-12-19T02:53:14Z&quot;
+      message: The job has finished successfully.
+      reason: Succeeded
+      status: &quot;False&quot;
+      type: Running
+    - lastTransitionTime: &quot;2023-12-19T02:53:14Z&quot;
+      message: The job has finished successfully.
+      reason: Succeeded
+      status: &quot;False&quot;
+      type: Failed
+    - lastTransitionTime: &quot;2023-12-19T02:53:14Z&quot;
+      message: The job has finished successfully.
+      reason: Succeeded
+      status: &quot;True&quot;
+      type: Completed
+    - lastTransitionTime: &quot;2023-12-19T02:40:25Z&quot;
+      message: All pods are running normally.
+      reason: '-'
+      status: &quot;False&quot;
+      type: ReplicaFailure
+  phase: Succeeded
+</code></pre>
+<h3 id="副本的状态"><a class="header" href="#副本的状态">副本的状态</a></h3>
+<p><code>status.tasks</code> 字段用来记录副本的状态，记录的内容主要包括：</p>
+<ul>
+<li>副本的重启次数（同一种角色的副本的重启次数之和）；</li>
+<li>副本当前的运行阶段，此处的“运行阶段”在 K8s Pod 的 5 个阶段的基础上，添加了 <code>Creating</code> 和 <code>Deleted</code> 分别表示正在创建和已删除；</li>
+<li>副本在集群中对应的 Pod 的索引信息。</li>
+</ul>
+<p>在下面的示例中，TensorFlowTrainingJob 创建了 1 个角色为 <code>worker</code> 的副本，当前均处于 <code>Succeeded</code> 阶段，运行在 <code>mnist-trainingjob-5b373-worker-0</code> 这个 Pod 上。</p>
+<pre><code class="language-yaml">...
+status:
+  tasks:
+  - replicas:
+    - containers:
+      - exitCode: 0
+        name: pytorch
+        state: Terminated
+      name: mnist-trainingjob-5b373-worker-0
+      phase: Succeeded
+      uid: d39f91d6-9c48-4c57-bb71-4131226395b6
+    type: worker
+</code></pre>
+<h3 id="副本状态统计"><a class="header" href="#副本状态统计">副本状态统计</a></h3>
+<p><code>status.aggregate</code> 字段统计了各个阶段的副本数量。</p>
+<p>在下面示例中，TensorFlowTrainingJob 创建了 3 个副本，其中 1 个处于 <code>Pending</code> 阶段，另外两个处于 <code>Running</code> 阶段。</p>
+<pre><code class="language-yaml">...
+status:
+  aggregate:
+    creating: 0
+    deleted: 0
+    failed: 0
+    pending: 1
+    running: 2
+    succeeded: 0
+    unknown: 0
+...
+</code></pre>
+<h3 id="tensorboard-状态"><a class="header" href="#tensorboard-状态">TensorBoard 状态</a></h3>
+<p><code>status.tensorboard</code> 字段用来记录 TensorBoard 的状态。</p>
+<p>在下面的示例中，TensorFlowTrainingJob 创建了名为 <code>mnist-trainingjob-5b373</code> 的 TensorBoard，TensorBoard 目前运行正常。</p>
+<pre><code class="language-yaml">status:
+  tensorboard:
+    action: NOP
+    dependent:
+      apiVersion: tensorstack.dev/v1beta1
+      kind: TensorBoard
+      name: mnist-trainingjob-5b373
+      namespace: demo
+      uid: b09378f3-2164-4f14-a425-a1340fa32d7d
+    note: TensorBoard [mnist-trainingjob-5b373] is ready
+    ready: true
+    reason: DependentReady
+    type: Normal
+</code></pre>
+<h2 id="下一步"><a class="header" href="#下一步">下一步</a></h2>
+<ul>
+<li>了解如何<a href="../../tasks/tensorflow-training-parallel.html">使用 TensorFlowTrainingJob 进行数据并行训练</a></li>
+<li>了解如何<a href="../../tasks/tensorflow-training-ps.html">使用 TensorFlowTrainingJob 进行参数服务器训练</a></li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../modules/jobs/pytorchtrainingjob.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../modules/jobs/deepspeedjob.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../modules/jobs/pytorchtrainingjob.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../modules/jobs/deepspeedjob.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../../theme/sidebar.js"></script>
+
+
+    </div>
+    </body>
+</html>

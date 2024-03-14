@@ -1,0 +1,557 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Label Studio - TensorStack AI 计算平台 - 用户使用手册</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/sidebar.css">
+        <link rel="stylesheet" href="../theme/custom.css">
+        <link rel="stylesheet" href="../theme/version-dropdown.css">
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../introduction.html">导言</a></li><li class="chapter-item expanded affix "><a href="../overview.html">概述</a></li><li class="chapter-item expanded "><a href="../get-started/index.html"><strong aria-hidden="true">1.</strong> 快速入门</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../get-started/training-first-model.html"><strong aria-hidden="true">1.1.</strong> 训练你的第一个模型</a></li><li class="chapter-item expanded "><a href="../get-started/parallel-training.html"><strong aria-hidden="true">1.2.</strong> 进行并行训练</a></li><li class="chapter-item expanded "><a href="../get-started/deploy-model.html"><strong aria-hidden="true">1.3.</strong> 部署模型</a></li></ol></li><li class="chapter-item expanded "><a href="../modules/index.html"><strong aria-hidden="true">2.</strong> AI 开发和应用</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../modules/building/index.html"><strong aria-hidden="true">2.1.</strong> 模型构建</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../modules/building/notebook.html"><strong aria-hidden="true">2.1.1.</strong> Notebook</a></li><li class="chapter-item expanded "><a href="../modules/building/tensorboard.html"><strong aria-hidden="true">2.1.2.</strong> TensorBoard</a></li><li class="chapter-item expanded "><a href="../modules/building/autotune.html"><strong aria-hidden="true">2.1.3.</strong> AutoTune</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../modules/building/autotuneexperiment.html"><strong aria-hidden="true">2.1.3.1.</strong> AutoTuneExperiment</a></li><li class="chapter-item expanded "><a href="../modules/building/autotune-search-space.html"><strong aria-hidden="true">2.1.3.2.</strong> 搜索空间</a></li><li class="chapter-item expanded "><a href="../modules/building/hpo-algorithm.html"><strong aria-hidden="true">2.1.3.3.</strong> 超参数调优算法</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../modules/deployment/index.html"><strong aria-hidden="true">2.2.</strong> 模型部署</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../modules/deployment/simplemlservice.html"><strong aria-hidden="true">2.2.1.</strong> SimpleMLService</a></li><li class="chapter-item expanded "><a href="../modules/deployment/mlservice.html"><strong aria-hidden="true">2.2.2.</strong> MLService</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../modules/deployment/mlservice-logger.html"><strong aria-hidden="true">2.2.2.1.</strong> 日志收集</a></li></ol></li><li class="chapter-item expanded "><a href="../modules/deployment/storage.html"><strong aria-hidden="true">2.2.3.</strong> 模型存储</a></li></ol></li><li class="chapter-item expanded "><a href="../modules/jobs/index.html"><strong aria-hidden="true">2.3.</strong> Job</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../modules/jobs/genericjob.html"><strong aria-hidden="true">2.3.1.</strong> GenericJob</a></li><li class="chapter-item expanded "><a href="../modules/jobs/pytorchtrainingjob.html"><strong aria-hidden="true">2.3.2.</strong> PyTorchTrainingJob</a></li><li class="chapter-item expanded "><a href="../modules/jobs/tensorflowtrainingjob.html"><strong aria-hidden="true">2.3.3.</strong> TensorFlowTrainingJob</a></li><li class="chapter-item expanded "><a href="../modules/jobs/deepspeedjob.html"><strong aria-hidden="true">2.3.4.</strong> DeepSpeedJob</a></li><li class="chapter-item expanded "><a href="../modules/jobs/colossalaijob.html"><strong aria-hidden="true">2.3.5.</strong> ColossalAIJob</a></li><li class="chapter-item expanded "><a href="../modules/jobs/xgboosttrainingjob.html"><strong aria-hidden="true">2.3.6.</strong> XGBoostTrainingJob</a></li><li class="chapter-item expanded "><a href="../modules/jobs/mpijob.html"><strong aria-hidden="true">2.3.7.</strong> MPIJob</a></li><li class="chapter-item expanded "><a href="../modules/jobs/beamjob.html"><strong aria-hidden="true">2.3.8.</strong> BeamJob</a></li></ol></li><li class="chapter-item expanded "><a href="../modules/asset-management.html"><strong aria-hidden="true">2.4.</strong> 资产管理</a></li><li class="chapter-item expanded "><a href="../modules/experiment-management.html"><strong aria-hidden="true">2.5.</strong> 实验管理</a></li></ol></li><li class="chapter-item expanded "><a href="../modules/security/index.html"><strong aria-hidden="true">3.</strong> 账户和安全</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../modules/security/account.html"><strong aria-hidden="true">3.1.</strong> 账户</a></li><li class="chapter-item expanded "><a href="../modules/security/project.html"><strong aria-hidden="true">3.2.</strong> 项目</a></li></ol></li><li class="chapter-item expanded "><a href="../modules/scheduling/index.html"><strong aria-hidden="true">4.</strong> 计算资源</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../modules/scheduling/use-gpu.html"><strong aria-hidden="true">4.1.</strong> 使用 GPU</a></li><li class="chapter-item expanded "><a href="../modules/scheduling/quota.html"><strong aria-hidden="true">4.2.</strong> 资源配额</a></li><li class="chapter-item expanded "><a href="../modules/scheduling/queue.html"><strong aria-hidden="true">4.3.</strong> 队列</a></li><li class="chapter-item expanded "><a href="../modules/scheduling/podgroup.html"><strong aria-hidden="true">4.4.</strong> PodGroup</a></li><li class="chapter-item expanded "><a href="../modules/scheduling/reclaim.html"><strong aria-hidden="true">4.5.</strong> 资源回收</a></li><li class="chapter-item expanded "><a href="../modules/scheduling/resources-monitoring.html"><strong aria-hidden="true">4.6.</strong> 资源使用监控</a></li></ol></li><li class="chapter-item expanded "><a href="../modules/storage/index.html"><strong aria-hidden="true">5.</strong> 存储</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../modules/storage/pvc.html"><strong aria-hidden="true">5.1.</strong> PVC</a></li><li class="chapter-item expanded "><a href="../modules/storage/pvc-snapshot.html"><strong aria-hidden="true">5.2.</strong> PVC 快照</a></li><li class="chapter-item expanded "><a href="../modules/storage/storageshim.html"><strong aria-hidden="true">5.3.</strong> StorageShim</a></li><li class="chapter-item expanded "><a href="../modules/storage/explorer.html"><strong aria-hidden="true">5.4.</strong> Explorer</a></li></ol></li><li class="chapter-item expanded "><a href="../modules/auxiliary/index.html"><strong aria-hidden="true">6.</strong> 辅助</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../modules/auxiliary/secret.html"><strong aria-hidden="true">6.1.</strong> Secret</a></li><li class="chapter-item expanded "><a href="../modules/auxiliary/configmap.html"><strong aria-hidden="true">6.2.</strong> ConfigMap</a></li><li class="chapter-item expanded "><a href="../modules/auxiliary/pod.html"><strong aria-hidden="true">6.3.</strong> Pod</a></li><li class="chapter-item expanded "><a href="../modules/auxiliary/imagebuilder.html"><strong aria-hidden="true">6.4.</strong> ImageBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="../modules/workflows/index.html"><strong aria-hidden="true">7.</strong> 工作流</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../modules/workflows/workflowtemplate.html"><strong aria-hidden="true">7.1.</strong> WorkflowTemplate</a></li><li class="chapter-item expanded "><a href="../modules/workflows/workflowrun.html"><strong aria-hidden="true">7.2.</strong> WorkflowRun</a></li><li class="chapter-item expanded "><a href="../modules/workflows/cronworkflowrun.html"><strong aria-hidden="true">7.3.</strong> CronWorkflowRun</a></li><li class="chapter-item expanded "><a href="../modules/workflows/workflowtrigger.html"><strong aria-hidden="true">7.4.</strong> WorkflowTrigger</a></li></ol></li><li class="chapter-item expanded "><a href="../tasks/index.html"><strong aria-hidden="true">8.</strong> 操作指南</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tasks/model-building.html"><strong aria-hidden="true">8.1.</strong> 使用模型构建控制台</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tasks/create-notebook.html"><strong aria-hidden="true">8.1.1.</strong> 创建 Notebook</a></li><li class="chapter-item expanded "><a href="../tasks/use-notebook.html"><strong aria-hidden="true">8.1.2.</strong> 使用 Notebook</a></li><li class="chapter-item expanded "><a href="../tasks/ssh-notebook.html"><strong aria-hidden="true">8.1.3.</strong> 通过 SSH 远程使用 Notebook</a></li><li class="chapter-item expanded "><a href="../tasks/create-tensorboard.html"><strong aria-hidden="true">8.1.4.</strong> 创建 TensorBoard</a></li><li class="chapter-item expanded "><a href="../tasks/build-image.html"><strong aria-hidden="true">8.1.5.</strong> 构建镜像</a></li><li class="chapter-item expanded "><a href="../tasks/debug-image.html"><strong aria-hidden="true">8.1.6.</strong> 调试镜像</a></li><li class="chapter-item expanded "><a href="../tasks/manage-pvc.html"><strong aria-hidden="true">8.1.7.</strong> 管理 PVC</a></li><li class="chapter-item expanded "><a href="../tasks/use-explorer.html"><strong aria-hidden="true">8.1.8.</strong> 使用 Explorer</a></li><li class="chapter-item expanded "><a href="../tasks/use-storageshim-s3.html"><strong aria-hidden="true">8.1.9.</strong> 使用 StorageShim 适配 S3 服务</a></li><li class="chapter-item expanded "><a href="../tasks/manage-secret.html"><strong aria-hidden="true">8.1.10.</strong> 管理 Secret</a></li><li class="chapter-item expanded "><a href="../tasks/manage-configmap.html"><strong aria-hidden="true">8.1.11.</strong> 管理 ConfigMap</a></li></ol></li><li class="chapter-item expanded "><a href="../tasks/model-training.html"><strong aria-hidden="true">8.2.</strong> 运行模型训练</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tasks/pytorch-training-parallel.html"><strong aria-hidden="true">8.2.1.</strong> 使用 PyTorchTrainingJob 进行数据并行训练</a></li><li class="chapter-item expanded "><a href="../tasks/pytorch-training-ps.html"><strong aria-hidden="true">8.2.2.</strong> 使用 PyTorchTrainingJob 进行参数服务器训练</a></li><li class="chapter-item expanded "><a href="../tasks/tensorflow-training-parallel.html"><strong aria-hidden="true">8.2.3.</strong> 使用 TensorFlowTrainingJob 进行数据并行训练</a></li><li class="chapter-item expanded "><a href="../tasks/tensorflow-training-ps.html"><strong aria-hidden="true">8.2.4.</strong> 使用 TensorFlowTrainingJob 进行参数服务器训练</a></li><li class="chapter-item expanded "><a href="../tasks/horovod-pytorch-parallel.html"><strong aria-hidden="true">8.2.5.</strong> 使用 Horovod 进行 PyTorch 模型的数据并行训练</a></li><li class="chapter-item expanded "><a href="../tasks/horovod-keras-parallel.html"><strong aria-hidden="true">8.2.6.</strong> 使用 Horovod 进行 Keras 模型的数据并行训练</a></li><li class="chapter-item expanded "><a href="../tasks/profile-model-training.html"><strong aria-hidden="true">8.2.7.</strong> 使用 Profiler 分析模型训练性能</a></li><li class="chapter-item expanded "><a href="../tasks/debug-job.html"><strong aria-hidden="true">8.2.8.</strong> 调试 Job</a></li></ol></li><li class="chapter-item expanded "><a href="../tasks/hyperparameter-tuning.html"><strong aria-hidden="true">8.3.</strong> 进行超参数优化</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tasks/autotune.html"><strong aria-hidden="true">8.3.1.</strong> 使用 AutoTune 进行超参数优化</a></li></ol></li><li class="chapter-item expanded "><a href="../tasks/deploy-inference-service.html"><strong aria-hidden="true">8.4.</strong> 部署推理服务</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tasks/deploy-simplemlservice.html"><strong aria-hidden="true">8.4.1.</strong> 简单推理服务</a></li><li class="chapter-item expanded "><a href="../tasks/deploy-mlservice.html"><strong aria-hidden="true">8.4.2.</strong> 推理服务</a></li><li class="chapter-item expanded "><a href="../tasks/deploy-mlservice-transformer.html"><strong aria-hidden="true">8.4.3.</strong> 包含 Transformer 的推理服务</a></li></ol></li><li class="chapter-item expanded "><a href="../tasks/manage-ai-assets.html"><strong aria-hidden="true">8.5.</strong> 管理 AI 资产</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tasks/manipulate-folder-asset.html"><strong aria-hidden="true">8.5.1.</strong> 操作文件夹、模型和数据集</a></li><li class="chapter-item expanded "><a href="../tasks/access-asset-via-s3.html"><strong aria-hidden="true">8.5.2.</strong> 通过 S3 访问模型和数据集</a></li><li class="chapter-item expanded "><a href="../tasks/modify-folder-asset.html"><strong aria-hidden="true">8.5.3.</strong> 修改文件夹、模型和数据集的基本信息</a></li><li class="chapter-item expanded "><a href="../tasks/manipulate-asset-branch-tag.html"><strong aria-hidden="true">8.5.4.</strong> 操作模型和数据集的分支、tag 和 commit</a></li><li class="chapter-item expanded "><a href="../tasks/manipulate-asset-objects.html"><strong aria-hidden="true">8.5.5.</strong> 操作模型和数据集的对象</a></li></ol></li><li class="chapter-item expanded "><a href="../tasks/track-model-training.html"><strong aria-hidden="true">8.6.</strong> 追踪模型训练</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tasks/use-experiment-console.html"><strong aria-hidden="true">8.6.1.</strong> 在实验管理控制台查看和管理数据</a></li><li class="chapter-item expanded "><a href="../tasks/record-using-python-sdk.html"><strong aria-hidden="true">8.6.2.</strong> 使用 Python SDK 记录和上传数据</a></li><li class="chapter-item expanded "><a href="../tasks/record-single-device-training.html"><strong aria-hidden="true">8.6.3.</strong> 单设备训练场景</a></li><li class="chapter-item expanded "><a href="../tasks/record-distributed-training.html"><strong aria-hidden="true">8.6.4.</strong> 分布式训练场景</a></li><li class="chapter-item expanded "><a href="../tasks/view-autotune-in-experiment-console.html"><strong aria-hidden="true">8.6.5.</strong> 在实验管理控制台查看 AutoTune</a></li></ol></li><li class="chapter-item expanded "><a href="../tasks/build-automation-workflow.html"><strong aria-hidden="true">8.7.</strong> 构建自动化工作流</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tasks/create-workflow-unit.html"><strong aria-hidden="true">8.7.1.</strong> 创建工作流的基本单元</a></li><li class="chapter-item expanded "><a href="../tasks/create-task-workflow-unit.html"><strong aria-hidden="true">8.7.2.</strong> 创建执行各类任务的工作流单元</a></li><li class="chapter-item expanded "><a href="../tasks/create-dependent-workflow.html"><strong aria-hidden="true">8.7.3.</strong> 创建存在依赖关系的工作流</a></li><li class="chapter-item expanded "><a href="../tasks/build-automated-workflow.html"><strong aria-hidden="true">8.7.4.</strong> 建立从数据采样到模型导出的自动化工作流</a></li></ol></li><li class="chapter-item expanded "><a href="../tasks/schedule-workload.html"><strong aria-hidden="true">8.8.</strong> 调度工作负载</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tasks/use-queue.html"><strong aria-hidden="true">8.8.1.</strong> 使用 Queue</a></li><li class="chapter-item expanded "><a href="../tasks/use-podgroup.html"><strong aria-hidden="true">8.8.2.</strong> 使用 PodGroup</a></li></ol></li><li class="chapter-item expanded "><a href="../tasks/use-platform-storage.html"><strong aria-hidden="true">8.9.</strong> 使用集群存储</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tasks/pvc-importing-and-exporting-files.html"><strong aria-hidden="true">8.9.1.</strong> 上传和下载文件</a></li></ol></li><li class="chapter-item expanded "><a href="../tasks/manage-personal-account.html"><strong aria-hidden="true">8.10.</strong> 管理个人账户</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tasks/generate-api-key.html"><strong aria-hidden="true">8.10.1.</strong> 生成 API Key</a></li><li class="chapter-item expanded "><a href="../tasks/use-api-key.html"><strong aria-hidden="true">8.10.2.</strong> 使用 API Key</a></li><li class="chapter-item expanded "><a href="../tasks/add-project-member.html"><strong aria-hidden="true">8.10.3.</strong> 添加项目成员</a></li></ol></li><li class="chapter-item expanded "><a href="../tasks/tricks.html"><strong aria-hidden="true">8.11.</strong> 小技巧</a></li></ol></li><li class="chapter-item expanded "><a href="../tools/index.html"><strong aria-hidden="true">9.</strong> 命令行工具和 SDK</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tools/cli-t9k/index.html"><strong aria-hidden="true">9.1.</strong> 命令行工具：t9k</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tools/cli-t9k/guide.html"><strong aria-hidden="true">9.1.1.</strong> 用户指南</a></li><li class="chapter-item expanded "><a href="../tools/cli-t9k/commands.html"><strong aria-hidden="true">9.1.2.</strong> 命令</a></li></ol></li><li class="chapter-item expanded "><a href="../tools/cli-t9k-pf/index.html"><strong aria-hidden="true">9.2.</strong> 命令行工具：t9k-pf</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tools/cli-t9k-pf/guide.html"><strong aria-hidden="true">9.2.1.</strong> 用户指南</a></li><li class="chapter-item expanded "><a href="../tools/cli-t9k-pf/commands.html"><strong aria-hidden="true">9.2.2.</strong> 命令</a></li></ol></li><li class="chapter-item expanded "><a href="../tools/python-sdk-t9k/index.html"><strong aria-hidden="true">9.3.</strong> Python SDK：t9k</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tools/python-sdk-t9k/guide.html"><strong aria-hidden="true">9.3.1.</strong> 用户指南</a></li><li class="chapter-item expanded "><a href="../tools/python-sdk-t9k/api/index.html"><strong aria-hidden="true">9.3.2.</strong> API</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tools/python-sdk-t9k/api/t9k-ah.html"><strong aria-hidden="true">9.3.2.1.</strong> t9k.ah</a></li><li class="chapter-item expanded "><a href="../tools/python-sdk-t9k/api/t9k-ah-core.html"><strong aria-hidden="true">9.3.2.2.</strong> t9k.ah.core</a></li><li class="chapter-item expanded "><a href="../tools/python-sdk-t9k/api/t9k-config.html"><strong aria-hidden="true">9.3.2.3.</strong> t9k.config</a></li><li class="chapter-item expanded "><a href="../tools/python-sdk-t9k/api/t9k-em.html"><strong aria-hidden="true">9.3.2.4.</strong> t9k.em</a></li><li class="chapter-item expanded "><a href="../tools/python-sdk-t9k/api/t9k-tuner.html"><strong aria-hidden="true">9.3.2.5.</strong> t9k.tuner</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../tools/codepack/index.html"><strong aria-hidden="true">9.4.</strong> Codepack</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tools/codepack/concepts.html"><strong aria-hidden="true">9.4.1.</strong> 概念</a></li><li class="chapter-item expanded "><a href="../tools/codepack/definition.html"><strong aria-hidden="true">9.4.2.</strong> Codepack 定义</a></li><li class="chapter-item expanded "><a href="../tools/codepack/cli.html"><strong aria-hidden="true">9.4.3.</strong> 命令行工具</a></li><li class="chapter-item expanded "><a href="../tools/codepack/example.html"><strong aria-hidden="true">9.4.4.</strong> 示例</a></li><li class="spacer"></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../references/index.html"><strong aria-hidden="true">10.</strong> 参考</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../references/glossary.html"><strong aria-hidden="true">10.1.</strong> 术语表</a></li><li class="chapter-item expanded "><a href="../references/api-reference/index.html"><strong aria-hidden="true">10.2.</strong> API 参考</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../references/api-reference/project.html"><strong aria-hidden="true">10.2.1.</strong> Project</a></li><li class="chapter-item expanded "><a href="../references/api-reference/genericjob.html"><strong aria-hidden="true">10.2.2.</strong> GenericJob</a></li><li class="chapter-item expanded "><a href="../references/api-reference/tensorflowtrainingjob.html"><strong aria-hidden="true">10.2.3.</strong> TensorFlowTrainingJob</a></li><li class="chapter-item expanded "><a href="../references/api-reference/pytorchtrainingjob.html"><strong aria-hidden="true">10.2.4.</strong> PyTorchTrainingJob</a></li><li class="chapter-item expanded "><a href="../references/api-reference/xgboosttrainingjob.html"><strong aria-hidden="true">10.2.5.</strong> XGBoostTrainingJob</a></li><li class="chapter-item expanded "><a href="../references/api-reference/colossalaijob.html"><strong aria-hidden="true">10.2.6.</strong> ColossalAIJob</a></li><li class="chapter-item expanded "><a href="../references/api-reference/deepspeedjob.html"><strong aria-hidden="true">10.2.7.</strong> DeepSpeedJob</a></li><li class="chapter-item expanded "><a href="../references/api-reference/mpijob.html"><strong aria-hidden="true">10.2.8.</strong> MPIJob</a></li><li class="chapter-item expanded "><a href="../references/api-reference/beamjob.html"><strong aria-hidden="true">10.2.9.</strong> BeamJob</a></li><li class="chapter-item expanded "><a href="../references/api-reference/tensorboard.html"><strong aria-hidden="true">10.2.10.</strong> TensorBoard</a></li><li class="chapter-item expanded "><a href="../references/api-reference/notebook.html"><strong aria-hidden="true">10.2.11.</strong> Notebook</a></li><li class="chapter-item expanded "><a href="../references/api-reference/autotune.html"><strong aria-hidden="true">10.2.12.</strong> AutoTuneExperiment</a></li><li class="chapter-item expanded "><a href="../references/api-reference/explorer.html"><strong aria-hidden="true">10.2.13.</strong> Explorer</a></li><li class="chapter-item expanded "><a href="../references/api-reference/storageshim.html"><strong aria-hidden="true">10.2.14.</strong> StorageShim</a></li><li class="chapter-item expanded "><a href="../references/api-reference/scheduler.html"><strong aria-hidden="true">10.2.15.</strong> Scheduler</a></li><li class="chapter-item expanded "><a href="../references/api-reference/workflow.html"><strong aria-hidden="true">10.2.16.</strong> Workflow</a></li><li class="chapter-item expanded "><a href="../references/api-reference/workflowtrigger.html"><strong aria-hidden="true">10.2.17.</strong> WorkflowTrigger</a></li><li class="chapter-item expanded "><a href="../references/api-reference/simplemlservice.html"><strong aria-hidden="true">10.2.18.</strong> SimpleMLService</a></li><li class="chapter-item expanded "><a href="../references/api-reference/mlservice.html"><strong aria-hidden="true">10.2.19.</strong> MLService</a></li></ol></li><li class="chapter-item expanded "><a href="../references/standard-images.html"><strong aria-hidden="true">10.3.</strong> 标准镜像</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="../examples/index.html"><strong aria-hidden="true">11.</strong> 示例</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/start-llm-large-scale-pretraining.html"><strong aria-hidden="true">11.1.</strong> 启动 LLM 大规模预训练</a></li><li class="chapter-item expanded "><a href="../examples/start-llm-finetuning.html"><strong aria-hidden="true">11.2.</strong> 启动 LLM 微调</a></li><li class="chapter-item expanded "><a href="../examples/deploy-llm-using-fastchat.html"><strong aria-hidden="true">11.3.</strong> 使用 FastChat 部署 LLM 推理服务</a></li><li class="chapter-item expanded "><a href="../examples/deploy-llm-using-vllm.html"><strong aria-hidden="true">11.4.</strong> 使用 vLLM 部署 LLM 推理服务</a></li><li class="chapter-item expanded "><a href="../examples/deploy-hf-model-using-triton-python.html"><strong aria-hidden="true">11.5.</strong> 使用 Triton 部署 Hugging Face 模型（Python 后端）</a></li><li class="chapter-item expanded "><a href="../examples/deploy-mlservice-tensorizer.html"><strong aria-hidden="true">11.6.</strong> 使用 Tensorizer 加速模型部署</a></li><li class="chapter-item expanded "><a href="../examples/build-next-generation-llm-app-using-autogen.html"><strong aria-hidden="true">11.7.</strong> 使用 AutoGen 构建下一代 LLM 应用</a></li><li class="chapter-item expanded "><a href="../examples/deploy-conversational-search-engine.html"><strong aria-hidden="true">11.8.</strong> 部署对话式搜索引擎</a></li><li class="chapter-item expanded "><a href="../examples/deploy-sd-drawing-model.html"><strong aria-hidden="true">11.9.</strong> 部署 Stable Diffusion 图像生成模型</a></li><li class="chapter-item expanded "><a href="../examples/lane-detection.html"><strong aria-hidden="true">11.10.</strong> 车道检测</a></li></ol></li><li class="chapter-item expanded "><a href="../integrations/index.html"><strong aria-hidden="true">12.</strong> 集成</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../integrations/label-studio.html" class="active"><strong aria-hidden="true">12.1.</strong> Label Studio</a></li><li class="chapter-item expanded "><a href="../integrations/vector-database-qdrant.html"><strong aria-hidden="true">12.2.</strong> 向量数据库：Qdrant</a></li><li class="chapter-item expanded "><a href="../integrations/vector-database-pgvector.html"><strong aria-hidden="true">12.3.</strong> 向量数据库：PostgreSQL + pgvector</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="../background.html">附录1：背景</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        <!-- custom code for adding release version dropdown menu -->
+                        <div class="version-dropdown">
+                            <button id="release-version" class="icon-button" type="button" title="Release version" aria-label="Release version" aria-haspopup="true" aria-expanded="false" aria-controls="release-versions">
+                                <i class="fa fa-book"></i>
+                            </button>
+                            <div class="version-dropdown-content">
+                                <a href="https://t9k.github.io/user-manuals/"target="_blank" rel="noopener noreferrer">latest</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h1 class="menu-title">TensorStack AI 计算平台 - 用户使用手册</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <div class="sidetoc"><nav class="pagetoc"></nav></div>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="label-studio"><a class="header" href="#label-studio">Label Studio</a></h1>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/HumanSignal/label-studio">Label Studio</a> 是一个开源的数据标注工具。它允许用户通过一个简单直观的用户界面来标注音频、文本、图像、视频和时间序列等多种数据类型，并支持导出到各种模型格式。</p>
+<h2 id="部署"><a class="header" href="#部署">部署</a></h2>
+<h3 id="安装与配置"><a class="header" href="#安装与配置">安装与配置</a></h3>
+<p>进入 Notebook <code>app</code> 的终端，添加相应的 Helm Chart repository，列出 Chart <code>heartex/label-studio</code> 的所有版本：</p>
+<pre><code class="language-bash">helm repo add heartex https://charts.heartex.com/
+
+# 注意 CHART VERSION 和 APP VERSION（Label Studio 版本）之间的对应关系
+# 例如 CHART VERSION 1.4.0 和 1.3.4 中的 Label Studio 版本都是 1.11.0
+helm search repo heartex/label-studio --versions
+</code></pre>
+<p>安装指定版本的 Chart <code>heartex/label-studio</code> 以部署 Label Studio 应用：</p>
+<pre><code class="language-bash"># 安装最新版本
+helm repo update heartex
+helm install label-studio-demo heartex/label-studio
+
+# 安装指定 CHART VERSION，注意这不是 APP VERSION（Label Studio 版本）
+helm install label-studio-demo heartex/label-studio --version &lt;CHART_VERSION&gt;
+</code></pre>
+<p>以上安装全部使用默认配置，完整的默认配置请参阅相应的 <code>values.yaml</code>：</p>
+<pre><code class="language-bash"># 获取指定 CHART VERSION 的 values.yaml
+helm show values heartex/label-studio --version &lt;CHART_VERSION&gt; &gt; values.yaml
+</code></pre>
+<p>其中部分关键配置如下所示（CHART VERSION 1.4.0）：</p>
+<pre><code class="language-yaml">app:
+  replicas: 1        # 副本数
+
+  resources:         # 计算资源
+    limits: {}
+    requests: {}
+
+  ingress:           # Ingress 配置
+    enabled: false
+    annotations: {}
+    className: &quot;&quot;
+    host: &quot;&quot;
+    tls: []
+
+global:
+  persistence:       # 持久化
+    config:
+      volume:
+        accessModes:
+        - ReadWriteOnce
+        annotations: {}
+        existingClaim: &quot;&quot;
+        resourcePolicy: &quot;&quot;
+        size: 10Gi       # 卷大小
+        storageClass: &quot;&quot;
+    enabled: true
+    type: volume         # 卷
+</code></pre>
+<p>你可以根据需要对这些配置进行修改：</p>
+<ul>
+<li>如果想要提高容错，可以增加副本数。</li>
+<li>可以根据实际需求指定计算资源的请求值和限制值。</li>
+<li>可以提供 Ingress 配置以提供外部访问，请参阅 <a target="_blank" rel="noopener noreferrer" href="https://labelstud.io/guide/ingress_config">Set up an ingress controller for Label Studio Kubernetes deployments</a>。</li>
+<li>可以修改卷大小，或使用其他类型的持久化方案（如 Amazon S3），请参阅 <a target="_blank" rel="noopener noreferrer" href="https://labelstud.io/guide/persistent_storage">Set up persistent storage</a>。</li>
+</ul>
+<aside class="note">
+<div class="title">注意</div>
+<p>Ingress 配置也可以采用其他方案，需要结合集群的具体配置。</p>
+</aside>
+<p>然后将新配置（覆盖默认配置的部分）保存为一个 YAML 文件，通过 <code>-f</code> 选项提供给安装命令：</p>
+<pre><code class="language-bash"># 使用修改后的 values.yaml
+helm install label-studio-demo heartex/label-studio --version &lt;CHART_VERSION&gt; -f values.yaml
+</code></pre>
+<h3 id="应用架构"><a class="header" href="#应用架构">应用架构</a></h3>
+<p>应用的系统架构如下图所示（CHART VERSION 1.4.0，默认配置）：</p>
+<figure class="architecture">
+  <img alt="architecture" src="../assets/integrations/label-studio/microservice.drawio.svg" class="architecture">
+</figure>
+<p>创建的主要 Kubernetes 资源如下表所示：</p>
+<div class="table-wrapper"><table><thead><tr><th>类型</th><th>名称</th><th>作用</th><th>备注</th></tr></thead><tbody>
+<tr><td>Service</td><td>label-studio-demo-ls-app</td><td>暴露 Label Studio 服务</td><td></td></tr>
+<tr><td>Deployment</td><td>label-studio-demo-ls-app</td><td>部署 Label Studio</td><td>默认计算资源为 <code>{&quot;limits&quot;: {}, &quot;requests&quot;: {}}</code></td></tr>
+<tr><td>PVC</td><td>label-studio-demo-ls-pvc</td><td>作为 Label Studio 的持久化存储，存储用户上传的数据文件等</td><td>选择卷作为持久化方案时存在；默认卷大小为 <code>10Gi</code></td></tr>
+<tr><td>Secret</td><td>label-studio-demo-postgresql</td><td>存储数据库密钥</td><td></td></tr>
+<tr><td>Service</td><td>label-studio-demo-postgresql</td><td>暴露数据库服务</td><td></td></tr>
+<tr><td>StatefulSet</td><td>label-studio-demo-postgresql</td><td>部署数据库</td><td>默认计算资源为 <code>{&quot;limits&quot;: {}, &quot;requests&quot;: {&quot;cpu&quot;: &quot;250m&quot;, &quot;memory&quot;: &quot;256Mi&quot;}}</code></td></tr>
+<tr><td>PVC</td><td>data-label-studio-demo-postgresql-*</td><td>作为数据库的持久化存储</td><td>默认卷大小为 <code>8Gi</code></td></tr>
+<tr><td>Ingress</td><td>label-studio-demo-ls-app</td><td>提供外部访问</td><td>启用 Ingress 时存在</td></tr>
+</tbody></table>
+</div>
+<h3 id="运维"><a class="header" href="#运维">运维</a></h3>
+<p><strong>查看应用的状态</strong></p>
+<pre><code class="language-bash">helm status label-studio-demo
+</code></pre>
+<p><strong>重启应用</strong></p>
+<pre><code class="language-bash">kubectl rollout restart deployment/label-studio-demo-ls-app
+</code></pre>
+<p><strong>更新应用</strong></p>
+<pre><code class="language-bash"># 更新到最新版本
+helm upgrade label-studio-demo heartex/label-studio
+
+# 更新到指定版本
+helm upgrade label-studio-demo heartex/label-studio --version &lt;VERSION_NUMBER&gt;
+
+# 回滚更新，首先查看历史版本
+helm history label-studio-demo
+helm rollback label-studio-demo [REVISION]
+</code></pre>
+<p><strong>移除应用</strong></p>
+<pre><code class="language-bash">helm delete label-studio-demo
+</code></pre>
+<h2 id="使用"><a class="header" href="#使用">使用</a></h2>
+<h3 id="基本使用"><a class="header" href="#基本使用">基本使用</a></h3>
+<p>如果在部署应用时配置了 Ingress，那么直接在浏览器中访问相应的地址即可，否则需要进行端口转发。在用户的计算机上，前往模型构建控制台获取应用 Pod 的名称（前缀为 label-studio-demo-ls-app-）：</p>
+<figure class="screenshot">
+  <img alt="get-pod-name" src="../assets/integrations/label-studio/get-pod-name.png" />
+</figure>
+<p>然后通过 t9k-pf 进行端口转发来访问 Label Studio 应用：</p>
+<pre><code class="language-bash">t9k-pf -n &lt;APP_PROJECT&gt; pod &lt;POD_NAME&gt; 8080:8085
+</code></pre>
+<p>在浏览器中访问 <a target="_blank" rel="noopener noreferrer" href="http://127.0.0.1:8080/">http://127.0.0.1:8080/</a> 进入应用的 Web UI。注册一个用户，Email 和密码可以任意指定：</p>
+<figure class="screenshot">
+  <img alt="sign-up" src="../assets/integrations/label-studio/sign-up.png" />
+</figure>
+<p>假定任务是图像分类，我们准备了 10 张图片（来自数据集 <a target="_blank" rel="noopener noreferrer" href="https://www.microsoft.com/en-us/download/details.aspx?id=54765">Cats and Dogs</a>），需要将每一张图片标注为猫或狗。点击 <strong>Create Project</strong>：</p>
+<figure class="screenshot">
+  <img alt="create-project" src="../assets/integrations/label-studio/create-project.png" />
+</figure>
+<p>在 Project Name 页面可选地修改 Project 的名称：</p>
+<figure class="screenshot">
+  <img alt="project-name" src="../assets/integrations/label-studio/project-name.png" />
+</figure>
+<p>在 Data Import 页面上传 10 张图片：</p>
+<figure class="screenshot">
+  <img alt="data-import" src="../assets/integrations/label-studio/data-import.png" />
+</figure>
+<figure class="screenshot">
+  <img alt="file-uploaded" src="../assets/integrations/label-studio/file-uploaded.png" />
+</figure>
+<p>在 Labeling Setup 页面，选择模板 <strong>Computer Vision &gt; Image Classification</strong>，并将选项编辑为 <strong>Cat</strong> 和 <strong>Dog</strong>，最后点击 <strong>Save</strong>：</p>
+<figure class="screenshot">
+  <img alt="labeling-setup" src="../assets/integrations/label-studio/labeling-setup.png" />
+</figure>
+<figure class="screenshot">
+  <img alt="config-template" src="../assets/integrations/label-studio/config-template.png" />
+</figure>
+<p>自动跳转到 Project 的默认标签页，点击 <strong>Label All Tasks</strong> 以开始标注：</p>
+<figure class="screenshot">
+  <img alt="task-list" src="../assets/integrations/label-studio/task-list.png" />
+</figure>
+<p>对于每一张图片，勾选其为 Cat 或 Dog，然后点击 <strong>Submit</strong>：</p>
+<figure class="screenshot">
+  <img alt="labeling" src="../assets/integrations/label-studio/labeling.png" />
+</figure>
+<p>标注结束后，点击 <strong>Export</strong> 以下载指定格式的标注数据。</p>
+<figure class="screenshot">
+  <img alt="export" src="../assets/integrations/label-studio/export.png" />
+</figure>
+<h3 id="导入大量数据"><a class="header" href="#导入大量数据">导入大量数据</a></h3>
+<p>在导入数据时，如果仅上传少量（几十上百个）的文件，那么使用 Web UI 即可。但假设我们要上传数据集 Cats and Dogs 的总共 25000 张图片，仍然使用 Web UI 会导致其崩溃，这时我们需要寻求另外的导入数据的方法。</p>
+<p>Label Studio 支持<a target="_blank" rel="noopener noreferrer" href="https://labelstud.io/guide/storage">从外部存储同步数据</a>。这里以 Amazon S3 为例。在用户的计算机上准备好数据文件，并将其上传到 S3 bucket：</p>
+<pre><code class="language-bash">$ tree .                                       
+.
+├── 0.jpg
+├── 1.jpg
+├── 10.jpg
+├── 100.jpg
+├── 1000.jpg
+├── 10000.jpg
+├── 10001.jpg
+...
+├── 9998.jpg
+└── 9999.jpg
+
+0 directories, 25000 files
+
+$ rclone copy -P . corps3:my-bucket/kagglecatsanddogs                                                                        
+Transferred:      569.808 MiB / 809.542 MiB, 70%, 2.328 MiB/s, ETA 1m42s                                               
+Transferred:        16994 / 25000, 68%                                                                                 
+Elapsed time:      3m35.2s                                                                                             
+Transferring:                                                                                                          
+ *                                      2793.jpg:100% /23.680Ki, 0/s, -                                                
+ *                                      2794.jpg:100% /20.700Ki, 0/s, -                                                
+ *                                      2795.jpg:100% /22.631Ki, 0/s, -                                                
+ *                                      2796.jpg:100% /13.476Ki, 0/s, -
+</code></pre>
+<p>在 Label Studio 的项目设置中点击 <strong>Cloud Storage &gt; Add Source Storage</strong>，选择存储类型 AWS S3，并填写相关的配置，点击 <strong>Check Connection</strong> 验证连接是否成功，最后点击 <strong>Add Storage</strong>。</p>
+<figure class="screenshot">
+  <img alt="add-source-storage" src="../assets/integrations/label-studio/add-source-storage.png" />
+</figure>
+<figure class="screenshot">
+  <img alt="add-source-storage-detail" src="../assets/integrations/label-studio/add-source-storage-detail.png" />
+</figure>
+<p>创建完成之后，点击 <strong>Sync Storage</strong>，即可从导入数据文件：</p>
+<figure class="screenshot">
+  <img alt="sync-storage" src="../assets/integrations/label-studio/sync-storage.png" />
+</figure>
+<p>回到项目，可以看到数据被导入：</p>
+<figure class="screenshot">
+  <img alt="synced" src="../assets/integrations/label-studio/synced.png" />
+</figure>
+<h3 id="自定义标注-ui"><a class="header" href="#自定义标注-ui">自定义标注 UI</a></h3>
+<p>应用内置了大量标注模板，覆盖了各种类型的机器学习任务。除此之外，用户还可以使用类似 XML 的标签来自定义标注 UI，详细语法规则请参阅 <a target="_blank" rel="noopener noreferrer" href="https://labelstud.io/tags">Customize the Label Studio User Interface</a>。</p>
+<figure class="screenshot">
+  <img alt="customize-ui" src="../assets/integrations/label-studio/customize-ui.png" />
+</figure>
+<figure class="screenshot">
+  <img alt="customize-ui-detail" src="../assets/integrations/label-studio/customize-ui-detail.png" />
+</figure>
+<h3 id="自动化标注"><a class="header" href="#自动化标注">自动化标注</a></h3>
+<p>人工标注数据费时费力，我们可以引入机器学习模型来完成这一工作，这样只需要人工审核即可。</p>
+<p>Label Studio 支持添加 ML backend，使用其自动标注或进行在线训练。这里演示使用 <a target="_blank" rel="noopener noreferrer" href="https://github.com/facebookresearch/segment-anything">SAM</a> 进行语义分割任务的自动标注。</p>
+<p>在应用的 Web UI 点击 <strong>Account &amp; Settings</strong>，以获取用户的 <strong>Access Token</strong>：</p>
+<figure class="screenshot">
+  <img alt="access-token" src="../assets/integrations/label-studio/access-token.png" />
+</figure>
+<p>回到 Notebook <code>app</code> 的终端，获取应用 service 的 IP 地址：</p>
+<pre><code class="language-bash">kubectl get svc label-studio-demo-ls-app -o jsonpath=&quot;{.spec.clusterIP}&quot;
+</code></pre>
+<p>然后使用如下 YAML 配置文件创建 SimpleMLService 以部署 ML backend 服务，其中环境变量 <code>LABEL_STUDIO_HOST</code> 和 <code>LABEL_STUDIO_ACCESS_TOKEN</code> 的值需要根据上面获取的结果进行修改。镜像 <code>t9kpublic/label-studio-sam:main</code> 构建自示例 <a target="_blank" rel="noopener noreferrer" href="https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/segment_anything_model">Interactive Annotation in Label Studio with Segment Anything Model</a>。</p>
+<details><summary><code class="hljs">sam.yaml</code></summary>
+<pre><code class="language-yaml">apiVersion: tensorstack.dev/v1beta1
+kind: SimpleMLService
+metadata:
+  name: label-studio-sam
+spec:
+  replicas: 1
+  service:
+    type: ClusterIP
+    ports:
+    - targetPort: 9090
+      port: 9090
+  custom:
+    spec:
+      containers:
+      - name: server
+        image: t9kpublic/label-studio-sam:main
+        env:
+          - name: SAM_CHOICE
+            value: MobileSAM
+          - name: LOG_LEVEL
+            value: DEBUG
+          - name: LABEL_STUDIO_HOST
+            value: http://10.233.12.87:80
+          - name: LABEL_STUDIO_ACCESS_TOKEN
+            value: 381ae0357804f39d01e5d169b8ed0cf548925a57
+        ports:
+        - containerPort: 9090
+        resources:
+          limits:
+            cpu: 8
+            memory: 8Gi
+        volumeMounts:
+        - mountPath: /dev/shm
+          name: dshm
+      volumes:
+      - name: dshm
+        emptyDir:
+          medium: Memory
+</code></pre>
+</details>
+<pre><code class="language-bash">kubectl create -f sam.yaml
+</code></pre>
+<aside class="note info">
+<div class="title">信息</div>
+<p>Label Studio ML backend 还提供了其他模型的示例，请访问 <a target="_blank" rel="noopener noreferrer" href="https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples">examples</a>。用户也可以尝试自己编写一个 ML backend，请参阅 <a target="_blank" rel="noopener noreferrer" href="https://labelstud.io/guide/ml_create">Write your own ML backend</a>。</p>
+</aside>
+<p>获取 ML backend service 的 IP 地址和端口号：</p>
+<pre><code class="language-bash">kubectl get svc label-studio-sam -o jsonpath=&quot;{.spec.clusterIP}&quot;
+kubectl get svc label-studio-sam -o jsonpath=&quot;{.spec.ports[0].port}&quot;
+</code></pre>
+<p>再次进入应用的 Web UI，创建一个新的 project，上传一张图片，并且 template 使用如下自定义模板：</p>
+<pre><code class="language-xml">&lt;View&gt;
+  &lt;Image name=&quot;image&quot; value=&quot;$image&quot; zoom=&quot;true&quot;/&gt;
+  &lt;BrushLabels name=&quot;tag&quot; toName=&quot;image&quot;&gt;
+  	&lt;Label value=&quot;Banana&quot; background=&quot;#FF0000&quot;/&gt;
+  	&lt;Label value=&quot;Orange&quot; background=&quot;#0d14d3&quot;/&gt;
+  &lt;/BrushLabels&gt;
+  &lt;KeyPointLabels name=&quot;tag2&quot; toName=&quot;image&quot; smart=&quot;true&quot;&gt;
+    &lt;Label value=&quot;Banana&quot; smart=&quot;true&quot; background=&quot;#000000&quot; showInline=&quot;true&quot;/&gt;
+    &lt;Label value=&quot;Orange&quot; smart=&quot;true&quot; background=&quot;#000000&quot; showInline=&quot;true&quot;/&gt;
+  &lt;/KeyPointLabels&gt;
+  &lt;RectangleLabels name=&quot;tag3&quot; toName=&quot;image&quot; smart=&quot;true&quot;&gt;
+    &lt;Label value=&quot;Banana&quot; background=&quot;#000000&quot; showInline=&quot;true&quot;/&gt;
+    &lt;Label value=&quot;Orange&quot; background=&quot;#000000&quot; showInline=&quot;true&quot;/&gt;
+  &lt;/RectangleLabels&gt;
+&lt;/View&gt;
+</code></pre>
+<p>在 Label Studio 的项目设置中点击 <strong>Machine Learning &gt; Add Model</strong>，填写 SAM 服务的 URL 和模型名称，勾选 <strong>Use for interactive preannotations</strong>，然后点击 <strong>Validate and Save</strong>：</p>
+<figure class="screenshot">
+  <img alt="add-model" src="../assets/integrations/label-studio/add-model.png" />
+</figure>
+<figure class="screenshot">
+  <img alt="add-model-detail" src="../assets/integrations/label-studio/add-model-detail.png" />
+</figure>
+<p>标注时按照下图的顺序进行操作，可以看到图片中的柯基被正确地分割出来：</p>
+<figure class="screenshot">
+  <img alt="auto-annotation" src="../assets/integrations/label-studio/auto-annotation.png" />
+</figure>
+<h3 id="团队协作"><a class="header" href="#团队协作">团队协作</a></h3>
+<p>应用提供了简单直接的团队协作方式。团队的多个成员分别注册用户、登录并进入同一个项目，通过设定不同的过滤条件来分别标注全部数据的不同子集。</p>
+<p>例如设定 <code>ID / &lt;= / 3000</code> 可以仅列举前 3000 个数据；设定 <code>Annotated by / is empty / yes</code> 可以仅列举未被标注的数据。</p>
+<h2 id="参考"><a class="header" href="#参考">参考</a></h2>
+<ul>
+<li><a target="_blank" rel="noopener noreferrer" href="https://github.com/HumanSignal/label-studio">GitHub 上的 Label Studio</a></li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://labelstud.io/guide/">Label Studio 文档</a>
+<ul>
+<li><a target="_blank" rel="noopener noreferrer" href="https://labelstud.io/guide/ingress_config">设置 Ingress 控制器</a></li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://labelstud.io/guide/persistent_storage">设置持久化存储</a></li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://labelstud.io/guide/storage">从外部存储同步数据</a></li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://labelstud.io/guide/setup">标注配置</a></li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://labelstud.io/guide/ml">将 Label Studio 集成你的到机器学习工作流</a></li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://labelstud.io/guide/ml_create.html">构建你自己的 ML backend</a></li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://github.com/HumanSignal/label-studio-ml-backend">GitHub 上的 Label Studio ML backend</a>
+<ul>
+<li><a target="_blank" rel="noopener noreferrer" href="https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples">ML backend 示例</a></li>
+</ul>
+</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../integrations/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../integrations/vector-database-qdrant.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../integrations/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../integrations/vector-database-qdrant.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../theme/sidebar.js"></script>
+
+
+    </div>
+    </body>
+</html>

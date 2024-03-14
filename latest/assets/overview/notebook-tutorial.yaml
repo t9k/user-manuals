@@ -1,0 +1,28 @@
+# notebook-tutorial.yaml
+apiVersion: tensorstack.dev/v1beta1
+kind: Notebook
+metadata:
+  name: tutorial
+spec:
+  type: jupyter
+  template:
+    spec:
+      containers:
+        - name: notebook
+          image: t9kpublic/torch-2.1.0-notebook:1.77.1
+          volumeMounts:
+            - name: workingdir
+              mountPath: /t9k/mnt
+          resources:
+            requests:
+              cpu: '8'
+              memory: 16Gi
+              nvidia.com/gpu: 1
+            limits:
+              cpu: '16'
+              memory: 32Gi
+              nvidia.com/gpu: 1
+      volumes:
+        - name: workingdir
+          persistentVolumeClaim:
+            claimName: tutorial

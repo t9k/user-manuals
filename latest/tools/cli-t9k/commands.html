@@ -1,0 +1,2442 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>命令 - TensorStack AI 计算平台 - 用户使用手册</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../../theme/sidebar.css">
+        <link rel="stylesheet" href="../../theme/custom.css">
+        <link rel="stylesheet" href="../../theme/version-dropdown.css">
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../introduction.html">导言</a></li><li class="chapter-item expanded affix "><a href="../../overview.html">概述</a></li><li class="chapter-item expanded "><a href="../../get-started/index.html"><strong aria-hidden="true">1.</strong> 快速入门</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../get-started/training-first-model.html"><strong aria-hidden="true">1.1.</strong> 训练你的第一个模型</a></li><li class="chapter-item expanded "><a href="../../get-started/parallel-training.html"><strong aria-hidden="true">1.2.</strong> 进行并行训练</a></li><li class="chapter-item expanded "><a href="../../get-started/deploy-model.html"><strong aria-hidden="true">1.3.</strong> 部署模型</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/index.html"><strong aria-hidden="true">2.</strong> AI 开发和应用</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/building/index.html"><strong aria-hidden="true">2.1.</strong> 模型构建</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/building/notebook.html"><strong aria-hidden="true">2.1.1.</strong> Notebook</a></li><li class="chapter-item expanded "><a href="../../modules/building/tensorboard.html"><strong aria-hidden="true">2.1.2.</strong> TensorBoard</a></li><li class="chapter-item expanded "><a href="../../modules/building/autotune.html"><strong aria-hidden="true">2.1.3.</strong> AutoTune</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/building/autotuneexperiment.html"><strong aria-hidden="true">2.1.3.1.</strong> AutoTuneExperiment</a></li><li class="chapter-item expanded "><a href="../../modules/building/autotune-search-space.html"><strong aria-hidden="true">2.1.3.2.</strong> 搜索空间</a></li><li class="chapter-item expanded "><a href="../../modules/building/hpo-algorithm.html"><strong aria-hidden="true">2.1.3.3.</strong> 超参数调优算法</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../modules/deployment/index.html"><strong aria-hidden="true">2.2.</strong> 模型部署</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/deployment/simplemlservice.html"><strong aria-hidden="true">2.2.1.</strong> SimpleMLService</a></li><li class="chapter-item expanded "><a href="../../modules/deployment/mlservice.html"><strong aria-hidden="true">2.2.2.</strong> MLService</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/deployment/mlservice-logger.html"><strong aria-hidden="true">2.2.2.1.</strong> 日志收集</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/deployment/storage.html"><strong aria-hidden="true">2.2.3.</strong> 模型存储</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/jobs/index.html"><strong aria-hidden="true">2.3.</strong> Job</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/jobs/genericjob.html"><strong aria-hidden="true">2.3.1.</strong> GenericJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/pytorchtrainingjob.html"><strong aria-hidden="true">2.3.2.</strong> PyTorchTrainingJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/tensorflowtrainingjob.html"><strong aria-hidden="true">2.3.3.</strong> TensorFlowTrainingJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/deepspeedjob.html"><strong aria-hidden="true">2.3.4.</strong> DeepSpeedJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/colossalaijob.html"><strong aria-hidden="true">2.3.5.</strong> ColossalAIJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/xgboosttrainingjob.html"><strong aria-hidden="true">2.3.6.</strong> XGBoostTrainingJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/mpijob.html"><strong aria-hidden="true">2.3.7.</strong> MPIJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/beamjob.html"><strong aria-hidden="true">2.3.8.</strong> BeamJob</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/asset-management.html"><strong aria-hidden="true">2.4.</strong> 资产管理</a></li><li class="chapter-item expanded "><a href="../../modules/experiment-management.html"><strong aria-hidden="true">2.5.</strong> 实验管理</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/security/index.html"><strong aria-hidden="true">3.</strong> 账户和安全</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/security/account.html"><strong aria-hidden="true">3.1.</strong> 账户</a></li><li class="chapter-item expanded "><a href="../../modules/security/project.html"><strong aria-hidden="true">3.2.</strong> 项目</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/scheduling/index.html"><strong aria-hidden="true">4.</strong> 计算资源</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/scheduling/use-gpu.html"><strong aria-hidden="true">4.1.</strong> 使用 GPU</a></li><li class="chapter-item expanded "><a href="../../modules/scheduling/quota.html"><strong aria-hidden="true">4.2.</strong> 资源配额</a></li><li class="chapter-item expanded "><a href="../../modules/scheduling/queue.html"><strong aria-hidden="true">4.3.</strong> 队列</a></li><li class="chapter-item expanded "><a href="../../modules/scheduling/podgroup.html"><strong aria-hidden="true">4.4.</strong> PodGroup</a></li><li class="chapter-item expanded "><a href="../../modules/scheduling/reclaim.html"><strong aria-hidden="true">4.5.</strong> 资源回收</a></li><li class="chapter-item expanded "><a href="../../modules/scheduling/resources-monitoring.html"><strong aria-hidden="true">4.6.</strong> 资源使用监控</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/storage/index.html"><strong aria-hidden="true">5.</strong> 存储</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/storage/pvc.html"><strong aria-hidden="true">5.1.</strong> PVC</a></li><li class="chapter-item expanded "><a href="../../modules/storage/pvc-snapshot.html"><strong aria-hidden="true">5.2.</strong> PVC 快照</a></li><li class="chapter-item expanded "><a href="../../modules/storage/storageshim.html"><strong aria-hidden="true">5.3.</strong> StorageShim</a></li><li class="chapter-item expanded "><a href="../../modules/storage/explorer.html"><strong aria-hidden="true">5.4.</strong> Explorer</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/auxiliary/index.html"><strong aria-hidden="true">6.</strong> 辅助</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/auxiliary/secret.html"><strong aria-hidden="true">6.1.</strong> Secret</a></li><li class="chapter-item expanded "><a href="../../modules/auxiliary/configmap.html"><strong aria-hidden="true">6.2.</strong> ConfigMap</a></li><li class="chapter-item expanded "><a href="../../modules/auxiliary/pod.html"><strong aria-hidden="true">6.3.</strong> Pod</a></li><li class="chapter-item expanded "><a href="../../modules/auxiliary/imagebuilder.html"><strong aria-hidden="true">6.4.</strong> ImageBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/workflows/index.html"><strong aria-hidden="true">7.</strong> 工作流</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/workflows/workflowtemplate.html"><strong aria-hidden="true">7.1.</strong> WorkflowTemplate</a></li><li class="chapter-item expanded "><a href="../../modules/workflows/workflowrun.html"><strong aria-hidden="true">7.2.</strong> WorkflowRun</a></li><li class="chapter-item expanded "><a href="../../modules/workflows/cronworkflowrun.html"><strong aria-hidden="true">7.3.</strong> CronWorkflowRun</a></li><li class="chapter-item expanded "><a href="../../modules/workflows/workflowtrigger.html"><strong aria-hidden="true">7.4.</strong> WorkflowTrigger</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/index.html"><strong aria-hidden="true">8.</strong> 操作指南</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/model-building.html"><strong aria-hidden="true">8.1.</strong> 使用模型构建控制台</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/create-notebook.html"><strong aria-hidden="true">8.1.1.</strong> 创建 Notebook</a></li><li class="chapter-item expanded "><a href="../../tasks/use-notebook.html"><strong aria-hidden="true">8.1.2.</strong> 使用 Notebook</a></li><li class="chapter-item expanded "><a href="../../tasks/ssh-notebook.html"><strong aria-hidden="true">8.1.3.</strong> 通过 SSH 远程使用 Notebook</a></li><li class="chapter-item expanded "><a href="../../tasks/create-tensorboard.html"><strong aria-hidden="true">8.1.4.</strong> 创建 TensorBoard</a></li><li class="chapter-item expanded "><a href="../../tasks/build-image.html"><strong aria-hidden="true">8.1.5.</strong> 构建镜像</a></li><li class="chapter-item expanded "><a href="../../tasks/debug-image.html"><strong aria-hidden="true">8.1.6.</strong> 调试镜像</a></li><li class="chapter-item expanded "><a href="../../tasks/manage-pvc.html"><strong aria-hidden="true">8.1.7.</strong> 管理 PVC</a></li><li class="chapter-item expanded "><a href="../../tasks/use-explorer.html"><strong aria-hidden="true">8.1.8.</strong> 使用 Explorer</a></li><li class="chapter-item expanded "><a href="../../tasks/use-storageshim-s3.html"><strong aria-hidden="true">8.1.9.</strong> 使用 StorageShim 适配 S3 服务</a></li><li class="chapter-item expanded "><a href="../../tasks/manage-secret.html"><strong aria-hidden="true">8.1.10.</strong> 管理 Secret</a></li><li class="chapter-item expanded "><a href="../../tasks/manage-configmap.html"><strong aria-hidden="true">8.1.11.</strong> 管理 ConfigMap</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/model-training.html"><strong aria-hidden="true">8.2.</strong> 运行模型训练</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/pytorch-training-parallel.html"><strong aria-hidden="true">8.2.1.</strong> 使用 PyTorchTrainingJob 进行数据并行训练</a></li><li class="chapter-item expanded "><a href="../../tasks/pytorch-training-ps.html"><strong aria-hidden="true">8.2.2.</strong> 使用 PyTorchTrainingJob 进行参数服务器训练</a></li><li class="chapter-item expanded "><a href="../../tasks/tensorflow-training-parallel.html"><strong aria-hidden="true">8.2.3.</strong> 使用 TensorFlowTrainingJob 进行数据并行训练</a></li><li class="chapter-item expanded "><a href="../../tasks/tensorflow-training-ps.html"><strong aria-hidden="true">8.2.4.</strong> 使用 TensorFlowTrainingJob 进行参数服务器训练</a></li><li class="chapter-item expanded "><a href="../../tasks/horovod-pytorch-parallel.html"><strong aria-hidden="true">8.2.5.</strong> 使用 Horovod 进行 PyTorch 模型的数据并行训练</a></li><li class="chapter-item expanded "><a href="../../tasks/horovod-keras-parallel.html"><strong aria-hidden="true">8.2.6.</strong> 使用 Horovod 进行 Keras 模型的数据并行训练</a></li><li class="chapter-item expanded "><a href="../../tasks/profile-model-training.html"><strong aria-hidden="true">8.2.7.</strong> 使用 Profiler 分析模型训练性能</a></li><li class="chapter-item expanded "><a href="../../tasks/debug-job.html"><strong aria-hidden="true">8.2.8.</strong> 调试 Job</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/hyperparameter-tuning.html"><strong aria-hidden="true">8.3.</strong> 进行超参数优化</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/autotune.html"><strong aria-hidden="true">8.3.1.</strong> 使用 AutoTune 进行超参数优化</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/deploy-inference-service.html"><strong aria-hidden="true">8.4.</strong> 部署推理服务</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/deploy-simplemlservice.html"><strong aria-hidden="true">8.4.1.</strong> 简单推理服务</a></li><li class="chapter-item expanded "><a href="../../tasks/deploy-mlservice.html"><strong aria-hidden="true">8.4.2.</strong> 推理服务</a></li><li class="chapter-item expanded "><a href="../../tasks/deploy-mlservice-transformer.html"><strong aria-hidden="true">8.4.3.</strong> 包含 Transformer 的推理服务</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/manage-ai-assets.html"><strong aria-hidden="true">8.5.</strong> 管理 AI 资产</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/manipulate-folder-asset.html"><strong aria-hidden="true">8.5.1.</strong> 操作文件夹、模型和数据集</a></li><li class="chapter-item expanded "><a href="../../tasks/access-asset-via-s3.html"><strong aria-hidden="true">8.5.2.</strong> 通过 S3 访问模型和数据集</a></li><li class="chapter-item expanded "><a href="../../tasks/modify-folder-asset.html"><strong aria-hidden="true">8.5.3.</strong> 修改文件夹、模型和数据集的基本信息</a></li><li class="chapter-item expanded "><a href="../../tasks/manipulate-asset-branch-tag.html"><strong aria-hidden="true">8.5.4.</strong> 操作模型和数据集的分支、tag 和 commit</a></li><li class="chapter-item expanded "><a href="../../tasks/manipulate-asset-objects.html"><strong aria-hidden="true">8.5.5.</strong> 操作模型和数据集的对象</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/track-model-training.html"><strong aria-hidden="true">8.6.</strong> 追踪模型训练</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/use-experiment-console.html"><strong aria-hidden="true">8.6.1.</strong> 在实验管理控制台查看和管理数据</a></li><li class="chapter-item expanded "><a href="../../tasks/record-using-python-sdk.html"><strong aria-hidden="true">8.6.2.</strong> 使用 Python SDK 记录和上传数据</a></li><li class="chapter-item expanded "><a href="../../tasks/record-single-device-training.html"><strong aria-hidden="true">8.6.3.</strong> 单设备训练场景</a></li><li class="chapter-item expanded "><a href="../../tasks/record-distributed-training.html"><strong aria-hidden="true">8.6.4.</strong> 分布式训练场景</a></li><li class="chapter-item expanded "><a href="../../tasks/view-autotune-in-experiment-console.html"><strong aria-hidden="true">8.6.5.</strong> 在实验管理控制台查看 AutoTune</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/build-automation-workflow.html"><strong aria-hidden="true">8.7.</strong> 构建自动化工作流</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/create-workflow-unit.html"><strong aria-hidden="true">8.7.1.</strong> 创建工作流的基本单元</a></li><li class="chapter-item expanded "><a href="../../tasks/create-task-workflow-unit.html"><strong aria-hidden="true">8.7.2.</strong> 创建执行各类任务的工作流单元</a></li><li class="chapter-item expanded "><a href="../../tasks/create-dependent-workflow.html"><strong aria-hidden="true">8.7.3.</strong> 创建存在依赖关系的工作流</a></li><li class="chapter-item expanded "><a href="../../tasks/build-automated-workflow.html"><strong aria-hidden="true">8.7.4.</strong> 建立从数据采样到模型导出的自动化工作流</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/schedule-workload.html"><strong aria-hidden="true">8.8.</strong> 调度工作负载</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/use-queue.html"><strong aria-hidden="true">8.8.1.</strong> 使用 Queue</a></li><li class="chapter-item expanded "><a href="../../tasks/use-podgroup.html"><strong aria-hidden="true">8.8.2.</strong> 使用 PodGroup</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/use-platform-storage.html"><strong aria-hidden="true">8.9.</strong> 使用集群存储</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/pvc-importing-and-exporting-files.html"><strong aria-hidden="true">8.9.1.</strong> 上传和下载文件</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/manage-personal-account.html"><strong aria-hidden="true">8.10.</strong> 管理个人账户</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/generate-api-key.html"><strong aria-hidden="true">8.10.1.</strong> 生成 API Key</a></li><li class="chapter-item expanded "><a href="../../tasks/use-api-key.html"><strong aria-hidden="true">8.10.2.</strong> 使用 API Key</a></li><li class="chapter-item expanded "><a href="../../tasks/add-project-member.html"><strong aria-hidden="true">8.10.3.</strong> 添加项目成员</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/tricks.html"><strong aria-hidden="true">8.11.</strong> 小技巧</a></li></ol></li><li class="chapter-item expanded "><a href="../../tools/index.html"><strong aria-hidden="true">9.</strong> 命令行工具和 SDK</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/cli-t9k/index.html"><strong aria-hidden="true">9.1.</strong> 命令行工具：t9k</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/cli-t9k/guide.html"><strong aria-hidden="true">9.1.1.</strong> 用户指南</a></li><li class="chapter-item expanded "><a href="../../tools/cli-t9k/commands.html" class="active"><strong aria-hidden="true">9.1.2.</strong> 命令</a></li></ol></li><li class="chapter-item expanded "><a href="../../tools/cli-t9k-pf/index.html"><strong aria-hidden="true">9.2.</strong> 命令行工具：t9k-pf</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/cli-t9k-pf/guide.html"><strong aria-hidden="true">9.2.1.</strong> 用户指南</a></li><li class="chapter-item expanded "><a href="../../tools/cli-t9k-pf/commands.html"><strong aria-hidden="true">9.2.2.</strong> 命令</a></li></ol></li><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/index.html"><strong aria-hidden="true">9.3.</strong> Python SDK：t9k</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/guide.html"><strong aria-hidden="true">9.3.1.</strong> 用户指南</a></li><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/api/index.html"><strong aria-hidden="true">9.3.2.</strong> API</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/api/t9k-ah.html"><strong aria-hidden="true">9.3.2.1.</strong> t9k.ah</a></li><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/api/t9k-ah-core.html"><strong aria-hidden="true">9.3.2.2.</strong> t9k.ah.core</a></li><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/api/t9k-config.html"><strong aria-hidden="true">9.3.2.3.</strong> t9k.config</a></li><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/api/t9k-em.html"><strong aria-hidden="true">9.3.2.4.</strong> t9k.em</a></li><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/api/t9k-tuner.html"><strong aria-hidden="true">9.3.2.5.</strong> t9k.tuner</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../tools/codepack/index.html"><strong aria-hidden="true">9.4.</strong> Codepack</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/codepack/concepts.html"><strong aria-hidden="true">9.4.1.</strong> 概念</a></li><li class="chapter-item expanded "><a href="../../tools/codepack/definition.html"><strong aria-hidden="true">9.4.2.</strong> Codepack 定义</a></li><li class="chapter-item expanded "><a href="../../tools/codepack/cli.html"><strong aria-hidden="true">9.4.3.</strong> 命令行工具</a></li><li class="chapter-item expanded "><a href="../../tools/codepack/example.html"><strong aria-hidden="true">9.4.4.</strong> 示例</a></li><li class="spacer"></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../references/index.html"><strong aria-hidden="true">10.</strong> 参考</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../references/glossary.html"><strong aria-hidden="true">10.1.</strong> 术语表</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/index.html"><strong aria-hidden="true">10.2.</strong> API 参考</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../references/api-reference/project.html"><strong aria-hidden="true">10.2.1.</strong> Project</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/genericjob.html"><strong aria-hidden="true">10.2.2.</strong> GenericJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/tensorflowtrainingjob.html"><strong aria-hidden="true">10.2.3.</strong> TensorFlowTrainingJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/pytorchtrainingjob.html"><strong aria-hidden="true">10.2.4.</strong> PyTorchTrainingJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/xgboosttrainingjob.html"><strong aria-hidden="true">10.2.5.</strong> XGBoostTrainingJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/colossalaijob.html"><strong aria-hidden="true">10.2.6.</strong> ColossalAIJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/deepspeedjob.html"><strong aria-hidden="true">10.2.7.</strong> DeepSpeedJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/mpijob.html"><strong aria-hidden="true">10.2.8.</strong> MPIJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/beamjob.html"><strong aria-hidden="true">10.2.9.</strong> BeamJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/tensorboard.html"><strong aria-hidden="true">10.2.10.</strong> TensorBoard</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/notebook.html"><strong aria-hidden="true">10.2.11.</strong> Notebook</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/autotune.html"><strong aria-hidden="true">10.2.12.</strong> AutoTuneExperiment</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/explorer.html"><strong aria-hidden="true">10.2.13.</strong> Explorer</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/storageshim.html"><strong aria-hidden="true">10.2.14.</strong> StorageShim</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/scheduler.html"><strong aria-hidden="true">10.2.15.</strong> Scheduler</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/workflow.html"><strong aria-hidden="true">10.2.16.</strong> Workflow</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/workflowtrigger.html"><strong aria-hidden="true">10.2.17.</strong> WorkflowTrigger</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/simplemlservice.html"><strong aria-hidden="true">10.2.18.</strong> SimpleMLService</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/mlservice.html"><strong aria-hidden="true">10.2.19.</strong> MLService</a></li></ol></li><li class="chapter-item expanded "><a href="../../references/standard-images.html"><strong aria-hidden="true">10.3.</strong> 标准镜像</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="../../examples/index.html"><strong aria-hidden="true">11.</strong> 示例</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../examples/start-llm-large-scale-pretraining.html"><strong aria-hidden="true">11.1.</strong> 启动 LLM 大规模预训练</a></li><li class="chapter-item expanded "><a href="../../examples/start-llm-finetuning.html"><strong aria-hidden="true">11.2.</strong> 启动 LLM 微调</a></li><li class="chapter-item expanded "><a href="../../examples/deploy-llm-using-fastchat.html"><strong aria-hidden="true">11.3.</strong> 使用 FastChat 部署 LLM 推理服务</a></li><li class="chapter-item expanded "><a href="../../examples/deploy-llm-using-vllm.html"><strong aria-hidden="true">11.4.</strong> 使用 vLLM 部署 LLM 推理服务</a></li><li class="chapter-item expanded "><a href="../../examples/deploy-hf-model-using-triton-python.html"><strong aria-hidden="true">11.5.</strong> 使用 Triton 部署 Hugging Face 模型（Python 后端）</a></li><li class="chapter-item expanded "><a href="../../examples/deploy-mlservice-tensorizer.html"><strong aria-hidden="true">11.6.</strong> 使用 Tensorizer 加速模型部署</a></li><li class="chapter-item expanded "><a href="../../examples/build-next-generation-llm-app-using-autogen.html"><strong aria-hidden="true">11.7.</strong> 使用 AutoGen 构建下一代 LLM 应用</a></li><li class="chapter-item expanded "><a href="../../examples/deploy-conversational-search-engine.html"><strong aria-hidden="true">11.8.</strong> 部署对话式搜索引擎</a></li><li class="chapter-item expanded "><a href="../../examples/deploy-sd-drawing-model.html"><strong aria-hidden="true">11.9.</strong> 部署 Stable Diffusion 图像生成模型</a></li><li class="chapter-item expanded "><a href="../../examples/lane-detection.html"><strong aria-hidden="true">11.10.</strong> 车道检测</a></li></ol></li><li class="chapter-item expanded "><a href="../../integrations/index.html"><strong aria-hidden="true">12.</strong> 集成</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../integrations/label-studio.html"><strong aria-hidden="true">12.1.</strong> Label Studio</a></li><li class="chapter-item expanded "><a href="../../integrations/vector-database-qdrant.html"><strong aria-hidden="true">12.2.</strong> 向量数据库：Qdrant</a></li><li class="chapter-item expanded "><a href="../../integrations/vector-database-pgvector.html"><strong aria-hidden="true">12.3.</strong> 向量数据库：PostgreSQL + pgvector</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="../../background.html">附录1：背景</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        <!-- custom code for adding release version dropdown menu -->
+                        <div class="version-dropdown">
+                            <button id="release-version" class="icon-button" type="button" title="Release version" aria-label="Release version" aria-haspopup="true" aria-expanded="false" aria-controls="release-versions">
+                                <i class="fa fa-book"></i>
+                            </button>
+                            <div class="version-dropdown-content">
+                                <a href="https://t9k.github.io/user-manuals/"target="_blank" rel="noopener noreferrer">latest</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h1 class="menu-title">TensorStack AI 计算平台 - 用户使用手册</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <div class="sidetoc"><nav class="pagetoc"></nav></div>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="命令"><a class="header" href="#命令">命令</a></h1>
+<h2 id="autotune"><a class="header" href="#autotune">autotune</a></h2>
+<p>用于管理 <a href="../../modules/building/autotune.html">AutoTune</a>。</p>
+<aside class="note info">
+<div class="title">信息</div>
+<p>支持使用缩写 <code>at</code> 代替 <code>autotune</code>。</p>
+</aside>
+<h3 id="delete"><a class="header" href="#delete">delete</a></h3>
+<p>删除指定的 AutoTune。</p>
+<h4 id="使用"><a class="header" href="#使用">使用</a></h4>
+<pre><code>t9k autotune delete [names...] [--all] [-f]
+</code></pre>
+<p><code>t9k autotune delete</code> 也可以用 <code>t9k autotune rm</code> 代替。</p>
+<h4 id="选项"><a class="header" href="#选项">选项</a></h4>
+<pre><code>--all                   删除当前 Project 中的所有 AutoTunes。
+-f, --force             跳过确认，直接执行删除操作。
+</code></pre>
+<h4 id="全局选项"><a class="header" href="#全局选项">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例"><a class="header" href="#示例">示例</a></h4>
+<p>删除 Project demo 下名为 foo 和 bar 的两个 AutoTune：</p>
+<pre><code>t9k autotune delete foo bar -p demo
+</code></pre>
+<p>跳过确认，直接删除 Project demo 下名为 foo 的 AutoTune：</p>
+<pre><code>t9k autotune delete foo -p demo -f
+</code></pre>
+<p>删除 Project demo 下所有的 AutoTune：</p>
+<pre><code>t9k autotune delete foo -p demo --all
+</code></pre>
+<h3 id="describe"><a class="header" href="#describe">describe</a></h3>
+<p>查看某个 AutoTune 的详细信息。</p>
+<h4 id="使用-1"><a class="header" href="#使用-1">使用</a></h4>
+<pre><code>t9k at describe &lt;name&gt; [--color]
+</code></pre>
+<p><code>t9k at describe</code> 也可以用 <code>t9k at desc</code> 代替。</p>
+<h4 id="选项-1"><a class="header" href="#选项-1">选项</a></h4>
+<pre><code>--color                 使用彩色的输出信息（默认全是黑色）。
+</code></pre>
+<h4 id="全局选项-1"><a class="header" href="#全局选项-1">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-1"><a class="header" href="#示例-1">示例</a></h4>
+<p>查看 Project demo 下名为 foo 的 AutoTune 的详细描述：</p>
+<pre><code>t9k at describe foo -p demo
+</code></pre>
+<h3 id="get"><a class="header" href="#get">get</a></h3>
+<p>查看 AutoTune 相关信息。</p>
+<h4 id="使用-2"><a class="header" href="#使用-2">使用</a></h4>
+<pre><code>t9k at get [names...] [-A] [-o json|yaml|template]
+</code></pre>
+<h4 id="选项-2"><a class="header" href="#选项-2">选项</a></h4>
+<pre><code>-A, --all-namespaces    获取用户具有权限的所有 Namespace（Project）中的资源。
+-o, --output string     指定输出信息的形式。可选值有 `json`，`yaml` 和默认的 `template`。
+</code></pre>
+<h4 id="全局选项-2"><a class="header" href="#全局选项-2">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-2"><a class="header" href="#示例-2">示例</a></h4>
+<p>以默认格式查看 Project example 下所有 AutoTune：</p>
+<pre><code>t9k at get -p example
+</code></pre>
+<p>以默认格式查看所有 Project 下的所有 AutoTune：</p>
+<pre><code>t9k at get -A
+</code></pre>
+<p>以默认格式查看 Project example 下名为 foo 和 bar 的两个 AutoTune：</p>
+<pre><code>t9k at get foo bar -p example
+</code></pre>
+<p>以 yaml 格式查看 Project example 下名为 foo 的 AutoTune：</p>
+<pre><code>t9k at get foo -p example -o yaml
+</code></pre>
+<h3 id="wait"><a class="header" href="#wait">wait</a></h3>
+<p>等待 AutoTune 完成。</p>
+<h4 id="使用-3"><a class="header" href="#使用-3">使用</a></h4>
+<pre><code>t9k at wait &lt;name&gt; [--timeout=&lt;timeoutTime&gt;] [--period=&lt;periodTime&gt;] [--print-log]
+</code></pre>
+<h4 id="选项-3"><a class="header" href="#选项-3">选项</a></h4>
+<pre><code>--timeout string        字符串，最长等待时间。默认值：&quot;1h&quot;，1 小时。
+--period  string        字符串，检查任务是否完成的周期。默认值：&quot;1s&quot;，每秒检查一次。
+--print-log             是否在等待时流式查看日志。
+</code></pre>
+<h4 id="全局选项-3"><a class="header" href="#全局选项-3">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-3"><a class="header" href="#示例-3">示例</a></h4>
+<p>等待 Project example 下的 AutoTune foo 完成：</p>
+<pre><code>t9k at wait foo -p example
+</code></pre>
+<p>等待 Project example 下的 AutoTune foo 完成，只等待 10 分钟：</p>
+<pre><code>t9k at wait foo -p example --timeout 10m
+</code></pre>
+<p>等待 Project example 下的 AutoTune foo 完成，同时打印 server 的日志：</p>
+<pre><code>t9k at wait foo -p example --print-log
+</code></pre>
+<h2 id="beamjob"><a class="header" href="#beamjob">beamjob</a></h2>
+<p>用于管理 <a href="../../modules/jobs/beamjob.html">BeamJob</a>。</p>
+<aside class="note info">
+<div class="title">信息</div>
+<p>支持使用缩写 <code>bj</code> 代替 <code>beamjob</code>。</p>
+</aside>
+<h3 id="delete-1"><a class="header" href="#delete-1">delete</a></h3>
+<p>删除指定的 BeamJob。</p>
+<h4 id="使用-4"><a class="header" href="#使用-4">使用</a></h4>
+<pre><code>t9k beamjob delete [names...] [--all] [-f]
+</code></pre>
+<p><code>t9k beamjob delete</code> 也可以用 <code>t9k bj rm</code> 代替。</p>
+<h4 id="选项-4"><a class="header" href="#选项-4">选项</a></h4>
+<pre><code>--all                   删除当前 Project 中所有的 BeamJob。
+-f, --force             跳过确认，直接执行删除操作。
+</code></pre>
+<h4 id="全局选项-4"><a class="header" href="#全局选项-4">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-4"><a class="header" href="#示例-4">示例</a></h4>
+<p>删除 Project demo 下名为 foo 和 bar 的两个 BeamJob：</p>
+<pre><code>t9k beamjob delete foo bar -p demo
+</code></pre>
+<p>跳过确认，直接删除 Project demo 下名为 foo 的 BeamJob：</p>
+<pre><code>t9k beamjob delete foo -p demo -f
+</code></pre>
+<p>删除 Project demo 下所有的 BeamJob：</p>
+<pre><code>t9k beamjob delete foo -p demo --all
+</code></pre>
+<h3 id="describe-1"><a class="header" href="#describe-1">describe</a></h3>
+<p>查看某个 BeamJob 的详细信息。</p>
+<h4 id="使用-5"><a class="header" href="#使用-5">使用</a></h4>
+<pre><code>t9k bj describe &lt;name&gt;
+</code></pre>
+<p><code>t9k bj describe</code> 也可以用 <code>t9k bj desc</code> 代替。</p>
+<h4 id="全局选项-5"><a class="header" href="#全局选项-5">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-5"><a class="header" href="#示例-5">示例</a></h4>
+<p>查看 Project demo 下名为 foo 的 BeamJob 的详细描述：</p>
+<pre><code>t9k bj describe foo -p demo
+</code></pre>
+<h3 id="get-1"><a class="header" href="#get-1">get</a></h3>
+<p>查看 BeamJob 相关信息。</p>
+<h4 id="使用-6"><a class="header" href="#使用-6">使用</a></h4>
+<pre><code>t9k bj get [names...] [-A] [-o json|yaml|template]
+</code></pre>
+<h4 id="选项-5"><a class="header" href="#选项-5">选项</a></h4>
+<pre><code>-A, --all-namespaces    获取用户具有权限的所有 Namespace（Project）中的资源。
+-o, --output string     指定输出信息的形式。可选值有 `json`，`yaml` 和默认的 `template`。
+</code></pre>
+<h4 id="全局选项-6"><a class="header" href="#全局选项-6">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-6"><a class="header" href="#示例-6">示例</a></h4>
+<p>以默认格式查看 Project example 下所有 BeamJob：</p>
+<pre><code>t9k bj get -p example
+</code></pre>
+<p>以默认格式查看所有 Project 下的所有 BeamJob：</p>
+<pre><code>t9k bj get -A
+</code></pre>
+<p>以默认格式查看 Project example 下名为 foo 和 bar 的两个 BeamJob：</p>
+<pre><code>t9k bj get foo bar -p example
+</code></pre>
+<p>以 yaml 格式查看 Project example 下名为 foo 的 BeamJob：</p>
+<pre><code>t9k bj get foo -p example -o yaml
+</code></pre>
+<h3 id="logs"><a class="header" href="#logs">logs</a></h3>
+<p>查看 BeamJob 某个计算节点的日志。</p>
+<h4 id="使用-7"><a class="header" href="#使用-7">使用</a></h4>
+<pre><code>t9k bj logs [--type=jobmanager|taskmanager|batchjob] [--index=&lt;replicaIndex&gt;] [--container=&lt;containerName&gt;] [-f] [--tail] [--timestamps]
+</code></pre>
+<h4 id="选项-6"><a class="header" href="#选项-6">选项</a></h4>
+<pre><code>--container string      字符串，指定要查看的 container 名称，如果计算节点的 container 不止 1 个，必须指定此项。
+-f, --follow            流式查看日志。
+--index string          字符串，要查看的计算节点的序号。默认值：0。
+--tail int              整数，要查看的日志的行数（从后往前）。默认值：-1，查看全部日志。
+--timestamps            是否展示时间戳。
+--type string           字符串，要查看的计算节点的角色。可选值有 `taskmanager`，`batchjob` 以及默认值 `jobmanager`。
+</code></pre>
+<h4 id="全局选项-7"><a class="header" href="#全局选项-7">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-7"><a class="header" href="#示例-7">示例</a></h4>
+<p>查看 Project example 下 BeamJob foo 第 <code>replicaIndex</code> 个 <code>replicaType</code> 节点的日志：</p>
+<pre><code>t9k bj logs foo --type=replicaType --index=replicaIndex -p example
+</code></pre>
+<p>流式查看 Project example 下 BeamJob foo 第 <code>replicaIndex</code> 个 <code>replicaType</code> 节点的容器 <code>mnist</code> 的日志：</p>
+<pre><code>t9k bj logs foo --type=replicaType --index=replicaIndex --container=mnist --follow
+</code></pre>
+<p>查看 BeamJob foo 第 0 个 jobmanager 节点的最后 20 行日志：</p>
+<pre><code>t9k bj logs foo --tail 20
+</code></pre>
+<h3 id="wait-1"><a class="header" href="#wait-1">wait</a></h3>
+<p>等待 BeamJob 完成。</p>
+<h4 id="使用-8"><a class="header" href="#使用-8">使用</a></h4>
+<pre><code>t9k bj wait &lt;name&gt; [--timeout=&lt;timeoutTime&gt;] [--period=&lt;periodTime&gt;] [--print-log [--type=jobmanager|taskmanager|batchjob] [--index=&lt;replicaIndex&gt;] [--container=&lt;containerName&gt;] [--timestamps]]
+</code></pre>
+<h4 id="选项-7"><a class="header" href="#选项-7">选项</a></h4>
+<pre><code>--timeout string        字符串，最长等待时间。默认值：&quot;1h&quot;，1 小时。
+--period  string        字符串，检查任务是否完成的周期。默认值：&quot;1s&quot;，每秒检查一次。
+--print-log             是否在等待时流式查看日志。
+
+以下参数只有在开启了 `--print-log` 后才生效。
+
+--container string      字符串，指定要查看的 container 名称，如果计算节点的 container 不止 1 个，必须指定此项。
+--index string          字符串，要查看的计算节点的序号。默认值：0。
+--timestamps            是否展示时间戳。
+--type string           字符串，要查看的计算节点的角色。可选值有 `taskmanager`，`batchjob` 以及默认值 `jobmanager`。
+</code></pre>
+<h4 id="全局选项-8"><a class="header" href="#全局选项-8">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-8"><a class="header" href="#示例-8">示例</a></h4>
+<p>等待 Project example 下的 BeamJob foo 完成：</p>
+<pre><code>t9k bj wait foo -p example
+</code></pre>
+<p>等待 Project example 下的 BeamJob foo 完成，只等待 10 分钟：</p>
+<pre><code>t9k bj wait foo -p example --timeout 10m
+</code></pre>
+<p>等待 Project example 下的 BeamJob foo 完成，同时打印节点 flinkcluster-taskmanager-0 的日志：</p>
+<pre><code>t9k bj wait foo -p example --print-log --type taskmanager --index 0
+</code></pre>
+<h2 id="colossalaijob"><a class="header" href="#colossalaijob">colossalaijob</a></h2>
+<p>用于管理 <a href="../../modules/jobs/colossalaijob.html">ColossalAIJob</a>。</p>
+<aside class="note info">
+<div class="title">信息</div>
+<p>支持使用缩写 <code>caij</code> 代替 <code>colossalaijob</code>。</p>
+</aside>
+<h3 id="delete-2"><a class="header" href="#delete-2">delete</a></h3>
+<p>删除指定的 ColossalAIJob。</p>
+<h4 id="使用-9"><a class="header" href="#使用-9">使用</a></h4>
+<pre><code>t9k colossalaijob delete [names...] [--all] [-f]
+</code></pre>
+<p><code>t9k colossalaijob delete</code> 也可以用 <code>t9k caij rm</code> 代替。</p>
+<h4 id="选项-8"><a class="header" href="#选项-8">选项</a></h4>
+<pre><code>--all                   删除当前 Project 中所有的 ColossalAIJob。
+-f, --force             跳过确认，直接执行删除操作。
+</code></pre>
+<h4 id="全局选项-9"><a class="header" href="#全局选项-9">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-9"><a class="header" href="#示例-9">示例</a></h4>
+<p>删除 Project demo 下名为 foo 和 bar 的两个 ColossalAIJob：</p>
+<pre><code>t9k colossalaijob delete foo bar -p demo
+</code></pre>
+<p>跳过确认，直接删除 Project demo 下名为 foo 的 ColossalAIJob：</p>
+<pre><code>t9k colossalaijob delete foo -p demo -f
+</code></pre>
+<p>删除 Project demo 下所有的 ColossalAIJob：</p>
+<pre><code>t9k colossalaijob delete foo -p demo --all
+</code></pre>
+<h3 id="describe-2"><a class="header" href="#describe-2">describe</a></h3>
+<p>查看某个 ColossalAIJob 的详细信息。</p>
+<h4 id="使用-10"><a class="header" href="#使用-10">使用</a></h4>
+<pre><code>t9k caij describe &lt;name&gt;
+</code></pre>
+<p><code>t9k caij describe</code> 也可以用 <code>t9k caij desc</code> 代替。</p>
+<h4 id="全局选项-10"><a class="header" href="#全局选项-10">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-10"><a class="header" href="#示例-10">示例</a></h4>
+<p>查看 Project demo 下名为 foo 的 ColossalAIJob 的详细描述：</p>
+<pre><code>t9k caij describe foo -p demo
+</code></pre>
+<h3 id="get-2"><a class="header" href="#get-2">get</a></h3>
+<p>查看 ColossalAIJob 相关信息。</p>
+<h4 id="使用-11"><a class="header" href="#使用-11">使用</a></h4>
+<pre><code>t9k caij get [names...] [-A] [-o json|yaml|template]
+</code></pre>
+<h4 id="选项-9"><a class="header" href="#选项-9">选项</a></h4>
+<pre><code>-A, --all-namespaces    获取用户具有权限的所有 Namespace（Project）中的资源。
+-o, --output string     指定输出信息的形式。可选值有 `json`，`yaml` 和默认的 `template`。
+</code></pre>
+<h4 id="全局选项-11"><a class="header" href="#全局选项-11">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-11"><a class="header" href="#示例-11">示例</a></h4>
+<p>以默认格式查看 Project example 下所有 ColossalAIJob：</p>
+<pre><code>t9k caij get -p example
+</code></pre>
+<p>以默认格式查看所有 Project 下的所有 ColossalAIJob：</p>
+<pre><code>t9k caij get -A
+</code></pre>
+<p>以默认格式查看 Project example 下名为 foo 和 bar 的两个 ColossalAIJob：</p>
+<pre><code>t9k caij get foo bar -p example
+</code></pre>
+<p>以 yaml 格式查看 Project example 下名为 foo 的 ColossalAIJob：</p>
+<pre><code>t9k caij get foo -p example -o yaml
+</code></pre>
+<h3 id="logs-1"><a class="header" href="#logs-1">logs</a></h3>
+<p>查看 ColossalAIJob 某个计算节点的日志。</p>
+<h4 id="使用-12"><a class="header" href="#使用-12">使用</a></h4>
+<pre><code>t9k caij logs [--type=master|worker] [--index=&lt;replicaIndex&gt;] [--container=&lt;containerName&gt;] [-f] [--tail] [--timestamps]
+</code></pre>
+<h4 id="选项-10"><a class="header" href="#选项-10">选项</a></h4>
+<pre><code>--container string      字符串，指定要查看的 container 名称，如果计算节点的 container 不止 1 个，必须指定此项。
+-f, --follow            流式查看日志。
+--index string          字符串，要查看的计算节点的序号。默认值：0。
+--tail int              整数，要查看的日志的行数（从后往前）。默认值：-1，查看全部日志。
+--timestamps            是否展示时间戳。
+--type string           字符串，要查看的计算节点的角色。可选值有 `master` 以及默认值 `worker`。
+</code></pre>
+<h4 id="全局选项-12"><a class="header" href="#全局选项-12">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-12"><a class="header" href="#示例-12">示例</a></h4>
+<p>查看 Project example 下 ColossalAIJob foo 第 <code>replicaIndex</code> 个 <code>replicaType</code> 节点的日志：</p>
+<pre><code>t9k caij logs foo --type=replicaType --index=replicaIndex -p example
+</code></pre>
+<p>流式查看 Project example 下 ColossalAIJob foo 第 <code>replicaIndex</code> 个 <code>replicaType</code> 节点的容器 <code>mnist</code> 的日志：</p>
+<pre><code>t9k caij logs foo --type=replicaType --index=replicaIndex --container=mnist --follow
+</code></pre>
+<p>查看 ColossalAIJob foo 第 0 个 worker 节点的最后 20 行日志：</p>
+<pre><code>t9k caij logs foo --tail 20
+</code></pre>
+<h3 id="wait-2"><a class="header" href="#wait-2">wait</a></h3>
+<p>等待 ColossalAIJob 完成。</p>
+<h4 id="使用-13"><a class="header" href="#使用-13">使用</a></h4>
+<pre><code>t9k caij wait &lt;name&gt; [--timeout=&lt;timeoutTime&gt;] [--period=&lt;periodTime&gt;] [--print-log [--type=master|worker] [--index=&lt;replicaIndex&gt;] [--container=&lt;containerName&gt;] [--timestamps]]
+</code></pre>
+<h4 id="选项-11"><a class="header" href="#选项-11">选项</a></h4>
+<pre><code>--timeout string        字符串，最长等待时间。默认值：&quot;1h&quot;，1 小时。
+--period  string        字符串，检查任务是否完成的周期。默认值：&quot;1s&quot;，每秒检查一次。
+--print-log             是否在等待时流式查看日志。
+
+以下参数只有在开启了 `--print-log` 后才生效。
+
+--container string      字符串，指定要查看的 container 名称，如果计算节点的 container 不止 1 个，必须指定此项。
+--index string          字符串，要查看的计算节点的序号。默认值：0。
+--timestamps            是否展示时间戳。
+--type string           字符串，要查看的计算节点的角色。可选值有 `master` 以及默认值 `worker`。
+</code></pre>
+<h4 id="全局选项-13"><a class="header" href="#全局选项-13">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-13"><a class="header" href="#示例-13">示例</a></h4>
+<p>等待 Project example 下的 ColossalAIJob foo 完成：</p>
+<pre><code>t9k caij wait foo -p example
+</code></pre>
+<p>等待 Project example 下的 ColossalAIJob foo 完成，只等待 10 分钟：</p>
+<pre><code>t9k caij wait foo -p example --timeout 10m
+</code></pre>
+<p>等待 Project example 下的 ColossalAIJob foo 完成，同时打印节点 master-0 的日志：</p>
+<pre><code>t9k caij wait foo -p example --print-log --type master --index 0
+</code></pre>
+<h2 id="config"><a class="header" href="#config">config</a></h2>
+<p>对指定的 <a href="./guide.html#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">T9k Config</a> 进行生成、管理、查看。T9k Config 默认使用文件 <code>${HOME}/.t9k/t9k-config.yaml</code>，可通过全局选项 <code>-c, --config</code> 指定该文件路径。</p>
+<h3 id="auth"><a class="header" href="#auth">auth</a></h3>
+<p>完成用户身份认证，生成 T9k Config。用户第一次使用 T9k 命令行工具时，需要使用此命令来进行身份认证。认证成功后，此命令会修改（如果是首次认证会新建）T9k Config。之后用户便可以通过该认证信息去使用 T9k 其他命令。</p>
+<h4 id="使用-14"><a class="header" href="#使用-14">使用</a></h4>
+<pre><code>t9k config auth &lt;server&gt; [--apikey] [--user=&lt;username&gt;]
+</code></pre>
+<h4 id="选项-12"><a class="header" href="#选项-12">选项</a></h4>
+<pre><code>-k, --apikey            启用交互式输入 API Key。
+-u, --user string       字符串，指定用户密码登录的用户名称。
+</code></pre>
+<h4 id="全局选项-14"><a class="header" href="#全局选项-14">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定要查看、修改的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定新增 Context 的名称。
+-h, --help              查看当前指令的帮助信息和示例。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-14"><a class="header" href="#示例-14">示例</a></h4>
+<h5 id="通过用户密码完成认证"><a class="header" href="#通过用户密码完成认证">通过用户密码完成认证</a></h5>
+<p>用户指定要登录的域名，然后输入用户名和密码完成认证。认证完成后，当前的 T9k Config 中便会新增一个 <code>&lt;用户名&gt;-&lt;域名&gt;</code> 的 Context，用户也可以自己指定 Context 的名称。</p>
+<pre><code>$ t9k config auth &lt;http://example.com&gt;
+Authenticating using username and password by default, add --apikey to use apikey.
+Please enter your username: demo
+Please enter your password:
+Please enter Context name [default: demo-example.com]: demo
+Login succeeded!
+</code></pre>
+<p>!!! note “注意” 
+Context 的名称需要满足 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names">DNS Subdomain Names</a> 的要求，如果 Context 名字重复，可以选择覆盖原内容或者重新输入。</p>
+<h5 id="通过-api-key-完成认证"><a class="header" href="#通过-api-key-完成认证">通过 API Key 完成认证</a></h5>
+<p>用户指定要登录的域名，然后输入 API Key。认证完成后，当前的 T9k Config 中便会新增一个 <code>apikey-&lt;hash&gt;-&lt;域名&gt;</code> 的 Context，用户也可以自己指定 Context 的名称。</p>
+<pre><code>$ t9k config auth &lt;http://example.com&gt; --apikey
+Authenticating using API Key...
+Please enter your API Key:
+Please enter Context name [default: apikey-&lt;hash&gt;-example.com]: demo-apikey
+Login succeeded!
+</code></pre>
+<h3 id="delete-context"><a class="header" href="#delete-context">delete-context</a></h3>
+<p>删除指定的 Context。</p>
+<p>!!! note “注意” 
+即使指定的 Context 是 current-context，此命令也会直接删除掉。所以务必确认之后再删除。</p>
+<h4 id="使用-15"><a class="header" href="#使用-15">使用</a></h4>
+<pre><code>t9k config delete-context &lt;name&gt;
+</code></pre>
+<h4 id="全局选项-15"><a class="header" href="#全局选项-15">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定要查看、修改的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-h, --help              查看当前指令的帮助信息和示例。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-15"><a class="header" href="#示例-15">示例</a></h4>
+<p>删除 Context demo：</p>
+<pre><code>t9k config delete-context demo
+</code></pre>
+<h3 id="get-contexts"><a class="header" href="#get-contexts">get-contexts</a></h3>
+<p>用于获取当前使用的 T9k Config 中 Context 的相关信息。具体包括：</p>
+<ul>
+<li><code>CURRENT</code>：是否是当前正在使用的 Context</li>
+<li><code>NAME</code>：Context 的名称</li>
+<li><code>SERVER</code>：T9k 平台的地址</li>
+<li><code>AUTH_TYPE</code>：认证信息的类型（token 或者 apikey）</li>
+</ul>
+<h4 id="使用-16"><a class="header" href="#使用-16">使用</a></h4>
+<pre><code>t9k config get-contexts [name] 
+</code></pre>
+<h4 id="全局选项-16"><a class="header" href="#全局选项-16">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定要查看、修改的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-h, --help              查看当前指令的帮助信息和示例。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-16"><a class="header" href="#示例-16">示例</a></h4>
+<p>获取当前 T9k Config 中所有 Context 的信息：</p>
+<pre><code>t9k config get-contexts
+</code></pre>
+<p>获取指定 Context 的信息：</p>
+<pre><code>t9k config get-contexts my-context
+</code></pre>
+<h3 id="use-context"><a class="header" href="#use-context">use-context</a></h3>
+<p>切换当前使用的 Context，此命令会修改当前 T9k Config 中 current-context 的值。</p>
+<h4 id="使用-17"><a class="header" href="#使用-17">使用</a></h4>
+<pre><code>t9k config use-context &lt;name&gt;
+</code></pre>
+<h4 id="全局选项-17"><a class="header" href="#全局选项-17">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定要查看、修改的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-h, --help              查看当前指令的帮助信息和示例。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-17"><a class="header" href="#示例-17">示例</a></h4>
+<p>切换到 Context foo：</p>
+<pre><code>t9k config use-context foo
+</code></pre>
+<p>将文件 <code>$HOME/t9kConfig.yaml</code> 下的 Context 切换到 foo：</p>
+<pre><code>t9k config use-context foo -c $HOME/t9kConfig.yaml
+</code></pre>
+<h2 id="create"><a class="header" href="#create">create</a></h2>
+<p>通过文件创建 TensorStack AI 平台的资源或者其他支持的资源 （PVC 和 secret）。</p>
+<h4 id="使用-18"><a class="header" href="#使用-18">使用</a></h4>
+<pre><code>t9k create --filename=&lt;file&gt;
+</code></pre>
+<h4 id="选项-13"><a class="header" href="#选项-13">选项</a></h4>
+<pre><code>-f, --filename          文件路径
+</code></pre>
+<h4 id="全局选项-18"><a class="header" href="#全局选项-18">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-18"><a class="header" href="#示例-18">示例</a></h4>
+<p>通过文件在 Project demo 下创建一个 Notebook 资源。</p>
+<pre><code>t9k create -f notebook.yaml -p demo
+</code></pre>
+<h2 id="delete-3"><a class="header" href="#delete-3">delete</a></h2>
+<p>根据文件删除资源。</p>
+<h4 id="使用-19"><a class="header" href="#使用-19">使用</a></h4>
+<pre><code>t9k delete --filename=&lt;file&gt;
+</code></pre>
+<h4 id="选项-14"><a class="header" href="#选项-14">选项</a></h4>
+<pre><code>-f, --filename          文件路径
+</code></pre>
+<h4 id="全局选项-19"><a class="header" href="#全局选项-19">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-19"><a class="header" href="#示例-19">示例</a></h4>
+<p>根据文件内容删除 Project demo 下相应的 Notebook 资源。</p>
+<pre><code>t9k delete -f notebook.yaml -p demo
+</code></pre>
+<h2 id="deepspeedjob"><a class="header" href="#deepspeedjob">deepspeedjob</a></h2>
+<p>用于管理 <a href="../../modules/jobs/deepspeedjob.html">DeepSpeedJob</a>。</p>
+<aside class="note info">
+<div class="title">信息</div>
+<p>支持使用缩写 <code>dj</code> 代替 <code>deepspeedjob</code>。</p>
+</aside>
+<h3 id="delete-4"><a class="header" href="#delete-4">delete</a></h3>
+<p>删除指定的 DeepSpeedJob。</p>
+<h4 id="使用-20"><a class="header" href="#使用-20">使用</a></h4>
+<pre><code>t9k deepspeedjob delete [names...] [--all] [-f]
+</code></pre>
+<p><code>t9k deepspeedjob delete</code> 也可以用 <code>t9k dj rm</code> 代替。</p>
+<h4 id="选项-15"><a class="header" href="#选项-15">选项</a></h4>
+<pre><code>--all                   删除当前 Project 中所有的 DeepSpeedJob。
+-f, --force             跳过确认，直接执行删除操作。
+</code></pre>
+<h4 id="全局选项-20"><a class="header" href="#全局选项-20">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-20"><a class="header" href="#示例-20">示例</a></h4>
+<p>删除 Project demo 下名为 foo 和 bar 的两个 DeepSpeedJob：</p>
+<pre><code>t9k deepspeedjob delete foo bar -p demo
+</code></pre>
+<p>跳过确认，直接删除 Project demo 下名为 foo 的 DeepSpeedJob：</p>
+<pre><code>t9k deepspeedjob delete foo -p demo -f
+</code></pre>
+<p>删除 Project demo 下所有的 DeepSpeedJob：</p>
+<pre><code>t9k deepspeedjob delete foo -p demo --all
+</code></pre>
+<h3 id="describe-3"><a class="header" href="#describe-3">describe</a></h3>
+<p>查看某个 DeepSpeedJob 的详细信息。</p>
+<h4 id="使用-21"><a class="header" href="#使用-21">使用</a></h4>
+<pre><code>t9k dj describe &lt;name&gt;
+</code></pre>
+<p><code>t9k dj describe</code> 也可以用 <code>t9k dj desc</code> 代替。</p>
+<h4 id="全局选项-21"><a class="header" href="#全局选项-21">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-21"><a class="header" href="#示例-21">示例</a></h4>
+<p>查看 Project demo 下名为 foo 的 DeepSpeedJob 的详细描述：</p>
+<pre><code>t9k dj describe foo -p demo
+</code></pre>
+<h3 id="get-3"><a class="header" href="#get-3">get</a></h3>
+<p>查看 DeepSpeedJob 相关信息。</p>
+<h4 id="使用-22"><a class="header" href="#使用-22">使用</a></h4>
+<pre><code>t9k dj get [names...] [-A] [-o json|yaml|template]
+</code></pre>
+<h4 id="选项-16"><a class="header" href="#选项-16">选项</a></h4>
+<pre><code>-A, --all-namespaces    获取用户具有权限的所有 Namespace（Project）中的资源。
+-o, --output string     指定输出信息的形式。可选值有 `json`，`yaml` 和默认的 `template`。
+</code></pre>
+<h4 id="全局选项-22"><a class="header" href="#全局选项-22">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-22"><a class="header" href="#示例-22">示例</a></h4>
+<p>以默认格式查看 Project example 下所有 DeepSpeedJob：</p>
+<pre><code>t9k dj get -p example
+</code></pre>
+<p>以默认格式查看所有 Project 下的所有 DeepSpeedJob：</p>
+<pre><code>t9k dj get -A
+</code></pre>
+<p>以默认格式查看 Project example 下名为 foo 和 bar 的两个 DeepSpeedJob：</p>
+<pre><code>t9k dj get foo bar -p example
+</code></pre>
+<p>以 yaml 格式查看 Project example 下名为 foo 的 DeepSpeedJob：</p>
+<pre><code>t9k dj get foo -p example -o yaml
+</code></pre>
+<h3 id="logs-2"><a class="header" href="#logs-2">logs</a></h3>
+<p>查看 DeepSpeedJob 某个计算节点的日志。</p>
+<h4 id="使用-23"><a class="header" href="#使用-23">使用</a></h4>
+<pre><code>t9k dj logs [--type=master|worker] [--index=&lt;replicaIndex&gt;] [--container=&lt;containerName&gt;] [-f] [--tail] [--timestamps]
+</code></pre>
+<h4 id="选项-17"><a class="header" href="#选项-17">选项</a></h4>
+<pre><code>--container string      字符串，指定要查看的 container 名称，如果计算节点的 container 不止 1 个，必须指定此项。
+-f, --follow            流式查看日志。
+--index string          字符串，要查看的计算节点的序号。默认值：0。
+--tail int              整数，要查看的日志的行数（从后往前）。默认值：-1，查看全部日志。
+--timestamps            是否展示时间戳。
+--type string           字符串，要查看的计算节点的角色。可选值有 `master` 以及默认值 `worker`。
+</code></pre>
+<h4 id="全局选项-23"><a class="header" href="#全局选项-23">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-23"><a class="header" href="#示例-23">示例</a></h4>
+<p>查看 Project example 下 DeepSpeedJob foo 第 <code>replicaIndex</code> 个 <code>replicaType</code> 节点的日志：</p>
+<pre><code>t9k dj logs foo --type=replicaType --index=replicaIndex -p example
+</code></pre>
+<p>流式查看 Project example 下 DeepSpeedJob foo 第 <code>replicaIndex</code> 个 <code>replicaType</code> 节点的容器 <code>mnist</code> 的日志：</p>
+<pre><code>t9k dj logs foo --type=replicaType --index=replicaIndex --container=mnist --follow
+</code></pre>
+<p>查看 DeepSpeedJob foo 第 0 个 worker 节点的最后 20 行日志：</p>
+<pre><code>t9k dj logs foo --tail 20
+</code></pre>
+<h3 id="wait-3"><a class="header" href="#wait-3">wait</a></h3>
+<p>等待 DeepSpeedJob 完成。</p>
+<h4 id="使用-24"><a class="header" href="#使用-24">使用</a></h4>
+<pre><code>t9k dj wait &lt;name&gt; [--timeout=&lt;timeoutTime&gt;] [--period=&lt;periodTime&gt;] [--print-log [--type=master|worker] [--index=&lt;replicaIndex&gt;] [--container=&lt;containerName&gt;] [--timestamps]]
+</code></pre>
+<h4 id="选项-18"><a class="header" href="#选项-18">选项</a></h4>
+<pre><code>--timeout string        字符串，最长等待时间。默认值：&quot;1h&quot;，1 小时。
+--period  string        字符串，检查任务是否完成的周期。默认值：&quot;1s&quot;，每秒检查一次。
+--print-log             是否在等待时流式查看日志。
+
+以下参数只有在开启了 `--print-log` 后才生效。
+
+--container string      字符串，指定要查看的 container 名称，如果计算节点的 container 不止 1 个，必须指定此项。
+--index string          字符串，要查看的计算节点的序号。默认值：0。
+--timestamps            是否展示时间戳。
+--type string           字符串，要查看的计算节点的角色。可选值有 `master` 以及默认值 `worker`。
+</code></pre>
+<h4 id="全局选项-24"><a class="header" href="#全局选项-24">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-24"><a class="header" href="#示例-24">示例</a></h4>
+<p>等待 Project example 下的 DeepSpeedJob foo 完成：</p>
+<pre><code>t9k dj wait foo -p example
+</code></pre>
+<p>等待 Project example 下的 DeepSpeedJob foo 完成，只等待 10 分钟：</p>
+<pre><code>t9k dj wait foo -p example --timeout 10m
+</code></pre>
+<p>等待 Project example 下的 DeepSpeedJob foo 完成，同时打印节点 master-0 的日志：</p>
+<pre><code>t9k dj wait foo -p example --print-log --type master --index 0
+</code></pre>
+<h2 id="genericjob"><a class="header" href="#genericjob">genericjob</a></h2>
+<p>用于管理 <a href="../../modules/jobs/genericjob.html">GenericJob</a>。</p>
+<aside class="note info">
+<div class="title">信息</div>
+<p>支持使用缩写 <code>gj</code> 代替 <code>genericjob</code>。</p>
+</aside>
+<h3 id="delete-5"><a class="header" href="#delete-5">delete</a></h3>
+<p>删除指定的 GenericJob。</p>
+<h4 id="使用-25"><a class="header" href="#使用-25">使用</a></h4>
+<pre><code>t9k genericjob delete [names...] [--all] [-f]
+</code></pre>
+<p><code>t9k genericjob delete</code> 也可以用 <code>t9k gj rm</code> 代替。</p>
+<h4 id="选项-19"><a class="header" href="#选项-19">选项</a></h4>
+<pre><code>--all                   删除当前 Project 中所有的 GenericJob。
+-f, --force             跳过确认，直接执行删除操作。
+</code></pre>
+<h4 id="全局选项-25"><a class="header" href="#全局选项-25">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-25"><a class="header" href="#示例-25">示例</a></h4>
+<p>删除 Project demo 下名为 foo 和 bar 的两个 GenericJob：</p>
+<pre><code>t9k genericjob delete foo bar -p demo
+</code></pre>
+<p>跳过确认，直接删除 Project demo 下名为 foo 的 GenericJob：</p>
+<pre><code>t9k genericjob delete foo -p demo -f
+</code></pre>
+<p>删除 Project demo 下所有的 GenericJob：</p>
+<pre><code>t9k genericjob delete foo -p demo --all
+</code></pre>
+<h3 id="describe-4"><a class="header" href="#describe-4">describe</a></h3>
+<p>查看某个 GenericJob 的详细信息。</p>
+<h4 id="使用-26"><a class="header" href="#使用-26">使用</a></h4>
+<pre><code>t9k gj describe &lt;name&gt;
+</code></pre>
+<p><code>t9k gj describe</code> 也可以用 <code>t9k gj desc</code> 代替。</p>
+<h4 id="全局选项-26"><a class="header" href="#全局选项-26">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-26"><a class="header" href="#示例-26">示例</a></h4>
+<p>查看 Project demo 下名为 foo 的 GenericJob 的详细描述：</p>
+<pre><code>t9k gj describe foo -p demo
+</code></pre>
+<h3 id="get-4"><a class="header" href="#get-4">get</a></h3>
+<p>查看 GenericJob 相关信息。</p>
+<h4 id="使用-27"><a class="header" href="#使用-27">使用</a></h4>
+<pre><code>t9k gj get [names...] [-A] [-o json|yaml|template]
+</code></pre>
+<h4 id="选项-20"><a class="header" href="#选项-20">选项</a></h4>
+<pre><code>-A, --all-namespaces    获取用户具有权限的所有 Namespace（Project）中的资源。
+-o, --output string     指定输出信息的形式。可选值有 `json`，`yaml` 和默认的 `template`。
+</code></pre>
+<h4 id="全局选项-27"><a class="header" href="#全局选项-27">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-27"><a class="header" href="#示例-27">示例</a></h4>
+<p>以默认格式查看 Project example 下所有 GenericJob：</p>
+<pre><code>t9k gj get -p example
+</code></pre>
+<p>以默认格式查看所有 Project 下的所有 GenericJob：</p>
+<pre><code>t9k gj get -A
+</code></pre>
+<p>以默认格式查看 Project example 下名为 foo 和 bar 的两个 GenericJob：</p>
+<pre><code>t9k gj get foo bar -p example
+</code></pre>
+<p>以 yaml 格式查看 Project example 下名为 foo 的 GenericJob：</p>
+<pre><code>t9k gj get foo -p example -o yaml
+</code></pre>
+<h3 id="logs-3"><a class="header" href="#logs-3">logs</a></h3>
+<p>查看 GenericJob 某个计算节点的日志。</p>
+<h4 id="使用-28"><a class="header" href="#使用-28">使用</a></h4>
+<pre><code>t9k gj logs [--type=master|worker] [--index=&lt;replicaIndex&gt;] [--container=&lt;containerName&gt;] [-f] [--tail] [--timestamps]
+</code></pre>
+<h4 id="选项-21"><a class="header" href="#选项-21">选项</a></h4>
+<pre><code>--container string      字符串，指定要查看的 container 名称，如果计算节点的 container 不止 1 个，必须指定此项。
+-f, --follow            流式查看日志。
+--index string          字符串，要查看的计算节点的序号。默认值：0。
+--tail int              整数，要查看的日志的行数（从后往前）。默认值：-1，查看全部日志。
+--timestamps            是否展示时间戳。
+--type string           字符串，要查看的计算节点的角色。可选值有 `master` 以及默认值 `worker`。
+</code></pre>
+<h4 id="全局选项-28"><a class="header" href="#全局选项-28">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-28"><a class="header" href="#示例-28">示例</a></h4>
+<p>查看 Project example 下 GenericJob foo 第 <code>replicaIndex</code> 个 <code>replicaType</code> 节点的日志：</p>
+<pre><code>t9k gj logs foo --type=replicaType --index=replicaIndex -p example
+</code></pre>
+<p>流式查看 Project example 下 GenericJob foo 第 <code>replicaIndex</code> 个 <code>replicaType</code> 节点的容器 <code>mnist</code> 的日志：</p>
+<pre><code>t9k gj logs foo --type=replicaType --index=replicaIndex --container=mnist --follow
+</code></pre>
+<p>查看 GenericJob foo 第 0 个 worker 节点的最后 20 行日志：</p>
+<pre><code>t9k gj logs foo --tail 20
+</code></pre>
+<h3 id="wait-4"><a class="header" href="#wait-4">wait</a></h3>
+<p>等待 GenericJob 完成。</p>
+<h4 id="使用-29"><a class="header" href="#使用-29">使用</a></h4>
+<pre><code>t9k gj wait &lt;name&gt; [--timeout=&lt;timeoutTime&gt;] [--period=&lt;periodTime&gt;] [--print-log [--type=master|worker] [--index=&lt;replicaIndex&gt;] [--container=&lt;containerName&gt;] [--timestamps]]
+</code></pre>
+<h4 id="选项-22"><a class="header" href="#选项-22">选项</a></h4>
+<pre><code>--timeout string        字符串，最长等待时间。默认值：&quot;1h&quot;，1 小时。
+--period  string        字符串，检查任务是否完成的周期。默认值：&quot;1s&quot;，每秒检查一次。
+--print-log             是否在等待时流式查看日志。
+
+以下参数只有在开启了 `--print-log` 后才生效。
+
+--container string      字符串，指定要查看的 container 名称，如果计算节点的 container 不止 1 个，必须指定此项。
+--index string          字符串，要查看的计算节点的序号。默认值：0。
+--timestamps            是否展示时间戳。
+--type string           字符串，要查看的计算节点的角色。可选值有 `master` 以及默认值 `worker`。
+</code></pre>
+<h4 id="全局选项-29"><a class="header" href="#全局选项-29">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-29"><a class="header" href="#示例-29">示例</a></h4>
+<p>等待 Project example 下的 GenericJob foo 完成：</p>
+<pre><code>t9k gj wait foo -p example
+</code></pre>
+<p>等待 Project example 下的 GenericJob foo 完成，只等待 10 分钟：</p>
+<pre><code>t9k gj wait foo -p example --timeout 10m
+</code></pre>
+<p>等待 Project example 下的 GenericJob foo 完成，同时打印节点 master-0 的日志：</p>
+<pre><code>t9k gj wait foo -p example --print-log --type master --index 0
+</code></pre>
+<h2 id="mlservice"><a class="header" href="#mlservice">mlservice</a></h2>
+<p>用于管理 <a href="../../modules/deployment/mlservice.html">MLService</a>。</p>
+<aside class="note info">
+<div class="title">信息</div>
+<p>支持使用缩写 <code>mls</code> 代替 <code>mlservice</code>。</p>
+</aside>
+<h3 id="canary"><a class="header" href="#canary">canary</a></h3>
+<p>设置<a href="../../modules/deployment/mlservice.html#%E9%87%91%E4%B8%9D%E9%9B%80%E5%8F%91%E5%B8%83">金丝雀发布</a>。</p>
+<h4 id="使用-30"><a class="header" href="#使用-30">使用</a></h4>
+<pre><code>t9k mlservice set-canary [--default=default-release] [--canary=canary-release] [--traffic=canary-percentage] [--dry-run] [-o yaml|json]
+</code></pre>
+<h4 id="选项-23"><a class="header" href="#选项-23">选项</a></h4>
+<pre><code>--canary string         字符串，指定金丝雀发布的版本名称
+--default string        字符串，指定默认发布的版本名称
+--dry-run               只打印更新后的 yaml 文件，但是不执行 apply 操作。
+-o, --output string     字符串，指定 --dry-run 打印的格式。可选值有 `json`，`yaml`。
+--traffic int           整数，指定金丝雀发布的路由权重
+</code></pre>
+<h4 id="全局选项-30"><a class="header" href="#全局选项-30">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-30"><a class="header" href="#示例-30">示例</a></h4>
+<p>将 Project demo 下 MLService maskdetection 的默认发布版本设为 <code>foo</code>，金丝雀发布版本设为 <code>bar</code> 且权重为 20%：</p>
+<pre><code>t9k mlservice set-canary maskdetection --default=foo --canary=bar --traffic=20 -n demo
+</code></pre>
+<p>将 Project demo 下 MLService maskdetection 的金丝雀发布版本权重设为 30%：</p>
+<pre><code>t9k mlservice set-canary maskdetection --traffic=30 -n demo
+</code></pre>
+<p>将 Project demo 下 MLService maskdetection 的默认发布版本设为 <code>foo</code>：</p>
+<pre><code>t9k mlservice set-canary maskdetection --default=foo
+</code></pre>
+<p>将 Project demo 下 MLService maskdetection 的金丝雀发布版本设为 <code>bar</code>：</p>
+<pre><code>t9k mlservice set-canary maskdetection --canary=bar -n demo
+</code></pre>
+<h3 id="delete-6"><a class="header" href="#delete-6">delete</a></h3>
+<p>删除指定的 MLService。</p>
+<h4 id="使用-31"><a class="header" href="#使用-31">使用</a></h4>
+<pre><code>t9k mls delete [names...] [-f] [--all]
+</code></pre>
+<p><code>t9k mls delete</code> 也可以用 <code>t9k mls rm</code> 代替。</p>
+<h4 id="选项-24"><a class="header" href="#选项-24">选项</a></h4>
+<pre><code>--all                   删除当前 Project 中所有的 XGBoostTrainingJob。
+-f, --force             跳过确认，直接执行删除操作。
+</code></pre>
+<h4 id="全局选项-31"><a class="header" href="#全局选项-31">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-31"><a class="header" href="#示例-31">示例</a></h4>
+<p>删除 Project demo 下名为 foo 和 bar 的两个 MLService：</p>
+<pre><code>t9k mls delete foo bar -p demo
+</code></pre>
+<p>跳过确认，直接删除 Project demo 下名为 foo 的 MLService：</p>
+<pre><code>t9k mls delete foo -p demo -f
+</code></pre>
+<p>删除 Project demo 下所有的 MLService：</p>
+<pre><code>t9k mls delete foo -p demo --all
+</code></pre>
+<h3 id="describe-5"><a class="header" href="#describe-5">describe</a></h3>
+<p>查看 MLService 详细信息。</p>
+<h4 id="使用-32"><a class="header" href="#使用-32">使用</a></h4>
+<pre><code>t9k mls describe &lt;name&gt; [--color]
+</code></pre>
+<h4 id="选项-25"><a class="header" href="#选项-25">选项</a></h4>
+<pre><code>--color                 使用彩色的输出信息（默认全是黑色）。
+</code></pre>
+<h4 id="全局选项-32"><a class="header" href="#全局选项-32">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-32"><a class="header" href="#示例-32">示例</a></h4>
+<p>查看 Project demo 下名为 foo 的 MLService 的详细描述：</p>
+<pre><code>t9k mls describe foo -p demo
+</code></pre>
+<h3 id="get-5"><a class="header" href="#get-5">get</a></h3>
+<p>查看 MLService 相关信息。</p>
+<h4 id="使用-33"><a class="header" href="#使用-33">使用</a></h4>
+<pre><code>t9k mls get [names...] [-A] [-o json|yaml|template]
+</code></pre>
+<h4 id="选项-26"><a class="header" href="#选项-26">选项</a></h4>
+<pre><code>-A, --all-namespaces       获取用户具有权限的所有 Namespace（Project）中的资源。
+-o, --output string        指定输出信息的形式。可选值有 `json`，`yaml` 和默认的 `template`
+</code></pre>
+<h4 id="全局选项-33"><a class="header" href="#全局选项-33">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-33"><a class="header" href="#示例-33">示例</a></h4>
+<p>以默认格式查看 Project example 下所有 MLService：</p>
+<pre><code>t9k mls get -p example
+</code></pre>
+<p>以默认格式查看所有 Project 下的所有 MLService：</p>
+<pre><code>t9k mls get -A
+</code></pre>
+<p>以默认格式查看 Project example 下名为 foo 和 bar 的两个 MLService：</p>
+<pre><code>t9k mls get foo bar -p example
+</code></pre>
+<p>以 yaml 格式查看 Project example 下名为 foo 的 MLService：</p>
+<pre><code>t9k mls get foo -p example -o yaml
+</code></pre>
+<h3 id="delete-release"><a class="header" href="#delete-release">delete-release</a></h3>
+<p>删除 MLService 中发布的版本。</p>
+<h4 id="使用-34"><a class="header" href="#使用-34">使用</a></h4>
+<pre><code>t9k delete-release &lt;name&gt; [--release=release-names...]
+</code></pre>
+<h4 id="选项-27"><a class="header" href="#选项-27">选项</a></h4>
+<pre><code>--release string        字符串，删除的版本名称，如要删除多个版本，用 `,` 进行分割。
+--dry-run               只打印更新后的 yaml 文件，但是不执行 apply 操作。
+-o, --output string     字符串，指定 --dry-run 打印的格式。可选值有 `json`，`yaml`。
+</code></pre>
+<h4 id="全局选项-34"><a class="header" href="#全局选项-34">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-34"><a class="header" href="#示例-34">示例</a></h4>
+<p>删除 Project demo 下的推理服务 maskdetection 的 foo 和 bar 两个已发布的版本：</p>
+<pre><code>t9k delete-release maskdetection --release foo,bar -p demo
+</code></pre>
+<h2 id="mpijob"><a class="header" href="#mpijob">mpijob</a></h2>
+<p>用于管理 <a href="../../modules/jobs/mpijob.html">MPIJob</a>。</p>
+<aside class="note info">
+<div class="title">信息</div>
+<p>支持使用缩写 <code>mj</code> 代替 <code>mpijob</code>。</p>
+</aside>
+<h3 id="delete-7"><a class="header" href="#delete-7">delete</a></h3>
+<p>删除指定的 MPIJob。</p>
+<h4 id="使用-35"><a class="header" href="#使用-35">使用</a></h4>
+<pre><code>t9k mpijob delete [names...] [--all] [-f]
+</code></pre>
+<p><code>t9k mpijob delete</code> 也可以用 <code>t9k mj rm</code> 代替。</p>
+<h4 id="选项-28"><a class="header" href="#选项-28">选项</a></h4>
+<pre><code>--all                   删除当前 Project 中所有的 MPIJob。
+-f, --force             跳过确认，直接执行删除操作。
+</code></pre>
+<h4 id="全局选项-35"><a class="header" href="#全局选项-35">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-35"><a class="header" href="#示例-35">示例</a></h4>
+<p>删除 Project demo 下名为 foo 和 bar 的两个 MPIJob：</p>
+<pre><code>t9k mpijob delete foo bar -p demo
+</code></pre>
+<p>跳过确认，直接删除 Project demo 下名为 foo 的 MPIJob：</p>
+<pre><code>t9k mpijob delete foo -p demo -f
+</code></pre>
+<p>删除 Project demo 下所有的 MPIJob：</p>
+<pre><code>t9k mpijob delete foo -p demo --all
+</code></pre>
+<h3 id="describe-6"><a class="header" href="#describe-6">describe</a></h3>
+<p>查看某个 MPIJob 的详细信息。</p>
+<h4 id="使用-36"><a class="header" href="#使用-36">使用</a></h4>
+<pre><code>t9k mj describe &lt;name&gt;
+</code></pre>
+<p><code>t9k mj describe</code> 也可以用 <code>t9k mj desc</code> 代替。</p>
+<h4 id="全局选项-36"><a class="header" href="#全局选项-36">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-36"><a class="header" href="#示例-36">示例</a></h4>
+<p>查看 Project demo 下名为 foo 的 MPIJob 的详细描述：</p>
+<pre><code>t9k mj describe foo -p demo
+</code></pre>
+<h3 id="get-6"><a class="header" href="#get-6">get</a></h3>
+<p>查看 MPIJob 相关信息。</p>
+<h4 id="使用-37"><a class="header" href="#使用-37">使用</a></h4>
+<pre><code>t9k mj get [names...] [-A] [-o json|yaml|template]
+</code></pre>
+<h4 id="选项-29"><a class="header" href="#选项-29">选项</a></h4>
+<pre><code>-A, --all-namespaces    获取用户具有权限的所有 Namespace（Project）中的资源。
+-o, --output string     指定输出信息的形式。可选值有 `json`，`yaml` 和默认的 `template`。
+</code></pre>
+<h4 id="全局选项-37"><a class="header" href="#全局选项-37">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-37"><a class="header" href="#示例-37">示例</a></h4>
+<p>以默认格式查看 Project example 下所有 MPIJob：</p>
+<pre><code>t9k mj get -p example
+</code></pre>
+<p>以默认格式查看所有 Project 下的所有 MPIJob：</p>
+<pre><code>t9k mj get -A
+</code></pre>
+<p>以默认格式查看 Project example 下名为 foo 和 bar 的两个 MPIJob：</p>
+<pre><code>t9k mj get foo bar -p example
+</code></pre>
+<p>以 yaml 格式查看 Project example 下名为 foo 的 MPIJob：</p>
+<pre><code>t9k mj get foo -p example -o yaml
+</code></pre>
+<h3 id="logs-4"><a class="header" href="#logs-4">logs</a></h3>
+<p>查看 MPIJob 某个计算节点的日志。</p>
+<h4 id="使用-38"><a class="header" href="#使用-38">使用</a></h4>
+<pre><code>t9k mj logs [--type=launcher|worker] [--index=&lt;replicaIndex&gt;] [--container=&lt;containerName&gt;] [-f] [--tail] [--timestamps]
+</code></pre>
+<h4 id="选项-30"><a class="header" href="#选项-30">选项</a></h4>
+<pre><code>--container string      字符串，指定要查看的 container 名称，如果计算节点的 container 不止 1 个，必须指定此项。
+-f, --follow            流式查看日志。
+--index string          字符串，要查看的计算节点的序号。默认值：0。
+--tail int              整数，要查看的日志的行数（从后往前）。默认值：-1，查看全部日志。
+--timestamps            是否展示时间戳。
+--type string           字符串，要查看的计算节点的角色。可选值有 `launcher` 以及默认值 `worker`。
+</code></pre>
+<h4 id="全局选项-38"><a class="header" href="#全局选项-38">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-38"><a class="header" href="#示例-38">示例</a></h4>
+<p>查看 Project example 下 MPIJob foo 第 <code>replicaIndex</code> 个 <code>replicaType</code> 节点的日志：</p>
+<pre><code>t9k mj logs foo --type=replicaType --index=replicaIndex -p example
+</code></pre>
+<p>流式查看 Project example 下 MPIJob foo 第 <code>replicaIndex</code> 个 <code>replicaType</code> 节点的容器 <code>mnist</code> 的日志：</p>
+<pre><code>t9k mj logs foo --type=replicaType --index=replicaIndex --container=mnist --follow
+</code></pre>
+<p>查看 MPIJob foo 第 0 个 worker 节点的最后 20 行日志：</p>
+<pre><code>t9k mj logs foo --tail 20
+</code></pre>
+<h3 id="wait-5"><a class="header" href="#wait-5">wait</a></h3>
+<p>等待 MPIJob 完成。</p>
+<h4 id="使用-39"><a class="header" href="#使用-39">使用</a></h4>
+<pre><code>t9k mj wait &lt;name&gt; [--timeout=&lt;timeoutTime&gt;] [--period=&lt;periodTime&gt;] [--print-log [--type=launcher|worker] [--index=&lt;replicaIndex&gt;] [--container=&lt;containerName&gt;] [--timestamps]]
+</code></pre>
+<h4 id="选项-31"><a class="header" href="#选项-31">选项</a></h4>
+<pre><code>--timeout string        字符串，最长等待时间。默认值：&quot;1h&quot;，1 小时。
+--period  string        字符串，检查任务是否完成的周期。默认值：&quot;1s&quot;，每秒检查一次。
+--print-log             是否在等待时流式查看日志。
+
+以下参数只有在开启了 `--print-log` 后才生效。
+
+--container string      字符串，指定要查看的 container 名称，如果计算节点的 container 不止 1 个，必须指定此项。
+--index string          字符串，要查看的计算节点的序号。默认值：0。
+--timestamps            是否展示时间戳。
+--type string           字符串，要查看的计算节点的角色。可选值有 `launcher` 以及默认值 `worker`。
+</code></pre>
+<h4 id="全局选项-39"><a class="header" href="#全局选项-39">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-39"><a class="header" href="#示例-39">示例</a></h4>
+<p>等待 Project example 下的 MPIJob foo 完成：</p>
+<pre><code>t9k mj wait foo -p example
+</code></pre>
+<p>等待 Project example 下的 MPIJob foo 完成，只等待 10 分钟：</p>
+<pre><code>t9k mj wait foo -p example --timeout 10m
+</code></pre>
+<p>等待 Project example 下的 MPIJob foo 完成，同时打印节点 launcher 的日志：</p>
+<pre><code>t9k mj wait foo -p example --print-log --type launcher
+</code></pre>
+<h2 id="notebook"><a class="header" href="#notebook">notebook</a></h2>
+<p>用于管理 <a href="../../modules/building/notebook.html">Notebook</a>。</p>
+<aside class="note info">
+<div class="title">信息</div>
+<p>支持使用缩写 <code>nb</code> 代替 <code>notebook</code>。</p>
+</aside>
+<h3 id="delete-8"><a class="header" href="#delete-8">delete</a></h3>
+<p>删除指定的 Notebook。</p>
+<h4 id="使用-40"><a class="header" href="#使用-40">使用</a></h4>
+<pre><code>t9k notebook delete [names...] [--all] [-f]
+</code></pre>
+<p><code>t9k notebook delete</code> 也可以用 <code>t9k nb rm</code> 代替。</p>
+<h4 id="选项-32"><a class="header" href="#选项-32">选项</a></h4>
+<pre><code>--all                   删除当前 Project 中所有的 Notebook。
+-f, --force             跳过确认，直接执行删除操作。
+</code></pre>
+<h4 id="全局选项-40"><a class="header" href="#全局选项-40">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-40"><a class="header" href="#示例-40">示例</a></h4>
+<p>删除 Project demo 下名为 foo 和 bar 的两个 Notebook：</p>
+<pre><code>t9k notebook delete foo bar -p demo
+</code></pre>
+<p>跳过确认，直接删除 Project demo 下名为 foo 的 Notebook：</p>
+<pre><code>t9k notebook delete foo -p demo -f
+</code></pre>
+<p>删除 Project demo 下所有的 Notebook：</p>
+<pre><code>t9k notebook delete foo -p demo --all
+</code></pre>
+<h3 id="describe-7"><a class="header" href="#describe-7">describe</a></h3>
+<p>查看某个 Notebook 的详细信息。</p>
+<h4 id="使用-41"><a class="header" href="#使用-41">使用</a></h4>
+<pre><code>t9k nb describe &lt;name&gt;
+</code></pre>
+<p><code>t9k nb describe</code> 也可以用 <code>t9k nb desc</code> 代替。</p>
+<h4 id="选项-33"><a class="header" href="#选项-33">选项</a></h4>
+<pre><code>--color                 使用彩色的输出信息（默认全是黑色）。
+</code></pre>
+<h4 id="全局选项-41"><a class="header" href="#全局选项-41">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-41"><a class="header" href="#示例-41">示例</a></h4>
+<p>查看 Project demo 下名为 foo 的 Notebook 的详细描述：</p>
+<pre><code>t9k nb describe foo -p demo
+</code></pre>
+<h3 id="get-7"><a class="header" href="#get-7">get</a></h3>
+<p>查看 Notebook 相关信息。</p>
+<h4 id="使用-42"><a class="header" href="#使用-42">使用</a></h4>
+<pre><code>t9k nb get [names...] [-A] [-o json|yaml|template]
+</code></pre>
+<h4 id="选项-34"><a class="header" href="#选项-34">选项</a></h4>
+<pre><code>-A, --all-namespaces    获取用户具有权限的所有 Namespace（Project）中的资源。
+-o, --output string     字符串，指定输出信息的形式。可选值有 `json`，`yaml` 和默认的 `template`。
+</code></pre>
+<h4 id="全局选项-42"><a class="header" href="#全局选项-42">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-42"><a class="header" href="#示例-42">示例</a></h4>
+<p>以默认格式查看 Project example 下所有 Notebook：</p>
+<pre><code>t9k nb get -p example
+</code></pre>
+<p>以默认格式查看所有 Project 下的所有 Notebook：</p>
+<pre><code>t9k nb get -A
+</code></pre>
+<p>以默认格式查看 Project example 下名为 foo 和 bar 的两个 Notebook：</p>
+<pre><code>t9k nb get foo bar -p example
+</code></pre>
+<p>以 yaml 格式查看 Project example 下名为 foo 的 Notebook：</p>
+<pre><code>t9k nb get foo -p example -o yaml
+</code></pre>
+<h2 id="podgroup"><a class="header" href="#podgroup">podgroup</a></h2>
+<p>用于管理 <a href="../../modules/scheduling/podgroup.html">PodGroup</a>，只有集群管理员才有相关权限。</p>
+<h3 id="get-8"><a class="header" href="#get-8">get</a></h3>
+<p>查看 PodGroup 相关信息。</p>
+<h4 id="使用-43"><a class="header" href="#使用-43">使用</a></h4>
+<pre><code>t9k podgroup get [names...] [-A] [-o json|yaml|template]
+</code></pre>
+<h4 id="选项-35"><a class="header" href="#选项-35">选项</a></h4>
+<pre><code>-A, --all-namespaces       获取用户具有权限的所有 Namespace（Project）中的资源。
+-o, --output string        指定输出信息的形式。可选值有 `json`，`yaml` 和默认的 `template`
+</code></pre>
+<h4 id="全局选项-43"><a class="header" href="#全局选项-43">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-43"><a class="header" href="#示例-43">示例</a></h4>
+<p>以默认格式查看 Project example 下所有 PodGroup：</p>
+<pre><code>t9k podgroup get -p example
+</code></pre>
+<p>以默认格式查看所有 Project 下的所有 PodGroup：</p>
+<pre><code>t9k podgroup get -A
+</code></pre>
+<p>以默认格式查看 Project example 下名为 foo 和 bar 的两个 PodGroup：</p>
+<pre><code>t9k podgroup get foo bar -p example
+</code></pre>
+<p>以 yaml 格式查看 Project example 下名为 foo 的 PodGroup：</p>
+<pre><code>t9k podgroup get foo -p example -o yaml
+</code></pre>
+<h2 id="project"><a class="header" href="#project">project</a></h2>
+<p>用于管理 <a href="../../modules/account-and-security.html#project">Project</a>。</p>
+<aside class="note info">
+<div class="title">信息</div>
+<p>支持使用缩写 <code>proj</code> 代替 <code>project</code>。</p>
+</aside>
+<h3 id="create-1"><a class="header" href="#create-1">create</a></h3>
+<p>创建新项目，只有集群管理员才有权限创建新项目。</p>
+<h4 id="使用-44"><a class="header" href="#使用-44">使用</a></h4>
+<pre><code>t9k project create &lt;name&gt; &lt;owner&gt; [--build] [--deploy]
+</code></pre>
+<h4 id="选项-36"><a class="header" href="#选项-36">选项</a></h4>
+<pre><code>--build                 项目拥有者是否拥有模型构建权限
+--deploy                项目拥有者是否拥有模型部署权限
+</code></pre>
+<h4 id="全局选项-44"><a class="header" href="#全局选项-44">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-44"><a class="header" href="#示例-44">示例</a></h4>
+<p>创建一个名为 sample 的项目，管理员为 admin，且 admin 只有模型构建的权限，没有模型部署的权限：</p>
+<pre><code>t9k project create sample admin --build
+</code></pre>
+<h3 id="describe-8"><a class="header" href="#describe-8">describe</a></h3>
+<p>查看项目详细描述，只能查看当前用户所拥有的项目。</p>
+<h4 id="使用-45"><a class="header" href="#使用-45">使用</a></h4>
+<pre><code>t9k proj describe &lt;name&gt;
+</code></pre>
+<p><code>t9k proj describe</code> 也可以用 <code>t9k proj desc</code> 代替。</p>
+<h4 id="全局选项-45"><a class="header" href="#全局选项-45">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-45"><a class="header" href="#示例-45">示例</a></h4>
+<p>详细描述项目 demo：</p>
+<pre><code>t9k proj describe demo
+</code></pre>
+<h3 id="get-9"><a class="header" href="#get-9">get</a></h3>
+<p>查看项目的相关信息，只能查看用户拥有权限的项目。</p>
+<h4 id="使用-46"><a class="header" href="#使用-46">使用</a></h4>
+<pre><code>t9k project get [name...]
+</code></pre>
+<p>可以通过指定 name 获取一个或多个 project，不指定的话默认获取所有当前用户有权限的项目。</p>
+<h4 id="全局选项-46"><a class="header" href="#全局选项-46">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-46"><a class="header" href="#示例-46">示例</a></h4>
+<p>查看当前用户有权限的所有项目：</p>
+<pre><code>t9k project get
+</code></pre>
+<p>查看当前用户有权限的项目中名为 foo 的项目：</p>
+<pre><code>t9k project get foo
+</code></pre>
+<h2 id="pytorchtrainingjob"><a class="header" href="#pytorchtrainingjob">pytorchtrainingjob</a></h2>
+<p>用于管理 <a href="../../modules/jobs/pytorchtrainingjob.html">PyTorchTrainingJob</a>。</p>
+<aside class="note info">
+<div class="title">信息</div>
+<p>支持使用缩写 <code>pj</code> 代替 <code>pytorchtrainingjob</code>。</p>
+</aside>
+<h3 id="delete-9"><a class="header" href="#delete-9">delete</a></h3>
+<p>删除指定的 PyTorchTrainingJob。</p>
+<h4 id="使用-47"><a class="header" href="#使用-47">使用</a></h4>
+<pre><code>t9k pytorchtrainingjob delete [names...] [--all] [-f]
+</code></pre>
+<p><code>t9k pytorchtrainingjob delete</code> 也可以用 <code>t9k pj rm</code> 代替。</p>
+<h4 id="选项-37"><a class="header" href="#选项-37">选项</a></h4>
+<pre><code>--all                   删除当前 Project 中所有的 PyTorchTrainingJob。
+-f, --force             跳过确认，直接执行删除操作。
+</code></pre>
+<h4 id="全局选项-47"><a class="header" href="#全局选项-47">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-47"><a class="header" href="#示例-47">示例</a></h4>
+<p>删除 Project demo 下名为 foo 和 bar 的两个 PyTorchTrainingJob：</p>
+<pre><code>t9k pytorchtrainingjob delete foo bar -p demo
+</code></pre>
+<p>跳过确认，直接删除 Project demo 下名为 foo 的 PyTorchTrainingJob：</p>
+<pre><code>t9k pytorchtrainingjob delete foo -p demo -f
+</code></pre>
+<p>删除 Project demo 下所有的 PyTorchTrainingJob：</p>
+<pre><code>t9k pytorchtrainingjob delete foo -p demo --all
+</code></pre>
+<h3 id="describe-9"><a class="header" href="#describe-9">describe</a></h3>
+<p>查看某个 PyTorchTrainingJob 的详细信息。</p>
+<h4 id="使用-48"><a class="header" href="#使用-48">使用</a></h4>
+<pre><code>t9k pj describe &lt;name&gt;
+</code></pre>
+<p><code>t9k pj describe</code> 也可以用 <code>t9k pj desc</code> 代替。</p>
+<h4 id="全局选项-48"><a class="header" href="#全局选项-48">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-48"><a class="header" href="#示例-48">示例</a></h4>
+<p>查看 Project demo 下名为 foo 的 PyTorchTrainingJob 的详细描述：</p>
+<pre><code>t9k pj describe foo -p demo
+</code></pre>
+<h3 id="get-10"><a class="header" href="#get-10">get</a></h3>
+<p>查看 PyTorchTrainingJob 相关信息。</p>
+<h4 id="使用-49"><a class="header" href="#使用-49">使用</a></h4>
+<pre><code>t9k pj get [names...] [-A] [-o json|yaml|template]
+</code></pre>
+<h4 id="选项-38"><a class="header" href="#选项-38">选项</a></h4>
+<pre><code>-A, --all-namespaces    获取用户具有权限的所有 Namespace（Project）中的资源。
+-o, --output string     指定输出信息的形式。可选值有 `json`，`yaml` 和默认的 `template`。
+</code></pre>
+<h4 id="全局选项-49"><a class="header" href="#全局选项-49">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-49"><a class="header" href="#示例-49">示例</a></h4>
+<p>以默认格式查看 Project example 下所有 PyTorchTrainingJob：</p>
+<pre><code>t9k pj get -p example
+</code></pre>
+<p>以默认格式查看所有 Project 下的所有 PyTorchTrainingJob：</p>
+<pre><code>t9k pj get -A
+</code></pre>
+<p>以默认格式查看 Project example 下名为 foo 和 bar 的两个 PyTorchTrainingJob：</p>
+<pre><code>t9k pj get foo bar -p example
+</code></pre>
+<p>以 yaml 格式查看 Project example 下名为 foo 的 PyTorchTrainingJob：</p>
+<pre><code>t9k pj get foo -p example -o yaml
+</code></pre>
+<h3 id="logs-5"><a class="header" href="#logs-5">logs</a></h3>
+<p>查看 PyTorchTrainingJob 某个计算节点的日志。</p>
+<h4 id="使用-50"><a class="header" href="#使用-50">使用</a></h4>
+<pre><code>t9k pj logs [--type=master|worker] [--index=&lt;replicaIndex&gt;] [--container=&lt;containerName&gt;] [-f] [--tail] [--timestamps]
+</code></pre>
+<h4 id="选项-39"><a class="header" href="#选项-39">选项</a></h4>
+<pre><code>--container string      字符串，指定要查看的 container 名称，如果计算节点的 container 不止 1 个，必须指定此项。
+-f, --follow            流式查看日志。
+--index string          字符串，要查看的计算节点的序号。默认值：0。
+--tail int              整数，要查看的日志的行数（从后往前）。默认值：-1，查看全部日志。
+--timestamps            是否展示时间戳。
+--type string           字符串，要查看的计算节点的角色。可选值有 `master` 以及默认值 `worker`。
+</code></pre>
+<h4 id="全局选项-50"><a class="header" href="#全局选项-50">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-50"><a class="header" href="#示例-50">示例</a></h4>
+<p>查看 Project example 下 PyTorchTrainingJob foo 第 <code>replicaIndex</code> 个 <code>replicaType</code> 节点的日志：</p>
+<pre><code>t9k pj logs foo --type=replicaType --index=replicaIndex -p example
+</code></pre>
+<p>流式查看 Project example 下 PyTorchTrainingJob foo 第 <code>replicaIndex</code> 个 <code>replicaType</code> 节点的容器 <code>mnist</code> 的日志：</p>
+<pre><code>t9k pj logs foo --type=replicaType --index=replicaIndex --container=mnist --follow
+</code></pre>
+<p>查看 PyTorchTrainingJob foo 第 0 个 worker 节点的最后 20 行日志：</p>
+<pre><code>t9k pj logs foo --tail 20
+</code></pre>
+<h3 id="wait-6"><a class="header" href="#wait-6">wait</a></h3>
+<p>等待 PyTorchTrainingJob 完成。</p>
+<h4 id="使用-51"><a class="header" href="#使用-51">使用</a></h4>
+<pre><code>t9k pj wait &lt;name&gt; [--timeout=&lt;timeoutTime&gt;] [--period=&lt;periodTime&gt;] [--print-log [--type=master|worker] [--index=&lt;replicaIndex&gt;] [--container=&lt;containerName&gt;] [--timestamps]]
+</code></pre>
+<h4 id="选项-40"><a class="header" href="#选项-40">选项</a></h4>
+<pre><code>--timeout string        字符串，最长等待时间。默认值：&quot;1h&quot;，1 小时。
+--period  string        字符串，检查任务是否完成的周期。默认值：&quot;1s&quot;，每秒检查一次。
+--print-log             是否在等待时流式查看日志。
+
+以下参数只有在开启了 `--print-log` 后才生效。
+
+--container string      字符串，指定要查看的 container 名称，如果计算节点的 container 不止 1 个，必须指定此项。
+--index string          字符串，要查看的计算节点的序号。默认值：0。
+--timestamps            是否展示时间戳。
+--type string           字符串，要查看的计算节点的角色。可选值有 `master` 以及默认值 `worker`。
+</code></pre>
+<h4 id="全局选项-51"><a class="header" href="#全局选项-51">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-51"><a class="header" href="#示例-51">示例</a></h4>
+<p>等待 Project example 下的 PyTorchTrainingJob foo 完成：</p>
+<pre><code>t9k pj wait foo -p example
+</code></pre>
+<p>等待 Project example 下的 PyTorchTrainingJob foo 完成，只等待 10 分钟：</p>
+<pre><code>t9k pj wait foo -p example --timeout 10m
+</code></pre>
+<p>等待 Project example 下的 PyTorchTrainingJob foo 完成，同时打印节点 master-0 的日志：</p>
+<pre><code>t9k pj wait foo -p example --print-log --type master --index 0
+</code></pre>
+<h2 id="queue"><a class="header" href="#queue">queue</a></h2>
+<p>用于管理 <a href="../../modules/scheduling/queue.html">Queue</a>，只有集群管理员才有相关权限。</p>
+<h3 id="close"><a class="header" href="#close">close</a></h3>
+<p>关闭 Queue。</p>
+<h4 id="使用-52"><a class="header" href="#使用-52">使用</a></h4>
+<pre><code>t9k queue close &lt;name&gt;
+</code></pre>
+<h4 id="全局选项-52"><a class="header" href="#全局选项-52">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-52"><a class="header" href="#示例-52">示例</a></h4>
+<p>关闭 Queue foo：</p>
+<pre><code>t9k queue close foo
+</code></pre>
+<h3 id="get-11"><a class="header" href="#get-11">get</a></h3>
+<p>查看 Queue 相关信息。</p>
+<h4 id="使用-53"><a class="header" href="#使用-53">使用</a></h4>
+<pre><code>t9k queue get [names...] [-o json|yaml|template]
+</code></pre>
+<h4 id="选项-41"><a class="header" href="#选项-41">选项</a></h4>
+<pre><code>-o, --output string        指定输出信息的形式。可选值有 `json`，`yaml` 和默认的 `template`
+</code></pre>
+<h4 id="全局选项-53"><a class="header" href="#全局选项-53">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-53"><a class="header" href="#示例-53">示例</a></h4>
+<p>以默认格式查看所有 Queue：</p>
+<pre><code>t9k queue get
+</code></pre>
+<p>以默认格式查看名为 foo 和 bar 的两个 Queue：</p>
+<pre><code>t9k queue get foo bar
+</code></pre>
+<p>以 yaml 格式查看名为 foo 的 Queue：</p>
+<pre><code>t9k queue get foo -o yaml
+</code></pre>
+<h3 id="open"><a class="header" href="#open">open</a></h3>
+<p>打开 Queue。</p>
+<h4 id="使用-54"><a class="header" href="#使用-54">使用</a></h4>
+<pre><code>t9k queue open &lt;name&gt;
+</code></pre>
+<h4 id="全局选项-54"><a class="header" href="#全局选项-54">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-54"><a class="header" href="#示例-54">示例</a></h4>
+<p>打开 Queue foo：</p>
+<pre><code>t9k queue open foo
+</code></pre>
+<h2 id="simplemlservice"><a class="header" href="#simplemlservice">simplemlservice</a></h2>
+<p>用于管理 <a href="../../modules/deployment/simplemlservice.html">SimpleMLService</a></p>
+<aside class="note info">
+<div class="title">信息</div>
+<p>支持使用缩写 <code>smls</code> 代替 <code>simplemlservice</code>。</p>
+</aside>
+<h3 id="create-2"><a class="header" href="#create-2">create</a></h3>
+<p>创建一个新的 SimpleMLService。</p>
+<h4 id="使用-55"><a class="header" href="#使用-55">使用</a></h4>
+<pre><code>t9k simplemlservice create &lt;name&gt; --model=&lt;model-url&gt;  -image=&lt;serving-image&gt; [--secret=&lt;serect-name&gt;] [--tech tensorflow|pytorch|xgboost] [--dry-run] [-o yaml|json]
+</code></pre>
+<h4 id="选项-42"><a class="header" href="#选项-42">选项</a></h4>
+<pre><code>--model string          字符串，推理服务使用的模型地址
+--image string          字符串，推理服务使用的镜像
+--dry-run               只打印更新后的 yaml 文件，但是不执行 apply 操作。
+-o, --output string     字符串，指定 --dry-run 打印的格式。可选值有 `json`，`yaml`。
+--tech string           字符串，推理服务使用的机器学习框架，如果 image 中已经含有关键字，可不填此参数。可选值有 `tensorflow`，`pytorch`，`xgboost`。
+--secret string         字符串，加载模型所使用的密钥名称
+</code></pre>
+<h4 id="全局选项-55"><a class="header" href="#全局选项-55">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-55"><a class="header" href="#示例-55">示例</a></h4>
+<p>在 Project demo 下创建一个名为 mnist 的推理服务。其使用的镜像为<code>registry.tensorstack.dev/t9kmirror/tensorflow-serving:1.15.0</code>，模型地址为 <code>mms://aihub.tensorstack.dev/t9kpublic/mnist:v1</code>：</p>
+<pre><code>t9k simplemlservice create mnist \
+  --model=&quot;mms://aihub.tensorstack.dev/t9kpublic/mnist:v1&quot; \
+  --image=&quot;registry.tensorstack.dev/t9kmirror/tensorflow-serving:1.15.0&quot; \
+  -n demo
+</code></pre>
+<p>在 Project t9k-sample 下创建一个名为 mnist-cnn 的推理服务。其使用的镜像为<code>registry.tensorstack.dev/t9kmirror/tensorflow-serving:1.15.0</code>，模型地址为 <code>mms://aihub.tensorstack.dev/private/mnist:v2</code>，模型下载使用的密钥为同一个 Project demo 下的 secret <code>mms-access</code>：</p>
+<pre><code>t9k mls create mnist-cnn \
+  --project=t9k-sample \
+  --model=&quot;mms://aihub.tensorstack.dev/private/mnist:v2&quot; \
+  --image=&quot;registry.tensorstack.dev/t9kmirror/tensorflow-serving:1.15.0&quot; \
+  --tech=&quot;tensorflow&quot; \
+  --secret=&quot;mms-access&quot; 
+</code></pre>
+<h3 id="delete-10"><a class="header" href="#delete-10">delete</a></h3>
+<p>删除指定的 SimpleMLService。</p>
+<h4 id="使用-56"><a class="header" href="#使用-56">使用</a></h4>
+<pre><code>t9k smls delete [names...] [-f] [--all]
+</code></pre>
+<p><code>t9k smls delete</code> 也可以用 <code>t9k smls rm</code> 代替。</p>
+<h4 id="选项-43"><a class="header" href="#选项-43">选项</a></h4>
+<pre><code>--all                   删除当前 Project 中所有的 XGBoostTrainingJob。
+-f, --force             跳过确认，直接执行删除操作。
+</code></pre>
+<h4 id="全局选项-56"><a class="header" href="#全局选项-56">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-56"><a class="header" href="#示例-56">示例</a></h4>
+<p>删除 Project demo 下名为 foo 和 bar 的两个 SimpleMLService：</p>
+<pre><code>t9k smls delete foo bar -p demo
+</code></pre>
+<p>跳过确认，直接删除 Project demo 下名为 foo 的 SimpleMLService：</p>
+<pre><code>t9k smls delete foo -p demo -f
+</code></pre>
+<p>删除 Project demo 下所有的 SimpleMLService：</p>
+<pre><code>t9k smls delete foo -p demo --all
+</code></pre>
+<h3 id="describe-10"><a class="header" href="#describe-10">describe</a></h3>
+<p>查看 SimpleMLService 详细信息。</p>
+<h4 id="使用-57"><a class="header" href="#使用-57">使用</a></h4>
+<pre><code>t9k mls describe &lt;name&gt;
+</code></pre>
+<h4 id="全局选项-57"><a class="header" href="#全局选项-57">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-57"><a class="header" href="#示例-57">示例</a></h4>
+<p>查看 Project demo 下名为 foo 的 SimpleMLService 的详细描述：</p>
+<pre><code>t9k mls describe foo -p demo
+</code></pre>
+<h3 id="get-12"><a class="header" href="#get-12">get</a></h3>
+<p>查看 SimpleMLService 相关信息。</p>
+<h4 id="使用-58"><a class="header" href="#使用-58">使用</a></h4>
+<pre><code>t9k smls get [names...] [-A] [-o json|yaml|template]
+</code></pre>
+<h4 id="选项-44"><a class="header" href="#选项-44">选项</a></h4>
+<pre><code>-A, --all-namespaces       获取用户具有权限的所有 Namespace（Project）中的资源。
+-o, --output string        指定输出信息的形式。可选值有 `json`，`yaml` 和默认的 `template`
+</code></pre>
+<h4 id="全局选项-58"><a class="header" href="#全局选项-58">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-58"><a class="header" href="#示例-58">示例</a></h4>
+<p>以默认格式查看 Project example 下所有 SimpleMLService：</p>
+<pre><code>t9k smls get -p example
+</code></pre>
+<p>以默认格式查看所有 Project 下的所有 SimpleMLService：</p>
+<pre><code>t9k smls get -A
+</code></pre>
+<p>以默认格式查看 Project example 下名为 foo 和 bar 的两个 SimpleMLService：</p>
+<pre><code>t9k smls get foo bar -p example
+</code></pre>
+<p>以 yaml 格式查看 Project example 下名为 foo 的 SimpleMLService：</p>
+<pre><code>t9k smls get foo -p example -o yaml
+</code></pre>
+<h2 id="tensorflowtrainingjob"><a class="header" href="#tensorflowtrainingjob">tensorflowtrainingjob</a></h2>
+<p>用于管理 <a href="../../modules/jobs/tensorflowtrainingjob.html">TensorFlowTrainingJob</a>。</p>
+<aside class="note info">
+<div class="title">信息</div>
+<p>支持使用缩写 <code>tj</code> 代替 <code>tensorflowtrainingjob</code>。</p>
+</aside>
+<h3 id="delete-11"><a class="header" href="#delete-11">delete</a></h3>
+<p>删除指定的 TensorFlowTrainingJob。</p>
+<h4 id="使用-59"><a class="header" href="#使用-59">使用</a></h4>
+<pre><code>t9k tensorflowtrainingjob delete [names...] [--all] [-f]
+</code></pre>
+<p><code>t9k tensorflowtrainingjob delete</code> 也可以用 <code>t9k tj rm</code> 代替。</p>
+<h4 id="选项-45"><a class="header" href="#选项-45">选项</a></h4>
+<pre><code>--all                   删除当前 Project 中所有的 TensorFlowTrainingJob。
+-f, --force             跳过确认，直接执行删除操作。
+</code></pre>
+<h4 id="全局选项-59"><a class="header" href="#全局选项-59">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-59"><a class="header" href="#示例-59">示例</a></h4>
+<p>删除 Project demo 下名为 foo 和 bar 的两个 TensorFlowTrainingJob：</p>
+<pre><code>t9k tensorflowtrainingjob delete foo bar -p demo
+</code></pre>
+<p>跳过确认，直接删除 Project demo 下名为 foo 的 TensorFlowTrainingJob：</p>
+<pre><code>t9k tensorflowtrainingjob delete foo -p demo -f
+</code></pre>
+<p>删除 Project demo 下所有的 TensorFlowTrainingJob：</p>
+<pre><code>t9k tensorflowtrainingjob delete foo -p demo --all
+</code></pre>
+<h3 id="describe-11"><a class="header" href="#describe-11">describe</a></h3>
+<p>查看某个 TensorFlowTrainingJob 的详细信息。</p>
+<h4 id="使用-60"><a class="header" href="#使用-60">使用</a></h4>
+<pre><code>t9k tj describe &lt;name&gt;
+</code></pre>
+<p><code>t9k tj describe</code> 也可以用 <code>t9k tj desc</code> 代替。</p>
+<h4 id="全局选项-60"><a class="header" href="#全局选项-60">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-60"><a class="header" href="#示例-60">示例</a></h4>
+<p>查看 Project demo 下名为 foo 的 TensorFlowTrainingJob 的详细描述：</p>
+<pre><code>t9k tj describe foo -p demo
+</code></pre>
+<h3 id="get-13"><a class="header" href="#get-13">get</a></h3>
+<p>查看 TensorFlowTrainingJob 相关信息。</p>
+<h4 id="使用-61"><a class="header" href="#使用-61">使用</a></h4>
+<pre><code>t9k tj get [names...] [-A] [-o json|yaml|template]
+</code></pre>
+<h4 id="选项-46"><a class="header" href="#选项-46">选项</a></h4>
+<pre><code>-A, --all-namespaces    获取用户具有权限的所有 Namespace（Project）中的资源。
+-o, --output string     字符串，指定输出信息的形式。可选值有 `json`，`yaml` 和默认的 `template`。
+</code></pre>
+<h4 id="全局选项-61"><a class="header" href="#全局选项-61">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-61"><a class="header" href="#示例-61">示例</a></h4>
+<p>以默认格式查看 Project example 下所有 TensorFlowTrainingJob：</p>
+<pre><code>t9k tj get -p example
+</code></pre>
+<p>以默认格式查看所有 Project 下的所有 TensorFlowTrainingJob：</p>
+<pre><code>t9k tj get -A
+</code></pre>
+<p>以默认格式查看 Project example 下名为 foo 和 bar 的两个 TensorFlowTrainingJob：</p>
+<pre><code>t9k tj get foo bar -p example
+</code></pre>
+<p>以 yaml 格式查看 Project example 下名为 foo 的 TensorFlowTrainingJob：</p>
+<pre><code>t9k tj get foo -p example -o yaml
+</code></pre>
+<h3 id="logs-6"><a class="header" href="#logs-6">logs</a></h3>
+<p>查看 TensorFlowTrainingJob 某个计算节点的日志。</p>
+<h4 id="使用-62"><a class="header" href="#使用-62">使用</a></h4>
+<pre><code>t9k tj logs &lt;name&gt; [--type=chief|ps|evaluator|worker] [--index=&lt;replicaIndex&gt;] [--container=&lt;containerName&gt;] [-f] [--tail] [--timestamps]
+</code></pre>
+<h4 id="选项-47"><a class="header" href="#选项-47">选项</a></h4>
+<pre><code>--container string      字符串，指定要查看的 container 名称，如果计算节点的 container 不止 1 个，必须指定此项。
+-f, --follow            流式查看日志。
+--index string          字符串，要查看的计算节点的序号。默认值：0。
+--tail int              整数，要查看的日志的行数（从后往前）。默认值：-1，查看全部日志。
+--timestamps            是否展示时间戳。
+--type string           字符串，要查看的计算节点的角色。可选值有 `chief`，`ps`，`evaluator` 以及默认值 `worker`。
+</code></pre>
+<h4 id="全局选项-62"><a class="header" href="#全局选项-62">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-62"><a class="header" href="#示例-62">示例</a></h4>
+<p>查看 Project example 下 TensorFlowTrainingJob foo 第 <code>replicaIndex</code> 个 <code>replicaType</code> 节点的日志：</p>
+<pre><code>t9k tj logs foo --type=replicaType --index=replicaIndex -p example
+</code></pre>
+<p>流式查看 Project example 下 TensorFlowTrainingJob foo 第 <code>replicaIndex</code> 个 <code>replicaType</code> 节点的容器 <code>mnist</code> 的日志：</p>
+<pre><code>t9k tj logs foo --type=replicaType --index=replicaIndex --container=mnist --follow
+</code></pre>
+<p>查看 TensorFlowTrainingJob foo 第 0 个 worker 节点的最后 20 行日志：</p>
+<pre><code>t9k tj logs foo --tail 20
+</code></pre>
+<h3 id="wait-7"><a class="header" href="#wait-7">wait</a></h3>
+<p>等待 TensorFlowTrainingJob 完成。</p>
+<h4 id="使用-63"><a class="header" href="#使用-63">使用</a></h4>
+<pre><code>t9k tj wait &lt;name&gt; [--timeout=&lt;timeoutTime&gt;] [--period=&lt;periodTime&gt;] [--print-log [--type=chief|ps|evaluator|worker] [--index=&lt;replicaIndex&gt;] [--container=&lt;containerName&gt;] [--timestamps]]
+</code></pre>
+<h4 id="选项-48"><a class="header" href="#选项-48">选项</a></h4>
+<pre><code>--timeout string        字符串，最长等待时间。默认值：&quot;1h&quot;，1 小时。
+--period  string        字符串，检查任务是否完成的周期。默认值：&quot;1s&quot;，每秒检查一次。
+--print-log             是否在等待时流式查看日志。
+
+以下参数只有在开启了 `--print-log` 后才生效。
+
+--container string      字符串，指定要查看的 container 名称，如果计算节点的 container 不止 1 个，必须指定此项。
+--index string          字符串，要查看的计算节点的序号。默认值：0。
+--timestamps            是否展示时间戳。
+--type string           字符串，要查看的计算节点的角色。可选值有 `chief`，`ps`，`evaluator` 以及默认值 `worker`。
+</code></pre>
+<h4 id="全局选项-63"><a class="header" href="#全局选项-63">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-63"><a class="header" href="#示例-63">示例</a></h4>
+<p>等待 Project example 下的 TensorFlowTrainingJob foo 完成：</p>
+<pre><code>t9k tj wait foo -p example
+</code></pre>
+<p>等待 Project example 下的 TensorFlowTrainingJob foo 完成，只等待 10 分钟：</p>
+<pre><code>t9k tj wait foo -p example --timeout 10m
+</code></pre>
+<p>等待 Project example 下的 TensorFlowTrainingJob foo 完成，同时打印节点 chief-0 的日志：</p>
+<pre><code>t9k tj wait foo -p example --print-log --type chief --index 0
+</code></pre>
+<h2 id="version"><a class="header" href="#version">version</a></h2>
+<p>查看当前 T9k CLI 版本信息。</p>
+<h4 id="使用-64"><a class="header" href="#使用-64">使用</a></h4>
+<pre><code>t9k version
+</code></pre>
+<h4 id="示例-64"><a class="header" href="#示例-64">示例</a></h4>
+<p>查看当前 t9k 二进制文件的版本信息。</p>
+<pre><code>t9k version
+</code></pre>
+<h2 id="workflowrun"><a class="header" href="#workflowrun">workflowrun</a></h2>
+<p>用于管理 <a href="../../modules/workflows/workflowrun.html">WorkflowRun</a>。</p>
+<aside class="note info">
+<div class="title">信息</div>
+<p>支持使用缩写 <code>wr</code> 代替 <code>workflowrun</code>。</p>
+</aside>
+<h3 id="delete-12"><a class="header" href="#delete-12">delete</a></h3>
+<p>删除指定的 WorkflowRun。</p>
+<h4 id="使用-65"><a class="header" href="#使用-65">使用</a></h4>
+<pre><code>t9k workflowrun delete [names...] [--all] [-f]
+</code></pre>
+<p><code>t9k workflowrun delete</code> 也可以用 <code>t9k wr rm</code> 代替。</p>
+<h4 id="选项-49"><a class="header" href="#选项-49">选项</a></h4>
+<pre><code>--all                   删除当前 Project 中所有的 WorkflowRun。
+-f, --force             跳过确认，直接执行删除操作。
+</code></pre>
+<h4 id="全局选项-64"><a class="header" href="#全局选项-64">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-65"><a class="header" href="#示例-65">示例</a></h4>
+<p>删除 Project demo 下名为 foo 和 bar 的两个 WorkflowRun：</p>
+<pre><code>t9k workflowrun delete foo bar -p demo
+</code></pre>
+<p>跳过确认，直接删除 Project demo 下名为 foo 的 WorkflowRun：</p>
+<pre><code>t9k workflowrun delete foo -p demo -f
+</code></pre>
+<p>删除 Project demo 下所有的 WorkflowRun：</p>
+<pre><code>t9k workflowrun delete foo -p demo --all
+</code></pre>
+<h3 id="describe-12"><a class="header" href="#describe-12">describe</a></h3>
+<p>查看某个 WorkflowRun 的详细信息。</p>
+<h4 id="使用-66"><a class="header" href="#使用-66">使用</a></h4>
+<pre><code>t9k wr describe &lt;name&gt;
+</code></pre>
+<p><code>t9k wr describe</code> 也可以用 <code>t9k wr desc</code> 代替。</p>
+<h4 id="选项-50"><a class="header" href="#选项-50">选项</a></h4>
+<pre><code>--color                 使用彩色的输出信息（默认全是黑色）。
+</code></pre>
+<h4 id="全局选项-65"><a class="header" href="#全局选项-65">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-66"><a class="header" href="#示例-66">示例</a></h4>
+<p>查看 Project demo 下名为 foo 的 WorkflowRun 的详细描述：</p>
+<pre><code>t9k wr describe foo -p demo
+</code></pre>
+<h3 id="get-14"><a class="header" href="#get-14">get</a></h3>
+<p>查看 WorkflowRun 相关信息。</p>
+<h4 id="使用-67"><a class="header" href="#使用-67">使用</a></h4>
+<pre><code>t9k wr get [names...] [-A] [-o json|yaml|template]
+</code></pre>
+<h4 id="选项-51"><a class="header" href="#选项-51">选项</a></h4>
+<pre><code>-A, --all-namespaces    获取用户具有权限的所有 Namespace（Project）中的资源。
+-o, --output string     字符串，指定输出信息的形式。可选值有 `json`，`yaml` 和默认的 `template`。
+</code></pre>
+<h4 id="全局选项-66"><a class="header" href="#全局选项-66">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-67"><a class="header" href="#示例-67">示例</a></h4>
+<p>以默认格式查看 Project example 下所有 WorkflowRun：</p>
+<pre><code>t9k wr get -p example
+</code></pre>
+<p>以默认格式查看所有 Project 下的所有 WorkflowRun：</p>
+<pre><code>t9k wr get -A
+</code></pre>
+<p>以默认格式查看 Project example 下名为 foo 和 bar 的两个 WorkflowRun：</p>
+<pre><code>t9k wr get foo bar -p example
+</code></pre>
+<p>以 yaml 格式查看 Project example 下名为 foo 的 WorkflowRun：</p>
+<pre><code>t9k wr get foo -p example -o yaml
+</code></pre>
+<h3 id="logs-7"><a class="header" href="#logs-7">logs</a></h3>
+<p>查看 WorkflowRun 某个容器的日志，不支持直接查看 DAG 类型的 WorkflowRun 的日志。</p>
+<h4 id="使用-68"><a class="header" href="#使用-68">使用</a></h4>
+<pre><code>t9k wr logs [--container=&lt;containerName&gt;] [-f] [--tail] [--timestamps]
+</code></pre>
+<h4 id="选项-52"><a class="header" href="#选项-52">选项</a></h4>
+<pre><code>--container string      字符串，指定要查看的 container 名称，如果计算节点的 container 不止 1 个，必须指定此项。
+-f, --follow            流式查看日志。
+--tail int              整数，要查看的日志的行数（从后往前）。默认值：-1，查看全部日志。
+--timestamps            是否展示时间戳。
+</code></pre>
+<h4 id="全局选项-67"><a class="header" href="#全局选项-67">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-68"><a class="header" href="#示例-68">示例</a></h4>
+<p>查看 Project demo 下 WorkflowRun foo 唯一容器的日志：</p>
+<pre><code>t9k wr logs foo -p demo
+</code></pre>
+<p>流式查看 Project demo 下 WorkflowRun foo 容器 mnist 的日志：</p>
+<pre><code>t9k wr logs foo --container=mnist -p demo -f
+</code></pre>
+<p>查看 Project demo 下 WorkflowRun foo 唯一容器的最后 20 行日志：</p>
+<pre><code>t9k wr logs foo -p demo --tail=20
+</code></pre>
+<h3 id="wait-8"><a class="header" href="#wait-8">wait</a></h3>
+<p>等待 WorkflowRun 完成，该命令不支持 DAG 类型的 WorkflowRun。</p>
+<h4 id="使用-69"><a class="header" href="#使用-69">使用</a></h4>
+<pre><code>t9k wr wait &lt;name&gt; [--timeout=&lt;timeoutTime&gt;] [--period=&lt;periodTime&gt;] [--print-log [--container=&lt;containerName&gt;] [--timestamps]]
+</code></pre>
+<h4 id="选项-53"><a class="header" href="#选项-53">选项</a></h4>
+<pre><code>--timeout string        字符串，最长等待时间。默认值：&quot;1h&quot;，1 小时。
+--period  string        字符串，检查任务是否完成的周期。默认值：&quot;1s&quot;，每秒检查一次。
+--print-log             是否在等待时流式查看日志。
+
+以下参数只有在开启了 `--print-log` 后才生效。
+
+--container string      字符串，指定要查看的 container 名称，如果计算节点的 container 不止 1 个，必须指定此项。
+--timestamps            是否展示时间戳。
+</code></pre>
+<h4 id="全局选项-68"><a class="header" href="#全局选项-68">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-69"><a class="header" href="#示例-69">示例</a></h4>
+<p>等待 Project example 下的 WorkflowRun foo 完成：</p>
+<pre><code>t9k wr wait foo -p example
+</code></pre>
+<p>等待 Project example 下的 WorkflowRun foo 完成，只等待 10 分钟：</p>
+<pre><code>t9k wr wait foo -p example --timeout 10m
+</code></pre>
+<p>等待 Project example 下的 WorkflowRun foo 完成，同时打印其容器 mnist 的日志：</p>
+<pre><code>t9k wr wait foo -p example --print-log --container mnist
+</code></pre>
+<h2 id="workflowtemplate"><a class="header" href="#workflowtemplate">workflowtemplate</a></h2>
+<p>用于管理 <a href="../../modules/workflows/workflowtemplate.html">WorkflowTemplate</a>。</p>
+<aside class="note info">
+<div class="title">信息</div>
+<p>支持使用缩写 <code>wt</code> 代替 <code>workflowtemplate</code>。</p>
+</aside>
+<h3 id="delete-13"><a class="header" href="#delete-13">delete</a></h3>
+<p>删除指定的 WorkflowTemplate。</p>
+<h4 id="使用-70"><a class="header" href="#使用-70">使用</a></h4>
+<pre><code>t9k workflowtemplate delete [names...] [--all] [-f]
+</code></pre>
+<p><code>t9k workflowtemplate delete</code> 也可以用 <code>t9k wr rm</code> 代替。</p>
+<h4 id="选项-54"><a class="header" href="#选项-54">选项</a></h4>
+<pre><code>--all                   删除当前 Project 中所有的 WorkflowTemplate。
+-f, --force             跳过确认，直接执行删除操作。
+</code></pre>
+<h4 id="全局选项-69"><a class="header" href="#全局选项-69">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-70"><a class="header" href="#示例-70">示例</a></h4>
+<p>删除 Project demo 下名为 foo 和 bar 的两个 WorkflowTemplate：</p>
+<pre><code>t9k workflowtemplate delete foo bar -p demo
+</code></pre>
+<p>跳过确认，直接删除 Project demo 下名为 foo 的 WorkflowTemplate：</p>
+<pre><code>t9k workflowtemplate delete foo -p demo -f
+</code></pre>
+<p>删除 Project demo 下所有的 WorkflowTemplate：</p>
+<pre><code>t9k workflowtemplate delete foo -p demo --all
+</code></pre>
+<h3 id="describe-13"><a class="header" href="#describe-13">describe</a></h3>
+<p>查看某个 WorkflowTemplate 的详细信息。</p>
+<h4 id="使用-71"><a class="header" href="#使用-71">使用</a></h4>
+<pre><code>t9k wt describe &lt;name&gt;
+</code></pre>
+<p><code>t9k wt describe</code> 也可以用 <code>t9k wt desc</code> 代替。</p>
+<h4 id="选项-55"><a class="header" href="#选项-55">选项</a></h4>
+<pre><code>--color                 使用彩色的输出信息（默认全是黑色）。
+</code></pre>
+<h4 id="全局选项-70"><a class="header" href="#全局选项-70">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-71"><a class="header" href="#示例-71">示例</a></h4>
+<p>查看 Project demo 下名为 foo 的 WorkflowTemplate 的详细描述：</p>
+<pre><code>t9k wt describe foo -p demo
+</code></pre>
+<h3 id="get-15"><a class="header" href="#get-15">get</a></h3>
+<p>查看 WorkflowTemplate 相关信息。</p>
+<h4 id="使用-72"><a class="header" href="#使用-72">使用</a></h4>
+<pre><code>t9k wt get [names...] [-A] [-o json|yaml|template]
+</code></pre>
+<h4 id="选项-56"><a class="header" href="#选项-56">选项</a></h4>
+<pre><code>-A, --all-namespaces    获取用户具有权限的所有 Namespace（Project）中的资源。
+-o, --output string     字符串，指定输出信息的形式。可选值有 `json`，`yaml` 和默认的 `template`。
+</code></pre>
+<h4 id="全局选项-71"><a class="header" href="#全局选项-71">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-72"><a class="header" href="#示例-72">示例</a></h4>
+<p>以默认格式查看 Project example 下所有 WorkflowTemplate：</p>
+<pre><code>t9k wt get -p example
+</code></pre>
+<p>以默认格式查看所有 Project 下的所有 WorkflowTemplate：</p>
+<pre><code>t9k wt get -A
+</code></pre>
+<p>以默认格式查看 Project example 下名为 foo 和 bar 的两个 WorkflowTemplate：</p>
+<pre><code>t9k wt get foo bar -p example
+</code></pre>
+<p>以 yaml 格式查看 Project example 下名为 foo 的 WorkflowTemplate：</p>
+<pre><code>t9k wt get foo -p example -o yaml
+</code></pre>
+<h3 id="start"><a class="header" href="#start">start</a></h3>
+<p>执行 WorkflowTemplate。</p>
+<h4 id="使用-73"><a class="header" href="#使用-73">使用</a></h4>
+<pre><code>t9k wt start &lt;name&gt; [-l &lt;labelStrings&gt;] [-r &lt;paramStrings&gt;] [-s &lt;serviceAccount&gt;] [--timeout=&lt;timeoutTime&gt;] [-w &lt;workplaceStrings&gt;] [--use-param-defaults] [--dry-run] [-o yaml|json]
+</code></pre>
+<h4 id="选项-57"><a class="header" href="#选项-57">选项</a></h4>
+<pre><code>-l, --label strings          以键值对的方式指定 workflowRun 的 label。例如 -l &quot;LABEL_1=VAL_1,LABEL_2=VAL_2&quot;。
+-r, --param strings          以键值对的方式指定 workflowRun 的参数。例如 -l &quot;KEY_1=VAL_1,KEY_2=VAL_2&quot;。
+-w, --workspace strings      以键值对的方式指定 workspace 相关信息。例如 -w &quot;name=$workspace_name,type=$workspace_type,$key$value&quot;。
+--use-param-defaults         是否采用默认参数
+--timeout string             字符串，指定 workflowRun 的超时时间。
+--dry-run                    只打印更新后的 yaml 文件，但是不执行 apply 操作。
+-o, --output string          指定 --dry-run 打印的格式。可选值有 `json`，`yaml`。
+-s, --serviceaccount string  指定 workflowRun 的 serviceAccount。
+</code></pre>
+<h4 id="全局选项-72"><a class="header" href="#全局选项-72">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-73"><a class="header" href="#示例-73">示例</a></h4>
+<p>执行 Project demo 下的 WorkflowTemplate foo：</p>
+<pre><code>t9k wt start foo -p demo
+</code></pre>
+<p>根据指定的 workspace 信息执行 Project demo 下的 WorkflowTemplate foo：</p>
+<pre><code>t9k wt start foo --workspace=name=bar,type=pvc,claimName=bar-pvc,subPath=/user/local/Document -p demo
+</code></pre>
+<p>执行 Project demo 下的 WorkflowTemplate foo，并设置参数 bar 值为 hello：</p>
+<pre><code>t9k wt start foo --param=bar=hello
+</code></pre>
+<h2 id="xgboosttrainingjob"><a class="header" href="#xgboosttrainingjob">xgboosttrainingjob</a></h2>
+<p>用于管理 <a href="../../modules/jobs/xgboosttrainingjob.html">XGBoostTrainingJob</a>。</p>
+<aside class="note info">
+<div class="title">信息</div>
+<p>支持使用缩写 <code>xj</code> 代替 <code>xgboosttrainingjob</code>。</p>
+</aside>
+<h3 id="delete-14"><a class="header" href="#delete-14">delete</a></h3>
+<p>删除指定的 XGBoostTrainingJob。</p>
+<h4 id="使用-74"><a class="header" href="#使用-74">使用</a></h4>
+<pre><code>t9k xgboosttrainingjob delete [names...] [--all] [-f]
+</code></pre>
+<p><code>t9k xgboosttrainingjob delete</code> 也可以用 <code>t9k xj rm</code> 代替。</p>
+<h4 id="选项-58"><a class="header" href="#选项-58">选项</a></h4>
+<pre><code>--all                   删除当前 Project 中所有的 XGBoostTrainingJob。
+-f, --force             跳过确认，直接执行删除操作。
+</code></pre>
+<h4 id="全局选项-73"><a class="header" href="#全局选项-73">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-74"><a class="header" href="#示例-74">示例</a></h4>
+<p>删除 Project demo 下名为 foo 和 bar 的两个 XGBoostTrainingJob：</p>
+<pre><code>t9k xgboosttrainingjob delete foo bar -p demo
+</code></pre>
+<p>跳过确认，直接删除 Project demo 下名为 foo 的 XGBoostTrainingJob：</p>
+<pre><code>t9k xgboosttrainingjob delete foo -p demo -f
+</code></pre>
+<p>删除 Project demo 下所有的 XGBoostTrainingJob：</p>
+<pre><code>t9k xgboosttrainingjob delete foo -p demo --all
+</code></pre>
+<h3 id="describe-14"><a class="header" href="#describe-14">describe</a></h3>
+<p>查看某个 XGBoostTrainingJob 的详细信息。</p>
+<h4 id="使用-75"><a class="header" href="#使用-75">使用</a></h4>
+<pre><code>t9k xj describe &lt;name&gt;
+</code></pre>
+<p><code>t9k xj describe</code> 也可以用 <code>t9k xj desc</code> 代替。</p>
+<h4 id="全局选项-74"><a class="header" href="#全局选项-74">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-75"><a class="header" href="#示例-75">示例</a></h4>
+<p>查看 Project demo 下名为 foo 的 XGBoostTrainingJob 的详细描述：</p>
+<pre><code>t9k xj describe foo -p demo
+</code></pre>
+<h3 id="get-16"><a class="header" href="#get-16">get</a></h3>
+<p>查看 XGBoostTrainingJob 相关信息。</p>
+<h4 id="使用-76"><a class="header" href="#使用-76">使用</a></h4>
+<pre><code>t9k xj get [names...] [-A] [-o json|yaml|template]
+</code></pre>
+<h4 id="选项-59"><a class="header" href="#选项-59">选项</a></h4>
+<pre><code>-A, --all-namespaces    获取用户具有权限的所有 Namespace（Project）中的资源。
+-o, --output string     字符串，指定输出信息的形式。可选值有 `json`，`yaml` 和默认的 `template`。
+</code></pre>
+<h4 id="全局选项-75"><a class="header" href="#全局选项-75">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-76"><a class="header" href="#示例-76">示例</a></h4>
+<p>以默认格式查看 Project example 下所有 XGBoostTrainingJob：</p>
+<pre><code>t9k xj get -p example
+</code></pre>
+<p>以默认格式查看所有 Project 下的所有 XGBoostTrainingJob：</p>
+<pre><code>t9k xj get -A
+</code></pre>
+<p>以默认格式查看 Project example 下名为 foo 和 bar 的两个 XGBoostTrainingJob：</p>
+<pre><code>t9k xj get foo bar -p example
+</code></pre>
+<p>以 yaml 格式查看 Project example 下名为 foo 的 XGBoostTrainingJob：</p>
+<pre><code>t9k xj get foo -p example -o yaml
+</code></pre>
+<h3 id="logs-8"><a class="header" href="#logs-8">logs</a></h3>
+<p>查看 XGBoostTrainingJob 某个计算节点的日志。</p>
+<h4 id="使用-77"><a class="header" href="#使用-77">使用</a></h4>
+<pre><code>t9k xj logs [--type=master|worker] [--index=&lt;replicaIndex&gt;] [--container=&lt;containerName&gt;] [-f] [--tail] [--timestamps]
+</code></pre>
+<h4 id="选项-60"><a class="header" href="#选项-60">选项</a></h4>
+<pre><code>--container string      字符串，指定要查看的 container 名称，如果计算节点的 container 不止 1 个，必须指定此项。
+-f, --follow            流式查看日志。
+--index string          字符串，要查看的计算节点的序号。默认值：0。
+--tail int              整数，要查看的日志的行数（从后往前）。默认值：-1，查看全部日志。
+--timestamps            是否展示时间戳。
+--type string           字符串，要查看的计算节点的角色。可选值有 `master` 以及默认值 `worker`。
+</code></pre>
+<h4 id="全局选项-76"><a class="header" href="#全局选项-76">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-77"><a class="header" href="#示例-77">示例</a></h4>
+<p>查看 Project example 下 XGBoostTrainingJob foo 第 <code>replicaIndex</code> 个 <code>replicaType</code> 节点的日志：</p>
+<pre><code>t9k xj logs foo --type=replicaType --index=replicaIndex -p example
+</code></pre>
+<p>流式查看 Project example 下 XGBoostTrainingJob foo 第 <code>replicaIndex</code> 个 <code>replicaType</code> 节点的容器 <code>mnist</code> 的日志：</p>
+<pre><code>t9k xj logs foo --type=replicaType --index=replicaIndex --container=mnist --follow
+</code></pre>
+<p>查看 XGBoostTrainingJob foo 第 0 个 worker 节点的最后 20 行日志：</p>
+<pre><code>t9k xj logs foo --tail 20
+</code></pre>
+<h3 id="wait-9"><a class="header" href="#wait-9">wait</a></h3>
+<p>等待 XGBoostTrainingJob 完成。</p>
+<h4 id="使用-78"><a class="header" href="#使用-78">使用</a></h4>
+<pre><code>t9k xj wait &lt;name&gt; [--timeout=&lt;timeoutTime&gt;] [--period=&lt;periodTime&gt;] [--print-log [--type=master|worker] [--index=&lt;replicaIndex&gt;] [--container=&lt;containerName&gt;] [--timestamps]]
+</code></pre>
+<h4 id="选项-61"><a class="header" href="#选项-61">选项</a></h4>
+<pre><code>--timeout string        字符串，最长等待时间。默认值：&quot;1h&quot;，1 小时。
+--period  string        字符串，检查任务是否完成的周期。默认值：&quot;1s&quot;，每秒检查一次。
+--print-log             是否在等待时流式查看日志。
+
+以下参数只有在开启了 `--print-log` 后才生效。
+
+--container string      字符串，指定要查看的 container 名称，如果计算节点的 container 不止 1 个，必须指定此项。
+--index string          字符串，要查看的计算节点的序号。默认值：0。
+--timestamps            是否展示时间戳。
+--type string           字符串，要查看的计算节点的角色。可选值有 `master` 以及默认值 `worker`。
+</code></pre>
+<h4 id="全局选项-77"><a class="header" href="#全局选项-77">全局选项</a></h4>
+<pre><code>-c, --config            字符串，指定使用的 T9k Config 文件的路径。默认路径是 `$HOME/.t9k/t9k-config.yaml`。
+-x, --context           字符串，指定使用 T9k Config 中的哪一个 Context，在未设置这个参数时，会使用 T9k Config 中 `current-context` 字段指定的 Context。
+-h, --help              查看当前指令的帮助信息和示例。
+-p, --project           字符串，指定使用的项目（本文档中的项目和命名空间同义）。
+-n, --namespace         字符串，和 `-p, --project` 作用一致，指定使用的项目。这个设计是为了符合 kubectl 用户的习惯。
+-v, --verbose           指定输出 log 信息的详细程度。
+</code></pre>
+<h4 id="示例-78"><a class="header" href="#示例-78">示例</a></h4>
+<p>等待 Project example 下的 XGBoostTrainingJob foo 完成：</p>
+<pre><code>t9k xj wait foo -p example
+</code></pre>
+<p>等待 Project example 下的 XGBoostTrainingJob foo 完成，只等待 10 分钟：</p>
+<pre><code>t9k xj wait foo -p example --timeout 10m
+</code></pre>
+<p>等待 Project example 下的 XGBoostTrainingJob foo 完成，同时打印节点 master-0 的日志：</p>
+<pre><code>t9k xj wait foo -p example --print-log --type master --index 0
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../tools/cli-t9k/guide.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../tools/cli-t9k-pf/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../tools/cli-t9k/guide.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../tools/cli-t9k-pf/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../../theme/sidebar.js"></script>
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,38 @@
+apiVersion: tensorstack.dev/v1beta1
+kind: SimpleMLService
+metadata:
+  name: label-studio-sam
+spec:
+  replicas: 1
+  service:
+    type: ClusterIP
+    ports:
+    - targetPort: 9090
+      port: 9090
+  custom:
+    spec:
+      containers:
+      - name: server
+        image: t9kpublic/label-studio-sam:main
+        env:
+          - name: SAM_CHOICE
+            value: MobileSAM
+          - name: LOG_LEVEL
+            value: DEBUG
+          - name: LABEL_STUDIO_HOST
+            value: http://10.233.12.87:80
+          - name: LABEL_STUDIO_ACCESS_TOKEN
+            value: 381ae0357804f39d01e5d169b8ed0cf548925a57
+        ports:
+        - containerPort: 9090
+        resources:
+          limits:
+            cpu: 8
+            memory: 8Gi
+        volumeMounts:
+        - mountPath: /dev/shm
+          name: dshm
+      volumes:
+      - name: dshm
+        emptyDir:
+          medium: Memory
