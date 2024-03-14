@@ -164,6 +164,16 @@
                             <i class="fa fa-search"></i>
                         </button>
                         {{/if}}
+                        <!-- custom code for adding release version dropdown menu -->
+                        <div class="version-dropdown">
+                            <button id="release-version" class="icon-button" type="button" title="Release version" aria-label="Release version" aria-haspopup="true" aria-expanded="false" aria-controls="release-versions">
+                                <i class="fa fa-book"></i>
+                            </button>
+                            <div class="version-dropdown-content">
+                                <a href="https://t9k.github.io/user-manuals/latest/index.html"target="_blank" rel="noopener noreferrer">latest</a>
+                                <a href="https://t9k.github.io/user-manuals/v20240206/index.html"target="_blank" rel="noopener noreferrer">v20240206</a>
+                            </div>
+                        </div>
                     </div>
 
                     <h1 class="menu-title">{{ book_title }}</h1>
