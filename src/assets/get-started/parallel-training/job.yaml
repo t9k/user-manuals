@@ -8,11 +8,8 @@ spec:
       limits:
         cpu: 1
         memory: 1Gi
-    logDir:
-      pvc:
-      - name: mnist
-        subpath: 
-        - ./log                  # 日志文件路径
+    trainingLogFilesets:
+      - t9k://pvc/mnist/log      # 日志文件路径
     image: tensorflow/tensorflow:2.14.0
                                  # TensorBoard 服务器使用的镜像
   torchrunConfig:
