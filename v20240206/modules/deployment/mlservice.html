@@ -614,7 +614,7 @@ status:
 }
 </code></pre>
 <p>并调用推理服务：</p>
-<pre><code class="language-bash"># 数据在 https://github.com/t9k/tutorial-examples/blob/master/deployment/pvc/mlservice-torch/test_data/0.png
+<pre><code class="language-bash"># 数据在 https://github.com/t9k/tutorial-examples/blob/v20240206/deployment/pvc/mlservice-torch/test_data/0.png
 $ curl -T test_data/0.png http://torch-mnist.&lt;project-name&gt;.&lt;domain-name&gt;/v1/models/mnist:predict
 {
     &quot;predictions&quot;: &lt;predict-result&gt;

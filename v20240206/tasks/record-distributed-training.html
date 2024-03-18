@@ -195,7 +195,7 @@
 <p>对于 Keras 模型，<code>t9k.em</code> 提供了使用更加方便的回调，详见<a href="./record-using-python-sdk.html#%E8%87%AA%E5%8A%A8%E8%AE%B0%E5%BD%95">自动记录</a>。</p>
 </aside>
 <h2 id="运行示例"><a class="header" href="#运行示例">运行示例</a></h2>
-<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/master/em/data-parallel-training">本教程对应的示例</a>，参照其 README 文档运行。</p>
+<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/v20240206/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/v20240206/em/data-parallel-training">本教程对应的示例</a>，参照其 README 文档运行。</p>
 <p>下面介绍训练脚本进行了哪些修改以追踪训练。该方法是通用的，可以推广到任意类型的 TrainingJob、DeepSpeedJob、ColossalAIJob、MPIJob 或 GenericJob。</p>
 <h2 id="准备训练脚本"><a class="header" href="#准备训练脚本">准备训练脚本</a></h2>
 <p>准备一个 PyTorch 训练脚本，其模型对 MNIST 数据集的图像进行分类，使用 <code>DistributedDataParallel</code>（DDP）模块进行分布式训练，具体代码如下所示（这里使用与<a href="./pytorch-training-parallel.html">使用 PyTorchTrainingJob 进行数据并行训练</a>相同的脚本）。接下来将在此脚本的基础上进行简单的修改以进行追踪。</p>

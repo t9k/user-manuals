@@ -2390,7 +2390,7 @@ status:
 }
 </code></pre>
 <p>并调用推理服务：</p>
-<pre><code class="language-bash"># 数据在 https://github.com/t9k/tutorial-examples/blob/master/deployment/pvc/mlservice-torch/test_data/0.png
+<pre><code class="language-bash"># 数据在 https://github.com/t9k/tutorial-examples/blob/v20240206/deployment/pvc/mlservice-torch/test_data/0.png
 $ curl -T test_data/0.png http://torch-mnist.&lt;project-name&gt;.&lt;domain-name&gt;/v1/models/mnist:predict
 {
     &quot;predictions&quot;: &lt;predict-result&gt;
@@ -2521,7 +2521,7 @@ spec:
 <pre><code class="language-bash">kubectl create -f event-display.yaml
 </code></pre>
 <h3 id="部署-mlservice"><a class="header" href="#部署-mlservice">部署 MLService</a></h3>
-<p>请按照<a href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，基于<a href="https://github.com/t9k/tutorial-examples/tree/master/deployment/mlservice/torch-pvc">部署用于生产环境的模型推理服务</a>示例来部署 MLService logger-example。</p>
+<p>请按照<a href="https://github.com/t9k/tutorial-examples/blob/v20240206/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，基于<a href="https://github.com/t9k/tutorial-examples/tree/v20240206/deployment/mlservice/torch-pvc">部署用于生产环境的模型推理服务</a>示例来部署 MLService logger-example。</p>
 <p>首先将 mlservice.yaml 修改为下列内容，注意：</p>
 <ol>
 <li>event-display 和 MLService 需要部署在同一个 namespace/project 中。</li>
@@ -2562,7 +2562,7 @@ spec:
              memory: 1Gi
 </code></pre>
 </details>
-<p>然后按照 <a href="https://github.com/t9k/tutorial-examples/blob/master/deployment/mlservice/torch-pvc/README.md#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4">README 文档</a>的操作步骤进行操作。</p>
+<p>然后按照 <a href="https://github.com/t9k/tutorial-examples/blob/v20240206/deployment/mlservice/torch-pvc/README.md#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4">README 文档</a>的操作步骤进行操作。</p>
 <h3 id="查看日志"><a class="header" href="#查看日志">查看日志</a></h3>
 <p>查看 event-display 容器的日志，可看到日志中打印的 CloudEvent 记录了预测请求的详细信息：</p>
 <details><summary><code class="hljs">terminal.log</code></summary>
@@ -6693,7 +6693,7 @@ spec:
 <h2 id="下一步-31"><a class="header" href="#下一步-31">下一步</a></h2>
 <ul>
 <li>使用控制台：<a href="modules/auxiliary/../../tasks/build-image.html">构建镜像</a></li>
-<li>Github 上的 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/master/build-image/build-image-on-platform">ImagerBuilder 示例</a></li>
+<li>Github 上的 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/v20240206/build-image/build-image-on-platform">ImagerBuilder 示例</a></li>
 <li><a target="_blank" rel="noopener noreferrer" href="https://github.com/GoogleContainerTools/kaniko">kaniko 的详细参考</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
@@ -8246,7 +8246,7 @@ now you can forward to your target by 127.0.0.1:&lt;Port&gt;
 <li>成为一个<a href="tasks/../modules/security/project.html">项目</a>的管理员或<a href="tasks/./add-project-member.html">成员</a>。</li>
 </ul>
 <h2 id="运行示例"><a class="header" href="#运行示例">运行示例</a></h2>
-<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/master/tensorboard">本教程对应的示例</a>，参照其 README 文档运行。</p>
+<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/v20240206/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/v20240206/tensorboard">本教程对应的示例</a>，参照其 README 文档运行。</p>
 <aside class="note tip">
 <div class="title">提示</div>
 <p>上述操作使用 YAML 配置文件创建 TensorBoard，你也可以在模型构建控制台进行创建。</p>
@@ -8264,7 +8264,7 @@ now you can forward to your target by 127.0.0.1:&lt;Port&gt;
 <h1 id="构建镜像"><a class="header" href="#构建镜像">构建镜像</a></h1>
 <p>本教程演示如何在平台上构建容器镜像（container image）并推送到指定的容器镜像仓库（container registry）。</p>
 <h2 id="运行示例-1"><a class="header" href="#运行示例-1">运行示例</a></h2>
-<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/master/build-image/build-image-on-platform">本教程对应的示例</a>，参照其 README 文档运行。</p>
+<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/v20240206/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/v20240206/build-image/build-image-on-platform">本教程对应的示例</a>，参照其 README 文档运行。</p>
 <aside class="note tip">
 <div class="title">提示</div>
 <p>上述操作使用 YAML 配置文件创建 Secret 和 Image Builder，你也可以在模型构建控制台进行创建。</p>
@@ -8706,7 +8706,7 @@ dataset             Bound    pvc-cc7f789a-6fcb-44a0-8f42-0e6c86e51a1a   1       
 <h1 id="使用-pytorchtrainingjob-进行数据并行训练"><a class="header" href="#使用-pytorchtrainingjob-进行数据并行训练">使用 PyTorchTrainingJob 进行数据并行训练</a></h1>
 <p>本教程演示如何使用 PyTorchTrainingJob 对 PyTorch 模型进行多工作器同步训练（使用 <a target="_blank" rel="noopener noreferrer" href="https://pytorch.org/docs/stable/generated/torch.nn.parallel.DistributedDataParallel.html"><code>torch.nn.parallel.DistributedDataParallel</code></a> 分布式数据并行模块）。</p>
 <h2 id="运行示例-2"><a class="header" href="#运行示例-2">运行示例</a></h2>
-<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/master/job/pytorchtrainingjob/ddp">本教程对应的示例</a>，参照其 README 文档运行。</p>
+<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/v20240206/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/v20240206/job/pytorchtrainingjob/ddp">本教程对应的示例</a>，参照其 README 文档运行。</p>
 <aside class="note tip">
 <div class="title">提示</div>
 <p>上述操作使用 YAML 配置文件创建 PyTorchTrainingJob，你也可以在模型构建控制台进行创建。</p>
@@ -8749,7 +8749,7 @@ dataset             Bound    pvc-cc7f789a-6fcb-44a0-8f42-0e6c86e51a1a   1       
 <h1 id="使用-pytorchtrainingjob-进行参数服务器训练"><a class="header" href="#使用-pytorchtrainingjob-进行参数服务器训练">使用 PyTorchTrainingJob 进行参数服务器训练</a></h1>
 <p>本教程演示如何使用 PyTorchTrainingJob 对 PyTorch 模型进行基于 RPC 的参数服务器训练（使用<a target="_blank" rel="noopener noreferrer" href="https://pytorch.org/docs/stable/rpc.html">分布式 RPC 框架 <code>torch.distributed.rpc</code></a>）。示例修改自 PyTorch 官方教程 <a target="_blank" rel="noopener noreferrer" href="https://pytorch.org/tutorials/intermediate/rpc_param_server_tutorial.html">Implementing a Parameter Server Using Distributed RPC Framework</a>，关于训练脚本的更多细节信息请参考此教程。</p>
 <h2 id="运行示例-3"><a class="header" href="#运行示例-3">运行示例</a></h2>
-<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/master/job/pytorchtrainingjob/ps">本教程对应的示例</a>，参照其 README 文档运行。</p>
+<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/v20240206/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/v20240206/job/pytorchtrainingjob/ps">本教程对应的示例</a>，参照其 README 文档运行。</p>
 <aside class="note tip">
 <div class="title">提示</div>
 <p>上述操作使用 YAML 配置文件创建 PyTorchTrainingJob，你也可以在模型构建控制台进行创建。</p>
@@ -8792,7 +8792,7 @@ dataset             Bound    pvc-cc7f789a-6fcb-44a0-8f42-0e6c86e51a1a   1       
 <h1 id="使用-tensorflowtrainingjob-进行数据并行训练"><a class="header" href="#使用-tensorflowtrainingjob-进行数据并行训练">使用 TensorFlowTrainingJob 进行数据并行训练</a></h1>
 <p>本教程演示如何使用 TensorFlowTrainingJob 对 Keras 模型进行数据并行训练（采用 <a target="_blank" rel="noopener noreferrer" href="https://www.tensorflow.org/api_docs/python/tf/distribute/MultiWorkerMirroredStrategy"><code>tf.distribute.MultiWorkerMirroredStrategy</code></a> 分布式策略）。</p>
 <h2 id="运行示例-4"><a class="header" href="#运行示例-4">运行示例</a></h2>
-<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/master/job/tensorflowtrainingjob/multiworker">本教程对应的示例</a>，参照其 README 文档运行。</p>
+<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/v20240206/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/v20240206/job/tensorflowtrainingjob/multiworker">本教程对应的示例</a>，参照其 README 文档运行。</p>
 <aside class="note tip">
 <div class="title">提示</div>
 <p>上述操作使用 YAML 配置文件创建 TensorFlowTrainingJob，你也可以在模型构建控制台进行创建。</p>
@@ -8835,7 +8835,7 @@ dataset             Bound    pvc-cc7f789a-6fcb-44a0-8f42-0e6c86e51a1a   1       
 <h1 id="使用-tensorflowtrainingjob-进行参数服务器训练"><a class="header" href="#使用-tensorflowtrainingjob-进行参数服务器训练">使用 TensorFlowTrainingJob 进行参数服务器训练</a></h1>
 <p>本教程演示如何使用 TensorFlowTrainingJob 对 Keras 模型进行参数服务器（parameter server）训练（采用 <a target="_blank" rel="noopener noreferrer" href="https://www.tensorflow.org/api_docs/python/tf/distribute/experimental/ParameterServerStrategy"><code>tf.distribute.experimental.ParameterServerStrategy</code></a> 分布式策略）。</p>
 <h2 id="运行示例-5"><a class="header" href="#运行示例-5">运行示例</a></h2>
-<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/master/job/tensorflowtrainingjob/ps">本教程对应的示例</a>，参照其 README 文档运行。</p>
+<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/v20240206/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/v20240206/job/tensorflowtrainingjob/ps">本教程对应的示例</a>，参照其 README 文档运行。</p>
 <aside class="note tip">
 <div class="title">提示</div>
 <p>上述操作使用 YAML 配置文件创建 TensorFlowTrainingJob，你也可以在模型构建控制台进行创建。</p>
@@ -8878,7 +8878,7 @@ dataset             Bound    pvc-cc7f789a-6fcb-44a0-8f42-0e6c86e51a1a   1       
 <h1 id="使用-horovod-进行-pytorch-模型的数据并行训练"><a class="header" href="#使用-horovod-进行-pytorch-模型的数据并行训练">使用 Horovod 进行 PyTorch 模型的数据并行训练</a></h1>
 <p>本教程演示如何使用 MPIJob 对 PyTorch 模型进行多工作器同步训练（使用 <a target="_blank" rel="noopener noreferrer" href="https://horovod.readthedocs.io/en/stable/api.html#module-horovod.torch"><code>horovod.torch</code></a> 模块）。</p>
 <h2 id="运行示例-6"><a class="header" href="#运行示例-6">运行示例</a></h2>
-<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/master/job/mpijob/horovod-torch">本教程对应的示例</a>，参照其 README 文档运行。</p>
+<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/v20240206/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/v20240206/job/mpijob/horovod-torch">本教程对应的示例</a>，参照其 README 文档运行。</p>
 <aside class="note tip">
 <div class="title">提示</div>
 <p>上述操作使用 YAML 配置文件创建 MPIJob，你也可以在模型构建控制台进行创建。</p>
@@ -8917,7 +8917,7 @@ dataset             Bound    pvc-cc7f789a-6fcb-44a0-8f42-0e6c86e51a1a   1       
 <h1 id="使用-horovod-进行-keras-模型的数据并行训练"><a class="header" href="#使用-horovod-进行-keras-模型的数据并行训练">使用 Horovod 进行 Keras 模型的数据并行训练</a></h1>
 <p>本教程演示如何使用 MPIJob 对 Keras 模型进行多工作器同步训练（使用 <a target="_blank" rel="noopener noreferrer" href="https://horovod.readthedocs.io/en/stable/api.html#module-horovod.tensorflow.keras"><code>horovod.tensorflow.keras</code></a> 模块）。</p>
 <h2 id="运行示例-7"><a class="header" href="#运行示例-7">运行示例</a></h2>
-<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/master/job/mpijob/horovod-keras">本教程对应的示例</a>，参照其 README 文档运行。</p>
+<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/v20240206/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/v20240206/job/mpijob/horovod-keras">本教程对应的示例</a>，参照其 README 文档运行。</p>
 <aside class="note tip">
 <div class="title">提示</div>
 <p>上述操作使用 YAML 配置文件创建 MPIJob，你也可以在模型构建控制台进行创建。</p>
@@ -9025,7 +9025,7 @@ dataset             Bound    pvc-cc7f789a-6fcb-44a0-8f42-0e6c86e51a1a   1       
 <h1 id="调试-job"><a class="header" href="#调试-job">调试 Job</a></h1>
 <p>本教程演示如何使用 Job 的<a href="tasks/../modules/jobs/pytorchtrainingjob.html#%E8%B0%83%E8%AF%95%E6%A8%A1%E5%BC%8F">调试模式</a>这一功能来对计算任务进行调试。</p>
 <h2 id="运行示例-8"><a class="header" href="#运行示例-8">运行示例</a></h2>
-<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/master/job/debug">本教程对应的示例</a>，参照其 README 文档运行。</p>
+<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/v20240206/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/v20240206/job/debug">本教程对应的示例</a>，参照其 README 文档运行。</p>
 <h2 id="通过-ssh-远程连接"><a class="header" href="#通过-ssh-远程连接">通过 SSH 远程连接</a></h2>
 <p>对于开启了 SSH 服务的容器，建立 SSH 连接的操作步骤和 Notebook 相同，请参照<a href="tasks/./ssh-notebook.html">通过 SSH 远程使用 Notebook</a>进行操作。唯一不同的是端口转发使用 <code>t9k-pf pod</code> 命令，而非 
 <code>t9k-pf notebook</code> 命令：</p>
@@ -9495,7 +9495,7 @@ spec:
 <h1 id="简单推理服务"><a class="header" href="#简单推理服务">简单推理服务</a></h1>
 <p>本教程演示如何使用 SimpleMLService 快速部署一个模型推理服务。</p>
 <h2 id="运行示例-9"><a class="header" href="#运行示例-9">运行示例</a></h2>
-<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/deployment/simplemlservice">本教程的示例</a>，参照其 README 文档运行。本示例使用 PVC 中存储的模型创建了一个 SimpleMLService 服务。</p>
+<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/v20240206/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/v20240206/deployment/simplemlservice">本教程的示例</a>，参照其 README 文档运行。本示例使用 PVC 中存储的模型创建了一个 SimpleMLService 服务。</p>
 <aside class="note tip">
 <div class="title">提示</div>
 <p>除了上述直接提供 YAML 配置文件的方法外，你也可以选择从网页控制台创建 SimpleMLService。</p>
@@ -9518,7 +9518,7 @@ spec:
 <h1 id="模型推理服务"><a class="header" href="#模型推理服务">模型推理服务</a></h1>
 <p>本教程演示如何使用 MLService 部署一个功能完善、自动化程度高，可用于生产环境的模型推理服务。</p>
 <h2 id="运行示例-10"><a class="header" href="#运行示例-10">运行示例</a></h2>
-<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/deployment/mlservice/torch-pvc">本教程的示例</a>，参照其 README 文档运行。本示例使用 PVC 中存储的模型创建了一个 MLService 服务。</p>
+<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/v20240206/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/v20240206/deployment/mlservice/torch-pvc">本教程的示例</a>，参照其 README 文档运行。本示例使用 PVC 中存储的模型创建了一个 MLService 服务。</p>
 <aside class="note tip">
 <div class="title">提示</div>
 <p>除了上述直接提供 YAML 配置文件的方法外，你也可以选择从网页控制台创建 MLService。</p>
@@ -9550,7 +9550,7 @@ spec:
 <h1 id="包含-transformer-的推理服务"><a class="header" href="#包含-transformer-的推理服务">包含 Transformer 的推理服务</a></h1>
 <p>本教程演示如何使用 TensorStack SDK 创建 Transformer 镜像，然后部署包含该 Transformer 的 MLService。</p>
 <h2 id="准备工作-6"><a class="header" href="#准备工作-6">准备工作</a></h2>
-<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备此次部署需要用到的 PVC 和 Notebook。</p>
+<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/v20240206/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备此次部署需要用到的 PVC 和 Notebook。</p>
 <h2 id="编写-transformer-逻辑"><a class="header" href="#编写-transformer-逻辑">编写 Transformer 逻辑</a></h2>
 <p>接下来开始制作供 MLService 使用的 Transformer 镜像。首先进入 Notebook，启动一个终端，切换到对应目录：</p>
 <pre><code class="language-bash">cd ~/tutorial-examples/deployment/mlservice/transformer
@@ -9622,7 +9622,7 @@ RUN pip install t9k-sdk.tar.gz  -i https://pypi.tuna.tsinghua.edu.cn/simple
 ENTRYPOINT [&quot;python&quot;, &quot;server.py&quot;]
 </code></pre>
 <p>上述 Dockerfile 引入了相关依赖，并将上一步的 <code>server.py</code> 文件作为启动命令。用户可以参考该文件来实现自定义的镜像。</p>
-<p>然后我们通过运行一个 ImageBuilder 来制作镜像，为了使用 ImageBuilder，首先我们需要参照<a href="https://github.com/t9k/tutorial-examples/blob/master/build-image/build-image-on-platform/README.md#%E5%88%9B%E5%BB%BA-secret">创建 Secret</a>准备上传镜像所需要的 DockerConfig <code>Secret</code>。</p>
+<p>然后我们通过运行一个 ImageBuilder 来制作镜像，为了使用 ImageBuilder，首先我们需要参照<a href="https://github.com/t9k/tutorial-examples/blob/v20240206/build-image/build-image-on-platform/README.md#%E5%88%9B%E5%BB%BA-secret">创建 Secret</a>准备上传镜像所需要的 DockerConfig <code>Secret</code>。</p>
 <p>完成后修改 <code>imagebuilder.yaml</code> 文件，将 <code>spec.dockerConfig.secret</code> 修改为上一步中创建的 DockerConfig <code>Secret</code> 的名称，并将 <code>spec.tag</code> 修改为目标镜像，并执行以下命令：</p>
 <pre><code>kubectl apply -f imagebuilder.yaml
 </code></pre>
@@ -10936,7 +10936,7 @@ artifact.upload(folder='default', make_folder=True)
 <p>对于 Keras 模型，<code>t9k.em</code> 提供了使用更加方便的回调，详见<a href="tasks/./record-using-python-sdk.html#%E8%87%AA%E5%8A%A8%E8%AE%B0%E5%BD%95">自动记录</a>。</p>
 </aside>
 <h2 id="运行示例-11"><a class="header" href="#运行示例-11">运行示例</a></h2>
-<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/master/em/single-worker-training">本教程对应的示例</a>，参照其 README 文档运行。</p>
+<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/v20240206/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/v20240206/em/single-worker-training">本教程对应的示例</a>，参照其 README 文档运行。</p>
 <p>下面介绍训练脚本进行了哪些修改以追踪训练。</p>
 <h2 id="准备训练脚本-1"><a class="header" href="#准备训练脚本-1">准备训练脚本</a></h2>
 <p>准备一个 PyTorch 训练脚本，其模型对 MNIST 数据集的图像进行分类，具体代码如下所示。接下来将在此脚本的基础上进行简单的修改以进行追踪。</p>
@@ -11235,7 +11235,7 @@ def test(val=False, epoch=None):
 <p>对于 Keras 模型，<code>t9k.em</code> 提供了使用更加方便的回调，详见<a href="tasks/./record-using-python-sdk.html#%E8%87%AA%E5%8A%A8%E8%AE%B0%E5%BD%95">自动记录</a>。</p>
 </aside>
 <h2 id="运行示例-12"><a class="header" href="#运行示例-12">运行示例</a></h2>
-<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/master/em/data-parallel-training">本教程对应的示例</a>，参照其 README 文档运行。</p>
+<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/v20240206/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/v20240206/em/data-parallel-training">本教程对应的示例</a>，参照其 README 文档运行。</p>
 <p>下面介绍训练脚本进行了哪些修改以追踪训练。该方法是通用的，可以推广到任意类型的 TrainingJob、DeepSpeedJob、ColossalAIJob、MPIJob 或 GenericJob。</p>
 <h2 id="准备训练脚本-2"><a class="header" href="#准备训练脚本-2">准备训练脚本</a></h2>
 <p>准备一个 PyTorch 训练脚本，其模型对 MNIST 数据集的图像进行分类，使用 <code>DistributedDataParallel</code>（DDP）模块进行分布式训练，具体代码如下所示（这里使用与<a href="tasks/./pytorch-training-parallel.html">使用 PyTorchTrainingJob 进行数据并行训练</a>相同的脚本）。接下来将在此脚本的基础上进行简单的修改以进行追踪。</p>
@@ -11898,7 +11898,7 @@ spec:
 <li>成为一个<a href="tasks/../modules/security/project.html">项目</a>的管理员或<a href="tasks/./add-project-member.html">成员</a>。</li>
 </ul>
 <h2 id="运行示例-13"><a class="header" href="#运行示例-13">运行示例</a></h2>
-<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/master/workflow/e2e-workflow">本教程对应的示例</a>，参照其 README 文档运行。</p>
+<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/v20240206/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/v20240206/workflow/e2e-workflow">本教程对应的示例</a>，参照其 README 文档运行。</p>
 <aside class="note tip">
 <div class="title">提示</div>
 <p>上述操作使用 YAML 配置文件创建 WorkflowTemplate 及 WorkflowRun，你也可以在工作流控制台进行创建。</p>

@@ -299,7 +299,7 @@ spec:
 <pre><code class="language-bash">kubectl create -f event-display.yaml
 </code></pre>
 <h3 id="部署-mlservice"><a class="header" href="#部署-mlservice">部署 MLService</a></h3>
-<p>请按照<a href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，基于<a href="https://github.com/t9k/tutorial-examples/tree/master/deployment/mlservice/torch-pvc">部署用于生产环境的模型推理服务</a>示例来部署 MLService logger-example。</p>
+<p>请按照<a href="https://github.com/t9k/tutorial-examples/blob/v20240206/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，基于<a href="https://github.com/t9k/tutorial-examples/tree/v20240206/deployment/mlservice/torch-pvc">部署用于生产环境的模型推理服务</a>示例来部署 MLService logger-example。</p>
 <p>首先将 mlservice.yaml 修改为下列内容，注意：</p>
 <ol>
 <li>event-display 和 MLService 需要部署在同一个 namespace/project 中。</li>
@@ -340,7 +340,7 @@ spec:
              memory: 1Gi
 </code></pre>
 </details>
-<p>然后按照 <a href="https://github.com/t9k/tutorial-examples/blob/master/deployment/mlservice/torch-pvc/README.md#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4">README 文档</a>的操作步骤进行操作。</p>
+<p>然后按照 <a href="https://github.com/t9k/tutorial-examples/blob/v20240206/deployment/mlservice/torch-pvc/README.md#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4">README 文档</a>的操作步骤进行操作。</p>
 <h3 id="查看日志"><a class="header" href="#查看日志">查看日志</a></h3>
 <p>查看 event-display 容器的日志，可看到日志中打印的 CloudEvent 记录了预测请求的详细信息：</p>
 <details><summary><code class="hljs">terminal.log</code></summary>
