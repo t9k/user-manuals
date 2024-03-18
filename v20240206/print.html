@@ -1709,12 +1709,11 @@ type: Opaque
 <figure class="architecture">
   <img alt="architecture" src="modules/deployment/../../assets/modules/deployment/architecture.drawio.svg" class="architecture">
 </figure>
-<p>根据用户提供的<a href="modules/deployment/storage.html">模型存储</a>位置和 AI 框架等设置，模型部署模块的控制器（controller）协调模型下载并启动模型推理服务。</p>
+<p>根据用户提供的模型存储位置和 AI 框架等设置，模型部署模块的控制器（controller）协调模型下载并启动模型推理服务。</p>
 <h2 id="下一步-9"><a class="header" href="#下一步-9">下一步</a></h2>
 <ul>
 <li>了解 <a href="modules/deployment/simplemlservice.html">SimpleMLService</a></li>
 <li>了解 <a href="modules/deployment/mlservice.html">MLService</a></li>
-<li>了解 <a href="modules/deployment/storage.html">模型存储</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="simplemlservice"><a class="header" href="#simplemlservice">SimpleMLService</a></h1>
@@ -2619,133 +2618,6 @@ Data,
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="模型存储-2"><a class="header" href="#模型存储-2">模型存储</a></h1>
-<p>AI 模型可以存储在集群的<a href="modules/deployment/../storage/index.html">文件系统</a>里，或者 S3 对象存储服务中。</p>
-<p>SimpleMLService 和 MLService 采用相同的方式指定模型的存储细节，用户可以明确、方便地指定模型在集群文件系统或者 S3 对象存储服务中的位置，并设置模型在容器中的挂载路径。</p>
-<h2 id="文件系统"><a class="header" href="#文件系统">文件系统</a></h2>
-<p>通过配置 <code>storage.pvc</code> 字段可以通过 <a href="modules/deployment/../storage/pvc.html">PVC</a> 使用集群文件系统中的模型。<code>storage.pvc</code> 字段包含下列子字段：</p>
-<ul>
-<li><code>name</code>: 存储模型数据的 PVC 的名称。</li>
-<li><code>subPath</code>: 模型在 PVC 中的路径，不可以是绝对路径（即开头不能是 <code>/</code>）。</li>
-<li><code>mountPath</code>: 模型在容器中的挂载路径，必须是绝对路径。未设置时，默认值是 <code>/var/lib/t9k/model</code>。</li>
-</ul>
-<p>示例如下：</p>
-<pre><code class="language-yaml">storage:
-  pvc:
-    name: demo
-    subPath: path/mnist
-    mountPath: /var/lib/custom
-</code></pre>
-<p>在上述示例中：</p>
-<ul>
-<li>PVC 名称是 <code>demo</code>。</li>
-<li>模型在 PVC 中的路径是 <code>path/mnist</code>。</li>
-<li>模型会被挂载到容器的路径 <code>/var/lib/custom</code> 下。</li>
-</ul>
-<h2 id="s3-2"><a class="header" href="#s3-2">S3</a></h2>
-<p>当使用 S3 服务存储的模型数据时：</p>
-<ul>
-<li>SimpleMLService/MLService 需要先通过 initContainer 下载模型数据到容器本地，然后才能供给推理服务使用。如果下载失败，则推理服务无法启动。</li>
-<li>当 SimpleMLService/MLService 设置了多个副本时，每个副本都需要单独下载模型数据，副本间无法共享模型数据。</li>
-</ul>
-<p>如果用户想使用存储在 S3 服务中的模型数据，需要：</p>
-<ol>
-<li>创建存储 S3 服务信息的 Secret</li>
-<li>设置 <code>storage.s3</code> 字段</li>
-</ol>
-<h3 id="创建-s3-secret-1"><a class="header" href="#创建-s3-secret-1">创建 S3 Secret</a></h3>
-<p>存储 S3 信息的 <a href="modules/deployment/../auxiliary/secret.html">Secret</a> 需要满足下列条件：</p>
-<ol>
-<li>设置 label <code>tensorstack.dev/resource: s3</code>。</li>
-<li>设置 <code>data[.s3cfg]</code> 字段，内容是 Base64 编码的 <a target="_blank" rel="noopener noreferrer" href="https://s3tools.org/s3cmd">s3cmd</a> config。</li>
-</ol>
-<p>YAML 示例如下：</p>
-<pre><code class="language-yaml">apiVersion: v1
-kind: Secret
-metadata:
-  name: s3-sample
-  labels:
-    tensorstack.dev/resource: s3
-type: Opaque
-data:
-  .s3cfg: aG9zdF9iYXNlID0gczMuYXAtZWFzdC0xLmFtYXpvbmF3cy5jb20KaG9zdF9idWNrZXQgPSBleGFtcGxlLnMzLmFwLWVhc3QtMS5hbWF6b25hd3MuY29tCmJ1Y2tldF9sb2NhdGlvbiA9IGFwLWVhc3QtMQp1c2VfaHR0cHMgPSBGYWxzZQphY2Nlc3Nfa2V5ID0gdXNlcgpzZWNyZXRfa2V5ID0gcGFzc3dvcmQKc2lnbmF0dXJlX3YyID0gRmFsc2U=
-</code></pre>
-<p>其中 <code>data[.s3cfg]</code> 字段 Base64 解码后如下：</p>
-<pre><code>host_base = s3.ap-east-1.amazonaws.com
-host_bucket = example.s3.ap-east-1.amazonaws.com
-bucket_location = ap-east-1
-use_https = False
-access_key = user
-secret_key = password
-signature_v2 = False
-</code></pre>
-<h3 id="设置-storages3"><a class="header" href="#设置-storages3">设置 <code>storage.s3</code></a></h3>
-<p>设置 <code>storage.s3</code> 字段来使用存储在 S3 中的模型数据。<code>storage.s3</code> 字段包含下列子字段: </p>
-<ul>
-<li><code>secretRef</code>: 记录存储 S3 配置信息的 Secret。该字段有下列子字段：
-<ul>
-<li><code>name</code>：Secret 名称。</li>
-</ul>
-</li>
-<li><code>uri</code>: 模型在 S3 中的存储标识。</li>
-<li><code>mountPath</code>: 模型在容器中的挂载路径，必须是绝对路径。未设置时，默认值是 <code>/var/lib/t9k/model</code>。</li>
-</ul>
-<p>示例如下：</p>
-<pre><code class="language-yaml">storage:
-  s3:
-    secretRef:
-      name: s3-secret
-    uri: s3://models/mnist/
-    mountPath: /var/lib/custom
-</code></pre>
-<p>在上述示例中：</p>
-<ul>
-<li>Secret <code>s3-secret</code> 存储着 S3 配置信息。</li>
-<li>模型在 S3 中的存储标识是 <code>s3://models/mnist/</code>。</li>
-<li>模型会被挂载到容器的路径 <code>/var/lib/custom</code> 下。</li>
-</ul>
-<h2 id="存储类型比较"><a class="header" href="#存储类型比较">存储类型比较</a></h2>
-<p>使用 PVC 存储模型数据：</p>
-<ul>
-<li>优点：
-<ul>
-<li>挂载速度快</li>
-<li>多副本可以共享 PVC 数据</li>
-</ul>
-</li>
-<li>缺点：
-<ul>
-<li>需要提前创建 PVC，并在 PVC 中准备好模型数据</li>
-</ul>
-</li>
-</ul>
-<p>使用 S3 存储模型数据：</p>
-<ul>
-<li>优点：
-<ul>
-<li>只需简单设置，就能 S3 服务存储的模型数据</li>
-<li>跨项目共享使用模型很方便</li>
-</ul>
-</li>
-<li>缺点：
-<ul>
-<li>S3 中的模型需要先被下载才能使用，启动时间一般较长</li>
-<li>多副本间无法共享模型数据，每个副本都需要从 S3 下载模型数据</li>
-</ul>
-</li>
-</ul>
-<h2 id="下一步-12"><a class="header" href="#下一步-12">下一步</a></h2>
-<ul>
-<li>查看 <a href="modules/deployment/../../tasks/deploy-mlservice.html">MLService 部署示例</a>的模型存储设置</li>
-<li>查看 <a href="modules/deployment/../../tasks/deploy-simplemlservice.html">SimpleMLService 部署示例</a>的模型存储设置</li>
-</ul>
-<h2 id="参考-3"><a class="header" href="#参考-3">参考</a></h2>
-<ul>
-<li><a href="https://aws.amazon.com/s3/">S3</a></li>
-<li><a href="https://s3tools.org/s3cmd">s3cmd</a></li>
-<li><a href="modules/deployment/../storage/pvc.html">PVC</a></li>
-<li>API 参考：<a href="modules/deployment/../../references/api-reference/mlservice.html#storage">Storage in MLService</a></li>
-<li>API 参考：<a href="modules/deployment/../../references/api-reference/simplemlservice.html#storage">Storage in SimpleMLService</a></li>
-</ul>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="job"><a class="header" href="#job">Job</a></h1>
 <p>TensorStack 定义了一系列 CRD（称为 Job）以支持<a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Batch_processing">批处理（Batch Processing）</a>计算任务，特别是 AI 领域的大规模分布式并行训练类型性质的计算。</p>
@@ -3521,7 +3393,7 @@ status:
     reason: DependentReady
     type: Normal
 </code></pre>
-<h2 id="下一步-13"><a class="header" href="#下一步-13">下一步</a></h2>
+<h2 id="下一步-12"><a class="header" href="#下一步-12">下一步</a></h2>
 <ul>
 <li>了解如何<a href="modules/jobs/../../tasks/pytorch-training-parallel.html">使用 PyTorchTrainingJob 进行数据并行训练</a></li>
 <li>了解如何<a href="modules/jobs/../../tasks/pytorch-training-ps.html">使用 PyTorchTrainingJob 进行参数服务器训练</a></li>
@@ -3828,7 +3700,7 @@ status:
     reason: DependentReady
     type: Normal
 </code></pre>
-<h2 id="下一步-14"><a class="header" href="#下一步-14">下一步</a></h2>
+<h2 id="下一步-13"><a class="header" href="#下一步-13">下一步</a></h2>
 <ul>
 <li>了解如何<a href="modules/jobs/../../tasks/tensorflow-training-parallel.html">使用 TensorFlowTrainingJob 进行数据并行训练</a></li>
 <li>了解如何<a href="modules/jobs/../../tasks/tensorflow-training-ps.html">使用 TensorFlowTrainingJob 进行参数服务器训练</a></li>
@@ -4974,7 +4846,7 @@ status:
     unknown: 0
 ...
 </code></pre>
-<h2 id="下一步-15"><a class="header" href="#下一步-15">下一步</a></h2>
+<h2 id="下一步-14"><a class="header" href="#下一步-14">下一步</a></h2>
 <ul>
 <li>了解如何<a href="modules/jobs/../../tasks/horovod-keras-parallel.html">使用 Horovod 进行 Keras 模型的数据并行训练</a></li>
 <li>了解如何<a href="modules/jobs/../../tasks/horovod-pytorch-parallel.html">使用 Horovod 进行 PyTorch 模型的数据并行训练</a></li>
@@ -5162,7 +5034,7 @@ spec:
 <h2 id="协同开发"><a class="header" href="#协同开发">协同开发</a></h2>
 <p>AH 支持文件夹粒度的权限共享。用户可以将一组模型或数据集分享给其他人，实现多人共同开发和训练结果共享的目的。</p>
 <p>可分享的权限包括查看权限或编辑权限，编辑权限包含查看权限。分享的目标可以是另一个用户、用户组或者公开给所有人。</p>
-<h2 id="下一步-16"><a class="header" href="#下一步-16">下一步</a></h2>
+<h2 id="下一步-15"><a class="header" href="#下一步-15">下一步</a></h2>
 <ul>
 <li>了解如何使用 Asset Hub <a href="modules/../tasks/manage-ai-assets.html">管理 AI 资产</a></li>
 </ul>
@@ -5292,7 +5164,7 @@ user:demo
 <div class="title">注意</div>
 <p>在使用 EM 的时候，非必要请勿修改 t9k-assethub 文件夹中的数据，以避免影响 AssetHub 的使用。</p>
 </aside>
-<h2 id="下一步-17"><a class="header" href="#下一步-17">下一步</a></h2>
+<h2 id="下一步-16"><a class="header" href="#下一步-16">下一步</a></h2>
 <ul>
 <li>了解如何使用 EM <a href="modules/../tasks/track-model-training.html">追踪模型训练</a></li>
 </ul>
@@ -5318,7 +5190,7 @@ user:demo
 <li>方便在脚本程序、命令行工具等“非交互场景”进行集成使用</li>
 <li>可以随时方便地取消该授权</li>
 </ul>
-<h2 id="下一步-18"><a class="header" href="#下一步-18">下一步</a></h2>
+<h2 id="下一步-17"><a class="header" href="#下一步-17">下一步</a></h2>
 <ul>
 <li>了解如何为账户<a href="modules/security/../../tasks/generate-api-key.html">生成 API Key</a></li>
 <li>了解在不同场景<a href="modules/security/../../tasks/use-api-key.html">使用 API Key</a></li>
@@ -5416,7 +5288,7 @@ spec:
 <li>项目成员可以是用户或用户组，一个用户组被设置为项目成员表示该组中的所有用户都可以使用该项目。</li>
 <li>设置项目成员时，可以对每一个成员单独设置项目的使用范围，对成员设置的项目使用范围应为项目所有使用范围的子集。</li>
 </ul>
-<h2 id="下一步-19"><a class="header" href="#下一步-19">下一步</a></h2>
+<h2 id="下一步-18"><a class="header" href="#下一步-18">下一步</a></h2>
 <ul>
 <li>了解项目管理员如何：<a href="modules/security/../../tasks/add-project-member.html">添加 Project 成员</a></li>
 </ul>
@@ -5455,7 +5327,7 @@ spec:
 <li>将 Pod 使用的调度器名称设置为 t9k-scheduler；</li>
 <li>设置 Pod 属于步骤一创建的 PodGroup。</li>
 </ol>
-<h2 id="下一步-20"><a class="header" href="#下一步-20">下一步</a></h2>
+<h2 id="下一步-19"><a class="header" href="#下一步-19">下一步</a></h2>
 <ul>
 <li>了解<a href="modules/scheduling/./quota.html">资源配额</a></li>
 <li>了解<a href="modules/scheduling/./queue.html">队列</a></li>
@@ -5768,7 +5640,7 @@ spec:
 <li>字段 <code>spec.scheduler.t9kScheduler.queue</code> 被设置为 a100，表明 Notebook 使用 T9k Scheduler 进行资源调度，并且使用队列 a100。</li>
 </ul>
 <p>用户通过队列的方式使用更加简洁、方便。同时，集群管理员可使用权限等机制，更加方便地实施集群资源管理策略。</p>
-<h2 id="参考-4"><a class="header" href="#参考-4">参考</a></h2>
+<h2 id="参考-3"><a class="header" href="#参考-3">参考</a></h2>
 <p>K8s Extended resources<br />
 <a href="https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources">https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources</a></p>
 <p>Consuming extended resources<br />
@@ -5878,7 +5750,7 @@ status:
 <h3 id="资源尺寸"><a class="header" href="#资源尺寸">资源尺寸</a></h3>
 <p>资源尺寸（resource shape）会限制队列中工作负载请求资源量的上限，当用户创建超过资源尺寸的工作负载时，工作负载会被系统拒绝。</p>
 <p>队列的 <code>spec.resourceShapeProfile</code> 字段设置了队列使用的资源尺寸模版，模型对应的资源尺寸详情存储在 ConfigMap <code>t9k-system/resource-shapes</code> 中。用户可以通过 T9k 产品前端查看队列的资源尺寸设置。</p>
-<h2 id="下一步-21"><a class="header" href="#下一步-21">下一步</a></h2>
+<h2 id="下一步-20"><a class="header" href="#下一步-20">下一步</a></h2>
 <ul>
 <li>了解如何<a href="modules/scheduling/../../tasks/use-queue.html">使用队列</a></li>
 <li>队列 <a href="modules/scheduling/../../references/api-reference/scheduler.html#queue">API Reference</a></li>
@@ -5989,7 +5861,7 @@ spec:
     type: GroupScheduled
   running: 3
 </code></pre>
-<h2 id="下一步-22"><a class="header" href="#下一步-22">下一步</a></h2>
+<h2 id="下一步-21"><a class="header" href="#下一步-21">下一步</a></h2>
 <ul>
 <li>了解如何<a href="modules/scheduling/../../tasks/use-podgroup.html">使用 PodGroup</a></li>
 <li>PodGroup <a href="modules/scheduling/../../references/api-reference/scheduler.html#podgroup">API Reference</a></li>
@@ -6094,7 +5966,7 @@ NAME                                         CPU(cores)   MEMORY(bytes)
 managed-notebook-933f6-0                     25m          153Mi           
 managed-project-event-ctl-854b96f4dd-f6hn8   1m           29Mi 
 </code></pre>
-<h2 id="下一步-23"><a class="header" href="#下一步-23">下一步</a></h2>
+<h2 id="下一步-22"><a class="header" href="#下一步-22">下一步</a></h2>
 <ul>
 <li>监控 <a href="modules/scheduling/../../tasks/pytorch-training-parallel.html#%E6%A3%80%E6%9F%A5%E8%AE%AD%E7%BB%83%E6%97%A5%E5%BF%97%E5%92%8C%E6%8C%87%E6%A0%87">T9k Job 的资源使用</a></li>
 <li>监控<a href="modules/scheduling/../../tasks/deploy-mlservice.html#%E7%9B%91%E6%8E%A7%E6%8E%A8%E7%90%86%E6%9C%8D%E5%8A%A1">推理服务的资源使用</a></li>
@@ -6152,7 +6024,7 @@ spec:
 <tr><td><a href="modules/storage/../../references/api-reference/explorer.html">Explorer</a></td><td>TensorStack</td><td>文件浏览器，查看和管理 PVC 中的文件</td></tr>
 </tbody></table>
 </div>
-<h2 id="参考-5"><a class="header" href="#参考-5">参考</a></h2>
+<h2 id="参考-4"><a class="header" href="#参考-4">参考</a></h2>
 <ul>
 <li>API reference <a href="modules/storage/../../references/api-reference/explorer.html">Explorer</a></li>
 <li>API reference <a href="modules/storage/../../references/api-reference/storageshim.html">StorageShim</a></li>
@@ -6259,7 +6131,7 @@ spec:
 <h2 id="存储类"><a class="header" href="#存储类">存储类</a></h2>
 <p>创建 PVC 时，<code>spec.storageClassName</code> 字段用于指定 PVC 的存储类，集群中可用的存储类由管理员提供。</p>
 <p>例如，一个集群可能提供两个存储类，名为 <code>cephfs-hdd</code> 和 <code>cephfs-ssd</code>，分别提供基于 HDD 机械硬盘和 SSD 固态硬盘的存储空间，用于不同的数据存储目的。</p>
-<h2 id="下一步-24"><a class="header" href="#下一步-24">下一步</a></h2>
+<h2 id="下一步-23"><a class="header" href="#下一步-23">下一步</a></h2>
 <ul>
 <li>了解 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/">PVC 的概念</a></li>
 <li>了解 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/">PVC 的定义</a></li>
@@ -6331,7 +6203,7 @@ spec:
 <li><code>spec.resources.requests.storage</code> 必须与原 PVC 一致。</li>
 <li><code>spec.storageClassName</code> 必须与原 PVC 一致。</li>
 </ul>
-<h2 id="下一步-25"><a class="header" href="#下一步-25">下一步</a></h2>
+<h2 id="下一步-24"><a class="header" href="#下一步-24">下一步</a></h2>
 <ul>
 <li>了解 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/storage/volume-snapshots/">VolumeSnapshot 的概念</a></li>
 </ul>
@@ -6405,7 +6277,7 @@ data:
   fsName: &lt;fs-name&gt;
 </code></pre>
 <p>在该例中，StorageShim <code>storageshim-cephfs-demo</code> 被创建后，StorageShim 控制器将创建一个同名的 PVC <code>storageshim-cephfs-demo</code>，该 PVC 的根目录对应 CephFS 文件系统的子目录 <code>/cephfs/data/user/mydata</code>，访问该子目录的登录凭证存储在 Secret <code>ceph-client-key-demo</code> 中，该 Secret 必须为 <a href="modules/storage/./secret.html#secret-%E7%94%A8%E9%80%94">S3-cfg 类型</a>，该 CephFS 文件系统的相关信息存储在 ConfigMap <code>ceph-cluster-config-demo</code> 中。</p>
-<h2 id="下一步-26"><a class="header" href="#下一步-26">下一步</a></h2>
+<h2 id="下一步-25"><a class="header" href="#下一步-25">下一步</a></h2>
 <ul>
 <li><a href="modules/storage/../../tasks/use-storageshim-s3.html">使用 StorageShim 适配 S3 服务</a></li>
 </ul>
@@ -6438,7 +6310,7 @@ spec:
 <li>Explorer 进入 <code>Idle</code> 状态超过 24h 后，删除该 Explorer 底层工作负载。</li>
 </ul>
 <p>如果需要再次使用该 Explorer，你可以在模型构建控制台中手动点击<strong>恢复</strong>按钮。</p>
-<h2 id="下一步-27"><a class="header" href="#下一步-27">下一步</a></h2>
+<h2 id="下一步-26"><a class="header" href="#下一步-26">下一步</a></h2>
 <ul>
 <li><a href="modules/storage/../../tasks/use-explorer.html">使用 Explorer</a></li>
 </ul>
@@ -6524,7 +6396,7 @@ spec:
 <li>S3-cfg 类型的 Secret 可用于创建 <a href="modules/auxiliary/./storageshim.html#s3-%E7%B1%BB%E5%9E%8B">S3 类型的 StorageShim</a></li>
 <li>Ceph Client 类型的 Secret 可用于创建 <a href="modules/auxiliary/./storageshim.html#cephfs-%E7%B1%BB%E5%9E%8B">CephFS 类型的 StorageShim</a></li>
 </ul>
-<h2 id="下一步-28"><a class="header" href="#下一步-28">下一步</a></h2>
+<h2 id="下一步-27"><a class="header" href="#下一步-27">下一步</a></h2>
 <ul>
 <li>了解 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/configuration/configmap/">Secret 的概念</a></li>
 <li>了解 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/secret-v1/">Secret 的定义</a></li>
@@ -6583,7 +6455,7 @@ spec:
                 name: configmap-demo
 </code></pre>
 <p>在该例中，<code>pytorchtrainingjob-demo</code> 将 <code>pvc-demo</code> 和 <code>configmap-demo</code> 均作为数据卷（volume）来使用，其中容器 <code>pytorch</code> 将两个数据卷分别挂载到 <code>/data</code> 和 <code>/config</code> 目录下。因此，容器 <code>pytorch</code> 的 <code>/config</code> 目录下将存在两个文件 <code>/config/key1</code> 和 <code>/config/key2</code>，文件内容分别是 <code>value1</code> 和 <code>value2</code>。</p>
-<h2 id="下一步-29"><a class="header" href="#下一步-29">下一步</a></h2>
+<h2 id="下一步-28"><a class="header" href="#下一步-28">下一步</a></h2>
 <ul>
 <li>了解 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/configuration/configmap/">ConfigMap 的概念</a></li>
 <li>了解 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/config-map-v1/">ConfigMap 的定义</a></li>
@@ -6631,7 +6503,7 @@ spec:
 <li>存储卷预处理：在训练前，需提前下载好数据，此时可以通过创建 Pod 绑定对应 PVC，在 Pod 终端向其中下载数据。</li>
 <li>测试代码：你在 Notebook 中开发后的脚本在训练镜像中并不一定能正常运行，可以用训练镜像创建一个 Pod，来测试训练脚本在新镜像中是否可用。</li>
 </ul>
-<h2 id="下一步-30"><a class="header" href="#下一步-30">下一步</a></h2>
+<h2 id="下一步-29"><a class="header" href="#下一步-29">下一步</a></h2>
 <ul>
 <li>了解 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/workloads/pods/">Pod 的概念</a>。</li>
 <li>了解 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/">Pod 的定义</a>。</li>
@@ -6686,11 +6558,11 @@ spec:
 <li><code>image</code>：如忽略，ImageBuilder 控制器会指定一个默认镜像，所以一般来说可以不设置该字段。</li>
 <li><code>args</code>：如忽略，ImageBuilder 构建镜像时执行 <code>kaniko --destination=[image-tag] --context=[context-path] --dockerfile=[dockerfile-path]</code> 命令。如果用户需要使用其他参数，可以在该字段中指定。参考 <a target="_blank" rel="noopener noreferrer" href="https://github.com/GoogleContainerTools/kaniko?tab=readme-ov-file#additional-flags">kaniko additional flags</a>。</li>
 </ul>
-<h2 id="参考-6"><a class="header" href="#参考-6">参考</a></h2>
+<h2 id="参考-5"><a class="header" href="#参考-5">参考</a></h2>
 <p>更加详细的 ImageBuilder API 可直接在集群中查询：</p>
 <pre><code class="language-bash">kubectl explain imagebuilder
 </code></pre>
-<h2 id="下一步-31"><a class="header" href="#下一步-31">下一步</a></h2>
+<h2 id="下一步-30"><a class="header" href="#下一步-30">下一步</a></h2>
 <ul>
 <li>使用控制台：<a href="modules/auxiliary/../../tasks/build-image.html">构建镜像</a></li>
 <li>Github 上的 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/v20240206/build-image/build-image-on-platform">ImagerBuilder 示例</a></li>
@@ -7389,7 +7261,7 @@ spec:
         dependencies: [&quot;a&quot;]
         retries: 0
 </code></pre>
-<h2 id="下一步-32"><a class="header" href="#下一步-32">下一步</a></h2>
+<h2 id="下一步-31"><a class="header" href="#下一步-31">下一步</a></h2>
 <ul>
 <li>了解 <a href="modules/workflows/./workflowrun.html">WorkflowRun</a></li>
 </ul>
@@ -7519,7 +7391,7 @@ status:
 </ul>
 <p>如果这四个 WorkflowRun 均运行成功，WorkflowRun <code>dag-workflowtemplate-sample-run</code> 即运行成功。</p>
 <p>WorkflowRun <code>dag-workflowtemplate-sample-run</code> 的 <code>status</code> 字段显示，该 WorkflowRun 处于 <code>Succeeded</code> 状态（见 <code>status.phase</code> 字段），原因是 “All nodes in DAG have succeeded”（见 <code>status.message</code> 字段）。<code>status.nodes</code> 字段记录了该 WorkflowRun 中每个 DAG 节点的名称以及对应的 WorkflowRun 名称和状态。</p>
-<h2 id="下一步-33"><a class="header" href="#下一步-33">下一步</a></h2>
+<h2 id="下一步-32"><a class="header" href="#下一步-32">下一步</a></h2>
 <ul>
 <li>了解如何<a href="modules/workflows/../../tasks/build-automation-workflow.html">建立自动化工作流</a></li>
 </ul>
@@ -8232,7 +8104,7 @@ now you can forward to your target by 127.0.0.1:&lt;Port&gt;
   <img alt="pycharm-edit" src="tasks/../assets/tasks/develop-and-test-model/use-notebook-remotely-via-ssh-connection/pycharm-edit.png" />
 </figure>
 <p>你可以和本地开发一样使用 PyCharm 来操作 Notebook：</p>
-<h2 id="参考-7"><a class="header" href="#参考-7">参考</a></h2>
+<h2 id="参考-6"><a class="header" href="#参考-6">参考</a></h2>
 <ul>
 <li><a href="https://code.visualstudio.com/docs/remote/ssh">https://code.visualstudio.com/docs/remote/ssh</a></li>
 <li><a href="https://www.jetbrains.com/help/pycharm/remote-development-overview.html">https://www.jetbrains.com/help/pycharm/remote-development-overview.html</a></li>
@@ -8633,7 +8505,7 @@ dataset             Bound    pvc-cc7f789a-6fcb-44a0-8f42-0e6c86e51a1a   1       
 <li>安全性：对象存储提供了许多安全功能，包括加密和访问控制。</li>
 </ul>
 <p>对象存储是一种强大而灵活的数据存储架构，是存储大量非结构化数据、需要从多个位置访问的数据以及需要高可用性和安全性的数据的不错选择。</p>
-<h2 id="参考-8"><a class="header" href="#参考-8">参考</a></h2>
+<h2 id="参考-7"><a class="header" href="#参考-7">参考</a></h2>
 <ul>
 <li><a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Amazon_S3">Wikipedia: S3 协议</a></li>
 <li><a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Object_storage">Wikipedia: 对象存储</a></li>
@@ -9509,7 +9381,7 @@ spec:
 <figure class="screenshot">
     <img alt="detail" src="tasks/../assets/tasks/deploy-simplemlservice/details.png" />
 </figure>
-<h2 id="参考-9"><a class="header" href="#参考-9">参考</a></h2>
+<h2 id="参考-8"><a class="header" href="#参考-8">参考</a></h2>
 <ul>
 <li><a href="tasks/../modules/deployment/simplemlservice.html">SimpleMLService 介绍</a></li>
 <li>API 参考：<a href="tasks/../../references/api-reference/simplemlservice.html">SimpleMLService</a></li>
@@ -9540,7 +9412,7 @@ spec:
 <figure class="screenshot">
   <img alt="resource-usage" src="tasks/../assets/tasks/deploy-model-reference-serving/mlservice/resource-usage.png" />
 </figure>
-<h2 id="参考-10"><a class="header" href="#参考-10">参考</a></h2>
+<h2 id="参考-9"><a class="header" href="#参考-9">参考</a></h2>
 <ul>
 <li><a href="tasks/../modules/deployment/mlservice.html">MLService 介绍</a></li>
 <li>API 参考：<a href="tasks/../../references/api-reference/mlservice.html">MLService</a></li>
@@ -9694,7 +9566,7 @@ spec:
 <pre><code class="language-shell">address=$(kubectl get mls pic-mnist -ojsonpath='{.status.address.url}') &amp;&amp; echo $address
 curl --data-binary @./shoe.png ${address}/v1/models/model:predict
 </code></pre>
-<h2 id="参考-11"><a class="header" href="#参考-11">参考</a></h2>
+<h2 id="参考-10"><a class="header" href="#参考-10">参考</a></h2>
 <ul>
 <li><a href="tasks/../modules/deployment/mlservice.html">MLService 介绍</a></li>
 <li>API 参考：<a href="tasks/../../references/api-reference/mlservice.html">MLService</a></li>
@@ -10924,7 +10796,7 @@ run.upload(folder='default', make_folder=True)
 artifact = em.load_artifact(path='.em/runs/mnist_torch_saved_model_230908_165433_tou3ai')
 artifact.upload(folder='default', make_folder=True)
 </code></pre>
-<h2 id="下一步-34"><a class="header" href="#下一步-34">下一步</a></h2>
+<h2 id="下一步-33"><a class="header" href="#下一步-33">下一步</a></h2>
 <ul>
 <li>进一步学习如何<a href="tasks/./record-single-device-training.html">在单设备训练场景下追踪模型训练</a></li>
 </ul>
@@ -11222,7 +11094,7 @@ def test(val=False, epoch=None):
 <figure class="screenshot">
     <img alt="dataflow" src="tasks/../assets/tasks/record-single-device-training/dataflow.png" />
 </figure>
-<h2 id="下一步-35"><a class="header" href="#下一步-35">下一步</a></h2>
+<h2 id="下一步-34"><a class="header" href="#下一步-34">下一步</a></h2>
 <ul>
 <li>进一步学习如何<a href="tasks/./record-distributed-training.html">在分布式训练场景下追踪模型训练</a></li>
 <li>进一步学习如何<a href="tasks/./view-autotune-in-experiment-console.html">在实验管理控制台查看 AutoTune</a></li>
@@ -12363,7 +12235,7 @@ wget https://huggingface.co/mistralai/Mistral-7B-v0.1/resolve/main/model-00002-o
 <li>将驱动器连接到集群外的与集群网络连接速度较快的计算机上，然后参照<a href="tasks/pvc-importing-and-exporting-files.html#%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F">本地文件系统</a>继续操作。</li>
 <li>或者，请求管理员操作，将驱动器连接到存储集群的节点上，直接使用存储系统的工具进行数据传输。这种方法的数据传输速度一般较快，但需要能够访问存储集群的工具和接口。</li>
 </ol>
-<h2 id="参考-12"><a class="header" href="#参考-12">参考</a></h2>
+<h2 id="参考-11"><a class="header" href="#参考-11">参考</a></h2>
 <p><a href="https://rclone.org/">https://rclone.org/</a></p>
 <p><a href="https://huggingface.co/models">https://huggingface.co/models</a></p>
 <p><a href="https://github.com/peak/s5cmd">https://github.com/peak/s5cmd</a></p>
@@ -17001,7 +16873,7 @@ targets:
 </code></pre>
 <p>由于 Codepack 的全部信息都维护在一个定义文件中，用户创建一个新的 Codepack 或者将既有的机器学习项目修改为 Codepack 都非常容易，并且用户可以使用 Git 来轻松地对 Codepack 进行版本控制和分发。</p>
 <p>Codepack 的相关工具包括<a href="tools/codepack/./cli.html">命令行工具</a>和集群内组件，前者负责读取 Codepack 定义并执行用户指定的 action，后者负责进行安全访问控制以及为命令行工具执行 action 提供支持。</p>
-<h2 id="下一步-36"><a class="header" href="#下一步-36">下一步</a></h2>
+<h2 id="下一步-35"><a class="header" href="#下一步-35">下一步</a></h2>
 <ul>
 <li>了解 <a href="tools/codepack/./concepts.html">Codepack 的概念</a></li>
 <li>了解 <a href="tools/codepack/./definition.html">Codepack 的定义</a></li>
@@ -17693,7 +17565,7 @@ TensorFlowTrainingJob codepack-example created
 </code></pre>
 <p>可以看到在运行这两个 target 的过程中，Codepack CLI 自动解析了工作流并顺序运行各个依赖的 target，按照 YAML 配置文件创建了各资源以及复制整个 Codepack 到 PVC。在运行 target <code>run-distributed-training</code> 的过程中，Codepack CLI 跳过了第一个 target（因为 PVC 已经创建），第二个 target 也实际上没有更新 PVC 中的文件（因为背后调用的是 rsync）。</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="参考-13"><a class="header" href="#参考-13">参考</a></h1>
+<h1 id="参考-12"><a class="header" href="#参考-12">参考</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="术语表"><a class="header" href="#术语表">术语表</a></h1>
 <p>本术语表记录了 TensorStack AI 平台的一些专有名词，方便用户随时查阅。</p>
@@ -21820,7 +21692,7 @@ mv .cache/modelscope/hub/shakechen/Llama-2-7b-chat-hf .
          - containerPort: 80
          resources:
 </code></pre>
-<h2 id="参考-14"><a class="header" href="#参考-14">参考</a></h2>
+<h2 id="参考-13"><a class="header" href="#参考-13">参考</a></h2>
 <ul>
 <li><a target="_blank" rel="noopener noreferrer" href="https://github.com/lm-sys/FastChat">GitHub 上的 FastChat</a></li>
 <li><a target="_blank" rel="noopener noreferrer" href="https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web">GitHub 上的 ChatGPT Next Web</a></li>
@@ -22057,7 +21929,7 @@ mv .cache/modelscope/hub/AI-ModelScope/Mistral-7B-Instruct-v0___1 ./Mistral-7B-I
          - name: user-container
            resources:
 </code></pre>
-<h2 id="参考-15"><a class="header" href="#参考-15">参考</a></h2>
+<h2 id="参考-14"><a class="header" href="#参考-14">参考</a></h2>
 <ul>
 <li><a target="_blank" rel="noopener noreferrer" href="https://github.com/vllm-project/vllm">GitHub 上的 vLLM</a></li>
 <li><a target="_blank" rel="noopener noreferrer" href="https://github.com/facebookresearch/codellama">GitHub 上的 Code Llama 模型介绍</a></li>
@@ -22119,7 +21991,7 @@ python client.py --server_address $address --model_name python_vit
 (1, 197, 768)
 </code></pre>
 <p>最后一层的输出张量可以作为图像的整体表示，进一步用于分类、图像识别等下游任务。我们可以在这样一个推理客户端示例的基础上进一步开发 AI 应用。</p>
-<h2 id="参考-16"><a class="header" href="#参考-16">参考</a></h2>
+<h2 id="参考-15"><a class="header" href="#参考-15">参考</a></h2>
 <ul>
 <li><a target="_blank" rel="noopener noreferrer" href="https://github.com/triton-inference-server/server">GitHub 上的 Triton Inference Server</a>
 <ul>
@@ -22173,7 +22045,7 @@ kubectl apply -f ./download-job.yaml
 </code></pre>
 <h2 id="扩展"><a class="header" href="#扩展">扩展</a></h2>
 <p>上述示例演示了如何下载以及部署 GPT-J-6B 大模型。用户可以参考<a href="https://github.com/t9k/examples/blob/v20240206/inference/tensorizer/README.md#%E5%88%B6%E4%BD%9C-tensorizer-%E7%9B%B8%E5%85%B3%E7%9A%84%E9%95%9C%E5%83%8F">制作 Tensorizer 相关的镜像</a>将 Tensorizer 用于自定义模型的部署。</p>
-<h2 id="参考-17"><a class="header" href="#参考-17">参考</a></h2>
+<h2 id="参考-16"><a class="header" href="#参考-16">参考</a></h2>
 <ul>
 <li><a target="_blank" rel="noopener noreferrer" href="https://docs.coreweave.com/coreweave-machine-learning-and-ai/inference/tensorizer">CoreWeave Tensorizer 介绍</a> </li>
 <li>API 参考：<a href="examples/../../references/api-reference/mlservice.html">MLService</a></li>
@@ -22884,7 +22756,7 @@ kubectl create -f deployment.yaml
 </li>
 </ol>
 <p>相比之下，Perplexity 支持中文，并且生成回答的速度更快。尽管如此，其回答的质量并没有更好，尤其是对于问题 2 的回答出现了问题，完全没有引用参考源，而是由 LLM 直接生成的。其对于问题 3 的回答所包含的有用信息也较少。</p>
-<h2 id="参考-18"><a class="header" href="#参考-18">参考</a></h2>
+<h2 id="参考-17"><a class="header" href="#参考-17">参考</a></h2>
 <ul>
 <li>GitHub 上的 <a target="_blank" rel="noopener noreferrer" href="https://github.com/leptonai/search_with_lepton">Search with Lepton</a> 原项目，以及 fork 项目 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/search_with_lepton">t9k/search_with_lepton</a></li>
 <li><a target="_blank" rel="noopener noreferrer" href="https://www.perplexity.ai/">Perplexity</a></li>
@@ -23490,7 +23362,7 @@ kubectl get svc label-studio-sam -o jsonpath=&quot;{.spec.ports[0].port}&quot;
 <h3 id="团队协作"><a class="header" href="#团队协作">团队协作</a></h3>
 <p>应用提供了简单直接的团队协作方式。团队的多个成员分别注册用户、登录并进入同一个项目，通过设定不同的过滤条件来分别标注全部数据的不同子集。</p>
 <p>例如设定 <code>ID / &lt;= / 3000</code> 可以仅列举前 3000 个数据；设定 <code>Annotated by / is empty / yes</code> 可以仅列举未被标注的数据。</p>
-<h2 id="参考-19"><a class="header" href="#参考-19">参考</a></h2>
+<h2 id="参考-18"><a class="header" href="#参考-18">参考</a></h2>
 <ul>
 <li><a target="_blank" rel="noopener noreferrer" href="https://github.com/HumanSignal/label-studio">GitHub 上的 Label Studio</a></li>
 <li><a target="_blank" rel="noopener noreferrer" href="https://labelstud.io/guide/">Label Studio 文档</a>
@@ -23791,7 +23663,7 @@ print(search_result)
 </figure>
 <p>Web UI 的其他功能这里不再一一介绍，用户可以自行探索。</p>
 <p>更多使用教程请进一步参阅 <a target="_blank" rel="noopener noreferrer" href="https://qdrant.tech/documentation/">Qdrant 文档</a>。</p>
-<h2 id="参考-20"><a class="header" href="#参考-20">参考</a></h2>
+<h2 id="参考-19"><a class="header" href="#参考-19">参考</a></h2>
 <ul>
 <li><a target="_blank" rel="noopener noreferrer" href="https://github.com/qdrant/qdrant">GitHub 上的 Qdrant</a></li>
 <li><a target="_blank" rel="noopener noreferrer" href="https://qdrant.tech/documentation/">Qdrant 文档</a>
@@ -24042,7 +23914,7 @@ The cat is purring
 </code></pre>
 <p>更多信息请参阅
 <a target="_blank" rel="noopener noreferrer" href="https://github.com/pgvector/pgvector">pgvector 的 README 文档</a>。</p>
-<h2 id="参考-21"><a class="header" href="#参考-21">参考</a></h2>
+<h2 id="参考-20"><a class="header" href="#参考-20">参考</a></h2>
 <ul>
 <li><a target="_blank" rel="noopener noreferrer" href="https://github.com/pgvector/pgvector">GitHub 上的 pgvector</a></li>
 <li><a target="_blank" rel="noopener noreferrer" href="https://github.com/pgvector/pgvector-python">GitHub 上的 pgvector-python</a></li>
@@ -24211,7 +24083,7 @@ The cat is purring
 </li>
 </ol>
 <p>TensorStack AI 计算平台将在推动 AI 技术的普及和应用方面发挥着关键作用，为各行各业提供实现 AI 驱动创新的关键工具和资源。</p>
-<h2 id="参考-22"><a class="header" href="#参考-22">参考</a></h2>
+<h2 id="参考-21"><a class="header" href="#参考-21">参考</a></h2>
 <p>Infrastructure for deep learning, 2016<br />
 <a href="https://openai.com/research/infrastructure-for-deep-learning">https://openai.com/research/infrastructure-for-deep-learning</a></p>
 <p>Scaling Kubernetes to 2,500 nodes, 2018<br />
