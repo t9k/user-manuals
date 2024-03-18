@@ -47,12 +47,6 @@ spec:
             "MODEL_PATH": "mnist=model.mar"
           runtime: torchserve
           modelUri: pvc://tutorial/tutorial-examples/deployment/pvc/mlservice-torch/
-        containersResources:
-        - name: user-container
-          resources:
-            limits:
-              cpu: "500m"
-              memory: 1Gi
 ```
 
 <aside class="note info">
@@ -249,11 +243,7 @@ spec:
 
 </aside>
 
-#### 计算资源
-
-MLServiceRuntime 定义了 Pod 模版，但对于容器的资源要求，不同场景之间存在差异。因此， MLServiceRuntime 中定义的容器资源要求只是一个缺省时的默认值。
-
-用户可以直接在 MLService `predictor` 中的 `containersResources` 定义容器的资源要求，例如：
+上述的 [StrategicMergePatch](#strategicmergepatch) 给用户提供了完整的个性化改动方案。除此以外，针对改动频率更高的资源要求（resources），MLService 提供了更方便的个性化改动方案。用户可以直接通过 Predictor 中的 `resources` 覆盖 Runtime 的资源要求，例如：
 
 ```yaml
 apiVersion: tensorstack.dev/v1beta1
@@ -269,20 +259,11 @@ spec:
         modelFormat:
           name: pytorch
         modelUri: "<your-model-registry/your-model-path>"
-      containersResources:
-      - name: user-container
-        resources:
-          limits:
-            cpu: "500m"
-            memory: 1Gi
+      resources:
+        limits:
+          cpu: 500m
+          memory: 1Gi
 ```
-
-<aside class="note info">
-<div class="title">信息</div>
-
-用户还可以使用上一节 [StrategicMergePatch](#strategicmergepatch) 定义容器资源要求，但 `containersResources` 的优先级更高，如果两者定义了同一个 container 的资源要求，`containersResources` 会完全覆盖 `template.spec` 中的值。
-
-</aside>
 
 ## 模型存储
 
