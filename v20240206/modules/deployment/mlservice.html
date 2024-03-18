@@ -233,12 +233,6 @@ spec:
             &quot;MODEL_PATH&quot;: &quot;mnist=model.mar&quot;
           runtime: torchserve
           modelUri: pvc://tutorial/tutorial-examples/deployment/pvc/mlservice-torch/
-        containersResources:
-        - name: user-container
-          resources:
-            limits:
-              cpu: &quot;500m&quot;
-              memory: 1Gi
 </code></pre>
 <aside class="note info">
 <div class="title">信息</div>
@@ -399,9 +393,7 @@ spec:
 <tr><td>containers:<br>- name: user-container<br>  args: [“–k1=v1”, “–k2=v2”]</td><td>containers:<br>- name: user-container<br>  args: [“–k2=v3”]</td><td>containers:<br>- name: user-container<br>  args: [“–k2=v3”]</td></tr>
 </tbody></table>
 </div></aside>
-<h4 id="计算资源"><a class="header" href="#计算资源">计算资源</a></h4>
-<p>MLServiceRuntime 定义了 Pod 模版，但对于容器的资源要求，不同场景之间存在差异。因此， MLServiceRuntime 中定义的容器资源要求只是一个缺省时的默认值。</p>
-<p>用户可以直接在 MLService <code>predictor</code> 中的 <code>containersResources</code> 定义容器的资源要求，例如：</p>
+<p>上述的 <a href="#strategicmergepatch">StrategicMergePatch</a> 给用户提供了完整的个性化改动方案。除此以外，针对改动频率更高的资源要求（resources），MLService 提供了更方便的个性化改动方案。用户可以直接通过 Predictor 中的 <code>resources</code> 覆盖 Runtime 的资源要求，例如：</p>
 <pre><code class="language-yaml">apiVersion: tensorstack.dev/v1beta1
 kind: MLService
 metadata:
@@ -415,17 +407,11 @@ spec:
         modelFormat:
           name: pytorch
         modelUri: &quot;&lt;your-model-registry/your-model-path&gt;&quot;
-      containersResources:
-      - name: user-container
-        resources:
-          limits:
-            cpu: &quot;500m&quot;
-            memory: 1Gi
+      resources:
+        limits:
+          cpu: 500m
+          memory: 1Gi
 </code></pre>
-<aside class="note info">
-<div class="title">信息</div>
-<p>用户还可以使用上一节 <a href="#strategicmergepatch">StrategicMergePatch</a> 定义容器资源要求，但 <code>containersResources</code> 的优先级更高，如果两者定义了同一个 container 的资源要求，<code>containersResources</code> 会完全覆盖 <code>template.spec</code> 中的值。</p>
-</aside>
 <h2 id="模型存储"><a class="header" href="#模型存储">模型存储</a></h2>
 <p>MLService 支持 S3 和 PVC 两种存储模型的方式，用户需要根据模型存储的类型填写 MLService 的配置。</p>
 <h3 id="pvc"><a class="header" href="#pvc">PVC</a></h3>

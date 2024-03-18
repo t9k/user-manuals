@@ -2009,12 +2009,6 @@ spec:
             &quot;MODEL_PATH&quot;: &quot;mnist=model.mar&quot;
           runtime: torchserve
           modelUri: pvc://tutorial/tutorial-examples/deployment/pvc/mlservice-torch/
-        containersResources:
-        - name: user-container
-          resources:
-            limits:
-              cpu: &quot;500m&quot;
-              memory: 1Gi
 </code></pre>
 <aside class="note info">
 <div class="title">信息</div>
@@ -2175,9 +2169,7 @@ spec:
 <tr><td>containers:<br>- name: user-container<br>  args: [“–k1=v1”, “–k2=v2”]</td><td>containers:<br>- name: user-container<br>  args: [“–k2=v3”]</td><td>containers:<br>- name: user-container<br>  args: [“–k2=v3”]</td></tr>
 </tbody></table>
 </div></aside>
-<h4 id="计算资源"><a class="header" href="#计算资源">计算资源</a></h4>
-<p>MLServiceRuntime 定义了 Pod 模版，但对于容器的资源要求，不同场景之间存在差异。因此， MLServiceRuntime 中定义的容器资源要求只是一个缺省时的默认值。</p>
-<p>用户可以直接在 MLService <code>predictor</code> 中的 <code>containersResources</code> 定义容器的资源要求，例如：</p>
+<p>上述的 <a href="modules/deployment/mlservice.html#strategicmergepatch">StrategicMergePatch</a> 给用户提供了完整的个性化改动方案。除此以外，针对改动频率更高的资源要求（resources），MLService 提供了更方便的个性化改动方案。用户可以直接通过 Predictor 中的 <code>resources</code> 覆盖 Runtime 的资源要求，例如：</p>
 <pre><code class="language-yaml">apiVersion: tensorstack.dev/v1beta1
 kind: MLService
 metadata:
@@ -2191,17 +2183,11 @@ spec:
         modelFormat:
           name: pytorch
         modelUri: &quot;&lt;your-model-registry/your-model-path&gt;&quot;
-      containersResources:
-      - name: user-container
-        resources:
-          limits:
-            cpu: &quot;500m&quot;
-            memory: 1Gi
+      resources:
+        limits:
+          cpu: 500m
+          memory: 1Gi
 </code></pre>
-<aside class="note info">
-<div class="title">信息</div>
-<p>用户还可以使用上一节 <a href="modules/deployment/mlservice.html#strategicmergepatch">StrategicMergePatch</a> 定义容器资源要求，但 <code>containersResources</code> 的优先级更高，如果两者定义了同一个 container 的资源要求，<code>containersResources</code> 会完全覆盖 <code>template.spec</code> 中的值。</p>
-</aside>
 <h2 id="模型存储-1"><a class="header" href="#模型存储-1">模型存储</a></h2>
 <p>MLService 支持 S3 和 PVC 两种存储模型的方式，用户需要根据模型存储的类型填写 MLService 的配置。</p>
 <h3 id="pvc-1"><a class="header" href="#pvc-1">PVC</a></h3>
@@ -5435,7 +5421,7 @@ spec:
 <li>了解项目管理员如何：<a href="modules/security/../../tasks/add-project-member.html">添加 Project 成员</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="计算资源-1"><a class="header" href="#计算资源-1">计算资源</a></h1>
+<h1 id="计算资源"><a class="header" href="#计算资源">计算资源</a></h1>
 <p>用户在向集群提交计算任务，使用计算资源时，需要遵循管理员设置的各种策略。</p>
 <ul>
 <li><a href="modules/scheduling/index.html#%E8%B5%84%E6%BA%90%E9%85%8D%E9%A2%9D">资源配额</a>：用户提交的工作负载需要满足集群的配额策略；</li>
@@ -9563,29 +9549,150 @@ spec:
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="包含-transformer-的推理服务"><a class="header" href="#包含-transformer-的推理服务">包含 Transformer 的推理服务</a></h1>
 <p>本教程演示如何使用 TensorStack SDK 创建 Transformer 镜像，然后部署包含该 Transformer 的 MLService。</p>
-<h2 id="运行示例-11"><a class="header" href="#运行示例-11">运行示例</a></h2>
-<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/deployment/mlservice/transformer">本教程的示例</a>，参照其 README 文档运行。本示例运行了一个带有 Transformer 的 MLService 推理服务。</p>
-<h2 id="transformer-实现"><a class="header" href="#transformer-实现">Transformer 实现</a></h2>
-<p>Transformer 是 MLService 中的一个组件，它可以对推理的请求进行预处理和后处理:</p>
-<ul>
-<li>预处理：用户发向推理服务的原始数据，先经过 Transformer 预处理，然后再被发送到推理服务。</li>
-<li>后处理：推理服务返回的预测结果，先经过 Transformer 后处理，然后再返回给用户。</li>
-</ul>
-<aside class="note info">
-<div class="title">信息</div>
-<p>你可以使用 Tensorstack SDK 编写 Transformer 代码，并使用 ImageBuilder 制作自定义 Transformer 镜像。详情请参考 <a href="https://github.com/t9k/tutorial-examples/tree/master/deployment/mlservice/transformer#%E5%88%B6%E4%BD%9C-transformer-%E9%95%9C%E5%83%8F">制作 Transformer 镜像</a></p>
-</aside>
-<h2 id="查看推理服务状态-2"><a class="header" href="#查看推理服务状态-2">查看推理服务状态</a></h2>
-<p>部署完成后，进入模型部署控制台的 MLService 页面，可以看到名为 <strong>pic-mnist</strong> 的 MLService，稍等片刻，等其进入 Ready 状态：</p>
-<figure class="screenshot">
-  <img alt="create-mlservcie-transformer" src="tasks/../assets/tasks/deploy-model-reference-serving/transformer/mlservice-status.png" class="screenshot" />
-</figure>
-<h2 id="使用推理服务-2"><a class="header" href="#使用推理服务-2">使用推理服务</a></h2>
-<p>你可以直接使用命令行工具访问 MLService 的预测服务。运行命令获取 MLService 的 URL：</p>
-<pre><code class="language-shell">address=$(kubectl get mls pic-mnist -ojsonpath='{.status.address.url}') &amp;&amp; echo $address
+<h2 id="准备工作-6"><a class="header" href="#准备工作-6">准备工作</a></h2>
+<p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备此次部署需要用到的 PVC 和 Notebook。</p>
+<h2 id="编写-transformer-逻辑"><a class="header" href="#编写-transformer-逻辑">编写 Transformer 逻辑</a></h2>
+<p>接下来开始制作供 MLService 使用的 Transformer 镜像。首先进入 Notebook，启动一个终端，切换到对应目录：</p>
+<pre><code class="language-bash">cd ~/tutorial-examples/deployment/mlservice/transformer
 </code></pre>
-<p>使用图片 <code>shoe.png</code> 作为测试数据发送预测请求：</p>
-<pre><code class="language-shell">curl --data-binary @./shoe.png ${address}/v1/models/model:predict
+<p>查看文件 <code>server.py</code> ，内容如下：</p>
+<pre><code class="language-py title=&quot;server.py&quot;">import json
+from t9k import mlservice
+
+import argparse
+import io
+import numpy as np
+from PIL import Image
+from typing import Dict
+
+# inherit parser to get command-line-args help
+# feel free to add your command line args
+par = argparse.ArgumentParser(parents=[mlservice.option.parser])
+args, _ = par.parse_known_args()
+
+def image_transform(instance):
+    image = Image.open(io.BytesIO(instance))
+    a = np.asarray(image)
+    a = a / 255.0
+    return a.reshape(28, 28, 1).tolist()
+
+class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
+               'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
+
+def get_prediction(prediction: list)-&gt;str:
+    max_value = max(prediction)
+    max_index = prediction.index(max_value)
+    return class_names[max_index]
+
+class Transformer(mlservice.MLTransformer):
+    def preProcess(self, path: str, requestData: bytes, headers: Dict[str, str]) -&gt; any:
+        return json.dumps({'instances': [image_transform(requestData)]})
+
+    def postProcess(self, path: str, statusCode: int, responseContent: bytes, headers: Dict[str, str]) -&gt; bytes:
+        data = responseContent.decode('utf-8')
+        jsonData = json.loads(data)
+        jsonStr = json.dumps({'predictions': [get_prediction(predict) for predict in jsonData['predictions']]})
+        return jsonStr.encode('utf-8')
+    
+if __name__ == &quot;__main__&quot;:
+    transformer = Transformer()
+    server = mlservice.MLServer()
+    server.start(transformer=transformer)
+</code></pre>
+<p>代码中使用了 TensorStack SDK，通过重载 <code>preprocess</code> 和 <code>postprocess</code> 方法实现了一个 Transformer：</p>
+<ul>
+<li><code>preprocess</code>：预处理函数，Transformer 收到用户发送的数据，使用 <code>preprocess</code> 对数据进行处理，然后再发送给推理服务。在这个示例中，先转换输入图片的数据格式，需要保持与训练的模型的输入数据一致，然后再转换为推理服务的输入格式。</li>
+<li><code>postprocess</code>：后处理函数，Transformer 收到推理服务返回的结果，使用 <code>postprocess</code> 对其进行处理，然后再返回给用户。在这个示例中，模型用于处理分类问题，从推理服务返回的预测概率向量中解析出该图片的分类类别，并返回给用户。</li>
+</ul>
+<p>用户可以参考该文件来实现自定义的 Transformer 逻辑。</p>
+<h2 id="制作镜像"><a class="header" href="#制作镜像">制作镜像</a></h2>
+<p>基于上述代码，我们创建对应的 Dockerfile 如下：</p>
+<pre><code class="language-dockerfile">FROM python:3.8-slim
+
+COPY t9k-sdk.tar.gz t9k-sdk.tar.gz
+COPY server.py server.py
+
+RUN pip install --upgrade pip
+RUN pip install --no-cache-dir -i https://pypi.tuna.tsinghua.edu.cn/simple \
+    numpy \
+    pillow \
+    requests
+RUN pip install t9k-sdk.tar.gz  -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+ENTRYPOINT [&quot;python&quot;, &quot;server.py&quot;]
+</code></pre>
+<p>上述 Dockerfile 引入了相关依赖，并将上一步的 <code>server.py</code> 文件作为启动命令。用户可以参考该文件来实现自定义的镜像。</p>
+<p>然后我们通过运行一个 ImageBuilder 来制作镜像，为了使用 ImageBuilder，首先我们需要参照<a href="https://github.com/t9k/tutorial-examples/blob/master/build-image/build-image-on-platform/README.md#%E5%88%9B%E5%BB%BA-secret">创建 Secret</a>准备上传镜像所需要的 DockerConfig <code>Secret</code>。</p>
+<p>完成后修改 <code>imagebuilder.yaml</code> 文件，将 <code>spec.dockerConfig.secret</code> 修改为上一步中创建的 DockerConfig <code>Secret</code> 的名称，并将 <code>spec.tag</code> 修改为目标镜像，并执行以下命令：</p>
+<pre><code>kubectl apply -f imagebuilder.yaml
+</code></pre>
+<p>查看 <code>ImageBuilder</code> 状态，等待 Phase 一栏变为 <code>Succeeded</code>：</p>
+<pre><code class="language-sh">kubectl get -f imagebuilder.yaml -w
+</code></pre>
+<h2 id="部署-mlservice-1"><a class="header" href="#部署-mlservice-1">部署 MLService</a></h2>
+<p>进入模型部署控制台，先点击左侧导航栏辅助一栏下的的 <strong>MLServiceRuntime</strong>，再点击 <strong>创建 MLServiceRuntime</strong> ，然后点击 <strong>预览 YAML</strong>， 并将下面内容复制到 YAML 编辑框中，最后点击 <strong>创建</strong> 创建 MLServiceRuntime。</p>
+<pre><code class="language-yaml">apiVersion: tensorstack.dev/v1beta1
+kind: MLServiceRuntime
+metadata:
+  name: t9k-tensorflow-serving
+spec:
+  enabled: true
+  template:
+    spec:
+      containers:
+      - name: user-container
+        image: t9kpublic/tensorflow-serving:2.13.1
+        command:
+          - /usr/bin/tensorflow_model_server
+        args:
+          - --model_name={{if .MODEL_NAME}}{{.MODEL_NAME}}{{else}}model{{end}}
+          - --port={{if .GRPC_PORT}}{{.GRPC_PORT}}{{else}}9000{{end}}
+          - --rest_api_port=8000
+          - --model_base_path=/var/lib/t9k/model
+        resources:
+          limits:
+            cpu: &quot;200m&quot;
+            memory: 200Mi
+        ports:
+        - containerPort: 8000
+          protocol: TCP
+</code></pre>
+<p>进入模型部署控制台的 MLService 页面，点击右上角<strong>创建 MLService</strong>，然后点击<strong>预览 YAML</strong>。如下图所示，将下述内容复制到右侧的 YAML 编辑框，最后点击 <strong>创建</strong> 创建 MLService：</p>
+<aside class="note">
+<div class="title">注意</div>
+<p>请将 transformer 定义中的 <code>image</code> 替换为上一步中制作好的镜像地址。</p>
+</aside>
+<pre><code class="language-yaml">apiVersion: tensorstack.dev/v1beta1
+kind: MLService
+metadata:
+  name: pic-mnist
+spec:
+  default: origin
+  transformer:
+    minReplicas: 1
+    template:
+      spec:
+        containers:
+        - name: user-container
+          image: &quot;&lt;your-docker-registry-address&gt;/mnist-transformer:test&quot;
+  releases:
+    - name: origin
+      predictor:
+        minReplicas: 1
+        model:
+          runtime: t9k-tensorflow-serving
+          modelUri: pvc://tutorial/tutorial-examples/deployment/mlservice/transformer/model/
+</code></pre>
+<figure class="screenshot">
+  <img alt="create-mlservcie-transformer" src="tasks/../assets/tasks/deploy-model-reference-serving/transformer/create-mlservice.png" class="screenshot" />
+</figure>
+<h1>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+你可以直接使用命令行工具访问 MLService 的预测服务。运行命令获取 MLService 的 URL：</h1>
+<h2 id="发送预测请求"><a class="header" href="#发送预测请求">发送预测请求</a></h2>
+<p>使用图片 <code>shoe.png</code> 作为测试数据发送预测请求。
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; parent of 816714b (Update mlservice (#51))</p>
+<pre><code class="language-shell">address=$(kubectl get mls pic-mnist -ojsonpath='{.status.address.url}') &amp;&amp; echo $address
+curl --data-binary @./shoe.png ${address}/v1/models/model:predict
 </code></pre>
 <h2 id="参考-11"><a class="header" href="#参考-11">参考</a></h2>
 <ul>
@@ -9606,7 +9713,7 @@ spec:
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="操作文件夹模型和数据集"><a class="header" href="#操作文件夹模型和数据集">操作文件夹、模型和数据集</a></h1>
 <p>本教程演示如何通过多种方式操作文件夹、模型和数据集，包括创建、查看和删除。</p>
-<h2 id="准备工作-6"><a class="header" href="#准备工作-6">准备工作</a></h2>
+<h2 id="准备工作-7"><a class="header" href="#准备工作-7">准备工作</a></h2>
 <ul>
 <li><a href="tasks/../tools/python-sdk-t9k/index.html">安装</a> TensorStack SDK 并阅读<a href="tasks/../tools/python-sdk-t9k/guide.html">用户指南</a>。</li>
 </ul>
@@ -9821,7 +9928,7 @@ AH INFO: Folder /demo/t9k-assethub/dataset/text deleted
 <h1 id="通过-s3-访问模型和数据集"><a class="header" href="#通过-s3-访问模型和数据集">通过 S3 访问模型和数据集</a></h1>
 <p>本教程演示如何 S3 访问模型。</p>
 <p>数据集同理。</p>
-<h2 id="准备工作-7"><a class="header" href="#准备工作-7">准备工作</a></h2>
+<h2 id="准备工作-8"><a class="header" href="#准备工作-8">准备工作</a></h2>
 <ul>
 <li>完成教程<a href="tasks/./manipulate-folder-asset.html">操作文件夹、模型和数据集</a>。</li>
 </ul>
@@ -9911,7 +10018,7 @@ pip install s3cmd
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="修改文件夹模型和数据集的基本信息"><a class="header" href="#修改文件夹模型和数据集的基本信息">修改文件夹、模型和数据集的基本信息</a></h1>
 <p>本教程演示如何通过多种方式修改文件夹、模型和数据集的基本信息。</p>
-<h2 id="准备工作-8"><a class="header" href="#准备工作-8">准备工作</a></h2>
+<h2 id="准备工作-9"><a class="header" href="#准备工作-9">准备工作</a></h2>
 <ul>
 <li>完成教程<a href="tasks/./manipulate-folder-asset.html">操作文件夹、模型和数据集</a>。</li>
 </ul>
@@ -10068,7 +10175,7 @@ pprint(ah.list('model/chat'))
 <h1 id="操作模型和数据集的分支tag-和-commit"><a class="header" href="#操作模型和数据集的分支tag-和-commit">操作模型和数据集的分支、tag 和 commit</a></h1>
 <p>本教程演示如何通过多种方式操作模型的分支、tag 和 commit，包括创建、查看和删除分支，创建、查看和删除 tag，以及查看 commit。</p>
 <p>数据集同理。</p>
-<h2 id="准备工作-9"><a class="header" href="#准备工作-9">准备工作</a></h2>
+<h2 id="准备工作-10"><a class="header" href="#准备工作-10">准备工作</a></h2>
 <ul>
 <li>完成教程<a href="tasks/./manipulate-folder-asset.html">操作文件夹、模型和数据集</a>。</li>
 </ul>
@@ -10194,7 +10301,7 @@ AH INFO: Tag 20230101 deleted for Model /demo/t9k-assethub/model/llm/gpt2
 <h1 id="操作模型和数据集的对象"><a class="header" href="#操作模型和数据集的对象">操作模型和数据集的对象</a></h1>
 <p>本教程演示如何通过多种方式操作模型的对象，包括修改、查看和下载 AssetHub 中存储的对象文件。</p>
 <p>数据集同理。</p>
-<h2 id="准备工作-10"><a class="header" href="#准备工作-10">准备工作</a></h2>
+<h2 id="准备工作-11"><a class="header" href="#准备工作-11">准备工作</a></h2>
 <ul>
 <li>完成教程<a href="tasks/./manipulate-asset-branch-tag.html">操作模型/数据集的分支、tag 和 commit</a>。</li>
 </ul>
@@ -10828,7 +10935,7 @@ artifact.upload(folder='default', make_folder=True)
 <div class="title">信息</div>
 <p>对于 Keras 模型，<code>t9k.em</code> 提供了使用更加方便的回调，详见<a href="tasks/./record-using-python-sdk.html#%E8%87%AA%E5%8A%A8%E8%AE%B0%E5%BD%95">自动记录</a>。</p>
 </aside>
-<h2 id="运行示例-12"><a class="header" href="#运行示例-12">运行示例</a></h2>
+<h2 id="运行示例-11"><a class="header" href="#运行示例-11">运行示例</a></h2>
 <p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/master/em/single-worker-training">本教程对应的示例</a>，参照其 README 文档运行。</p>
 <p>下面介绍训练脚本进行了哪些修改以追踪训练。</p>
 <h2 id="准备训练脚本-1"><a class="header" href="#准备训练脚本-1">准备训练脚本</a></h2>
@@ -11127,7 +11234,7 @@ def test(val=False, epoch=None):
 <div class="title">信息</div>
 <p>对于 Keras 模型，<code>t9k.em</code> 提供了使用更加方便的回调，详见<a href="tasks/./record-using-python-sdk.html#%E8%87%AA%E5%8A%A8%E8%AE%B0%E5%BD%95">自动记录</a>。</p>
 </aside>
-<h2 id="运行示例-13"><a class="header" href="#运行示例-13">运行示例</a></h2>
+<h2 id="运行示例-12"><a class="header" href="#运行示例-12">运行示例</a></h2>
 <p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/master/em/data-parallel-training">本教程对应的示例</a>，参照其 README 文档运行。</p>
 <p>下面介绍训练脚本进行了哪些修改以追踪训练。该方法是通用的，可以推广到任意类型的 TrainingJob、DeepSpeedJob、ColossalAIJob、MPIJob 或 GenericJob。</p>
 <h2 id="准备训练脚本-2"><a class="header" href="#准备训练脚本-2">准备训练脚本</a></h2>
@@ -11471,7 +11578,7 @@ def test(val=False, epoch=None):
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="创建工作流的基本单元"><a class="header" href="#创建工作流的基本单元">创建工作流的基本单元</a></h1>
 <p>本教程演示如何创建工作流的基本单元。</p>
-<h2 id="准备工作-11"><a class="header" href="#准备工作-11">准备工作</a></h2>
+<h2 id="准备工作-12"><a class="header" href="#准备工作-12">准备工作</a></h2>
 <ul>
 <li>了解 <a href="tasks/../modules/workflows/workflowtemplate.html">WorkflowTemplate</a> 和 <a href="tasks/../modules/workflows/workflowrun.html">WorkflowRun</a> 的基本概念。</li>
 <li>成为一个<a href="tasks/../modules/security/project.html">项目</a>的管理员或<a href="tasks/./add-project-member.html">成员</a>。</li>
@@ -11513,7 +11620,7 @@ def test(val=False, epoch=None):
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="创建执行各类任务的工作流单元"><a class="header" href="#创建执行各类任务的工作流单元">创建执行各类任务的工作流单元</a></h1>
 <p>本教程演示如何创建执行各类任务的工作流单元。</p>
-<h2 id="准备工作-12"><a class="header" href="#准备工作-12">准备工作</a></h2>
+<h2 id="准备工作-13"><a class="header" href="#准备工作-13">准备工作</a></h2>
 <ul>
 <li>完成教程<a href="tasks/./create-workflow-unit.html">创建工作流的基本单元</a>。</li>
 <li>成为一个<a href="tasks/../modules/security/project.html">项目</a>的管理员或<a href="tasks/./add-project-member.html">成员</a>。</li>
@@ -11743,7 +11850,7 @@ spec:
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="创建存在依赖关系的工作流"><a class="header" href="#创建存在依赖关系的工作流">创建存在依赖关系的工作流</a></h1>
 <p>本教程演示如何创建存在依赖关系的工作流。</p>
-<h2 id="准备工作-13"><a class="header" href="#准备工作-13">准备工作</a></h2>
+<h2 id="准备工作-14"><a class="header" href="#准备工作-14">准备工作</a></h2>
 <ul>
 <li>完成教程<a href="tasks/./create-workflow-unit.html">创建工作流的基本单元</a>。</li>
 <li>了解 <a href="tasks/../modules/workflows/workflowtemplate.html#dag-workflowtemplate">DAG WorkflowTemplate</a> 的基本概念。</li>
@@ -11785,12 +11892,12 @@ spec:
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="建立从数据采样到模型导出的自动化工作流"><a class="header" href="#建立从数据采样到模型导出的自动化工作流">建立从数据采样到模型导出的自动化工作流</a></h1>
 <p>本教程演示如何建立一个端到端的机器学习工作流，包括数据预处理、模型训练、模型分析等步骤。本教程使用的机器学习应用样例是一个二分类问题，根据乘客搭乘出租车的位置、路程、用时等特征数据预测乘客是否会付小费。</p>
-<h2 id="准备工作-14"><a class="header" href="#准备工作-14">准备工作</a></h2>
+<h2 id="准备工作-15"><a class="header" href="#准备工作-15">准备工作</a></h2>
 <ul>
 <li>完成教程<a href="tasks/./create-dependent-workflow.html">创建存在依赖关系的工作流</a>。</li>
 <li>成为一个<a href="tasks/../modules/security/project.html">项目</a>的管理员或<a href="tasks/./add-project-member.html">成员</a>。</li>
 </ul>
-<h2 id="运行示例-14"><a class="header" href="#运行示例-14">运行示例</a></h2>
+<h2 id="运行示例-13"><a class="header" href="#运行示例-13">运行示例</a></h2>
 <p>请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备环境，然后前往<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/master/workflow/e2e-workflow">本教程对应的示例</a>，参照其 README 文档运行。</p>
 <aside class="note tip">
 <div class="title">提示</div>
@@ -12267,7 +12374,7 @@ wget https://huggingface.co/mistralai/Mistral-7B-v0.1/resolve/main/model-00002-o
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="生成-api-key"><a class="header" href="#生成-api-key">生成 API Key</a></h1>
 <p>本教程演示如何生成一个 API Key。</p>
-<h2 id="准备工作-15"><a class="header" href="#准备工作-15">准备工作</a></h2>
+<h2 id="准备工作-16"><a class="header" href="#准备工作-16">准备工作</a></h2>
 <ul>
 <li>了解 <a href="tasks/../modules/security/account.html#api-key">API Key</a> 的基本概念。</li>
 </ul>
@@ -12337,7 +12444,7 @@ type: Opaque
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="添加项目成员"><a class="header" href="#添加项目成员">添加项目成员</a></h1>
 <p>本教程演示如何为一个项目添加成员。</p>
-<h2 id="准备工作-16"><a class="header" href="#准备工作-16">准备工作</a></h2>
+<h2 id="准备工作-17"><a class="header" href="#准备工作-17">准备工作</a></h2>
 <ul>
 <li>了解<a href="tasks/../modules/security/project.html">项目</a>的基本概念。</li>
 <li>成为一个项目的管理员。如果你不是任何一个项目的管理员，请联系平台管理员为你创建一个项目。</li>
@@ -21615,7 +21722,7 @@ kubectl create -f simplemlservice.yaml
 <pre><code class="language-bash">kubectl get -f simplemlservice.yaml -w
 </code></pre>
 <p>待其 <code>READY</code> 值变为 <code>true</code> 后，便可开始使用该服务。第一次拉取镜像可能会花费较长的时间，具体取决于集群的网络状况。</p>
-<h2 id="使用推理服务-3"><a class="header" href="#使用推理服务-3">使用推理服务</a></h2>
+<h2 id="使用推理服务-2"><a class="header" href="#使用推理服务-2">使用推理服务</a></h2>
 <p>继续使用 Notebook 的终端，使用 <code>curl</code> 命令发送聊天或生成文本的请求：</p>
 <pre><code class="language-bash">address=$(kubectl get -f simplemlservice.yaml -ojsonpath='{.status.address.url}')
 
@@ -21768,7 +21875,7 @@ kubectl create -f mlservice.yaml
 <p>部署 70B 模型的 YAML 配置文件请参阅 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/examples/blob/master/deployments/vllm/mlservice-runtime-70b.yaml"><code>mlservice-runtime-70b.yaml</code></a> 和 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/examples/blob/master/deployments/vllm/mlservice-70b.yaml"><code>mlservice-70b.yaml</code></a></p>
 <p>如果没有足够的显存，可以尝试<a target="_blank" rel="noopener noreferrer" href="https://docs.vllm.ai/en/latest/quantization/auto_awq.html">量化</a>方法。</p>
 </aside>
-<h2 id="使用推理服务-4"><a class="header" href="#使用推理服务-4">使用推理服务</a></h2>
+<h2 id="使用推理服务-3"><a class="header" href="#使用推理服务-3">使用推理服务</a></h2>
 <p>继续使用 Notebook 的终端，使用 <code>curl</code> 命令发送聊天或生成文本的请求：</p>
 <pre><code class="language-bash">address=$(kubectl get -f mlservice.yaml -ojsonpath='{.status.address.url}')
 
@@ -21988,7 +22095,7 @@ kubectl create -f mlservice.yaml
 <pre><code class="language-bash">kubectl get -f mlservice.yaml -w
 </code></pre>
 <p>待其 <code>READY</code> 值变为 <code>true</code> 后，便可开始使用该服务。第一次拉取镜像可能会花费较长的时间，具体取决于集群的网络状况。</p>
-<h2 id="使用推理服务-5"><a class="header" href="#使用推理服务-5">使用推理服务</a></h2>
+<h2 id="使用推理服务-4"><a class="header" href="#使用推理服务-4">使用推理服务</a></h2>
 <p>继续使用 Notebook 的终端，使用作为推理客户端的 Python 脚本发送推理请求：</p>
 <pre><code class="language-bash">address=$(kubectl get -f mlservice.yaml -ojsonpath='{.status.address.url}' | sed 's#^https\?://##')
 pip install tritonclient gevent geventhttpclient
@@ -22052,7 +22159,7 @@ kubectl apply -f ./download-job.yaml
 <figure class="screenshot">
     <img alt="ready" src="examples/../assets/examples/deploy-tensorizer/running-status.png" />
 </figure>
-<h2 id="使用推理服务-6"><a class="header" href="#使用推理服务-6">使用推理服务</a></h2>
+<h2 id="使用推理服务-5"><a class="header" href="#使用推理服务-5">使用推理服务</a></h2>
 <p>你可以直接使用命令行工具访问 MLService 的预测服务。运行命令获取 MLService 的 URL：</p>
 <pre><code class="language-shell">url=$(kubectl get mlservice tensorizer-gptj -o jsonpath='{.status.address.url}') &amp;&amp; echo $url
 </code></pre>
@@ -23447,7 +23554,7 @@ helm show values qdrant/qdrant --version &lt;CHART_VERSION&gt; &gt; values.yaml
 helm install qdrant-demo qdrant/qdrant --version &lt;CHART_VERSION&gt; -f values.yaml
 </code></pre>
 <p>下面将分主题介绍部分关键配置（CHART VERSION 0.7.6）。</p>
-<h3 id="计算资源-2"><a class="header" href="#计算资源-2">计算资源</a></h3>
+<h3 id="计算资源-1"><a class="header" href="#计算资源-1">计算资源</a></h3>
 <p>默认配置没有指定计算资源，表示 Pod 可以无限制地使用节点的 CPU 和内存资源。你可以根据实际需求指定请求值和限制值。</p>
 <pre><code class="language-yaml"># 默认配置
 resources: {}
@@ -23743,7 +23850,7 @@ helm install pgvector-demo t9kpublic/bitnami-pgvector \
   -f values.yaml
 </code></pre>
 <p>下面将分主题介绍部分关键配置（CHART VERSION 14.1.3）。</p>
-<h4 id="计算资源-3"><a class="header" href="#计算资源-3">计算资源</a></h4>
+<h4 id="计算资源-2"><a class="header" href="#计算资源-2">计算资源</a></h4>
 <p>默认配置没有指定计算资源，表示 Pod 可以无限制地使用节点的 CPU 和内存资源。你可以根据实际需求指定请求值和限制值，可以参阅<a target="_blank" rel="noopener noreferrer" href="https://cloud.google.com/sql/docs/postgres/manage-memory-usage-best-practices?hl=zh-cn">管理内存用量的最佳实践</a>。</p>
 <pre><code class="language-yaml"># 默认配置
 primary:
