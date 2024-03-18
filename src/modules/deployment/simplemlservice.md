@@ -22,10 +22,9 @@ spec:
   replicas: 1
   storage:
     s3:
-      secretRef:
-        name: s3-secret
+      secretName: s3-secret
       uri: s3://models/mnist/
-      mountPath: /var/lib/t9k/model
+      containerPath: /var/lib/t9k/model
   tensorflow:
     image: t9kpublic/tensorflow-serving:2.6.0
     resources: 
@@ -37,9 +36,9 @@ spec:
 本示例的 spec 字段的子字段释义如下：
 * `replicas`: 定义运行推理服务的副本数量是 1。
 * `storage.s3`: 设定使用 S3 存储模型，子字段的释义如下：
-    * `secretRef.name`: Secret `s3-secret` 中存储 S3 配置信息，其详情参见：[创建 S3 Secret](./storage.md#创建-s3-secret)。
-    * `uri`: 模型在 S3 中的存储标识是 `s3://models/mnist/`。
-    * `mountPath`: 模型被加载后，在容器中存储模型的文件系统路径是 `/var/lib/t9k/model`。
+    * `secretName`: Secret `s3-secret` 中存储 S3 配置信息，其详情参见：[创建-s3-secret](#创建-s3-secret)。
+    * `uri`: 模型在 S3 中的存储路径是 `s3://models/mnist/`。
+    * `containerPath`: 模型被加载后，在容器中存储模型的文件系统路径是 `/var/lib/t9k/model`。
 * `tensorflow`: 设定使用 `tensorflow` 推理框架，子字段释义如下：
     * `image`: 指定推理服务容器镜像 `t9kpublic/tensorflow-serving:2.6.0`。
     * `resources`: 这顶一个副本 Pod 使用的资源量。
@@ -105,10 +104,9 @@ spec:
   replicas: 1
   storage:
     s3:
-      secretRef:
-        name: s3-secret
+      secretName: s3-secret
       uri: s3://models/mnist/
-      mountPath: /custom/path
+      containerPath: /custom/path
   custom:
     spec:
       containers:
@@ -170,7 +168,81 @@ spec:
 
 ## 模型存储
 
-通过 `spec.storage` 字段可以设置 SimpleMLService 的模型存储信息，详情请见[模型存储](./storage.md)。
+SimpleMLService 支持使用 S3 或 [PVC](../storage/pvc.md) 中存储的模型。
+
+### S3
+
+如需使用 S3 服务中存储的模型：
+
+1. 创建存储 S3 服务信息的 Secret
+2. 设置 SimpleMLService 的 `spec.storage.s3` 字段
+
+#### 创建 S3 Secret
+
+存储 S3 信息的 Secret 需要满足下列条件：
+1. 设置 label `tensorstack.dev/resource: s3`。
+2. 设置 `data[.s3cfg]` 字段，内容是 Base64 编码的 <a target="_blank" rel="noopener noreferrer" href="https://s3tools.org/s3cmd">s3cmd</a> config。
+
+YAML 示例如下：
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: s3-sample
+  labels:
+    tensorstack.dev/resource: s3
+type: Opaque
+data:
+  .s3cfg: aG9zdF9iYXNlID0gZXhhbXBsZS5zMwpob3N0X2J1Y2tldCA9IGV4YW1wbGUuczMKYnVja2V0X2xvY2F0aW9uID0gdXMtZWFzdC0xCnVzZV9odHRwcyA9IEZhbHNlCmFjY2Vzc19rZXkgPSB1c2VyCnNlY3JldF9rZXkgPSBwYXNzd29yZApzaWduYXR1cmVfdjIgPSBGYWxzZQo=
+```
+
+其中 `data[.s3cfg]` 字段 Base64 解码后如下：
+
+```
+host_base = example.s3
+host_bucket = example.s3
+bucket_location = us-east-1
+use_https = False
+access_key = user
+secret_key = password
+signature_v2 = False
+```
+
+#### 设置 `spec.storage.s3`
+
+设置 SimpleMLService 的 `spec.storage.s3` 字段来使用存储在 S3 中的模型数据。`spec.storage.s3` 字段包含下列子字段: 
+* `secretName`: 前述步骤创建的 S3 配置信息的 Secret 名称。
+* `uri`: 模型在 S3 中的存储标识。
+* `containerPath`: 模型在容器中的存储路径。
+
+
+示例如下：
+```yaml
+spec:
+  storage:
+    s3:
+      secretName: s3-secret
+      uri: s3://models/mnist/
+      containerPath: /var/lib/t9k/model
+```
+
+### PVC
+
+通过配置 `spec.storage.pvc` 字段可以使用存储在 PVC 中的模型数据。`spec.storage.pvc` 字段包含下列子字段：
+* `name`: 存储模型数据的 PVC 的名称。
+* `subPath`: 模型在 PVC 中的路径，不可以是绝对路径（即开头不能是 `/`）。
+* `containerPath`: 模型在容器中的存储路径。
+
+示例如下：
+```yaml
+spec:
+  storage:
+    pvc:
+      name: demo
+      subPath: path/mnist
+      containerPath: /var/lib/custom
+```
 
 ## 服务状态
 

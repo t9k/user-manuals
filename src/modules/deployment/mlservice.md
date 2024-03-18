@@ -18,8 +18,8 @@ MLService 用于在 TensorStack AI 平台上部署 AI 推理服务，其功能�
 
 - 支持定义多个版本（`release`）的推理服务，每个 `release` 包含一个 `predictor`，其定义了：
     - 模型存储（`storage`）
-    - 模型规约（`model`），包括 `parameters`，`runtime`（引用 `MLServiceRuntime` 定义运行推理服务 `Pod` 的模版）
-    - 计算资源（`containersResources`）
+    - 模型规约（`model`），包括 `modelUri`，`parameters`，`runtime`（引用 `MLServiceRuntime` 定义运行推理服务 `Pod` 的模版）
+    - 计算资源（`resources`）
     - 其他部署参数（`minReplicas, maxRelicas, logger ...`）
 - 每个 `release` 服务的容量可独立自动伸缩，可通过 `minReplicas`、`maxReplicas` 设置容量的上下限。
 - 支持<a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Feature_toggle#Canary_release">金丝雀（canary release）</a>发布模式。
@@ -46,10 +46,7 @@ spec:
           parameters:
             "MODEL_PATH": "mnist=model.mar"
           runtime: torchserve
-        storage:
-          pvc:
-            name: tutorial
-            subPath: tutorial-examples/deployment/pvc/mlservice-torch/
+          modelUri: pvc://tutorial/tutorial-examples/deployment/pvc/mlservice-torch/
         containersResources:
         - name: user-container
           resources:
@@ -72,16 +69,10 @@ spec:
 
 ## MLServiceRuntime
 
-在[示例](#示例)中，我们使用了 MLServiceRuntime `torchserve`。MLServiceRuntime 定义了推理服务的模版，包含了推理服务的关键信息，例如镜像、启动命令、资源需求等，能够方便地帮助用户快速部署多种模型推理服务程序。
+在[示例](#示例)中，我们使用了 MLServiceRuntime `torchserve`。
+MLServiceRuntime 定义了推理服务的模版，包含了推理服务的关键信息，例如镜像、启动命令、资源需求等，能够方便地帮助用户快速部署多种模型推理服务程序。
 
 一个 MLServiceRuntime 可以被多个 MLService 使用。
-
-<aside class="note info">
-<div class="title">注意</div>
-
-创建 MLService 时必须设置其使用的 MLServiceRuntime。
-</aside>
-
 
 ### 定义
 
@@ -142,10 +133,7 @@ spec:
     predictor:
       model:
         runtime: torchserve
-      storage:
-        pvc:
-          name: <pvc-name>
-          subPath: <model-path>
+        modelUri: "<your-model-registry/your-model-path>"
 ```
 
 用户在 release `version1` 的 `.predictor.model.runtime` 中指定了 `torchserve`，系统在创建推理服务器副本（Pod）时，将会使用名称为 `torchserve` 的 MLServiceRuntime。
@@ -189,10 +177,7 @@ spec:
         parameters:
           "MODEL_PATH": "mnist=model.mar"
         runtime: torchserve
-      storage:
-        pvc:
-          name: <pvc-name>
-          subPath: <model-path>
+        modelUri: "<your-model-registry/your-model-path>"
 ```
 
 由上述 MLService 最终产生的副本（Pod）的 `args` 中会包含 `--model mnist=model.mar`，指定了使用模型的名称和文件。
@@ -215,10 +200,7 @@ spec:
         parameters:
           "MODEL_PATH": "mnist=model.mar"
         runtime: torchserve
-      storage:
-        pvc:
-          name: <pvc-name>
-          subPath: <model-path>
+        modelUri: "<your-model-registry/your-model-path>"
       template:
         spec:
           containers:
@@ -286,10 +268,7 @@ spec:
       model:
         modelFormat:
           name: pytorch
-      storage:
-        pvc:
-          name: <pvc-name>
-          subPath: <model-path>
+        modelUri: "<your-model-registry/your-model-path>"
       containersResources:
       - name: user-container
         resources:
@@ -307,11 +286,48 @@ spec:
 
 ## 模型存储
 
-你可以为 Release 或 Transformer 定义模型存储：
-1. 通过 `spec.releases[*].predictor.storage` 可以设置当前 Release 的模型存储信息。
-2. 通过 `spec.transformer.storage` 可以设置 Transformer 的模型存储信息。
+MLService 支持 S3 和 PVC 两种存储模型的方式，用户需要根据模型存储的类型填写 MLService 的配置。
 
-详情请见 [模型存储](./storage.md)。
+### PVC
+
+在MLService中使用 [PVC](../storage/pvc.md) 存储模式需要在 `spec.releases[*].predictor.model.modelUri` 中设置包含前缀 `pvc://` 的模型路径。
+
+例如，下面的示例指定模型存储在 PVC `tutorial` 的 `models/example/` 路径下：
+
+```yaml
+...
+  releases:
+    - name: test1
+      predictor:
+        model:
+          modelUri: "pvc://tutorial/models/example"
+...
+```
+
+### S3
+
+S3 是一种对象存储服务和协议，具有良好的可扩展性、数据可用性和安全性等优点，其协议被多种商业和开源产品支持，并且被广泛部署。
+
+可在 MLService 中通过 `spec.releases[*].predictor.model.modelUri` 和
+`spec.releases[*].predictor.storage.s3Storage.secretName` 设定 S3 的配置参数，其中：
+
+- `modelUri` 必需包含前缀 `s3://`。
+- `secretName` 指向的Secret 存储的 S3 配置格式应当是 <a target="_blank" rel="noopener noreferrer" href="https://s3tools.org/s3cmd">s3cmd</a> 配置文件格式。
+
+例如，下面的示例指定模型在 S3 中的存储 `Uri` 前缀为 `s3://models/example/`，S3 的配置信息存储在 Secret `s3-model` 中：
+
+```yaml
+...
+  releases:
+    - name: test1
+      predictor:
+        model:
+          modelUri: "s3://models/example/"
+        storage:
+          s3Storage:
+            secretName: s3-model
+...
+```
 
 ## 更多配置
 
@@ -321,7 +337,7 @@ spec:
 
 一个 MLService 可以同时部署多个版本（release）的推理服务，以使用不同的模型文件，或者其他配置等。
 
-在下面的示例中，MLService 同时部署了 `nov-02`（设置为默认）、`nov-05` 和 `nov-11` 三个版本的服务，这三个版本都使用同一个 MLServiceRuntime，但是使用了不同的模型：
+在下面的示例中，MLService 同时部署了 `nov-02`（设置为默认）、`nov-05` 和 `nov-11` 三个版本的服务，这三个版本都使用同一个 MLServiceRuntime，但是使用的模型不同（不同的 `modelUri`）：
 
 ```yaml
 apiVersion: tensorstack.dev/v1beta1
@@ -331,30 +347,21 @@ metadata:
 spec:
   default: nov-02
   releases:
-  - name: nov-02
-    predictor:
-      model:
-        runtime: torchserve
-      storage:
-        pvc:
-          name: tutorial
-          subPath: model-11-02
-  - name: nov-05
-    predictor:
-      model:
-        runtime: torchserve
-      storage:
-        pvc:
-          name: tutorial
-          subPath: model-11-05
-  - name: nov-11
-    predictor:
-      model:
-        runtime: torchserve
-      storage:
-        pvc:
-          name: tutorial
-          subPath: model-11-11
+    - name: nov-02
+      predictor:
+        model:
+          runtime: torchserve
+          modelUri: pvc://tutorial/model-11-02
+    - name: nov-05
+      predictor:
+        model:
+          runtime: torchserve
+          modelUri: pvc://tutorial/model-11-05
+    - name: nov-11
+      predictor:
+        model:
+          runtime: torchserve
+          modelUri: pvc://tutorial/model-11-11
 ```
 
 #### 金丝雀发布
