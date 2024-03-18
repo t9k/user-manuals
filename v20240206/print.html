@@ -21872,7 +21872,7 @@ kubectl create -f mlservice.yaml
 <tr><td>70B</td><td>260GiB</td><td>4×40GB / 2×80GB</td></tr>
 </tbody></table>
 </div>
-<p>部署 70B 模型的 YAML 配置文件请参阅 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/examples/blob/master/deployments/vllm/mlservice-runtime-70b.yaml"><code>mlservice-runtime-70b.yaml</code></a> 和 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/examples/blob/master/deployments/vllm/mlservice-70b.yaml"><code>mlservice-70b.yaml</code></a></p>
+<p>部署 70B 模型的 YAML 配置文件请参阅 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/examples/blob/v20240206/deployments/vllm/mlservice-runtime-70b.yaml"><code>mlservice-runtime-70b.yaml</code></a> 和 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/examples/blob/v20240206/deployments/vllm/mlservice-70b.yaml"><code>mlservice-70b.yaml</code></a></p>
 <p>如果没有足够的显存，可以尝试<a target="_blank" rel="noopener noreferrer" href="https://docs.vllm.ai/en/latest/quantization/auto_awq.html">量化</a>方法。</p>
 </aside>
 <h2 id="使用推理服务-3"><a class="header" href="#使用推理服务-3">使用推理服务</a></h2>
@@ -22147,7 +22147,7 @@ git clone https://github.com/t9k/examples.git
 cd ~/examples/inference/tensorizer
 kubectl apply -f ./download-job.yaml
 </code></pre>
-<p>在该 GenericJob 中，我们先使用国内模型平台 ModelScope 来下载 GPT-J-6B 模型，然后将模型转换为 CoreWeave Tensorizer 所需的格式，并保存到 PVC 中，代码细节见 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/examples/blob/master/deployments/tensorizer/download/model_download.py"><code>model_download.py</code></a>。</p>
+<p>在该 GenericJob 中，我们先使用国内模型平台 ModelScope 来下载 GPT-J-6B 模型，然后将模型转换为 CoreWeave Tensorizer 所需的格式，并保存到 PVC 中，代码细节见 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/examples/blob/v20240206/deployments/tensorizer/download/model_download.py"><code>model_download.py</code></a>。</p>
 <h2 id="部署推理服务-1"><a class="header" href="#部署推理服务-1">部署推理服务</a></h2>
 <p>待模型下载的任务结束后，便可以开始部署服务。首先创建 <code>MLServiceRuntime</code>，MLServiceRuntime 定义了部署服务的 Pod 模版，此处所定义的 Pod 模版会使用 Tensorizer 加载环境变量 <code>MODEL_PATH</code> 所指定的路径中的模型文件：</p>
 <pre><code class="language-sh">kubectl apply -f ./runtime.yaml
@@ -22172,7 +22172,7 @@ kubectl apply -f ./download-job.yaml
 }
 </code></pre>
 <h2 id="扩展"><a class="header" href="#扩展">扩展</a></h2>
-<p>上述示例演示了如何下载以及部署 GPT-J-6B 大模型。用户可以参考<a href="https://github.com/t9k/examples/blob/master/inference/tensorizer/README.md#%E5%88%B6%E4%BD%9C-tensorizer-%E7%9B%B8%E5%85%B3%E7%9A%84%E9%95%9C%E5%83%8F">制作 Tensorizer 相关的镜像</a>将 Tensorizer 用于自定义模型的部署。</p>
+<p>上述示例演示了如何下载以及部署 GPT-J-6B 大模型。用户可以参考<a href="https://github.com/t9k/examples/blob/v20240206/inference/tensorizer/README.md#%E5%88%B6%E4%BD%9C-tensorizer-%E7%9B%B8%E5%85%B3%E7%9A%84%E9%95%9C%E5%83%8F">制作 Tensorizer 相关的镜像</a>将 Tensorizer 用于自定义模型的部署。</p>
 <h2 id="参考-17"><a class="header" href="#参考-17">参考</a></h2>
 <ul>
 <li><a target="_blank" rel="noopener noreferrer" href="https://docs.coreweave.com/coreweave-machine-learning-and-ai/inference/tensorizer">CoreWeave Tensorizer 介绍</a> </li>
@@ -22182,7 +22182,7 @@ kubectl apply -f ./download-job.yaml
 <h1 id="使用-autogen-构建下一代-llm-应用"><a class="header" href="#使用-autogen-构建下一代-llm-应用">使用 AutoGen 构建下一代 LLM 应用</a></h1>
 <p>LLM 所展现出的推理、规划、指令遵循、上下文学习和工具使用等多项能力，使得它们成为目前开发强大 AI 智能体 （AI Agent）的首选。一些基于这样的智能体构建的 AI 应用已经出现，例如 ChatGPT + Wolfram Alpha 插件可以解答数学问题，AutoGPT 可以自主达成用户给定的目标，等等。最近公开的 AutoGen 框架引入了多智能体对话（multi-agent conversation）机制，为构建 AI 应用提供了高效实现和高度可扩展性。</p>
 <p>本教程演示几个基于 AutoGen 框架构建的简单应用。这些应用分别采用了 OpenAI 的 GPT 系列模型以及开源的 LLM 作为智能体的后端，前者通过调用 OpenAI 的官方 API 实现，后者则是接入使用 SimpleMLService 部署的 LLM 推理服务。</p>
-<p>应用的代码被放置在 <a href="https://github.com/t9k/examples/tree/master/applications/autogen">https://github.com/t9k/examples/tree/master/applications/autogen</a>，用户可参照 README 自行尝试。这里推荐用户在 <a href="examples/../tasks/use-notebook.html">Notebook</a> 中运行应用示例的 <code>.ipynb</code> 文件；如要使用开源模型作为智能体后端，请参阅<a href="examples/./deploy-llm-chatbot.html">部署 LLM 聊天机器人</a>进行本地部署。</p>
+<p>应用的代码被放置在 <a href="https://github.com/t9k/examples/tree/v20240206/applications/autogen">https://github.com/t9k/examples/tree/v20240206/applications/autogen</a>，用户可参照 README 自行尝试。这里推荐用户在 <a href="examples/../tasks/use-notebook.html">Notebook</a> 中运行应用示例的 <code>.ipynb</code> 文件；如要使用开源模型作为智能体后端，请参阅<a href="examples/./deploy-llm-chatbot.html">部署 LLM 聊天机器人</a>进行本地部署。</p>
 <h2 id="autogen-框架"><a class="header" href="#autogen-框架">AutoGen 框架</a></h2>
 <p>我们希望基于 LLM 的智能体能够帮助人类完成现实世界中的复杂任务，但即便是当下最强大的 GPT-4 模型，也在许多场景下表现不佳。为了提升智能体解决问题的能力，除了提升单个智能体的表现，另一种直观的思路是使用多个智能体进行分工合作，分解复杂任务并各自承担一个专业的子任务。现有研究表明，多个智能体有助于鼓励不同的思考方式，提高推理能力，提供验证以提高正确性。就像人类一样，团队合作能够实现许多个人难以独立达成的成就。</p>
 <p>论文 <a target="_blank" rel="noopener noreferrer" href="https://arxiv.org/abs/2308.08155">《AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation》</a>提出了多智能体对话框架 <a target="_blank" rel="noopener noreferrer" href="https://github.com/microsoft/autogen">AutoGen</a>，其基本原理如下：</p>
