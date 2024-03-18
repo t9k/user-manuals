@@ -70,7 +70,7 @@ kubectl get -f mlservice.yaml -w
 | 34B      | 130GiB   | 4×24GB / 2×40GB / 1×80GB |
 | 70B      | 260GiB   | 4×40GB / 2×80GB          |
 
-部署 70B 模型的 YAML 配置文件请参阅 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/examples/blob/master/deployments/vllm/mlservice-runtime-70b.yaml">`mlservice-runtime-70b.yaml`</a> 和 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/examples/blob/master/deployments/vllm/mlservice-70b.yaml">`mlservice-70b.yaml`</a>
+部署 70B 模型的 YAML 配置文件请参阅 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/examples/blob/v20240206/deployments/vllm/mlservice-runtime-70b.yaml">`mlservice-runtime-70b.yaml`</a> 和 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/examples/blob/v20240206/deployments/vllm/mlservice-70b.yaml">`mlservice-70b.yaml`</a>
 
 如果没有足够的显存，可以尝试<a target="_blank" rel="noopener noreferrer" href="https://docs.vllm.ai/en/latest/quantization/auto_awq.html">量化</a>方法。
 

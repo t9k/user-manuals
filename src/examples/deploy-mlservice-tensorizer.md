@@ -28,7 +28,7 @@ cd ~/examples/inference/tensorizer
 kubectl apply -f ./download-job.yaml
 ```
 
-在该 GenericJob 中，我们先使用国内模型平台 ModelScope 来下载 GPT-J-6B 模型，然后将模型转换为 CoreWeave Tensorizer 所需的格式，并保存到 PVC 中，代码细节见 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/examples/blob/master/deployments/tensorizer/download/model_download.py">`model_download.py`</a>。
+在该 GenericJob 中，我们先使用国内模型平台 ModelScope 来下载 GPT-J-6B 模型，然后将模型转换为 CoreWeave Tensorizer 所需的格式，并保存到 PVC 中，代码细节见 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/examples/blob/v20240206/deployments/tensorizer/download/model_download.py">`model_download.py`</a>。
 
 ## 部署推理服务
 
@@ -74,7 +74,7 @@ curl ${url}/v1/models/gptj:predict -X POST -H 'Content-Type: application/json' -
 
 ## 扩展
 
-上述示例演示了如何下载以及部署 GPT-J-6B 大模型。用户可以参考[制作 Tensorizer 相关的镜像](https://github.com/t9k/examples/blob/master/inference/tensorizer/README.md#%E5%88%B6%E4%BD%9C-tensorizer-%E7%9B%B8%E5%85%B3%E7%9A%84%E9%95%9C%E5%83%8F)将 Tensorizer 用于自定义模型的部署。
+上述示例演示了如何下载以及部署 GPT-J-6B 大模型。用户可以参考[制作 Tensorizer 相关的镜像](https://github.com/t9k/examples/blob/v20240206/inference/tensorizer/README.md#%E5%88%B6%E4%BD%9C-tensorizer-%E7%9B%B8%E5%85%B3%E7%9A%84%E9%95%9C%E5%83%8F)将 Tensorizer 用于自定义模型的部署。
 
 ## 参考
 

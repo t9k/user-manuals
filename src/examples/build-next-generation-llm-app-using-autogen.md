@@ -4,7 +4,7 @@ LLM 所展现出的推理、规划、指令遵循、上下文学习和工具使�
 
 本教程演示几个基于 AutoGen 框架构建的简单应用。这些应用分别采用了 OpenAI 的 GPT 系列模型以及开源的 LLM 作为智能体的后端，前者通过调用 OpenAI 的官方 API 实现，后者则是接入使用 SimpleMLService 部署的 LLM 推理服务。
 
-应用的代码被放置在 [https://github.com/t9k/examples/tree/master/applications/autogen](https://github.com/t9k/examples/tree/master/applications/autogen)，用户可参照 README 自行尝试。这里推荐用户在 [Notebook](../tasks/use-notebook.md) 中运行应用示例的 `.ipynb` 文件；如要使用开源模型作为智能体后端，请参阅[部署 LLM 聊天机器人](./deploy-llm-chatbot.md)进行本地部署。
+应用的代码被放置在 [https://github.com/t9k/examples/tree/v20240206/applications/autogen](https://github.com/t9k/examples/tree/v20240206/applications/autogen)，用户可参照 README 自行尝试。这里推荐用户在 [Notebook](../tasks/use-notebook.md) 中运行应用示例的 `.ipynb` 文件；如要使用开源模型作为智能体后端，请参阅[部署 LLM 聊天机器人](./deploy-llm-chatbot.md)进行本地部署。
 
 ## AutoGen 框架
 
