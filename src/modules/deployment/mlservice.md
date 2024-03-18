@@ -524,7 +524,7 @@ $ curl http://torch-mnist.<project-name>.<domain-name>/v1/models/mnist
 并调用推理服务：
 
 ```bash
-# 数据在 https://github.com/t9k/tutorial-examples/blob/master/deployment/pvc/mlservice-torch/test_data/0.png
+# 数据在 https://github.com/t9k/tutorial-examples/blob/v20240206/deployment/pvc/mlservice-torch/test_data/0.png
 $ curl -T test_data/0.png http://torch-mnist.<project-name>.<domain-name>/v1/models/mnist:predict
 {
     "predictions": <predict-result>

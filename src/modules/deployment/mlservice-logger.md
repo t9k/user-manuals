@@ -96,7 +96,7 @@ kubectl create -f event-display.yaml
 
 ### 部署 MLService
 
-请按照[使用方法](https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95)准备环境，基于[部署用于生产环境的模型推理服务](https://github.com/t9k/tutorial-examples/tree/master/deployment/mlservice/torch-pvc)示例来部署 MLService logger-example。
+请按照[使用方法](https://github.com/t9k/tutorial-examples/blob/v20240206/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95)准备环境，基于[部署用于生产环境的模型推理服务](https://github.com/t9k/tutorial-examples/tree/v20240206/deployment/mlservice/torch-pvc)示例来部署 MLService logger-example。
 
 首先将 mlservice.yaml 修改为下列内容，注意：
 
@@ -112,7 +112,7 @@ kubectl create -f event-display.yaml
 </details>
 
 
-然后按照 [README 文档](https://github.com/t9k/tutorial-examples/blob/master/deployment/mlservice/torch-pvc/README.md#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4)的操作步骤进行操作。
+然后按照 [README 文档](https://github.com/t9k/tutorial-examples/blob/v20240206/deployment/mlservice/torch-pvc/README.md#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4)的操作步骤进行操作。
 
 
 

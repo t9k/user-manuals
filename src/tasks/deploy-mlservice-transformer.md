@@ -4,7 +4,7 @@
 
 ## 准备工作
 
-请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/master/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备此次部署需要用到的 PVC 和 Notebook。
+请按照<a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/blob/v20240206/docs/README-zh.md#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>准备此次部署需要用到的 PVC 和 Notebook。
 
 ## 编写 Transformer 逻辑
 
@@ -90,7 +90,7 @@ ENTRYPOINT ["python", "server.py"]
 
 上述 Dockerfile 引入了相关依赖，并将上一步的 `server.py` 文件作为启动命令。用户可以参考该文件来实现自定义的镜像。
 
-然后我们通过运行一个 ImageBuilder 来制作镜像，为了使用 ImageBuilder，首先我们需要参照[创建 Secret](https://github.com/t9k/tutorial-examples/blob/master/build-image/build-image-on-platform/README.md#%E5%88%9B%E5%BB%BA-secret)准备上传镜像所需要的 DockerConfig `Secret`。
+然后我们通过运行一个 ImageBuilder 来制作镜像，为了使用 ImageBuilder，首先我们需要参照[创建 Secret](https://github.com/t9k/tutorial-examples/blob/v20240206/build-image/build-image-on-platform/README.md#%E5%88%9B%E5%BB%BA-secret)准备上传镜像所需要的 DockerConfig `Secret`。
 
 完成后修改 `imagebuilder.yaml` 文件，将 `spec.dockerConfig.secret` 修改为上一步中创建的 DockerConfig `Secret` 的名称，并将 `spec.tag` 修改为目标镜像，并执行以下命令：
 

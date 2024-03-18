@@ -69,5 +69,5 @@ kubectl explain imagebuilder
 ## 下一步
 
 * 使用控制台：[构建镜像](../../tasks/build-image.md)
-* Github 上的 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/master/build-image/build-image-on-platform">ImagerBuilder 示例</a>
+* Github 上的 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/tutorial-examples/tree/v20240206/build-image/build-image-on-platform">ImagerBuilder 示例</a>
 * <a target="_blank" rel="noopener noreferrer" href="https://github.com/GoogleContainerTools/kaniko">kaniko 的详细参考</a>
