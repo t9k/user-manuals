@@ -4,7 +4,7 @@
 
 ## 让 Notebook 不被资源回收
 
-如果想要让 Notebook 不被[资源回收](../modules/scheduling/reclaim.md)，可以在该 Notebook 中[创建一个 Jupyter Notebook](./use-notebook.md#使用-jupyter-notebook)，并运行以下代码：
+如果想要让 Notebook 不被[资源回收](../modules/computing-resources/reclaim.md)，可以在该 Notebook 中[创建一个 Jupyter Notebook](./use-notebook.md#使用-jupyter-notebook)，并运行以下代码：
 
 ```python
 # To keep the kernel active
@@ -16,7 +16,7 @@ while True:
 
 上述代码使 Notebook 保持活跃状态，而又不占用额外的计算资源。如要恢复对该 Notebook 的资源回收，只需停止上述代码的运行即可。
 
-## 在终端中了解 Kubernetes API 资源及其字段
+## 在终端中获取资源帮助
 
 在创建、查看或调试 Kubernetes API 资源（包括 Kubernetes 原生资源和平台提供的 CRD）时，我们需要了解资源有哪些字段以及它们的含义。要获取这些信息，一种方法是查阅相应的参考文档，但更便捷的方式是在终端使用 `kubectl explain` 命令：
 

@@ -90,7 +90,7 @@ VS Code for the Web 拥有 VS Code 桌面版的许多功能，包括在浏览和
 <aside class="note tip">
 <div class="title">暂停 Explorer</div>
 
-平台的[资源回收](../modules/scheduling/reclaim.md)机制会自动暂停空闲时间达到规定值的 Explorer。被暂停的 Explorer 可以被手动恢复。
+平台的[资源回收](../modules/computing-resources/reclaim.md)机制会自动暂停空闲时间达到规定值的 Explorer。被暂停的 Explorer 可以被手动恢复。
 
 对于用户而言，手动暂停 Explorer 和关闭 Explorer 的区别不大。
 

@@ -104,7 +104,7 @@ Pod 是可以在 Kubernetes 中创建和管理的、最小的可部署的计算�
 
 ## PodGroup
 
-PodGroup 是一组 Pod 的集合，它们需要协同工作、一起被调度。详见 [PodGroup 文档](../modules/scheduling/podgroup.md)。
+PodGroup 是一组 Pod 的集合，它们需要协同工作、一起被调度。详见 [PodGroup 文档](../modules/computing-resources/podgroup.md)。
 
 ## Project
 
@@ -120,7 +120,7 @@ PyTorchTrainingJob 是一种 TensorStack 资源，用于通过 PyTorch 框架进
 
 ## Queue（队列）
 
-队列是一种 TensorStack 资源，用于存放 PodGroup 并根据它们的优先级进行调度。详见[队列文档](../modules/scheduling/queue.md)。
+队列是一种 TensorStack 资源，用于存放 PodGroup 并根据它们的优先级进行调度。详见[队列文档](../modules/computing-resources/queue.md)。
 
 ## RBAC（Role Based Access Control）
 
