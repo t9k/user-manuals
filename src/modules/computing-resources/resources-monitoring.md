@@ -99,4 +99,4 @@ managed-project-event-ctl-854b96f4dd-f6hn8   1m           29Mi
 
 * 监控 [T9k Job 的资源使用](../../tasks/pytorch-training-parallel.md#检查训练日志和指标)
 * 监控[推理服务的资源使用](../../tasks/deploy-mlservice.md#监控推理服务)
-* 监控 Notebook 的资源使用（TODO: 完成 `查看 Notebook 资源使用` 相关用户文档）
+* 监控 Notebook 的资源使用（TODO）

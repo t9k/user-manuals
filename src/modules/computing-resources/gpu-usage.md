@@ -354,8 +354,8 @@ spec:
 
 * <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources">K8s Extended resources</a>
 * <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#consuming-extended-resources">Consuming extended resources</a>
-* <a target="_blank" rel="noopener noreferrer" href="<https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/>">Schedule GPUs | Kubernetes</a>
-* <a target="_blank" rel="noopener noreferrer" href="<https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/>">Device Plugins</a>
-* <a target="_blank" rel="noopener noreferrer" href="<https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/>">Assigning Pods to Nodes</a>
-* <a target="_blank" rel="noopener noreferrer" href="<https://developer.nvidia.com/blog/improving-gpu-utilization-in-kubernetes>">Improving GPU Utilization in Kubernetes</a>
+* <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/">Schedule GPUs | Kubernetes</a>
+* <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/">Device Plugins</a>
+* <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/">Assigning Pods to Nodes</a>
+* <a target="_blank" rel="noopener noreferrer" href="https://developer.nvidia.com/blog/improving-gpu-utilization-in-kubernetes">Improving GPU Utilization in Kubernetes</a>
 * <a target="_blank" rel="noopener noreferrer" href="https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/gpu-operator-mig.html#configuring-mig-profiles">MIG：NVIDIA Multi-Instance GPU User Guide</a>

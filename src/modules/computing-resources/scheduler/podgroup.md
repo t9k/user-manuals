@@ -1,8 +1,8 @@
 # PodGroup
 
-PodGroup 是 T9k Scheduler 引入的另一项资源管理机制。PodGroup 关联一组协同工作的 Pod，这些 Pod 共同完成一项计算任务（例如模型分布式训练），因此应作为一个整体被分配资源。通常情况下，用户可以通过创建 [T9k Job](../jobs/index.md) 类型的工作负载来间接使用 PodGroup，但也可以手动创建 PodGroup。
+PodGroup 是 T9k Scheduler 引入的另一项资源管理机制。PodGroup 关联一组协同工作的 Pod，这些 Pod 共同完成一项计算任务（例如模型分布式训练），因此应作为一个整体被分配资源。PodGroup 是平台支持 <a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Coscheduling">coscheduling</a> 机制的关键组成部分，可以为并行计算提供更好的支持，包括避免死锁场景和提高资源利用率。
 
-PodGroup 是平台支持 <a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Coscheduling">coscheduling</a> 机制的关键组成部分，可以为并行计算提供更好的支持，包括避免死锁场景和提高资源利用率。
+通常情况下，用户可以通过创建 [T9k Job](../jobs/index.md) 类型的工作负载来自动化地使用 PodGroup，但也可以手动创建 PodGroup。
 
 ## 规范
 
@@ -120,4 +120,4 @@ status:
 ## 下一步
 
 * 学习如何[使用 PodGroup](../../../tasks/use-podgroup.md)
-* PodGroup 的 [API Reference](../../references/api-reference/scheduler.md#podgroup)
+* PodGroup 的 [API Reference](../../../references/api-reference/scheduler.md#podgroup)

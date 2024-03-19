@@ -10,7 +10,7 @@ kube-scheduler 是 Kubernetes 集群的默认调度器，也是平台的默认�
 
 ### nodeSelector
 
-每个节点都有自己的一些标签，例如标签 `kubernetes.io/hostname: kube-01` 标识节点的名称为 kube-01，`nvidia.com/gpu.product: NVIDIA-A100-PCIE-40GB` 标识节点安装了 NVIDIA A100-40GB 型号的 GPU。`nodeSelector` 是 Pod 规约（spec）中的一个字段，用于根据节点标签筛选节点。
+集群中的节点，一般都被管理员通过自动化的过程设置了一些标签。例如标签 `kubernetes.io/hostname: kube-01` 标识节点的名称为 kube-01，`nvidia.com/gpu.product: NVIDIA-A100-PCIE-40GB` 标识节点安装了 NVIDIA A100-40GB 型号的 GPU。`nodeSelector` 是 Pod 规约（`spec`）中的一个字段，用于根据节点标签筛选节点。
 
 下面是一个使用 `nodeSelector` 字段的 Pod 配置示例：
 
@@ -58,7 +58,7 @@ spec:
 
 ### 污点
 
-污点（taint）是节点的一种属性，它使得某些类型的 Pod 不能被调度到该节点上。当节点存在出现软硬件故障、网络不可用、磁盘空间不足等问题时，系统会自动为该节点添加一个污点。此外，当管理员发现节点存在问题或正在测试节点时，也可能为该节点添加污点。
+污点（taint）是节点的一种属性，它可被用来使得某些类型的 Pod 不能被调度到（除非该 pod 明确说明其可容忍这些污点）该节点上。例如，当节点存在出现软硬件故障、网络不可用、磁盘空间不足等问题时，系统会自动为该节点添加一个污点。此外，当管理员发现节点存在问题或正在测试节点时，也可能为该节点添加污点。
 
 当用户的工作负载不能被调度到某个资源充足的节点上时，可能就是因为这个节点被添加了污点。
 
@@ -66,7 +66,9 @@ spec:
 
 ## 优先级和抢占
 
-kube-scheduler 和 T9k Scheduler 都有各自的优先级和抢占机制，我们更推荐通过 T9k Scheduler 来使用这一机制，请参阅 T9k Scheduler 的[优先级和抢占](./t9k-scheduler.md)。
+kube-scheduler 和 T9k Scheduler 都有各自的优先级和抢占机制，用户可根据需求选用。
+
+T9k Scheduler 的优先级和抢占机制，请参阅：[t9k-scheduler](./t9k-scheduler.md)。
 
 ## 参考
 

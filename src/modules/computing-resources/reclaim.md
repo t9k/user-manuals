@@ -12,7 +12,7 @@
 
 如上图所示：
 
-1. 集群管理员设置 “资源回收配置” 策略；
+1. 集群管理员设置 “资源回收配置” 策略（Project 1 没有设置自动回收，Project 2 则设置了自动回收）；
 1. 根据配置，Resource Keeper 监听启用回收功能的项目（Project 2）中的 Notebook 状态；
 1. 当 Notebook 空闲时间达到配置中规定的阈值，则 Resource Keeper 对该资源实施暂停操作，以释放资源。
 

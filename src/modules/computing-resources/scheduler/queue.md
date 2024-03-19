@@ -100,5 +100,5 @@ status:
 
 ## 下一步
 
-* 学习如何[使用队列](../../tasks/use-queue.md)
-* 队列的 [API Reference](../../references/api-reference/scheduler.md#queue)
+* 学习如何[使用队列](../../../tasks/use-queue.md)
+* 队列的 [API Reference](../../../references/api-reference/scheduler.md#queue)
