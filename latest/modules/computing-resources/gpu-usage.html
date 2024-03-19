@@ -1,0 +1,545 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>GPU 使用 - TensorStack AI 计算平台 - 用户使用手册</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../../theme/sidebar.css">
+        <link rel="stylesheet" href="../../theme/custom.css">
+        <link rel="stylesheet" href="../../theme/version-dropdown.css">
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../introduction.html">导言</a></li><li class="chapter-item expanded affix "><a href="../../overview.html">概述</a></li><li class="chapter-item expanded "><a href="../../get-started/index.html"><strong aria-hidden="true">1.</strong> 快速入门</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../get-started/training-first-model.html"><strong aria-hidden="true">1.1.</strong> 训练你的第一个模型</a></li><li class="chapter-item expanded "><a href="../../get-started/parallel-training.html"><strong aria-hidden="true">1.2.</strong> 进行并行训练</a></li><li class="chapter-item expanded "><a href="../../get-started/deploy-model.html"><strong aria-hidden="true">1.3.</strong> 部署模型</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/index.html"><strong aria-hidden="true">2.</strong> AI 开发和应用</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/building/index.html"><strong aria-hidden="true">2.1.</strong> 模型构建</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/building/notebook.html"><strong aria-hidden="true">2.1.1.</strong> Notebook</a></li><li class="chapter-item expanded "><a href="../../modules/building/tensorboard.html"><strong aria-hidden="true">2.1.2.</strong> TensorBoard</a></li><li class="chapter-item expanded "><a href="../../modules/building/autotune.html"><strong aria-hidden="true">2.1.3.</strong> AutoTune</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/building/autotuneexperiment.html"><strong aria-hidden="true">2.1.3.1.</strong> AutoTuneExperiment</a></li><li class="chapter-item expanded "><a href="../../modules/building/autotune-search-space.html"><strong aria-hidden="true">2.1.3.2.</strong> 搜索空间</a></li><li class="chapter-item expanded "><a href="../../modules/building/hpo-algorithm.html"><strong aria-hidden="true">2.1.3.3.</strong> 超参数调优算法</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../modules/deployment/index.html"><strong aria-hidden="true">2.2.</strong> 模型部署</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/deployment/simplemlservice.html"><strong aria-hidden="true">2.2.1.</strong> SimpleMLService</a></li><li class="chapter-item expanded "><a href="../../modules/deployment/mlservice.html"><strong aria-hidden="true">2.2.2.</strong> MLService</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/deployment/mlservice-logger.html"><strong aria-hidden="true">2.2.2.1.</strong> 日志收集</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/deployment/storage.html"><strong aria-hidden="true">2.2.3.</strong> 模型存储</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/jobs/index.html"><strong aria-hidden="true">2.3.</strong> Job</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/jobs/genericjob.html"><strong aria-hidden="true">2.3.1.</strong> GenericJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/pytorchtrainingjob.html"><strong aria-hidden="true">2.3.2.</strong> PyTorchTrainingJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/tensorflowtrainingjob.html"><strong aria-hidden="true">2.3.3.</strong> TensorFlowTrainingJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/deepspeedjob.html"><strong aria-hidden="true">2.3.4.</strong> DeepSpeedJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/colossalaijob.html"><strong aria-hidden="true">2.3.5.</strong> ColossalAIJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/xgboosttrainingjob.html"><strong aria-hidden="true">2.3.6.</strong> XGBoostTrainingJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/mpijob.html"><strong aria-hidden="true">2.3.7.</strong> MPIJob</a></li><li class="chapter-item expanded "><a href="../../modules/jobs/beamjob.html"><strong aria-hidden="true">2.3.8.</strong> BeamJob</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/asset-management.html"><strong aria-hidden="true">2.4.</strong> 资产管理</a></li><li class="chapter-item expanded "><a href="../../modules/experiment-management.html"><strong aria-hidden="true">2.5.</strong> 实验管理</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/security/index.html"><strong aria-hidden="true">3.</strong> 账户和安全</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/security/account.html"><strong aria-hidden="true">3.1.</strong> 账户</a></li><li class="chapter-item expanded "><a href="../../modules/security/project.html"><strong aria-hidden="true">3.2.</strong> 项目</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/computing-resources/index.html"><strong aria-hidden="true">4.</strong> 计算资源</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/computing-resources/scheduler/index.html"><strong aria-hidden="true">4.1.</strong> 调度器</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/computing-resources/scheduler/kube-scheduler.html"><strong aria-hidden="true">4.1.1.</strong> kube-scheduler</a></li><li class="chapter-item expanded "><a href="../../modules/computing-resources/scheduler/t9k-scheduler.html"><strong aria-hidden="true">4.1.2.</strong> T9k Scheduler</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/computing-resources/scheduler/queue.html"><strong aria-hidden="true">4.1.2.1.</strong> 队列</a></li><li class="chapter-item expanded "><a href="../../modules/computing-resources/scheduler/podgroup.html"><strong aria-hidden="true">4.1.2.2.</strong> PodGroup</a></li><li class="chapter-item expanded "><a href="../../modules/computing-resources/scheduler/policy.html"><strong aria-hidden="true">4.1.2.3.</strong> 调度策略</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../modules/computing-resources/gpu-usage.html" class="active"><strong aria-hidden="true">4.2.</strong> GPU 使用</a></li><li class="chapter-item expanded "><a href="../../modules/computing-resources/reclaim.html"><strong aria-hidden="true">4.3.</strong> 资源回收</a></li><li class="chapter-item expanded "><a href="../../modules/computing-resources/resources-monitoring.html"><strong aria-hidden="true">4.4.</strong> 资源使用监控</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/storage/index.html"><strong aria-hidden="true">5.</strong> 存储</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/storage/pvc.html"><strong aria-hidden="true">5.1.</strong> PVC</a></li><li class="chapter-item expanded "><a href="../../modules/storage/pvc-snapshot.html"><strong aria-hidden="true">5.2.</strong> PVC 快照</a></li><li class="chapter-item expanded "><a href="../../modules/storage/storageshim.html"><strong aria-hidden="true">5.3.</strong> StorageShim</a></li><li class="chapter-item expanded "><a href="../../modules/storage/explorer.html"><strong aria-hidden="true">5.4.</strong> Explorer</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/auxiliary/index.html"><strong aria-hidden="true">6.</strong> 辅助</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/auxiliary/secret.html"><strong aria-hidden="true">6.1.</strong> Secret</a></li><li class="chapter-item expanded "><a href="../../modules/auxiliary/configmap.html"><strong aria-hidden="true">6.2.</strong> ConfigMap</a></li><li class="chapter-item expanded "><a href="../../modules/auxiliary/pod.html"><strong aria-hidden="true">6.3.</strong> Pod</a></li><li class="chapter-item expanded "><a href="../../modules/auxiliary/imagebuilder.html"><strong aria-hidden="true">6.4.</strong> ImageBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="../../modules/workflows/index.html"><strong aria-hidden="true">7.</strong> 工作流</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../modules/workflows/workflowtemplate.html"><strong aria-hidden="true">7.1.</strong> WorkflowTemplate</a></li><li class="chapter-item expanded "><a href="../../modules/workflows/workflowrun.html"><strong aria-hidden="true">7.2.</strong> WorkflowRun</a></li><li class="chapter-item expanded "><a href="../../modules/workflows/cronworkflowrun.html"><strong aria-hidden="true">7.3.</strong> CronWorkflowRun</a></li><li class="chapter-item expanded "><a href="../../modules/workflows/workflowtrigger.html"><strong aria-hidden="true">7.4.</strong> WorkflowTrigger</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/index.html"><strong aria-hidden="true">8.</strong> 操作指南</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/model-building.html"><strong aria-hidden="true">8.1.</strong> 使用模型构建控制台</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/create-notebook.html"><strong aria-hidden="true">8.1.1.</strong> 创建 Notebook</a></li><li class="chapter-item expanded "><a href="../../tasks/use-notebook.html"><strong aria-hidden="true">8.1.2.</strong> 使用 Notebook</a></li><li class="chapter-item expanded "><a href="../../tasks/ssh-notebook.html"><strong aria-hidden="true">8.1.3.</strong> 通过 SSH 远程使用 Notebook</a></li><li class="chapter-item expanded "><a href="../../tasks/create-tensorboard.html"><strong aria-hidden="true">8.1.4.</strong> 创建 TensorBoard</a></li><li class="chapter-item expanded "><a href="../../tasks/build-image.html"><strong aria-hidden="true">8.1.5.</strong> 构建镜像</a></li><li class="chapter-item expanded "><a href="../../tasks/debug-image.html"><strong aria-hidden="true">8.1.6.</strong> 调试镜像</a></li><li class="chapter-item expanded "><a href="../../tasks/manage-pvc.html"><strong aria-hidden="true">8.1.7.</strong> 管理 PVC</a></li><li class="chapter-item expanded "><a href="../../tasks/use-explorer.html"><strong aria-hidden="true">8.1.8.</strong> 使用 Explorer</a></li><li class="chapter-item expanded "><a href="../../tasks/use-storageshim-s3.html"><strong aria-hidden="true">8.1.9.</strong> 使用 StorageShim 适配 S3 服务</a></li><li class="chapter-item expanded "><a href="../../tasks/manage-secret.html"><strong aria-hidden="true">8.1.10.</strong> 管理 Secret</a></li><li class="chapter-item expanded "><a href="../../tasks/manage-configmap.html"><strong aria-hidden="true">8.1.11.</strong> 管理 ConfigMap</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/model-training.html"><strong aria-hidden="true">8.2.</strong> 运行模型训练</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/pytorch-training-parallel.html"><strong aria-hidden="true">8.2.1.</strong> 使用 PyTorchTrainingJob 进行数据并行训练</a></li><li class="chapter-item expanded "><a href="../../tasks/pytorch-training-ps.html"><strong aria-hidden="true">8.2.2.</strong> 使用 PyTorchTrainingJob 进行参数服务器训练</a></li><li class="chapter-item expanded "><a href="../../tasks/tensorflow-training-parallel.html"><strong aria-hidden="true">8.2.3.</strong> 使用 TensorFlowTrainingJob 进行数据并行训练</a></li><li class="chapter-item expanded "><a href="../../tasks/tensorflow-training-ps.html"><strong aria-hidden="true">8.2.4.</strong> 使用 TensorFlowTrainingJob 进行参数服务器训练</a></li><li class="chapter-item expanded "><a href="../../tasks/horovod-pytorch-parallel.html"><strong aria-hidden="true">8.2.5.</strong> 使用 Horovod 进行 PyTorch 模型的数据并行训练</a></li><li class="chapter-item expanded "><a href="../../tasks/horovod-keras-parallel.html"><strong aria-hidden="true">8.2.6.</strong> 使用 Horovod 进行 Keras 模型的数据并行训练</a></li><li class="chapter-item expanded "><a href="../../tasks/profile-model-training.html"><strong aria-hidden="true">8.2.7.</strong> 使用 Profiler 分析模型训练性能</a></li><li class="chapter-item expanded "><a href="../../tasks/debug-job.html"><strong aria-hidden="true">8.2.8.</strong> 调试 Job</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/hyperparameter-tuning.html"><strong aria-hidden="true">8.3.</strong> 进行超参数优化</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/autotune.html"><strong aria-hidden="true">8.3.1.</strong> 使用 AutoTune 进行超参数优化</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/deploy-inference-service.html"><strong aria-hidden="true">8.4.</strong> 部署推理服务</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/deploy-simplemlservice.html"><strong aria-hidden="true">8.4.1.</strong> 简单推理服务</a></li><li class="chapter-item expanded "><a href="../../tasks/deploy-mlservice.html"><strong aria-hidden="true">8.4.2.</strong> 推理服务</a></li><li class="chapter-item expanded "><a href="../../tasks/deploy-mlservice-transformer.html"><strong aria-hidden="true">8.4.3.</strong> 包含 Transformer 的推理服务</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/manage-ai-assets.html"><strong aria-hidden="true">8.5.</strong> 管理 AI 资产</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/manipulate-folder-asset.html"><strong aria-hidden="true">8.5.1.</strong> 操作文件夹、模型和数据集</a></li><li class="chapter-item expanded "><a href="../../tasks/access-asset-via-s3.html"><strong aria-hidden="true">8.5.2.</strong> 通过 S3 访问模型和数据集</a></li><li class="chapter-item expanded "><a href="../../tasks/modify-folder-asset.html"><strong aria-hidden="true">8.5.3.</strong> 修改文件夹、模型和数据集的基本信息</a></li><li class="chapter-item expanded "><a href="../../tasks/manipulate-asset-branch-tag.html"><strong aria-hidden="true">8.5.4.</strong> 操作模型和数据集的分支、tag 和 commit</a></li><li class="chapter-item expanded "><a href="../../tasks/manipulate-asset-objects.html"><strong aria-hidden="true">8.5.5.</strong> 操作模型和数据集的对象</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/track-model-training.html"><strong aria-hidden="true">8.6.</strong> 追踪模型训练</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/use-experiment-console.html"><strong aria-hidden="true">8.6.1.</strong> 在实验管理控制台查看和管理数据</a></li><li class="chapter-item expanded "><a href="../../tasks/record-using-python-sdk.html"><strong aria-hidden="true">8.6.2.</strong> 使用 Python SDK 记录和上传数据</a></li><li class="chapter-item expanded "><a href="../../tasks/record-single-device-training.html"><strong aria-hidden="true">8.6.3.</strong> 单设备训练场景</a></li><li class="chapter-item expanded "><a href="../../tasks/record-distributed-training.html"><strong aria-hidden="true">8.6.4.</strong> 分布式训练场景</a></li><li class="chapter-item expanded "><a href="../../tasks/view-autotune-in-experiment-console.html"><strong aria-hidden="true">8.6.5.</strong> 在实验管理控制台查看 AutoTune</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/build-automation-workflow.html"><strong aria-hidden="true">8.7.</strong> 构建自动化工作流</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/create-workflow-unit.html"><strong aria-hidden="true">8.7.1.</strong> 创建工作流的基本单元</a></li><li class="chapter-item expanded "><a href="../../tasks/create-task-workflow-unit.html"><strong aria-hidden="true">8.7.2.</strong> 创建执行各类任务的工作流单元</a></li><li class="chapter-item expanded "><a href="../../tasks/create-dependent-workflow.html"><strong aria-hidden="true">8.7.3.</strong> 创建存在依赖关系的工作流</a></li><li class="chapter-item expanded "><a href="../../tasks/build-automated-workflow.html"><strong aria-hidden="true">8.7.4.</strong> 建立从数据采样到模型导出的自动化工作流</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/schedule-workload.html"><strong aria-hidden="true">8.8.</strong> 调度工作负载</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/use-queue.html"><strong aria-hidden="true">8.8.1.</strong> 为工作负载指定队列</a></li><li class="chapter-item expanded "><a href="../../tasks/use-podgroup.html"><strong aria-hidden="true">8.8.2.</strong> 创建和使用 PodGroup</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/use-platform-storage.html"><strong aria-hidden="true">8.9.</strong> 使用集群存储</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/pvc-importing-and-exporting-files.html"><strong aria-hidden="true">8.9.1.</strong> 上传和下载文件</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/manage-personal-account.html"><strong aria-hidden="true">8.10.</strong> 管理个人账户</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tasks/generate-api-key.html"><strong aria-hidden="true">8.10.1.</strong> 生成 API Key</a></li><li class="chapter-item expanded "><a href="../../tasks/use-api-key.html"><strong aria-hidden="true">8.10.2.</strong> 使用 API Key</a></li><li class="chapter-item expanded "><a href="../../tasks/add-project-member.html"><strong aria-hidden="true">8.10.3.</strong> 添加项目成员</a></li></ol></li><li class="chapter-item expanded "><a href="../../tasks/tricks.html"><strong aria-hidden="true">8.11.</strong> 小技巧</a></li></ol></li><li class="chapter-item expanded "><a href="../../tools/index.html"><strong aria-hidden="true">9.</strong> 命令行工具和 SDK</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/cli-t9k/index.html"><strong aria-hidden="true">9.1.</strong> 命令行工具：t9k</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/cli-t9k/guide.html"><strong aria-hidden="true">9.1.1.</strong> 用户指南</a></li><li class="chapter-item expanded "><a href="../../tools/cli-t9k/commands.html"><strong aria-hidden="true">9.1.2.</strong> 命令</a></li></ol></li><li class="chapter-item expanded "><a href="../../tools/cli-t9k-pf/index.html"><strong aria-hidden="true">9.2.</strong> 命令行工具：t9k-pf</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/cli-t9k-pf/guide.html"><strong aria-hidden="true">9.2.1.</strong> 用户指南</a></li><li class="chapter-item expanded "><a href="../../tools/cli-t9k-pf/commands.html"><strong aria-hidden="true">9.2.2.</strong> 命令</a></li></ol></li><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/index.html"><strong aria-hidden="true">9.3.</strong> Python SDK：t9k</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/guide.html"><strong aria-hidden="true">9.3.1.</strong> 用户指南</a></li><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/api/index.html"><strong aria-hidden="true">9.3.2.</strong> API</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/api/t9k-ah.html"><strong aria-hidden="true">9.3.2.1.</strong> t9k.ah</a></li><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/api/t9k-ah-core.html"><strong aria-hidden="true">9.3.2.2.</strong> t9k.ah.core</a></li><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/api/t9k-config.html"><strong aria-hidden="true">9.3.2.3.</strong> t9k.config</a></li><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/api/t9k-em.html"><strong aria-hidden="true">9.3.2.4.</strong> t9k.em</a></li><li class="chapter-item expanded "><a href="../../tools/python-sdk-t9k/api/t9k-tuner.html"><strong aria-hidden="true">9.3.2.5.</strong> t9k.tuner</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../tools/codepack/index.html"><strong aria-hidden="true">9.4.</strong> Codepack</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/codepack/concepts.html"><strong aria-hidden="true">9.4.1.</strong> 概念</a></li><li class="chapter-item expanded "><a href="../../tools/codepack/definition.html"><strong aria-hidden="true">9.4.2.</strong> Codepack 定义</a></li><li class="chapter-item expanded "><a href="../../tools/codepack/cli.html"><strong aria-hidden="true">9.4.3.</strong> 命令行工具</a></li><li class="chapter-item expanded "><a href="../../tools/codepack/example.html"><strong aria-hidden="true">9.4.4.</strong> 示例</a></li><li class="spacer"></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../references/index.html"><strong aria-hidden="true">10.</strong> 参考</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../references/glossary.html"><strong aria-hidden="true">10.1.</strong> 术语表</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/index.html"><strong aria-hidden="true">10.2.</strong> API 参考</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../references/api-reference/project.html"><strong aria-hidden="true">10.2.1.</strong> Project</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/genericjob.html"><strong aria-hidden="true">10.2.2.</strong> GenericJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/tensorflowtrainingjob.html"><strong aria-hidden="true">10.2.3.</strong> TensorFlowTrainingJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/pytorchtrainingjob.html"><strong aria-hidden="true">10.2.4.</strong> PyTorchTrainingJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/xgboosttrainingjob.html"><strong aria-hidden="true">10.2.5.</strong> XGBoostTrainingJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/colossalaijob.html"><strong aria-hidden="true">10.2.6.</strong> ColossalAIJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/deepspeedjob.html"><strong aria-hidden="true">10.2.7.</strong> DeepSpeedJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/mpijob.html"><strong aria-hidden="true">10.2.8.</strong> MPIJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/beamjob.html"><strong aria-hidden="true">10.2.9.</strong> BeamJob</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/tensorboard.html"><strong aria-hidden="true">10.2.10.</strong> TensorBoard</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/notebook.html"><strong aria-hidden="true">10.2.11.</strong> Notebook</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/autotune.html"><strong aria-hidden="true">10.2.12.</strong> AutoTuneExperiment</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/explorer.html"><strong aria-hidden="true">10.2.13.</strong> Explorer</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/storageshim.html"><strong aria-hidden="true">10.2.14.</strong> StorageShim</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/scheduler.html"><strong aria-hidden="true">10.2.15.</strong> Scheduler</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/workflow.html"><strong aria-hidden="true">10.2.16.</strong> Workflow</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/workflowtrigger.html"><strong aria-hidden="true">10.2.17.</strong> WorkflowTrigger</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/simplemlservice.html"><strong aria-hidden="true">10.2.18.</strong> SimpleMLService</a></li><li class="chapter-item expanded "><a href="../../references/api-reference/mlservice.html"><strong aria-hidden="true">10.2.19.</strong> MLService</a></li></ol></li><li class="chapter-item expanded "><a href="../../references/standard-images.html"><strong aria-hidden="true">10.3.</strong> 标准镜像</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="../../examples/index.html"><strong aria-hidden="true">11.</strong> 示例</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../examples/start-llm-large-scale-pretraining.html"><strong aria-hidden="true">11.1.</strong> 启动 LLM 大规模预训练</a></li><li class="chapter-item expanded "><a href="../../examples/start-llm-finetuning.html"><strong aria-hidden="true">11.2.</strong> 启动 LLM 微调</a></li><li class="chapter-item expanded "><a href="../../examples/deploy-llm-using-fastchat.html"><strong aria-hidden="true">11.3.</strong> 使用 FastChat 部署 LLM 推理服务</a></li><li class="chapter-item expanded "><a href="../../examples/deploy-llm-using-vllm.html"><strong aria-hidden="true">11.4.</strong> 使用 vLLM 部署 LLM 推理服务</a></li><li class="chapter-item expanded "><a href="../../examples/deploy-hf-model-using-triton-python.html"><strong aria-hidden="true">11.5.</strong> 使用 Triton 部署 Hugging Face 模型（Python 后端）</a></li><li class="chapter-item expanded "><a href="../../examples/deploy-mlservice-tensorizer.html"><strong aria-hidden="true">11.6.</strong> 使用 Tensorizer 加速模型部署</a></li><li class="chapter-item expanded "><a href="../../examples/build-next-generation-llm-app-using-autogen.html"><strong aria-hidden="true">11.7.</strong> 使用 AutoGen 构建下一代 LLM 应用</a></li><li class="chapter-item expanded "><a href="../../examples/deploy-conversational-search-engine.html"><strong aria-hidden="true">11.8.</strong> 部署对话式搜索引擎</a></li><li class="chapter-item expanded "><a href="../../examples/deploy-sd-drawing-model.html"><strong aria-hidden="true">11.9.</strong> 部署 Stable Diffusion 图像生成模型</a></li><li class="chapter-item expanded "><a href="../../examples/lane-detection.html"><strong aria-hidden="true">11.10.</strong> 车道检测</a></li></ol></li><li class="chapter-item expanded "><a href="../../integrations/index.html"><strong aria-hidden="true">12.</strong> 集成</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../integrations/label-studio.html"><strong aria-hidden="true">12.1.</strong> Label Studio</a></li><li class="chapter-item expanded "><a href="../../integrations/vector-database-qdrant.html"><strong aria-hidden="true">12.2.</strong> 向量数据库：Qdrant</a></li><li class="chapter-item expanded "><a href="../../integrations/vector-database-pgvector.html"><strong aria-hidden="true">12.3.</strong> 向量数据库：PostgreSQL + pgvector</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="../../background.html">附录1：背景</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        <!-- custom code for adding release version dropdown menu -->
+                        <div class="version-dropdown">
+                            <button id="release-version" class="icon-button" type="button" title="Release version" aria-label="Release version" aria-haspopup="true" aria-expanded="false" aria-controls="release-versions">
+                                <i class="fa fa-book"></i>
+                            </button>
+                            <div class="version-dropdown-content">
+                                <a href="https://t9k.github.io/user-manuals/latest/index.html"target="_blank" rel="noopener noreferrer">latest</a>
+                                <a href="https://t9k.github.io/user-manuals/v20240206/index.html"target="_blank" rel="noopener noreferrer">v20240206</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h1 class="menu-title">TensorStack AI 计算平台 - 用户使用手册</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <div class="sidetoc"><nav class="pagetoc"></nav></div>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<h1 id="gpu-使用"><a class="header" href="#gpu-使用">GPU 使用</a></h1>
+<p>许多执行深度学习相关任务的工作负载都需要使用 GPU 进行计算，这些任务包括数据集的预处理、模型训练以及模型推理等等。平台支持目前所有主流的 GPU 设备，并且可以轻松扩展以支持更多设备类型。</p>
+<h2 id="使用模式"><a class="header" href="#使用模式">使用模式</a></h2>
+<h3 id="独占模式"><a class="header" href="#独占模式">独占模式</a></h3>
+<p>独占模式指的是在特定时间段内，GPU 仅供单一工作负载使用。</p>
+<p>适用场景：GPU 被满负荷使用，并且计算需要尽快完成。例如训练 AI 模型。</p>
+<h3 id="共享模式"><a class="header" href="#共享模式">共享模式</a></h3>
+<p>共享模式指的是单个物理 GPU 被多个工作负载同时使用。</p>
+<p>适用场景：对于有些计算任务，例如交互式的 Notebook，小规模或者低使用量的模型推理服务，经常只需要使用 GPU 的部分计算能力。在这些情况下，让多个计算任务共享使用 GPU，将能极大地提升 GPU 的利用率。</p>
+<h3 id="共享-nvidia-gpu"><a class="header" href="#共享-nvidia-gpu">共享 NVIDIA GPU</a></h3>
+<p>下面介绍 NVIDIA 提供的多种 GPU 共享和并发使用的机制，以支持不同的场景。</p>
+<figure class="architecture">
+  <img alt="simplemlservice-detail" src="../../assets/modules/computing-resources/nv-gpu-sharing.png" />
+  <figcaption>图 1：NVIDIA GPU 的并发（concurrency）使用机制。包括：1）应用程序级别（需要修改应用代码才能使用）的 CUDA streams API；2）对应用程序透明的系统软件和硬件分区（partitioning）技术，例如 MPS、Time-slicing、MIG、虚拟化。Source: NVIDIA。</figcaption>
+</figure>
+<h4 id="mps"><a class="header" href="#mps">MPS</a></h4>
+<p>CUDA <a target="_blank" rel="noopener noreferrer" href="https://docs.nvidia.com/deploy/mps/index.html">MPS</a>（Multi-Process Service，多进程服务）是 CUDA API 的客户端-服务器架构的实现，用于提供同一 GPU 同时给多个进程使用。MPS 是一个 “AI 史前”（深度学习尚未在 GPU 上运行）的方案，是 NVIDIA 为了解决在科学计算领域单个 MPI 进程无法有效利用 GPU 的计算能力而推出的技术。</p>
+<p>与时间切片（Time Slicing）相比，MPS 通过在多个客户端之间共享一个 CUDA Context 消除了多个 CUDA 应用之间上下文切换的开销，从而带来更好的计算性能。 此外，MPS 为每个 CUDA 程序提供了单独的内存地址空间，因而可以实现对单个 CUDA 程序实施内存大小使用限制，克服了 Time Slicing 机制在这方面的不足。</p>
+<p>优点：</p>
+<ul>
+<li>可以控制单个应用的内存大小使用限制。</li>
+<li>由于消除了多个 CUDA 应用之间 context swtich 的代价，具有更好的性能。</li>
+<li>是一个 CUDA 层面的方案，不依赖于 GPU 的特定架构，支持较早的 GPU 硬件。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>CUDA 应用之间隔离不足：单个应用的错误可以导致整个 GPU 重置（reset）。</li>
+<li>NVIDIA 还未（截止2024/01）正式在 K8s 环境下提供支持。</li>
+</ul>
+<aside class="note tip">
+<div class="title">提示</div>
+<p>一些第三方，例如  <a target="_blank" rel="noopener noreferrer" href="https://github.com/nebuly-ai/nos">neuly-ai/nos</a> 提供了在 K8s 环境下使用 MPS 的方案.</p>
+</aside>
+<h4 id="time-slicing"><a class="header" href="#time-slicing">Time Slicing</a></h4>
+<p><a target="_blank" rel="noopener noreferrer" href="https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/gpu-sharing.html">时间切片（Time Slicing）</a>，也称为时间共享（Temporal Sharing），是指将多个 CUDA 程序分配到同一个 GPU 上运行，即一个简单的超额订阅（oversubscription）策略。NVIDIA 在 Pascal 架构（GP100，2016 年首发）之上提供了对此技术的支持。这些 GPU 卡上的调度器提供了指令粒度（不再需要等待 CUDA kernel 执行完成）的计算抢占（Compute Premption）技术。当抢占发生时， 当前 CUDA 程序的执行上下文（execution context：寄存器、共享内存等）被交换（swapped）到 GPU DRAM，以便另一个 CUDA 程序运行。</p>
+<p>优点：</p>
+<ul>
+<li>非常容易设置。</li>
+<li>对分区数量无限制。</li>
+<li>可在众多 GPU 架构上部署。 </li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>上下文切换引起的效率降低。</li>
+<li>共享 GPU 设备导致的的隔离不足、潜在的 GPU OOM 等。</li>
+<li>时间片周期恒定，且无法为每个工作负载设置可用资源的优先级或大小。</li>
+</ul>
+<h4 id="mig"><a class="header" href="#mig">MIG</a></h4>
+<p><a target="_blank" rel="noopener noreferrer" href="https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html">MIG</a> 可以把一个 GPU 划分为最多 7 个独立的 GPU 实例，从而为多个 CUDA 程序提供专用的 GPU 资源，包括流式多处理器（Streaming Multiprocessors）和 GPU 引擎。这些 MIG 实例可以为不同的 GPU 客户端（例如进程、容器或 VM）提供更加高级的故障隔离能力和 QoS。</p>
+<p>优点：</p>
+<ul>
+<li>硬件隔离，并发进程安全运行且互不影响。</li>
+<li>在分区级别提供监控和遥测（monitoring &amp; telemetry）数据。</li>
+<li>每个分区可以叠加使用其他共享技术，例如 vGPU、time-slicing、MPS。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>仅在最新的 GPU 架构（Ampere，Hopper）上提供。</li>
+<li>重新配置分区布局需在 GPU 空闲（驱逐所有正在运行的进程）时。</li>
+<li>一些分区配置会导致部分 SM / DRAM 无法被利用。</li>
+</ul>
+<h4 id="vgpu"><a class="header" href="#vgpu">vGPU</a></h4>
+<p>NVIDIA vGPU 是 NVIDIA 在数据中心提供的 GPU 虚拟化技术，它对具有完整输入输出内存管理单元（IOMMU）保护的 VM 提供支持，使得这些 VM 能够同时、直接地访问单个物理 GPU。</p>
+<p>除了安全性之外，NVIDIA vGPU 还有其他优势，例如：</p>
+<ul>
+<li>支持实时虚拟机迁移（live VM migration）。</li>
+<li>可设置不同的调度策略，包括 best-effort、equal-share 和 fixed-sharez：
+<ul>
+<li>当使用 fixed-share 调度器时可提供可预知的性能。</li>
+</ul>
+</li>
+<li>运行混合的 VDI（Virtual Desktop Infrastructure）和计算工作负载的能力。</li>
+<li>与业界广泛使用的虚拟机管理程序（hypervisor，如 vmware）的集成能力。</li>
+</ul>
+<p>缺点:</p>
+<ul>
+<li>部署 vGPU 需要额外的软件授权费用。</li>
+<li>分区仍然通过时间片（time-slicing）完成。</li>
+</ul>
+<h2 id="扩展资源名称"><a class="header" href="#扩展资源名称">扩展资源名称</a></h2>
+<p>如果用户想要知道所使用的集群有哪些代表 GPU 的扩展资源名称，请咨询集群管理员。下面列举了一些常见的代表 GPU 的扩展资源名称。</p>
+<h3 id="nvidia-gpu"><a class="header" href="#nvidia-gpu">NVIDIA GPU</a></h3>
+<p>当集群安装有 NVIDIA GPU 硬件资源时，通常有下列扩展资源名称：</p>
+<ul>
+<li><code>nvidia.com/gpu</code>：一个扩展资源对应一个 NVIDIA GPU 硬件资源。可以申请多个 GPU，例如当声明资源 <code>nvidia.com/gpu: 8</code> 时，会有 8 个 NVIDIA GPU 分配给这个工作负载使用。</li>
+<li><code>nvidia.com/gpu.shared</code>：通过这个扩展资源，多个工作负载可以共享使用一个 NVIDIA GPU。需要注意的是，当共享机制是通过 <a href="#time-slicing">Time Slicing</a> 实现时，用户为工作负载设置<code> nvidia.com/gpu.shared</code> 扩展资源的数量不能超过 1（参考）。</li>
+</ul>
+<p>NVIDIA 还有其他形式的设备名称，例如，当部署了 MIG 技术时，常见的资源名称有：</p>
+<ul>
+<li><code>nvidia.com/mig-3g.20gb</code>：一个扩展资源对应的计算能力是物理 GPU 的 3/7，显存大小是 20GB。</li>
+<li><code>nvidia.com/mig-2g.10gb</code>：一个扩展资源对应的计算能力是物理 GPU  的 2/7，显存大小是 10GB。</li>
+<li><code>nvidia.com/mig-1g.5gb</code>：一个扩展资源对应的计算能力是物理 GPU 的 1/7，显存大小是 5GB。</li>
+</ul>
+<h3 id="amd-gpu"><a class="header" href="#amd-gpu">AMD GPU</a></h3>
+<p>当集群安装有 AMD GPU 硬件资源时，通常有下列扩展资源名称：</p>
+<ul>
+<li><code>amd.com/gpu</code>：一个扩展资源对应一个 AMD GPU 硬件资源。同样地，可以申请多个 GPU，例如 <code>amd.com/gpu: 2</code> 。</li>
+</ul>
+<h3 id="其他"><a class="header" href="#其他">其他</a></h3>
+<p>请参考对应厂商的 device plugin 文档。</p>
+<h2 id="使用示例"><a class="header" href="#使用示例">使用示例</a></h2>
+<h3 id="独占-gpu"><a class="header" href="#独占-gpu">独占 GPU</a></h3>
+<p>下面是一个独占使用 GPU 的 PyTorchTrainingJob 配置示例：</p>
+<pre><code class="language-yaml">apiVersion: batch.tensorstack.dev/v1beta1
+kind: PyTorchTrainingJob
+metadata:
+ name: pytorch-example
+spec:
+ replicaSpecs:
+ - replicas: 4
+   restartPolicy: OnFailure
+   template:
+     spec:
+       containers:
+       - command:
+         - python
+         - dist_mnist.py
+         image: pytorch/pytorch:2.0.0-cuda11.7-cudnn8-devel
+         name: pytorch
+         resources:
+           limits:
+             nvidia.com/gpu: 4
+           requests:
+             cpu: 10
+             memory: 5Gi
+   type: worker
+</code></pre>
+<p>在该例中，<code>spec.replicaSpecs[0].template.spec.containers[0].resources.limits</code> 字段设置了资源量  <code>nvidia.com/gpu: 4</code>，表示一个 replica 会独占使用 4 个 NVIDIA GPU。同时又设置了 replica 的数量为 4，因此该 PyTorchTrainingJob 总共会占用 16 个 NVIDIA GPU。</p>
+<aside class="note">
+<div class="title">注意</div>
+<p><code>resources</code> 字段的一些规则：</p>
+<ol>
+<li>代表 GPU 的扩展资源的数量必须设为整数。</li>
+<li>扩展资源填写在 <code>resources.limits</code> 字段下即可；不能只填写在 <code>resources.requests</code> 字段下；如果在 <code>resources.limits</code> 和 <code>resources.requests</code> 字段下同时填写了同一个扩展资源，则两者的数量必须相等。</li>
+</ol>
+</aside>
+<h3 id="共享-gpu"><a class="header" href="#共享-gpu">共享 GPU</a></h3>
+<p>下面是一个以共享方式使用 GPU 的 Notebook 配置示例：</p>
+<pre><code class="language-yaml">apiVersion: tensorstack.dev/v1beta1
+kind: Notebook
+metadata:
+  name: tutorial
+spec:
+  type: jupyter
+  template:
+    spec:
+      containers:
+        - name: notebook
+          image: t9kpublic/torch-2.1.0-notebook:1.77.1
+          volumeMounts:
+            - name: workingdir
+              mountPath: /t9k/mnt
+          resources:
+            requests:
+              cpu: '8'
+              memory: 16Gi
+              nvidia.com/gpu.shared: 1
+            limits:
+              cpu: '16'
+              memory: 32Gi
+              nvidia.com/gpu.shared: 1
+      volumes:
+        - name: workingdir
+          persistentVolumeClaim:
+            claimName: tutorial
+</code></pre>
+<p>在该例中，<code>spec.template.spec.containers[0].resources.limits</code> 字段设置了资源量 <code>nvidia.com/gpu.shared: 1</code>，表示这个 Notebook 以共享方式使用一个 NVIDIA GPU。</p>
+<h3 id="指定-gpu-型号"><a class="header" href="#指定-gpu-型号">指定 GPU 型号</a></h3>
+<p>不同节点上安装的 GPU 型号经常是不同的，而同一厂家的 GPU 对应的扩展资源名称常常是相同的，例如对于 NVIDIA GPU，在不考虑共享 GPU 的情况下，A100 和 A40 型号对应的扩展资源名称都是 <code>nvidia.com/gpu</code>。</p>
+<p>调度器为工作负载分配资源时会忽略型号信息，如果用户想让工作负载使用特定型号的 GPU，例如 <code>NVIDIA A100-80GB</code>、<code>NVIDIA A40</code>，可以参考下列方式设置工作负载，使其能被分配到安装有特定型号 GPU 的节点上。</p>
+<h4 id="设置-nodeselector-字段"><a class="header" href="#设置-nodeselector-字段">设置 <code>nodeSelector</code> 字段</a></h4>
+<p>安装有 GPU 硬件的节点会通过节点标签来表明其安装的 GPU 型号。如果用户将工作负载的 <a href="./scheduler/kube-scheduler.html#nodeselector"><code>nodeSelector</code> 字段</a>设置为指定型号 GPU 对应的节点标签，并且为工作负载设置了代表 GPU 的扩展资源，那么工作负载就可以使用指定型号的 GPU。</p>
+<p><strong>常见的节点标签</strong></p>
+<p>如果用户想要知道所使用的集群有哪些表明 GPU 型号的节点标签，请咨询管理员。下面是一些表明 GPU 型号的节点标签示例：</p>
+<div class="table-wrapper"><table><thead><tr><th>GPU 型号</th><th>节点标签</th></tr></thead><tbody>
+<tr><td>NVIDIA A100-40GB</td><td><code>nvidia.com/gpu.product: NVIDIA-A100-PCIE-40GB</code></td></tr>
+<tr><td>NVIDIA A100-80GB</td><td><code>nvidia.com/gpu.product: NVIDIA-A100-PCIE-80GB</code></td></tr>
+<tr><td>NVIDIA GTX 1070</td><td><code>nvidia.com/gpu.product: NVIDIA-GeForce-GTX-1070</code></td></tr>
+<tr><td>NVIDIA TITAN-X</td><td><code>nvidia.com/gpu.product: NVIDIA-TITAN-X</code></td></tr>
+</tbody></table>
+</div>
+<p><strong>常见工作负载的 <code>nodeSelector</code> 字段</strong></p>
+<p>下面列举了常见的工作负载，以及工作负载用于设置 <code>nodeSelector</code> 的字段：</p>
+<div class="table-wrapper"><table><thead><tr><th>工作负载</th><th>字段</th></tr></thead><tbody>
+<tr><td>GenericJob</td><td><code>spec.replicaSpecs[*].template.spec.nodeSelector</code></td></tr>
+<tr><td>PyTorchTrainingJob</td><td><code>spec.replicaSpecs[*].template.spec.nodeSelector</code></td></tr>
+<tr><td>TensorFlowTrainingJob</td><td><code>spec.replicaSpecs[*].template.spec.nodeSelector</code></td></tr>
+<tr><td>XGBoostTrainingJob</td><td><code>spec.replicaSpecs[*].template.spec.nodeSelector</code></td></tr>
+<tr><td>DeepSpeedJob</td><td><code>spec.worker.template.spec.nodeSelector</code></td></tr>
+<tr><td>ColossalAIJob</td><td><code>spec.worker.template.spec.nodeSelector</code></td></tr>
+<tr><td>MPIJob</td><td><code>spec.worker.template.spec.nodeSelector</code></td></tr>
+<tr><td>BeamJob</td><td><code>spec.jobTemplate.spec.template.spec.nodeSelector</code></td></tr>
+<tr><td>Notebook</td><td><code>spec.template.spec.nodeSelector</code></td></tr>
+<tr><td>SimpleMLService</td><td>只有使用自定义框架时，才能通过字段 <code>spec.custom.nodeSelector</code> 设置 nodeSelector</td></tr>
+<tr><td>MLService predictor</td><td><code>spec.releases[*].predictor.template.spec.nodeSelector</code></td></tr>
+<tr><td>MLService transformer</td><td><code>spec.transformer.template..spec.nodeSelector</code></td></tr>
+<tr><td>Pod</td><td><code>spec.nodeSelector</code></td></tr>
+</tbody></table>
+</div>
+<p><strong>示例</strong></p>
+<p>下面是一个设置了 <code>nodeSelector</code> 字段的 Notebook 配置示例：</p>
+<pre><code class="language-yaml">apiVersion: tensorstack.dev/v1beta1
+kind: Notebook
+metadata:
+ name: tutorial-nodeselector
+spec:
+ type: jupyter
+ template:
+   spec:
+     containers:
+       - name: notebook
+         image: t9kpublic/torch-2.1.0-notebook:1.77.1
+         volumeMounts:
+           - name: workingdir
+             mountPath: /t9k/mnt
+         resources:
+           limits:
+             cpu: '16'
+             memory: 32Gi
+             nvidia.com/gpu: 1
+     nodeSelector:
+       nvidia.com/gpu.product: NVIDIA-A100-PCIE-40GB
+     volumes:
+       - name: workingdir
+         persistentVolumeClaim:
+           claimName: tutorial
+
+</code></pre>
+<p>在该例中：</p>
+<ul>
+<li>Notebook 的资源量设置了 <code>nvidia.com/gpu: 1</code>，表示 Notebook 使用一个 GPU。</li>
+<li>Notebook 的 <code>nodeSelector</code> 被设置为 <code>nvidia.com/gpu.product: NVIDIA-A100-PCIE-40GB</code>，因此 Notebook 的 Pod 会被分配到含有标签 <code>nvidia.com/gpu.product: NVIDIA-A100-PCIE-40GB</code> 的节点上运行，从而 Notebook 会被分配一个 NVIDIA A100-40GB。</li>
+</ul>
+<h4 id="设置队列"><a class="header" href="#设置队列">设置队列</a></h4>
+<p>通过 <code>nodeSelector</code> 机制指定 GPU 型号的过程繁琐，并且管理员也缺乏对 GPU 使用权限的方便控制。平台提供了更加便捷的<a href="./scheduler/queue.html">队列</a>机制方便用户使用特定类型的资源。</p>
+<p>当满足以下条件时，可以通过设置队列来使用特定型号的 GPU：</p>
+<ol>
+<li>管理员创建了队列并为其设置了适当的<a href="./scheduler/queue.html#%E8%8A%82%E7%82%B9%E9%99%90%E5%88%B6">节点限制</a>。例如，创建了队列 <code>a100</code>，并设置其可以使用安装了 NVIDIA A100 的节点。</li>
+<li>用户有这个队列的<a href="./scheduler/queue.html#%E4%BD%BF%E7%94%A8%E6%9D%83%E9%99%90">使用权限</a>。</li>
+</ol>
+<aside class="note">
+<div class="title">注意</div>
+<ol>
+<li>如果用户想要知道集群中有哪些队列及其对应的 GPU 型号，请咨询管理员。</li>
+<li>队列是 T9k Scheduler 提供的高级功能，需要通过 <a href="./scheduler/queue.html">T9k Scheduler</a> 使用。</li>
+</ol>
+</aside>
+<p>在创建工作负载时，进行下列操作以使用特定型号的 GPU：</p>
+<ul>
+<li>使用 T9k Scheduler。</li>
+<li>设置队列名称，例如 <code>a100</code>。</li>
+<li>设置代表 GPU 的扩展资源，例如 <code>nvidia.com/gpu</code>。</li>
+</ul>
+<p><strong>示例</strong></p>
+<p>假设管理员创建并设置了两个队列，名称分别是：</p>
+<ul>
+<li><code>a100</code>：队列可以使用的节点上都安装了 NVIDIA A100-80GB。</li>
+<li><code>a40</code>：队列可以使用的节点上都安装了 NVIDIA A40-40GB。</li>
+</ul>
+<p>并且用户有它们的使用权限。那么如果用户想要创建一个使用一个 NVIDIA A100-80GB 的 Notebook，则可以使用以下 YAML 配置文件：</p>
+<pre><code class="language-yaml">apiVersion: tensorstack.dev/v1beta1
+kind: Notebook
+metadata:
+ name: tutorial
+spec:
+ type: jupyter
+ scheduler:
+   t9kScheduler:
+     queue: a100
+ template:
+   spec:
+     containers:
+       - name: notebook
+         image: t9kpublic/torch-2.1.0-notebook:1.77.1
+         volumeMounts:
+           - name: workingdir
+             mountPath: /t9k/mnt
+         resources:
+           limits:
+             cpu: '16'
+             memory: 32Gi
+             nvidia.com/gpu: 1
+     volumes:
+       - name: workingdir
+         persistentVolumeClaim:
+           claimName: tutorial
+</code></pre>
+<p>在该例中：</p>
+<ul>
+<li>Notebook 的资源量设置了 <code>nvidia.com/gpu: 1</code>，表示 Notebook 使用一个 GPU。</li>
+<li>字段 <code>spec.scheduler.t9kScheduler.queue</code> 被设置为 <code>a100</code>，表示 Notebook 使用 T9k Scheduler 进行资源调度，并且使用队列 <code>a100</code>。</li>
+</ul>
+<h2 id="参考"><a class="header" href="#参考">参考</a></h2>
+<ul>
+<li><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources">K8s Extended resources</a></li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#consuming-extended-resources">Consuming extended resources</a></li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/">Schedule GPUs | Kubernetes</a></li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/">Device Plugins</a></li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/">Assigning Pods to Nodes</a></li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://developer.nvidia.com/blog/improving-gpu-utilization-in-kubernetes">Improving GPU Utilization in Kubernetes</a></li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/gpu-operator-mig.html#configuring-mig-profiles">MIG：NVIDIA Multi-Instance GPU User Guide</a></li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../modules/computing-resources/scheduler/policy.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../modules/computing-resources/reclaim.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../modules/computing-resources/scheduler/policy.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../modules/computing-resources/reclaim.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../../theme/sidebar.js"></script>
+
+
+    </div>
+    </body>
+</html>
