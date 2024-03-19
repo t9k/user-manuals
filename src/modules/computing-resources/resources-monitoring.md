@@ -1,6 +1,6 @@
 # 资源使用监控
 
-在 Tensorstack AI 平台创建工作负载后，用户可以通过控制台或命令行工具查看工作负载的资源使用情况。
+在平台创建工作负载后，用户可以通过控制台或命令行工具查看工作负载的资源使用情况。
 
 ## 控制台
 
@@ -26,11 +26,11 @@ CPU（内存）的资源监测图如下所示，图中包含三条折线：
 * 使用量：工作负载实际使用的 CPU（内存）资源量
 
 <figure class="screenshot">
-  <img alt="cpu" src="../../assets/modules/scheduling/monitoring/cpu.png"/>
+  <img alt="cpu" src="../../assets/modules/computing-resources/monitoring/cpu.png"/>
 </figure>
 
 <figure class="screenshot">
-  <img alt="memory" src="../../assets/modules/scheduling/monitoring/memory.png"/>
+  <img alt="memory" src="../../assets/modules/computing-resources/monitoring/memory.png"/>
 </figure>
 
 当工作负载声明扩展资源时，显示扩展资源的资源监测图。
@@ -38,7 +38,7 @@ CPU（内存）的资源监测图如下所示，图中包含三条折线：
 在本例中，PytorchTrainingJob 声明了扩展资源 `nvidia.com/gpu: 2`，页面显示了工作负载声明的 `resources.limits."nvidia.com/gpu"` 资源量。
 
 <figure class="screenshot">
-  <img alt="nvidia.com/gpu" src="../../assets/modules/scheduling/monitoring/nvidia.com:gpu.png"/>
+  <img alt="nvidia.com/gpu" src="../../assets/modules/computing-resources/monitoring/nvidia.com:gpu.png"/>
 </figure>
 
 ### NVIDIA GPU
@@ -48,11 +48,11 @@ CPU（内存）的资源监测图如下所示，图中包含三条折线：
 下面是展示 GPU 利用率和显存使用率的图表：
 
 <figure class="screenshot">
-  <img alt="gpu-utilization" src="../../assets/modules/scheduling/monitoring/gpu-utilization.png"/>
+  <img alt="gpu-utilization" src="../../assets/modules/computing-resources/monitoring/gpu-utilization.png"/>
 </figure>
 
 <figure class="screenshot">
-  <img alt="gpu-memory-utilization" src="../../assets/modules/scheduling/monitoring/gpu-memory-utilization.png"/>
+  <img alt="gpu-memory-utilization" src="../../assets/modules/computing-resources/monitoring/gpu-memory-utilization.png"/>
 </figure>
 
 ### 网络带宽
@@ -62,11 +62,11 @@ CPU（内存）的资源监测图如下所示，图中包含三条折线：
 * 发送带宽：所有容器发送数据的网络带宽总计。
 
 <figure class="screenshot">
-  <img alt="network-receive" src="../../assets/modules/scheduling/monitoring/network-receive.png"/>
+  <img alt="network-receive" src="../../assets/modules/computing-resources/monitoring/network-receive.png"/>
 </figure>
 
 <figure class="screenshot">
-  <img alt="network-transmit" src="../../assets/modules/scheduling/monitoring/network-transmit.png"/>
+  <img alt="network-transmit" src="../../assets/modules/computing-resources/monitoring/network-transmit.png"/>
 </figure>
 
 ### 存储 I/O
@@ -76,11 +76,11 @@ CPU（内存）的资源监测图如下所示，图中包含三条折线：
 * 吞吐量（读+写）：所有容器在节点的物理磁盘上，读写数据的吞吐量。
 
 <figure class="screenshot">
-  <img alt="storage-iops" src="../../assets/modules/scheduling/monitoring/storage-iops.png"/>
+  <img alt="storage-iops" src="../../assets/modules/computing-resources/monitoring/storage-iops.png"/>
 </figure>
 
 <figure class="screenshot">
-  <img alt="storage-throughput" src="../../assets/modules/scheduling/monitoring/storage-throughput.png"/>
+  <img alt="storage-throughput" src="../../assets/modules/computing-resources/monitoring/storage-throughput.png"/>
 </figure>
 
 ## 命令行工具
@@ -99,4 +99,4 @@ managed-project-event-ctl-854b96f4dd-f6hn8   1m           29Mi
 
 * 监控 [T9k Job 的资源使用](../../tasks/pytorch-training-parallel.md#检查训练日志和指标)
 * 监控[推理服务的资源使用](../../tasks/deploy-mlservice.md#监控推理服务)
-* 监控 Notebook 的资源使用（TODO: 完成 `查看 Notebook 资源使用` 相关用户文档）
+* 监控 Notebook 的资源使用（TODO）

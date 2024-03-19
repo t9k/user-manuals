@@ -70,7 +70,7 @@ Notebook 就绪后，就可以[使用 Notebook](./use-notebook.md)。
 
 ### 使用 T9k 调度器
 
-[计算资源](../modules/scheduling/index.md)模块还提供了选项，使用调度器 `t9k-scheduler`，以支持便捷的资源使用申请，使用 `t9k-scheduler` 调度任务时必须指定一个[队列](../modules/scheduling/queue.md)。相比默认调度器，`t9k-scheduler` 需要额外填写如下参数：
+[计算资源](../modules/computing-resources/index.md)模块还提供了选项，使用调度器 `t9k-scheduler`，以支持便捷的资源使用申请，使用 `t9k-scheduler` 调度任务时必须指定一个[队列](../modules/computing-resources/queue.md)。相比默认调度器，`t9k-scheduler` 需要额外填写如下参数：
 
 * `队列 (queue)`：必填，选择一个队列（如果没有队列，请联系管理员创建一个队列）。
 * `优先级 (priority)`：可选，默认值是 0。代表任务在队列内部的优先级。当发生资源抢占时，优先级数字较小的工作负载会比同一个队列中的其他负载优先被驱逐。

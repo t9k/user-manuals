@@ -37,14 +37,14 @@
 其他章节内容如下：
 
 - [账户和安全](./modules/security/index.md) 讨论用户账户和系统安全问题。
-- [计算资源](./modules/scheduling/index.md) 讨论如何使用集群计算资源。
+- [计算资源](./modules/computing-resources/index.md) 讨论如何使用集群计算资源。
 - [存储](./modules/storage/index.md) 章节对平台的存储方面的支持进行了说明。
 - [辅助](./modules/auxiliary/index.md) 章节描述平台提供的一些重要辅助功能，例如如何处理敏感秘密信息，打包容器镜像等。
-- [命令行工具和 SDK](./tools/index.md) 讨论 TensorStack 平台的提供的命令行工具和 Python SDK 。
+- [命令行工具和 SDK](./tools/index.md) 讨论平台的提供的命令行工具和 Python SDK 。
 - [操作示例](./tasks/index.md) 章节提供了一些具体的操作指南。
 - [参考](./references/index.md) 章节对 API 提供了完整的描述。
 - [示例](./examples/index.md) 章节提供了一些具体的应用示例，特别是对 LLM 领域的场景提供了全面的支持演示。
-- [集成](./integrations/index.md) 章节讨论了一些优秀的第三方工具在 TensorStack 平台上的集成及使用。
+- [集成](./integrations/index.md) 章节讨论了一些优秀的第三方工具在平台上的集成及使用。
 - [附录1：背景](./background.md) 介绍了产品的技术架构和设计思路等。
 
 “TensorStack AI 计算平台” 是一个功能强大且灵活的产品，支持在大规模（10^3 节点）集群上进行各种 AI 场景的计算。用户在一定的时间的学习、使用、探索、积累之后，就能对其功能有深入的理解，并在上面完成各种优秀的工作。

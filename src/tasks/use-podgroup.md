@@ -1,56 +1,51 @@
-# 使用 PodGroup
+# 创建和使用 PodGroup
 
-## 概念
+本教程演示如何创建和使用 [PodGroup](../modules/computing-resources/scheduler/podgroup.md)。
 
-PodGroup 是 namespaced-scoped 资源对象，代表一组协同工作的 Pod。PodGroup spec 中定义了 coscheduling 和其他相关的配置信息，调度器 T9k Scheduler 会根据这些信息为 Pod 分配资源。
+## 手动创建 PodGroup
 
-## 使用 PodGroup
+用户可以手动创建 PodGroup 以关联一组进行协同工作的 Pod，步骤如下：
 
-
-根据工作负载的种类，创建并使用 PodGroup 的方式如下。
-
-### Pod
-
-一般仅需要通过 Job 控制器自动化地实现对 PodGroup 的使用。工作负载控制器的编程者，或者需手工设定 pod 的 PodGroup，可参考本节内容。
-
-用户创建一组使用调度器 T9k Scheduler 进行协同工作的 Pod 时，需要：
-1. 先在相同的 namespace 中创建一个 PodGroup
-2. 为 Pod 添加标签 `scheduler.tensorstack.dev/group-name: <PodGroup-name>` 来表明 Pod 属于步骤一创建的 PodGroup
+1. （使用 YAML 配置文件）创建一个 PodGroup。
+2. 创建若干个 Pod，设置 `scheduler.tensorstack.dev/group-name` 标签为步骤 1 中创建的 PodGroup 的名称。
+3. Pod 的数量（和角色）达到 PodGroup 的运行需求后，T9k Scheduler 开始调度 PodGroup。
 
 <aside class="note">
 <div class="title">注意</div>
 
-Pod 一旦指定了所属的 PodGroup，就无法修改其所属的 PodGroup，如果想要修改 Pod 所属的 PodGroup，需要删除 Pod 再重新创建并指定新的 PodGroup。
+Pod 所属的 PodGroup 无法被修改，只能删除 Pod 再重新创建并为其指定新的 PodGroup。
 
 </aside>
 
-#### 示例1 - 基本场景
+### 示例：基本场景
 
-首先需要创建一个 PodGroup：
+首先创建一个 PodGroup，设置其最小数量、队列和优先级：
+
 ```yaml
 apiVersion: scheduler.tensorstack.dev/v1beta1
 kind: PodGroup
 metadata:
-  name: dance
+  name: podgroup-test
 spec:
   minMember: 2
   queue: default
   priority: 50
 ```
 
-然后创建 2 个 Pod 并指定 PodGroup，Pod 通过标签 `scheduler.tensorstack.dev/group-name: dance` 表明他们属于 PodGroup dance。
+然后创建两个 Pod 并指定所属的 PodGroup，`scheduler.tensorstack.dev/group-name: podgroup-test` 标签表示它们属于 PodGroup `podgroup-test`：
+
 ```yaml
 apiVersion: v1
 kind: Pod
 metadata:
-  name: test1
+  name: nginx1
   labels:
-    scheduler.tensorstack.dev/group-name: dance
+    scheduler.tensorstack.dev/group-name: podgroup-test
 spec:
   schedulerName: t9k-scheduler
   containers:
-  - image: nginx:latest
-    name: test
+  - image: nginx
+    name: nginx
     resources:
       requests:
         cpu: 1
@@ -59,25 +54,27 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: test2
+  name: nginx2
   labels:
-    scheduler.tensorstack.dev/group-name: dance
+    scheduler.tensorstack.dev/group-name: podgroup-test
 spec:
   schedulerName: t9k-scheduler
   containers:
-  - image: nginx:latest
-    name: test
+  - image: nginx
+    name: nginx
     resources:
       requests:
         cpu: 1
         memory: 200Mi
 ```
 
-#### 示例2 - 使用 role
+此时 PodGroup 的运行需求得到满足，从而开始被调度。
 
-本示例展示有 2 个 role 并设置了 role minMember 的 PodGroup 使用场景。
+### 示例：设置角色最小数量
 
-创建 PodGroup
+本示例创建有两种角色的 PodGroup。
+
+首先创建一个 PodGroup：
 
 ```yaml
 apiVersion: scheduler.tensorstack.dev/v1beta1
@@ -94,12 +91,14 @@ spec:
   queue: default
   priority: 50
 ```
-说明：上面这个 PodGroup 的最小运行需求如下，这些需求都被满足了，调度器才会为 PodGroup 中的 Pod 分配资源：
-* PodGroup 的 Pod 数量需要达到 3
-* 角色名称是 master 的 Pod 数量需要达到 1
-* 角色名称是 worker 的 Pod 数量需要达到 1
 
-创建 Pod：
+该 PodGroup 的运行需求如下：
+
+* 有 3 个 Pod。
+* 有 1 个角色名称是 master 的 Pod。
+* 有 1 个角色名称是 worker 的 Pod。
+
+然后创建 3 个 Pod 并指定所属的 PodGroup，`scheduler.tensorstack.dev/role: <role-name>` 标签表示它们自己的角色名称：
 
 ```yaml
 apiVersion: v1
@@ -112,13 +111,11 @@ metadata:
 spec:
   schedulerName: t9k-scheduler
   containers:
-  - image: nginx:latest
-    name: test
-    resources:
-      requests:
-        cpu: 100m
-        memory: 200Mi
+  - name: nginx
+    image: nginx
+
 --
+
 apiVersion: v1
 kind: Pod
 metadata:
@@ -129,13 +126,11 @@ metadata:
 spec:
   schedulerName: t9k-scheduler
   containers:
-  - image: nginx:latest
-    name: test
-    resources:
-      requests:
-        cpu: 100m
-        memory: 200Mi
+  - name: nginx
+    image: nginx
+
 --
+
 apiVersion: v1
 kind: Pod
 metadata:
@@ -146,53 +141,48 @@ metadata:
 spec:
   schedulerName: t9k-scheduler
   containers:
-  - image: nginx:latest
-    name: test
-    resources:
-      requests:
-        cpu: 100m
-        memory: 200Mi
+  - name: nginx
+    image: nginx
 ```
 
-Pod 通过标签 `scheduler.tensorstack.dev/role: <role-name>` 来表明自己的角色名称。 
+此时 PodGroup 的运行需求得到满足，从而开始被调度。
 
-### T9k Jobs
+## T9k Job 自动创建 PodGroup
 
 T9k Job 包括 TensorFlowTrainingJob、PyTorchTrainingJob、XGBoostTrainingJob、GenericJob、MPIJob、ColossalAIJob、DeepSpeedJob 和 BeamJob，这些 Job 中都有相同的 `spec.scheduler` 字段。
 
-创建 T9k Job 时，用户可以通过设置 `spec.scheduler` 字段来表明使用 T9k scheduler，并指定 Job 使用哪个队列，然后控制器会自动地创建 PodGroup、并创建 Pod 使用这个 PodGroup。
+创建这些 Job 时，用户可以设置 `spec.scheduler.t9kScheduler` 字段以使用 T9k Scheduler 并指定队列。在这种情况下，Job 会自动创建一个 PodGroup 以及若干属于该 PodGroup 的 Pod 来执行计算任务，PodGroup 会继承 Job 的队列和优先级。
 
-#### 基本示例
+### 示例：基本场景
 
-本示例适用于未启用弹性训练的 Job。
+创建一个使用 T9k Scheduler 的 GenericJob，设置其队列和优先级：
 
-以下面这个 GenericJob 为例：
 ```yaml
 apiVersion: batch.tensorstack.dev/v1beta1
 kind: GenericJob
 metadata:
- name: job-sample
+ name: job-test
 spec:
  scheduler:
    t9kScheduler:
      queue: default
      priority: 10
  replicaSpecs:
-   - type: worker
-     replicas: 4
-     ...
    - type: ps
      replicas: 1
      ...
+   - type: worker
+     replicas: 4
+     ...
 ```
 
-控制器在监测到上述 CRD 后，会创建一个 PodGroup:
+Job 会自动创建一个 PodGroup，其 `spec.priority` 和 `spec.queue` 字段的值继承自 Job 的 `spec.scheduler.t9kScheduler` 字段，`spec.minMember` 字段的值则为 Job 的总副本（replica）数：
 
 ```yaml
 apiVersion: scheduler.tensorstack.dev/v1beta1
 kind: PodGroup
 metadata:
-  name: job-sample
+  name: job-test
   ownerReferences: [...]
 spec:
   minMember: 5
@@ -200,63 +190,66 @@ spec:
   queue: default
 ```
 
-其中，priority 和 queue 字段参考 job 的 `spec.scheduler.t9kScheduler` 中的信息设置，minMember 即为 job 所有副本的总数。
-
-随后，控制器会在创建副本的 Pod 时，为 Pod 设置标签 `scheduler.tensorstack.dev/group-name: job-sample` 来使用上述 PodGroup。
+随后，Job 会自动创建 5 个副本的 Pod，并为它们设置 `scheduler.tensorstack.dev/group-name: job-test` 标签以指定它们属于这个 PodGroup：
 
 ```yaml
+# worker-2 的 Pod
 apiVersion: v1
 kind: Pod
 metadata:
   labels:
-    genericjob: job-sample
-    genericjob-replica: job-sample-worker-2
-    scheduler.tensorstack.dev/group-name: job-sample
+    genericjob: job-test
+    genericjob-replica: job-test-worker-2
+    scheduler.tensorstack.dev/group-name: job-test
     scheduler.tensorstack.dev/queue: default
     tensorstack.dev/component: genericjob
     tensorstack.dev/component-type: user
-  name: job-sample-worker-0
-  namespace: dev-wangdi
+  name: job-test-worker-0
+  namespace: demo
   ownerReferences: [...]
 ```
 
-#### 弹性训练
+### 示例：启用弹性训练
 
 弹性训练要求训练规模可以动态调整，所以对 PodGroup 的设置也有所不同。
 
-T9k Job 中，PyTorchTrainingJob 和 DeepSpeedJob 支持弹性训练，他们具有相同的 `spec.elastic` 字段，以此启动弹性训练。
+T9k Job 中，PyTorchTrainingJob 和 DeepSpeedJob 支持弹性训练，它们具有相同的 `spec.elastic` 字段，以此启动弹性训练。
 
-以下面的 PyTorchTrainingJob 为例：
-* `spec.elastic.enabled` 是 true 表明启用弹性训练
-* PyTorchTrainingJob 支持最少 3 个副本、最多 10 个副本的训练规模
+创建一个使用 T9k Scheduler 并启用弹性训练的 GenericJob：
+
 ```yaml
 apiVersion: batch.tensorstack.dev/v1beta1
 kind: PyTorchTrainingJob
 metadata:
- name: torch-mnist-trainingjob
+  name: elastic-test
 spec:
- scheduler:
-   t9kScheduler:
-     queue: default
-     priority: 10
- elastic:
-   enabled: true
-   minReplicas: 3
-   maxReplicas: 10
-   expectedReplicas: 7
- ...
+  scheduler:
+    t9kScheduler:
+      queue: default
+      priority: 10
+  elastic:
+    enabled: true
+    minReplicas: 4
+    maxReplicas: 10
+    expectedReplicas: 7
+  ...
 ```
 
-控制器在监测到上述 CRD 后，会创建下列 PodGroup，使用 `spec.elastic.minReplicas` 作为 PodGroup 的 `spec.minMember`：
+其中：
+
+* `spec.elastic.enabled` 字段设为 `true` 表示启用弹性训练。
+* 训练规模（即副本数量）的伸缩范围为 [4,10]，期望值为 7。
+
+PyTorchTrainingJob 会自动创建一个 PodGroup，其 `spec.minMember` 字段的值继承自 PyTorchTrainingJob 的 `spec.elastic.minReplicas` 字段，即为弹性训练的最小副本数。
+
 ```yaml
 apiVersion: scheduler.tensorstack.dev/v1beta1
 kind: PodGroup
 metadata:
-  name: torch-mnist-trainingjob
+  name: elastic-test
   ownerReferences: [...]
 spec:
-  minMember: 3
+  minMember: 4
   priority: 10
   queue: default
 ```
-
