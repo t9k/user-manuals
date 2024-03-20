@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>计算资源 - TensorStack AI 计算平台 - 用户使用手册</title>
+        <title>计算资源 - TensorStack AI 计算平台 - 用户手册</title>
 
 
         <!-- Custom HTML head -->
@@ -154,7 +154,7 @@
                         </div>
                     </div>
 
-                    <h1 class="menu-title">TensorStack AI 计算平台 - 用户使用手册</h1>
+                    <h1 class="menu-title">TensorStack AI 计算平台 - 用户手册</h1>
 
                     <div class="right-buttons">
                         <a href="../../print.html" title="Print this book" aria-label="Print this book">
@@ -192,9 +192,9 @@
 <p>运行集群中的工作负载需要使用计算资源。TensorStack AI 平台提供了完善的计算资源分配和管理机制，支持使用 GPU、高速网卡等扩展设备资源，并提供资源使用监控、统计功能帮助用户随时获得工作负载的资源使用情况。</p>
 <h2 id="资源请求和限制"><a class="header" href="#资源请求和限制">资源请求和限制</a></h2>
 <p>资源请求（requests）和限制（limits）是一种管理资源的重要机制，用于确保集群中的工作负载可以按照预期方式使用计算资源。资源请求（<code>spec.containers[].resources.requests</code> 字段）定义了工作负载的一个容器所需的最小资源量，资源限制（<code>spec.containers[].resources.limits</code> 字段）则定义了该容器所允许使用的最大资源量。集群的<a href="./scheduler/index.html">调度器</a>根据这些参数进行资源分配，确保各个容器在共享主机资源时不会相互干扰或过度使用资源。</p>
-<p>容器会被分配请求（<code>requests</code>）的资源量；如果容器所在的节点有足够的可用资源，容器可以使用超出请求（<code>requests</code>）的资源量，但不可使用超出限制（<code>limits</code>）的资源量。例如，当容器中的进程尝试使用超出限制的内存资源（<code>memory</code>）量时，系统会将尝试申请内存的进程终止，并触发内存不足（OOM）错误。</p>
+<p>容器会被分配请求（requests）的资源量；如果容器所在的节点有足够的可用资源，容器可以使用超出请求（requests）的资源量，但不可使用超出限制（limits）的资源量。例如，当容器中的进程尝试使用超出限制的内存（memory）资源量时，系统会将尝试申请内存的进程终止，并触发内存不足（OOM）错误。</p>
 <h2 id="资源类型"><a class="header" href="#资源类型">资源类型</a></h2>
-<p>资源类型包括 CPU、内存（<code>memory</code>）和扩展资源(<code>extended resources</code>)：</p>
+<p>资源类型包括 CPU、内存（memory）和扩展资源（extended resources）：</p>
 <ul>
 <li>
 <p>CPU 的请求和限制以 Kubernetes CPU 为单位，1 个 Kubernetes CPU 等于 1 个物理 CPU 核心或 1 个虚拟核心，取决于节点是一台物理主机还是运行在某物理主机上的虚拟机。可以指定小数，例如 <code>0.1</code> 或 <code>100m</code>（<code>1m = 1/1000</code>），来使用核心的部分处理能力。</p>

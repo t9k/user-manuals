@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>kube-scheduler - TensorStack AI 计算平台 - 用户使用手册</title>
+        <title>kube-scheduler - TensorStack AI 计算平台 - 用户手册</title>
 
 
         <!-- Custom HTML head -->
@@ -154,7 +154,7 @@
                         </div>
                     </div>
 
-                    <h1 class="menu-title">TensorStack AI 计算平台 - 用户使用手册</h1>
+                    <h1 class="menu-title">TensorStack AI 计算平台 - 用户手册</h1>
 
                     <div class="right-buttons">
                         <a href="../../../print.html" title="Print this book" aria-label="Print this book">
@@ -227,15 +227,18 @@ spec:
 </code></pre>
 <p>在该例中，Pod 只能被调度到节点 <code>kube-01</code> 上。</p>
 <h3 id="污点"><a class="header" href="#污点">污点</a></h3>
-<p>污点（taint）是节点的一种属性，它可被用来使得某些类型的 Pod 不能被调度到（除非该 pod 明确说明其可容忍这些污点）该节点上。例如，当节点存在出现软硬件故障、网络不可用、磁盘空间不足等问题时，系统会自动为该节点添加一个污点。此外，当管理员发现节点存在问题或正在测试节点时，也可能为该节点添加污点。</p>
+<p>污点（taint）是节点的一种属性，它可被用来使得某些类型的 Pod 不能被调度到该节点上（除非 Pod 明确说明其容忍该污点）。例如，当节点存在出现软硬件故障、网络不可用、磁盘空间不足等问题时，系统会自动为该节点添加一个污点。此外，当管理员发现节点存在问题或正在测试节点时，也可能为该节点添加污点。</p>
 <p>当用户的工作负载不能被调度到某个资源充足的节点上时，可能就是因为这个节点被添加了污点。</p>
 <p>更多细节请进一步参阅官方文档<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/">污点和容忍度</a>。</p>
 <h2 id="优先级和抢占"><a class="header" href="#优先级和抢占">优先级和抢占</a></h2>
 <p>kube-scheduler 和 T9k Scheduler 都有各自的优先级和抢占机制，用户可根据需求选用。</p>
-<p>T9k Scheduler 的优先级和抢占机制，请参阅：<a href="./t9k-scheduler.html">t9k-scheduler</a>。</p>
+<p>kube-scheduler 的优先级和抢占机制请参阅 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/">Pod 优先级和抢占</a>。</p>
+<p>T9k Scheduler 的优先级和抢占机制请参阅<a href="./policy.html#%E4%BC%98%E5%85%88%E7%BA%A7%E5%92%8C%E6%8A%A2%E5%8D%A0">优先级和抢占</a>。</p>
 <h2 id="参考"><a class="header" href="#参考">参考</a></h2>
 <ul>
 <li><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/kube-scheduler/">Kubernetes 调度器</a></li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/">将 Pod 指派给节点</a></li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/">污点和容忍度</a></li>
 </ul>
 
                     </main>

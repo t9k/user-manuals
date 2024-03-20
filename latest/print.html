@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>TensorStack AI 计算平台 - 用户使用手册</title>
+        <title>TensorStack AI 计算平台 - 用户手册</title>
         <meta name="robots" content="noindex">
 
 
@@ -155,7 +155,7 @@
                         </div>
                     </div>
 
-                    <h1 class="menu-title">TensorStack AI 计算平台 - 用户使用手册</h1>
+                    <h1 class="menu-title">TensorStack AI 计算平台 - 用户手册</h1>
 
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -285,8 +285,7 @@
 <aside class="note info">
 <div class="title"> CRD </div>
 <p><strong>CRD （Custom Resource Defintion，定制资源定义）</strong> 是 Kubernetes 提供的一种 API 扩展机制，可用于提供特定领域（例如 AI）的额外能力。</p>
-<p>TensorStack 平台通过 CRD 提供了丰富的系统功能，包括存储系统、开发环境、数据处理、模型训练、推理服务等。
-<code>Notebook</code> 是 TensorStack 提供的一个 CRD，用于支持在 TensorStack 平台上使用 JupyterLab，RStudio。</p>
+<p>TensorStack AI 平台通过 CRD 提供了丰富的系统功能，包括存储系统、开发环境、数据处理、模型训练、推理服务等。<code>Notebook</code> 是 TensorStack 提供的一个 CRD，用于支持在 TensorStack AI 平台上使用 JupyterLab，RStudio。</p>
 <p>有关 CRD 机制的详细信息请参阅 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/using-api/api-concepts/"> Kubernetes API Concepts </a> 及 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/"> Custom Resources </a>。</p>
 </aside>
 <aside class="note info">
@@ -376,11 +375,12 @@ spec:
   <img alt="landing-page" src="get-started/../assets/get-started/training-first-model/landing-page.png" />
   <figcaption>图 1：平台首页。</figcaption>
 </figure>
-<p>构建控制台（Build Console）的总览页面展示了多种<strong>资源</strong>，你可以点击右上角的按钮切换 Project，也可以点击<strong>事件</strong>和<strong>配额</strong>标签页以查看当前 Project 最近发生的事件以及计算资源（CPU、内存、GPU 等）配额。</p>
+<p>构建控制台（Build Console）的总览页面展示了多种 <strong>API 资源</strong>，你可以点击右上角的按钮切换 Project，也可以点击<strong>事件</strong>和<strong>配额</strong>标签页以查看当前 Project 最近发生的事件以及<strong>计算资源</strong>（CPU、内存、GPU 等）配额。</p>
 <aside class="note info">
-<div class="title"> API 资源 </div>
-<p><strong>API 资源（resources）</strong>，<strong>Kubernetes 资源（resources）</strong>，或者简称<strong>资源（resources）</strong>：此术语用于统称 Kubernetes 管理的原生或通过 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/">CRD</a> 扩展的实体（entity）类型（type，kind）。这些资源包括原生标准类型，如 <code>Pod</code>、<code>Deployment</code>、<code>Service</code>、<code>ConfigMap</code>，以及通过 CRD 定义的任何自定义资源，例如 TensorStack 提供的 <code>Notebook</code>。它们是 TensorStack AI 平台功能的基本构建模块。</p>
-<p>需要注意的是，<strong>计算资源（compute resources）</strong>，例如 CPU、内存、GPU，也经常被简称为<strong>资源</strong>，但一般可根据上下文判断其具体所指。</p>
+<div class="title">API 资源和计算资源</div>
+<p><strong>API 资源（API resources，Kubernetes API 资源，Kubernetes API resources）</strong>用于统称 Kubernetes 管理的原生或通过 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/">CRD</a> 扩展的实体（entity）类型（type，kind）。这些资源包括原生标准类型，如 <code>Pod</code>、<code>Deployment</code>、<code>Service</code>、<code>ConfigMap</code>，以及通过 CRD 自定义的资源，例如 TensorStack AI 平台提供的 <code>Notebook</code>。它们是平台功能的基本构建模块。</p>
+<p><strong>计算资源（compute resources）</strong>是应用程序运行所需的 CPU、内存、GPU 等。</p>
+<p>两者都常被简称为“资源”，但一般可根据上下文判断其具体所指。</p>
 </aside>
 <figure class="screenshot">
   <img alt="project" src="get-started/../assets/get-started/training-first-model/overview.png" />
@@ -435,7 +435,7 @@ spec:
 </figure>
 <aside class="note info">
 <div class="title">调度器</div>
-<p>调度器负责将工作负载调度到合适的节点上以运行。平台支持 Kubernetes 的默认调度器 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler">kube-scheduler</a>，同时提供了更加强大的 T9k 调度器。详情请参阅<a href="get-started/../modules/scheduling/index.html">计算资源</a>。</p>
+<p>调度器负责将工作负载调度到合适的节点上运行。平台支持 Kubernetes 的默认调度器 <a href="get-started/../modules/computing-resources/scheduler/kube-scheduler.html">kube-scheduler</a>，同时提供了更加强大的 <a href="get-started/../modules/computing-resources/scheduler/t9k-scheduler.html">T9k Scheduler</a>。</p>
 </aside>
 <p>在跳转回到 Notebook 管理页面之后，等待刚才创建的 Notebook 准备就绪。第一次拉取镜像可能会花费较长的时间，具体取决于集群的网络状况。点击右上角的<strong>刷新图标</strong>来手动刷新 Notebook 状态，待 Notebook 开始运行之后，点击右侧的<strong>打开</strong>进入其前端页面。</p>
 <figure class="screenshot">
@@ -1471,7 +1471,7 @@ type: Opaque
 </figure>
 <h2 id="下一步-8"><a class="header" href="#下一步-8">下一步</a></h2>
 <ul>
-<li>了解如何<a href="modules/building/../../tasks/autotune.html">使用 AutoTune 进行超参数优化</a></li>
+<li>学习如何<a href="modules/building/../../tasks/autotune.html">使用 AutoTune 进行超参数优化</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="搜索空间-1"><a class="header" href="#搜索空间-1">搜索空间</a></h1>
@@ -1903,7 +1903,7 @@ spec:
 </code></pre>
 <h2 id="下一步-10"><a class="header" href="#下一步-10">下一步</a></h2>
 <ul>
-<li>了解如何部署一个<a href="modules/deployment/../../tasks/deploy-simplemlservice.html">简单推理服务</a></li>
+<li>学习如何部署一个<a href="modules/deployment/../../tasks/deploy-simplemlservice.html">简单推理服务</a></li>
 <li>API 参考：<a href="modules/deployment/../../references/api-reference/simplemlservice.html">SimpleMLService</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
@@ -2356,8 +2356,8 @@ $ curl -T test_data/0.png http://torch-mnist.&lt;project-name&gt;.&lt;domain-nam
 </code></pre>
 <h2 id="下一步-11"><a class="header" href="#下一步-11">下一步</a></h2>
 <ul>
-<li>了解如何部署一个<a href="modules/deployment/../../tasks/deploy-mlservice.html">模型推理服务</a></li>
-<li>了解如何部署一个<a href="modules/deployment/../../tasks/deploy-mlservice-transformer.html">包含 Transformer 的推理服务</a></li>
+<li>学习如何部署一个<a href="modules/deployment/../../tasks/deploy-mlservice.html">模型推理服务</a></li>
+<li>学习如何部署一个<a href="modules/deployment/../../tasks/deploy-mlservice-transformer.html">包含 Transformer 的推理服务</a></li>
 <li>应用示例：<a href="modules/deployment/../../examples/deploy-llm-using-vllm.html">使用 vLLM 部署 LLM 推理服务</a></li>
 <li>应用示例：<a href="modules/deployment/../../examples/deploy-conversational-search-engine.html">部署对话式搜索引擎</a></li>
 </ul>
@@ -2706,7 +2706,7 @@ signature_v2 = False
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="job"><a class="header" href="#job">Job</a></h1>
-<p>TensorStack 定义了一系列 CRD（称为 Job）以支持<a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Batch_processing">批处理（Batch Processing）</a>计算任务，特别是 AI 领域的大规模分布式并行训练类型性质的计算。</p>
+<p>TensorStack AI 平台定义了一系列 CRD（称为 Job）以支持<a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Batch_processing">批处理（Batch Processing）</a>计算任务，特别是 AI 领域的大规模分布式并行训练类型性质的计算。</p>
 <figure class="architecture">
   <img alt="t9k-job" src="modules/jobs/../../assets/modules/jobs/jobs.drawio.svg" />
   <figcaption>图 1：Job 系统的基本原理。用户提交 Job 的定义；Job Controller 1）分析 Job 定义；2）请求计算资源（CPU、RAM、GPU、高速网络、存储...)；3）启动、监控、暂停、继续 、终止、调试 Job。</figcaption>
@@ -2732,7 +2732,7 @@ signature_v2 = False
 <li><a href="modules/jobs/./genericjob.html">GenericJob</a>：一个通用的 T9k Job 资源，支持各种并行计算场景及 T9k 高级调度策略。
 <ul>
 <li>GenericJob 十分灵活，用户可以使用 GenericJob 实现 MPIJob、PyTorchTrainingJob 等特定功能的 T9k Job；但其自动化程度低，需要手工设置很多参数。</li>
-<li>GenericJob 的目的是提供一个总是可行的 “通用” 机制，以支持一些其他特定功能 T9k Jobs 还未支持的新的计算场景。 </li>
+<li>GenericJob 的目的是提供一个总是可行的 “通用” 机制，以支持一些其他特定功能 T9k Job 还未支持的新的计算场景。 </li>
 </ul>
 </li>
 </ul>
@@ -3481,8 +3481,8 @@ status:
 </code></pre>
 <h2 id="下一步-13"><a class="header" href="#下一步-13">下一步</a></h2>
 <ul>
-<li>了解如何<a href="modules/jobs/../../tasks/pytorch-training-parallel.html">使用 PyTorchTrainingJob 进行数据并行训练</a></li>
-<li>了解如何<a href="modules/jobs/../../tasks/pytorch-training-ps.html">使用 PyTorchTrainingJob 进行参数服务器训练</a></li>
+<li>学习如何<a href="modules/jobs/../../tasks/pytorch-training-parallel.html">使用 PyTorchTrainingJob 进行数据并行训练</a></li>
+<li>学习如何<a href="modules/jobs/../../tasks/pytorch-training-ps.html">使用 PyTorchTrainingJob 进行参数服务器训练</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="tensorflowtrainingjob"><a class="header" href="#tensorflowtrainingjob">TensorFlowTrainingJob</a></h1>
@@ -3788,8 +3788,8 @@ status:
 </code></pre>
 <h2 id="下一步-14"><a class="header" href="#下一步-14">下一步</a></h2>
 <ul>
-<li>了解如何<a href="modules/jobs/../../tasks/tensorflow-training-parallel.html">使用 TensorFlowTrainingJob 进行数据并行训练</a></li>
-<li>了解如何<a href="modules/jobs/../../tasks/tensorflow-training-ps.html">使用 TensorFlowTrainingJob 进行参数服务器训练</a></li>
+<li>学习如何<a href="modules/jobs/../../tasks/tensorflow-training-parallel.html">使用 TensorFlowTrainingJob 进行数据并行训练</a></li>
+<li>学习如何<a href="modules/jobs/../../tasks/tensorflow-training-ps.html">使用 TensorFlowTrainingJob 进行参数服务器训练</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="deepspeedjob"><a class="header" href="#deepspeedjob">DeepSpeedJob</a></h1>
@@ -4934,8 +4934,8 @@ status:
 </code></pre>
 <h2 id="下一步-15"><a class="header" href="#下一步-15">下一步</a></h2>
 <ul>
-<li>了解如何<a href="modules/jobs/../../tasks/horovod-keras-parallel.html">使用 Horovod 进行 Keras 模型的数据并行训练</a></li>
-<li>了解如何<a href="modules/jobs/../../tasks/horovod-pytorch-parallel.html">使用 Horovod 进行 PyTorch 模型的数据并行训练</a></li>
+<li>学习如何<a href="modules/jobs/../../tasks/horovod-keras-parallel.html">使用 Horovod 进行 Keras 模型的数据并行训练</a></li>
+<li>学习如何<a href="modules/jobs/../../tasks/horovod-pytorch-parallel.html">使用 Horovod 进行 PyTorch 模型的数据并行训练</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="beamjob"><a class="header" href="#beamjob">BeamJob</a></h1>
@@ -5122,7 +5122,7 @@ spec:
 <p>可分享的权限包括查看权限或编辑权限，编辑权限包含查看权限。分享的目标可以是另一个用户、用户组或者公开给所有人。</p>
 <h2 id="下一步-16"><a class="header" href="#下一步-16">下一步</a></h2>
 <ul>
-<li>了解如何使用 Asset Hub <a href="modules/../tasks/manage-ai-assets.html">管理 AI 资产</a></li>
+<li>学习如何使用 Asset Hub <a href="modules/../tasks/manage-ai-assets.html">管理 AI 资产</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="实验管理"><a class="header" href="#实验管理">实验管理</a></h1>
@@ -5159,7 +5159,7 @@ user:demo
 <li>Dataset：Storage Type == 3，记录机器学习所使用的数据集。</li>
 </ul>
 <p>Artifact 没有特定的文件组织结构，用户可根据需要组织上传。</p>
-<p>Model 和 Dataset 由 TensorStack 平台的资产管理模块，具体请参考 <a href="modules/experiment-management.html#em-%E5%92%8C-assethub-%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB">EM 和 AssetHub 之间的关系</a> 。</p>
+<p>Model 和 Dataset 由平台的资产管理模块，具体请参考 <a href="modules/experiment-management.html#em-%E5%92%8C-assethub-%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB">EM 和 AssetHub 之间的关系</a> 。</p>
 <p>Run 和 Autotune 是实验元数据的存储节点，具有特定的文件组织结构，EM Web 根据这些特定的文件组织结构进行实验数据的可视化。</p>
 <h4 id="run-节点"><a class="header" href="#run-节点">Run 节点</a></h4>
 <p>Run 记录实验元数据，包括实验基本信息、实验参数和实验指标。</p>
@@ -5252,7 +5252,7 @@ user:demo
 </aside>
 <h2 id="下一步-17"><a class="header" href="#下一步-17">下一步</a></h2>
 <ul>
-<li>了解如何使用 EM <a href="modules/../tasks/track-model-training.html">追踪模型训练</a></li>
+<li>学习如何使用 EM <a href="modules/../tasks/track-model-training.html">追踪模型训练</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="账户和安全"><a class="header" href="#账户和安全">账户和安全</a></h1>
@@ -5278,8 +5278,8 @@ user:demo
 </ul>
 <h2 id="下一步-18"><a class="header" href="#下一步-18">下一步</a></h2>
 <ul>
-<li>了解如何为账户<a href="modules/security/../../tasks/generate-api-key.html">生成 API Key</a></li>
-<li>了解在不同场景<a href="modules/security/../../tasks/use-api-key.html">使用 API Key</a></li>
+<li>学习如何为账户<a href="modules/security/../../tasks/generate-api-key.html">生成 API Key</a></li>
+<li>学习在不同场景<a href="modules/security/../../tasks/use-api-key.html">使用 API Key</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="项目"><a class="header" href="#项目">项目</a></h1>
@@ -5383,9 +5383,9 @@ spec:
 <p>运行集群中的工作负载需要使用计算资源。TensorStack AI 平台提供了完善的计算资源分配和管理机制，支持使用 GPU、高速网卡等扩展设备资源，并提供资源使用监控、统计功能帮助用户随时获得工作负载的资源使用情况。</p>
 <h2 id="资源请求和限制"><a class="header" href="#资源请求和限制">资源请求和限制</a></h2>
 <p>资源请求（requests）和限制（limits）是一种管理资源的重要机制，用于确保集群中的工作负载可以按照预期方式使用计算资源。资源请求（<code>spec.containers[].resources.requests</code> 字段）定义了工作负载的一个容器所需的最小资源量，资源限制（<code>spec.containers[].resources.limits</code> 字段）则定义了该容器所允许使用的最大资源量。集群的<a href="modules/computing-resources/./scheduler/index.html">调度器</a>根据这些参数进行资源分配，确保各个容器在共享主机资源时不会相互干扰或过度使用资源。</p>
-<p>容器会被分配请求（<code>requests</code>）的资源量；如果容器所在的节点有足够的可用资源，容器可以使用超出请求（<code>requests</code>）的资源量，但不可使用超出限制（<code>limits</code>）的资源量。例如，当容器中的进程尝试使用超出限制的内存资源（<code>memory</code>）量时，系统会将尝试申请内存的进程终止，并触发内存不足（OOM）错误。</p>
+<p>容器会被分配请求（requests）的资源量；如果容器所在的节点有足够的可用资源，容器可以使用超出请求（requests）的资源量，但不可使用超出限制（limits）的资源量。例如，当容器中的进程尝试使用超出限制的内存（memory）资源量时，系统会将尝试申请内存的进程终止，并触发内存不足（OOM）错误。</p>
 <h2 id="资源类型"><a class="header" href="#资源类型">资源类型</a></h2>
-<p>资源类型包括 CPU、内存（<code>memory</code>）和扩展资源(<code>extended resources</code>)：</p>
+<p>资源类型包括 CPU、内存（memory）和扩展资源（extended resources）：</p>
 <ul>
 <li>
 <p>CPU 的请求和限制以 Kubernetes CPU 为单位，1 个 Kubernetes CPU 等于 1 个物理 CPU 核心或 1 个虚拟核心，取决于节点是一台物理主机还是运行在某物理主机上的虚拟机。可以指定小数，例如 <code>0.1</code> 或 <code>100m</code>（<code>1m = 1/1000</code>），来使用核心的部分处理能力。</p>
@@ -5467,15 +5467,18 @@ spec:
 </code></pre>
 <p>在该例中，Pod 只能被调度到节点 <code>kube-01</code> 上。</p>
 <h3 id="污点"><a class="header" href="#污点">污点</a></h3>
-<p>污点（taint）是节点的一种属性，它可被用来使得某些类型的 Pod 不能被调度到（除非该 pod 明确说明其可容忍这些污点）该节点上。例如，当节点存在出现软硬件故障、网络不可用、磁盘空间不足等问题时，系统会自动为该节点添加一个污点。此外，当管理员发现节点存在问题或正在测试节点时，也可能为该节点添加污点。</p>
+<p>污点（taint）是节点的一种属性，它可被用来使得某些类型的 Pod 不能被调度到该节点上（除非 Pod 明确说明其容忍该污点）。例如，当节点存在出现软硬件故障、网络不可用、磁盘空间不足等问题时，系统会自动为该节点添加一个污点。此外，当管理员发现节点存在问题或正在测试节点时，也可能为该节点添加污点。</p>
 <p>当用户的工作负载不能被调度到某个资源充足的节点上时，可能就是因为这个节点被添加了污点。</p>
 <p>更多细节请进一步参阅官方文档<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/">污点和容忍度</a>。</p>
 <h2 id="优先级和抢占"><a class="header" href="#优先级和抢占">优先级和抢占</a></h2>
 <p>kube-scheduler 和 T9k Scheduler 都有各自的优先级和抢占机制，用户可根据需求选用。</p>
-<p>T9k Scheduler 的优先级和抢占机制，请参阅：<a href="modules/computing-resources/scheduler/./t9k-scheduler.html">t9k-scheduler</a>。</p>
+<p>kube-scheduler 的优先级和抢占机制请参阅 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/">Pod 优先级和抢占</a>。</p>
+<p>T9k Scheduler 的优先级和抢占机制请参阅<a href="modules/computing-resources/scheduler/./policy.html#%E4%BC%98%E5%85%88%E7%BA%A7%E5%92%8C%E6%8A%A2%E5%8D%A0">优先级和抢占</a>。</p>
 <h2 id="参考-5"><a class="header" href="#参考-5">参考</a></h2>
 <ul>
 <li><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/kube-scheduler/">Kubernetes 调度器</a></li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/">将 Pod 指派给节点</a></li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/">污点和容忍度</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="t9k-scheduler"><a class="header" href="#t9k-scheduler">T9k Scheduler</a></h1>
@@ -6103,17 +6106,17 @@ managed-project-event-ctl-854b96f4dd-f6hn8   1m           29Mi
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="存储"><a class="header" href="#存储">存储</a></h1>
-<p>TensorStack 平台支持多种类型的存储服务：Block Storage Volumes（块存储卷），Shared Filesystem Volumes (共享文件系统卷)，及基于 S3 协议的对象存储。</p>
+<p>TensorStack AI 平台支持多种类型的存储服务：Block Storage Volumes（块存储卷），Shared Filesystem Volumes (共享文件系统卷)，以及基于 S3 协议的对象存储。</p>
 <h2 id="存储卷storage-volumes"><a class="header" href="#存储卷storage-volumes">存储卷（Storage Volumes）</a></h2>
 <p>用户可申请使用两种类型的存储卷（Storage Volumes）：<a href="modules/storage/index.html#%E5%9D%97%E5%AD%98%E5%82%A8%E5%8D%B7block-storage-volumes">块存储卷</a>，或者<a href="modules/storage/index.html#%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8D%B7shared-filesystem-volumes">共享文件系统卷</a>。</p>
-<p>这两种高性能的网络存储卷服务，可为各种类型的工作负载，如 Notebook、T9k Jobs、推理服务等提供持久化存储卷（Persistent Volumes）服务。</p>
+<p>这两种高性能的网络存储卷服务，可为各种类型的工作负载，如 Notebook、T9k Job、推理服务等提供持久化存储卷（Persistent Volumes）服务。</p>
 <ul>
-<li>支持在集群中使用不同性能等级的存储服务。例如，管理员可设置集群同时提供高性能的 SSD 和海量的 HDD 两种等级的存储服务；</li>
-<li>所有 SSD 和 HDD 等级均可创建为 Block Volumes（块存储卷）或 Shared Filesystem Volumes （共享文件系统存储卷）；</li>
-<li>可随时调整 Volume 大小以增加容量；</li>
-<li>存储与计算分开管理，并且可以在不同实例和硬件类型之间移动；</li>
+<li>支持在集群中使用不同性能等级的存储服务。例如，管理员可设置集群同时提供高性能的 SSD 和海量的 HDD 两种等级的存储服务。</li>
+<li>所有 SSD 和 HDD 等级均可创建为 Block Volumes（块存储卷）或 Shared Filesystem Volumes （共享文件系统存储卷）。</li>
+<li>可随时调整 Volume 大小以增加容量。</li>
+<li>存储与计算分开管理，并且可以在不同实例和硬件类型之间移动。</li>
 <li>支持存储卷的快照、备份及恢复。</li>
-<li>可通过 UI 或 命令行工具 <code>kubectl</code> 轻松管理；</li>
+<li>可通过 UI 或 命令行工具 <code>kubectl</code> 轻松管理。</li>
 </ul>
 <h3 id="块存储卷block-storage-volumes"><a class="header" href="#块存储卷block-storage-volumes">块存储卷（Block Storage Volumes）</a></h3>
 <p>Block Storage Volumes （块存储卷）可作为高性能虚拟存储盘挂载到各种类型的工作负载上。这些卷被呈现为通用 Block Device (块设备)，操作系统将其视为物理连接存储设备，并且独占使用。</p>
@@ -6639,7 +6642,7 @@ spec:
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="imagebuilder"><a class="header" href="#imagebuilder">ImageBuilder</a></h1>
-<p>TensorStack 平台提供 CRD <code>ImageBuilder</code>，方便用户在集群中构建容器镜像。</p>
+<p>平台提供 CRD <code>ImageBuilder</code>，方便用户在集群中构建容器镜像。</p>
 <h2 id="创建-imagebuilder"><a class="header" href="#创建-imagebuilder">创建 ImageBuilder</a></h2>
 <p>下面是一个基本的 <code>ImageBuilder</code> 定义示例：</p>
 <pre><code class="language-yaml"># image-builder-example.yaml
@@ -6938,7 +6941,7 @@ spec:
         type: Failed
         status: &quot;True&quot;
 </code></pre>
-<p>如果所创建的资源类型是下列 <a href="modules/workflows/../jobs/index.html">T9k Jobs</a> 之一，系统将自动帮助填写 <code>successRules</code> 和 <code>failureRules</code>，以减轻你的负担：</p>
+<p>如果所创建的资源类型是下列 <a href="modules/workflows/../jobs/index.html">T9k Job</a> 之一，系统将自动帮助填写 <code>successRules</code> 和 <code>failureRules</code>，以减轻你的负担：</p>
 <ul>
 <li>GenericJob</li>
 <li>MPIJob</li>
@@ -6957,8 +6960,8 @@ spec:
   serviceAccountName: managed-project-sa
 </code></pre>
 <p>在网页中创建 WorkflowRun 时，系统将自动为你配置名为 <code>managed-project-sa</code> 的 Service Account，你不用关心这一项的填写。</p>
-<h3 id="t9k-jobs-workflowtemplate"><a class="header" href="#t9k-jobs-workflowtemplate">T9k Jobs WorkflowTemplate</a></h3>
-<p>T9k Workflow 系统对 <a href="modules/workflows/../jobs/index.html">T9k Jobs</a> 提供更进一步的原生支持，添加以下 WorkflowTemplate 类型：</p>
+<h3 id="t9k-job-workflowtemplate"><a class="header" href="#t9k-job-workflowtemplate">T9k Job WorkflowTemplate</a></h3>
+<p>T9k Workflow 系统对 <a href="modules/workflows/../jobs/index.html">T9k Job</a> 提供更进一步的原生支持，添加以下 WorkflowTemplate 类型：</p>
 <ul>
 <li>GenericJob</li>
 <li>TensorFlowTrainingJob</li>
@@ -7022,7 +7025,7 @@ spec:
 </code></pre>
 <aside class="note">
 <div class="title">注意</div>
-<p>与 Resource WorkflowTemplate 相同，T9k Jobs WorkflowTemplate 对应的 WorkflowRun 也需要一个 Service Account。同样，在网页中创建 WorkflowRun 时，系统将自动为你配置名为 <code>managed-project-sa</code> 的 Service Account，你不用关心这一项的填写。</p>
+<p>与 Resource WorkflowTemplate 相同，T9k Job WorkflowTemplate 对应的 WorkflowRun 也需要一个 Service Account。同样，在网页中创建 WorkflowRun 时，系统将自动为你配置名为 <code>managed-project-sa</code> 的 Service Account，你不用关心这一项的填写。</p>
 </aside>
 <h3 id="dag-workflowtemplate"><a class="header" href="#dag-workflowtemplate">DAG WorkflowTemplate</a></h3>
 <p>DAG WorkflowTemplate 用于创建一个由其他 WorkflowTemplate 组成的有向无环图（DAG，Directed Acyclic Graph），按照有向无环图中的依赖关系按顺序执行这些 WorkflowTemplate。</p>
@@ -7522,7 +7525,7 @@ status:
 <p>WorkflowRun <code>dag-workflowtemplate-sample-run</code> 的 <code>status</code> 字段显示，该 WorkflowRun 处于 <code>Succeeded</code> 状态（见 <code>status.phase</code> 字段），原因是 “All nodes in DAG have succeeded”（见 <code>status.message</code> 字段）。<code>status.nodes</code> 字段记录了该 WorkflowRun 中每个 DAG 节点的名称以及对应的 WorkflowRun 名称和状态。</p>
 <h2 id="下一步-33"><a class="header" href="#下一步-33">下一步</a></h2>
 <ul>
-<li>了解如何<a href="modules/workflows/../../tasks/build-automation-workflow.html">建立自动化工作流</a></li>
+<li>学习如何<a href="modules/workflows/../../tasks/build-automation-workflow.html">建立自动化工作流</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="cronworkflowrun"><a class="header" href="#cronworkflowrun">CronWorkflowRun</a></h1>
@@ -21591,6 +21594,10 @@ kubectl create -f simplemlservice.yaml
 <p>监控服务是否准备就绪：</p>
 <pre><code class="language-bash">kubectl get -f simplemlservice.yaml -w
 </code></pre>
+<p>输出应类似于：</p>
+<pre><code>NAME          READY   REASON   URL
+chatglm3-6b   False            http://managed-simplemlservice-chatglm3-6b-f6hn8.&lt;project&gt;.&lt;domain&gt;
+</code></pre>
 <p>待其 <code>READY</code> 值变为 <code>true</code> 后，便可开始使用该服务。第一次拉取镜像可能会花费较长的时间，具体取决于集群的网络状况。</p>
 <h2 id="使用推理服务-3"><a class="header" href="#使用推理服务-3">使用推理服务</a></h2>
 <p>继续使用 Notebook 的终端，使用 <code>curl</code> 命令发送聊天或生成文本的请求：</p>
@@ -21690,6 +21697,8 @@ mv .cache/modelscope/hub/shakechen/Llama-2-7b-chat-hf .
          - containerPort: 80
          resources:
 </code></pre>
+<pre><code class="language-bash">kubectl create -f simplemlservice-llama2.yaml
+</code></pre>
 <h2 id="参考-16"><a class="header" href="#参考-16">参考</a></h2>
 <ul>
 <li><a target="_blank" rel="noopener noreferrer" href="https://github.com/lm-sys/FastChat">GitHub 上的 FastChat</a></li>
@@ -21731,20 +21740,11 @@ kubectl create -f mlservice.yaml
 <p>监控服务是否准备就绪：</p>
 <pre><code class="language-bash">kubectl get -f mlservice.yaml -w
 </code></pre>
+<p>输出应类似于：</p>
+<pre><code>NAME           READY   REASON   URL
+codellama-7b   False            http://codellama-7b.&lt;project&gt;.&lt;domain&gt;
+</code></pre>
 <p>待其 <code>READY</code> 值变为 <code>true</code> 后，便可开始使用该服务。第一次拉取镜像可能会花费较长的时间，具体取决于集群的网络状况。</p>
-<aside class="note tip">
-<div class="title">提示</div>
-<p>本示例以 7B 模型为例，用户也可以尝试部署 13B、34B 和 70B 模型，但需要提供更多的计算资源。下面给出了相应的计算资源需求：</p>
-<div class="table-wrapper"><table><thead><tr><th>模型大小</th><th>PVC 大小</th><th>并行度×显存大小</th></tr></thead><tbody>
-<tr><td>7B</td><td>30GiB</td><td>1×24GB</td></tr>
-<tr><td>13B</td><td>55GiB</td><td>2×24GB / 1×40GB</td></tr>
-<tr><td>34B</td><td>130GiB</td><td>4×24GB / 2×40GB / 1×80GB</td></tr>
-<tr><td>70B</td><td>260GiB</td><td>4×40GB / 2×80GB</td></tr>
-</tbody></table>
-</div>
-<p>部署 70B 模型的 YAML 配置文件请参阅 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/examples/blob/master/deployments/vllm/mlservice-runtime-70b.yaml"><code>mlservice-runtime-70b.yaml</code></a> 和 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/examples/blob/master/deployments/vllm/mlservice-70b.yaml"><code>mlservice-70b.yaml</code></a></p>
-<p>如果没有足够的显存，可以尝试<a target="_blank" rel="noopener noreferrer" href="https://docs.vllm.ai/en/latest/quantization/auto_awq.html">量化</a>方法。</p>
-</aside>
 <h2 id="使用推理服务-4"><a class="header" href="#使用推理服务-4">使用推理服务</a></h2>
 <p>继续使用 Notebook 的终端，使用 <code>curl</code> 命令发送聊天或生成文本的请求：</p>
 <pre><code class="language-bash">address=$(kubectl get -f mlservice.yaml -ojsonpath='{.status.address.url}')
@@ -21875,9 +21875,9 @@ I -&gt; 1
 </details>
 <p>得益于 vLLM 提供的高吞吐量推理服务，该解答的生成仅用了 6s，然而并不正确，未能通过 LeetCode 的测试。</p>
 <p>顺带一提，使用相同的 prompt（由于 CodeLlama-7b-Python-hf 未经过指令微调，prompt 的格式略有不同），CodeLlama-13b-Instruct-hf 和 CodeLlama-7b-Python-hf 提供的解答可以通过，GPT 3.5、GPT-4 和 Bard 提供的解答也都可以通过。</p>
-<p>用户可以自行尝试部署更大的 Code Llama 系列模型，并让其编写更加复杂的代码。</p>
+<p>用户可以自行尝试<a href="examples/deploy-llm-using-vllm.html#%E6%89%A9%E5%B1%95%E9%83%A8%E7%BD%B2%E8%A7%84%E6%A8%A1%E6%9B%B4%E5%A4%A7%E7%9A%84-llm">部署规模更大的 Code Llama 模型</a>，并让其编写更加复杂的代码。</p>
 <h2 id="扩展部署其他-llm-1"><a class="header" href="#扩展部署其他-llm-1">扩展：部署其他 LLM</a></h2>
-<p>我们可以使用同样的方法部署其他<a target="_blank" rel="noopener noreferrer" href="https://github.com/lm-sys/FastChat?tab=readme-ov-file#supported-models">支持的模型</a>，例如要将本示例部署的模型从 CodeLlama-7b-Instruct-hf 换成 Mistral-7B-Instruct-v0.1，只需：</p>
+<p>本示例以 Code Llama 模型为例，我们还可以部署其他<a target="_blank" rel="noopener noreferrer" href="https://docs.vllm.ai/en/latest/models/supported_models.html">支持的模型</a>。例如要将部署的模型从 CodeLlama-7b-Instruct-hf 换成 Mistral-7B-Instruct-v0.1，只需：</p>
 <ol>
 <li>下载 Mistral-7B-Instruct-v0.1 的模型文件：</li>
 </ol>
@@ -21893,12 +21893,12 @@ python -c \
 mv .cache/modelscope/hub/AI-ModelScope/Mistral-7B-Instruct-v0___1 ./Mistral-7B-Instruct-v0.1
 </code></pre>
 <ol start="2">
-<li>对 MLService 的 YAML 配置文件作以下修改，再次创建即可：</li>
+<li>对 MLService 的 YAML 配置文件作以下修改，再次创建即可。修改后的 YAML 配置文件请参阅 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/examples/blob/master/deployments/vllm/mlservice-mistral.yaml"><code>mlservice-mistral.yaml</code></a>。</li>
 </ol>
 <pre><code class="language-diff">$ diff --color -u mlservice.yaml mlservice-mistral.yaml
 --- mlservice.yaml
 +++ mlservice-mistral.yaml
-@@ -1,22 +1,22 @@
+@@ -1,7 +1,7 @@
  apiVersion: tensorstack.dev/v1beta1
  kind: MLService
  metadata:
@@ -21907,15 +21907,7 @@ mv .cache/modelscope/hub/AI-ModelScope/Mistral-7B-Instruct-v0___1 ./Mistral-7B-I
  spec:
    # scheduler:
    #   t9kScheduler:
-   #     queue: default
--  default: codellama-7b
-+  default: mistral-7b
-   releases:
--    - name: codellama-7b
-+    - name: mistral-7b
-       predictor:
-         minReplicas: 1
-         model:
+@@ -15,8 +15,8 @@
            runtime: vllm-openai
            parameters:
              MODEL_PATH: /var/lib/t9k/model
@@ -21926,6 +21918,107 @@ mv .cache/modelscope/hub/AI-ModelScope/Mistral-7B-Instruct-v0___1 ./Mistral-7B-I
          containersResources:
          - name: user-container
            resources:
+</code></pre>
+<pre><code class="language-bash">kubectl create -f mlservice-mistral.yaml
+</code></pre>
+<h2 id="扩展部署规模更大的-llm"><a class="header" href="#扩展部署规模更大的-llm">扩展：部署规模更大的 LLM</a></h2>
+<p>本示例以 7B 模型为例，我们还可以部署 13B、34B 和 70B 模型，但需要更多的计算资源。下表给出了相应的计算资源需求：</p>
+<div class="table-wrapper"><table><thead><tr><th>模型大小</th><th>PVC 大小</th><th>并行度×显存大小</th></tr></thead><tbody>
+<tr><td>7B</td><td>30GiB</td><td>1×24GB</td></tr>
+<tr><td>13B</td><td>55GiB</td><td>2×24GB / 1×40GB</td></tr>
+<tr><td>34B</td><td>130GiB</td><td>4×24GB / 2×40GB / 1×80GB</td></tr>
+<tr><td>70B</td><td>260GiB</td><td>4×40GB / 2×80GB</td></tr>
+</tbody></table>
+</div><aside class="note tip">
+<div class="title">提示</div>
+<p>如果没有足够的显存，可以尝试<a target="_blank" rel="noopener noreferrer" href="https://docs.vllm.ai/en/latest/quantization/auto_awq.html">量化</a>方法。</p>
+</aside>
+<p>例如要将部署的模型从 CodeLlama-7b-Instruct-hf 换成 CodeLlama-70b-Instruct-hf，只需：</p>
+<ol>
+<li>下载 CodeLlama-70b-Instruct-hf 的模型文件：</li>
+</ol>
+<pre><code class="language-bash"># 方法 1：如果可以直接访问 huggingface
+huggingface-cli download codellama/CodeLlama-70b-Instruct-hf \
+  --local-dir CodeLlama-70b-Instruct-hf --local-dir-use-symlinks False
+
+# 方法 2：对于国内用户，访问 modelscope 网络连通性更好
+# modelscope 没有 CodeLlama-70b-Instruct-hf 模型，用 CodeLlama-70b 模型替代
+pip install modelscope
+python -c \
+  &quot;from modelscope import snapshot_download; snapshot_download('AI-ModelScope/CodeLlama-70b')&quot;
+mv .cache/modelscope/hub/AI-ModelScope/CodeLlama-70b .
+</code></pre>
+<ol start="2">
+<li>对 MLServiceRuntime 和 MLService 的 YAML 配置文件作以下修改，再次创建即可。修改后的 YAML 配置文件请参阅 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/examples/blob/master/deployments/vllm/mlservice-runtime-70b.yaml"><code>mlservice-runtime-70b.yaml</code></a> 和 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/examples/blob/master/deployments/vllm/mlservice-70b.yaml"><code>mlservice-70b.yaml</code></a>。</li>
+</ol>
+<pre><code class="language-diff">$ diff --color -u mlservice-runtime.yaml mlservice-runtime-70b.yaml
+--- mlservice-runtime.yaml
++++ mlservice-runtime-70b.yaml
+@@ -1,7 +1,7 @@
+ apiVersion: tensorstack.dev/v1beta1
+ kind: MLServiceRuntime
+ metadata:
+-  name: vllm-openai
++  name: vllm-openai-2xtp
+ spec:
+   enabled: true
+   template:
+@@ -13,10 +13,18 @@
+           - --model={{.MODEL_PATH}}
+           - --served-model-name={{.MODEL_NAME}}
+           - --trust-remote-code
++          - --tensor-parallel-size=2    # 2 度张量并行
+         resources:
+           limits:
+             cpu: 4
+             memory: 64Gi
+-            nvidia.com/gpu: 1
++            nvidia.com/gpu: 2    # 对于 CodeLlama-70b 须为 A100 80GB
+         ports:
+         - containerPort: 8000
++        volumeMounts:
++          - mountPath: /dev/shm  # 并行需要
++            name: dshm
++      volumes:
++        - emptyDir:
++            medium: Memory
++          name: dshm
+
+$ diff --color -u mlservice.yaml mlservice-70b.yaml  
+--- mlservice.yaml
++++ mlservice-70b.yaml
+@@ -1,7 +1,7 @@
+ apiVersion: tensorstack.dev/v1beta1
+ kind: MLService
+ metadata:
+-  name: codellama-7b
++  name: codellama-70b
+ spec:
+   # scheduler:
+   #   t9kScheduler:
+@@ -12,15 +12,15 @@
+       predictor:
+         minReplicas: 1
+         model:
+-          runtime: vllm-openai
++          runtime: vllm-openai-2xtp
+           parameters:
+             MODEL_PATH: /var/lib/t9k/model
+-            MODEL_NAME: codellama-7b
+-          modelUri: pvc://vllm/CodeLlama-7b-Instruct-hf
++            MODEL_NAME: codellama-70b
++          modelUri: pvc://vllm/CodeLlama-70b-Instruct-hf
+         containersResources:
+         - name: user-container
+           resources:
+             limits:
+               cpu: 4
+               memory: 64Gi
+-              nvidia.com/gpu: 1
++              nvidia.com/gpu: 2
+</code></pre>
+<pre><code class="language-bash">kubectl apply -f mlservice-runtime-70b.yaml
+kubectl create -f mlservice-70b.yaml
 </code></pre>
 <h2 id="参考-17"><a class="header" href="#参考-17">参考</a></h2>
 <ul>
@@ -22762,7 +22855,7 @@ kubectl create -f deployment.yaml
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="部署-stable-diffusion-图像生成模型"><a class="header" href="#部署-stable-diffusion-图像生成模型">部署 Stable Diffusion 图像生成模型</a></h1>
-<p>自扩散模型问世以来，AI 绘图应用在艺术、设计和创意领域取得了显著的突破和广泛的应用。在 TensorStack 平台上，用户可以使用 <a href="examples/../modules/deployment/simplemlservice.html">SimpleMLService</a> 和 <a href="examples/../modules/deployment/mlservice.html">MLService</a> 方便地部署各种基于图像生成模型的服务或应用。</p>
+<p>自扩散模型问世以来，AI 绘图应用在艺术、设计和创意领域取得了显著的突破和广泛的应用。在平台上，用户可以使用 <a href="examples/../modules/deployment/simplemlservice.html">SimpleMLService</a> 和 <a href="examples/../modules/deployment/mlservice.html">MLService</a> 方便地部署各种基于图像生成模型的服务或应用。</p>
 <p>本示例使用 SimpleMLService 快速部署一个基于 Stable Diffusion 图像生成模型的绘图应用。</p>
 <h2 id="模型"><a class="header" href="#模型">模型</a></h2>
 <p>在项目中创建一个名为 <code>draw</code>、大小 50 GiB 以上的 PVC，然后创建一个同样名为 <code>draw</code> 的 Notebook 挂载该 PVC（镜像类型和模板不限）。</p>

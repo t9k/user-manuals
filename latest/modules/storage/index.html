@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>存储 - TensorStack AI 计算平台 - 用户使用手册</title>
+        <title>存储 - TensorStack AI 计算平台 - 用户手册</title>
 
 
         <!-- Custom HTML head -->
@@ -154,7 +154,7 @@
                         </div>
                     </div>
 
-                    <h1 class="menu-title">TensorStack AI 计算平台 - 用户使用手册</h1>
+                    <h1 class="menu-title">TensorStack AI 计算平台 - 用户手册</h1>
 
                     <div class="right-buttons">
                         <a href="../../print.html" title="Print this book" aria-label="Print this book">
@@ -189,17 +189,17 @@
                         <div class="sidetoc"><nav class="pagetoc"></nav></div>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="存储"><a class="header" href="#存储">存储</a></h1>
-<p>TensorStack 平台支持多种类型的存储服务：Block Storage Volumes（块存储卷），Shared Filesystem Volumes (共享文件系统卷)，及基于 S3 协议的对象存储。</p>
+<p>TensorStack AI 平台支持多种类型的存储服务：Block Storage Volumes（块存储卷），Shared Filesystem Volumes (共享文件系统卷)，以及基于 S3 协议的对象存储。</p>
 <h2 id="存储卷storage-volumes"><a class="header" href="#存储卷storage-volumes">存储卷（Storage Volumes）</a></h2>
 <p>用户可申请使用两种类型的存储卷（Storage Volumes）：<a href="#%E5%9D%97%E5%AD%98%E5%82%A8%E5%8D%B7block-storage-volumes">块存储卷</a>，或者<a href="#%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8D%B7shared-filesystem-volumes">共享文件系统卷</a>。</p>
-<p>这两种高性能的网络存储卷服务，可为各种类型的工作负载，如 Notebook、T9k Jobs、推理服务等提供持久化存储卷（Persistent Volumes）服务。</p>
+<p>这两种高性能的网络存储卷服务，可为各种类型的工作负载，如 Notebook、T9k Job、推理服务等提供持久化存储卷（Persistent Volumes）服务。</p>
 <ul>
-<li>支持在集群中使用不同性能等级的存储服务。例如，管理员可设置集群同时提供高性能的 SSD 和海量的 HDD 两种等级的存储服务；</li>
-<li>所有 SSD 和 HDD 等级均可创建为 Block Volumes（块存储卷）或 Shared Filesystem Volumes （共享文件系统存储卷）；</li>
-<li>可随时调整 Volume 大小以增加容量；</li>
-<li>存储与计算分开管理，并且可以在不同实例和硬件类型之间移动；</li>
+<li>支持在集群中使用不同性能等级的存储服务。例如，管理员可设置集群同时提供高性能的 SSD 和海量的 HDD 两种等级的存储服务。</li>
+<li>所有 SSD 和 HDD 等级均可创建为 Block Volumes（块存储卷）或 Shared Filesystem Volumes （共享文件系统存储卷）。</li>
+<li>可随时调整 Volume 大小以增加容量。</li>
+<li>存储与计算分开管理，并且可以在不同实例和硬件类型之间移动。</li>
 <li>支持存储卷的快照、备份及恢复。</li>
-<li>可通过 UI 或 命令行工具 <code>kubectl</code> 轻松管理；</li>
+<li>可通过 UI 或 命令行工具 <code>kubectl</code> 轻松管理。</li>
 </ul>
 <h3 id="块存储卷block-storage-volumes"><a class="header" href="#块存储卷block-storage-volumes">块存储卷（Block Storage Volumes）</a></h3>
 <p>Block Storage Volumes （块存储卷）可作为高性能虚拟存储盘挂载到各种类型的工作负载上。这些卷被呈现为通用 Block Device (块设备)，操作系统将其视为物理连接存储设备，并且独占使用。</p>

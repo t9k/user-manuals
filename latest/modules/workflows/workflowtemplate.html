@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>WorkflowTemplate - TensorStack AI 计算平台 - 用户使用手册</title>
+        <title>WorkflowTemplate - TensorStack AI 计算平台 - 用户手册</title>
 
 
         <!-- Custom HTML head -->
@@ -154,7 +154,7 @@
                         </div>
                     </div>
 
-                    <h1 class="menu-title">TensorStack AI 计算平台 - 用户使用手册</h1>
+                    <h1 class="menu-title">TensorStack AI 计算平台 - 用户手册</h1>
 
                     <div class="right-buttons">
                         <a href="../../print.html" title="Print this book" aria-label="Print this book">
@@ -404,7 +404,7 @@ spec:
         type: Failed
         status: &quot;True&quot;
 </code></pre>
-<p>如果所创建的资源类型是下列 <a href="../jobs/index.html">T9k Jobs</a> 之一，系统将自动帮助填写 <code>successRules</code> 和 <code>failureRules</code>，以减轻你的负担：</p>
+<p>如果所创建的资源类型是下列 <a href="../jobs/index.html">T9k Job</a> 之一，系统将自动帮助填写 <code>successRules</code> 和 <code>failureRules</code>，以减轻你的负担：</p>
 <ul>
 <li>GenericJob</li>
 <li>MPIJob</li>
@@ -423,8 +423,8 @@ spec:
   serviceAccountName: managed-project-sa
 </code></pre>
 <p>在网页中创建 WorkflowRun 时，系统将自动为你配置名为 <code>managed-project-sa</code> 的 Service Account，你不用关心这一项的填写。</p>
-<h3 id="t9k-jobs-workflowtemplate"><a class="header" href="#t9k-jobs-workflowtemplate">T9k Jobs WorkflowTemplate</a></h3>
-<p>T9k Workflow 系统对 <a href="../jobs/index.html">T9k Jobs</a> 提供更进一步的原生支持，添加以下 WorkflowTemplate 类型：</p>
+<h3 id="t9k-job-workflowtemplate"><a class="header" href="#t9k-job-workflowtemplate">T9k Job WorkflowTemplate</a></h3>
+<p>T9k Workflow 系统对 <a href="../jobs/index.html">T9k Job</a> 提供更进一步的原生支持，添加以下 WorkflowTemplate 类型：</p>
 <ul>
 <li>GenericJob</li>
 <li>TensorFlowTrainingJob</li>
@@ -488,7 +488,7 @@ spec:
 </code></pre>
 <aside class="note">
 <div class="title">注意</div>
-<p>与 Resource WorkflowTemplate 相同，T9k Jobs WorkflowTemplate 对应的 WorkflowRun 也需要一个 Service Account。同样，在网页中创建 WorkflowRun 时，系统将自动为你配置名为 <code>managed-project-sa</code> 的 Service Account，你不用关心这一项的填写。</p>
+<p>与 Resource WorkflowTemplate 相同，T9k Job WorkflowTemplate 对应的 WorkflowRun 也需要一个 Service Account。同样，在网页中创建 WorkflowRun 时，系统将自动为你配置名为 <code>managed-project-sa</code> 的 Service Account，你不用关心这一项的填写。</p>
 </aside>
 <h3 id="dag-workflowtemplate"><a class="header" href="#dag-workflowtemplate">DAG WorkflowTemplate</a></h3>
 <p>DAG WorkflowTemplate 用于创建一个由其他 WorkflowTemplate 组成的有向无环图（DAG，Directed Acyclic Graph），按照有向无环图中的依赖关系按顺序执行这些 WorkflowTemplate。</p>

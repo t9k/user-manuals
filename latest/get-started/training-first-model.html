@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>训练你的第一个模型 - TensorStack AI 计算平台 - 用户使用手册</title>
+        <title>训练你的第一个模型 - TensorStack AI 计算平台 - 用户手册</title>
 
 
         <!-- Custom HTML head -->
@@ -154,7 +154,7 @@
                         </div>
                     </div>
 
-                    <h1 class="menu-title">TensorStack AI 计算平台 - 用户使用手册</h1>
+                    <h1 class="menu-title">TensorStack AI 计算平台 - 用户手册</h1>
 
                     <div class="right-buttons">
                         <a href="../print.html" title="Print this book" aria-label="Print this book">
@@ -196,11 +196,12 @@
   <img alt="landing-page" src="../assets/get-started/training-first-model/landing-page.png" />
   <figcaption>图 1：平台首页。</figcaption>
 </figure>
-<p>构建控制台（Build Console）的总览页面展示了多种<strong>资源</strong>，你可以点击右上角的按钮切换 Project，也可以点击<strong>事件</strong>和<strong>配额</strong>标签页以查看当前 Project 最近发生的事件以及计算资源（CPU、内存、GPU 等）配额。</p>
+<p>构建控制台（Build Console）的总览页面展示了多种 <strong>API 资源</strong>，你可以点击右上角的按钮切换 Project，也可以点击<strong>事件</strong>和<strong>配额</strong>标签页以查看当前 Project 最近发生的事件以及<strong>计算资源</strong>（CPU、内存、GPU 等）配额。</p>
 <aside class="note info">
-<div class="title"> API 资源 </div>
-<p><strong>API 资源（resources）</strong>，<strong>Kubernetes 资源（resources）</strong>，或者简称<strong>资源（resources）</strong>：此术语用于统称 Kubernetes 管理的原生或通过 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/">CRD</a> 扩展的实体（entity）类型（type，kind）。这些资源包括原生标准类型，如 <code>Pod</code>、<code>Deployment</code>、<code>Service</code>、<code>ConfigMap</code>，以及通过 CRD 定义的任何自定义资源，例如 TensorStack 提供的 <code>Notebook</code>。它们是 TensorStack AI 平台功能的基本构建模块。</p>
-<p>需要注意的是，<strong>计算资源（compute resources）</strong>，例如 CPU、内存、GPU，也经常被简称为<strong>资源</strong>，但一般可根据上下文判断其具体所指。</p>
+<div class="title">API 资源和计算资源</div>
+<p><strong>API 资源（API resources，Kubernetes API 资源，Kubernetes API resources）</strong>用于统称 Kubernetes 管理的原生或通过 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/">CRD</a> 扩展的实体（entity）类型（type，kind）。这些资源包括原生标准类型，如 <code>Pod</code>、<code>Deployment</code>、<code>Service</code>、<code>ConfigMap</code>，以及通过 CRD 自定义的资源，例如 TensorStack AI 平台提供的 <code>Notebook</code>。它们是平台功能的基本构建模块。</p>
+<p><strong>计算资源（compute resources）</strong>是应用程序运行所需的 CPU、内存、GPU 等。</p>
+<p>两者都常被简称为“资源”，但一般可根据上下文判断其具体所指。</p>
 </aside>
 <figure class="screenshot">
   <img alt="project" src="../assets/get-started/training-first-model/overview.png" />
@@ -255,7 +256,7 @@
 </figure>
 <aside class="note info">
 <div class="title">调度器</div>
-<p>调度器负责将工作负载调度到合适的节点上以运行。平台支持 Kubernetes 的默认调度器 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler">kube-scheduler</a>，同时提供了更加强大的 T9k 调度器。详情请参阅<a href="../modules/scheduling/index.html">计算资源</a>。</p>
+<p>调度器负责将工作负载调度到合适的节点上运行。平台支持 Kubernetes 的默认调度器 <a href="../modules/computing-resources/scheduler/kube-scheduler.html">kube-scheduler</a>，同时提供了更加强大的 <a href="../modules/computing-resources/scheduler/t9k-scheduler.html">T9k Scheduler</a>。</p>
 </aside>
 <p>在跳转回到 Notebook 管理页面之后，等待刚才创建的 Notebook 准备就绪。第一次拉取镜像可能会花费较长的时间，具体取决于集群的网络状况。点击右上角的<strong>刷新图标</strong>来手动刷新 Notebook 状态，待 Notebook 开始运行之后，点击右侧的<strong>打开</strong>进入其前端页面。</p>
 <figure class="screenshot">

@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Job - TensorStack AI 计算平台 - 用户使用手册</title>
+        <title>Job - TensorStack AI 计算平台 - 用户手册</title>
 
 
         <!-- Custom HTML head -->
@@ -154,7 +154,7 @@
                         </div>
                     </div>
 
-                    <h1 class="menu-title">TensorStack AI 计算平台 - 用户使用手册</h1>
+                    <h1 class="menu-title">TensorStack AI 计算平台 - 用户手册</h1>
 
                     <div class="right-buttons">
                         <a href="../../print.html" title="Print this book" aria-label="Print this book">
@@ -189,7 +189,7 @@
                         <div class="sidetoc"><nav class="pagetoc"></nav></div>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="job"><a class="header" href="#job">Job</a></h1>
-<p>TensorStack 定义了一系列 CRD（称为 Job）以支持<a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Batch_processing">批处理（Batch Processing）</a>计算任务，特别是 AI 领域的大规模分布式并行训练类型性质的计算。</p>
+<p>TensorStack AI 平台定义了一系列 CRD（称为 Job）以支持<a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Batch_processing">批处理（Batch Processing）</a>计算任务，特别是 AI 领域的大规模分布式并行训练类型性质的计算。</p>
 <figure class="architecture">
   <img alt="t9k-job" src="../../assets/modules/jobs/jobs.drawio.svg" />
   <figcaption>图 1：Job 系统的基本原理。用户提交 Job 的定义；Job Controller 1）分析 Job 定义；2）请求计算资源（CPU、RAM、GPU、高速网络、存储...)；3）启动、监控、暂停、继续 、终止、调试 Job。</figcaption>
@@ -215,7 +215,7 @@
 <li><a href="./genericjob.html">GenericJob</a>：一个通用的 T9k Job 资源，支持各种并行计算场景及 T9k 高级调度策略。
 <ul>
 <li>GenericJob 十分灵活，用户可以使用 GenericJob 实现 MPIJob、PyTorchTrainingJob 等特定功能的 T9k Job；但其自动化程度低，需要手工设置很多参数。</li>
-<li>GenericJob 的目的是提供一个总是可行的 “通用” 机制，以支持一些其他特定功能 T9k Jobs 还未支持的新的计算场景。 </li>
+<li>GenericJob 的目的是提供一个总是可行的 “通用” 机制，以支持一些其他特定功能 T9k Job 还未支持的新的计算场景。 </li>
 </ul>
 </li>
 </ul>
