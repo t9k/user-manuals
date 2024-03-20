@@ -56,25 +56,14 @@ kubectl create -f mlservice.yaml
 kubectl get -f mlservice.yaml -w
 ```
 
+输出应类似于：
+
+```
+NAME           READY   REASON   URL
+codellama-7b   False            http://codellama-7b.<project>.<domain>
+```
+
 待其 `READY` 值变为 `true` 后，便可开始使用该服务。第一次拉取镜像可能会花费较长的时间，具体取决于集群的网络状况。
-
-<aside class="note tip">
-<div class="title">提示</div>
-
-本示例以 7B 模型为例，用户也可以尝试部署 13B、34B 和 70B 模型，但需要提供更多的计算资源。下面给出了相应的计算资源需求：
-
-| 模型大小 | PVC 大小 | 并行度×显存大小          |
-| -------- | -------- | ------------------------ |
-| 7B       | 30GiB    | 1×24GB                   |
-| 13B      | 55GiB    | 2×24GB / 1×40GB          |
-| 34B      | 130GiB   | 4×24GB / 2×40GB / 1×80GB |
-| 70B      | 260GiB   | 4×40GB / 2×80GB          |
-
-部署 70B 模型的 YAML 配置文件请参阅 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/examples/blob/master/deployments/vllm/mlservice-runtime-70b.yaml">`mlservice-runtime-70b.yaml`</a> 和 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/examples/blob/master/deployments/vllm/mlservice-70b.yaml">`mlservice-70b.yaml`</a>
-
-如果没有足够的显存，可以尝试<a target="_blank" rel="noopener noreferrer" href="https://docs.vllm.ai/en/latest/quantization/auto_awq.html">量化</a>方法。
-
-</aside>
 
 ## 使用推理服务
 
@@ -127,11 +116,11 @@ curl ${address}/v1/completions \
 
 顺带一提，使用相同的 prompt（由于 CodeLlama-7b-Python-hf 未经过指令微调，prompt 的格式略有不同），CodeLlama-13b-Instruct-hf 和 CodeLlama-7b-Python-hf 提供的解答可以通过，GPT 3.5、GPT-4 和 Bard 提供的解答也都可以通过。
 
-用户可以自行尝试部署更大的 Code Llama 系列模型，并让其编写更加复杂的代码。
+用户可以自行尝试[部署规模更大的 Code Llama 模型](#扩展部署规模更大的-llm)，并让其编写更加复杂的代码。
 
 ## 扩展：部署其他 LLM
 
-我们可以使用同样的方法部署其他<a target="_blank" rel="noopener noreferrer" href="https://github.com/lm-sys/FastChat?tab=readme-ov-file#supported-models">支持的模型</a>，例如要将本示例部署的模型从 CodeLlama-7b-Instruct-hf 换成 Mistral-7B-Instruct-v0.1，只需：
+本示例以 Code Llama 模型为例，我们还可以部署其他<a target="_blank" rel="noopener noreferrer" href="https://docs.vllm.ai/en/latest/models/supported_models.html">支持的模型</a>。例如要将部署的模型从 CodeLlama-7b-Instruct-hf 换成 Mistral-7B-Instruct-v0.1，只需：
 
 1. 下载 Mistral-7B-Instruct-v0.1 的模型文件：
 
@@ -148,13 +137,13 @@ python -c \
 mv .cache/modelscope/hub/AI-ModelScope/Mistral-7B-Instruct-v0___1 ./Mistral-7B-Instruct-v0.1
 ```
 
-2. 对 MLService 的 YAML 配置文件作以下修改，再次创建即可：
+2. 对 MLService 的 YAML 配置文件作以下修改，再次创建即可。修改后的 YAML 配置文件请参阅 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/examples/blob/master/deployments/vllm/mlservice-mistral.yaml">`mlservice-mistral.yaml`</a>。
 
 ```diff
 $ diff --color -u mlservice.yaml mlservice-mistral.yaml
 --- mlservice.yaml
 +++ mlservice-mistral.yaml
-@@ -1,22 +1,22 @@
+@@ -1,7 +1,7 @@
  apiVersion: tensorstack.dev/v1beta1
  kind: MLService
  metadata:
@@ -163,15 +152,7 @@ $ diff --color -u mlservice.yaml mlservice-mistral.yaml
  spec:
    # scheduler:
    #   t9kScheduler:
-   #     queue: default
--  default: codellama-7b
-+  default: mistral-7b
-   releases:
--    - name: codellama-7b
-+    - name: mistral-7b
-       predictor:
-         minReplicas: 1
-         model:
+@@ -15,8 +15,8 @@
            runtime: vllm-openai
            parameters:
              MODEL_PATH: /var/lib/t9k/model
@@ -182,6 +163,120 @@ $ diff --color -u mlservice.yaml mlservice-mistral.yaml
          containersResources:
          - name: user-container
            resources:
+```
+
+```bash
+kubectl create -f mlservice-mistral.yaml
+```
+
+## 扩展：部署规模更大的 LLM
+
+本示例以 7B 模型为例，我们还可以部署 13B、34B 和 70B 模型，但需要更多的计算资源。下表给出了相应的计算资源需求：
+
+| 模型大小 | PVC 大小 | 并行度×显存大小          |
+| -------- | -------- | ------------------------ |
+| 7B       | 30GiB    | 1×24GB                   |
+| 13B      | 55GiB    | 2×24GB / 1×40GB          |
+| 34B      | 130GiB   | 4×24GB / 2×40GB / 1×80GB |
+| 70B      | 260GiB   | 4×40GB / 2×80GB          |
+
+<aside class="note tip">
+<div class="title">提示</div>
+
+如果没有足够的显存，可以尝试<a target="_blank" rel="noopener noreferrer" href="https://docs.vllm.ai/en/latest/quantization/auto_awq.html">量化</a>方法。
+
+</aside>
+
+例如要将部署的模型从 CodeLlama-7b-Instruct-hf 换成 CodeLlama-70b-Instruct-hf，只需：
+
+1. 下载 CodeLlama-70b-Instruct-hf 的模型文件：
+
+```bash
+# 方法 1：如果可以直接访问 huggingface
+huggingface-cli download codellama/CodeLlama-70b-Instruct-hf \
+  --local-dir CodeLlama-70b-Instruct-hf --local-dir-use-symlinks False
+
+# 方法 2：对于国内用户，访问 modelscope 网络连通性更好
+# modelscope 没有 CodeLlama-70b-Instruct-hf 模型，用 CodeLlama-70b 模型替代
+pip install modelscope
+python -c \
+  "from modelscope import snapshot_download; snapshot_download('AI-ModelScope/CodeLlama-70b')"
+mv .cache/modelscope/hub/AI-ModelScope/CodeLlama-70b .
+```
+
+2. 对 MLServiceRuntime 和 MLService 的 YAML 配置文件作以下修改，再次创建即可。修改后的 YAML 配置文件请参阅 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/examples/blob/master/deployments/vllm/mlservice-runtime-70b.yaml">`mlservice-runtime-70b.yaml`</a> 和 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/examples/blob/master/deployments/vllm/mlservice-70b.yaml">`mlservice-70b.yaml`</a>。
+
+```diff
+$ diff --color -u mlservice-runtime.yaml mlservice-runtime-70b.yaml
+--- mlservice-runtime.yaml
++++ mlservice-runtime-70b.yaml
+@@ -1,7 +1,7 @@
+ apiVersion: tensorstack.dev/v1beta1
+ kind: MLServiceRuntime
+ metadata:
+-  name: vllm-openai
++  name: vllm-openai-2xtp
+ spec:
+   enabled: true
+   template:
+@@ -13,10 +13,18 @@
+           - --model={{.MODEL_PATH}}
+           - --served-model-name={{.MODEL_NAME}}
+           - --trust-remote-code
++          - --tensor-parallel-size=2    # 2 度张量并行
+         resources:
+           limits:
+             cpu: 4
+             memory: 64Gi
+-            nvidia.com/gpu: 1
++            nvidia.com/gpu: 2    # 对于 CodeLlama-70b 须为 A100 80GB
+         ports:
+         - containerPort: 8000
++        volumeMounts:
++          - mountPath: /dev/shm  # 并行需要
++            name: dshm
++      volumes:
++        - emptyDir:
++            medium: Memory
++          name: dshm
+
+$ diff --color -u mlservice.yaml mlservice-70b.yaml  
+--- mlservice.yaml
++++ mlservice-70b.yaml
+@@ -1,7 +1,7 @@
+ apiVersion: tensorstack.dev/v1beta1
+ kind: MLService
+ metadata:
+-  name: codellama-7b
++  name: codellama-70b
+ spec:
+   # scheduler:
+   #   t9kScheduler:
+@@ -12,15 +12,15 @@
+       predictor:
+         minReplicas: 1
+         model:
+-          runtime: vllm-openai
++          runtime: vllm-openai-2xtp
+           parameters:
+             MODEL_PATH: /var/lib/t9k/model
+-            MODEL_NAME: codellama-7b
+-          modelUri: pvc://vllm/CodeLlama-7b-Instruct-hf
++            MODEL_NAME: codellama-70b
++          modelUri: pvc://vllm/CodeLlama-70b-Instruct-hf
+         containersResources:
+         - name: user-container
+           resources:
+             limits:
+               cpu: 4
+               memory: 64Gi
+-              nvidia.com/gpu: 1
++              nvidia.com/gpu: 2
+```
+
+```bash
+kubectl apply -f mlservice-runtime-70b.yaml
+kubectl create -f mlservice-70b.yaml
 ```
 
 ## 参考

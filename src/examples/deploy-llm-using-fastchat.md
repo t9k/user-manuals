@@ -55,6 +55,13 @@ kubectl create -f simplemlservice.yaml
 kubectl get -f simplemlservice.yaml -w
 ```
 
+输出应类似于：
+
+```
+NAME          READY   REASON   URL
+chatglm3-6b   False            http://managed-simplemlservice-chatglm3-6b-f6hn8.<project>.<domain>
+```
+
 待其 `READY` 值变为 `true` 后，便可开始使用该服务。第一次拉取镜像可能会花费较长的时间，具体取决于集群的网络状况。
 
 ## 使用推理服务
@@ -157,6 +164,10 @@ $ diff --color -u simplemlservice.yaml simplemlservice-llama2.yaml
          ports:
          - containerPort: 80
          resources:
+```
+
+```bash
+kubectl create -f simplemlservice-llama2.yaml
 ```
 
 ## 参考

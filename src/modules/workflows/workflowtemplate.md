@@ -255,7 +255,7 @@ spec:
         status: "True"
 ```
 
-如果所创建的资源类型是下列 [T9k Jobs](../jobs/index.md) 之一，系统将自动帮助填写 `successRules` 和 `failureRules`，以减轻你的负担：
+如果所创建的资源类型是下列 [T9k Job](../jobs/index.md) 之一，系统将自动帮助填写 `successRules` 和 `failureRules`，以减轻你的负担：
 
 * GenericJob
 * MPIJob
@@ -278,9 +278,9 @@ spec:
 
 在网页中创建 WorkflowRun 时，系统将自动为你配置名为 `managed-project-sa` 的 Service Account，你不用关心这一项的填写。
 
-### T9k Jobs WorkflowTemplate
+### T9k Job WorkflowTemplate
 
-T9k Workflow 系统对 [T9k Jobs](../jobs/index.md) 提供更进一步的原生支持，添加以下 WorkflowTemplate 类型：
+T9k Workflow 系统对 [T9k Job](../jobs/index.md) 提供更进一步的原生支持，添加以下 WorkflowTemplate 类型：
 
 * GenericJob
 * TensorFlowTrainingJob
@@ -349,7 +349,7 @@ spec:
 <aside class="note">
 <div class="title">注意</div>
 
-与 Resource WorkflowTemplate 相同，T9k Jobs WorkflowTemplate 对应的 WorkflowRun 也需要一个 Service Account。同样，在网页中创建 WorkflowRun 时，系统将自动为你配置名为 `managed-project-sa` 的 Service Account，你不用关心这一项的填写。
+与 Resource WorkflowTemplate 相同，T9k Job WorkflowTemplate 对应的 WorkflowRun 也需要一个 Service Account。同样，在网页中创建 WorkflowRun 时，系统将自动为你配置名为 `managed-project-sa` 的 Service Account，你不用关心这一项的填写。
 
 </aside>
 

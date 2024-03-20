@@ -114,4 +114,4 @@ AutoTuneExperiment 的生命周期包括以下五个阶段：
 
 ## 下一步
 
-* 了解如何[使用 AutoTune 进行超参数优化](../../tasks/autotune.md)
+* 学习如何[使用 AutoTune 进行超参数优化](../../tasks/autotune.md)

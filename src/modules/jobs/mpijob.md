@@ -333,5 +333,5 @@ status:
 ```
 ## 下一步
 
-* 了解如何[使用 Horovod 进行 Keras 模型的数据并行训练](../../tasks/horovod-keras-parallel.md)
-* 了解如何[使用 Horovod 进行 PyTorch 模型的数据并行训练](../../tasks/horovod-pytorch-parallel.md)
+* 学习如何[使用 Horovod 进行 Keras 模型的数据并行训练](../../tasks/horovod-keras-parallel.md)
+* 学习如何[使用 Horovod 进行 PyTorch 模型的数据并行训练](../../tasks/horovod-pytorch-parallel.md)

@@ -1,6 +1,6 @@
 # ImageBuilder
 
-TensorStack 平台提供 CRD `ImageBuilder`，方便用户在集群中构建容器镜像。
+平台提供 CRD `ImageBuilder`，方便用户在集群中构建容器镜像。
 
 ## 创建 ImageBuilder
 

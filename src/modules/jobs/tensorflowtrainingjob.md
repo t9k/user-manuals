@@ -367,5 +367,5 @@ status:
 
 ## 下一步
 
-* 了解如何[使用 TensorFlowTrainingJob 进行数据并行训练](../../tasks/tensorflow-training-parallel.md)
-* 了解如何[使用 TensorFlowTrainingJob 进行参数服务器训练](../../tasks/tensorflow-training-ps.md)
+* 学习如何[使用 TensorFlowTrainingJob 进行数据并行训练](../../tasks/tensorflow-training-parallel.md)
+* 学习如何[使用 TensorFlowTrainingJob 进行参数服务器训练](../../tasks/tensorflow-training-ps.md)

@@ -545,10 +545,10 @@ $ curl -T test_data/0.png http://torch-mnist.<project-name>.<domain-name>/v1/mod
 
 ## 下一步
 
-- 了解如何部署一个[模型推理服务](../../tasks/deploy-mlservice.md)
-- 了解如何部署一个[包含 Transformer 的推理服务](../../tasks/deploy-mlservice-transformer.md)
-- 应用示例：[使用 vLLM 部署 LLM 推理服务](../../examples/deploy-llm-using-vllm.md)
-- 应用示例：[部署对话式搜索引擎](../../examples/deploy-conversational-search-engine.md)
+* 学习如何部署一个[模型推理服务](../../tasks/deploy-mlservice.md)
+* 学习如何部署一个[包含 Transformer 的推理服务](../../tasks/deploy-mlservice-transformer.md)
+* 应用示例：[使用 vLLM 部署 LLM 推理服务](../../examples/deploy-llm-using-vllm.md)
+* 应用示例：[部署对话式搜索引擎](../../examples/deploy-conversational-search-engine.md)
 
 ## 参考
 

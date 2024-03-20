@@ -58,7 +58,7 @@ spec:
 
 ### 污点
 
-污点（taint）是节点的一种属性，它可被用来使得某些类型的 Pod 不能被调度到（除非该 pod 明确说明其可容忍这些污点）该节点上。例如，当节点存在出现软硬件故障、网络不可用、磁盘空间不足等问题时，系统会自动为该节点添加一个污点。此外，当管理员发现节点存在问题或正在测试节点时，也可能为该节点添加污点。
+污点（taint）是节点的一种属性，它可被用来使得某些类型的 Pod 不能被调度到该节点上（除非 Pod 明确说明其容忍该污点）。例如，当节点存在出现软硬件故障、网络不可用、磁盘空间不足等问题时，系统会自动为该节点添加一个污点。此外，当管理员发现节点存在问题或正在测试节点时，也可能为该节点添加污点。
 
 当用户的工作负载不能被调度到某个资源充足的节点上时，可能就是因为这个节点被添加了污点。
 
@@ -68,8 +68,12 @@ spec:
 
 kube-scheduler 和 T9k Scheduler 都有各自的优先级和抢占机制，用户可根据需求选用。
 
-T9k Scheduler 的优先级和抢占机制，请参阅：[t9k-scheduler](./t9k-scheduler.md)。
+kube-scheduler 的优先级和抢占机制请参阅 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/">Pod 优先级和抢占</a>。
+
+T9k Scheduler 的优先级和抢占机制请参阅[优先级和抢占](./policy.md#优先级和抢占)。
 
 ## 参考
 
 * <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/kube-scheduler/">Kubernetes 调度器</a>
+* <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/">将 Pod 指派给节点</a>
+* <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/">污点和容忍度</a>
