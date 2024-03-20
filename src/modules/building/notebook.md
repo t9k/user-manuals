@@ -224,9 +224,9 @@ spec:
           image: t9kpublic/torch-2.1.0-notebook:1.77.1
           env:
             - name: HTTP_PROXY
-              value: https://example.com
+              value: <host>:<port>
             - name: HTTPS_PROXY
-              value: https://example.com
+              value: <host>:<port>
             - name: LOCALE
               value: zh-cn
           volumeMounts:
@@ -254,14 +254,17 @@ spec:
 3. 设置 C 语言静态库和共享库路径：`LIBRARY_PATH` 和 `LD_LIBRARY_PATH`；
 4. ...
 
-您可以直接在 Notebook 的终端中使用这些环境变量，例如：
+用户可直接在 Notebook 的终端中使用这些环境变量，例如：
 
 ```bash
-echo $HTTPS_PROXY
-curl --proxy $HTTPS_PROXY https://example.com/dataset.zip
+# 自动使用，curl 可以自动使用 HTTPS_PROXY 等环境变量
+curl https://ifconfig.io
+
+# 通过命令行参数指定 --proxy 指定环境变量的值
+curl --proxy $HTTPS_PROXY https://ifconfig.io
 ```
 
-您也可以在 Python 程序中读取并使用这些环境变量，例如：
+用户也可以在 Python 程序中读取并使用这些环境变量，例如：
 
 ```python
 import os
@@ -327,17 +330,65 @@ spec:
 
 ## 设置网络代理
 
-在 Notebook 中下载训练数据时，如果您需要设置网络代理，请按照[环境变量](#环境变量)一节为 Notebook 设置 `HTTP_PROXY` 和 `HTTPS_PROXY` 两个环境变量，值均为网络代理服务器的地址。
+在 Notebook（或者 Job 等其它工作负载）中运行程序时，例如下载训练数据，如果用户需要设置网络代理，可采用如下方式：
+
+### 全局设置
+
+请按照[环境变量](#环境变量)一节为 Notebook （或者 Job 等其它工作负载）设置 `HTTP_PROXY` 和 `HTTPS_PROXY` 两个环境变量（或者其它更多相关变量）。
+
+<aside class="note tip">
+<div class="title">提示</div>
+
+设置代理的环境变量并没有严格的统一标准，用户可查看对应命令的手册获得更加准确信息。常见的环境变量如下：
+
+```
+# 大写版本
+HTTPS_PROXY, HTTP_PROXY, NO_PROXY, ALL_PROXY
+
+# 小写版本
+https_proxy, http_proxy, no_proxy, all_proxy
+```
+
+</aside>
+
 
 无论是通过终端运行 curl、wget 等命令或通过 Python 代码来下载训练数据，下载程序一般都会尊重环境变量 `HTTP_PROXY` 和 `HTTPS_PROXY` 的设置，使用这两个环境的值作为网络代理。
 
-如果不确定下载程序是否会自动使用环境变量设置的网络代理，根据所使用的下载程序的不同，您可以手动设置网络代理。例如，curl 支持如下方式设置网络代理：
+### 临时设置
+
+如果仅在运行特定程序时需要使用代理，可通过临时设置环境变量。例如，curl 支持如下方式设置网络代理：
+
+1. 命令行参数
 
 ```bash
-echo $HTTPS_PROXY
-curl --proxy $HTTPS_PROXY https://example.com/dataset.zip
+curl --proxy <proxy-address> https://ifconfig.io
 ```
 
+2. 环境变量
+
+```bash
+# 为单个命令设置环境变量
+HTTPS_PROXY=<proxy-address> curl  https://ifconfig.io
+
+# 或者，为当前 shell 及子进程设置
+export HTTPS_PROXY=<proxy-address>
+curl  https://ifconfig.io
+```
+
+### 在程序里设置
+
+很多网络通讯库支持在调用时设置额外的参数，例如 Python 的 request 库，支持如下使用方法：
+
+```python
+import requests 
+
+proxies = {
+    'http': 'http://1.2.3.4:8080',
+    'https': 'https://1.2.3.4:3128'
+}
+
+response = requests.get(url, proxies=proxies)
+```
 
 ## 下一步
 
