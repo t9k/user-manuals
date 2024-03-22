@@ -8,7 +8,7 @@
 
 在项目中创建一个名为 `draw`、大小 50 GiB 以上的 PVC，然后创建一个同样名为 `draw` 的 Notebook 挂载该 PVC（镜像类型和模板不限）。
 
-进入 Notebook 或远程连接到 Notebook，启动一个终端，执行下列命令以下载 Stable Diffusion、VAE、LoRA 等模型的文件：
+进入 Notebook，启动一个终端，执行下列命令以下载 Stable Diffusion、VAE、LoRA 等模型的文件：
 
 ```bash
 mkdir sd

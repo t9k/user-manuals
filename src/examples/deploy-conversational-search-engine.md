@@ -37,7 +37,7 @@
 
 在项目中创建一个名为 `search`、大小 180 GiB 以上的 PVC，然后创建一个同样名为 `search` 的 Notebook 挂载该 PVC（镜像类型和模板不限）。
 
-进入 Notebook 或远程连接到 Notebook，启动一个终端，执行以下命令以克隆 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/examples">`t9k/examples`</a> 仓库：
+进入 Notebook，启动一个终端，执行以下命令以克隆 <a target="_blank" rel="noopener noreferrer" href="https://github.com/t9k/examples">`t9k/examples`</a> 仓库：
 
 ```bash
 cd ~

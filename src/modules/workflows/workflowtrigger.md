@@ -55,7 +55,7 @@ spec:
 kubectl apply -f workflow-template-sample.yaml
 ```
 
-该 WorkflowTemplate 将作为一个静态模版用于执行一次 WorkflowRun 的运行。
+该 WorkflowTemplate 将作为一个静态模板用于执行一次 WorkflowRun 的运行。
 
 ### 2）创建 EventListener
 

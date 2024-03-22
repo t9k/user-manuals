@@ -18,7 +18,7 @@ MLService 用于在 TensorStack AI 平台上部署 AI 推理服务，其功能�
 
 - 支持定义多个版本（`release`）的推理服务，每个 `release` 包含一个 `predictor`，其定义了：
     - 模型存储（`storage`）
-    - 模型规约（`model`），包括 `parameters`，`runtime`（引用 `MLServiceRuntime` 定义运行推理服务 `Pod` 的模版）
+    - 模型规约（`model`），包括 `parameters`，`runtime`（引用 `MLServiceRuntime` 定义运行推理服务 `Pod` 的模板）
     - 计算资源（`containersResources`）
     - 其他部署参数（`minReplicas, maxRelicas, logger ...`）
 - 每个 `release` 服务的容量可独立自动伸缩，可通过 `minReplicas`、`maxReplicas` 设置容量的上下限。
@@ -72,7 +72,7 @@ spec:
 
 ## MLServiceRuntime
 
-在[示例](#示例)中，我们使用了 MLServiceRuntime `torchserve`。MLServiceRuntime 定义了推理服务的模版，包含了推理服务的关键信息，例如镜像、启动命令、资源需求等，能够方便地帮助用户快速部署多种模型推理服务程序。
+在[示例](#示例)中，我们使用了 MLServiceRuntime `torchserve`。MLServiceRuntime 定义了推理服务的模板，包含了推理服务的关键信息，例如镜像、启动命令、资源需求等，能够方便地帮助用户快速部署多种模型推理服务程序。
 
 一个 MLServiceRuntime 可以被多个 MLService 使用。
 
@@ -113,12 +113,12 @@ spec:
           protocol: TCP
 ```
 
-该 MLServiceRuntime 在 `spec.template` 中定义了推理服务的副本（Pod）的模版，以指定容器镜像 `torchserve:0.9.0-cpu`、启动命令 `torchserve` 及其他命令行参数等。
+该 MLServiceRuntime 在 `spec.template` 中定义了推理服务的副本（Pod）的模板，以指定容器镜像 `torchserve:0.9.0-cpu`、启动命令 `torchserve` 及其他命令行参数等。
 
 <aside class="note info">
 <div class="title">信息</div>
 
-MLServiceRuntime 中的 Pod 模版有以下规范必须遵守：
+MLServiceRuntime 中的 Pod 模板有以下规范必须遵守：
 
 1. 必须要有一个名为 `user-container` 的容器，后续所介绍的[模型存储](#模型存储)、[日志收集](#日志收集)等功能都只对 `user-container` 生效。
 2. `user-container` 的容器中最多只能定义一个 `containerPort`，且其他的容器定义中不能有 `containerPort`。
@@ -162,7 +162,7 @@ spec:
 
 ### 进一步的配置
 
-除了直接使用 MLServiceRuntime 定义好的 Pod 模版，MLService 还支持对其进行进一步的配置和修改。
+除了直接使用 MLServiceRuntime 定义好的 Pod 模板，MLService 还支持对其进行进一步的配置和修改。
 
 #### Parameters
 
@@ -199,7 +199,7 @@ spec:
 
 #### StrategicMergePatch
 
-MLServiceRuntime 定义了 Pod 模版，但不一定能适用于所有场景。MLService 支持用户在 MLServiceRuntime 的基础上，进行进一步的叠加修改，例如：
+MLServiceRuntime 定义了 Pod 模板，但不一定能适用于所有场景。MLService 支持用户在 MLServiceRuntime 的基础上，进行进一步的叠加修改，例如：
 
 ```yaml
 apiVersion: tensorstack.dev/v1beta1
@@ -269,7 +269,7 @@ spec:
 
 #### 计算资源
 
-MLServiceRuntime 定义了 Pod 模版，但对于容器的资源要求，不同场景之间存在差异。因此， MLServiceRuntime 中定义的容器资源要求只是一个缺省时的默认值。
+MLServiceRuntime 定义了 Pod 模板，但对于容器的资源要求，不同场景之间存在差异。因此， MLServiceRuntime 中定义的容器资源要求只是一个缺省时的默认值。
 
 用户可以直接在 MLService `predictor` 中的 `containersResources` 定义容器的资源要求，例如：
 

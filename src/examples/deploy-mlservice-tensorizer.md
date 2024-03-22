@@ -8,9 +8,9 @@ TensorStack 提供的 [SimpleMLService](../modules/deployment/simplemlservice.md
 
 ## 准备
 
-在项目中创建一个名为 `tensorizer`、大小为 50GiB 以上的 PVC，然后创建一个同样名为 `tensorizer` 的 Notebook 挂载该 PVC，镜像选择带有 sudo 权限的类型，资源不限（如要使用远程操作，请开启 SSH）。
+在项目中创建一个名为 `tensorizer`、大小为 50GiB 以上的 PVC，然后创建一个同样名为 `tensorizer` 的 Notebook 挂载该 PVC（镜像选择带有 sudo 权限的类型，模板不限）。
 
-进入 Notebook 或远程连接到 Notebook，启动一个终端，执行以下命令以克隆必要的仓库：
+进入 Notebook，启动一个终端，执行以下命令以克隆必要的仓库：
 
 ```bash
 # change to mount point of PVC `tensorizer`, defaults to /t9k/mnt, and also $HOME
@@ -32,7 +32,7 @@ kubectl apply -f ./download-job.yaml
 
 ## 部署推理服务
 
-待模型下载的任务结束后，便可以开始部署服务。首先创建 `MLServiceRuntime`，MLServiceRuntime 定义了部署服务的 Pod 模版，此处所定义的 Pod 模版会使用 Tensorizer 加载环境变量 `MODEL_PATH` 所指定的路径中的模型文件：
+待模型下载的任务结束后，便可以开始部署服务。首先创建 `MLServiceRuntime`，MLServiceRuntime 定义了部署服务的 Pod 模板，此处所定义的 Pod 模板会使用 Tensorizer 加载环境变量 `MODEL_PATH` 所指定的路径中的模型文件：
 
 ```sh
 kubectl apply -f ./runtime.yaml

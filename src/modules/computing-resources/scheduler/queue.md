@@ -96,7 +96,7 @@ status:
 
 资源尺寸（resource shape）会限制队列中的工作负载的资源请求量。当用户创建资源请求量超过资源尺寸的工作负载时，系统会拒绝该工作负载的创建。
 
-`spec.resourceShapeProfile` 字段定义队列使用的资源尺寸模版，模板对应的资源尺寸详情存储在 ConfigMap `t9k-system/resource-shapes` 中。用户可以通过集群管理控制台查看队列的资源尺寸设置。
+`spec.resourceShapeProfile` 字段定义队列使用的资源尺寸模板，模板对应的资源尺寸详情存储在 ConfigMap `t9k-system/resource-shapes` 中。用户可以通过集群管理控制台查看队列的资源尺寸设置。
 
 ## 下一步
 

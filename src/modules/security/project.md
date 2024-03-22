@@ -69,15 +69,15 @@ spec:
 * 该项目中设置以下网络策略：
   * 该项目中的工作负载可以访问 `t9k-system` 命名空间中的 `security-console-server` 服务（由字段 `spec.networkPolicy.template.spec.egress` 字段指定）。
   * 该项目中的服务可以被 `t9k-system` 命名空间的任一工作负载访问（由字段 `spec.networkPolicy.template.spec.ingress` 字段指定）。
-* 该项目使用 `demo` 资源配额模版。
+* 该项目使用 `demo` 资源配额模板。
 
-### 资源配额与配额模版
+### 资源配额与配额模板
 
 一个项目的资源配额（由 `spec.resourceQuota` 字段指定）表示：当前项目中所能使用的资源上限，包括但不限于 CPU、内存、GPU 和 Pod 数量。
 
 值得说明的一点：项目的资源配额中关于 CPU、内存、GPU、Pod 等资源数量的限制都直接作用于 Pod。即如果你创建一个 T9k Job，它即将创建的 pod 需要申请超过项目资源配额的资源数量，则 T9k Job 会被成功创建，但是 T9k Job 创建 Pod 的请求会被拒绝。
 
-管理员可以使用**配额模版**批量设置或修改项目的资源配额。项目控制器会自动查找配额模版（由 `spec.quotaProfile` 字段指定）的内容，据此同步项目的资源配额。
+管理员可以使用**配额模板**批量设置或修改项目的资源配额。项目控制器会自动查找配额模板（由 `spec.quotaProfile` 字段指定）的内容，据此同步项目的资源配额。
 
 ### 网络策略
 

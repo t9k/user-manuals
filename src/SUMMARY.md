@@ -196,12 +196,12 @@
     * [使用 FastChat 部署 LLM 推理服务](examples/deploy-llm-using-fastchat.md)
     * [使用 vLLM 部署 LLM 推理服务](examples/deploy-llm-using-vllm.md)
     * [使用 Triton 部署 Hugging Face 模型（Python 后端）](examples/deploy-hf-model-using-triton-python.md)
+    * [使用 Triton 部署 LLM 推理服务（TensorRT-LLM 后端）](examples/deploy-llm-using-triton-tensorrtllm.md)
     * [使用 Tensorizer 加速模型部署](examples/deploy-mlservice-tensorizer.md)
     * [使用 AutoGen 构建下一代 LLM 应用](examples/build-next-generation-llm-app-using-autogen.md)
     * [部署对话式搜索引擎](examples/deploy-conversational-search-engine.md)
     * [部署 Stable Diffusion 图像生成模型](examples/deploy-sd-drawing-model.md)
     * [车道检测](examples/lane-detection.md)
-    <!-- * [使用 Triton 部署 LLM 推理服务（TensorRT-LLM 后端）](examples/deploy-llm-using-triton-tensorrtllm.md) -->
 
 * [集成](integrations/index.md)
     * [Label Studio](integrations/label-studio.md)

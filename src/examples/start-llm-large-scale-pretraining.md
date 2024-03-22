@@ -16,7 +16,7 @@ LLM（大型语言模型）是当前 AI 领域备受瞩目的研究和应用领�
 
 在你的项目中创建一个名为 `megatron`、大小 250 GiB 以上的 PVC，然后创建一个同样名为 `megatron` 的 Notebook 挂载该 PVC（镜像类型和模板不限）。
 
-进入 Notebook 或远程连接到 Notebook，启动一个终端，执行以下命令以克隆必要的仓库：
+进入 Notebook，启动一个终端，执行以下命令以克隆必要的仓库：
 
 ```bash
 cd ~
