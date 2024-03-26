@@ -61,7 +61,8 @@ kubectl create -f examples/llama-factory/training/sft.yaml
 通过以下命令查看训练过程中打印的日志：
 
 ```bash
-kubectl logs baichuan2-sft-single-node-worker-0 -f
+export POD=$(kubectl get dj baichuan2-sft -o jsonpath="{.status.tasks[0].replicas[0].name}")
+kubectl logs $POD -f
 ```
 
 <figure class="screenshot">

@@ -74,7 +74,8 @@ kubectl create -f \
 通过以下命令查看训练过程中打印的日志：
 
 ```bash
-kubectl logs gpt-125m-worker-0 -f
+export POD=$(kubectl get dj gpt-125m -o jsonpath="{.status.tasks[0].replicas[0].name}")
+kubectl logs $POD -f
 ```
 
 <figure class="screenshot">

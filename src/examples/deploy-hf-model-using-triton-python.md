@@ -17,7 +17,7 @@ cd ~
 git clone https://github.com/t9k/examples.git
 ```
 
-使用预制的模型仓库：
+我们需要创建一个<a target="_blank" rel="noopener noreferrer" href="https://github.com/triton-inference-server/server/blob/main/docs/user_guide/model_repository.md">模型仓库（model repository）</a>用于 Triton 加载模型。这里使用预制的模型仓库：
 
 ```bash
 cp -R examples/deployments/triton-python/python_model_repository .

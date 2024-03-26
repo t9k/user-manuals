@@ -34,9 +34,9 @@ python -c \
 mv .cache/modelscope/hub/shakechen/Llama-2-7b-chat-hf .
 ```
 
-## 创建模型仓库
+## 构建 TensorRT 引擎
 
-首先安装 TensorRT-LLM：
+安装 TensorRT-LLM：
 
 ```bash
 sudo apt-get update && sudo apt-get -y install openmpi-bin libopenmpi-dev  # password: tensorstack
@@ -44,7 +44,7 @@ sudo rm /opt/conda/compiler_compat/ld  # a workaround to build mpi4py within a c
 pip install tensorrt_llm==0.8.0 --extra-index-url https://pypi.nvidia.com
 ```
 
-然后克隆 <a target="_blank" rel="noopener noreferrer" href="https://github.com/NVIDIA/TensorRT-LLM">`NVIDIA/TensorRT-LLM`</a> 仓库，利用其中的 LLaMA 示例代码构建 TensorRT 引擎：
+克隆 <a target="_blank" rel="noopener noreferrer" href="https://github.com/NVIDIA/TensorRT-LLM">`NVIDIA/TensorRT-LLM`</a> 仓库，利用其中的 LLaMA 示例代码，先将模型转换为 TensorRT-LLM 检查点格式，再构建 TensorRT 引擎：
 
 ```bash
 git clone https://github.com/NVIDIA/TensorRT-LLM.git && cd TensorRT-LLM && git reset --hard 655524d
@@ -57,7 +57,11 @@ trtllm-build --checkpoint_dir ~/Llama-2-7b-chat-hf/tllm-checkpoint-fp16-1gpu \
     --gemm_plugin float16  # ~14GB GPU memory
 ```
 
-克隆 <a target="_blank" rel="noopener noreferrer" href="https://github.com/triton-inference-server/tensorrtllm_backend">`triton-inference-server/tensorrtllm_backend`</a> 仓库，复制其中的 <a target="_blank" rel="noopener noreferrer" href="https://github.com/triton-inference-server/server/blob/main/docs/user_guide/model_repository.md">模型仓库（model repository）</a>模板，并修改配置：
+## 创建模型仓库
+
+我们还需要创建一个<a target="_blank" rel="noopener noreferrer" href="https://github.com/triton-inference-server/server/blob/main/docs/user_guide/model_repository.md">模型仓库（model repository）</a>并放入刚才构建的 TensorRT 引擎，用于 Triton 加载模型。
+
+克隆 <a target="_blank" rel="noopener noreferrer" href="https://github.com/triton-inference-server/tensorrtllm_backend">`triton-inference-server/tensorrtllm_backend`</a> 仓库，复制其中的模型仓库模板，并修改配置：
 
 ```bash
 cd ~
@@ -73,7 +77,7 @@ python tensorrtllm_backend/tools/fill_template.py -i inflight_batcher_llm/tensor
 
 ## 部署
 
-使用以下 YAML 配置文件创建 MLServiceRuntime 和 MLService 以部署服务：
+接下来启动 Triton 推理服务器。使用以下 YAML 配置文件创建 MLServiceRuntime 和 MLService 以部署服务：
 
 ```bash
 cd examples/deployments/triton-tensorrtllm

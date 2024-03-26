@@ -137,7 +137,7 @@ event-listener-sample-workflow-trigger-sample-87a0d   Succeeded
 根据返回的结果可以看出，WorkflowRun 已经创建成功。该 WorkflowRun 将根据上面 WorkflowTemplate 静态模块的内容创建一个 Pod，通过下面的命令进行查询：
 
 ```bash
-$ kubectl get po -l batch.tensorstack.dev/workflowRun=event-listener-sample-workflow-trigger-sample-87a0d
+$ kubectl get pod -l batch.tensorstack.dev/workflowRun=event-listener-sample-workflow-trigger-sample-87a0d
 NAME                                                            READY   STATUS      RESTARTS   AGE
 event-listener-sample-workflow-trigger-sample-87a0d-pod-6stvb   0/1     Completed   0          3m23s
 ```
