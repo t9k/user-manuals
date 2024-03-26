@@ -211,13 +211,13 @@ python -c \
   &quot;from modelscope import snapshot_download; snapshot_download('shakechen/Llama-2-7b-chat-hf')&quot;
 mv .cache/modelscope/hub/shakechen/Llama-2-7b-chat-hf .
 </code></pre>
-<h2 id="创建模型仓库"><a class="header" href="#创建模型仓库">创建模型仓库</a></h2>
-<p>首先安装 TensorRT-LLM：</p>
+<h2 id="构建-tensorrt-引擎"><a class="header" href="#构建-tensorrt-引擎">构建 TensorRT 引擎</a></h2>
+<p>安装 TensorRT-LLM：</p>
 <pre><code class="language-bash">sudo apt-get update &amp;&amp; sudo apt-get -y install openmpi-bin libopenmpi-dev  # password: tensorstack
 sudo rm /opt/conda/compiler_compat/ld  # a workaround to build mpi4py within a conda env using an external MPI
 pip install tensorrt_llm==0.8.0 --extra-index-url https://pypi.nvidia.com
 </code></pre>
-<p>然后克隆 <a target="_blank" rel="noopener noreferrer" href="https://github.com/NVIDIA/TensorRT-LLM"><code>NVIDIA/TensorRT-LLM</code></a> 仓库，利用其中的 LLaMA 示例代码构建 TensorRT 引擎：</p>
+<p>克隆 <a target="_blank" rel="noopener noreferrer" href="https://github.com/NVIDIA/TensorRT-LLM"><code>NVIDIA/TensorRT-LLM</code></a> 仓库，利用其中的 LLaMA 示例代码，先将模型转换为 TensorRT-LLM 检查点格式，再构建 TensorRT 引擎：</p>
 <pre><code class="language-bash">git clone https://github.com/NVIDIA/TensorRT-LLM.git &amp;&amp; cd TensorRT-LLM &amp;&amp; git reset --hard 655524d
 cd examples/llama/
 python convert_checkpoint.py --model_dir ~/Llama-2-7b-chat-hf \
@@ -227,7 +227,9 @@ trtllm-build --checkpoint_dir ~/Llama-2-7b-chat-hf/tllm-checkpoint-fp16-1gpu \
     --output_dir ~/engines/1gpu \
     --gemm_plugin float16  # ~14GB GPU memory
 </code></pre>
-<p>克隆 <a target="_blank" rel="noopener noreferrer" href="https://github.com/triton-inference-server/tensorrtllm_backend"><code>triton-inference-server/tensorrtllm_backend</code></a> 仓库，复制其中的 <a target="_blank" rel="noopener noreferrer" href="https://github.com/triton-inference-server/server/blob/main/docs/user_guide/model_repository.md">模型仓库（model repository）</a>模板，并修改配置：</p>
+<h2 id="创建模型仓库"><a class="header" href="#创建模型仓库">创建模型仓库</a></h2>
+<p>我们还需要创建一个<a target="_blank" rel="noopener noreferrer" href="https://github.com/triton-inference-server/server/blob/main/docs/user_guide/model_repository.md">模型仓库（model repository）</a>并放入刚才构建的 TensorRT 引擎，用于 Triton 加载模型。</p>
+<p>克隆 <a target="_blank" rel="noopener noreferrer" href="https://github.com/triton-inference-server/tensorrtllm_backend"><code>triton-inference-server/tensorrtllm_backend</code></a> 仓库，复制其中的模型仓库模板，并修改配置：</p>
 <pre><code class="language-bash">cd ~
 git clone https://github.com/triton-inference-server/tensorrtllm_backend.git &amp;&amp; cd tensorrtllm_backend &amp;&amp; git reset --hard da59830 &amp;&amp; cd ~
 cp -R tensorrtllm_backend/all_models/inflight_batcher_llm inflight_batcher_llm
@@ -239,7 +241,7 @@ python tensorrtllm_backend/tools/fill_template.py -i inflight_batcher_llm/ensemb
 python tensorrtllm_backend/tools/fill_template.py -i inflight_batcher_llm/tensorrt_llm/config.pbtxt triton_max_batch_size:64,decoupled_mode:False,max_beam_width:1,engine_dir:engines/1gpu,max_tokens_in_paged_kv_cache:2560,max_attention_window_size:2560,kv_cache_free_gpu_mem_fraction:0.5,exclude_input_in_output:True,enable_kv_cache_reuse:False,batching_strategy:inflight_batching,max_queue_delay_microseconds:600
 </code></pre>
 <h2 id="部署"><a class="header" href="#部署">部署</a></h2>
-<p>使用以下 YAML 配置文件创建 MLServiceRuntime 和 MLService 以部署服务：</p>
+<p>接下来启动 Triton 推理服务器。使用以下 YAML 配置文件创建 MLServiceRuntime 和 MLService 以部署服务：</p>
 <pre><code class="language-bash">cd examples/deployments/triton-tensorrtllm
 kubectl apply -f mlservice-runtime.yaml
 kubectl create -f mlservice.yaml

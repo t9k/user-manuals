@@ -229,7 +229,8 @@
   examples/deepspeed/megatron-gpt/training/gpt-125m-4xdp.yaml
 </code></pre>
 <p>通过以下命令查看训练过程中打印的日志：</p>
-<pre><code class="language-bash">kubectl logs gpt-125m-4xdp-worker-0 -f
+<pre><code class="language-bash">export POD=$(kubectl get dj gpt-125m -o jsonpath=&quot;{.status.tasks[0].replicas[0].name}&quot;)
+kubectl logs $POD -f
 </code></pre>
 <figure class="screenshot">
   <img alt="log" src="../assets/tasks/profile-model-training/log.png" />

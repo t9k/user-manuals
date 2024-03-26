@@ -198,7 +198,7 @@
 <pre><code class="language-bash">cd ~
 git clone https://github.com/t9k/examples.git
 </code></pre>
-<p>使用预制的模型仓库：</p>
+<p>我们需要创建一个<a target="_blank" rel="noopener noreferrer" href="https://github.com/triton-inference-server/server/blob/main/docs/user_guide/model_repository.md">模型仓库（model repository）</a>用于 Triton 加载模型。这里使用预制的模型仓库：</p>
 <pre><code class="language-bash">cp -R examples/deployments/triton-python/python_model_repository .
 </code></pre>
 <p>然后从 Hugging Face Hub 下载要部署的模型，这里以 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/google/vit-base-patch16-224-in21k">vit-base-patch16-224-in21k</a> 模型为例：</p>

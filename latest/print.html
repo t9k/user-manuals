@@ -7882,7 +7882,7 @@ NAME                                                  PHASE
 event-listener-sample-workflow-trigger-sample-87a0d   Succeeded
 </code></pre>
 <p>根据返回的结果可以看出，WorkflowRun 已经创建成功。该 WorkflowRun 将根据上面 WorkflowTemplate 静态模块的内容创建一个 Pod，通过下面的命令进行查询：</p>
-<pre><code class="language-bash">$ kubectl get po -l batch.tensorstack.dev/workflowRun=event-listener-sample-workflow-trigger-sample-87a0d
+<pre><code class="language-bash">$ kubectl get pod -l batch.tensorstack.dev/workflowRun=event-listener-sample-workflow-trigger-sample-87a0d
 NAME                                                            READY   STATUS      RESTARTS   AGE
 event-listener-sample-workflow-trigger-sample-87a0d-pod-6stvb   0/1     Completed   0          3m23s
 </code></pre>
@@ -9146,7 +9146,8 @@ dataset             Bound    pvc-cc7f789a-6fcb-44a0-8f42-0e6c86e51a1a   1       
   examples/deepspeed/megatron-gpt/training/gpt-125m-4xdp.yaml
 </code></pre>
 <p>通过以下命令查看训练过程中打印的日志：</p>
-<pre><code class="language-bash">kubectl logs gpt-125m-4xdp-worker-0 -f
+<pre><code class="language-bash">export POD=$(kubectl get dj gpt-125m -o jsonpath=&quot;{.status.tasks[0].replicas[0].name}&quot;)
+kubectl logs $POD -f
 </code></pre>
 <figure class="screenshot">
   <img alt="log" src="tasks/../assets/tasks/profile-model-training/log.png" />
@@ -21535,7 +21536,8 @@ kubectl create -f \
 </ol>
 </aside>
 <p>通过以下命令查看训练过程中打印的日志：</p>
-<pre><code class="language-bash">kubectl logs gpt-125m-worker-0 -f
+<pre><code class="language-bash">export POD=$(kubectl get dj gpt-125m -o jsonpath=&quot;{.status.tasks[0].replicas[0].name}&quot;)
+kubectl logs $POD -f
 </code></pre>
 <figure class="screenshot">
   <img alt="log" src="examples/../assets/examples/start-llm-large-scale-pretraining/log.png" />
@@ -21638,7 +21640,8 @@ git clone https://huggingface.co/baichuan-inc/Baichuan2-7B-Base
 <pre><code class="language-bash">kubectl create -f examples/llama-factory/training/sft.yaml
 </code></pre>
 <p>通过以下命令查看训练过程中打印的日志：</p>
-<pre><code class="language-bash">kubectl logs baichuan2-sft-single-node-worker-0 -f
+<pre><code class="language-bash">export POD=$(kubectl get dj baichuan2-sft -o jsonpath=&quot;{.status.tasks[0].replicas[0].name}&quot;)
+kubectl logs $POD -f
 </code></pre>
 <figure class="screenshot">
   <img alt="log" src="examples/../assets/examples/start-llm-finetuning/log.png" />
@@ -22185,7 +22188,7 @@ kubectl create -f mlservice-70b.yaml
 <pre><code class="language-bash">cd ~
 git clone https://github.com/t9k/examples.git
 </code></pre>
-<p>使用预制的模型仓库：</p>
+<p>我们需要创建一个<a target="_blank" rel="noopener noreferrer" href="https://github.com/triton-inference-server/server/blob/main/docs/user_guide/model_repository.md">模型仓库（model repository）</a>用于 Triton 加载模型。这里使用预制的模型仓库：</p>
 <pre><code class="language-bash">cp -R examples/deployments/triton-python/python_model_repository .
 </code></pre>
 <p>然后从 Hugging Face Hub 下载要部署的模型，这里以 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/google/vit-base-patch16-224-in21k">vit-base-patch16-224-in21k</a> 模型为例：</p>
@@ -22264,13 +22267,13 @@ python -c \
   &quot;from modelscope import snapshot_download; snapshot_download('shakechen/Llama-2-7b-chat-hf')&quot;
 mv .cache/modelscope/hub/shakechen/Llama-2-7b-chat-hf .
 </code></pre>
-<h2 id="创建模型仓库"><a class="header" href="#创建模型仓库">创建模型仓库</a></h2>
-<p>首先安装 TensorRT-LLM：</p>
+<h2 id="构建-tensorrt-引擎"><a class="header" href="#构建-tensorrt-引擎">构建 TensorRT 引擎</a></h2>
+<p>安装 TensorRT-LLM：</p>
 <pre><code class="language-bash">sudo apt-get update &amp;&amp; sudo apt-get -y install openmpi-bin libopenmpi-dev  # password: tensorstack
 sudo rm /opt/conda/compiler_compat/ld  # a workaround to build mpi4py within a conda env using an external MPI
 pip install tensorrt_llm==0.8.0 --extra-index-url https://pypi.nvidia.com
 </code></pre>
-<p>然后克隆 <a target="_blank" rel="noopener noreferrer" href="https://github.com/NVIDIA/TensorRT-LLM"><code>NVIDIA/TensorRT-LLM</code></a> 仓库，利用其中的 LLaMA 示例代码构建 TensorRT 引擎：</p>
+<p>克隆 <a target="_blank" rel="noopener noreferrer" href="https://github.com/NVIDIA/TensorRT-LLM"><code>NVIDIA/TensorRT-LLM</code></a> 仓库，利用其中的 LLaMA 示例代码，先将模型转换为 TensorRT-LLM 检查点格式，再构建 TensorRT 引擎：</p>
 <pre><code class="language-bash">git clone https://github.com/NVIDIA/TensorRT-LLM.git &amp;&amp; cd TensorRT-LLM &amp;&amp; git reset --hard 655524d
 cd examples/llama/
 python convert_checkpoint.py --model_dir ~/Llama-2-7b-chat-hf \
@@ -22280,7 +22283,9 @@ trtllm-build --checkpoint_dir ~/Llama-2-7b-chat-hf/tllm-checkpoint-fp16-1gpu \
     --output_dir ~/engines/1gpu \
     --gemm_plugin float16  # ~14GB GPU memory
 </code></pre>
-<p>克隆 <a target="_blank" rel="noopener noreferrer" href="https://github.com/triton-inference-server/tensorrtllm_backend"><code>triton-inference-server/tensorrtllm_backend</code></a> 仓库，复制其中的 <a target="_blank" rel="noopener noreferrer" href="https://github.com/triton-inference-server/server/blob/main/docs/user_guide/model_repository.md">模型仓库（model repository）</a>模板，并修改配置：</p>
+<h2 id="创建模型仓库"><a class="header" href="#创建模型仓库">创建模型仓库</a></h2>
+<p>我们还需要创建一个<a target="_blank" rel="noopener noreferrer" href="https://github.com/triton-inference-server/server/blob/main/docs/user_guide/model_repository.md">模型仓库（model repository）</a>并放入刚才构建的 TensorRT 引擎，用于 Triton 加载模型。</p>
+<p>克隆 <a target="_blank" rel="noopener noreferrer" href="https://github.com/triton-inference-server/tensorrtllm_backend"><code>triton-inference-server/tensorrtllm_backend</code></a> 仓库，复制其中的模型仓库模板，并修改配置：</p>
 <pre><code class="language-bash">cd ~
 git clone https://github.com/triton-inference-server/tensorrtllm_backend.git &amp;&amp; cd tensorrtllm_backend &amp;&amp; git reset --hard da59830 &amp;&amp; cd ~
 cp -R tensorrtllm_backend/all_models/inflight_batcher_llm inflight_batcher_llm
@@ -22292,7 +22297,7 @@ python tensorrtllm_backend/tools/fill_template.py -i inflight_batcher_llm/ensemb
 python tensorrtllm_backend/tools/fill_template.py -i inflight_batcher_llm/tensorrt_llm/config.pbtxt triton_max_batch_size:64,decoupled_mode:False,max_beam_width:1,engine_dir:engines/1gpu,max_tokens_in_paged_kv_cache:2560,max_attention_window_size:2560,kv_cache_free_gpu_mem_fraction:0.5,exclude_input_in_output:True,enable_kv_cache_reuse:False,batching_strategy:inflight_batching,max_queue_delay_microseconds:600
 </code></pre>
 <h2 id="部署-3"><a class="header" href="#部署-3">部署</a></h2>
-<p>使用以下 YAML 配置文件创建 MLServiceRuntime 和 MLService 以部署服务：</p>
+<p>接下来启动 Triton 推理服务器。使用以下 YAML 配置文件创建 MLServiceRuntime 和 MLService 以部署服务：</p>
 <pre><code class="language-bash">cd examples/deployments/triton-tensorrtllm
 kubectl apply -f mlservice-runtime.yaml
 kubectl create -f mlservice.yaml
