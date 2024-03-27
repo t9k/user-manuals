@@ -11,7 +11,7 @@ t9k-pf 可以从平台首页下载。请根据操作系统和架构（可以在�
 根据下载的版本，设置 t9k-pf 的版本和系统架构等变量：
 
 ``` bash
-version=0.2.6
+version=0.2.8
 os=darwin
 arch=amd64
 ```
