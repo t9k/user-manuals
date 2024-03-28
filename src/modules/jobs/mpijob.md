@@ -98,6 +98,129 @@ spec:
 ...
 ```
 
+## 副本设置
+
+MPIJob 副本运行环境和命令可以通过 `spec.worker.template` 进行配置，可配置内容包括镜像、运行命令、资源配置、环境变量等。
+
+### 资源配置
+
+副本资源配置通过 `spec.worker.template.spec.containers[*].resources` 字段指定。
+
+MPIJob 的资源配置包括两部分：
+
+* 资源请求量（`requests`）：创建该副本时，节点上至少应具有这些数量的资源。如果集群中所有节点都不满足副本的资源请求量，则副本的创建可能会被阻塞；或者如果副本的优先级较高，则有可能驱逐节点上其他工作负载来为副本空出可用的资源。
+* 资源上限（`limits`）：该副本在运行期间，最多可以使用的资源数量。比如：如果副本在运行时申请分配超过上限的内存，则有可能出现 `OOMKILLED` 错误。（注：资源上限不能小于资源请求量）
+
+在下面的示例中，MPIJob 中每个副本设置了以下资源配置：
+
+* 资源请求量：2 个 cpu 核心、2Gi 内存；
+* 资源上限：4 个 cpu 核心、4Gi 内存。
+
+```yaml
+apiVersion: batch.tensorstack.dev/v1beta1
+kind: MPIJob
+metadata:
+  name: mpi-example
+spec:
+  worker:
+    replicas: 4
+    template:
+      spec:
+        containers:
+        - resources:
+            limits:
+              cpu: 4
+              memory: 4Gi
+            requests:
+              cpu: 2
+              memory: 2Gi
+```
+
+#### 共享内存
+
+在进行多节点任务时，可以按照如下方式修改 MPIJob 来使用共享内存：
+
+```yaml
+apiVersion: batch.tensorstack.dev/v1beta1
+kind: MPIJob
+metadata:
+  name: mpi-example
+spec:
+  worker:
+    replicas: 4
+    template:
+      spec:
+        containers:
+        - ...
+          volumeMounts:
+            - mountPath: /dev/shm
+              name: dshm
+        volumes:
+        - name: dshm
+          emptyDir:
+            medium: Memory
+            sizeLimit: "1Gi"
+```
+
+在该例中：
+
+* 在 `spec.worker.template.spec.volumes` 中增加一项，名称为 `dshm`，其中限制共享内存最大为 `1Gi`；
+* 在 `spec.worker.template.spec.containers[*].volumeMounts` 中增加一项，将上述 `dshm` 绑定到 `/dev/shm` 路径。
+
+<aside class="note tip">
+<div class="title">提示</div>
+
+如果当前副本中设置了内存资源上限，则共享内存的大小不能超过副本的内存上限；如果副本没有设置内存资源上限，则共享内存的大小最大可以设置为当前所在节点内存的最大容量。
+
+</aside>
+
+### 环境变量
+
+副本环境变量通过 `spec.worker.template.spec.containers[*].env` 字段指定。MPIJob 支持直接设置环境变量内容和引用其他资源字段作为环境变量两种方式。
+
+在下面的示例中，MPIJob 给副本设置了两个环境变量：`ENV_DIRECT` 和 `ENV_REFERENCED`。其中 `ENV_DIRECT` 环境变量被直接设置为 `env-value`，`ENV_REFERENCED` 环境变量引用了 `secret-name` Secret 的 `key-in-secret` 字段的内容。
+
+```yaml
+apiVersion: batch.tensorstack.dev/v1beta1
+kind: MPIJob
+metadata:
+  name: mpi-example
+spec:
+  worker:
+    replicas: 4
+    template:
+      spec:
+        containers:
+          - env:
+            - name: ENV_DIRECT
+              value: env-value
+            - name: ENV_REFERENCED
+              valueFrom:
+                secretKeyRef:
+                  name: secret-name
+                  key: key-in-secret
+```
+
+<aside class="note tip">
+<div class="title">提示</div>
+
+环境变量常被用于：
+
+1. 设置网络代理：`HTTP_PROXY` 和 `HTTPS_PROXY`；
+2. 设置额外的 Python 包和模块路径：`PYTHONPATH`；
+3. 设置 C 语言静态库和共享库路径：`LIBRARY_PATH` 和 `LD_LIBRARY_PATH`；
+4. ...
+
+</aside>
+
+<aside class="note tip">
+<div class="title">提示</div>
+
+更多环境变量相关配置，请参考 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/tasks/inject-data-application/">Inject Data Into Applications
+</a>。
+
+</aside>
+
 ## 调度器
 
 目前 MPIJob 支持使用以下两种调度器：

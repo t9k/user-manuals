@@ -67,15 +67,133 @@ XGBoostTrainingJob 中执行的脚本应使用 XGBoost 分布式训练框架，�
 
 </aside>
 
-## 成功和失败
+## 副本设置
 
-在 XGBoost 分布式训练框架中，副本有 2 种类型：Master 和 Worker，其中 Master 是主节点。当分布式训练的主节点成功结束时，XGBoost 分布式训练成功；反之，当分布式训练的主节点执行失败时，XGBoost 分布式训练失败。
+XGBoostTrainingJob 副本运行环境和命令可以通过 `spec.replicaSpecs[*].template` 进行配置，可配置内容包括镜像、运行命令、资源配置、环境变量等。
 
-但是主节点的失败有时可能是因为环境因素导致的，比如集群网络断连、集群节点崩溃等等，此类原因导致的失败应该被允许自动恢复。针对这一情况，XGBoostTrainingJob 允许副本重启（请参阅[重启机制](#重启机制)），并设定了重启次数限制（由 `spec.runPolicy.backoffLimit` 字段指定），当副本重启次数达到上限后，如果主节点再次失败，则训练失败。此外，XGBoostTrainingJob 可以设置最长执行时间（由 `spec.runPolicy.activeDeadlineSeconds` 字段指定），当超过这个执行时间后，训练失败。
+### 资源配置
 
-如果 XGBoostTrainingJob 在没有超过重启次数和没有超过最长执行时间的情况下成功完成了主节点的运行，则训练成功。
+副本资源配置通过 `spec.replicaSpecs[*].template.spec.containers[*].resources` 字段指定。
 
-## 重启机制
+XGBoostTrainingJob 的资源配置包括两部分：
+
+* 资源请求量（`requests`）：创建该副本时，节点上至少应具有这些数量的资源。如果集群中所有节点都不满足副本的资源请求量，则副本的创建可能会被阻塞；或者如果副本的优先级较高，则有可能驱逐节点上其他工作负载来为副本空出可用的资源。
+* 资源上限（`limits`）：该副本在运行期间，最多可以使用的资源数量。比如：如果副本在运行时申请分配超过上限的内存，则有可能出现 `OOMKILLED` 错误。（注：资源上限不能小于资源请求量）
+
+在下面的示例中，XGBoostTrainingJob 中每个 `worker` 副本设置了以下资源配置：
+
+* 资源请求量：2 个 cpu 核心、2Gi 内存；
+* 资源上限：4 个 cpu 核心、4Gi 内存。
+
+```yaml
+apiVersion: batch.tensorstack.dev/v1beta1
+kind: XGBoostTrainingJob
+metadata:
+  name: xgboost-example
+spec:
+  replicaSpecs:
+    - type: worker
+      replicas: 4
+      template:
+        spec:
+          containers:
+          - resources:
+              limits:
+                cpu: 4
+                memory: 4Gi
+              requests:
+                cpu: 2
+                memory: 2Gi
+```
+
+#### 共享内存
+
+在进行多节点任务时，可以按照如下方式修改 XGBoostTrainingJob 来使用共享内存：
+
+```yaml
+apiVersion: batch.tensorstack.dev/v1beta1
+kind: XGBoostTrainingJob
+metadata:
+  name: xgboost-example
+spec:
+  replicaSpecs:
+    - type: worker
+      replicas: 4
+      template:
+        spec:
+          containers:
+          - ...
+            volumeMounts:
+              - mountPath: /dev/shm
+                name: dshm
+          volumes:
+          - name: dshm
+            emptyDir:
+              medium: Memory
+              sizeLimit: "1Gi"
+```
+
+在该例中：
+
+* 在 `spec.replicaSpecs[*].template.spec.volumes` 中增加一项，名称为 `dshm`，其中限制共享内存最大为 `1Gi`；
+* 在 `spec.replicaSpecs[*].template.spec.containers[*].volumeMounts` 中增加一项，将上述 `dshm` 绑定到 `/dev/shm` 路径。
+
+<aside class="note tip">
+<div class="title">提示</div>
+
+如果当前副本中设置了内存资源上限，则共享内存的大小不能超过副本的内存上限；如果副本没有设置内存资源上限，则共享内存的大小最大可以设置为当前所在节点内存的最大容量。
+
+</aside>
+
+### 环境变量
+
+副本环境变量通过 `spec.replicaSpecs[*].template.spec.containers[*].env` 字段指定。XGBoostTrainingJob 支持直接设置环境变量内容和引用其他资源字段作为环境变量两种方式。
+
+在下面的示例中，XGBoostTrainingJob 给 `worker` 副本设置了两个环境变量：`ENV_DIRECT` 和 `ENV_REFERENCED`。其中 `ENV_DIRECT` 环境变量被直接设置为 `env-value`，`ENV_REFERENCED` 环境变量引用了 `secret-name` Secret 的 `key-in-secret` 字段的内容。
+
+```yaml
+apiVersion: batch.tensorstack.dev/v1beta1
+kind: XGBoostTrainingJob
+metadata:
+  name: xgboost-example
+spec:
+  replicaSpecs:
+    - type: worker
+      replicas: 4
+      template:
+        spec:
+          containers:
+            - env:
+              - name: ENV_DIRECT
+                value: env-value
+              - name: ENV_REFERENCED
+                valueFrom:
+                  secretKeyRef:
+                    name: secret-name
+                    key: key-in-secret
+```
+
+<aside class="note tip">
+<div class="title">提示</div>
+
+环境变量常被用于：
+
+1. 设置网络代理：`HTTP_PROXY` 和 `HTTPS_PROXY`；
+2. 设置额外的 Python 包和模块路径：`PYTHONPATH`；
+3. 设置 C 语言静态库和共享库路径：`LIBRARY_PATH` 和 `LD_LIBRARY_PATH`；
+4. ...
+
+</aside>
+
+<aside class="note tip">
+<div class="title">提示</div>
+
+更多环境变量相关配置，请参考 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/tasks/inject-data-application/">Inject Data Into Applications
+</a>。
+
+</aside>
+
+### 重启机制
 
 XGBoostTrainingJob 的 `spec.replicaSpec[*].template` 字段使用 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/workloads/pods/#pod-templates">PodTemplate</a> 的规范填写，但是 Pod 的重启策略并不能满足 XGBoostTrainingJob 的需求，所以 XGBoostTrainingJob 使用 `spec.replicaSpec[*].restartPolicy` 字段覆盖 `spec.replicaSpec[*].template` 中指定的重启策略。
 
@@ -95,9 +213,15 @@ XGBoostTrainingJob 的 `spec.replicaSpec[*].template` 字段使用 <a target="_b
 * 143（128+15）：容器接收到 `SIGTERM` 信号。
 * 138：用户可以自定义这个返回值的含义。如果用户希望程序在某处退出并重启，可以在代码中写入这个返回值。
 
-### 重启次数限制
-
 如果因为某种原因（例如代码错误或者环境错误并且长时间没有修复），XGBoostTrainingJob 不断地失败重启却无法解决问题，这会导致集群资源的浪费。用户可以通过设置 `spec.runPolicy.backoffLimit` 字段来设置副本的最大重启次数。重启次数为所有副本共享，即所有副本重启次数累计达到此数值后，副本将不能再次重启。
+
+## 成功和失败
+
+在 XGBoost 分布式训练框架中，副本有 2 种类型：Master 和 Worker，其中 Master 是主节点。当分布式训练的主节点成功结束时，XGBoost 分布式训练成功；反之，当分布式训练的主节点执行失败时，XGBoost 分布式训练失败。
+
+但是主节点的失败有时可能是因为环境因素导致的，比如集群网络断连、集群节点崩溃等等，此类原因导致的失败应该被允许自动恢复。针对这一情况，XGBoostTrainingJob 允许副本重启（请参阅[重启机制](#重启机制)），并设定了重启次数限制（由 `spec.runPolicy.backoffLimit` 字段指定），当副本重启次数达到上限后，如果主节点再次失败，则训练失败。此外，XGBoostTrainingJob 可以设置最长执行时间（由 `spec.runPolicy.activeDeadlineSeconds` 字段指定），当超过这个执行时间后，训练失败。
+
+如果 XGBoostTrainingJob 在没有超过重启次数和没有超过最长执行时间的情况下成功完成了主节点的运行，则训练成功。
 
 ## 清除策略
 
