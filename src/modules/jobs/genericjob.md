@@ -32,49 +32,29 @@ spec:
 
 在该例中：
 
-* 创建 4 个副本（由 `spec.replicaSpecs[0].replicas` 字段指定），这些副本的角色为 `worker`（由 `spec.replicaSpecs[0].type` 字段指定）。每个副本执行命令 `sleep 365`（由 `spec.replicaSpecs[0].template` 字段指定）。
-* GenericJob 的成功条件为序号为 0 且角色为 `worker` 的副本执行完成（由 `spec.successRules` 字段指定）。
+* 创建 4 个副本（由 `spec.replicaSpecs[0].replicas` 字段指定），这些副本的类型为 `worker`（由 `spec.replicaSpecs[0].type` 字段指定）。每个副本执行命令 `sleep 365`（由 `spec.replicaSpecs[0].template` 字段指定）。
+* GenericJob 的成功条件为序号为 0 且类型为 `worker` 的副本执行完成（由 `spec.successRules` 字段指定）。
 * GenericJob 的失败条件有两个，任意一个条件达成都会导致 GenericJob 失败（由 `spec.failureRules` 字段指定）：
-    * 序号为 0 且角色为 `worker` 的副本执行失败。
-    * 序号为 1 且角色为 `worker` 的副本执行失败。
+    * 序号为 0 且类型为 `worker` 的副本执行失败。
+    * 序号为 1 且类型为 `worker` 的副本执行失败。
 
-## 成功和失败
+## 副本设置
 
-GenericJob 的成功和失败条件是通过 `spec.successRules` 和 `spec.failureRules` 字段指定的，其规则如下：
+GenericJob 副本运行环境和命令可以通过 `spec.replicaSpecs[*].template` 进行配置，可配置内容包括镜像、运行命令、资源配置、环境变量等。
 
-* `spec.successRules` 数组包含 GenericJob 的所有成功条件，其中：
-    * 任意一个条件达成则 GenericJob 成功。
-    * 每个条件是一个由若干副本组成的集合，如果这些副本都执行完成，则该条件达成。
-* `spec.failureRules` 数组包含 GenericJob 的所有失败条件，其中
-    * 任意一个条件达成则 GenericJob 失败。
-    * 每个条件是一个由若干副本组成的集合，如果这些副本都失败或者重启次数耗尽，则该条件达成。
+### 资源配置
 
-在下面的示例中，记录了 3 种 GenericJob 成功的判定条件：
+副本资源配置通过 `spec.replicaSpecs[*].template.spec.containers[*].resources` 字段指定。
 
-* 角色为 `master` 且序号为 0 的副本执行完成。
-* 角色为 `worker` 且序号为 0、1、2 的三个副本全部执行完成。
-* 角色为 `master` 且序号为 2 和角色为 `worker` 且序号为 0、1 的三个副本全部执行完成。
+GenericJob 的资源配置包括两部分：
 
-和 1 种 GenericJob 失败的判定：
+* 资源请求量（`requests`）：创建该副本时，节点上至少应具有这些数量的资源。如果集群中所有节点都不满足副本的资源请求量，则副本的创建可能会被阻塞；或者如果副本的优先级较高，则有可能驱逐节点上其他工作负载来为副本空出可用的资源。
+* 资源上限（`limits`）：该副本在运行期间，最多可以使用的资源数量。比如：如果副本在运行时申请分配超过上限的内存，则有可能出现 `OOMKILLED` 错误。（注：资源上限不能小于资源请求量）
 
-* 角色为 `master` 且序号为 0 的副本执行失败。
+在下面的示例中，GenericJob 中每个 `worker` 副本设置了以下资源配置：
 
-```yaml
-...
-spec:
-  successRules:
-  - {"master": [0]}
-  - {"worker": [0, 1, 2]}
-  - {"master": [2], "worker": [0, 1]}
-  failureRules:
-  - {"master": [0]}
-```
-
-## 暴露副本的服务
-
-在分布式计算中，有时需要不同的副本之间进行通信和数据交换。使用者可以通过设置 `spec.service` 字段来暴露副本的端口。
-
-在下面的示例中，GenericJob 暴露出每一个副本的服务：端口为 `2222`，域名的格式为 `[job-name]-[type]-[rank]`，例如下例中角色为 `worker` 且序号为 0 的副本的域名为 `generic-example-worker-0`。
+* 资源请求量：2 个 cpu 核心、2Gi 内存；
+* 资源上限：4 个 cpu 核心、4Gi 内存。
 
 ```yaml
 apiVersion: batch.tensorstack.dev/v1beta1
@@ -82,27 +62,119 @@ kind: GenericJob
 metadata:
   name: generic-example
 spec:
-  service:
-    ports:
-      - name: http
-        port: 2222
   replicaSpecs:
     - type: worker
-      replicas: 1
-...
+      replicas: 4
+      template:
+        spec:
+          containers:
+          - resources:
+              limits:
+                cpu: 4
+                memory: 4Gi
+              requests:
+                cpu: 2
+                memory: 2Gi
 ```
 
-## 变量替换
+#### 共享内存
 
-在副本的配置信息中有时需要传入副本自身或其他副本的信息，包括序号、角色和副本的服务地址等。GenericJob 通过变量替换的方式提供这些信息，主要有以下 5 种变量：
+在进行多节点任务时，可以按照如下方式修改 GenericJob 来使用共享内存：
 
-* `$(type)`：当前副本的角色。
+```yaml
+apiVersion: batch.tensorstack.dev/v1beta1
+kind: GenericJob
+metadata:
+  name: generic-example
+spec:
+  replicaSpecs:
+    - type: worker
+      replicas: 4
+      template:
+        spec:
+          containers:
+          - ...
+            volumeMounts:
+              - mountPath: /dev/shm
+                name: dshm
+          volumes:
+          - name: dshm
+            emptyDir:
+              medium: Memory
+              sizeLimit: "1Gi"
+```
+
+在该例中：
+
+* 在 `spec.replicaSpecs[*].template.spec.volumes` 中增加一项，名称为 `dshm`，其中限制共享内存最大为 `1Gi`；
+* 在 `spec.replicaSpecs[*].template.spec.containers[*].volumeMounts` 中增加一项，将上述 `dshm` 绑定到 `/dev/shm` 路径。
+
+<aside class="note tip">
+<div class="title">提示</div>
+
+如果当前副本中设置了内存资源上限，则共享内存的大小不能超过副本的内存上限；如果副本没有设置内存资源上限，则共享内存的大小最大可以设置为当前所在节点内存的最大容量。
+
+</aside>
+
+### 环境变量
+
+副本环境变量通过 `spec.replicaSpecs[*].template.spec.containers[*].env` 字段指定。GenericJob 支持直接设置环境变量内容和引用其他资源字段作为环境变量两种方式。
+
+在下面的示例中，GenericJob 给 `worker` 副本设置了两个环境变量：`ENV_DIRECT` 和 `ENV_REFERENCED`。其中 `ENV_DIRECT` 环境变量被直接设置为 `env-value`，`ENV_REFERENCED` 环境变量引用了 `secret-name` Secret 的 `key-in-secret` 字段的内容。
+
+```yaml
+apiVersion: batch.tensorstack.dev/v1beta1
+kind: GenericJob
+metadata:
+  name: generic-example
+spec:
+  replicaSpecs:
+    - type: worker
+      replicas: 4
+      template:
+        spec:
+          containers:
+            - env:
+              - name: ENV_DIRECT
+                value: env-value
+              - name: ENV_REFERENCED
+                valueFrom:
+                  secretKeyRef:
+                    name: secret-name
+                    key: key-in-secret
+```
+
+<aside class="note tip">
+<div class="title">提示</div>
+
+环境变量常被用于：
+
+1. 设置网络代理：`HTTP_PROXY` 和 `HTTPS_PROXY`；
+2. 设置额外的 Python 包和模块路径：`PYTHONPATH`；
+3. 设置 C 语言静态库和共享库路径：`LIBRARY_PATH` 和 `LD_LIBRARY_PATH`；
+4. ...
+
+</aside>
+
+<aside class="note tip">
+<div class="title">提示</div>
+
+更多环境变量相关配置，请参考 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/tasks/inject-data-application/">Inject Data Into Applications
+</a>。
+
+</aside>
+
+### 变量替换
+
+在副本的配置信息中有时需要传入副本自身或其他副本的信息，包括序号、类型和副本的服务地址等。GenericJob 通过变量替换的方式提供这些信息，主要有以下 5 种变量：
+
+* `$(type)`：当前副本的类型。
 * `$(rank)`：当前副本在同类副本中的序号。
-* `$(replicas[_type_])`：扮演此角色的副本的数量。
+* `$(replicas[_type_])`：扮演此类型的副本的数量。
 * `$(service._type_[_rank_].host)`：各个副本的域名（当且仅当[副本的服务被暴露出来](#暴露副本的服务)，此变量可用）。
 * `$(service.port[_port-name_])`：`spec.service.ports` 字段中定义的服务端口号（当且仅当[副本的服务被暴露出来](#暴露副本的服务)，此变量可用）。
 
-上述变量中 `_type_`、`_rank_` 和 `_port-name_` 需填入具体的**角色**、**序号**和**端口名称**（由 `spec.service.ports[*].name` 字段指定）。
+上述变量中 `_type_`、`_rank_` 和 `_port-name_` 需填入具体的**类型**、**序号**和**端口名称**（由 `spec.service.ports[*].name` 字段指定）。
 
 变量替换可以被使用在下列字段中：
 
@@ -134,7 +206,7 @@ spec:
                   value: '{"task":{"type":"$(type)","index":$(rank)},"cluster":{"worker":["$(service.worker[0].host):$(service.port[http])","$(service.worker[1].host):$(service.port[http])","$(service.worker[2].host):$(service.port[http])","$(service.worker[3].host):$(service.port[http])"]}}'
 ```
 
-## 重启机制
+### 重启机制
 
 GenericJob 为副本提供以下重启机制：
 
@@ -147,7 +219,61 @@ GenericJob 重启机制通过 `spec.replicaSpecs[*].restartPolicy` 字段指定:
 * `spec.replicaSpecs[*].restartPolicy.policy` 表示当前副本所使用的重启策略，可以设置为 `Never`、`OnFailure` 或 `Always`。
 * `spec.replicaSpecs[*].restartPolicy.limit` 表示当前副本的最大重启次数。
 
-不同的角色可以使用不同的重启策略，比如 `master` 使用 `Always`，`worker` 使用 `OnFailure`。
+不同的类型可以使用不同的重启策略，比如 `master` 使用 `Always`，`worker` 使用 `OnFailure`。
+
+## 成功和失败
+
+GenericJob 的成功和失败条件是通过 `spec.successRules` 和 `spec.failureRules` 字段指定的，其规则如下：
+
+* `spec.successRules` 数组包含 GenericJob 的所有成功条件，其中：
+    * 任意一个条件达成则 GenericJob 成功。
+    * 每个条件是一个由若干副本组成的集合，如果这些副本都执行完成，则该条件达成。
+* `spec.failureRules` 数组包含 GenericJob 的所有失败条件，其中
+    * 任意一个条件达成则 GenericJob 失败。
+    * 每个条件是一个由若干副本组成的集合，如果这些副本都失败或者重启次数耗尽，则该条件达成。
+
+在下面的示例中，记录了 3 种 GenericJob 成功的判定条件：
+
+* 类型为 `master` 且序号为 0 的副本执行完成。
+* 类型为 `worker` 且序号为 0、1、2 的三个副本全部执行完成。
+* 类型为 `master` 且序号为 2 和类型为 `worker` 且序号为 0、1 的三个副本全部执行完成。
+
+和 1 种 GenericJob 失败的判定：
+
+* 类型为 `master` 且序号为 0 的副本执行失败。
+
+```yaml
+...
+spec:
+  successRules:
+  - {"master": [0]}
+  - {"worker": [0, 1, 2]}
+  - {"master": [2], "worker": [0, 1]}
+  failureRules:
+  - {"master": [0]}
+```
+
+## 暴露副本的服务
+
+在分布式计算中，有时需要不同的副本之间进行通信和数据交换。使用者可以通过设置 `spec.service` 字段来暴露副本的端口。
+
+在下面的示例中，GenericJob 暴露出每一个副本的服务：端口为 `2222`，域名的格式为 `[job-name]-[type]-[rank]`，例如下例中类型为 `worker` 且序号为 0 的副本的域名为 `generic-example-worker-0`。
+
+```yaml
+apiVersion: batch.tensorstack.dev/v1beta1
+kind: GenericJob
+metadata:
+  name: generic-example
+spec:
+  service:
+    ports:
+      - name: http
+        port: 2222
+  replicaSpecs:
+    - type: worker
+      replicas: 1
+...
+```
 
 ## 清除策略
 
@@ -162,9 +288,9 @@ GenericJob 重启机制通过 `spec.replicaSpecs[*].restartPolicy` 字段指定:
 
 已结束的副本不会继续消耗集群资源，因此在一定程度上，`Unfinished` 策略比 `All` 策略更优。但这并不总是适用，由于一个项目的资源配额的计算不考虑 Pod 是否已经结束，对于资源紧张的项目，如果确定不需要通过日志来调试 Job，则可以使用 `All` 策略。
 
+`None` 策略主要用于训练脚本调试阶段。如果需要从副本中读取训练日志，则可以选用此策略。但由于这些副本可能占用资源并影响后续训练，建议你在调试完毕后手动删除这些副本或删除整个 GenericJob。
+
 </aside>
-    
-    `None` 策略主要用于训练脚本调试阶段。如果需要从副本中读取训练日志，则可以选用此策略。但由于这些副本可能占用资源并影响后续训练，建议你在调试完毕后手动删除这些副本或删除整个 GenericJob。
 
 ## 调度器
 
@@ -338,11 +464,11 @@ status:
 
 `status.tasks` 字段用来记录副本的状态，记录的内容主要包括：
 
-* 副本的重启次数（同一种角色的副本的重启次数之和）；
+* 副本的重启次数（同一种类型的副本的重启次数之和）；
 * 副本当前的运行阶段，此处的“运行阶段”在 K8s Pod 的 5 个阶段的基础上，添加了 `Creating` 和 `Deleted` 分别表示正在创建和已删除；
 * 副本在集群中对应的 Pod 的索引信息。
 
-在下面的示例中，GenericJob 创建了 2 个角色为 `worker` 的副本，这 2 个副本的重启次数之和为 3，当前均处于 `Running` 阶段，分别运行在 `generic-example-worker-0` 和 `generic-example-worker-1` 这 2 个 Pod 上。
+在下面的示例中，GenericJob 创建了 2 个类型为 `worker` 的副本，这 2 个副本的重启次数之和为 3，当前均处于 `Running` 阶段，分别运行在 `generic-example-worker-0` 和 `generic-example-worker-1` 这 2 个 Pod 上。
 
 ```yaml
 ...
