@@ -39,6 +39,8 @@
 
     * [实验管理](modules/experiment-management.md)
 
+    * [虚拟服务器](modules/virtualserver.md)
+
 * [账户和安全](modules/security/index.md)
     * [账户](modules/security/account.md)
     * [项目](modules/security/project.md)
@@ -168,6 +170,7 @@
     * [术语表](references/glossary.md)
     * [API 参考](references/api-reference/index.md)
         * [Project](references/api-reference/project.md)
+        * [VirtualServer](references/api-reference/virtualserver.md)
         * [GenericJob](references/api-reference/genericjob.md)
         * [TensorFlowTrainingJob](references/api-reference/tensorflowtrainingjob.md)
         * [PyTorchTrainingJob](references/api-reference/pytorchtrainingjob.md)
