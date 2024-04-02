@@ -75,16 +75,139 @@ spec:
 
 </aside>
 
+## 副本设置
+
+ColossalAIJob 副本运行环境和命令可以通过 `spec.worker.template` 进行配置，可配置内容包括镜像、运行命令、资源配置、环境变量等。
+
+### 资源配置
+
+副本资源配置通过 `spec.worker.template.spec.containers[*].resources` 字段指定。
+
+ColossalAIJob 的资源配置包括两部分：
+
+* 资源请求量（`requests`）：创建该副本时，节点上至少应具有这些数量的资源。如果集群中所有节点都不满足副本的资源请求量，则副本的创建可能会被阻塞；或者如果副本的优先级较高，则有可能驱逐节点上其他工作负载来为副本空出可用的资源。
+* 资源上限（`limits`）：该副本在运行期间，最多可以使用的资源数量。比如：如果副本在运行时申请分配超过上限的内存，则有可能出现 `OOMKILLED` 错误。（注：资源上限不能小于资源请求量）
+
+在下面的示例中，ColossalAIJob 中每个副本设置了以下资源配置：
+
+* 资源请求量：2 个 cpu 核心、2Gi 内存；
+* 资源上限：4 个 cpu 核心、4Gi 内存。
+
+```yaml
+apiVersion: batch.tensorstack.dev/v1beta1
+kind: ColossalAIJob
+metadata:
+  name: colossalai-example
+spec:
+  worker:
+    replicas: 4
+    template:
+      spec:
+        containers:
+        - resources:
+            limits:
+              cpu: 4
+              memory: 4Gi
+            requests:
+              cpu: 2
+              memory: 2Gi
+```
+
+#### 共享内存
+
+在进行多节点任务时，可以按照如下方式修改 ColossalAIJob 来使用共享内存：
+
+```yaml
+apiVersion: batch.tensorstack.dev/v1beta1
+kind: ColossalAIJob
+metadata:
+  name: colossalai-example
+spec:
+  worker:
+    replicas: 4
+    template:
+      spec:
+        containers:
+        - ...
+          volumeMounts:
+            - mountPath: /dev/shm
+              name: dshm
+        volumes:
+        - name: dshm
+          emptyDir:
+            medium: Memory
+            sizeLimit: "1Gi"
+```
+
+在该例中：
+
+* 在 `spec.worker.template.spec.volumes` 中增加一项，名称为 `dshm`，其中限制共享内存最大为 `1Gi`；
+* 在 `spec.worker.template.spec.containers[*].volumeMounts` 中增加一项，将上述 `dshm` 绑定到 `/dev/shm` 路径。
+
+<aside class="note tip">
+<div class="title">提示</div>
+
+如果当前副本中设置了内存资源上限，则共享内存的大小不能超过副本的内存上限；如果副本没有设置内存资源上限，则共享内存的大小最大可以设置为当前所在节点内存的最大容量。
+
+</aside>
+
+### 环境变量
+
+副本环境变量通过 `spec.worker.template.spec.containers[*].env` 字段指定。ColossalAIJob 支持直接设置环境变量内容和引用其他资源字段作为环境变量两种方式。
+
+在下面的示例中，ColossalAIJob 给副本设置了两个环境变量：`ENV_DIRECT` 和 `ENV_REFERENCED`。其中 `ENV_DIRECT` 环境变量被直接设置为 `env-value`，`ENV_REFERENCED` 环境变量引用了 `secret-name` Secret 的 `key-in-secret` 字段的内容。
+
+```yaml
+apiVersion: batch.tensorstack.dev/v1beta1
+kind: ColossalAIJob
+metadata:
+  name: colossalai-example
+spec:
+  worker:
+    replicas: 4
+    template:
+      spec:
+        containers:
+          - env:
+            - name: ENV_DIRECT
+              value: env-value
+            - name: ENV_REFERENCED
+              valueFrom:
+                secretKeyRef:
+                  name: secret-name
+                  key: key-in-secret
+```
+
+<aside class="note tip">
+<div class="title">提示</div>
+
+环境变量常被用于：
+
+1. 设置网络代理：`HTTP_PROXY` 和 `HTTPS_PROXY`；
+2. 设置额外的 Python 包和模块路径：`PYTHONPATH`；
+3. 设置 C 语言静态库和共享库路径：`LIBRARY_PATH` 和 `LD_LIBRARY_PATH`；
+4. ...
+
+</aside>
+
+<aside class="note tip">
+<div class="title">提示</div>
+
+更多环境变量相关配置，请参考 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/tasks/inject-data-application/">Inject Data Into Applications
+</a>。
+
+</aside>
+
+### 重启机制
+
+与其他 TrainingJob 不同，ColossalAIJob 使用 `colossalairun` 作为启动命令，在这种情况下，Pod 失败重启后不会再加入到训练中。所以 ColossalAIJob 无法像其他 TrainingJob 那样支持 Pod 失败重启。
+
 ## 成功和失败
 
 在 ColossalAIJob 分布式训练框架中：
 
 * 如果启动副本执行失败，ColossalAIJob 训练失败。
 * 如果启动副本执行成功，ColossalAIJob 并不一定成功：启动副本的作用是启动训练和监测，无论是训练成功还是失败，启动副本都会正常结束，而不是报错。因此，如果要确定 ColossalAIJob 是否成功结束，需要检查启动副本的日志。
-
-## 重启机制
-
-与其他 TrainingJob 不同，ColossalAIJob 使用 `colossalairun` 作为启动命令，在这种情况下，Pod 失败重启后不会再加入到训练中。所以 ColossalAIJob 无法像其他 TrainingJob 那样支持 Pod 失败重启。
 
 ## 清除策略
 
@@ -270,7 +393,7 @@ status:
 
 `status.tasks` 字段用来记录副本的状态，记录的内容主要包括：
 
-* 副本的重启次数（同一种角色的副本的重启次数之和）
+* 副本的重启次数（同一类型的副本的重启次数之和）
 * 副本当前的运行阶段
 * 副本在集群中对应的 Pod 的索引信息
 
