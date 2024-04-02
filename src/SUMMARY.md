@@ -39,8 +39,6 @@
 
     * [实验管理](modules/experiment-management.md)
 
-    * [虚拟服务器](modules/virtualserver.md)
-
 * [账户和安全](modules/security/index.md)
     * [账户](modules/security/account.md)
     * [项目](modules/security/project.md)
@@ -67,6 +65,7 @@
     * [ConfigMap](modules/auxiliary/configmap.md)
     * [Pod](modules/auxiliary/pod.md)
     * [ImageBuilder](modules/auxiliary/imagebuilder.md)
+    * [虚拟服务器](modules/virtualserver.md)
 
 * [工作流](modules/workflows/index.md)
     * [WorkflowTemplate](modules/workflows/workflowtemplate.md)
@@ -170,7 +169,6 @@
     * [术语表](references/glossary.md)
     * [API 参考](references/api-reference/index.md)
         * [Project](references/api-reference/project.md)
-        * [VirtualServer](references/api-reference/virtualserver.md)
         * [GenericJob](references/api-reference/genericjob.md)
         * [TensorFlowTrainingJob](references/api-reference/tensorflowtrainingjob.md)
         * [PyTorchTrainingJob](references/api-reference/pytorchtrainingjob.md)
@@ -189,6 +187,7 @@
         * [WorkflowTrigger](references/api-reference/workflowtrigger.md)
         * [SimpleMLService](references/api-reference/simplemlservice.md)
         * [MLService](references/api-reference/mlservice.md)
+        * [VirtualServer](references/api-reference/virtualserver.md)
     * [标准镜像](references/standard-images.md)
 
 ---

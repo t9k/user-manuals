@@ -1,9 +1,9 @@
 # 虚拟服务器
 
-虚拟服务器（VirtualServer）在集群中创建一个虚拟机，与容器环境相比：
+虚拟服务器（VirtualServer）在集群中创建一个虚拟机，与容器环境相比，虚拟机：
 
-- 虚拟机提供与物理计算机类似的运行环境，便于一些应用的开发和测试；
-- 虚拟机提供更强的隔离，可以限制潜在的安全影响范围。
+- 提供与物理计算机类似的运行环境，在有些场景更加符合用户需求；
+- 提供更强的隔离，可以限制潜在的安全影响范围。
 
 ## 创建虚拟服务器
 
@@ -490,3 +490,7 @@ status:
 - `FailedUnschedulable`：虚拟机无法被分配，可能的原因包括集群资源不足等。
 - `ErrImagePull`：镜像拉取失败，只发生在以 `containerDisk` 作为磁盘的情况下。
 - `ImagePullBackOff`：镜像拉取失败后，等待重启，只发生在以 `containerDisk` 作为磁盘的情况下。
+
+## 参考
+
+* API 参考：[VirtualServer](../references/api-reference/virtualserver.md)
