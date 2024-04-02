@@ -229,14 +229,113 @@ spec:
 <p>TensorFlowTrainingJob 的 <code>spec.replicaSpecs[*].template</code> 字段一定要包含 <code>name</code> 为 <code>tensorflow</code> 的容器，以便控制器识别训练使用的主容器。</p>
 <p>TensorFlowTrainingJob 中执行的脚本应使用 TensorFlow 分布式训练框架，否则可能达不到训练效果。</p>
 </aside>
-<h2 id="副本的角色"><a class="header" href="#副本的角色">副本的角色</a></h2>
+<h2 id="副本的类型"><a class="header" href="#副本的类型">副本的类型</a></h2>
 <p>在 TensorFlow 分布式训练框架中，副本有 4 种类型：Chief、Worker、PS 和 Evaluator。</p>
 <p>在 TensorFlowTrainingJob 中，副本的类型由 <code>spec.replicaSpecs[*].type</code> 字段指定，分别是 <code>chief</code>、<code>worker</code>、<code>ps</code> 和 <code>evaluator</code>。</p>
-<h2 id="成功和失败"><a class="header" href="#成功和失败">成功和失败</a></h2>
-<p>在 TensorFlow 分布式训练框架中，Chief 是主节点。如果没有指定 Chief，则会选择第一个 Worker 作为主节点。当分布式训练的主节点执行完成时，TensorFlow 分布式训练成功；反之，当分布式训练的主节点执行失败时，TensorFlow 分布式训练失败。</p>
-<p>在 TensorFlowTrainingJob 中，如果没有 Chief 副本，则选取序号为 0 的 Worker 节点作为主节点。主节点的失败有时可能是因为环境因素导致的，比如集群网络断连、集群节点崩溃等等，此类原因导致的失败应该被允许自动恢复。针对这一情况，TensorFlowTrainingJob 允许副本重启（请参阅<a href="#%E9%87%8D%E5%90%AF%E6%9C%BA%E5%88%B6">重启机制</a>），并设定了重启次数限制（由 <code>spec.runPolicy.backoffLimit</code> 字段指定），当副本重启次数达到上限后，如果主节点再次失败，则 TensorFlowTrainingJob 失败。此外，TensorFlowTrainingJob 可以设置最长执行时间（由 <code>spec.runPolicy.activeDeadlineSeconds</code> 字段指定），当超过这个执行时间后，TensorFlowTrainingJob 失败。</p>
-<p>如果 TensorFlowTrainingJob 在没有超过重启次数和没有超过最长执行时间的情况下成功完成了主节点的运行，则 TensorFlowTrainingJob 成功。</p>
-<h2 id="重启机制"><a class="header" href="#重启机制">重启机制</a></h2>
+<h2 id="副本设置"><a class="header" href="#副本设置">副本设置</a></h2>
+<p>TensorFlowTrainingJob 副本运行环境和命令可以通过 <code>spec.replicaSpecs[*].template</code> 进行配置，可配置内容包括镜像、运行命令、资源配置、环境变量等。</p>
+<h3 id="资源配置"><a class="header" href="#资源配置">资源配置</a></h3>
+<p>副本资源配置通过 <code>spec.replicaSpecs[*].template.spec.containers[*].resources</code> 字段指定。</p>
+<p>TensorFlowTrainingJob 的资源配置包括两部分：</p>
+<ul>
+<li>资源请求量（<code>requests</code>）：创建该副本时，节点上至少应具有这些数量的资源。如果集群中所有节点都不满足副本的资源请求量，则副本的创建可能会被阻塞；或者如果副本的优先级较高，则有可能驱逐节点上其他工作负载来为副本空出可用的资源。</li>
+<li>资源上限（<code>limits</code>）：该副本在运行期间，最多可以使用的资源数量。比如：如果副本在运行时申请分配超过上限的内存，则有可能出现 <code>OOMKILLED</code> 错误。（注：资源上限不能小于资源请求量）</li>
+</ul>
+<p>在下面的示例中，TensorFlowTrainingJob 中每个 <code>worker</code> 副本设置了以下资源配置：</p>
+<ul>
+<li>资源请求量：2 个 cpu 核心、2Gi 内存；</li>
+<li>资源上限：4 个 cpu 核心、4Gi 内存。</li>
+</ul>
+<pre><code class="language-yaml">apiVersion: batch.tensorstack.dev/v1beta1
+kind: TensorFlowTrainingJob
+metadata:
+  name: tensorflow-example
+spec:
+  replicaSpecs:
+    - type: worker
+      replicas: 4
+      template:
+        spec:
+          containers:
+          - resources:
+              limits:
+                cpu: 4
+                memory: 4Gi
+              requests:
+                cpu: 2
+                memory: 2Gi
+</code></pre>
+<h4 id="共享内存"><a class="header" href="#共享内存">共享内存</a></h4>
+<p>在进行多节点任务时，可以按照如下方式修改 TensorFlowTrainingJob 来使用共享内存：</p>
+<pre><code class="language-yaml">apiVersion: batch.tensorstack.dev/v1beta1
+kind: TensorFlowTrainingJob
+metadata:
+  name: tensorflow-example
+spec:
+  replicaSpecs:
+    - type: worker
+      replicas: 4
+      template:
+        spec:
+          containers:
+          - ...
+            volumeMounts:
+              - mountPath: /dev/shm
+                name: dshm
+          volumes:
+          - name: dshm
+            emptyDir:
+              medium: Memory
+              sizeLimit: &quot;1Gi&quot;
+</code></pre>
+<p>在该例中：</p>
+<ul>
+<li>在 <code>spec.replicaSpecs[*].template.spec.volumes</code> 中增加一项，名称为 <code>dshm</code>，其中限制共享内存最大为 <code>1Gi</code>；</li>
+<li>在 <code>spec.replicaSpecs[*].template.spec.containers[*].volumeMounts</code> 中增加一项，将上述 <code>dshm</code> 绑定到 <code>/dev/shm</code> 路径。</li>
+</ul>
+<aside class="note tip">
+<div class="title">提示</div>
+<p>如果当前副本中设置了内存资源上限，则共享内存的大小不能超过副本的内存上限；如果副本没有设置内存资源上限，则共享内存的大小最大可以设置为当前所在节点内存的最大容量。</p>
+</aside>
+<h3 id="环境变量"><a class="header" href="#环境变量">环境变量</a></h3>
+<p>副本环境变量通过 <code>spec.replicaSpecs[*].template.spec.containers[*].env</code> 字段指定。TensorFlowTrainingJob 支持直接设置环境变量内容和引用其他资源字段作为环境变量两种方式。</p>
+<p>在下面的示例中，TensorFlowTrainingJob 给 <code>worker</code> 副本设置了两个环境变量：<code>ENV_DIRECT</code> 和 <code>ENV_REFERENCED</code>。其中 <code>ENV_DIRECT</code> 环境变量被直接设置为 <code>env-value</code>，<code>ENV_REFERENCED</code> 环境变量引用了 <code>secret-name</code> Secret 的 <code>key-in-secret</code> 字段的内容。</p>
+<pre><code class="language-yaml">apiVersion: batch.tensorstack.dev/v1beta1
+kind: TensorFlowTrainingJob
+metadata:
+  name: tensorflow-example
+spec:
+  replicaSpecs:
+    - type: worker
+      replicas: 4
+      template:
+        spec:
+          containers:
+            - env:
+              - name: ENV_DIRECT
+                value: env-value
+              - name: ENV_REFERENCED
+                valueFrom:
+                  secretKeyRef:
+                    name: secret-name
+                    key: key-in-secret
+</code></pre>
+<aside class="note tip">
+<div class="title">提示</div>
+<p>环境变量常被用于：</p>
+<ol>
+<li>设置网络代理：<code>HTTP_PROXY</code> 和 <code>HTTPS_PROXY</code>；</li>
+<li>设置额外的 Python 包和模块路径：<code>PYTHONPATH</code>；</li>
+<li>设置 C 语言静态库和共享库路径：<code>LIBRARY_PATH</code> 和 <code>LD_LIBRARY_PATH</code>；</li>
+<li>…</li>
+</ol>
+</aside>
+<aside class="note tip">
+<div class="title">提示</div>
+<p>更多环境变量相关配置，请参考 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/tasks/inject-data-application/">Inject Data Into Applications
+</a>。</p>
+</aside>
+<h3 id="重启机制"><a class="header" href="#重启机制">重启机制</a></h3>
 <p>TensorFlowTrainingJob 的 <code>spec.replicaSpec[*].template</code> 字段使用 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/workloads/pods/#pod-templates">PodTemplate</a> 的规范填写，但是 Pod 的重启策略并不能完全满足 TensorFlowTrainingJob 的需求，所以 TensorFlowTrainingJob 使用 <code>spec.replicaSpec[*].restartPolicy</code> 字段覆盖 <code>spec.replicaSpec[*].template</code> 中指定的重启策略。</p>
 <p>可选的重启策略有以下四种：</p>
 <ul>
@@ -253,8 +352,11 @@ spec:
 <li>143（128+15）：容器接收到 <code>SIGTERM</code> 信号。</li>
 <li>138：用户可以自定义这个返回值的含义。如果用户希望程序在某处退出并重启，可以在代码中写入这个返回值。</li>
 </ul>
-<h3 id="重启次数限制"><a class="header" href="#重启次数限制">重启次数限制</a></h3>
 <p>如果因为某种原因（例如代码错误或者环境错误并且长时间没有修复），TensorFlowTrainingJob 不断地失败重启却无法解决问题，这会导致集群资源的浪费。用户可以通过设置 <code>spec.runPolicy.backoffLimit</code> 字段来设置副本的最大重启次数。重启次数为所有副本共享，即所有副本重启次数累计达到此数值后，副本将不能再次重启。</p>
+<h2 id="成功和失败"><a class="header" href="#成功和失败">成功和失败</a></h2>
+<p>在 TensorFlow 分布式训练框架中，Chief 是主节点。如果没有指定 Chief，则会选择第一个 Worker 作为主节点。当分布式训练的主节点执行完成时，TensorFlow 分布式训练成功；反之，当分布式训练的主节点执行失败时，TensorFlow 分布式训练失败。</p>
+<p>在 TensorFlowTrainingJob 中，如果没有 Chief 副本，则选取序号为 0 的 Worker 节点作为主节点。主节点的失败有时可能是因为环境因素导致的，比如集群网络断连、集群节点崩溃等等，此类原因导致的失败应该被允许自动恢复。针对这一情况，TensorFlowTrainingJob 允许副本重启（请参阅<a href="#%E9%87%8D%E5%90%AF%E6%9C%BA%E5%88%B6">重启机制</a>），并设定了重启次数限制（由 <code>spec.runPolicy.backoffLimit</code> 字段指定），当副本重启次数达到上限后，如果主节点再次失败，则 TensorFlowTrainingJob 失败。此外，TensorFlowTrainingJob 可以设置最长执行时间（由 <code>spec.runPolicy.activeDeadlineSeconds</code> 字段指定），当超过这个执行时间后，TensorFlowTrainingJob 失败。</p>
+<p>如果 TensorFlowTrainingJob 在没有超过重启次数和没有超过最长执行时间的情况下成功完成了主节点的运行，则 TensorFlowTrainingJob 成功。</p>
 <h2 id="清除策略"><a class="header" href="#清除策略">清除策略</a></h2>
 <p>在训练结束后，可能有些副本仍处于运行状态，比如 TensorFlow 训练框架中的 PS 经常在训练完成后仍然保持运行。这些运行的副本仍然会占用集群资源，TensorFlowTrainingJob 提供清除策略，在训练结束后删除这些副本。</p>
 <p>TensorFlowTrainingJob 提供以下三种策略：</p>
@@ -439,11 +541,11 @@ status:
 <h3 id="副本的状态"><a class="header" href="#副本的状态">副本的状态</a></h3>
 <p><code>status.tasks</code> 字段用来记录副本的状态，记录的内容主要包括：</p>
 <ul>
-<li>副本的重启次数（同一种角色的副本的重启次数之和）；</li>
+<li>副本的重启次数（同一类型的副本的重启次数之和）；</li>
 <li>副本当前的运行阶段，此处的“运行阶段”在 K8s Pod 的 5 个阶段的基础上，添加了 <code>Creating</code> 和 <code>Deleted</code> 分别表示正在创建和已删除；</li>
 <li>副本在集群中对应的 Pod 的索引信息。</li>
 </ul>
-<p>在下面的示例中，TensorFlowTrainingJob 创建了 1 个角色为 <code>worker</code> 的副本，当前均处于 <code>Succeeded</code> 阶段，运行在 <code>mnist-trainingjob-5b373-worker-0</code> 这个 Pod 上。</p>
+<p>在下面的示例中，TensorFlowTrainingJob 创建了 1 个类型为 <code>worker</code> 的副本，当前均处于 <code>Succeeded</code> 阶段，运行在 <code>mnist-trainingjob-5b373-worker-0</code> 这个 Pod 上。</p>
 <pre><code class="language-yaml">...
 status:
   tasks:
