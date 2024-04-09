@@ -11,7 +11,7 @@ spec:
     logDir:
       pvc:
       - name: mnist
-        subpath: 
+        subPath:
         - ./log                  # 日志文件路径
     image: tensorflow/tensorflow:2.14.0
                                  # TensorBoard 服务器使用的镜像
