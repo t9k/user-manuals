@@ -1,6 +1,6 @@
 # 使用 AutoGen 构建下一代 LLM 应用
 
-LLM 所展现出的推理、规划、指令遵循、上下文学习和工具使用等多项能力，使得它们成为目前开发强大 AI 智能体 （AI Agent）的首选。一些基于这样的智能体构建的 AI 应用已经出现，例如 ChatGPT + Wolfram Alpha 插件可以解答数学问题，AutoGPT 可以自主达成用户给定的目标，等等。最近公开的 AutoGen 框架引入了多智能体对话（multi-agent conversation）机制，为构建 AI 应用提供了高效实现和高度可扩展性。
+LLM 所展现出的推理、规划、指令遵循、上下文学习和工具使用等多项能力，使得它们成为目前开发强大 AI 智能体（AI Agent）的首选。一些基于这样的智能体构建的 AI 应用已经出现，例如 ChatGPT + Wolfram Alpha 插件可以解答数学问题，AutoGPT 可以自主达成用户给定的目标，等等。最近公开的 AutoGen 框架引入了多智能体对话（multi-agent conversation）机制，为构建 AI 应用提供了高效实现和高度可扩展性。
 
 本教程演示几个基于 AutoGen 框架构建的简单应用。这些应用分别采用了 OpenAI 的 GPT 系列模型以及开源的 LLM 作为智能体的后端，前者通过调用 OpenAI 的官方 API 实现，后者则是接入使用 SimpleMLService 部署的 LLM 推理服务。
 

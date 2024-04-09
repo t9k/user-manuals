@@ -1,12 +1,6 @@
 # 实验管理
 
-TensorStack AI 平台的实验管理模块（Experiment Management，以下简称 EM）提供完善的实验数据追踪功能，能够收集实验元数据、实验中间产物，并可视化和比较实验结果，推动模型进步。
-
-## 产品架构
-
-![structure](../assets/modules/em/architecture.png)
-
-如上图所示，EM 使用 TensorStack AI 平台自研存储系统 AIStore 存储数据，用户可以通过 EM 控制台、命令行工具和 SDK 工具与 AIStore 连接，实现 EM 的各项功能。
+实验管理模块（Experiment Management，以下简称 EM）提供实验数据追踪功能，能够收集实验元数据、实验中间产物，并可视化和比较实验结果，推动模型进步。这里的实验指的是以特定配置运行的一次模型训练，旨在探究某产生的指标表现如何。
 
 ## 存储结构
 
@@ -127,11 +121,11 @@ EM 支持节点粒度的权限控制：
 * 文件夹权限修改会传递给所有子节点（当用户被分享了一个文件夹的编辑权限，则该用户自动拥有文件夹中所有节点的编辑权限；取消分享同理）。
 * 当一个节点被移动到另一个文件夹中，节点完全继承该文件夹的权限，覆盖节点之前的权限设置。
 
-## EM 和 AssetHub 之间的关系
+## EM 和 Asset Hub 之间的关系
 
-AssetHub 是 TensorStack AI 平台的[资产管理模块](./asset-management.md)，用于管理数据集和模型。
+Asset Hub 是 TensorStack AI 平台的[资产管理模块](./asset-management.md)，用于管理数据集和模型。
 
-数据集和模型作为实验的输入和输出，也应当作为实验管理的一部分，所以在 EM 中也可以看到 AssetHub 中的数据集和模型数据，如下图所示：
+数据集和模型作为实验的输入和输出，也应当作为实验管理的一部分，所以在 EM 中也可以看到 Asset Hub 中的数据集和模型数据，如下图所示：
 
 ```bash
 # EM 目录结构示意图
@@ -151,7 +145,7 @@ user:demo
 <aside class="note">
 <div class="title">注意</div>
 
-在使用 EM 的时候，非必要请勿修改 t9k-assethub 文件夹中的数据，以避免影响 AssetHub 的使用。
+在使用 EM 的时候，非必要请勿修改 t9k-assethub 文件夹中的数据，以避免影响 Asset Hub 的使用。
 
 </aside>
 

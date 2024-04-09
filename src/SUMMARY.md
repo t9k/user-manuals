@@ -2,6 +2,7 @@
 
 [导言](./introduction.md)
 [概述](./overview.md)
+
 ---
 
 * [快速入门](get-started/index.md)
@@ -34,10 +35,6 @@
         * [XGBoostTrainingJob](modules/jobs/xgboosttrainingjob.md)
         * [MPIJob](modules/jobs/mpijob.md)
         * [BeamJob](modules/jobs/beamjob.md)
-
-    * [资产管理](modules/asset-management.md)
-
-    * [实验管理](modules/experiment-management.md)
 
 * [账户和安全](modules/security/index.md)
     * [账户](modules/security/account.md)
@@ -72,6 +69,12 @@
     * [WorkflowRun](modules/workflows/workflowrun.md)
     * [CronWorkflowRun](modules/workflows/cronworkflowrun.md)
     * [WorkflowTrigger](modules/workflows/workflowtrigger.md)
+
+* [数据管理](modules/data-management/index.md)
+    * [资产管理](modules/asset-management.md)
+    * [实验管理](modules/experiment-management.md)
+
+---
 
 * [操作指南](tasks/index.md)
     * [使用模型构建控制台](tasks/model-building.md)
@@ -139,6 +142,8 @@
 
     * [小技巧](tasks/tricks.md)
 
+---
+
 * [命令行工具和 SDK](tools/index.md)
 
     * [命令行工具：t9k](tools/cli-t9k/index.md)
@@ -163,7 +168,6 @@
         * [Codepack 定义](tools/codepack/definition.md)
         * [命令行工具](tools/codepack/cli.md)
         * [示例](tools/codepack/example.md)
----
 
 * [参考](references/index.md)
     * [术语表](references/glossary.md)

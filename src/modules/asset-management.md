@@ -1,14 +1,6 @@
 # 资产管理
 
-所谓 AI 资产，指数据集和模型等人工智能相关的数据。
-
-TensorStack AI 平台的资产管理模块（AssetHub，以下简称 AH）对模型和数据集提供完善的管理功能，包括版本管理、持续开发和协同开发等功能。
-
-## 产品架构
-
-![structure](../assets/modules/ah/architecture.png)
-
-如上图所示，AH 使用 TensorStack AI 平台自研存储系统 AIStore 存储数据，用户可以通过 AH 控制台、命令行工具和 SDK 工具与 AIStore 连接，实现 AH 的各项功能。
+资产管理模块（Asset Hub，以下简称 AH）提供对模型和数据集的管理功能，包括版本管理、持续开发和协同开发等。这里的资产指的是模型、数据集等 AI 相关的重要资产。
 
 ## 版本控制
 

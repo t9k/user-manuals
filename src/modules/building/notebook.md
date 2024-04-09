@@ -50,7 +50,7 @@ spec:
 
 在该例中，`spec.template.spec` 字段定义所要创建的 Pod 的规约：
 
-1. 指示 Pod 运行一个 `notebook` 容器 （`spec.template.containers`），该容器运行的镜像是 `t9kpublic/torch-2.1.0-notebook:1.77.1`，这是一个 [Notebook 镜像](#notebook镜像)；
+1. 指示 Pod 运行一个 `notebook` 容器（`spec.template.containers`），该容器运行的镜像是 `t9kpublic/torch-2.1.0-notebook:1.77.1`，这是一个 [Notebook 镜像](#notebook镜像)；
 2. 通过 `spec.template.spec.volumes`，`spec.template.containers[].volumeMounts` 指示挂载网络文件系统 PVC `tutorial` 到 `/t9k/mnt`；
 3. 通过 `spec.template.spec.containers[].resources` 指定使用的 CPU、memory、GPU 资源 。
 
@@ -154,8 +154,8 @@ T9k 系统提供空闲 Notebook 资源回收的支持。系统在检测到 Noteb
 
 管理员可设置回收策略，使得：
 
-* Notebook 没有活跃运行超过 1h （管理员可修改此时长）后，标记该 Notebook 为 `Idle`。
-* Notebook 进入 `Idle` 状态超过 24h （管理员可修改此时长）后，删除该 Notebook 底层工作负载。
+* Notebook 没有活跃运行超过 1h（管理员可修改此时长）后，标记该 Notebook 为 `Idle`。
+* Notebook 进入 `Idle` 状态超过 24h（管理员可修改此时长）后，删除该 Notebook 底层工作负载。
 
 如果需要再次使用该 Notebook，你可以在模型构建控制台中手动点击**恢复**按钮。
 
@@ -334,7 +334,7 @@ spec:
 
 ### 全局设置
 
-请按照[环境变量](#环境变量)一节为 Notebook （或者 Job 等其它工作负载）设置 `HTTP_PROXY` 和 `HTTPS_PROXY` 两个环境变量（或者其它更多相关变量）。
+请按照[环境变量](#环境变量)一节为 Notebook（或者 Job 等其它工作负载）设置 `HTTP_PROXY` 和 `HTTPS_PROXY` 两个环境变量（或者其它更多相关变量）。
 
 <aside class="note tip">
 <div class="title">提示</div>

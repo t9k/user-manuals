@@ -868,7 +868,7 @@ t9k config use-context foo -c $HOME/t9kConfig.yaml
 
 ## create
 
-通过文件创建 TensorStack AI 平台的资源或者其他支持的资源 （PVC 和 secret）。
+通过文件创建 TensorStack AI 平台的资源或者其他支持的资源（PVC 和 secret）。
 
 #### 使用
 

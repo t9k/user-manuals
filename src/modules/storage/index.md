@@ -9,7 +9,7 @@ TensorStack AI 平台支持多种类型的存储服务：Block Storage Volumes�
 这两种高性能的网络存储卷服务，可为各种类型的工作负载，如 Notebook、T9k Job、推理服务等提供持久化存储卷（Persistent Volumes）服务。
 
 * 支持在集群中使用不同性能等级的存储服务。例如，管理员可设置集群同时提供高性能的 SSD 和海量的 HDD 两种等级的存储服务。
-* 所有 SSD 和 HDD 等级均可创建为 Block Volumes（块存储卷）或 Shared Filesystem Volumes （共享文件系统存储卷）。
+* 所有 SSD 和 HDD 等级均可创建为 Block Volumes（块存储卷）或 Shared Filesystem Volumes（共享文件系统存储卷）。
 * 可随时调整 Volume 大小以增加容量。
 * 存储与计算分开管理，并且可以在不同实例和硬件类型之间移动。
 * 支持存储卷的快照、备份及恢复。
@@ -17,7 +17,7 @@ TensorStack AI 平台支持多种类型的存储服务：Block Storage Volumes�
 
 ### 块存储卷（Block Storage Volumes）
 
-Block Storage Volumes （块存储卷）可作为高性能虚拟存储盘挂载到各种类型的工作负载上。这些卷被呈现为通用 Block Device (块设备)，操作系统将其视为物理连接存储设备，并且独占使用。
+Block Storage Volumes（块存储卷）可作为高性能虚拟存储盘挂载到各种类型的工作负载上。这些卷被呈现为通用 Block Device (块设备)，操作系统将其视为物理连接存储设备，并且独占使用。
 
 如果集群部署了高性能的 NVMe 的存储节点，并使用了足够快的网络，这种类型的存储卷的性能将会超过本地 SATA 接口的 SSD，并且可以扩展到 PB 级别容量。
 

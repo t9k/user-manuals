@@ -108,7 +108,7 @@ PodGroup 是一组 Pod 的集合，它们需要协同工作、一起被调度。
 
 ## Project
 
-Project 是 TensorStack AI 平台对计算集群的抽象，建立在 Kubernetes 命名空间 （namespace）之上。不同的用户通常在不同的 Project 下工作，并且可以互相分享自己 Project。详见 [Project 文档](../modules/account-and-security.md#project)。
+Project 是 TensorStack AI 平台对计算集群的抽象，建立在 Kubernetes 命名空间（namespace）之上。不同的用户通常在不同的 Project 下工作，并且可以互相分享自己 Project。详见 [Project 文档](../modules/account-and-security.md#project)。
 
 ## PVC（PersistentVolumeClaim，持久卷申领）
 

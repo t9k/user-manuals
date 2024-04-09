@@ -21,6 +21,7 @@
 ### CPU / Memory / 扩展资源
 
 CPU（内存）的资源监测图如下所示，图中包含三条折线：
+
 * 请求量：工作负载声明的 `resources.requests.cpu`（`resources.requests.memory`）
 * 上限：工作负载声明的 `resources.limits.cpu`（`resources.limits.memory`）
 * 使用量：工作负载实际使用的 CPU（内存）资源量
