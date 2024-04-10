@@ -113,7 +113,7 @@ spec:
 
 ```sh
 # 下载测试图像文件
-wget https://t9k.github.io/user-manuals/assets/get-started/deployment/{0,1,2}.png
+wget https://t9k.github.io/user-manuals/latest/assets/get-started/deployment/{0,1,2}.png
 
 # 注意：此 URL 只适合在集群内当前项目（Project）内部（例如当前项目的 Notebook 中）访问使用
 URL="http://mnist.demo.svc.cluster.local/v1/models/mnist:predict"
