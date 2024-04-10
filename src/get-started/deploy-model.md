@@ -63,7 +63,7 @@ spec:
   replicas: 1
   storage:
     pvc:
-      containerPath: /var/lib/t9k/models
+      mountPath: /var/lib/t9k/models
       name: mnist
       subPath: .
   pytorch:
