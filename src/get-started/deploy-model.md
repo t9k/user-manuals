@@ -2,7 +2,7 @@
 
 本教程带领你使用 [SimpleMLService](../modules/deployment/simplemlservice.md)，部署模型为推理服务。
 
-在教程[训练你的第一个模型](./training-first-model.md)和[进行并行训练](./parallel-training.md)中，训练完成的模型都被保存为文件 `model_state_dict.pt`，这两个模型文件所对应的模型是相同的。本教程将部署这个模型为推理服务。
+教程[训练你的第一个模型](./training-first-model.md)和[进行并行训练](./parallel-training.md)训练了相同架构的模型，并且都将模型参数保存为文件 `model_state_dict.pt`。本教程将这两个模型文件中的任意一个部署为推理服务。
 
 ## 准备模型文件
 
@@ -63,7 +63,7 @@ spec:
   replicas: 1
   storage:
     pvc:
-      containerPath: /var/lib/t9k/models
+      mountPath: /var/lib/t9k/models
       name: mnist
       subPath: .
   pytorch:

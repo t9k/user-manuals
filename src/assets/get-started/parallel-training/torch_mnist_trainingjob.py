@@ -178,4 +178,4 @@ if __name__ == '__main__':
     test()
 
     if rank == 0:
-        torch.save(model.state_dict(), args.save_path)
+        torch.save(model.module.state_dict(), args.save_path)
