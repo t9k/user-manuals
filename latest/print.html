@@ -373,7 +373,6 @@ spec:
 <p>在 TensorStack AI 平台首页，点击<strong>模型构建</strong>进入构建控制台（Build Console）。</p>
 <figure class="screenshot">
   <img alt="landing-page" src="get-started/../assets/get-started/training-first-model/landing-page.png" />
-  <figcaption>图 1：平台首页。</figcaption>
 </figure>
 <p>构建控制台（Build Console）的总览页面展示了多种 <strong>API 资源</strong>，你可以点击右上角的按钮切换 Project，也可以点击<strong>事件</strong>和<strong>配额</strong>标签页以查看当前 Project 最近发生的事件以及<strong>计算资源</strong>（CPU、内存、GPU 等）配额。</p>
 <aside class="note info">
@@ -384,7 +383,6 @@ spec:
 </aside>
 <figure class="screenshot">
   <img alt="project" src="get-started/../assets/get-started/training-first-model/overview.png" />
-  <figcaption>图 2：构建控制台（Build Console）。</figcaption>
 </figure>
 <h3 id="创建-pvc"><a class="header" href="#创建-pvc">创建 PVC</a></h3>
 <p>在创建 Notebook 之前，首先需要创建一个用于存储文件的 PVC（持久卷）。在左侧的导航菜单中点击<strong>存储 &gt; 持久卷</strong>进入 PVC 管理页面，然后点击右上角的<strong>创建 PVC</strong>。</p>
@@ -394,7 +392,6 @@ spec:
 </aside>
 <figure class="screenshot">
   <img alt="project" src="get-started/../assets/get-started/training-first-model/create-pvc.png" />
-  <figcaption>图 3：创建 PVC。</figcaption>
 </figure>
 <p>在 PVC 创建页面，如下填写各个参数：</p>
 <ul>
@@ -404,12 +401,10 @@ spec:
 <p>其他参数保持默认即可。完成之后，点击<strong>创建</strong>。</p>
 <figure class="screenshot">
   <img alt="project" src="get-started/../assets/get-started/training-first-model/create-pvc-detail.png" />
-  <figcaption>图 4：填写 PVC 参数。</figcaption>
 </figure>
 <p>在跳转回到 PVC 管理页面之后，可点击右上角的<strong>刷新图标</strong>来手动刷新 PVC 状态。下图展示 PVC <code>mnist</code> 已经创建完成。</p>
 <figure class="screenshot">
   <img alt="project" src="get-started/../assets/get-started/training-first-model/create-pvc-finish.png" />
-  <figcaption>图 5：PVC 管理页面。</figcaption>
 </figure>
 <h3 id="创建-notebook-1"><a class="header" href="#创建-notebook-1">创建 Notebook</a></h3>
 <p>在左侧的导航菜单中点击<strong>构建 &gt; Notebook</strong> 进入 Notebook 管理页面，然后点击右上角的<strong>创建 Notebook</strong>。</p>
@@ -419,7 +414,6 @@ spec:
 </aside>
 <figure class="screenshot">
   <img alt="create-notebook" src="get-started/../assets/get-started/training-first-model/create-notebook.png" />
-  <figcaption>图 6：Notebook 创建页面。</figcaption>
 </figure>
 <p>在 Notebook 创建页面，如下填写各个参数：</p>
 <ul>
@@ -431,7 +425,6 @@ spec:
 <p>完成之后，点击<strong>创建</strong>。</p>
 <figure class="screenshot">
   <img alt="create-notebook-detail" src="get-started/../assets/get-started/training-first-model/create-notebook-detail.png" />
-  <figcaption>图 7：Notebook 创建详情页面。</figcaption>
 </figure>
 <aside class="note info">
 <div class="title">调度器</div>
@@ -440,12 +433,10 @@ spec:
 <p>在跳转回到 Notebook 管理页面之后，等待刚才创建的 Notebook 准备就绪。第一次拉取镜像可能会花费较长的时间，具体取决于集群的网络状况。点击右上角的<strong>刷新图标</strong>来手动刷新 Notebook 状态，待 Notebook 开始运行之后，点击右侧的<strong>打开</strong>进入其前端页面。</p>
 <figure class="screenshot">
   <img alt="connect-notebook" src="get-started/../assets/get-started/training-first-model/connect-notebook.png" />
-  <figcaption>图 8：在 Notebook 管理页面打开 Notebook。</figcaption>
 </figure>
 <p>现在 Notebook 已经可以使用了，你可以在这里进行模型的开发与测试。</p>
 <figure class="screenshot">
   <img alt="jupyter" src="get-started/../assets/get-started/training-first-model/jupyter.png" />
-  <figcaption>图 9：使用 Notebook。</figcaption>
 </figure>
 <h2 id="使用-notebook-训练模型"><a class="header" href="#使用-notebook-训练模型">使用 Notebook 训练模型</a></h2>
 <aside class="note tip">
@@ -455,7 +446,6 @@ spec:
 <p>在 Notebook 的前端页面，点击左上角的 <strong>+</strong>，然后点击 Notebook 下的 <strong>Python3</strong> 以新建一个 <code>.ipynb</code> 文件。</p>
 <figure class="screenshot">
   <img alt="jupyter-create-notebook" src="get-started/../assets/get-started/training-first-model/jupyter-create-notebook.png" />
-  <figcaption>图 10：在 Notebook 中创建 .ipynb 文件。</figcaption>
 </figure>
 <p>复制下面的训练脚本到该 <code>.ipynb</code> 文件的代码框中。该脚本基于 PyTorch 框架，建立一个简单的卷积神经网络模型，并使用 MNIST 数据集的手写数字图像进行训练和测试。</p>
 <details><summary><code class="hljs">torch_mnist.py</code></summary>
@@ -602,12 +592,10 @@ torch.save(model.state_dict(), 'model_state_dict.pt')
 <p>点击上方的运行按钮，可以看到训练开始进行：</p>
 <figure class="screenshot">
   <img alt="jupyter-training" src="get-started/../assets/get-started/training-first-model/jupyter-training.png" />
-  <figcaption>图 11：在 Notebook 中运行训练。</figcaption>
 </figure>
 <p>训练结束后，点击左上角的<strong>新建文件夹按钮</strong>，为新文件夹命名 <strong>first-model</strong>，并将当前教程产生的所有文件拖拽移动到其中。</p>
 <figure class="screenshot">
   <img alt="create-folder" src="get-started/../assets/get-started/training-first-model/create-folder.png" />
-  <figcaption>图 12：在 Notebook 中创建文件夹。</figcaption>
 </figure>
 <h2 id="下一步-2"><a class="header" href="#下一步-2">下一步</a></h2>
 <ul>
@@ -804,7 +792,7 @@ if __name__ == '__main__':
     test()
 
     if rank == 0:
-        torch.save(model.state_dict(), args.save_path)
+        torch.save(model.module.state_dict(), args.save_path)
 </code></pre>
 </details>
 <h2 id="创建-job-进行并行训练"><a class="header" href="#创建-job-进行并行训练">创建 Job 进行并行训练</a></h2>
@@ -919,7 +907,7 @@ spec:
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="部署模型"><a class="header" href="#部署模型">部署模型</a></h1>
 <p>本教程带领你使用 <a href="get-started/../modules/deployment/simplemlservice.html">SimpleMLService</a>，部署模型为推理服务。</p>
-<p>在教程<a href="get-started/./training-first-model.html">训练你的第一个模型</a>和<a href="get-started/./parallel-training.html">进行并行训练</a>中，训练完成的模型都被保存为文件 <code>model_state_dict.pt</code>，这两个模型文件所对应的模型是相同的。本教程将部署这个模型为推理服务。</p>
+<p>教程<a href="get-started/./training-first-model.html">训练你的第一个模型</a>和<a href="get-started/./parallel-training.html">进行并行训练</a>训练了相同架构的模型，并且都将模型参数保存为文件 <code>model_state_dict.pt</code>。本教程将这两个模型文件中的任意一个部署为推理服务。</p>
 <h2 id="准备模型文件"><a class="header" href="#准备模型文件">准备模型文件</a></h2>
 <p>这里我们使用 <a target="_blank" rel="noopener noreferrer" href="https://github.com/pytorch/serve">TorchServe</a> 部署 PyTorch 模型。回到 Notebook <code>mnist</code>，在 HOME 目录（即左侧边栏文件浏览器显示的根目录 <code>/</code>）下新建以下文件：</p>
 <details><summary><code class="hljs">model.py</code></summary>
@@ -1000,7 +988,7 @@ spec:
   replicas: 1
   storage:
     pvc:
-      containerPath: /var/lib/t9k/models
+      mountPath: /var/lib/t9k/models
       name: mnist
       subPath: .
   pytorch:

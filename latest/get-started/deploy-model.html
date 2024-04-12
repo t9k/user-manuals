@@ -190,7 +190,7 @@
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="部署模型"><a class="header" href="#部署模型">部署模型</a></h1>
 <p>本教程带领你使用 <a href="../modules/deployment/simplemlservice.html">SimpleMLService</a>，部署模型为推理服务。</p>
-<p>在教程<a href="./training-first-model.html">训练你的第一个模型</a>和<a href="./parallel-training.html">进行并行训练</a>中，训练完成的模型都被保存为文件 <code>model_state_dict.pt</code>，这两个模型文件所对应的模型是相同的。本教程将部署这个模型为推理服务。</p>
+<p>教程<a href="./training-first-model.html">训练你的第一个模型</a>和<a href="./parallel-training.html">进行并行训练</a>训练了相同架构的模型，并且都将模型参数保存为文件 <code>model_state_dict.pt</code>。本教程将这两个模型文件中的任意一个部署为推理服务。</p>
 <h2 id="准备模型文件"><a class="header" href="#准备模型文件">准备模型文件</a></h2>
 <p>这里我们使用 <a target="_blank" rel="noopener noreferrer" href="https://github.com/pytorch/serve">TorchServe</a> 部署 PyTorch 模型。回到 Notebook <code>mnist</code>，在 HOME 目录（即左侧边栏文件浏览器显示的根目录 <code>/</code>）下新建以下文件：</p>
 <details><summary><code class="hljs">model.py</code></summary>
@@ -271,7 +271,7 @@ spec:
   replicas: 1
   storage:
     pvc:
-      containerPath: /var/lib/t9k/models
+      mountPath: /var/lib/t9k/models
       name: mnist
       subPath: .
   pytorch:
