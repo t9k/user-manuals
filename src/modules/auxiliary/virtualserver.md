@@ -29,12 +29,10 @@ spec:
       source:
         http:
           url: https://cloud-images.ubuntu.com/releases/focal/release/ubuntu-20.04-server-cloudimg-amd64.img
-      bus: virtio
     additionalDisks:
       - name: disk-name
         persistentVolumeClaim:
           claimName: pvc-as-disk
-        bus: virtio
     filesystems:
       - name: my-filesys
         persistentVolumeClaim:
@@ -102,9 +100,35 @@ T9k 平台会在集群中部署一个 Device Plugin，该程序会自动检查�
 
 </aside>
 
-### 数据卷
+### 根磁盘
 
-VirtualServer 支持以 disk 和 filesystem 方式绑定任意数量的数据卷。
+VirtualServer 根据 `spec.storage.root.pvc` 字段中的配置创建 PVC 作为根磁盘，并从 `spec.storage.root.source` 字段所指定的数据源下载操作系统。
+
+```yaml
+spec:
+  storage:
+    root:
+      ephemeral: false
+      pvc:
+        size: 4Gi
+        volumeMode: Filesystem
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: cephfs-hdd
+      source:
+        http:
+          url: https://cloud-images.ubuntu.com/releases/focal/release/ubuntu-20.04-server-cloudimg-amd64.img
+```
+
+在上述示例中:
+
+* VirtualServer 创建一个 4Gi PVC，绑定为根磁盘。
+* 从 `https://cloud-images.ubuntu.com/releases/focal/release/ubuntu-20.04-server-cloudimg-amd64.img` 链接下载系统镜像到根磁盘中。
+  * VirtualServer 支持从多种数据源下载数据，比如 HTTP 链接、s3 数据库、镜像仓库、其他 PVC 等，更多信息请参考 [DataVolumeSource](https://pkg.go.dev/kubevirt.io/containerized-data-importer-api/pkg/apis/core/v1beta1#DataVolumeSource)。
+* 该根磁盘以非**临时磁盘**的方式绑定给虚拟机（通过 `spec.storage.root.ephemeral` 字段指定）。所谓临时磁盘，即在虚拟机中的所有改动不会反应到 PVC 中，而是以一个临时镜像的方式存储；如果虚拟机重启，则该临时镜像消失。
+
+### 其他数据卷
+
+除了根磁盘以外，VirtualServer 支持以 disk 和 filesystem 方式绑定任意数量的数据卷。
 
 #### 绑定方式
 
@@ -123,7 +147,7 @@ spec:
 
 在上述示例中，VirtualServer 将 PVC `pvc-as-fs` 声明为文件系统 `my-filesys`。
 
-但是上面字段值只是声明了文件系统，用户还需要将文件系统挂载到一个路径才可以使用。用户可以用 `spec.cloudInit` 字段来挂载该文件系统：
+上面字段值只声明了文件系统，用户还需要将文件系统挂载到一个路径才可以使用。用户可以用 `spec.cloudInit` 字段来挂载该文件系统：
 
 ```yaml
 spec:
@@ -147,14 +171,12 @@ spec:
       - name: disk-name
         persistentVolumeClaim:
           claimName: pvc-as-disk
-        bus: virtio
         serial: CVLY623300HK240D
 ```
 
 在上述示例中:
 
 * VirtualServer 将 PVC `pvc-as-disk` 声明为一个磁盘；
-* 该磁盘使用 `virtio` 总线，在虚拟机中可以设置的总线类型包括 `virtio`、`sata`、`scsi` 和 `usb`，不同总线的读写速度、对硬件的依赖不同；
 * 序列号为 `CVLY623300HK240D`，如果不设置该字段，则磁盘序列号会随机生成，在重启虚拟机后，序列号会发生改变。序列号有助于确认磁盘，如通过命令 `lsblk --nodeps -no name,serial | grep CVLY623300HK240D | cut -f1 -d' '` 确认上述示例中磁盘的名称。
 
 如果该磁盘是第一次使用，用户还需要将磁盘格式化并挂载到一个路径，可以用 `spec.cloudInit` 字段完成该操作：
@@ -192,7 +214,6 @@ spec:
       - name: disk-name
         persistentVolumeClaim:
           claimName: pvc-name
-        bus: virtio
 ```
 
 <aside class="note info">
@@ -224,7 +245,6 @@ spec:
         ephemeral:
           persistentVolumeClaim:
             claimName: pvc-name
-        bus: virtio
 ```
 
 ##### ConfigMap
@@ -250,7 +270,6 @@ spec:
       - name: disk-name
         configMap:
           name: app-config
-        bus: virtio
         serial: CVLY623300HK240D
   cloudInit: |-
     #cloud-config
@@ -284,7 +303,6 @@ spec:
       - name: disk-name
         serviceAccount:
           serviceAccountName: serviceaccountdisk
-        bus: virtio
         serial: SERVICEACCOUNT12
   cloudInit: |-
     #cloud-config
@@ -488,8 +506,6 @@ status:
 - `Migrating`：虚拟机正在迁移到另一个主机（目前不支持）。
 - `Unknown`：虚拟机状态未知，通常发生在虚拟机所在主机失去连接。
 - `FailedUnschedulable`：虚拟机无法被分配，可能的原因包括集群资源不足等。
-- `ErrImagePull`：镜像拉取失败，只发生在以 `containerDisk` 作为磁盘的情况下。
-- `ImagePullBackOff`：镜像拉取失败后，等待重启，只发生在以 `containerDisk` 作为磁盘的情况下。
 
 ## 参考
 
