@@ -62,7 +62,7 @@
     * [ConfigMap](modules/auxiliary/configmap.md)
     * [Pod](modules/auxiliary/pod.md)
     * [ImageBuilder](modules/auxiliary/imagebuilder.md)
-    * [虚拟服务器](modules/virtualserver.md)
+    * [虚拟服务器](modules/auxiliary/virtualserver.md)
 
 * [工作流](modules/workflows/index.md)
     * [WorkflowTemplate](modules/workflows/workflowtemplate.md)
