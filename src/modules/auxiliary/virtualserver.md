@@ -509,4 +509,4 @@ status:
 
 ## 参考
 
-* API 参考：[VirtualServer](../references/api-reference/virtualserver.md)
+* API 参考：[VirtualServer](../../references/api-reference/virtualserver.md)

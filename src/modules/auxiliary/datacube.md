@@ -49,16 +49,16 @@ spec:
             requests:
               storage: 100Gi
       name: datacube-pvc
-      subPath: /dev/git
+      subPath: dev/git
 ```
 
-在该例中，声明创建一个存储容量为 100Gi（由 `spec.sink.pvc.template.spec.resources` 字段指定）、可多处读写（由 `spec.sink.pvc.template.spec.accessModes` 字段指定）的 PVC `datacube-pvc`，并将数据下载到该 PVC 的 `/dev/git`（由 `spec.sink.pvc.subPath` 字段指定）子目录下。
+在该例中，声明创建一个存储容量为 100Gi（由 `spec.sink.pvc.template.spec.resources` 字段指定）、可多处读写（由 `spec.sink.pvc.template.spec.accessModes` 字段指定）的 PVC `datacube-pvc`，并将数据下载到该 PVC 的 `dev/git`（由 `spec.sink.pvc.subPath` 字段指定）子目录下。
 
 <aside class="note">
 <div class="title">注意</div>
 
 1. 如果该 PVC `datacube-pvc` 已存在，可不填写 `spec.sink.pvc.template`，系统不会重新创建 PVC；
-2. 如果该 PVC 子目录 `/dev/git` 不存在，系统会自动创建该目录。
+2. 如果该 PVC 子目录 `dev/git` 不存在，系统会自动创建该目录。
 
 </aside>
 
@@ -182,10 +182,10 @@ spec:
     type: pvc
     pvc:
       name: datacube-pvc
-      subPath: /dev/hf/whisper-large-v3
+      subPath: dev/hf/whisper-large-v3
 ```
 
-在该例中，上传 PVC `datacube-pvc` 的子路径 `/dev/hf/whisper-large-v3` 到目标存储服务。
+在该例中，上传 PVC `datacube-pvc` 的子路径 `dev/hf/whisper-large-v3` 到目标存储服务。
 
 <aside class="note">
 <div class="title">注意</div>
@@ -209,7 +209,7 @@ spec:
     type: pvc
     pvc:
       name: datacube-pvc
-      subPath: /dev/git/
+      subPath: dev/git/
   sink:
     type: git
     options:
@@ -222,7 +222,7 @@ spec:
       value: https://$(TOKEN)@github.com/user/repo.git
 ```
 
-在该例中，上传 PVC `datacube-pvc` 的 `/dev/git/` 路径下的 `repo` 目录（由 `spec.sink.options` 字段指定，其中 `url` 指向的 repository 即为目录名称），通过 `spec.sink.type` 字段指定目标存储类型为 Git，通过 `spec.sink.options` 字段指定目标存储选项：
+在该例中，上传 PVC `datacube-pvc` 的 `dev/git/` 路径下的 `repo` 目录（由 `spec.sink.options` 字段指定，其中 `url` 指向的 repository 即为目录名称），通过 `spec.sink.type` 字段指定目标存储类型为 Git，通过 `spec.sink.options` 字段指定目标存储选项：
 
 * `token`：上传凭证，该字段是可选的；
 * `url`：Git 仓库路径，以 `$(TOKEN)` 引用的形式嵌入 token；
@@ -452,4 +452,4 @@ status:
 
 ## 参考
 
-* API 参考：[DataCube](../references/api-reference/datacube.md)
+* API 参考：[DataCube](../../references/api-reference/datacube.md)
