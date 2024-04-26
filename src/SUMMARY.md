@@ -114,6 +114,7 @@
         * [修改文件夹、模型和数据集的基本信息](tasks/modify-folder-asset.md)
         * [操作模型和数据集的分支、tag 和 commit](tasks/manipulate-asset-branch-tag.md)
         * [操作模型和数据集的对象](tasks/manipulate-asset-objects.md)
+        * [从 Hugging Face 下载模型和数据集到 Asset Hub](tasks/download-model-and-dataset-from-hf-to-ah.md)
 
     * [追踪模型训练](tasks/track-model-training.md)
         * [在实验管理控制台查看和管理数据](tasks/use-experiment-console.md)
@@ -122,11 +123,11 @@
         * [分布式训练场景](tasks/record-distributed-training.md)
         * [在实验管理控制台查看 AutoTune](tasks/view-autotune-in-experiment-console.md)
 
-    * [构建自动化工作流](tasks/build-automation-workflow.md)
+    * [建立自动化工作流](tasks/build-automated-workflow.md)
         * [创建工作流的基本单元](tasks/create-workflow-unit.md)
         * [创建执行各类任务的工作流单元](tasks/create-task-workflow-unit.md)
         * [创建存在依赖关系的工作流](tasks/create-dependent-workflow.md)
-        * [建立从数据采样到模型导出的自动化工作流](tasks/build-automated-workflow.md)
+        * [建立从数据采样到模型导出的自动化工作流](tasks/build-automated-workflow-from-data-sampling-to-model-exporting.md)
 
     * [调度工作负载](tasks/schedule-workload.md)
         * [为工作负载指定队列](tasks/use-queue.md)

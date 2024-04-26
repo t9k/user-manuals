@@ -95,7 +95,7 @@ git push
 
 ## Hugging Face Hub
 
-<a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/models">Hugging Face Hub</a> 是一个拥有超过 35 万个模型和 7.5 万个数据集的平台，所有这些模型和数据集都是开源并且公开可用的。从 Hugging Face Hub 下载一个模型或数据集有多种方法，下面以模型 `mistralai/Mistral-7B-v0.1` 为例进行演示，首先来到该模型的 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/mistralai/Mistral-7B-v0.1/tree/main">Files and versions 标签页</a>：
+<a target="_blank" rel="noopener noreferrer" href="https://huggingface.co">Hugging Face Hub</a> 是一个拥有超过 35 万个模型和 7.5 万个数据集的平台，所有这些模型和数据集都是开源并且公开可用的。从 Hugging Face Hub 下载一个模型或数据集有多种方法，下面以模型 `mistralai/Mistral-7B-v0.1` 为例进行演示，首先来到该模型的 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/mistralai/Mistral-7B-v0.1/tree/main">Files and versions 标签页</a>：
 
 <figure class="screenshot">
   <img alt="files-and-versions" src="../assets/tasks/pvc-importing-and-exporting-files/files-and-versions.png" />
@@ -125,7 +125,6 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-7B-v0.1")
 model = AutoModelForCausalLM.from_pretrained("mistralai/Mistral-7B-v0.1")
 ```
-
 
 <aside class="note">
 <div class="title">注意</div>
