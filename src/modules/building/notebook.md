@@ -4,8 +4,6 @@
 
 用户可以使用 Notebook CRD 在集群中快速部署一个 JupyterLab 服务，同时本产品还提供 GPU 支持、SSH 访问支持等功能。
 
-</aside>
-
 <aside class="note info">
 <div class="title">信息</div>
 

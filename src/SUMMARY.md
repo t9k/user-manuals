@@ -63,6 +63,7 @@
     * [Pod](modules/auxiliary/pod.md)
     * [ImageBuilder](modules/auxiliary/imagebuilder.md)
     * [虚拟服务器](modules/auxiliary/virtualserver.md)
+    * [DataCube](modules/auxiliary/datacube.md)
 
 * [工作流](modules/workflows/index.md)
     * [WorkflowTemplate](modules/workflows/workflowtemplate.md)
@@ -193,6 +194,7 @@
         * [SimpleMLService](references/api-reference/simplemlservice.md)
         * [MLService](references/api-reference/mlservice.md)
         * [VirtualServer](references/api-reference/virtualserver.md)
+        * [DataCube](references/api-reference/datacube.md)
     * [标准镜像](references/standard-images.md)
 
 ---
