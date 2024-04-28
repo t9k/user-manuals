@@ -430,7 +430,7 @@ spec:
 <div class="title">调度器</div>
 <p>调度器负责将工作负载调度到合适的节点上运行。平台支持 Kubernetes 的默认调度器 <a href="get-started/../modules/computing-resources/scheduler/kube-scheduler.html">kube-scheduler</a>，同时提供了更加强大的 <a href="get-started/../modules/computing-resources/scheduler/t9k-scheduler.html">T9k Scheduler</a>。</p>
 </aside>
-<p>在跳转回到 Notebook 管理页面之后，等待刚才创建的 Notebook 准备就绪。第一次拉取镜像可能会花费较长的时间，具体取决于集群的网络状况。点击右上角的<strong>刷新图标</strong>来手动刷新 Notebook 状态，待 Notebook 开始运行之后，点击右侧的<strong>打开</strong>进入其前端页面。</p>
+<p>在跳转回到 Notebook 管理页面之后，等待刚才创建的 Notebook 准备就绪。第一次拉取镜像可能会花费较长的时间，具体取决于集群的网络状况。点击右上角的<strong>刷新图标</strong>以手动刷新 Notebook 状态，待 Notebook 开始运行之后，点击右侧的<strong>打开</strong>进入其前端页面。</p>
 <figure class="screenshot">
   <img alt="connect-notebook" src="get-started/../assets/get-started/training-first-model/connect-notebook.png" />
 </figure>
@@ -1013,7 +1013,7 @@ spec:
 </ul>
 <h2 id="使用推理服务"><a class="header" href="#使用推理服务">使用推理服务</a></h2>
 <h3 id="查看推理服务地址"><a class="header" href="#查看推理服务地址">查看推理服务地址</a></h3>
-<p>待 SimpleMLService 就绪之后，点击其<strong>名称</strong>进入详情页面。</p>
+<p>在 SimpleMLService 就绪之后，点击其<strong>名称</strong>进入详情页面。</p>
 <figure class="screenshot">
   <img alt="enter-simplemlservice" src="get-started/../assets/get-started/deployment/enter-simplemlservice.png" />
 </figure>
@@ -9440,7 +9440,7 @@ user:demo
 <li>Dataset：Storage Type == 3，记录机器学习所使用的数据集。</li>
 </ul>
 <p>Artifact 没有特定的文件组织结构，用户可根据需要组织上传。</p>
-<p>Model 和 Dataset 由平台的资产管理模块，具体请参考 <a href="modules/experiment-management.html#em-%E5%92%8C-assethub-%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB">EM 和 AssetHub 之间的关系</a> 。</p>
+<p>Model 和 Dataset 由平台的资产管理模块，具体请参考 <a href="modules/experiment-management.html#em-%E5%92%8C-assethub-%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB">EM 和 Asset Hub 之间的关系</a> 。</p>
 <p>Run 和 Autotune 是实验元数据的存储节点，具有特定的文件组织结构，EM Web 根据这些特定的文件组织结构进行实验数据的可视化。</p>
 <h4 id="run-节点"><a class="header" href="#run-节点">Run 节点</a></h4>
 <p>Run 记录实验元数据，包括实验基本信息、实验参数和实验指标。</p>
@@ -10348,7 +10348,7 @@ dataset             Bound    pvc-cc7f789a-6fcb-44a0-8f42-0e6c86e51a1a   1       
 <figure class="screenshot">
     <img alt="running" src="tasks/../assets/tasks/run-distributed-training/pytorch/ddp-training/running.png" />
 </figure>
-<p>点击<strong>该名称</strong>进入详情页面，可以看到刚才创建的 PyTorchTrainingJob 的基本信息、状况信息和事件信息：</p>
+<p>点击其<strong>名称</strong>进入详情页面，可以看到刚才创建的 PyTorchTrainingJob 的基本信息、状况信息和事件信息：</p>
 <figure class="screenshot">
     <img alt="details" src="tasks/../assets/tasks/run-distributed-training/pytorch/ddp-training/details.png" />
 </figure>
@@ -10356,7 +10356,7 @@ dataset             Bound    pvc-cc7f789a-6fcb-44a0-8f42-0e6c86e51a1a   1       
 <figure class="screenshot">
     <img alt="tensorboard" src="tasks/../assets/tasks/run-distributed-training/pytorch/ddp-training/tensorboard.png" />
 </figure>
-<p>点击上方标签页的<strong>副本</strong>，查看 PyTorchTrainingJob 的 Pod 信息：</p>
+<p>点击上方的<strong>副本</strong>标签页，查看 PyTorchTrainingJob 的 Pod 信息：</p>
 <figure class="screenshot">
     <img alt="replicas" src="tasks/../assets/tasks/run-distributed-training/pytorch/ddp-training/replicas.png" />
 </figure>
@@ -10364,7 +10364,7 @@ dataset             Bound    pvc-cc7f789a-6fcb-44a0-8f42-0e6c86e51a1a   1       
 <figure class="screenshot">
     <img alt="view-log" src="tasks/../assets/tasks/run-distributed-training/pytorch/ddp-training/view-log.png" />
 </figure>
-<p>点击上方标签页的<strong>资源监测</strong>，查看 PyTorchTrainingJob 运行过程中使用集群计算资源、网络资源和存储资源的情况：</p>
+<p>点击上方的<strong>资源监测</strong>标签页，查看 PyTorchTrainingJob 运行过程中使用集群计算资源、网络资源和存储资源的情况：</p>
 <figure class="screenshot">
     <img alt="replicas" src="tasks/../assets/tasks/run-distributed-training/pytorch/ddp-training/metrics.png" />
 </figure>
@@ -10391,7 +10391,7 @@ dataset             Bound    pvc-cc7f789a-6fcb-44a0-8f42-0e6c86e51a1a   1       
 <figure class="screenshot">
     <img alt="running" src="tasks/../assets/tasks/run-distributed-training/pytorch/rpc-implemented-parameter-server-training/running.png" />
 </figure>
-<p>点击<strong>该名称</strong>进入详情页面，可以看到刚才创建的 PyTorchTrainingJob 的基本信息、状况信息和事件信息：</p>
+<p>点击其<strong>名称</strong>进入详情页面，可以看到刚才创建的 PyTorchTrainingJob 的基本信息、状况信息和事件信息：</p>
 <figure class="screenshot">
     <img alt="details" src="tasks/../assets/tasks/run-distributed-training/pytorch/rpc-implemented-parameter-server-training/details.png" />
 </figure>
@@ -10399,7 +10399,7 @@ dataset             Bound    pvc-cc7f789a-6fcb-44a0-8f42-0e6c86e51a1a   1       
 <figure class="screenshot">
     <img alt="tensorboard" src="tasks/../assets/tasks/run-distributed-training/pytorch/rpc-implemented-parameter-server-training/tensorboard.png" />
 </figure>
-<p>点击上方标签页的<strong>副本</strong>，查看 PyTorchTrainingJob 的 Pod 信息：</p>
+<p>点击上方的<strong>副本</strong>标签页，查看 PyTorchTrainingJob 的 Pod 信息：</p>
 <figure class="screenshot">
     <img alt="replicas" src="tasks/../assets/tasks/run-distributed-training/pytorch/rpc-implemented-parameter-server-training/replicas.png" />
 </figure>
@@ -10407,7 +10407,7 @@ dataset             Bound    pvc-cc7f789a-6fcb-44a0-8f42-0e6c86e51a1a   1       
 <figure class="screenshot">
     <img alt="view-log" src="tasks/../assets/tasks/run-distributed-training/pytorch/rpc-implemented-parameter-server-training/view-log.png" />
 </figure>
-<p>点击上方标签页的<strong>资源监测</strong>，查看 PyTorchTrainingJob 运行过程中使用集群计算资源、网络资源和存储资源的情况：</p>
+<p>点击上方的<strong>资源监测</strong>标签页，查看 PyTorchTrainingJob 运行过程中使用集群计算资源、网络资源和存储资源的情况：</p>
 <figure class="screenshot">
     <img alt="replicas" src="tasks/../assets/tasks/run-distributed-training/pytorch/rpc-implemented-parameter-server-training/metrics.png" />
 </figure>
@@ -10434,7 +10434,7 @@ dataset             Bound    pvc-cc7f789a-6fcb-44a0-8f42-0e6c86e51a1a   1       
 <figure class="screenshot">
     <img alt="running" src="tasks/../assets/tasks/run-distributed-training/tensorflow/multiworker-training/running.png" />
 </figure>
-<p>点击<strong>该名称</strong>进入详情页面，可以看到刚才创建的 TensorFlowTrainingJob 的基本信息、状况信息和事件信息：</p>
+<p>点击其<strong>名称</strong>进入详情页面，可以看到刚才创建的 TensorFlowTrainingJob 的基本信息、状况信息和事件信息：</p>
 <figure class="screenshot">
     <img alt="details" src="tasks/../assets/tasks/run-distributed-training/tensorflow/multiworker-training/details.png" />
 </figure>
@@ -10442,7 +10442,7 @@ dataset             Bound    pvc-cc7f789a-6fcb-44a0-8f42-0e6c86e51a1a   1       
 <figure class="screenshot">
     <img alt="tensorboard" src="tasks/../assets/tasks/run-distributed-training/tensorflow/multiworker-training/tensorboard.png" />
 </figure>
-<p>点击上方标签页的<strong>副本</strong>，查看 TensorFlowTrainingJob 的 Pod 信息：</p>
+<p>点击上方的<strong>副本</strong>标签页，查看 TensorFlowTrainingJob 的 Pod 信息：</p>
 <figure class="screenshot">
     <img alt="replicas" src="tasks/../assets/tasks/run-distributed-training/tensorflow/multiworker-training/replicas.png" />
 </figure>
@@ -10450,7 +10450,7 @@ dataset             Bound    pvc-cc7f789a-6fcb-44a0-8f42-0e6c86e51a1a   1       
 <figure class="screenshot">
     <img alt="view-log" src="tasks/../assets/tasks/run-distributed-training/tensorflow/multiworker-training/view-log.png" />
 </figure>
-<p>点击上方标签页的<strong>资源监测</strong>，查看 TensorFlowTrainingJob 运行过程中使用集群计算资源、网络资源和存储资源的情况：</p>
+<p>点击上方的<strong>资源监测</strong>标签页，查看 TensorFlowTrainingJob 运行过程中使用集群计算资源、网络资源和存储资源的情况：</p>
 <figure class="screenshot">
     <img alt="replicas" src="tasks/../assets/tasks/run-distributed-training/tensorflow/multiworker-training/metrics.png" />
 </figure>
@@ -10477,7 +10477,7 @@ dataset             Bound    pvc-cc7f789a-6fcb-44a0-8f42-0e6c86e51a1a   1       
 <figure class="screenshot">
     <img alt="running" src="tasks/../assets/tasks/run-distributed-training/tensorflow/parameter-server-training/running.png" />
 </figure>
-<p>点击<strong>该名称</strong>进入详情页面，可以看到刚才创建的 TensorFlowTrainingJob 的基本信息、状况信息和事件信息：</p>
+<p>点击其<strong>名称</strong>进入详情页面，可以看到刚才创建的 TensorFlowTrainingJob 的基本信息、状况信息和事件信息：</p>
 <figure class="screenshot">
     <img alt="details" src="tasks/../assets/tasks/run-distributed-training/tensorflow/parameter-server-training/details.png" />
 </figure>
@@ -10485,7 +10485,7 @@ dataset             Bound    pvc-cc7f789a-6fcb-44a0-8f42-0e6c86e51a1a   1       
 <figure class="screenshot">
     <img alt="tensorboard" src="tasks/../assets/tasks/run-distributed-training/tensorflow/parameter-server-training/tensorboard.png" />
 </figure>
-<p>点击上方标签页的<strong>副本</strong>，查看 TensorFlowTrainingJob 的 Pod 信息：</p>
+<p>点击上方的<strong>副本</strong>标签页，查看 TensorFlowTrainingJob 的 Pod 信息：</p>
 <figure class="screenshot">
     <img alt="replicas" src="tasks/../assets/tasks/run-distributed-training/tensorflow/parameter-server-training/replicas.png" />
 </figure>
@@ -10493,7 +10493,7 @@ dataset             Bound    pvc-cc7f789a-6fcb-44a0-8f42-0e6c86e51a1a   1       
 <figure class="screenshot">
     <img alt="view-log" src="tasks/../assets/tasks/run-distributed-training/tensorflow/parameter-server-training/view-log.png" />
 </figure>
-<p>点击上方标签页的<strong>指标</strong>，查看 TensorFlowTrainingJob 运行过程中使用集群计算资源、网络资源和存储资源的情况：</p>
+<p>点击上方的<strong>指标</strong>标签页，查看 TensorFlowTrainingJob 运行过程中使用集群计算资源、网络资源和存储资源的情况：</p>
 <figure class="screenshot">
     <img alt="replicas" src="tasks/../assets/tasks/run-distributed-training/tensorflow/parameter-server-training/metrics.png" />
 </figure>
@@ -10520,11 +10520,11 @@ dataset             Bound    pvc-cc7f789a-6fcb-44a0-8f42-0e6c86e51a1a   1       
 <figure class="screenshot">
     <img alt="running" src="tasks/../assets/tasks/run-distributed-training/horovod/multiworker-training-of-pytorch-model/running.png" />
 </figure>
-<p>点击<strong>该名称</strong>进入详情页面，可以看到刚才创建的 MPIJob 的基本信息、状况信息和事件信息：</p>
+<p>点击其<strong>名称</strong>进入详情页面，可以看到刚才创建的 MPIJob 的基本信息、状况信息和事件信息：</p>
 <figure class="screenshot">
     <img alt="details" src="tasks/../assets/tasks/run-distributed-training/horovod/multiworker-training-of-pytorch-model/details.png" />
 </figure>
-<p>点击上方标签页的<strong>副本</strong>，查看 MPIJob 的 Pod 信息：</p>
+<p>点击上方的<strong>副本</strong>标签页，查看 MPIJob 的 Pod 信息：</p>
 <figure class="screenshot">
     <img alt="replicas" src="tasks/../assets/tasks/run-distributed-training/horovod/multiworker-training-of-pytorch-model/replicas.png" />
 </figure>
@@ -10532,7 +10532,7 @@ dataset             Bound    pvc-cc7f789a-6fcb-44a0-8f42-0e6c86e51a1a   1       
 <figure class="screenshot">
     <img alt="view-log" src="tasks/../assets/tasks/run-distributed-training/horovod/multiworker-training-of-pytorch-model/view-log.png" />
 </figure>
-<p>点击上方标签页的<strong>指标</strong>，查看 MPIJob 运行过程中使用集群计算资源、网络资源和存储资源的情况：</p>
+<p>点击上方的<strong>指标</strong>标签页，查看 MPIJob 运行过程中使用集群计算资源、网络资源和存储资源的情况：</p>
 <figure class="screenshot">
     <img alt="replicas" src="tasks/../assets/tasks/run-distributed-training/tensorflow/multiworker-training/metrics.png" />
 </figure>
@@ -10559,11 +10559,11 @@ dataset             Bound    pvc-cc7f789a-6fcb-44a0-8f42-0e6c86e51a1a   1       
 <figure class="screenshot">
     <img alt="running" src="tasks/../assets/tasks/run-distributed-training/horovod/multiworker-training-of-keras-model/running.png" />
 </figure>
-<p>点击<strong>该名称</strong>进入详情页面，可以看到刚才创建的 MPIJob 的基本信息、状况信息和事件信息：</p>
+<p>点击其<strong>名称</strong>进入详情页面，可以看到刚才创建的 MPIJob 的基本信息、状况信息和事件信息：</p>
 <figure class="screenshot">
     <img alt="details" src="tasks/../assets/tasks/run-distributed-training/horovod/multiworker-training-of-keras-model/details.png" />
 </figure>
-<p>点击上方标签页的<strong>副本</strong>，查看 MPIJob 的 Pod 信息：</p>
+<p>点击上方的<strong>副本</strong>标签页，查看 MPIJob 的 Pod 信息：</p>
 <figure class="screenshot">
     <img alt="replicas" src="tasks/../assets/tasks/run-distributed-training/horovod/multiworker-training-of-keras-model/replicas.png" />
 </figure>
@@ -10571,7 +10571,7 @@ dataset             Bound    pvc-cc7f789a-6fcb-44a0-8f42-0e6c86e51a1a   1       
 <figure class="screenshot">
     <img alt="view-log" src="tasks/../assets/tasks/run-distributed-training/horovod/multiworker-training-of-keras-model/view-log.png" />
 </figure>
-<p>点击上方标签页的<strong>指标</strong>，查看 MPIJob 运行过程中使用集群计算资源、网络资源和存储资源的情况：</p>
+<p>点击上方的<strong>指标</strong>标签页，查看 MPIJob 运行过程中使用集群计算资源、网络资源和存储资源的情况：</p>
 <figure class="screenshot">
     <img alt="replicas" src="tasks/../assets/tasks/run-distributed-training/horovod/multiworker-training-of-keras-model/metrics.png" />
 </figure>
@@ -11445,7 +11445,7 @@ AH INFO: Folder /demo/t9k-assethub/dataset/text deleted
 <li>完成教程<a href="tasks/./manipulate-folder-asset.html">操作文件夹、模型和数据集</a>。</li>
 </ul>
 <h2 id="创建-s3-凭证"><a class="header" href="#创建-s3-凭证">创建 S3 凭证</a></h2>
-<p>在 AssetHub 控制台进入模型详情页面，点击 <strong>S3 凭证</strong>可以查看目前已有的所有 S3 凭证。然后点击表格右上角的 <strong>+</strong> 创建一个 S3 凭证：</p>
+<p>在 Asset Hub 控制台进入模型详情页面，点击 <strong>S3 凭证</strong>可以查看目前已有的所有 S3 凭证。然后点击表格右上角的 <strong>+</strong> 创建一个 S3 凭证：</p>
 <figure class="screenshot">
   <img alt="s3-cred-list" src="tasks/../assets/tasks/manage-asset/access-asset-by-s3/s3-cred-list.png" />
 </figure>
@@ -11583,7 +11583,7 @@ gpt3    /demo/t9k-assethub/model/chat/gpt3  GPT       own
 </aside>
 <h2 id="通过-python-sdk-1"><a class="header" href="#通过-python-sdk-1">通过 Python SDK</a></h2>
 <p>切换到你的工作路径下，然后以任意方式执行下面的 Python 代码。</p>
-<p>导入 <code>t9k.ah</code> 模块，使用 <code>ah.login()</code> 函数登录到 AssetHub 服务器（如果配置文件中的凭据仍有效，则无需提供参数）：</p>
+<p>导入 <code>t9k.ah</code> 模块，使用 <code>ah.login()</code> 函数登录到 Asset Hub 服务器（如果配置文件中的凭据仍有效，则无需提供参数）：</p>
 <pre><code class="language-python">from t9k import ah
 
 ah.login(host='&lt;asset-hub-server-url&gt;',
@@ -11740,7 +11740,7 @@ AH INFO: Tag 20230101 deleted for Model /demo/t9k-assethub/model/llm/gpt2
 </code></pre>
 <h2 id="通过-python-sdk-2"><a class="header" href="#通过-python-sdk-2">通过 Python SDK</a></h2>
 <p>切换到你的工作路径下，然后以任意方式执行下面的 Python 代码。</p>
-<p>导入 <code>t9k.ah</code> 模块，使用 <code>ah.login()</code> 函数登录到 AssetHub 服务器（如果配置文件中的凭据仍有效，则无需提供参数）：</p>
+<p>导入 <code>t9k.ah</code> 模块，使用 <code>ah.login()</code> 函数登录到 Asset Hub 服务器（如果配置文件中的凭据仍有效，则无需提供参数）：</p>
 <pre><code class="language-python">from t9k import ah
 
 ah.login(host='&lt;asset-hub-server-url&gt;',
@@ -11811,7 +11811,7 @@ AH INFO: Tag 20230101 deleted for Model /demo/t9k-assethub/model/llm/gpt2
 </aside>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="操作模型和数据集的对象"><a class="header" href="#操作模型和数据集的对象">操作模型和数据集的对象</a></h1>
-<p>本教程演示如何通过多种方式操作模型的对象，包括修改、查看和下载 AssetHub 中存储的对象文件。数据集同理。</p>
+<p>本教程演示如何通过多种方式操作模型的对象，包括修改、查看和下载 Asset Hub 中存储的对象文件。数据集同理。</p>
 <h2 id="准备工作-10"><a class="header" href="#准备工作-10">准备工作</a></h2>
 <ul>
 <li>完成教程<a href="tasks/./manipulate-asset-branch-tag.html">操作模型/数据集的分支、tag 和 commit</a>。</li>
@@ -12085,7 +12085,33 @@ print(os.listdir())
 <div class="title">提示</div>
 <p>上述操作使用 YAML 配置文件创建 WorkflowTemplate 及 WorkflowRun，你也可以在工作流控制台进行创建。</p>
 </aside>
-<!-- ## 查看模型 -->
+<aside class="note tip">
+<div class="title">提示</div>
+<p>对于国内用户，ModelScope 可以作为 Hugging Face 的一个替代下载源。本教程对应的示例同样支持从 ModelScope 下载，请参阅其 README 文档。</p>
+</aside>
+<h2 id="查看运行结果"><a class="header" href="#查看运行结果">查看运行结果</a></h2>
+<p>创建 WorkflowRun 之后，进入工作流控制台的 WorkflowRun 列表页面，可以看到名为 <strong>hf-to-ah-xxxxx</strong> 的 WorkflowRun 正在运行。</p>
+<figure class="screenshot">
+  <img alt="workflowrun-list" src="tasks/../assets/tasks/download-model-and-dataset-from-hf-to-ah/workflowrun-list.png" />
+</figure>
+<p>点击其<strong>名称</strong>进入详情页面，可以看到 WorkflowRun 的日志。点击右上角的<strong>刷新图标</strong>以手动刷新日志。</p>
+<figure class="screenshot">
+  <img alt="workflowrun-detail" src="tasks/../assets/tasks/download-model-and-dataset-from-hf-to-ah/workflowrun-detail.png" />
+</figure>
+<p>等待 WorkflowRun 运行完成。</p>
+<h2 id="查看模型"><a class="header" href="#查看模型">查看模型</a></h2>
+<p>在 WorkflowRun 运行完成之后，进入 Asset Hub 控制台，进入模型文件夹 llm，可以看到下载的模型已经被放置在这里。</p>
+<figure class="screenshot">
+  <img alt="model-list" src="tasks/../assets/tasks/download-model-and-dataset-from-hf-to-ah/model-list.png" />
+</figure>
+<p>点击其<strong>名称</strong>进入详情页面，可以看到 facebook/opt-125m 模型的介绍，其解析自 <code>README.md</code> 文件。</p>
+<figure class="screenshot">
+  <img alt="model-reamd" src="tasks/../assets/tasks/download-model-and-dataset-from-hf-to-ah/model-readme.png" />
+</figure>
+<p>点击上方的<strong>所有文件</strong>标签页，可以看到所有模型文件。检查确认与<a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/facebook/opt-125m/tree/main">原模型文件</a>一致。</p>
+<figure class="screenshot">
+  <img alt="model-reamd" src="tasks/../assets/tasks/download-model-and-dataset-from-hf-to-ah/model-file.png" />
+</figure>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="追踪模型训练"><a class="header" href="#追踪模型训练">追踪模型训练</a></h1>
 <p>在复杂的模型训练实验中，研究人员或工程师需要处理数以百计的实验配置和结果，在缺乏有效管理工具的情况下很容易迷失在海量的数据和文件中。因此，追踪和记录实验变得十分重要，它能够帮助研究人员快速识别最佳模型，比较不同模型的差异，洞悉关键因素的作用，并且迅速迭代改进，从而大幅提升研究和开发的效率。</p>
@@ -13082,7 +13108,7 @@ def test(val=False, epoch=None):
 <figure class="screenshot">
     <img alt="created" src="tasks/../assets/tasks/view-autotune-in-experiment-console/created.png" />
 </figure>
-<p>点击<strong>其名称</strong>进入详情页面，可以看到 AutoTuneExperiment 的信息、当前进度、各试验的信息以及可视化图表：</p>
+<p>点击其<strong>名称</strong>进入详情页面，可以看到 AutoTuneExperiment 的信息、当前进度、各试验的信息以及可视化图表：</p>
 <figure class="screenshot">
     <img alt="details" src="tasks/../assets/tasks/view-autotune-in-experiment-console/details.png" />
 </figure>
@@ -13424,12 +13450,12 @@ spec:
 <div class="title">提示</div>
 <p>上述操作使用 YAML 配置文件创建 WorkflowTemplate 及 WorkflowRun，你也可以在工作流控制台进行创建。</p>
 </aside>
-<h2 id="查看运行结果"><a class="header" href="#查看运行结果">查看运行结果</a></h2>
-<p>成功创建 WorkflowRun 之后，进入工作流控制台的 WorkflowRun 列表页面，可以看到名为 <strong>taxi-tips-prediction-run-75v60</strong> 的 WorkflowRun 正在运行：</p>
+<h2 id="查看运行结果-1"><a class="header" href="#查看运行结果-1">查看运行结果</a></h2>
+<p>创建 WorkflowRun 之后，进入工作流控制台的 WorkflowRun 列表页面，可以看到名为 <strong>taxi-tips-prediction-run-xxxxx</strong> 的 WorkflowRun 正在运行：</p>
 <figure class="screenshot">
   <img alt="workflowrun-list-success" src="tasks/../assets/tasks/build-automatic-workflow/build-automatic-workflow-from-data-sampling-to-model-exporting/workflowrun-list-success.png" />
 </figure>
-<p>点击<strong>该名称</strong> 进入详情页面，可以看到刚才创建的 WorkflowRun 的详细运行状态：</p>
+<p>点击其<strong>名称</strong>进入详情页面，可以看到 WorkflowRun 的详细运行状态：</p>
 <figure class="screenshot">
   <img alt="workflowrun-detail" src="tasks/../assets/tasks/build-automatic-workflow/build-automatic-workflow-from-data-sampling-to-model-exporting/workflowrun-detail.png" />
 </figure>
