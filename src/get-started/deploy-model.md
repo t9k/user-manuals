@@ -95,7 +95,7 @@ spec:
 
 ### 查看推理服务地址
 
-待 SimpleMLService 就绪之后，点击其**名称**进入详情页面。
+在 SimpleMLService 就绪之后，点击其**名称**进入详情页面。
 
 <figure class="screenshot">
   <img alt="enter-simplemlservice" src="../assets/get-started/deployment/enter-simplemlservice.png" />

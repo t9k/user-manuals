@@ -37,7 +37,7 @@ EM 树状结构中，节点根据存储方式分为四类，用 StorageType 表�
 
 Artifact 没有特定的文件组织结构，用户可根据需要组织上传。
 
-Model 和 Dataset 由平台的资产管理模块，具体请参考 [EM 和 AssetHub 之间的关系](#em-和-assethub-之间的关系) 。
+Model 和 Dataset 由平台的资产管理模块，具体请参考 [EM 和 Asset Hub 之间的关系](#em-和-assethub-之间的关系) 。
 
 Run 和 Autotune 是实验元数据的存储节点，具有特定的文件组织结构，EM Web 根据这些特定的文件组织结构进行实验数据的可视化。
 

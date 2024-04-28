@@ -10,7 +10,7 @@
 
 ## 创建 S3 凭证
 
-在 AssetHub 控制台进入模型详情页面，点击 **S3 凭证**可以查看目前已有的所有 S3 凭证。然后点击表格右上角的 **+** 创建一个 S3 凭证：
+在 Asset Hub 控制台进入模型详情页面，点击 **S3 凭证**可以查看目前已有的所有 S3 凭证。然后点击表格右上角的 **+** 创建一个 S3 凭证：
 
 <figure class="screenshot">
   <img alt="s3-cred-list" src="../assets/tasks/manage-asset/access-asset-by-s3/s3-cred-list.png" />

@@ -79,7 +79,7 @@ gpt3    /demo/t9k-assethub/model/chat/gpt3  GPT       own
 
 切换到你的工作路径下，然后以任意方式执行下面的 Python 代码。
 
-导入 `t9k.ah` 模块，使用 `ah.login()` 函数登录到 AssetHub 服务器（如果配置文件中的凭据仍有效，则无需提供参数）：
+导入 `t9k.ah` 模块，使用 `ah.login()` 函数登录到 Asset Hub 服务器（如果配置文件中的凭据仍有效，则无需提供参数）：
 
 ```python
 from t9k import ah

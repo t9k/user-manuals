@@ -20,13 +20,13 @@
 
 ## 查看运行结果
 
-成功创建 WorkflowRun 之后，进入工作流控制台的 WorkflowRun 列表页面，可以看到名为 **taxi-tips-prediction-run-75v60** 的 WorkflowRun 正在运行：
+创建 WorkflowRun 之后，进入工作流控制台的 WorkflowRun 列表页面，可以看到名为 **taxi-tips-prediction-run-xxxxx** 的 WorkflowRun 正在运行：
 
 <figure class="screenshot">
   <img alt="workflowrun-list-success" src="../assets/tasks/build-automatic-workflow/build-automatic-workflow-from-data-sampling-to-model-exporting/workflowrun-list-success.png" />
 </figure>
 
-点击**该名称** 进入详情页面，可以看到刚才创建的 WorkflowRun 的详细运行状态：
+点击其**名称**进入详情页面，可以看到 WorkflowRun 的详细运行状态：
 
 <figure class="screenshot">
   <img alt="workflowrun-detail" src="../assets/tasks/build-automatic-workflow/build-automatic-workflow-from-data-sampling-to-model-exporting/workflowrun-detail.png" />

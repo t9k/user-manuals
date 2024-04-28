@@ -10,7 +10,7 @@
     <img alt="created" src="../assets/tasks/view-autotune-in-experiment-console/created.png" />
 </figure>
 
-点击**其名称**进入详情页面，可以看到 AutoTuneExperiment 的信息、当前进度、各试验的信息以及可视化图表：
+点击其**名称**进入详情页面，可以看到 AutoTuneExperiment 的信息、当前进度、各试验的信息以及可视化图表：
 
 <figure class="screenshot">
     <img alt="details" src="../assets/tasks/view-autotune-in-experiment-console/details.png" />

@@ -21,7 +21,7 @@
     <img alt="running" src="../assets/tasks/run-distributed-training/pytorch/rpc-implemented-parameter-server-training/running.png" />
 </figure>
 
-点击**该名称**进入详情页面，可以看到刚才创建的 PyTorchTrainingJob 的基本信息、状况信息和事件信息：
+点击其**名称**进入详情页面，可以看到刚才创建的 PyTorchTrainingJob 的基本信息、状况信息和事件信息：
 
 <figure class="screenshot">
     <img alt="details" src="../assets/tasks/run-distributed-training/pytorch/rpc-implemented-parameter-server-training/details.png" />
@@ -33,7 +33,7 @@
     <img alt="tensorboard" src="../assets/tasks/run-distributed-training/pytorch/rpc-implemented-parameter-server-training/tensorboard.png" />
 </figure>
 
-点击上方标签页的**副本**，查看 PyTorchTrainingJob 的 Pod 信息：
+点击上方的**副本**标签页，查看 PyTorchTrainingJob 的 Pod 信息：
 
 <figure class="screenshot">
     <img alt="replicas" src="../assets/tasks/run-distributed-training/pytorch/rpc-implemented-parameter-server-training/replicas.png" />
@@ -45,7 +45,7 @@
     <img alt="view-log" src="../assets/tasks/run-distributed-training/pytorch/rpc-implemented-parameter-server-training/view-log.png" />
 </figure>
 
-点击上方标签页的**资源监测**，查看 PyTorchTrainingJob 运行过程中使用集群计算资源、网络资源和存储资源的情况：
+点击上方的**资源监测**标签页，查看 PyTorchTrainingJob 运行过程中使用集群计算资源、网络资源和存储资源的情况：
 
 <figure class="screenshot">
     <img alt="replicas" src="../assets/tasks/run-distributed-training/pytorch/rpc-implemented-parameter-server-training/metrics.png" />

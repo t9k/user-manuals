@@ -21,13 +21,13 @@
     <img alt="running" src="../assets/tasks/run-distributed-training/horovod/multiworker-training-of-pytorch-model/running.png" />
 </figure>
 
-点击**该名称**进入详情页面，可以看到刚才创建的 MPIJob 的基本信息、状况信息和事件信息：
+点击其**名称**进入详情页面，可以看到刚才创建的 MPIJob 的基本信息、状况信息和事件信息：
 
 <figure class="screenshot">
     <img alt="details" src="../assets/tasks/run-distributed-training/horovod/multiworker-training-of-pytorch-model/details.png" />
 </figure>
 
-点击上方标签页的**副本**，查看 MPIJob 的 Pod 信息：
+点击上方的**副本**标签页，查看 MPIJob 的 Pod 信息：
 
 <figure class="screenshot">
     <img alt="replicas" src="../assets/tasks/run-distributed-training/horovod/multiworker-training-of-pytorch-model/replicas.png" />
@@ -39,7 +39,7 @@
     <img alt="view-log" src="../assets/tasks/run-distributed-training/horovod/multiworker-training-of-pytorch-model/view-log.png" />
 </figure>
 
-点击上方标签页的**指标**，查看 MPIJob 运行过程中使用集群计算资源、网络资源和存储资源的情况：
+点击上方的**指标**标签页，查看 MPIJob 运行过程中使用集群计算资源、网络资源和存储资源的情况：
 
 <figure class="screenshot">
     <img alt="replicas" src="../assets/tasks/run-distributed-training/tensorflow/multiworker-training/metrics.png" />
