@@ -84,7 +84,7 @@ spec:
 
 在该例中，通过 `spec.source.type` 字段指定源存储服务类型为 Git，通过 `spec.source.options` 字段指定源存储服务选项：
 
-* `token`：个人访问令牌（personal access token），使用 Secret `github-token` 的 `token` 的值，该字段是可选的。
+* `token`：个人访问令牌（personal access token），使用 Secret `github-token` 的键 `token` 的值，该字段是可选的。
 * `url`：Git 仓库路径，以 `$(TOKEN)` 引用的形式嵌入 token。
 * `ref`：分支、标签或 commit，下载完成后切换到该 ref。该字段是可选的，默认为 `master`。
 
@@ -281,6 +281,8 @@ spec:
           key: secretAccessKey
     - name: s3-uri
       value: s3://bucket/path/subpath
+    - name: s3-no-check-bucket
+      value: "true"
 ```
 
 在该例中，通过 `spec.sink.type` 字段指定目标存储服务类型为 S3，通过 `spec.sink.options` 字段指定目标存储选项：
@@ -289,6 +291,7 @@ spec:
 * `s3-access-key-id`：S3 服务的 AccessKeyID 凭证，引用 Secret `s3-config` 的键 `accessKeyID` 的值。
 * `s3-secret-access-key`：S3 服务的 SecretAccessKey 凭证，引用 Secret `s3-config` 的键 `secretAccessKey` 的值。
 * `s3-uri`：S3 路径，上传数据到该路径下。
+* `s3-no-check-bucket`：不检查 bucket 是否存在，当上述凭证不具备检查 bucket 的权限时需要设置，该字段是可选的。
 
 <aside class="note info">
 <div class="title">信息</div>
