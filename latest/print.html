@@ -7869,7 +7869,7 @@ spec:
 </code></pre>
 <p>在该例中，通过 <code>spec.source.type</code> 字段指定源存储服务类型为 Git，通过 <code>spec.source.options</code> 字段指定源存储服务选项：</p>
 <ul>
-<li><code>token</code>：个人访问令牌（personal access token），该字段是可选的。</li>
+<li><code>token</code>：个人访问令牌（personal access token），使用 Secret <code>github-token</code> 的 <code>token</code> 的值，该字段是可选的。</li>
 <li><code>url</code>：Git 仓库路径，以 <code>$(TOKEN)</code> 引用的形式嵌入 token。</li>
 <li><code>ref</code>：分支、标签或 commit，下载完成后切换到该 ref。该字段是可选的，默认为 <code>master</code>。</li>
 </ul>
@@ -7891,7 +7891,7 @@ spec:
 </code></pre>
 <p>在该例中，通过 <code>spec.source.type</code> 字段指定源存储服务类型为 Hugging Face，通过 <code>spec.source.options</code> 字段指定源存储服务选项：</p>
 <ul>
-<li><code>token</code>：Hugging Face token，该字段是可选的。</li>
+<li><code>token</code>：Hugging Face token，引用 Secret <code>hf-token</code> 的键 <code>token</code> 的值，该字段是可选的。</li>
 <li><code>repo</code>：Hugging Face 仓库名称。</li>
 <li><code>files</code>：下载的文件列表。该字段是可选的，默认下载仓库的所有文件。</li>
 </ul>
@@ -7928,9 +7928,9 @@ spec:
 </code></pre>
 <p>在该例中，通过 <code>spec.source.type</code> 字段指定源存储服务类型为 S3，通过 <code>spec.source.options</code> 字段指定源存储服务选项：</p>
 <ul>
-<li><code>s3-endpoint</code>：S3 端点。</li>
-<li><code>s3-access-key-id</code>：S3 服务的 AccessKeyID 凭证。</li>
-<li><code>s3-secret-access-key</code>：S3 服务的 SecretAccessKey 凭证。</li>
+<li><code>s3-endpoint</code>：S3 端点，引用 Secret <code>s3-config</code> 的键 <code>endpoint</code> 的值。</li>
+<li><code>s3-access-key-id</code>：S3 服务的 AccessKeyID 凭证，引用 Secret <code>s3-config</code> 的键 <code>accessKeyID</code> 的值。</li>
+<li><code>s3-secret-access-key</code>：S3 服务的 SecretAccessKey 凭证，引用 Secret <code>s3-config</code> 的键 <code>secretAccessKey</code> 的值。</li>
 <li><code>s3-uri</code>：S3 文件或目录的路径。</li>
 </ul>
 <aside class="note">
@@ -7977,7 +7977,7 @@ spec:
 </code></pre>
 <p>在该例中，上传 PVC <code>datacube-pvc</code> 的 <code>dev/git/</code> 路径下的 <code>repo</code> 目录（由 <code>spec.sink.options</code> 字段指定，其中 <code>url</code> 指向的仓库名称即为目录名称），通过 <code>spec.sink.type</code> 字段指定目标存储服务类型为 Git，通过 <code>spec.sink.options</code> 字段指定目标存储选项：</p>
 <ul>
-<li><code>token</code>：个人访问令牌（personal access token），该字段是可选的。</li>
+<li><code>token</code>：个人访问令牌（personal access token），引用 Secret <code>github-token</code> 的键 <code>token</code> 的值，该字段是可选的。</li>
 <li><code>url</code>：Git 仓库路径，以 <code>$(TOKEN)</code> 引用的形式嵌入 token。</li>
 </ul>
 <aside class="note">
@@ -8004,7 +8004,7 @@ spec:
 </code></pre>
 <p>在该例中，通过 <code>spec.sink.type</code> 字段指定目标存储服务类型为 Hugging Face，通过 <code>spec.sink.options</code> 字段指定目标存储选项：</p>
 <ul>
-<li><code>token</code>：Hugging Face token，该字段是可选的。</li>
+<li><code>token</code>：Hugging Face token，引用 Secret <code>hf-token</code> 的键 <code>token</code> 的值，该字段是可选的。</li>
 <li><code>repo</code>：Hugging Face 仓库名称。</li>
 <li><code>path-in-repo</code>：仓库中的路径，数据将被上传到这里。</li>
 <li><code>commit-message</code>：提交信息，该字段是可选的。</li>
@@ -8035,9 +8035,9 @@ spec:
 </code></pre>
 <p>在该例中，通过 <code>spec.sink.type</code> 字段指定目标存储服务类型为 S3，通过 <code>spec.sink.options</code> 字段指定目标存储选项：</p>
 <ul>
-<li><code>s3-endpoint</code>：S3 端点。</li>
-<li><code>s3-access-key-id</code>：S3 服务的 AccessKeyID 凭证。</li>
-<li><code>s3-secret-access-key</code>：S3 服务的 SecretAccessKey 凭证。</li>
+<li><code>s3-endpoint</code>：S3 端点，引用 Secret <code>s3-config</code> 的键 <code>endpoint</code> 的值。</li>
+<li><code>s3-access-key-id</code>：S3 服务的 AccessKeyID 凭证，引用 Secret <code>s3-config</code> 的键 <code>accessKeyID</code> 的值。</li>
+<li><code>s3-secret-access-key</code>：S3 服务的 SecretAccessKey 凭证，引用 Secret <code>s3-config</code> 的键 <code>secretAccessKey</code> 的值。</li>
 <li><code>s3-uri</code>：S3 路径，上传数据到该路径下。</li>
 </ul>
 <aside class="note info">
