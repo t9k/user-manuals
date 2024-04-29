@@ -84,7 +84,7 @@ spec:
 
 在该例中，通过 `spec.source.type` 字段指定源存储服务类型为 Git，通过 `spec.source.options` 字段指定源存储服务选项：
 
-* `token`：个人访问令牌（personal access token），该字段是可选的。
+* `token`：个人访问令牌（personal access token），使用 Secret `github-token` 的 `token` 的值，该字段是可选的。
 * `url`：Git 仓库路径，以 `$(TOKEN)` 引用的形式嵌入 token。
 * `ref`：分支、标签或 commit，下载完成后切换到该 ref。该字段是可选的，默认为 `master`。
 
@@ -110,7 +110,7 @@ spec:
 
 在该例中，通过 `spec.source.type` 字段指定源存储服务类型为 Hugging Face，通过 `spec.source.options` 字段指定源存储服务选项：
 
-* `token`：Hugging Face token，该字段是可选的。
+* `token`：Hugging Face token，引用 Secret `hf-token` 的键 `token` 的值，该字段是可选的。
 * `repo`：Hugging Face 仓库名称。
 * `files`：下载的文件列表。该字段是可选的，默认下载仓库的所有文件。
 
@@ -152,9 +152,9 @@ spec:
 
 在该例中，通过 `spec.source.type` 字段指定源存储服务类型为 S3，通过 `spec.source.options` 字段指定源存储服务选项：
 
-* `s3-endpoint`：S3 端点。
-* `s3-access-key-id`：S3 服务的 AccessKeyID 凭证。
-* `s3-secret-access-key`：S3 服务的 SecretAccessKey 凭证。
+* `s3-endpoint`：S3 端点，引用 Secret `s3-config` 的键 `endpoint` 的值。
+* `s3-access-key-id`：S3 服务的 AccessKeyID 凭证，引用 Secret `s3-config` 的键 `accessKeyID` 的值。
+* `s3-secret-access-key`：S3 服务的 SecretAccessKey 凭证，引用 Secret `s3-config` 的键 `secretAccessKey` 的值。
 * `s3-uri`：S3 文件或目录的路径。
 
 <aside class="note">
@@ -216,7 +216,7 @@ spec:
 
 在该例中，上传 PVC `datacube-pvc` 的 `dev/git/` 路径下的 `repo` 目录（由 `spec.sink.options` 字段指定，其中 `url` 指向的仓库名称即为目录名称），通过 `spec.sink.type` 字段指定目标存储服务类型为 Git，通过 `spec.sink.options` 字段指定目标存储选项：
 
-* `token`：个人访问令牌（personal access token），该字段是可选的。
+* `token`：个人访问令牌（personal access token），引用 Secret `github-token` 的键 `token` 的值，该字段是可选的。
 * `url`：Git 仓库路径，以 `$(TOKEN)` 引用的形式嵌入 token。
 
 <aside class="note">
@@ -250,7 +250,7 @@ spec:
 
 在该例中，通过 `spec.sink.type` 字段指定目标存储服务类型为 Hugging Face，通过 `spec.sink.options` 字段指定目标存储选项：
 
-* `token`：Hugging Face token，该字段是可选的。
+* `token`：Hugging Face token，引用 Secret `hf-token` 的键 `token` 的值，该字段是可选的。
 * `repo`：Hugging Face 仓库名称。
 * `path-in-repo`：仓库中的路径，数据将被上传到这里。
 * `commit-message`：提交信息，该字段是可选的。
@@ -285,9 +285,9 @@ spec:
 
 在该例中，通过 `spec.sink.type` 字段指定目标存储服务类型为 S3，通过 `spec.sink.options` 字段指定目标存储选项：
 
-* `s3-endpoint`：S3 端点。
-* `s3-access-key-id`：S3 服务的 AccessKeyID 凭证。
-* `s3-secret-access-key`：S3 服务的 SecretAccessKey 凭证。
+* `s3-endpoint`：S3 端点，引用 Secret `s3-config` 的键 `endpoint` 的值。
+* `s3-access-key-id`：S3 服务的 AccessKeyID 凭证，引用 Secret `s3-config` 的键 `accessKeyID` 的值。
+* `s3-secret-access-key`：S3 服务的 SecretAccessKey 凭证，引用 Secret `s3-config` 的键 `secretAccessKey` 的值。
 * `s3-uri`：S3 路径，上传数据到该路径下。
 
 <aside class="note info">
