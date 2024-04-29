@@ -338,8 +338,8 @@ spec:
 
 * Git
   * 下载
-    * <a target="_blank" rel="noopener noreferrer" href="https://git-scm.com/docs/git-clone#_options">git clone</a>
-    * <a target="_blank" rel="noopener noreferrer" href="https://git-scm.com/docs/git-fetch#_options">git fetch</a>
+    * <a target="_blank" rel="noopener noreferrer" href="https://git-scm.com/docs/git-clone#_options">git clone</a>（如果 Git 本地仓库不存在）
+    * <a target="_blank" rel="noopener noreferrer" href="https://git-scm.com/docs/git-fetch#_options">git fetch</a>（如果 Git 本地仓库存在）
   * 上传：<a target="_blank" rel="noopener noreferrer" href="https://git-scm.com/docs/git-push#_options">git push</a>
 * Hugging Face
   * 下载：<a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/docs/huggingface_hub/en/guides/cli#huggingface-cli-download">huggingface-cli download</a>
