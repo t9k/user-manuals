@@ -4,7 +4,7 @@ GenericJob 是最基本的 T9k Job 资源，支持使用 T9k 高级调度策略�
 
 ## 创建 GenericJob
 
-下面是一个基本的 GenericJob 配置示例：
+下面是一个基本的 GenericJob 示例：
 
 ```yaml
 apiVersion: batch.tensorstack.dev/v1beta1

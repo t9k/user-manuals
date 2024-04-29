@@ -15,7 +15,7 @@ TensorBoard 是 TensorFlow 提供的一种可视化机器学习过程和结果�
 
 ## 创建 TensorBoard
 
-下面是一个基本的 TensorBoard 配置示例：
+下面是一个基本的 TensorBoard 示例：
 
 ```yaml
 # tensorboard-example.yaml

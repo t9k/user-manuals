@@ -6,7 +6,7 @@ PyTorchTrainingJob 是服务于 <a target="_blank" rel="noopener noreferrer" hre
 
 ## 创建 PyTorchTrainingJob
 
-下面是一个基本的 PyTorchTrainingJob 配置示例：
+下面是一个基本的 PyTorchTrainingJob 示例：
 
 ```yaml
 apiVersion: batch.tensorstack.dev/v1beta1

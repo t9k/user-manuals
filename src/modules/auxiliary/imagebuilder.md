@@ -1,10 +1,10 @@
 # ImageBuilder
 
-平台提供 CRD `ImageBuilder`，方便用户在集群中构建容器镜像。
+平台提供 CRD `ImageBuilder`，用于在集群中构建容器镜像。
 
 ## 创建 ImageBuilder
 
-下面是一个基本的 `ImageBuilder` 定义示例：
+下面是一个基本的 ImageBuilder 示例：
 
 ```yaml
 # image-builder-example.yaml
@@ -29,7 +29,7 @@ spec:
 
 * `spec.dockerConfig.secret` 字段指定使用 Secret `docker-config` 中记录的 docker 配置，以上传镜像。
 * `spec.tag` 字段指定目标镜像的名称和标签为 `t9kpublic/kaniko-executor:v1.19.2`。
-* `spec.workspace` 字段指定构建镜像使用 PVC `kaniko`  作为工作空间，其中：
+* `spec.workspace` 字段指定构建镜像使用 PVC `kaniko` 作为工作空间，其中：
   * 在 PVC 相对路径 `./Dockerfile` 中存放构建镜像所需的 Dockerfile。
   * 在 PVC 相对路径 `.` 中存放构建镜像所需要的上下文。
 * `spec.builder` 字段指定使用 `kaniko` 来构建镜像。

@@ -4,7 +4,7 @@ ConfigMap 是一种 Kubernetes 原生资源，用于存储非机密性配置信�
 
 ## 创建 ConfigMap
 
-下面是一个基本的 ConfigMap 配置示例：
+下面是一个基本的 ConfigMap 示例：
 
 ```yaml
 apiVersion: v1

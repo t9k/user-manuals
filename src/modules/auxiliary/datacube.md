@@ -1,13 +1,13 @@
 # DataCube
 
-平台提供 CRD `DataCube`，支持 PVC 和数据存储服务之间的传输数据：
+平台提供 CRD `DataCube`，用于 PVC 和数据存储服务之间的数据传输：
 
-* 下载数据到 PVC；
-* 上传 PVC 数据到 Git、HuggingFace 和 S3 等数据存储服务。
+* 下载数据到 PVC。
+* 上传数据到 Git、Hugging Face 和 S3 等数据存储服务。
 
 ## 创建 DataCube
 
-下面是一个基本的 DataCube 配置示例：
+下面是一个基本的 DataCube 示例：
 
 ```yaml
 apiVersion: tensorstack.dev/v1beta1
@@ -19,20 +19,18 @@ spec:
     type: git
     options:
     - name: url
-      value: https://github.com/user/repo.git
+      value: https://github.com/owner/repo.git
   sink: 
     type: pvc
     pvc:
       name: datacube-pvc
 ```
 
-在该例中，下载 GitHub 仓库（repository）`https://github.com/user/repo.git`（由 `spec.source.options` 字段指定）到 PVC `datacube-pvc`（由 `spec.sink.pvc.name` 字段指定）。
+在该例中，下载（克隆）Git 仓库（repository）`https://github.com/user/repo.git`（由 `spec.source.options` 字段指定）到 PVC `datacube-pvc`（由 `spec.sink.pvc.name` 字段指定）。
 
 ## 下载数据
 
-DataCube 支持从多种数据存储服务下载数据到 PVC。
-
-### PVC 设置
+### 设置 PVC
 
 下载数据到 PVC 时，支持自动创建 PVC 和指定 PVC 子目录：
 
@@ -57,18 +55,16 @@ spec:
 <aside class="note">
 <div class="title">注意</div>
 
-1. 如果该 PVC `datacube-pvc` 已存在，可不填写 `spec.sink.pvc.template`，系统不会重新创建 PVC；
+1. 如果该 PVC `datacube-pvc` 已存在，可不填写 `spec.sink.pvc.template`，系统不会重新创建 PVC。
 2. 如果该 PVC 子目录 `dev/git` 不存在，系统会自动创建该目录。
 
 </aside>
 
-### 数据源设置
+### 设置源存储服务
 
-DataCube 目前支持从 Git、HuggingFace 和 S3 数据源下载数据到 PVC。
+#### Git
 
-#### Git 
-
-下载一个 Git 仓库到 PVC：
+下载（克隆）一个 Git 仓库到 PVC：
 
 ```yaml
 spec:
@@ -86,15 +82,15 @@ spec:
       value: main
 ```
 
-在该例中，通过 `spec.source.type` 字段指定数据源类型为 Git，通过 `spec.source.options` 字段指定数据源选项：
+在该例中，通过 `spec.source.type` 字段指定源存储服务类型为 Git，通过 `spec.source.options` 字段指定源存储服务选项：
 
-* `token`：下载凭证，该字段是可选的；
-* `url`：Git 仓库路径，以 `$(TOKEN)` 引用的形式嵌入 token；
-* `ref`：分支、标签或 commit，下载完成后，切换到该 ref，该字段是可选的，默认为 master。
+* `token`：个人访问令牌（personal access token），该字段是可选的。
+* `url`：Git 仓库路径，以 `$(TOKEN)` 引用的形式嵌入 token。
+* `ref`：分支、标签或 commit，下载完成后切换到该 ref。该字段是可选的，默认为 `master`。
 
-#### HuggingFace
+#### Hugging Face
 
-下载一个 HuggingFace 仓库（repository）或其中的部分文件到 PVC：
+下载一个 Hugging Face 仓库（repository）或其中的部分文件到 PVC：
 
 ```yaml
 spec:
@@ -112,17 +108,17 @@ spec:
       value: README.md,tokenizer.json,tokenizer_config.json
 ```
 
-在该例中，通过 `spec.source.type` 字段指定数据源类型为 HuggingFace，通过 `spec.source.options` 字段指定数据源选项：
+在该例中，通过 `spec.source.type` 字段指定源存储服务类型为 Hugging Face，通过 `spec.source.options` 字段指定源存储服务选项：
 
-* `token`：下载凭证，该字段是可选的；
-* `repo`：HuggingFace 仓库名称；
-* `files`：文件列表，仅下载指定的文件列表，该字段是可选的，默认下载整个仓库内容。
+* `token`：Hugging Face token，该字段是可选的。
+* `repo`：Hugging Face 仓库名称。
+* `files`：下载的文件列表。该字段是可选的，默认下载仓库的所有文件。
 
-<aside class="note info">
-<div class="title">信息</div>
+<aside class="note">
+<div class="title">注意</div>
 
-* 当下载仓库公开且不需要下载凭证时，可以不指定 token，否则需要指定具有相应权限的 token 凭证；
-* 指定文件列表 `files` 时，必须通过 `value` 直接设置其值，不可以通过 `valueFrom` 间接引用 Secret 或 ConfigMap 的内容。
+* 对于受保护的（gated）仓库，必须指定 `token` 为拥有访问权限的用户的 Hugging Face token。
+* 指定 `files` 时，必须通过 `value` 直接设置值，不可以通过 `valueFrom` 间接引用 Secret 或 ConfigMap 的内容。
 
 </aside>
 
@@ -154,25 +150,23 @@ spec:
       value: s3://bucket/path/subpath
 ```
 
-在该例中，通过 `spec.source.type` 字段指定数据源类型为 S3，通过 `spec.source.options` 字段指定数据源选项：
+在该例中，通过 `spec.source.type` 字段指定源存储服务类型为 S3，通过 `spec.source.options` 字段指定源存储服务选项：
 
-* `s3-endpoint`：S3 端点；
-* `s3-access-key-id`：S3 服务的 AccessKeyID 凭证；
-* `s3-secret-access-key`：S3 服务的 SecretAccessKey 凭证；
+* `s3-endpoint`：S3 端点。
+* `s3-access-key-id`：S3 服务的 AccessKeyID 凭证。
+* `s3-secret-access-key`：S3 服务的 SecretAccessKey 凭证。
 * `s3-uri`：S3 文件或目录的路径。
 
-<aside class="note info">
-<div class="title">信息</div>
+<aside class="note">
+<div class="title">注意</div>
 
-指定文件或目录地址 `s3-uri` 时，必须通过 `value` 直接设置其值，不可以通过 `valueFrom` 间接引用 Secret 或 ConfigMap 的内容。
+指定 `s3-uri` 时，必须通过 `value` 直接设置值，不可以通过 `valueFrom` 间接引用 Secret 或 ConfigMap 的内容。
 
 </aside>
 
 ## 上传数据
 
-DataCube 支持上传 PVC 数据到多种数据存储服务。
-
-### PVC 设置
+### 设置 PVC
 
 上传 PVC 数据：
 
@@ -190,14 +184,12 @@ spec:
 <aside class="note">
 <div class="title">注意</div>
 
-1. 如果目标存储服务是 Git，子路径必须是一个目录，且待上传的 Git 仓库位于该目录下；
-2. 如果目标存储服务是 HuggingFace 或 S3，子路径可以是一个文件或目录，表达上传该文件或目录到目标存储服务。
+1. 如果目标存储服务类型是 Git，子路径必须是一个目录，且待上传的 Git 本地仓库**位于该目录下**（Git 本地仓库**不是该目录本身**）。
+2. 如果目标存储服务类型是 Hugging Face 或 S3，子路径可以是一个文件或目录，表示上传该文件或目录到目标存储服务。
 
 </aside>
 
-### 目标存储服务设置
-
-DataCube 目前支持上传 PVC 数据到 Git、HuggingFace 和 S3 存储服务。
+### 设置目标存储服务
 
 #### Git 
 
@@ -222,21 +214,21 @@ spec:
       value: https://$(TOKEN)@github.com/user/repo.git
 ```
 
-在该例中，上传 PVC `datacube-pvc` 的 `dev/git/` 路径下的 `repo` 目录（由 `spec.sink.options` 字段指定，其中 `url` 指向的 repository 即为目录名称），通过 `spec.sink.type` 字段指定目标存储类型为 Git，通过 `spec.sink.options` 字段指定目标存储选项：
+在该例中，上传 PVC `datacube-pvc` 的 `dev/git/` 路径下的 `repo` 目录（由 `spec.sink.options` 字段指定，其中 `url` 指向的仓库名称即为目录名称），通过 `spec.sink.type` 字段指定目标存储服务类型为 Git，通过 `spec.sink.options` 字段指定目标存储选项：
 
-* `token`：上传凭证，该字段是可选的；
-* `url`：Git 仓库路径，以 `$(TOKEN)` 引用的形式嵌入 token；
+* `token`：个人访问令牌（personal access token），该字段是可选的。
+* `url`：Git 仓库路径，以 `$(TOKEN)` 引用的形式嵌入 token。
 
 <aside class="note">
 <div class="title">注意</div>
 
-上传 Git 仓库实际上是在目标路径下执行 `git push` 指令，要求用户已经在当前分支提交了 commit 信息。
+上传 Git 仓库实际上是在目标路径下执行 `git push` 命令，其要求用户已经在当前分支提交了 commit。
 
 </aside>
 
-#### HuggingFace
+#### Hugging Face
 
-上传 PVC 的文件或目录到 HuggingFace 仓库：
+上传 PVC 的文件或目录到 Hugging Face 仓库：
 
 ```yaml
 spec:
@@ -256,11 +248,11 @@ spec:
       value: Upload files from PVC
 ```
 
-在该例中，通过 `spec.sink.type` 字段指定目标存储类型为 HuggingFace，通过 `spec.sink.options` 字段指定目标存储选项：
+在该例中，通过 `spec.sink.type` 字段指定目标存储服务类型为 Hugging Face，通过 `spec.sink.options` 字段指定目标存储选项：
 
-* `token`：上传凭证；
-* `repo`：HuggingFace 仓库名称；
-* `path-in-repo`：仓库中的路径，上传数据到仓库的此路径下；
+* `token`：Hugging Face token，该字段是可选的。
+* `repo`：Hugging Face 仓库名称。
+* `path-in-repo`：仓库中的路径，数据将被上传到这里。
 * `commit-message`：提交信息，该字段是可选的。
 
 #### S3
@@ -291,11 +283,11 @@ spec:
       value: s3://bucket/path/subpath
 ```
 
-在该例中，通过 `spec.sink.type` 字段指定目标存储类型为 S3，通过 `spec.sink.options` 字段指定目标存储选项：
+在该例中，通过 `spec.sink.type` 字段指定目标存储服务类型为 S3，通过 `spec.sink.options` 字段指定目标存储选项：
 
-* `s3-endpoint`：S3 端点；
-* `s3-access-key-id`：S3 服务的 AccessKeyID 凭证；
-* `s3-secret-access-key`：S3 服务的 SecretAccessKey 凭证；
+* `s3-endpoint`：S3 端点。
+* `s3-access-key-id`：S3 服务的 AccessKeyID 凭证。
+* `s3-secret-access-key`：S3 服务的 SecretAccessKey 凭证。
 * `s3-uri`：S3 路径，上传数据到该路径下。
 
 <aside class="note info">
@@ -321,7 +313,7 @@ spec:
 
 在该例中：
 
-* 设置最多失败重试 `2` 次（由 `spec.executor.options.backoffLimit` 字段指定），重试达到限制次数时，标记该 DataCube 失败；默认为 0，即不执行失败重试；
+* 设置最多失败重试 `2` 次（由 `spec.executor.options.backoffLimit` 字段指定），重试达到限制次数时，标记该 DataCube 失败；默认为 0，即不执行失败重试。
 * 设置每次数据传输最多执行 `3600` 秒（由 `spec.executor.options.activeDeadlineSeconds` 字段指定），当本次数据传输达到限制时长时，标记本次数据传输失败，将会进行重试；默认为空，即不限制执行时间。
 
 ### 额外参数
@@ -337,7 +329,7 @@ spec:
       - /tmp/cache/hf
 ```
 
-在该例中，通过 `spec.executor.options.extraArgs` 指定缓存目录 `--cache-dir` 为 `/tmp/cache/hf`，适用于下载 HuggingFace 文件。
+在该例中，通过 `spec.executor.options.extraArgs` 指定缓存目录 `--cache-dir` 为 `/tmp/cache/hf`，适用于下载 Hugging Face 文件。
 
 <aside class="note info">
 <div class="title">信息</div>
@@ -349,7 +341,7 @@ spec:
     * <a target="_blank" rel="noopener noreferrer" href="https://git-scm.com/docs/git-clone#_options">git clone</a>
     * <a target="_blank" rel="noopener noreferrer" href="https://git-scm.com/docs/git-fetch#_options">git fetch</a>
   * 上传：<a target="_blank" rel="noopener noreferrer" href="https://git-scm.com/docs/git-push#_options">git push</a>
-* HuggingFace
+* Hugging Face
   * 下载：<a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/docs/huggingface_hub/en/guides/cli#huggingface-cli-download">huggingface-cli download</a>
   * 上传：<a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/docs/huggingface_hub/en/guides/cli#huggingface-cli-upload">huggingface-cli upload</a>
 * S3
@@ -409,7 +401,7 @@ spec:
 
 ### Pod 状态
 
-执行数据传输的 Pod 信息记录在 `status.pod` 中：
+执行数据传输的 Pod 状态信息记录在 `status.pod` 中：
 
 ```yaml
 status:

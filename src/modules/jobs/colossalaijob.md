@@ -6,7 +6,7 @@ ColossalAIJob 是服务于 <a target="_blank" rel="noopener noreferrer" href="ht
 
 ## 创建 ColossalAIJob
 
-下面是一个基本的 ColossalAIJob 配置示例：
+下面是一个基本的 ColossalAIJob 示例：
 
 ```yaml
 apiVersion: batch.tensorstack.dev/v1beta1

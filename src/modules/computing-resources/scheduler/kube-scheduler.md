@@ -12,7 +12,7 @@ kube-scheduler 是 Kubernetes 集群的默认调度器，也是平台的默认�
 
 集群中的节点，一般都被管理员通过自动化的过程设置了一些标签。例如标签 `kubernetes.io/hostname: kube-01` 标识节点的名称为 kube-01，`nvidia.com/gpu.product: NVIDIA-A100-PCIE-40GB` 标识节点安装了 NVIDIA A100-40GB 型号的 GPU。`nodeSelector` 是 Pod 规约（`spec`）中的一个字段，用于根据节点标签筛选节点。
 
-下面是一个使用 `nodeSelector` 字段的 Pod 配置示例：
+下面是一个使用 `nodeSelector` 字段的 Pod 示例：
 
 ```yaml
 apiVersion: v1
@@ -40,7 +40,7 @@ spec:
 
 `nodeName` 也是 Pod 规约中的一个字段，用于直接指定节点的名称，相当于设置 `nodeSelector` 字段为标签 `kubernetes.io/hostname: <NODE_NAME>`。
 
-下面是一个使用 `nodeName` 字段的 Pod 配置示例：
+下面是一个使用 `nodeName` 字段的 Pod 示例：
 
 ```yaml
 apiVersion: v1

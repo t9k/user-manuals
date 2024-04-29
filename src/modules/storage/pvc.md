@@ -5,7 +5,7 @@ PVC 是一种 Kubernetes 原生资源，是对存储的需求声明，它抽象�
 
 ## 创建 PVC
 
-下面是一个基本的 PVC 配置示例：
+下面是一个基本的 PVC 示例：
 
 ```yaml
 apiVersion: v1

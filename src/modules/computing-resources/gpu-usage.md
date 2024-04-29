@@ -129,7 +129,7 @@ NVIDIA 还有其他形式的设备名称，例如，当部署了 MIG 技术时�
 
 ### 独占 GPU
 
-下面是一个独占使用 GPU 的 PyTorchTrainingJob 配置示例：
+下面是一个独占使用 GPU 的 PyTorchTrainingJob 示例：
 
 ```yaml
 apiVersion: batch.tensorstack.dev/v1beta1
@@ -171,7 +171,7 @@ spec:
 
 ### 共享 GPU
 
-下面是一个以共享方式使用 GPU 的 Notebook 配置示例：
+下面是一个以共享方式使用 GPU 的 Notebook 示例：
 
 ```yaml
 apiVersion: tensorstack.dev/v1beta1
@@ -248,7 +248,7 @@ spec:
 
 **示例**
 
-下面是一个设置了 `nodeSelector` 字段的 Notebook 配置示例：
+下面是一个设置了 `nodeSelector` 字段的 Notebook 示例：
 
 ```yaml
 apiVersion: tensorstack.dev/v1beta1

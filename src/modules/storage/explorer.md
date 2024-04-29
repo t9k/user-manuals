@@ -4,7 +4,7 @@ Explorer 提供几种展示和管理集群中数据的方法。
 
 ## 创建 Explorer
 
-下面是一个基本的 Explorer 配置示例：
+下面是一个基本的 Explorer 示例：
 
 ```yaml
 apiVersion: tensorstack.dev/v1beta1

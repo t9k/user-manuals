@@ -13,7 +13,7 @@
 
 ## 创建 Notebook
 
-下面是一个基本的 Notebook 配置示例：
+下面是一个基本的 Notebook 示例：
 
 ```yaml
 # notebook-tutorial.yaml

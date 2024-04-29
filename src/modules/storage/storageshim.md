@@ -6,7 +6,7 @@ StorageShim 用于将已有的存储系统以 PVC 的形式提供给用户使用
 
 ### S3 类型
 
-下面是一个 S3 类型的 StorageShim 配置示例：
+下面是一个 S3 类型的 StorageShim 示例：
 
 ```yaml
 apiVersion: tensorstack.dev/v1beta1
@@ -40,7 +40,7 @@ stringData:
 
 ### CephFS 类型
 
-下面是一个 CephFS 类型的 StorageShim 配置示例：
+下面是一个 CephFS 类型的 StorageShim 示例：
 
 ```yaml
 apiVersion: tensorstack.dev/v1beta2

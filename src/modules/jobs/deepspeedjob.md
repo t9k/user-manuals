@@ -6,7 +6,7 @@ DeepSpeedJob 是服务于 <a target="_blank" rel="noopener noreferrer" href="htt
 
 ## 创建 DeepSpeedJob
 
-下面是一个基本的 DeepSpeedJob 配置示例：
+下面是一个基本的 DeepSpeedJob 示例：
 
 ```yaml
 apiVersion: batch.tensorstack.dev/v1beta1

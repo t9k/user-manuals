@@ -1,13 +1,13 @@
-# 虚拟服务器
+# VirtualServer
 
-虚拟服务器（VirtualServer）在集群中创建一个虚拟机，与容器环境相比，虚拟机：
+VirtualServer 在集群中创建一个虚拟机，与容器环境相比，虚拟机：
 
 - 提供与物理计算机类似的运行环境，在有些场景更加符合用户需求；
 - 提供更强的隔离，可以限制潜在的安全影响范围。
 
-## 创建虚拟服务器
+## 创建 VirtualServer
 
-下面是一个基本的 VirtualServer 配置示例：
+下面是一个基本的 VirtualServer 示例：
 
 ```yaml
 apiVersion: tensorstack.dev/v1beta1
@@ -465,7 +465,7 @@ status:
     name: managed-virtualserver-9dda9
 ```
 
-### 虚拟服务器的状态
+### VirtualServer 的状态
 
 `status.conditions` 字段用于描述当前 VirtualServer 的状态，包括以下 4 种类型：
 
@@ -491,7 +491,7 @@ status:
       type: Ready
 ```
 
-### 虚拟服务器的可读状态
+### VirtualServer 的可读状态
 
 `status.printableStatus` 字段是一个易被用户理解的状态字符串，该字段可能为以下取值：
 

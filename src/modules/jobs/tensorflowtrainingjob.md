@@ -6,7 +6,7 @@ TensorFlowTrainingJob 是服务于 <a target="_blank" rel="noopener noreferrer" 
 
 ## 创建 TensorFlowTrainingJob
 
-下面是一个基本的 TensorFlowTrainingJob 配置示例：
+下面是一个基本的 TensorFlowTrainingJob 示例：
 
 ```yaml
 apiVersion: batch.tensorstack.dev/v1beta1
