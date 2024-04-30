@@ -76,7 +76,7 @@ kubectl api-resources |grep tensorstack
 
 ### CLI
 
-CRD 实例（instance）的创建总是可以通过命令行实现，例如使用 `kubectl` 可以方便的创建一个 Notebook：
+CRD 实例（instance）的创建总是可以通过命令行实现，例如使用 `kubectl` 可以方便地创建一个 Notebook：
 
 ```bash
 # create a notebook

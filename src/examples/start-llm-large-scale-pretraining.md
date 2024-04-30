@@ -53,7 +53,7 @@ python train_tokenizer.py ../dataset/wiki-en/all wiki-en-tokenizer
 
 ## 启动训练
 
-使用如下 YAML 配置文件创建 DeepSpeedJob 以启动 125M 模型的训练：
+使用以下 YAML 配置文件创建 DeepSpeedJob 以启动 125M 模型的训练：
 
 ```bash
 # 数据并行训练 125M 参数的 GPT 模型

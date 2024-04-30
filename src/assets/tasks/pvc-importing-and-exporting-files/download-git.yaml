@@ -1,0 +1,23 @@
+apiVersion: tensorstack.dev/v1beta1
+kind: DataCube
+metadata:
+  name: download-git
+spec:
+  source:
+    type: git
+    options:
+    # - name: token  # 个人访问令牌
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: <CUSTOM_SECRET_NAME>  # custom 类型的 Secret
+    #       key: token                  # 引用键 token 的值
+    - name: url
+      value: <GIT_REPO_URL>       # 克隆（或拉取）的 Git 仓库
+      # value: https://$(TOKEN)@github.com/<OWNER>/<REPO_NAME>.git  # GitHub 仓库
+    - name: ref
+      value: <BRANCH_TAG_OR_COMMIT>     # 切换到此 ref
+  sink: 
+    type: pvc
+    pvc:
+      name: <PVC_NAME>
+      subPath: save/path

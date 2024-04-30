@@ -17,14 +17,14 @@ cd ~
 git clone https://github.com/t9k/examples.git
 ```
 
-然后从 Hugging Face Hub 或魔搭社区下载要部署的模型，这里以 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/codellama/CodeLlama-7b-Instruct-hf">CodeLlama-7b-Instruct-hf</a> 模型为例：
+然后从 Hugging Face 或 ModelScope 下载要部署的模型，这里以 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/codellama/CodeLlama-7b-Instruct-hf">CodeLlama-7b-Instruct-hf</a> 模型为例：
 
 ```bash
-# 方法 1：如果可以直接访问 huggingface
+# 方法 1：如果可以直接访问 Hugging Face
 huggingface-cli download codellama/CodeLlama-7b-Instruct-hf \
   --local-dir CodeLlama-7b-Instruct-hf --local-dir-use-symlinks False
 
-# 方法 2：对于国内用户，访问 modelscope 网络连通性更好
+# 方法 2：对于国内用户，访问 ModelScope 的网络连通性更好
 pip install modelscope
 python -c \
   "from modelscope import snapshot_download; snapshot_download('AI-ModelScope/CodeLlama-7b-Instruct-hf')"
@@ -125,12 +125,12 @@ curl ${address}/v1/completions \
 1. 下载 Mistral-7B-Instruct-v0.1 的模型文件：
 
 ```bash
-# 方法 1：如果可以直接访问 huggingface
+# 方法 1：如果可以直接访问 Hugging Face
 # 需要登录
 huggingface-cli download mistralai/Mistral-7B-Instruct-v0.1 \
   --local-dir Mistral-7B-Instruct-v0.1 --local-dir-use-symlinks False
 
-# 方法 2：对于国内用户，访问 modelscope 网络连通性更好
+# 方法 2：对于国内用户，访问 ModelScope 的网络连通性更好
 pip install modelscope
 python -c \
   "from modelscope import snapshot_download; snapshot_download('AI-ModelScope/Mistral-7B-Instruct-v0.1')"
@@ -192,11 +192,11 @@ kubectl create -f mlservice-mistral.yaml
 1. 下载 CodeLlama-70b-Instruct-hf 的模型文件：
 
 ```bash
-# 方法 1：如果可以直接访问 huggingface
+# 方法 1：如果可以直接访问 Hugging Face
 huggingface-cli download codellama/CodeLlama-70b-Instruct-hf \
   --local-dir CodeLlama-70b-Instruct-hf --local-dir-use-symlinks False
 
-# 方法 2：对于国内用户，访问 modelscope 网络连通性更好
+# 方法 2：对于国内用户，访问 ModelScope 的网络连通性更好
 # modelscope 没有 CodeLlama-70b-Instruct-hf 模型，用 CodeLlama-70b 模型替代
 pip install modelscope
 python -c \

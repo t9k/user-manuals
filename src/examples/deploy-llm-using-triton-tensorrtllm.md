@@ -19,15 +19,15 @@ cd ~
 git clone https://github.com/t9k/examples.git
 ```
 
-然后从 Hugging Face Hub 或魔搭社区下载要部署的模型，这里以 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/meta-llama/Llama-2-7b-chat-hf">Llama-2-7b-chat-hf</a> 模型为例：
+然后从 Hugging Face 或 ModelScope 下载要部署的模型，这里以 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/meta-llama/Llama-2-7b-chat-hf">Llama-2-7b-chat-hf</a> 模型为例：
 
 ```bash
-# 方法 1：如果可以直接访问 huggingface
+# 方法 1：如果可以直接访问 Hugging Face
 # 需要登录
 huggingface-cli download meta-llama/Llama-2-7b-chat-hf \
   --local-dir Llama-2-7b-chat-hf --local-dir-use-symlinks False
 
-# 方法 2：对于国内用户，访问 modelscope 网络连通性更好
+# 方法 2：对于国内用户，访问 ModelScope 的网络连通性更好
 pip install modelscope
 python -c \
   "from modelscope import snapshot_download; snapshot_download('shakechen/Llama-2-7b-chat-hf')"

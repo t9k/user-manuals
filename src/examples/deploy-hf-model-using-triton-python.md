@@ -2,7 +2,7 @@
 
 <a target="_blank" rel="noopener noreferrer" href="https://github.com/triton-inference-server/server">Triton Inference Server</a> 是一个开源的推理服务软件，旨在简化 AI 推理流程。Triton 使用户能够部署多种深度学习框架的模型，包括 TensorRT、TensorFlow、PyTorch、ONNX、OpenVINO 等。Triton 支持在云、数据中心、边缘和嵌入式设备的 NVIDIA GPU、x86 CPU 和 ARM CPU 上进行推理。Triton 为许多查询类型提供了优化的性能，包括实时、批处理、集成和音频/视频流。
 
-<a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/">Hugging Face</a> 是一个 AI 开源社区，其提供的代码仓库托管了大量流行的开源模型。凭借 <a target="_blank" rel="noopener noreferrer" href="https://github.com/triton-inference-server/python_backend">Python 后端</a>所提供的灵活性，Triton 可以部署几乎任何来自 Hugging Face 的模型。
+<a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/">Hugging Face</a> 是一个 AI 开源社区，其提供的 Git 仓库托管了大量流行的开源模型。凭借 <a target="_blank" rel="noopener noreferrer" href="https://github.com/triton-inference-server/python_backend">Python 后端</a>所提供的灵活性，Triton 可以部署几乎任何来自 Hugging Face 的模型。
 
 本示例使用 MLService，以及 Triton 推理服务器和它的 Python 后端部署一个 Hugging Face 模型的推理服务。模型存储使用 PVC。
 
@@ -23,7 +23,7 @@ git clone https://github.com/t9k/examples.git
 cp -R examples/deployments/triton-python/python_model_repository .
 ```
 
-然后从 Hugging Face Hub 下载要部署的模型，这里以 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/google/vit-base-patch16-224-in21k">vit-base-patch16-224-in21k</a> 模型为例：
+然后从 Hugging Face 下载要部署的模型，这里以 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/google/vit-base-patch16-224-in21k">vit-base-patch16-224-in21k</a> 模型为例：
 
 ```bash
 huggingface-cli download google/vit-base-patch16-224-in21k \
