@@ -219,4 +219,5 @@
 
 ---
 
-[附录1：背景](./background.md)
+[附录1：背景](appendix/background.md)
+[附录2：HyperMLService](appendix/hypermlservice.md)
