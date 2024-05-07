@@ -1,0 +1,21 @@
+apiVersion: tensorstack.dev/v1beta1
+kind: DataCube
+metadata:
+  name: upload-git
+spec:
+  source:
+    type: pvc
+    pvc:
+      name: <PVC_NAME>
+      subPath: path/to/the/parent/dir  # 若目标 Git 仓库为 https://github.com/owner/repo.git，
+  sink:                                # 则推送的本地 Git 仓库为 path/to/the/parent/dir/repo
+    type: git
+    options:
+    - name: token  # 个人访问令牌
+      valueFrom:
+        secretKeyRef:
+          name: <CUSTOM_SECRET_NAME>   # custom 类型的 Secret
+          key: token                   # 引用键 token 的值
+    - name: url
+      value: <GIT_REPO_URL>      # 目标 Git 仓库
+      # value: https://$(TOKEN)@github.com/<OWNER>/<REPO_NAME>.git  # GitHub 仓库

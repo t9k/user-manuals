@@ -48,7 +48,7 @@ unzip tusimple.zip
 
 ## 训练
 
-使用如下 YAML 配置文件创建 PyTorchTrainingJob 以启动训练。该 PyTorchTrainingJob 创建 2 个副本，每个副本启动 2 个进程，每个进程使用 1 个 GPU。
+使用以下 YAML 配置文件创建 PyTorchTrainingJob 以启动训练。该 PyTorchTrainingJob 创建 2 个副本，每个副本启动 2 个进程，每个进程使用 1 个 GPU。
 
 ```bash
 kubectl create -f examples/lanedet/t9k/job.yaml

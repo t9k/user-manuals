@@ -59,11 +59,11 @@ git clone https://github.com/t9k/examples.git
 Mixtral-8x7B-Instruct-v0.1 的模型文件：
 
 ```bash
-# 方法 1：如果可以直接访问 huggingface
+# 方法 1：如果可以直接访问 Hugging Face
 huggingface-cli download mistralai/Mixtral-8x7B-Instruct-v0.1 \
   --local-dir Mixtral-8x7B-Instruct-v0.1 --local-dir-use-symlinks False
 
-# 方法 2：对于国内用户，访问 modelscope 网络连通性更好
+# 方法 2：对于国内用户，访问 ModelScope 的网络连通性更好
 pip install modelscope
 python -c \
   "from modelscope import snapshot_download; snapshot_download('AI-ModelScope/Mixtral-8x7B-Instruct-v0.1')"

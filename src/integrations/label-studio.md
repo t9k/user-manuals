@@ -300,7 +300,7 @@ Label Studio 支持添加 ML backend，使用其自动标注或进行在线训�
 kubectl get svc label-studio-demo-ls-app -o jsonpath="{.spec.clusterIP}"
 ```
 
-然后使用如下 YAML 配置文件创建 SimpleMLService 以部署 ML backend 服务，其中环境变量 `LABEL_STUDIO_HOST` 和 `LABEL_STUDIO_ACCESS_TOKEN` 的值需要根据上面获取的结果进行修改。镜像 `t9kpublic/label-studio-sam:main` 构建自示例 <a target="_blank" rel="noopener noreferrer" href="https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/segment_anything_model">Interactive Annotation in Label Studio with Segment Anything Model</a>。
+然后使用以下 YAML 配置文件创建 SimpleMLService 以部署 ML backend 服务，其中环境变量 `LABEL_STUDIO_HOST` 和 `LABEL_STUDIO_ACCESS_TOKEN` 的值需要根据上面获取的结果进行修改。镜像 `t9kpublic/label-studio-sam:main` 构建自示例 <a target="_blank" rel="noopener noreferrer" href="https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/segment_anything_model">Interactive Annotation in Label Studio with Segment Anything Model</a>。
 
 <details><summary><code class="hljs">sam.yaml</code></summary>
 

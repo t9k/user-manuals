@@ -117,7 +117,7 @@ spec:
 <aside class="note">
 <div class="title">注意</div>
 
-* 对于受保护的（gated）仓库，必须指定 `token` 为拥有访问权限的用户的 Hugging Face token。
+* 对于受保护的（gated）仓库，必须指定 `token` 为拥有访问权限的用户的 token。
 * 指定 `files` 时，必须通过 `value` 直接设置值，不可以通过 `valueFrom` 间接引用 Secret 或 ConfigMap 的内容。
 
 </aside>

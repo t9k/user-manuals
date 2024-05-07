@@ -1,0 +1,34 @@
+apiVersion: tensorstack.dev/v1beta1
+kind: DataCube
+metadata:
+  name: download-s3
+spec:
+  source:
+    type: s3
+    options:
+    - name: s3-endpoint
+      valueFrom:
+        secretKeyRef:
+          name: <S3ENV_SECRET_NAME>  # s3-env 类型的 Secret
+          key: endpoint
+    - name: s3-access-key-id
+      valueFrom:
+        secretKeyRef:
+          name: <S3ENV_SECRET_NAME>
+          key: accessKeyID
+    - name: s3-secret-access-key
+      valueFrom:
+        secretKeyRef:
+          name: <S3ENV_SECRET_NAME>
+          key: secretAccessKey
+    - name: s3-uri
+      value: s3://<BUCKET>/path/to/the/dir   # 下载目录下的所有子目录和文件
+      # value: s3://<BUCKET>/path/to/the/file  # 下载文件
+  sink: 
+    type: pvc
+    pvc:
+      name: <PVC_NAME>
+      subPath: save/path
+  # executor:
+  #   options:
+  #     sync: true  # 完全同步，会删除多余的文件

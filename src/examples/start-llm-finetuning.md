@@ -52,7 +52,7 @@ git clone https://huggingface.co/baichuan-inc/Baichuan2-7B-Base
 
 ## 启动三步训练
 
-使用如下 YAML 配置文件创建 DeepSpeedJob 以启动 SFT（有监督微调）训练：
+使用以下 YAML 配置文件创建 DeepSpeedJob 以启动 SFT（有监督微调）训练：
 
 ```bash
 kubectl create -f examples/llama-factory/training/sft.yaml
