@@ -223,7 +223,7 @@ cd ../dataset
 python train_tokenizer.py ../dataset/wiki-en/all wiki-en-tokenizer
 </code></pre>
 <h2 id="启动训练"><a class="header" href="#启动训练">启动训练</a></h2>
-<p>使用如下 YAML 配置文件创建 DeepSpeedJob 以启动 125M 模型的训练：</p>
+<p>使用以下 YAML 配置文件创建 DeepSpeedJob 以启动 125M 模型的训练：</p>
 <pre><code class="language-bash"># 数据并行训练 125M 参数的 GPT 模型
 kubectl create -f \
   examples/deepspeed/megatron-gpt/training/gpt-125m-4xdp.yaml

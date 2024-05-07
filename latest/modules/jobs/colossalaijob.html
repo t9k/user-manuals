@@ -360,7 +360,7 @@ spec:
 <p>在 ColossalAIJob 分布式训练框架中：</p>
 <ul>
 <li>如果启动副本执行失败，ColossalAIJob 训练失败。</li>
-<li>如果启动副本执行成功，ColossalAIJob 并不一定成功：启动副本的作用是启动训练和监测，无论是训练成功还是失败，启动副本都会正常结束，而不是报错。因此，如果要确定 ColossalAIJob 是否成功结束，需要检查启动副本的日志。</li>
+<li>如果启动副本执行成功，ColossalAIJob 并不一定成功：启动副本的作用是启动训练和监测，无论是训练成功还是失败，启动副本都会正常结束，而不是报错。因此，如要确定 ColossalAIJob 是否成功结束，需要检查启动副本的日志。</li>
 </ul>
 <h2 id="清除策略"><a class="header" href="#清除策略">清除策略</a></h2>
 <p>在 ColossalAIJob 训练结束后，ColossalAIJob 控制器可以清理所创建的 Kubernetes 资源，使 ColossalAIJob 不再浪费集群资源（内存、CPU 等）。一般来说，你需要查看启动副本的日志来确定训练结果，所以启动副本不在清理范围之内，ColossalAIJob 控制器只清理执行副本（通过 <code>spec.runPolicy.cleanUpWorkers</code> 字段设置）。</p>

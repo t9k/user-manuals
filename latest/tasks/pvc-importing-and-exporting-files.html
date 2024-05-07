@@ -190,20 +190,24 @@
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
 <h1 id="上传和下载文件"><a class="header" href="#上传和下载文件">上传和下载文件</a></h1>
 <p>通过 <a href="../modules/storage/pvc.html">PVC</a> 使用集群存储非常方便，它可作为存储卷被挂载到 Notebook、Job、MLService 等各种工作负载的 Pod 中。例如在进行模型训练时，你可以把训练脚本以及训练数据存放到 PVC，然后挂载在 Job 的 Pod 中。</p>
-<p>本教程将分场景介绍如何从集群外部上传文件到 PVC，以及如何从 PVC 下载文件到集群外部。</p>
+<p>本教程将分场景介绍从集群外部下载/上传文件到 PVC，以及从 PVC 上传/下载文件到集群外部的若干方法。</p>
 <p>由于下面的部分方法需要使用到命令行工具，而 Notebook 提供了终端并且 Notebook 的镜像中预装了这些命令行工具，因此我们推荐把 PVC 挂载到一个 Notebook 上，然后在 Notebook 中进行操作。</p>
 <aside class="note tip">
 <div class="title">提示</div>
 <p>PVC 可以扩容，即增加存储卷大小。因此你在创建 PVC 时可以先指定一个较为保守的存储卷大小的值，之后如有需要则继续增加。</p>
 </aside>
 <h2 id="本地文件系统"><a class="header" href="#本地文件系统">本地文件系统</a></h2>
+<aside class="note">
+<div class="title">注意</div>
+<p>在<a href="#%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F">这一部分</a>，PVC <strong>导入</strong>文件称为<strong>上传</strong>，<strong>导出</strong>文件称为<strong>下载</strong>。在本教程的其余部分则相反，PVC <strong>导入</strong>文件称为<strong>下载</strong>，<strong>导出</strong>文件称为<strong>上传</strong>。</p>
+</aside>
 <h3 id="notebook"><a class="header" href="#notebook">Notebook</a></h3>
-<p>把 PVC 挂载到 Notebook 上，本地文件系统和 PVC 之间的文件传输，可直接在 Notebook 的前端页面上操作：</p>
+<p>把 PVC 挂载到 Notebook 上，本地文件系统和 PVC 之间的文件传输，可以直接在 Notebook 的前端页面上操作：</p>
 <figure class="screenshot">
   <img alt="notebook-upload-download" src="../assets/tasks/pvc-importing-and-exporting-files/notebook-upload-download.png" />
 </figure>
 <h3 id="file-browser"><a class="header" href="#file-browser">File Browser</a></h3>
-<p>在 PVC 上启动 <a href="./use-explorer.html">Explorer</a> 之后，则可通过 <a href="./use-explorer.html#%E4%BD%BF%E7%94%A8-file-browser">File Browser</a> ：</p>
+<p>在 PVC 上启动 <a href="./use-explorer.html">Explorer</a> 之后，则可以通过 <a href="./use-explorer.html#%E4%BD%BF%E7%94%A8-file-browser">File Browser</a> ：</p>
 <figure class="screenshot">
   <img alt="file-browser-upload-download" src="../assets/tasks/pvc-importing-and-exporting-files/file-browser-upload-download.png" />
 </figure>
@@ -215,12 +219,13 @@
 </ul>
 </aside>
 <h3 id="云存储中转"><a class="header" href="#云存储中转">云存储中转</a></h3>
-<p>也可通过其他云存储服务进行中转，即 <code>本地 -&gt; 云存储 -&gt; 集群 PVC</code>：</p>
+<p>也可以通过其他云存储服务进行中转，即<strong>本地 -&gt; 云存储 -&gt; 集群 PVC</strong>：</p>
 <ol>
 <li>本地与云存储之间的文件传输方法请参阅相应云存储的文档；</li>
 <li>云存储与 PVC 之间的文件传输方法请参阅<a href="#%E4%BA%91%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1">云存储服务</a>。</li>
 </ol>
 <h2 id="云存储服务"><a class="header" href="#云存储服务">云存储服务</a></h2>
+<h3 id="rclone-命令"><a class="header" href="#rclone-命令"><code>rclone</code> 命令</a></h3>
 <p>要在云存储与 PVC 之间复制或同步文件，可以在 Notebook 的终端中使用命令行工具 <a target="_blank" rel="noopener noreferrer" href="https://rclone.org">rclone</a>。这里以 Amazon S3 为例，首先参照 <a target="_blank" rel="noopener noreferrer" href="https://rclone.org/s3/">Amazon S3 Config</a> 进行配置，完成后执行以下命令：</p>
 <pre><code class="language-bash">rclone copy &lt;REMOTE&gt;:&lt;BUCKET&gt;/path/to/the/file .   # 从 S3 存储下载
 rclone copy ./file &lt;REMOTE&gt;:&lt;BUCKET&gt;/path/to/the/  # 上传到 S3 存储
@@ -232,10 +237,89 @@ rclone sync . &lt;REMOTE&gt;:&lt;BUCKET&gt;/path/to/the/dir    # 同步到 S3 �
 <div class="title">信息</div>
 <p>rclone 支持的云存储提供商请参阅 <a target="_blank" rel="noopener noreferrer" href="https://rclone.org/#providers">Supported Providers</a>。</p>
 </aside>
-<p>rclone 之外，还有其他方便的工具可供使用，例如 <a target="_blank" rel="noopener noreferrer" href="https://github.com/s3tools/s3cmd">s3cmd</a>、<a target="_blank" rel="noopener noreferrer" href="https://github.com/peak/s5cmd">s5cmd</a> 等。</p>
+<p>对于 Amazon S3，除了 rclone 之外还有其他命令行工具可供使用，例如 <a target="_blank" rel="noopener noreferrer" href="https://github.com/s3tools/s3cmd">s3cmd</a>、<a target="_blank" rel="noopener noreferrer" href="https://github.com/peak/s5cmd">s5cmd</a> 等。</p>
+<h3 id="datacube"><a class="header" href="#datacube">DataCube</a></h3>
+<p>对于 Amazon S3 也可以使用平台提供的 <a href="../modules/auxiliary/datacube.html#s3">DataCube</a>。使用以下 YAML 配置文件创建 DataCube（修改 PVC 名称、PVC 路径、Secret 名称和 S3 URL）以下载和上传文件：</p>
+<details><summary><code class="hljs">download-s3.yaml</code></summary>
+<pre><code class="language-yaml">apiVersion: tensorstack.dev/v1beta1
+kind: DataCube
+metadata:
+  name: download-s3
+spec:
+  source:
+    type: s3
+    options:
+    - name: s3-endpoint
+      valueFrom:
+        secretKeyRef:
+          name: &lt;S3ENV_SECRET_NAME&gt;  # s3-env 类型的 Secret
+          key: endpoint
+    - name: s3-access-key-id
+      valueFrom:
+        secretKeyRef:
+          name: &lt;S3ENV_SECRET_NAME&gt;
+          key: accessKeyID
+    - name: s3-secret-access-key
+      valueFrom:
+        secretKeyRef:
+          name: &lt;S3ENV_SECRET_NAME&gt;
+          key: secretAccessKey
+    - name: s3-uri
+      value: s3://&lt;BUCKET&gt;/path/to/the/dir   # 下载目录下的所有子目录和文件
+      # value: s3://&lt;BUCKET&gt;/path/to/the/file  # 下载文件
+  sink: 
+    type: pvc
+    pvc:
+      name: &lt;PVC_NAME&gt;
+      subPath: save/path
+  # executor:
+  #   options:
+  #     sync: true  # 完全同步，会删除多余的文件
+</code></pre>
+</details>
+<details><summary><code class="hljs">upload-s3.yaml</code></summary>
+<pre><code class="language-yaml">apiVersion: tensorstack.dev/v1beta1
+kind: DataCube
+metadata:
+  name: upload-s3
+spec:
+  source:
+    type: pvc
+    pvc:
+      name: &lt;PVC_NAME&gt;
+      subPath: path/to/the/dir        # 上传目录下的所有子目录和文件
+      # subPath: path/to/the/file     # 上传文件
+  sink: 
+    type: s3
+    options:
+    - name: s3-endpoint
+      valueFrom:
+        secretKeyRef:
+          name: &lt;S3ENV_SECRET_NAME&gt;   # s3-env 类型的 Secret
+          key: endpoint
+    - name: s3-access-key-id
+      valueFrom:
+        secretKeyRef:
+          name: &lt;S3ENV_SECRET_NAME&gt;
+          key: accessKeyID
+    - name: s3-secret-access-key
+      valueFrom:
+        secretKeyRef:
+          name: &lt;S3ENV_SECRET_NAME&gt;
+          key: secretAccessKey
+    - name: s3-uri
+      value: s3://&lt;BUCKET&gt;/save/path  # 目标 S3 路径
+</code></pre>
+</details>
+<pre><code class="language-bash">kubectl create -f download-s3.yaml
+kubectl create -f upload-s3.yaml
+</code></pre>
 <h2 id="httpftp-服务"><a class="header" href="#httpftp-服务">HTTP/FTP 服务</a></h2>
-<p>要通过 HTTP(S)、(S)FTP 等协议从网络下载文件到 PVC，可以在 Notebook 的终端中使用 <code>wget</code> 或 <code>curl</code> 命令进行下载：</p>
+<p>要通过 HTTP(S)、(S)FTP 等协议从网络下载文件到 PVC，可以在 Notebook 的终端中使用 <code>wget</code>（或 <code>curl</code>）命令进行下载：</p>
 <pre><code class="language-bash">wget &lt;URL&gt;
+
+# 或
+
 curl -O &lt;URL&gt;
 </code></pre>
 <aside class="note tip">
@@ -243,19 +327,103 @@ curl -O &lt;URL&gt;
 <p>你也可以在终端中使用命令行工具 rclone 来访问和下载存储在 HTTP(S) 和 FTP(S) 服务器上的文件（对于 FTP(S) 服务器还可以上传文件）。rclone 将这些服务器视为一种类型的云存储，请参阅 <a target="_blank" rel="noopener noreferrer" href="https://rclone.org/http/">HTTP Config</a> 和 <a target="_blank" rel="noopener noreferrer" href="https://rclone.org/ftp/">FTP Config</a>。</p>
 </aside>
 <h2 id="git-仓库"><a class="header" href="#git-仓库">Git 仓库</a></h2>
-<p>可以在 Notebook 的终端中使用 <code>git</code> 命令，从 GitHub 等代码托管平台克隆或拉取项目，并在提交修改后推送回去：</p>
-<pre><code class="language-bash">git clone &lt;repository&gt;
+<h3 id="git-命令"><a class="header" href="#git-命令"><code>git</code> 命令</a></h3>
+<p>可以在 Notebook 的终端中使用 <code>git</code> 命令，从 GitHub 等代码托管平台克隆或拉取 Git 仓库，并在提交修改后推送回去：</p>
+<pre><code class="language-bash">git clone &lt;REPO_URL&gt;
 git pull
 git fetch
 git push
 </code></pre>
-<h2 id="hugging-face-hub"><a class="header" href="#hugging-face-hub">Hugging Face Hub</a></h2>
-<p><a target="_blank" rel="noopener noreferrer" href="https://huggingface.co">Hugging Face Hub</a> 是一个拥有超过 35 万个模型和 7.5 万个数据集的平台，所有这些模型和数据集都是开源并且公开可用的。从 Hugging Face Hub 下载一个模型或数据集有多种方法，下面以模型 <code>mistralai/Mistral-7B-v0.1</code> 为例进行演示，首先来到该模型的 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/mistralai/Mistral-7B-v0.1/tree/main">Files and versions 标签页</a>：</p>
-<figure class="screenshot">
-  <img alt="files-and-versions" src="../assets/tasks/pvc-importing-and-exporting-files/files-and-versions.png" />
-</figure>
-<h3 id="使用脚本"><a class="header" href="#使用脚本">使用脚本</a></h3>
-<p>点击 <strong>Use in Transformers</strong>，按照提示进行操作，即在 Python 程序中调用 <code>transformers</code> 库加载模型。首次加载时，模型文件会被下载到缓存目录下，即 PVC 的 <code>.cache/huggingface/hub/models--mistralai--Mistral-7B-v0.1/</code> 路径下。</p>
+<h3 id="datacube-1"><a class="header" href="#datacube-1">DataCube</a></h3>
+<p>也可以使用平台提供的 <a href="../modules/auxiliary/datacube.html#git">DataCube</a>。使用以下 YAML 配置文件创建 DataCube（修改 PVC 名称、PVC 路径、Secret 名称和 S3 URL）以克隆（或拉取）和推送提交到 Git 仓库：</p>
+<details><summary><code class="hljs">download-git.yaml</code></summary>
+<pre><code class="language-yaml">apiVersion: tensorstack.dev/v1beta1
+kind: DataCube
+metadata:
+  name: download-git
+spec:
+  source:
+    type: git
+    options:
+    # - name: token  # 个人访问令牌
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: &lt;CUSTOM_SECRET_NAME&gt;  # custom 类型的 Secret
+    #       key: token                  # 引用键 token 的值
+    - name: url
+      value: &lt;GIT_REPO_URL&gt;       # 克隆（或拉取）的 Git 仓库
+      # value: https://$(TOKEN)@github.com/&lt;OWNER&gt;/&lt;REPO_NAME&gt;.git  # GitHub 仓库
+    - name: ref
+      value: &lt;BRANCH_TAG_OR_COMMIT&gt;     # 切换到此 ref
+  sink: 
+    type: pvc
+    pvc:
+      name: &lt;PVC_NAME&gt;
+      subPath: save/path
+</code></pre>
+</details>
+<details><summary><code class="hljs">upload-git.yaml</code></summary>
+<pre><code class="language-yaml">apiVersion: tensorstack.dev/v1beta1
+kind: DataCube
+metadata:
+  name: upload-git
+spec:
+  source:
+    type: pvc
+    pvc:
+      name: &lt;PVC_NAME&gt;
+      subPath: path/to/the/parent/dir  # 若目标 Git 仓库为 https://github.com/owner/repo.git，
+  sink:                                # 则推送的本地 Git 仓库为 path/to/the/parent/dir/repo
+    type: git
+    options:
+    - name: token  # 个人访问令牌
+      valueFrom:
+        secretKeyRef:
+          name: &lt;CUSTOM_SECRET_NAME&gt;   # custom 类型的 Secret
+          key: token                   # 引用键 token 的值
+    - name: url
+      value: &lt;GIT_REPO_URL&gt;      # 目标 Git 仓库
+      # value: https://$(TOKEN)@github.com/&lt;OWNER&gt;/&lt;REPO_NAME&gt;.git  # GitHub 仓库
+</code></pre>
+</details>
+<pre><code class="language-bash">kubectl create -f download-git.yaml
+kubectl create -f upload-git.yaml
+</code></pre>
+<h2 id="hugging-face"><a class="header" href="#hugging-face">Hugging Face</a></h2>
+<p><a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/">Hugging Face</a> 是一个 AI 开源社区，其提供的 Git 仓库托管了大量流行的开源模型和数据集。</p>
+<p>这里介绍从 Hugging Face 下载模型文件到 PVC（以模型 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/facebook/opt-125m"><code>facebook/opt-125m</code></a> 为例），以及从 PVC 上传模型文件到 Hugging Face（以用户自己创建的模型 <code>user/llm</code> 为例）的若干方法。数据集类似。</p>
+<h3 id="git-命令-1"><a class="header" href="#git-命令-1"><code>git</code> 命令</a></h3>
+<p>Hugging Face 模型或数据集本身就是一个 Git 仓库，因此可以参照 <a href="#git-%E4%BB%93%E5%BA%93">Git 仓库</a>的方法。需要注意的是：</p>
+<ul>
+<li>
+<p>Git 仓库的 HTTPS URL 为 <code>https://huggingface.co/&lt;OWNER&gt;/&lt;MODEL_OR_DATASET_NAME&gt;</code>，例如模型 <code>facebook/opt-125m</code> 的 HTTPS URL 为 <code>https://huggingface.co/facebook/opt-125m</code>。</p>
+</li>
+<li>
+<p>Git LFS 被用于管理大于 10MB 的文件（Notebook 的镜像已经安装了 Git LFS，并在启动时进行了初始化）。如要推送大于 10MB 的文件，请先通过 Git LFS 追踪该文件：</p>
+<pre><code class="language-bash">git lfs track large_file
+git add large_file
+git commit -m &quot;Add the large file&quot;
+git push
+</code></pre>
+</li>
+<li>
+<p>如要访问受保护的模型或数据集（例如模型 <code>meta-llama/Meta-Llama-3-8B</code>），访问私有模型或数据集，或推送提交到模型或数据集，则需要提供拥有相应权限的用户的用户名和 token：</p>
+<pre><code class="language-bash"># 克隆受保护的模型的 Git 仓库
+git clone https://&lt;HF_USERNAME&gt;:&lt;HF_TOKEN&gt;@huggingface.co/meta-llama/Meta-Llama-3-8B
+
+# 克隆私有模型的 Git 仓库
+git clone https://&lt;HF_USERNAME&gt;:&lt;HF_TOKEN&gt;@huggingface.co/user/private-llm
+
+# 克隆模型的 Git 仓库并在提交修改后推送回去
+git clone https://&lt;HF_USERNAME&gt;:&lt;HF_TOKEN&gt;@huggingface.co/user/llm
+git add ...
+git commit ...
+git push
+</code></pre>
+</li>
+</ul>
+<h3 id="transformers-库和-datasets-库"><a class="header" href="#transformers-库和-datasets-库"><code>transformers</code> 库和 <code>datasets</code> 库</a></h3>
+<p>可以使用 <a target="_blank" rel="noopener noreferrer" href="https://github.com/huggingface/transformers"><code>transformers</code> 库</a>下载和上传模型文件以及 tokenizer 文件。使用浏览器访问模型 <code>facebook/opt-125m</code> 的 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/facebook/opt-125m/tree/main">Files 标签页</a>。点击 <strong>Use in Transformers</strong>，按照提示进行操作，即在 Python 程序中调用 <code>transformers</code> 库加载模型。首次加载时，仓库中的模型文件和 tokenizer 文件会被下载到缓存目录下，即 PVC 的 <code>.cache/huggingface/hub/models--facebook--opt-125m/</code> 路径下。</p>
 <figure class="screenshot">
   <img alt="use-in-transformers" src="../assets/tasks/pvc-importing-and-exporting-files/use-in-transformers.png" />
 </figure>
@@ -263,39 +431,219 @@ git push
   <img alt="use-in-transformers-detail" src="../assets/tasks/pvc-importing-and-exporting-files/use-in-transformers-detail.png" />
 </figure>
 <pre><code class="language-python">from transformers import pipeline
-
-pipe = pipeline(&quot;text-generation&quot;, model=&quot;mistralai/Mistral-7B-v0.1&quot;)
+pipe = pipeline(&quot;text-generation&quot;, model=&quot;facebook/opt-125m&quot;)
 
 # 或
 
 from transformers import AutoTokenizer, AutoModelForCausalLM
+tokenizer = AutoTokenizer.from_pretrained(&quot;facebook/opt-125m&quot;)
+model = AutoModelForCausalLM.from_pretrained(&quot;facebook/opt-125m&quot;)
+</code></pre>
+<p>对于受保护的或私有的模型或数据集（例如模型 <code>meta-llama/Meta-Llama-3-8B</code>），需要提供拥有访问权限的用户的 token：</p>
+<pre><code class="language-python">from transformers import pipeline
+pipe = pipeline(&quot;text-generation&quot;, model=&quot;meta-llama/Meta-Llama-3-8B&quot;, token=&quot;&lt;HF_TOKEN&gt;&quot;)
 
-tokenizer = AutoTokenizer.from_pretrained(&quot;mistralai/Mistral-7B-v0.1&quot;)
-model = AutoModelForCausalLM.from_pretrained(&quot;mistralai/Mistral-7B-v0.1&quot;)
+# 或
+
+from transformers import AutoTokenizer, AutoModelForCausalLM
+tokenizer = AutoTokenizer.from_pretrained(&quot;meta-llama/Meta-Llama-3-8B&quot;, token=&quot;&lt;HF_TOKEN&gt;&quot;)
+model = AutoModelForCausalLM.from_pretrained(&quot;meta-llama/Meta-Llama-3-8B&quot;, token=&quot;&lt;HF_TOKEN&gt;&quot;)
 </code></pre>
-<aside class="note">
-<div class="title">注意</div>
-<p>部分模型和数据集（例如模型 <code>meta-llama/Llama-2-7b</code>）在使用前需要先登录到 Hugging Face 并获取访问权限。</p>
-</aside>
-<h3 id="使用-git"><a class="header" href="#使用-git">使用 git</a></h3>
-<p>点击 <strong>Clone repository</strong>，按照提示进行操作，即使用 <code>git</code> 命令将模型的 Git 仓库直接克隆到 PVC 中：</p>
-<figure class="screenshot">
-  <img alt="clone-repository" src="../assets/tasks/pvc-importing-and-exporting-files/clone-repository.png" />
-</figure>
-<figure class="screenshot">
-  <img alt="clone-repository-detail" src="../assets/tasks/pvc-importing-and-exporting-files/clone-repository-detail.png" />
-</figure>
-<pre><code class="language-bash"># git lfs install    # Notebook 的镜像中已经预装了 git-lfs，因此不必再执行
-git clone https://huggingface.co/mistralai/Mistral-7B-v0.1
+<p>使用 <a target="_blank" rel="noopener noreferrer" href="https://github.com/huggingface/datasets"><code>datasets</code> 库</a>下载和上传数据集文件。相比加载模型，加载数据集要更加复杂一些，请直接参阅教程
+<a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/docs/datasets/load_hub">Load a dataset</a> 和 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/docs/datasets/loading">Load</a>。</p>
+<p>调用<a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/docs/transformers/main_classes/model#transformers.PreTrainedModel">模型对象</a>、<a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/docs/transformers/main_classes/tokenizer#transformers.PreTrainedTokenizer">tokenizer 对象</a>或<a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/docs/datasets/package_reference/main_classes#datasets.Dataset">数据集对象</a>的 <code>push_to_hub()</code> 方法以将其文件上传到仓库：</p>
+<pre><code class="language-bash">huggingface-cli login --token &lt;HF_TOKEN&gt;  # 登录到 Hugging Face
 </code></pre>
-<aside class="note tip">
+<pre><code class="language-python">...
+model.push_to_hub(&quot;user/llm&quot;)
+tokenizer.push_to_hub(&quot;user/llm&quot;)
+dataset.push_to_hub(&quot;user/data&quot;)
+</code></pre>
+<aside class="note info">
 <div class="title">信息</div>
-<p>模型和数据集都是作为 Git 仓库托管在 Hugging Face Hub 上。</p>
+<p>对于上传，更详细的教程请参阅 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/docs/transformers/model_sharing">Share a model</a> 和 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/docs/datasets/upload_dataset">Share a dataset</a>。</p>
 </aside>
-<h3 id="单个文件"><a class="header" href="#单个文件">单个文件</a></h3>
-<p>如果只需要下载个别文件，例如只下载模型的 safetensors 文件，那么可以复制相应文件的下载链接，然后在终端中使用 <code>wget</code> 命令下载：</p>
-<pre><code class="language-bash">wget https://huggingface.co/mistralai/Mistral-7B-v0.1/resolve/main/model-00001-of-00002.safetensors?download=true
-wget https://huggingface.co/mistralai/Mistral-7B-v0.1/resolve/main/model-00002-of-00002.safetensors?download=true
+<h3 id="huggingface-cli-命令和-huggingface_hub-库"><a class="header" href="#huggingface-cli-命令和-huggingface_hub-库"><code>huggingface-cli</code> 命令和 <code>huggingface_hub</code> 库</a></h3>
+<p>可以使用 <code>huggingface-cli download</code> 命令下载仓库中的所有文件或指定文件。文件会被下载到与 <a href="#transformers-%E5%BA%93"><code>transformers</code> 库</a>相同的缓存目录下。</p>
+<pre><code class="language-bash">huggingface-cli download facebook/opt-125m                                           # 下载所有文件
+huggingface-cli download facebook/opt-125m pytorch_model.bin                         # 下载单个指定文件
+huggingface-cli download facebook/opt-125m pytorch_model.bin generation_config.json  # 下载多个指定文件
+huggingface-cli download facebook/opt-125m --include=&quot;*.bin&quot;                         # 模式匹配
+huggingface-cli download facebook/opt-125m --cache-dir .                             # 指定缓存目录
+huggingface-cli download cais/mmlu all/test-00000-of-00001.parquet --repo-type=dataset  # 下载数据集文件
+</code></pre>
+<p>对于受保护的或私有的模型或数据集（例如模型 <code>meta-llama/Meta-Llama-3-8B</code>），需要提供拥有访问权限的用户的 token：</p>
+<pre><code class="language-bash">huggingface-cli login --token &lt;HF_TOKEN&gt;  # 登录到 Hugging Face
+huggingface-cli download meta-llama/Meta-Llama-3-8B
+
+# 或
+
+huggingface-cli download meta-llama/Meta-Llama-3-8B --token &lt;HF_TOKEN&gt;
+</code></pre>
+<p>使用 <code>huggingface-cli upload</code> 命令上传文件或整个目录到仓库：</p>
+<pre><code class="language-bash"># Usage: huggingface-cli upload &lt;REPO_ID&gt; &lt;LOCAL_PATH&gt; [REPO_PATH]
+
+huggingface-cli login --token &lt;HF_TOKEN&gt;  # 登录到 Hugging Face
+huggingface-cli upload user/llm . .                       # 上传整个目录
+huggingface-cli upload user/llm ./pytorch_model.bin       # 上传单个指定文件
+huggingface-cli upload user/llm . . --exclude=&quot;/logs/*&quot;   # 模式匹配
+huggingface-cli upload user/data . . --repo-type=dataset  # 上传数据集文件
+
+# 或
+
+huggingface-cli upload user/llm . . --token &lt;HF_TOKEN&gt;
+</code></pre>
+<aside class="note info">
+<div class="title">信息</div>
+<p>更详细的教程请参阅 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/docs/huggingface_hub/main/en/guides/cli#huggingface-cli-download">huggingface-cli download</a> 和 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/docs/huggingface_hub/main/en/guides/cli#huggingface-cli-upload">huggingface-cli upload</a>。</p>
+</aside>
+<p>实际上，<code>huggingface-cli</code> 是 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/docs/huggingface_hub/index"><code>huggingface_hub</code> 库</a>的命令行工具。<code>huggingface-cli download</code> 命令在内部调用了该库的 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/docs/huggingface_hub/main/en/package_reference/file_download#huggingface_hub.hf_hub_download"><code>hf_hub_download()</code></a> 和 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/docs/huggingface_hub/main/en/package_reference/file_download#huggingface_hub.snapshot_download"><code>snapshot_download()</code></a> 函数，<code>huggingface-cli upload</code> 命令在内部调用了该库的 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/docs/huggingface_hub/main/en/package_reference/hf_api#huggingface_hub.HfApi.upload_file"><code>upload_file()</code></a> 和 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/docs/huggingface_hub/main/en/package_reference/hf_api#huggingface_hub.HfApi.upload_folder"><code>upload_folder()</code></a> 函数。我们同样可以在 Python 程序中调用该库的这些函数来下载和上传文件，这里不再展开，请直接参阅教程 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/docs/huggingface_hub/main/en/guides/download">Download files</a> 和 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/docs/huggingface_hub/main/en/guides/upload">Upload files</a>。</p>
+<h3 id="wget-命令"><a class="header" href="#wget-命令"><code>wget</code> 命令</a></h3>
+<p>如果只需要下载个别文件，那么也可以复制相应文件的下载链接，然后在终端中使用 <code>wget</code>（或 <code>curl</code>）命令下载：</p>
+<pre><code class="language-bash">wget https://huggingface.co/facebook/opt-125m/resolve/main/pytorch_model.bin?download=true -O pytorch_model.bin
+
+# 或
+
+curl -L https://huggingface.co/facebook/opt-125m/resolve/main/pytorch_model.bin?download=true -o pytorch_model.bin
+</code></pre>
+<p>对于受保护的或私有的模型或数据集（例如模型 <code>meta-llama/Meta-Llama-3-8B</code>），需要提供拥有访问权限的用户的 token：</p>
+<pre><code class="language-bash">wget --header=&quot;Authorization: Bearer &lt;HF_TOKEN&gt;&quot; https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/model-00001-of-00004.safetensors?download=true -O model-00001-of-00004.safetensors
+
+# 或
+
+curl --header &quot;Authorization: Bearer &lt;HF_TOKEN&gt;&quot; -L https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/model-00001-of-00004.safetensors?download=true -o model-00001-of-00004.safetensors
+</code></pre>
+<h3 id="datacube-2"><a class="header" href="#datacube-2">DataCube</a></h3>
+<p>也可以使用平台提供的 <a href="../modules/auxiliary/datacube.html#hugging-face">DataCube</a>，其在内部调用的就是 <a href="#huggingface-cli-%E5%91%BD%E4%BB%A4%E5%92%8C-huggingface_hub-%E5%BA%93"><code>huggingface-cli</code> 命令</a>。使用以下 YAML 配置文件创建 DataCube（修改 PVC 名称、PVC 路径、Secret 名称和 S3 URL）以下载和上传文件：</p>
+<details><summary><code class="hljs">download-hf.yaml</code></summary>
+<pre><code class="language-yaml">apiVersion: tensorstack.dev/v1beta1
+kind: DataCube
+metadata:
+  name: download-hf
+spec:
+  source:
+    type: huggingface
+    options:
+    # - name: token  # Hugging Face token
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: &lt;CUSTOM_SECRET_NAME&gt;  # custom 类型的 Secret
+    #       key: token                  # 引用键 token 的值
+    - name: repo
+      value: &lt;OWNER&gt;/&lt;MODEL_OR_DATASET_NAME&gt;  # 下载的 Hugging Face 仓库 ID
+    # - name: files
+    #   value: &lt;FILE1&gt;, &lt;FILE2&gt;, ...          # 下载的文件列表，默认为所有文件
+  sink: 
+    type: pvc
+    pvc:
+      name: &lt;PVC_NAME&gt;
+      subPath: save/path
+  # executor:
+  #   env:
+  #   - name: HTTPS_PROXY
+  #     value: &lt;host&gt;:&lt;port&gt;            # HTTPS 代理
+</code></pre>
+</details>
+<details><summary><code class="hljs">upload-hf.yaml</code></summary>
+<pre><code class="language-yaml">apiVersion: tensorstack.dev/v1beta1
+kind: DataCube
+metadata:
+  name: upload-hf
+spec:
+  source:
+    type: pvc
+    pvc:
+      name: &lt;PVC_NAME&gt;
+      subPath: path/to/the/dir         # 上传目录下的所有子目录和文件
+      # subPath: path/to/the/file      # 上传文件
+  sink:
+    type: huggingface
+    options:
+    - name: token  # Hugging Face token
+      valueFrom:
+        secretKeyRef:
+          name: &lt;CUSTOM_SECRET_NAME&gt;   # custom 类型的 Secret
+          key: token                   # 引用键 token 的值
+    - name: repo
+      value: &lt;OWNER&gt;/&lt;MODEL_OR_DATASET_NAME&gt;  # 上传的 Hugging Face 仓库 ID
+    - name: path-in-repo
+      value: upload/path               # 目标路径
+    - name: commit-message
+      value: &lt;COMMIT_MESSAGE&gt;          # 提交消息
+  # executor:
+  #   env:
+  #   - name: HTTPS_PROXY
+  #     value: &lt;host&gt;:&lt;port&gt;            # HTTPS 代理
+</code></pre>
+</details>
+<pre><code class="language-bash">kubectl create -f download-hf.yaml
+kubectl create -f upload-hf.yaml
+</code></pre>
+<h2 id="modelscope"><a class="header" href="#modelscope">ModelScope</a></h2>
+<p><a target="_blank" rel="noopener noreferrer" href="https://modelscope.cn/">ModelScope</a> 是一个中文 AI 开源社区，可以视作中国版的 Hugging Face。ModelScope 上托管的模型和数据集相比 Hugging Face 要少得多，但对于国内用户，访问 ModelScope 的网络连通性更好。</p>
+<p>这里介绍从 ModelScope 下载模型文件到 PVC（以模型 <a target="_blank" rel="noopener noreferrer" href="https://modelscope.cn/models/AI-ModelScope/opt-125/"><code>AI-ModelScope/opt-125</code></a> 为例），以及从 PVC 上传模型文件到 ModelScope（以用户自己创建的模型 <code>user/llm</code> 为例）的若干方法。数据集类似。</p>
+<h3 id="git-命令-2"><a class="header" href="#git-命令-2"><code>git</code> 命令</a></h3>
+<p>与 <a href="#git-%E5%91%BD%E4%BB%A4-1">Hugging Face</a> 类似，除了：</p>
+<ul>
+<li>
+<p>Git 仓库的 HTTPS URL 为 <code>https://www.modelscope.cn/&lt;OWNER&gt;/&lt;MODEL_OR_DATASET_NAME&gt;.git</code>，例如模型 <code>AI-ModelScope/opt-125</code> 的 HTTPS URL 为 <code>https://www.modelscope.cn/AI-ModelScope/opt-125.git</code>。</p>
+</li>
+<li>
+<p>Git LFS 被用于管理大于 100MB 的文件（Notebook 的镜像已经安装了 Git LFS，并在启动时进行了初始化）。如要推送大于 100MB 的文件，请先通过 Git LFS 追踪该文件：</p>
+<pre><code class="language-bash">git lfs track large_file
+git add large_file
+git commit -m &quot;Add the large file&quot;
+git push
+</code></pre>
+</li>
+<li>
+<p>如要访问受保护的模型或数据集，访问私有模型或数据集，或推送提交到模型或数据集，则需要提供拥有相应权限的用户的 token：</p>
+<pre><code class="language-bash"># 克隆私有模型的 Git 仓库
+git clone http://oauth2:&lt;MODELSCOPE_TOKEN&gt;@www.modelscope.cn/user/private-llm.git
+
+# 克隆模型的 Git 仓库并在提交修改后推送回去
+git clone http://oauth2:&lt;MODELSCOPE_TOKEN&gt;@www.modelscope.cn/user/llm.git
+git add ...
+git commit ...
+git push
+</code></pre>
+</li>
+</ul>
+<h3 id="modelscope-库"><a class="header" href="#modelscope-库"><code>modelscope</code> 库</a></h3>
+<p>可以使用 <code>modelscope</code> 库下载和上传文件。第一种下载模型文件的方法类似于 <a href="#transformers-%E5%BA%93%E5%92%8C-datasets-%E5%BA%93"><code>transformers</code> 库</a>（在内部也调用了 <code>transformers</code> 库）。首次加载时，仓库中的所有文件会被下载到缓存目录下，即 PVC 的 <code>.cache/modelscope/hub/AI-ModelScope/opt-125/</code> 路径下。</p>
+<pre><code class="language-python">from modelscope.models import Model
+model = Model.from_pretrained(&quot;AI-ModelScope/opt-125&quot;)
+</code></pre>
+<p>第二种下载模型文件的方法类似于 <a href="#huggingface-cli-%E5%91%BD%E4%BB%A4%E5%92%8C-huggingface_hub-%E5%BA%93"><code>huggingface_hub</code> 库</a>。文件会被下载到与第一种方法相同的缓存目录下。</p>
+<pre><code class="language-python">from modelscope import snapshot_download
+from modelscope.hub.file_download import model_file_download
+
+snapshot_download(&quot;AI-ModelScope/opt-125&quot;)                                   # 下载所有文件
+model_file_download(&quot;AI-ModelScope/opt-125&quot;, file_path=&quot;pytorch_model.bin&quot;)  # 下载单个指定文件
+snapshot_download(&quot;AI-ModelScope/opt-125&quot;, cache_dir=&quot;.&quot;)                    # 指定缓存目录
+</code></pre>
+<p>下载数据集文件的方法类似于 <a href="#transformers-%E5%BA%93%E5%92%8C-datasets-%E5%BA%93"><code>datasets</code> 库</a>。这里以数据集 MMLU 的子集 Abstract Algebra 为例，注意不同的数据集拥有不同的可用子集。首次加载时，仓库中的数据集文件会被下载到缓存目录下，即 PVC 的 <code>.cache/modelscope/hub/datasets/mmlu/abstract_algebra/</code> 路径下。</p>
+<pre><code class="language-python">from modelscope.msdatasets import MsDataset
+dataset = MsDataset.load(&quot;mmlu&quot;, subset_name=&quot;abstract_algebra&quot;)
+</code></pre>
+<p>对于受保护的或私有的模型或数据集，需要提供拥有访问权限的用户的 token：</p>
+<pre><code class="language-python">from modelscope import HubApi
+
+api=HubApi()
+api.login(&quot;&lt;MODELSCOPE_TOKEN&gt;&quot;)  # 登录到 ModelScope
+
+# 然后参照上面的方法下载
+</code></pre>
+<p>上传模型文件的方法如下所示。<code>modelscope</code> 库暂不支持上传数据集文件。</p>
+<pre><code class="language-python">from modelscope.hub.api import HubApi
+
+api = HubApi()
+api.login(&quot;&lt;MODELSCOPE_TOKEN&gt;&quot;)  # 登录到 ModelScope
+
+api.push_model(
+    model_id=&quot;&lt;OWNER&gt;/&lt;MODEL_NAME&gt;&quot;,
+    model_dir=&quot;&lt;LOCAL_PATH&gt;&quot;     # 本地模型目录，要求目录中必须包含 configuration.json
+)
 </code></pre>
 <h2 id="大规模数据"><a class="header" href="#大规模数据">大规模数据</a></h2>
 <p>在处理大规模数据（如 100TB 级别）的导入和导出时，根据数据源的不同，我们采用不同的策略以确保数据传输的效率和安全性。以下是针对不同数据源的一些方法：</p>
@@ -309,10 +657,12 @@ wget https://huggingface.co/mistralai/Mistral-7B-v0.1/resolve/main/model-00002-o
 <li>或者，请求管理员操作，将驱动器连接到存储集群的节点上，直接使用存储系统的工具进行数据传输。这种方法的数据传输速度一般较快，但需要能够访问存储集群的工具和接口。</li>
 </ol>
 <h2 id="参考"><a class="header" href="#参考">参考</a></h2>
-<p><a href="https://rclone.org/">https://rclone.org/</a></p>
-<p><a href="https://huggingface.co/models">https://huggingface.co/models</a></p>
-<p><a href="https://github.com/peak/s5cmd">https://github.com/peak/s5cmd</a></p>
-<p><a href="https://github.com/s3tools/s3cmd">https://github.com/s3tools/s3cmd</a></p>
+<ul>
+<li><a target="_blank" rel="noopener noreferrer" href="https://rclone.org/">rclone</a></li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/models">Hugging Face</a></li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://github.com/s3tools/s3cmd">s3cmd</a></li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://github.com/peak/s5cmd">s5cmd</a></li>
+</ul>
 
                     </main>
 

@@ -221,7 +221,7 @@ git clone https://huggingface.co/baichuan-inc/Baichuan2-7B-Base
 <li>后者包含约 36,000 条中文指令，以及 GPT-4 评估的一对高/低质量回答。</li>
 </ul>
 <h2 id="启动三步训练"><a class="header" href="#启动三步训练">启动三步训练</a></h2>
-<p>使用如下 YAML 配置文件创建 DeepSpeedJob 以启动 SFT（有监督微调）训练：</p>
+<p>使用以下 YAML 配置文件创建 DeepSpeedJob 以启动 SFT（有监督微调）训练：</p>
 <pre><code class="language-bash">kubectl create -f examples/llama-factory/training/sft.yaml
 </code></pre>
 <p>通过以下命令查看训练过程中打印的日志：</p>

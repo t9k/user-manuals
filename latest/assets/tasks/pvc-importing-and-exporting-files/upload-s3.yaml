@@ -1,0 +1,31 @@
+apiVersion: tensorstack.dev/v1beta1
+kind: DataCube
+metadata:
+  name: upload-s3
+spec:
+  source:
+    type: pvc
+    pvc:
+      name: <PVC_NAME>
+      subPath: path/to/the/dir        # 上传目录下的所有子目录和文件
+      # subPath: path/to/the/file     # 上传文件
+  sink: 
+    type: s3
+    options:
+    - name: s3-endpoint
+      valueFrom:
+        secretKeyRef:
+          name: <S3ENV_SECRET_NAME>   # s3-env 类型的 Secret
+          key: endpoint
+    - name: s3-access-key-id
+      valueFrom:
+        secretKeyRef:
+          name: <S3ENV_SECRET_NAME>
+          key: accessKeyID
+    - name: s3-secret-access-key
+      valueFrom:
+        secretKeyRef:
+          name: <S3ENV_SECRET_NAME>
+          key: secretAccessKey
+    - name: s3-uri
+      value: s3://<BUCKET>/save/path  # 目标 S3 路径

@@ -1,0 +1,29 @@
+apiVersion: tensorstack.dev/v1beta1
+kind: DataCube
+metadata:
+  name: upload-hf
+spec:
+  source:
+    type: pvc
+    pvc:
+      name: <PVC_NAME>
+      subPath: path/to/the/dir         # 上传目录下的所有子目录和文件
+      # subPath: path/to/the/file      # 上传文件
+  sink:
+    type: huggingface
+    options:
+    - name: token  # Hugging Face token
+      valueFrom:
+        secretKeyRef:
+          name: <CUSTOM_SECRET_NAME>   # custom 类型的 Secret
+          key: token                   # 引用键 token 的值
+    - name: repo
+      value: <OWNER>/<MODEL_OR_DATASET_NAME>  # 上传的 Hugging Face 仓库 ID
+    - name: path-in-repo
+      value: upload/path               # 目标路径
+    - name: commit-message
+      value: <COMMIT_MESSAGE>          # 提交消息
+  # executor:
+  #   env:
+  #   - name: HTTPS_PROXY
+  #     value: <host>:<port>            # HTTPS 代理

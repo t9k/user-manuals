@@ -218,7 +218,7 @@ unzip tusimple.zip
 <p><a target="_blank" rel="noopener noreferrer" href="https://www.kaggle.com/datasets/manideep1108/tusimple?resource=download">TuSimple</a> 数据集包含了 6,408 张美国高速公路上的道路图像，图像的分辨率为 1280×720。该数据集包括了 3,626 张用于训练的图像和 2,782 张用于测试的图像。</p>
 </aside>
 <h2 id="训练"><a class="header" href="#训练">训练</a></h2>
-<p>使用如下 YAML 配置文件创建 PyTorchTrainingJob 以启动训练。该 PyTorchTrainingJob 创建 2 个副本，每个副本启动 2 个进程，每个进程使用 1 个 GPU。</p>
+<p>使用以下 YAML 配置文件创建 PyTorchTrainingJob 以启动训练。该 PyTorchTrainingJob 创建 2 个副本，每个副本启动 2 个进程，每个进程使用 1 个 GPU。</p>
 <pre><code class="language-bash">kubectl create -f examples/lanedet/t9k/job.yaml
 </code></pre>
 <p>通过以下命令查看训练过程中打印的日志：</p>

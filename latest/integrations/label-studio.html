@@ -401,7 +401,7 @@ Transferring:
 <p>回到 Notebook <code>app</code> 的终端，获取应用 service 的 IP 地址：</p>
 <pre><code class="language-bash">kubectl get svc label-studio-demo-ls-app -o jsonpath=&quot;{.spec.clusterIP}&quot;
 </code></pre>
-<p>然后使用如下 YAML 配置文件创建 SimpleMLService 以部署 ML backend 服务，其中环境变量 <code>LABEL_STUDIO_HOST</code> 和 <code>LABEL_STUDIO_ACCESS_TOKEN</code> 的值需要根据上面获取的结果进行修改。镜像 <code>t9kpublic/label-studio-sam:main</code> 构建自示例 <a target="_blank" rel="noopener noreferrer" href="https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/segment_anything_model">Interactive Annotation in Label Studio with Segment Anything Model</a>。</p>
+<p>然后使用以下 YAML 配置文件创建 SimpleMLService 以部署 ML backend 服务，其中环境变量 <code>LABEL_STUDIO_HOST</code> 和 <code>LABEL_STUDIO_ACCESS_TOKEN</code> 的值需要根据上面获取的结果进行修改。镜像 <code>t9kpublic/label-studio-sam:main</code> 构建自示例 <a target="_blank" rel="noopener noreferrer" href="https://github.com/HumanSignal/label-studio-ml-backend/tree/master/label_studio_ml/examples/segment_anything_model">Interactive Annotation in Label Studio with Segment Anything Model</a>。</p>
 <details><summary><code class="hljs">sam.yaml</code></summary>
 <pre><code class="language-yaml">apiVersion: tensorstack.dev/v1beta1
 kind: SimpleMLService

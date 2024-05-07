@@ -1,0 +1,26 @@
+apiVersion: tensorstack.dev/v1beta1
+kind: DataCube
+metadata:
+  name: download-hf
+spec:
+  source:
+    type: huggingface
+    options:
+    # - name: token  # Hugging Face token
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: <CUSTOM_SECRET_NAME>  # custom 类型的 Secret
+    #       key: token                  # 引用键 token 的值
+    - name: repo
+      value: <OWNER>/<MODEL_OR_DATASET_NAME>  # 下载的 Hugging Face 仓库 ID
+    # - name: files
+    #   value: <FILE1>, <FILE2>, ...          # 下载的文件列表，默认为所有文件
+  sink: 
+    type: pvc
+    pvc:
+      name: <PVC_NAME>
+      subPath: save/path
+  # executor:
+  #   env:
+  #   - name: HTTPS_PROXY
+  #     value: <host>:<port>            # HTTPS 代理
