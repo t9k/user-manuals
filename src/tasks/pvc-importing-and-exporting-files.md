@@ -448,6 +448,11 @@ api.push_model(
 ## 参考
 
 * <a target="_blank" rel="noopener noreferrer" href="https://rclone.org/">rclone</a>
-* <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/models">Hugging Face</a>
 * <a target="_blank" rel="noopener noreferrer" href="https://github.com/s3tools/s3cmd">s3cmd</a>
 * <a target="_blank" rel="noopener noreferrer" href="https://github.com/peak/s5cmd">s5cmd</a>
+* <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/">Hugging Face</a>
+    * <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/docs/transformers/">Hugging Face Transformers</a>
+    * <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/docs/datasets/">Hugging Face Datasets</a>
+    * <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/docs/huggingface_hub/">Hugging Face Hub Python Library</a>
+* <a target="_blank" rel="noopener noreferrer" href="https://modelscope.cn/">ModelScope</a>
+    * <a target="_blank" rel="noopener noreferrer" href="https://modelscope.cn/docs">ModelScope 文档中心</a>
