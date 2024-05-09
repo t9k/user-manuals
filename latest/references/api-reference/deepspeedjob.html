@@ -247,7 +247,7 @@
 <div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>scheduler</code> <em>SchedulePolicy</em></td><td>Identifies the preferred scheduler for allocating resources to replicas. Defaults to cluster default scheduler.</td></tr>
 <tr><td><code>runPolicy</code> <em><a href="#runpolicy">RunPolicy</a></em></td><td>Execution policy configurations governing the behavior of the distributed training job.</td></tr>
-<tr><td><code>runMode</code> <em><a href="#runmode">RunMode</a></em></td><td>Job’s execution behavior. If omitted, defaults to <code>Immediate</code> mode, and tasks are executed immediately upon submission.</td></tr>
+<tr><td><code>runMode</code> <em><a href="#runmode">RunMode</a></em></td><td>Job's execution behavior. If omitted, defaults to <code>Immediate</code> mode, and tasks are executed immediately upon submission.</td></tr>
 <tr><td><code>elastic</code> <em><a href="#elasticconfig">ElasticConfig</a></em></td><td>Configurations for how to launch an elastic training.</td></tr>
 <tr><td><code>config</code> <em><a href="#config">Config</a></em></td><td>Key configurations for executing DeepSpeed training jobs.</td></tr>
 <tr><td><code>disableCustomEnv</code> <em>boolean</em></td><td>Setting environment variables during DeepSpeed training necessitates creating an env file to store the desired variables. The launcher will then distribute these variables to each worker process. Nevertheless, certain scenarios require disabling this automated behavior, and this flag enables control over this functionality.</td></tr>
@@ -267,7 +267,7 @@
 <tr><td><code>aggregate</code> <em><a href="#aggregate">Aggregate</a></em></td><td></td></tr>
 <tr><td><code>phase</code> <em>JobPhase</em></td><td>Provides a simple, high-level summary of where the Job is in its lifecycle. Note that this is NOT indended to be a comprehensive state machine.</td></tr>
 <tr><td><code>backoffCount</code> <em>integer</em></td><td>The number of restarts being performed.</td></tr>
-<tr><td><code>conditions</code> <em><a href="#jobcondition">JobCondition</a> array</em></td><td>The latest available observations of an object’s current state.</td></tr>
+<tr><td><code>conditions</code> <em><a href="#jobcondition">JobCondition</a> array</em></td><td>The latest available observations of an object's current state.</td></tr>
 </tbody></table>
 </div>
 <h4 id="elasticconfig"><a class="header" href="#elasticconfig">ElasticConfig</a></h4>

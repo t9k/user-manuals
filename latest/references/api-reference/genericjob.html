@@ -241,7 +241,7 @@
 </tbody></table>
 </div>
 <h4 id="finishrule"><a class="header" href="#finishrule">FinishRule</a></h4>
-<p>A finishRule is a condition used to check if the job has finished. A finishRule identifies a set of replicas, and the controller determines the job’s status by checking the status of all of these replicas.</p>
+<p>A finishRule is a condition used to check if the job has finished. A finishRule identifies a set of replicas, and the controller determines the job's status by checking the status of all of these replicas.</p>
 <p><em>Appears in:</em></p>
 <ul>
 <li><a href="#genericjobspec">GenericJobSpec</a></li>
@@ -295,7 +295,7 @@
 <tr><td><code>tasks</code> <em><a href="#tasks">Tasks</a> array</em></td><td>An array of status of individual tasks.</td></tr>
 <tr><td><code>phase</code> <em><a href="#jobphase">JobPhase</a></em></td><td>Provides a simple, high-level summary of where the Job is in its lifecycle. Note that this is NOT indended to be a comprehensive state machine.</td></tr>
 <tr><td><code>aggregate</code> <em><a href="#aggregate">Aggregate</a></em></td><td>Records the number of replicas at each phase.</td></tr>
-<tr><td><code>conditions</code> <em><a href="#jobcondition">JobCondition</a> array</em></td><td>The latest available observations of a job’s current state.</td></tr>
+<tr><td><code>conditions</code> <em><a href="#jobcondition">JobCondition</a> array</em></td><td>The latest available observations of a job's current state.</td></tr>
 </tbody></table>
 </div>
 <h4 id="jobcondition"><a class="header" href="#jobcondition">JobCondition</a></h4>
@@ -308,7 +308,7 @@
 <tr><td><code>type</code> <em><a href="#jobconditiontype">JobConditionType</a></em></td><td>Type of job condition: Complete or Failed.</td></tr>
 <tr><td><code>status</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#conditionstatus-v1-core">ConditionStatus</a></em></td><td>Status of the condition, one of True, False, Unknown.</td></tr>
 <tr><td><code>lastTransitionTime</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta">Time</a></em></td><td>Last time the condition transited from one status to another.</td></tr>
-<tr><td><code>reason</code> <em>string</em></td><td>Brief reason for the condition’s last transition.</td></tr>
+<tr><td><code>reason</code> <em>string</em></td><td>Brief reason for the condition's last transition.</td></tr>
 <tr><td><code>message</code> <em>string</em></td><td>Human readable message indicating details about last transition.</td></tr>
 </tbody></table>
 </div>
@@ -345,7 +345,7 @@
 <div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>type</code> <em>string</em></td><td>Replica type.</td></tr>
 <tr><td><code>skipInitContainer</code> <em>boolean</em></td><td>Skips creation of initContainer, if true.</td></tr>
-<tr><td><code>command</code> <em><a href="#string">string</a></em></td><td>Entrypoint array. Optional: Default to [“sleep”, “inf”]</td></tr>
+<tr><td><code>command</code> <em><a href="#string">string</a></em></td><td>Entrypoint array. Optional: Default to [&quot;sleep&quot;, &quot;inf&quot;]</td></tr>
 </tbody></table>
 </div>
 <h4 id="replicaspec"><a class="header" href="#replicaspec">ReplicaSpec</a></h4>
@@ -405,7 +405,7 @@
 </tbody></table>
 </div>
 <h4 id="runmode"><a class="header" href="#runmode">RunMode</a></h4>
-<p>RunMode defines the job’s execution behavior:   Immediate mode: (Default) Tasks are executed immediately upon submission.   Debug mode: Job pods are created, but regular executions are replaced with null operations (e.g., sleep) for convenient debugging purposes.   Pause mode: Job execution is halted, and pods are deleted to reclaim resources. A graceful pod termination process is initiated to allow pods to exit cleanly.</p>
+<p>RunMode defines the job's execution behavior:   Immediate mode: (Default) Tasks are executed immediately upon submission.   Debug mode: Job pods are created, but regular executions are replaced with null operations (e.g., sleep) for convenient debugging purposes.   Pause mode: Job execution is halted, and pods are deleted to reclaim resources. A graceful pod termination process is initiated to allow pods to exit cleanly.</p>
 <p><em>Appears in:</em></p>
 <ul>
 <li><a href="#genericjobspec">GenericJobSpec</a></li>
@@ -426,7 +426,7 @@
 </tbody></table>
 </div>
 <h4 id="serviceoption"><a class="header" href="#serviceoption">ServiceOption</a></h4>
-<p>Details of a replicas’ servivce.</p>
+<p>Details of a replicas' servivce.</p>
 <p><em>Appears in:</em></p>
 <ul>
 <li><a href="#genericjobspec">GenericJobSpec</a></li>

@@ -246,7 +246,7 @@
 <tr><td><code>replicaSpecs</code> <em><a href="#replicaspec">ReplicaSpec</a> array</em></td><td>An array of ReplicaSpec. Specifies the pytorch cluster configuration.</td></tr>
 <tr><td><code>elastic</code> <em><a href="#elasticconfig">ElasticConfig</a></em></td><td>Configurations for how to launch an elastic training. Elastic training is effective only in torchrun mode.</td></tr>
 <tr><td><code>torchrunConfig</code> <em><a href="#torchrunconfig">TorchrunConfig</a></em></td><td>Whether and how to use torchrun to launch a training process.</td></tr>
-<tr><td><code>runMode</code> <em><a href="#runmode">RunMode</a></em></td><td>Job’s execution behavior. If omitted, defaults to <code>Immediate</code> mode, and tasks are executed immediately upon submission.</td></tr>
+<tr><td><code>runMode</code> <em><a href="#runmode">RunMode</a></em></td><td>Job's execution behavior. If omitted, defaults to <code>Immediate</code> mode, and tasks are executed immediately upon submission.</td></tr>
 <tr><td><code>runPolicy</code> <em><a href="#runpolicy">RunPolicy</a></em></td><td>Execution policy configurations governing the behavior of a PytorchTrainingJob.</td></tr>
 <tr><td><code>tensorboardSpec</code> <em>TensorBoardSpec</em></td><td>If specified, controller will create a Tensorboard for showing training logs.</td></tr>
 <tr><td><code>scheduler</code> <em>SchedulePolicy</em></td><td>Identifies the preferred scheduler for allocating resources to replicas. Defaults to cluster default scheduler.</td></tr>
@@ -263,7 +263,7 @@
 <tr><td><code>tensorboard</code> <em>DependentStatus</em></td><td>The status of the tensorboard.</td></tr>
 <tr><td><code>backoffCount</code> <em>integer</em></td><td>The number of restarts having been performed.</td></tr>
 <tr><td><code>aggregate</code> <em><a href="#aggregate">Aggregate</a></em></td><td>The number of tasks in each state.</td></tr>
-<tr><td><code>conditions</code> <em><a href="#jobcondition">JobCondition</a> array</em></td><td>The latest available observations of an object’s current state.</td></tr>
+<tr><td><code>conditions</code> <em><a href="#jobcondition">JobCondition</a> array</em></td><td>The latest available observations of an object's current state.</td></tr>
 <tr><td><code>phase</code> <em>JobPhase</em></td><td>Provides a simple, high-level summary of where the Job is in its lifecycle. Note that this is NOT indended to be a comprehensive state machine.</td></tr>
 </tbody></table>
 </div>

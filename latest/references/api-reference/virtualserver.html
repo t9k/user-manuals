@@ -254,7 +254,7 @@
 <tr><td><code>udp</code> <em>integer array</em></td><td>The ports exposed with UDP protocol.</td></tr>
 <tr><td><code>macAddress</code> <em>string</em></td><td>Interface MAC address. For example: de:ad:00:00:be:af or DE-AD-00-00-BE-AF.</td></tr>
 <tr><td><code>dnsConfig</code> <em><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#poddnsconfig-v1-core">PodDNSConfig</a></em></td><td>Specifies the DNS parameters of a VM. Parameters specified here will be merged to the generated DNS configuration based on DNSPolicy.</td></tr>
-<tr><td><code>dnsPolicy</code> <em><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#dnspolicy-v1-core">DNSPolicy</a></em></td><td>Set DNS policy for the VM. Defaults to “ClusterFirst”. Valid values are ‘ClusterFirstWithHostNet’, ‘ClusterFirst’, ‘Default’ or ‘None’. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy. To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to ‘ClusterFirstWithHostNet’.</td></tr>
+<tr><td><code>dnsPolicy</code> <em><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#dnspolicy-v1-core">DNSPolicy</a></em></td><td>Set DNS policy for the VM. Defaults to &quot;ClusterFirst&quot;. Valid values are 'ClusterFirstWithHostNet', 'ClusterFirst', 'Default' or 'None'. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy. To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to 'ClusterFirstWithHostNet'.</td></tr>
 </tbody></table>
 </div>
 <h4 id="pvctemplate"><a class="header" href="#pvctemplate">PVCTemplate</a></h4>
@@ -356,7 +356,7 @@
 <tr><td><code>type</code> <em><a href="#virtualserverconditiontype">VirtualServerConditionType</a></em></td><td>Type is the type of the condition.</td></tr>
 <tr><td><code>status</code> <em><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#conditionstatus-v1-core">ConditionStatus</a></em></td><td>Status is the status of the condition type. Possible values of are `True</td></tr>
 <tr><td><code>message</code> <em>string</em></td><td>Message is a human-readable message for the reason of the status.</td></tr>
-<tr><td><code>reason</code> <em>string</em></td><td>Unique, one-word, CamelCase reason for the vm’s last transition.</td></tr>
+<tr><td><code>reason</code> <em>string</em></td><td>Unique, one-word, CamelCase reason for the vm's last transition.</td></tr>
 <tr><td><code>lastTransitionTime</code> <em><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta">Time</a></em></td><td>LastTransitionTime is the last time the status was changed.</td></tr>
 </tbody></table>
 </div>
@@ -400,7 +400,7 @@
 <li><a href="#virtualserver">VirtualServer</a></li>
 </ul>
 <div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
-<tr><td><code>conditions</code> <em><a href="#virtualservercondition">VirtualServerCondition</a> array</em></td><td>The latest available observations of a VirtualServer’s current state.</td></tr>
+<tr><td><code>conditions</code> <em><a href="#virtualservercondition">VirtualServerCondition</a> array</em></td><td>The latest available observations of a VirtualServer's current state.</td></tr>
 <tr><td><code>printableStatus</code> <em>VirtualMachinePrintableStatus</em></td><td>PrintableStatus is a human readable, high-level representation of the status of the virtual machine</td></tr>
 <tr><td><code>vm</code> <em><a href="#vmref">VMRef</a></em></td><td>Refers to VirtualMachine created by this VirtualServer.</td></tr>
 <tr><td><code>runStrategy</code> <em>VirtualMachineRunStrategy</em></td><td>Running state indicates the requested running state of the VirtualMachineInstance mutually exclusive with Running</td></tr>

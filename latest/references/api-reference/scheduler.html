@@ -227,7 +227,7 @@
 <tr><td><code>status</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#conditionstatus-v1-core">ConditionStatus</a></em></td><td>The status of the condition.</td></tr>
 <tr><td><code>transitionID</code> <em>string</em></td><td>The ID of condition transition.</td></tr>
 <tr><td><code>lastTransitionTime</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta">Time</a></em></td><td>Last time of condition transition(s).</td></tr>
-<tr><td><code>reason</code> <em>string</em></td><td>Unique, one-word, CamelCase, machine-readable reason for the condition’s last change.</td></tr>
+<tr><td><code>reason</code> <em>string</em></td><td>Unique, one-word, CamelCase, machine-readable reason for the condition's last change.</td></tr>
 <tr><td><code>message</code> <em>string</em></td><td>Human-readable message indicating details about last change.</td></tr>
 </tbody></table>
 </div>
@@ -258,8 +258,8 @@
 <div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>roles</code> <em><a href="#role">Role</a> array</em></td><td></td></tr>
 <tr><td><code>minMember</code> <em>integer</em></td><td>MinMember defines the minimal number of pods to run the PodGroup. If there less than <code>minMember</code> of pods joining the PodGroup, none of the existing pods in the group will be scheduled. After <code>minMember</code> of pods joined, the scheduler will only schedule them if there are sufficient resources to allow <code>minMember</code> of pods start together.</td></tr>
-<tr><td><code>queue</code> <em>string</em></td><td>Queue defines the queue from which resources for pods of the PodGroup should be allocated. If queue is not specified, the PodGroup will be scheduled to queue “default”.</td></tr>
-<tr><td><code>priority</code> <em>integer</em></td><td>If specified, indicates the PodGroup’s priority; groups with larger <code>priority</code> values will be considered for scheduling first; range is [0,100].</td></tr>
+<tr><td><code>queue</code> <em>string</em></td><td>Queue defines the queue from which resources for pods of the PodGroup should be allocated. If queue is not specified, the PodGroup will be scheduled to queue &quot;default&quot;.</td></tr>
+<tr><td><code>priority</code> <em>integer</em></td><td>If specified, indicates the PodGroup's priority; groups with larger <code>priority</code> values will be considered for scheduling first; range is [0,100].</td></tr>
 <tr><td><code>topologyPolicy</code> <em>TopologyPolicyType</em></td><td>TopologyPolicy declares the topology policy PodGroup needs.</td></tr>
 </tbody></table>
 </div>
@@ -285,11 +285,11 @@
 <li><a href="#queuestatus">QueueStatus</a></li>
 </ul>
 <div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
-<tr><td><code>pending</code> <em>integer</em></td><td>The number of ‘Pending’ Pods in this queue.</td></tr>
-<tr><td><code>running</code> <em>integer</em></td><td>The number of ‘Running’ Pods in this queue.</td></tr>
-<tr><td><code>succeeded</code> <em>integer</em></td><td>The number of ‘Succeeded’ Pods in this queue.</td></tr>
-<tr><td><code>failed</code> <em>integer</em></td><td>The number of ‘Failed’ Pods in this queue</td></tr>
-<tr><td><code>unknown</code> <em>integer</em></td><td>The number of ‘Unknown’ Pods in this queue.</td></tr>
+<tr><td><code>pending</code> <em>integer</em></td><td>The number of 'Pending' Pods in this queue.</td></tr>
+<tr><td><code>running</code> <em>integer</em></td><td>The number of 'Running' Pods in this queue.</td></tr>
+<tr><td><code>succeeded</code> <em>integer</em></td><td>The number of 'Succeeded' Pods in this queue.</td></tr>
+<tr><td><code>failed</code> <em>integer</em></td><td>The number of 'Failed' Pods in this queue</td></tr>
+<tr><td><code>unknown</code> <em>integer</em></td><td>The number of 'Unknown' Pods in this queue.</td></tr>
 </tbody></table>
 </div>
 <h4 id="queue"><a class="header" href="#queue">Queue</a></h4>
@@ -315,7 +315,7 @@
 <tr><td><code>type</code> <em><a href="#queueconditiontype">QueueConditionType</a></em></td><td>Type is the type of the condition. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions</td></tr>
 <tr><td><code>status</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#conditionstatus-v1-core">ConditionStatus</a></em></td><td>Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions</td></tr>
 <tr><td><code>lastTransitionTime</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#time-v1-meta">Time</a></em></td><td>Last time the condition transitioned.</td></tr>
-<tr><td><code>reason</code> <em>string</em></td><td>Unique, one-word, CamelCase reason for the condition’s last transition.</td></tr>
+<tr><td><code>reason</code> <em>string</em></td><td>Unique, one-word, CamelCase reason for the condition's last transition.</td></tr>
 <tr><td><code>message</code> <em>string</em></td><td>Human-readable message indicating details about last transition.</td></tr>
 </tbody></table>
 </div>
@@ -342,13 +342,13 @@
 </ul>
 <div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>quota</code> <em><a href="#quotarequirements">QuotaRequirements</a></em></td><td></td></tr>
-<tr><td><code>priority</code> <em>integer</em></td><td>If specified, indicates the Queue’s priority. range is [0,100] The higher value of <code>priority</code>, workloads in this queue will be scheduled with resources with higher preferences.</td></tr>
+<tr><td><code>priority</code> <em>integer</em></td><td>If specified, indicates the Queue's priority. range is [0,100] The higher value of <code>priority</code>, workloads in this queue will be scheduled with resources with higher preferences.</td></tr>
 <tr><td><code>preemptible</code> <em>boolean</em></td><td>Preemptible indicate whether the queue can be preempted by other queue when cluster resources are in short. Queue can be preempted if Preemptible is not set.</td></tr>
 <tr><td><code>closed</code> <em>boolean</em></td><td>After queue is closed, new workloads (pods) will not be allocated with resources and no new workloads will be accepted either.</td></tr>
 <tr><td><code>maxDuration</code> <em>Duration</em></td><td>Define the max lifetime of Pod using the Queue. Supported units: y, w, d, h, m, s, ms. Examples: <code>30s</code>, <code>1m</code>, <code>1h20m15s</code>, <code>15d</code>.</td></tr>
 <tr><td><code>resourceShapeProfile</code> <em>string</em></td><td>Specify ResourceShape profile used by the Queue.</td></tr>
 <tr><td><code>nodeSelector</code> <em><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#labelselector-v1-meta">LabelSelector</a></em></td><td>NodeSelector specifies the nodes whoses resource can be used by a Queue. This provides a machanism to restrict workloads submitted to a particular queue to a sub-set of nodes in the cluster. if <code>nil</code>, all nodes are eligible.</td></tr>
-<tr><td><code>namespaceSelector</code> <em><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#labelselector-v1-meta">LabelSelector</a></em></td><td>NamespaceSelector specifies the set of namespaces from which workloads are allowed to use this Queue. if <code>nil</code>,  no namespaces are selected. Note: There may be other authorization procedures that permit workloads in a queue. They are OR’ed with this selector.</td></tr>
+<tr><td><code>namespaceSelector</code> <em><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#labelselector-v1-meta">LabelSelector</a></em></td><td>NamespaceSelector specifies the set of namespaces from which workloads are allowed to use this Queue. if <code>nil</code>,  no namespaces are selected. Note: There may be other authorization procedures that permit workloads in a queue. They are OR'ed with this selector.</td></tr>
 </tbody></table>
 </div>
 <h4 id="queuestatus"><a class="header" href="#queuestatus">QueueStatus</a></h4>
@@ -374,7 +374,7 @@
 </tbody></table>
 </div>
 <h4 id="role"><a class="header" href="#role">Role</a></h4>
-<p>Role describes pod’s role and minMember constraint for this role.</p>
+<p>Role describes pod's role and minMember constraint for this role.</p>
 <p><em>Appears in:</em></p>
 <ul>
 <li><a href="#podgroupspec">PodGroupSpec</a></li>

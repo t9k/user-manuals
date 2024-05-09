@@ -195,7 +195,7 @@
 <p>Commits changes to a branch of an Asset.</p>
 <p>First delete, then add.</p>
 <p>If no branch is provided, <code>:main</code> will be used.</p>
-<p>For Windows platform, if you provide absolute paths for parameter <code>add</code>, change its format from ‘C:\local\path’ to ‘\C\local\path’.</p>
+<p>For Windows platform, if you provide absolute paths for parameter <code>add</code>, change its format from 'C:\local\path' to '\C\local\path'.</p>
 <h3 id="examples"><a class="header" href="#examples">Examples</a></h3>
 <p>Add a file as object to specified branch of Model:</p>
 <pre><code class="language-python">ah.commit('model/llm/gpt2:v1', msg='add ...', add=['model.pt'])
@@ -322,7 +322,7 @@ tag = ah.create('model/llm/gpt2:20220101', create_tag=True, source='model/llm/gp
 <p>Delete a tag:</p>
 <pre><code class="language-python">ah.delete('model/llm/gpt2:20220101')
 </code></pre>
-<p>Delete another user’s Folder:</p>
+<p>Delete another user's Folder:</p>
 <pre><code class="language-python">ah.delete('/user/t9k-assethub/model/llm')
 </code></pre>
 <p>If the Folder does not exist, do nothing:</p>
@@ -396,7 +396,7 @@ tag = ah.create('model/llm/gpt2:20220101', create_tag=True, source='model/llm/gp
 <p>Get a tag:</p>
 <pre><code class="language-python">tag = ah.get('model/llm/gpt2:20220101')
 </code></pre>
-<p>Get another user’s Folder:</p>
+<p>Get another user's Folder:</p>
 <pre><code class="language-python">folder = ah.get('/user/t9k-assethub/model/llm')
 </code></pre>
 <h3 id="args-4"><a class="header" href="#args-4">Args</a></h3>
@@ -429,7 +429,7 @@ tag = ah.create('model/llm/gpt2:20220101', create_tag=True, source='model/llm/gp
 <p>List Models in your own Folder:</p>
 <pre><code class="language-python">models = ah.list('model/llm')
 </code></pre>
-<p>List Models in another user’s Folder:</p>
+<p>List Models in another user's Folder:</p>
 <pre><code class="language-python">models = ah.list('/user1/t9k-assethub/model/llm')
 </code></pre>
 <p>List objects of specified branch of Model:</p>
@@ -458,7 +458,7 @@ tag = ah.create('model/llm/gpt2:20220101', create_tag=True, source='model/llm/gp
 </li>
 <li>
 <p><strong>resource</strong> (<em>str</em>)</p>
-<p>Kind of the resources, must be <code>'default'</code>, <code>'branch'</code>, ‘<code>tag</code>’ or <code>'commit'</code>. This parameter is used to list branches, tags or commits: to list branches, provide a <code>path</code> that points to an Asset and set <code>resource='branch'</code>; to list tags, provide a <code>path</code> that points to an Asset and set <code>resource='tag'</code>; to list commits, provide a <code>path</code> that points to a branch of an Asset and set <code>resource='commit'</code>.</p>
+<p>Kind of the resources, must be <code>'default'</code>, <code>'branch'</code>, '<code>tag</code>' or <code>'commit'</code>. This parameter is used to list branches, tags or commits: to list branches, provide a <code>path</code> that points to an Asset and set <code>resource='branch'</code>; to list tags, provide a <code>path</code> that points to an Asset and set <code>resource='tag'</code>; to list commits, provide a <code>path</code> that points to a branch of an Asset and set <code>resource='commit'</code>.</p>
 </li>
 </ul>
 <h3 id="returns-3"><a class="header" href="#returns-3">Returns</a></h3>
@@ -503,7 +503,7 @@ tag = ah.create('model/llm/gpt2:20220101', create_tag=True, source='model/llm/gp
 <pre><code class="language-python">merge(path: str) ‑&gt; None
 </code></pre>
 <p>Merges a branch of a Model to the main branch.</p>
-<p>Here, the specific operation of “merge” involves deleting all objects from the main branch and then copying all objects from the specified branch to the main branch.</p>
+<p>Here, the specific operation of &quot;merge&quot; involves deleting all objects from the main branch and then copying all objects from the specified branch to the main branch.</p>
 <p>Note that the specified branch itself cannot be the main branch.</p>
 <h3 id="examples-6"><a class="header" href="#examples-6">Examples</a></h3>
 <pre><code class="language-python">ah.merge('model/llm/gpt2:v1')

@@ -248,7 +248,7 @@
 <tr><td><code>tasks</code> <em><a href="#tasks">Tasks</a> array</em></td><td>The statuses of individual tasks.</td></tr>
 <tr><td><code>aggregate</code> <em><a href="#aggregate">Aggregate</a></em></td><td>The number of replicas in each phase.</td></tr>
 <tr><td><code>phase</code> <em>JobPhase</em></td><td>Provides a simple, high-level summary of where the Job is in its lifecycle. Note that this is NOT indended to be a comprehensive state machine.</td></tr>
-<tr><td><code>conditions</code> <em><a href="#jobcondition">JobCondition</a> array</em></td><td>The latest available observations of an object’s current state.</td></tr>
+<tr><td><code>conditions</code> <em><a href="#jobcondition">JobCondition</a> array</em></td><td>The latest available observations of an object's current state.</td></tr>
 </tbody></table>
 </div>
 <h4 id="launcher"><a class="header" href="#launcher">Launcher</a></h4>
@@ -259,7 +259,7 @@
 </ul>
 <div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>image</code> <em>string</em></td><td>Container image name.</td></tr>
-<tr><td><code>workingDir</code> <em>string</em></td><td>Working directory of container <code>launcher</code>. If not specified, the container runtime’s default will be used, which might be configured in the container image. Cannot be updated.</td></tr>
+<tr><td><code>workingDir</code> <em>string</em></td><td>Working directory of container <code>launcher</code>. If not specified, the container runtime's default will be used, which might be configured in the container image. Cannot be updated.</td></tr>
 <tr><td><code>env</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#envvar-v1-core">EnvVar</a> array</em></td><td>List of environment variables set for the container. Cannot be updated.</td></tr>
 <tr><td><code>resources</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#resourcerequirements-v1-core">ResourceRequirements</a></em></td><td>Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/</td></tr>
 </tbody></table>
@@ -281,7 +281,7 @@
 <li><a href="#colossalaijobspec">ColossalAIJobSpec</a></li>
 </ul>
 <div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
-<tr><td><code>authMountPath</code> <em>string</em></td><td>SSHAuthMountPath is the directory where SSH keys are mounted. Defaults to “/root/.ssh”.</td></tr>
+<tr><td><code>authMountPath</code> <em>string</em></td><td>SSHAuthMountPath is the directory where SSH keys are mounted. Defaults to &quot;/root/.ssh&quot;.</td></tr>
 <tr><td><code>sshdPath</code> <em>string</em></td><td>The location of the sshd executable file.</td></tr>
 </tbody></table>
 </div>

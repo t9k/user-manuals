@@ -625,7 +625,7 @@ Please enter your password:
 Please enter Context name [default: demo-example.com]: demo
 Login succeeded!
 </code></pre>
-<p>!!! note “注意” 
+<p>!!! note &quot;注意&quot; 
 Context 的名称需要满足 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names">DNS Subdomain Names</a> 的要求，如果 Context 名字重复，可以选择覆盖原内容或者重新输入。</p>
 <h5 id="通过-api-key-完成认证"><a class="header" href="#通过-api-key-完成认证">通过 API Key 完成认证</a></h5>
 <p>用户指定要登录的域名，然后输入 API Key。认证完成后，当前的 T9k Config 中便会新增一个 <code>apikey-&lt;hash&gt;-&lt;域名&gt;</code> 的 Context，用户也可以自己指定 Context 的名称。</p>
@@ -637,7 +637,7 @@ Login succeeded!
 </code></pre>
 <h3 id="delete-context"><a class="header" href="#delete-context">delete-context</a></h3>
 <p>删除指定的 Context。</p>
-<p>!!! note “注意” 
+<p>!!! note &quot;注意&quot; 
 即使指定的 Context 是 current-context，此命令也会直接删除掉。所以务必确认之后再删除。</p>
 <h4 id="使用-15"><a class="header" href="#使用-15">使用</a></h4>
 <pre><code>t9k config delete-context &lt;name&gt;

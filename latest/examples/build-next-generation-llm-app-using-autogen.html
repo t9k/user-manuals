@@ -238,7 +238,7 @@ user_proxy.initiate_chat(assistant, problem=math_problem)
 <p>让我们使用 Python 来解决一个数学问题。</p>
 <p>查询要求：</p>
 <ul>
-<li>对于输出，应始终使用 ‘print’ 函数，并使用分数 / 根式形式而不是小数。</li>
+<li>对于输出，应始终使用 'print' 函数，并使用分数 / 根式形式而不是小数。</li>
 <li>您可以使用诸如 sympy 之类的包来帮助您。</li>
 <li>您必须遵循以下格式来编写您的代码：</li>
 </ul>
@@ -349,7 +349,7 @@ user_proxy.initiate_chat(assistant, problem=question, n_results=30)
 <p>这里准备了两个任务：</p>
 <p>任务 1：根据 <a target="_blank" rel="noopener noreferrer" href="https://huggingface.co/datasets/thinkall/NaturalQuestionsQA/resolve/main/corpus.txt">NaturalQuestionsQA 语料库</a>，回答下列问题：</p>
 <div class="table-wrapper"><table><thead><tr><th>No.</th><th>问题</th><th>正确答案</th></tr></thead><tbody>
-<tr><td>1</td><td>what is non controlling interest on balance sheet</td><td>the portion of a subsidiary corporation’s stock that is not owned by the parent corporation</td></tr>
+<tr><td>1</td><td>what is non controlling interest on balance sheet</td><td>the portion of a subsidiary corporation's stock that is not owned by the parent corporation</td></tr>
 <tr><td>2</td><td>how many episodes are in chicago fire season 4</td><td>23</td></tr>
 <tr><td>3</td><td>what are bulls used for on a farm</td><td>breeding, as work oxen, slaughtered for meat</td></tr>
 <tr><td>4</td><td>who has been honoured with the wisden leading cricketer in the world award for 2016</td><td>Virat Kohli</td></tr>
@@ -367,7 +367,7 @@ user_proxy.initiate_chat(assistant, problem=question, n_results=30)
 </div>
 <p>使用 gpt-4 后端执行任务 2 的问题 1，整个过程的日志如下，最终回答正确：</p>
 <details><summary>日志</summary>
-<p>doc_ids:  [[‘doc_460’, ‘doc_1461’, ‘doc_4853’, ‘doc_4871’, ‘doc_1582’, ‘doc_1439’, ‘doc_1374’, ‘doc_2312’, ‘doc_1584’, ‘doc_512’, ‘doc_6188’, ‘doc_2324’, ‘doc_1577’, ‘doc_2314’, ‘doc_1444’, ‘doc_14’, ‘doc_3357’, ‘doc_1336’, ‘doc_6106’, ‘doc_1948’, ‘doc_1588’, ‘doc_1587’, ‘doc_4898’, ‘doc_439’, ‘doc_1448’, ‘doc_2308’, ‘doc_5452’, ‘doc_6186’, ‘doc_6166’, ‘doc_536’]]
+<p>doc_ids:  [['doc_460', 'doc_1461', 'doc_4853', 'doc_4871', 'doc_1582', 'doc_1439', 'doc_1374', 'doc_2312', 'doc_1584', 'doc_512', 'doc_6188', 'doc_2324', 'doc_1577', 'doc_2314', 'doc_1444', 'doc_14', 'doc_3357', 'doc_1336', 'doc_6106', 'doc_1948', 'doc_1588', 'doc_1587', 'doc_4898', 'doc_439', 'doc_1448', 'doc_2308', 'doc_5452', 'doc_6186', 'doc_6166', 'doc_536']]
 Adding doc_id doc_460 to context.
 Adding doc_id doc_1461 to context.
 Adding doc_id doc_4853 to context.
@@ -399,11 +399,11 @@ Adding doc_id doc_6186 to context.
 Adding doc_id doc_6166 to context.
 Adding doc_id doc_536 to context.
 ragproxyagent (to assistant):</p>
-<p>You’re a retrieve augmented chatbot. You answer user’s questions based on your own knowledge and the
+<p>You're a retrieve augmented chatbot. You answer user's questions based on your own knowledge and the
 context provided by the user.
-If you can’t answer the question with or without the current context, you should reply exactly <code>UPDATE CONTEXT</code>.
+If you can't answer the question with or without the current context, you should reply exactly <code>UPDATE CONTEXT</code>.
 You must give as short an answer as possible.</p>
-<p>User’s question is: 公司是否计划派发现金红利？</p>
+<p>User's question is: 公司是否计划派发现金红利？</p>
 <p>Context is: 公司报告期无募集资金使用情况。<br />
 限 公 司 各 项 经 济 损 失
 母公司股东    归属于 
@@ -457,7 +457,7 @@ You must give as short an answer as possible.</p>
 <ul>
 <li>引入 3 个智能体：User Proxy 负责初始化对话，执行 Python 代码并返回结果，以及传入用户的发言；Coder 负责计划和编写代码；Critic 提出一般性的评价和改进建议，系统信息指定了 Critic 的角色并给出了详细的评估维度和标准。</li>
 <li>引入 1 个 GroupChat 的 Manager，Manager 的作用是在每一轮当中根据对话历史挑选 1 个智能体发言，并将其发言内容广播给其他智能体，即“主持群聊”。</li>
-<li>对于 UserProxyAgent 设置 human_input_mode=“ALWAYS”，这样每当 Manager 选取 User Proxy 发言，用户都可以提出自己的想法、需求或意见。</li>
+<li>对于 UserProxyAgent 设置 human_input_mode=&quot;ALWAYS&quot;，这样每当 Manager 选取 User Proxy 发言，用户都可以提出自己的想法、需求或意见。</li>
 </ul>
 <p>在代码中，我们定义了智能体 user_proxy、coder 和 critic，包含这些 agent 的 groupchat，以及 groupchat 的 manager，最后传入任务描述（prompt）以初始化对话。</p>
 <pre><code class="language-python">user_proxy = autogen.UserProxyAgent(  
@@ -513,8 +513,8 @@ print(data.head())  # 打印数据集前5行，用于检查数据
 </code></pre>
 <hr />
 <p>######## NO HUMAN INPUT RECEIVED.</p>
-<p>######## USING AUTO REPLY…</p>
-<p>######## EXECUTING CODE BLOCK 0 (inferred language is python)…
+<p>######## USING AUTO REPLY...</p>
+<p>######## EXECUTING CODE BLOCK 0 (inferred language is python)...
 User_proxy (to chat_manager):</p>
 <p>exitcode: 0 (execution succeeded)
 Code output: 
@@ -551,8 +551,8 @@ print(data.head())  # 打印数据集前5行，用于检查数据
 </code></pre>
 <hr />
 <p>######## NO HUMAN INPUT RECEIVED.</p>
-<p>######## USING AUTO REPLY…</p>
-<p>######## EXECUTING CODE BLOCK 0 (inferred language is python)…
+<p>######## USING AUTO REPLY...</p>
+<p>######## EXECUTING CODE BLOCK 0 (inferred language is python)...
 User_proxy (to chat_manager):</p>
 <p>exitcode: 0 (execution succeeded)
 Code output: 
@@ -636,21 +636,21 @@ plt.savefig(&quot;gdp_plot.png&quot;)
 </ul>
 <hr />
 <p>######## NO HUMAN INPUT RECEIVED.</p>
-<p>######## USING AUTO REPLY…</p>
-<p>######## EXECUTING CODE BLOCK 0 (inferred language is python)…
+<p>######## USING AUTO REPLY...</p>
+<p>######## EXECUTING CODE BLOCK 0 (inferred language is python)...
 User_proxy (to chat_manager):</p>
 <p>exitcode: 0 (execution succeeded)
 Code output: </p>
 <hr />
 <p>Coder (to chat_manager):</p>
-<p>既然代码已经成功执行，并且获得了评价人的高度评价，我们成功地完成了任务。您可以在您的工作目录中找到名为 “gdp_plot.png” 的折线图文件。这张图片显示了从 2000 年到 2016 年，中国、美国、日本、德国、英国、法国、印度七个国家的 GDP 变化情况。</p>
+<p>既然代码已经成功执行，并且获得了评价人的高度评价，我们成功地完成了任务。您可以在您的工作目录中找到名为 &quot;gdp_plot.png&quot; 的折线图文件。这张图片显示了从 2000 年到 2016 年，中国、美国、日本、德国、英国、法国、印度七个国家的 GDP 变化情况。</p>
 <p>非常感谢你的帮助，让我知道如果你有其他需要帮助的地方。TERMINATE</p>
 <hr />
 <p>Critic (to chat_manager):</p>
 <p>很高兴能帮助到您完成任务。如果您有任何其他编码或数据可视化需求，欢迎随时回来。期待与您再次合作，祝您一切顺利。TERMINATE</p>
 <hr />
 <p>User_proxy (to chat_manager):</p>
-<p>折线图的左上角有一个“1e13“的标记，这是因为纵轴的单位为一美元，请将其修改为十亿美元</p>
+<p>折线图的左上角有一个&quot;1e13&quot;的标记，这是因为纵轴的单位为一美元，请将其修改为十亿美元</p>
 <hr />
 <p>Coder (to chat_manager):</p>
 <p>明白了，您希望将 GDP 的单位从美元修改为十亿美元，以便更直观地理解图表。这意味着我们需要调整 Value 列的值，将其除以 10 的 9 次方（这是因为 1 十亿等于 10 的 9 次方）。然后我们也需要在 y 轴的标题中反映这一点。</p>
@@ -693,8 +693,8 @@ plt.savefig(&quot;gdp_plot_billion.png&quot;)
 </code></pre>
 <hr />
 <p>######## NO HUMAN INPUT RECEIVED.</p>
-<p>######## USING AUTO REPLY…</p>
-<p>######## EXECUTING CODE BLOCK 0 (inferred language is python)…
+<p>######## USING AUTO REPLY...</p>
+<p>######## EXECUTING CODE BLOCK 0 (inferred language is python)...
 User_proxy (to chat_manager):</p>
 <p>exitcode: 0 (execution succeeded)
 Code output: </p>
@@ -734,14 +734,14 @@ Code output: </p>
 </ul>
 <hr />
 <p>######## NO HUMAN INPUT RECEIVED.</p>
-<p>######## USING AUTO REPLY…</p>
-<p>######## EXECUTING CODE BLOCK 0 (inferred language is python)…
+<p>######## USING AUTO REPLY...</p>
+<p>######## EXECUTING CODE BLOCK 0 (inferred language is python)...
 User_proxy (to chat_manager):</p>
 <p>exitcode: 0 (execution succeeded)
 Code output: </p>
 <hr />
 <p>Coder (to chat_manager):</p>
-<p>既然代码已经成功执行，并且已经根据您的要求进行了更新，我们已经成功完成了任务。您可以在您的工作目录中找到名为 “gdp_plot_billion.png” 的折线图文件。这张图片显示了从 2000 年到 2016 年，中国、美国、日本、德国、英国、法国、印度七个国家的 GDP 变化情况，单位是十亿美元。</p>
+<p>既然代码已经成功执行，并且已经根据您的要求进行了更新，我们已经成功完成了任务。您可以在您的工作目录中找到名为 &quot;gdp_plot_billion.png&quot; 的折线图文件。这张图片显示了从 2000 年到 2016 年，中国、美国、日本、德国、英国、法国、印度七个国家的 GDP 变化情况，单位是十亿美元。</p>
 <p>非常感谢你的帮助，让我知道如果你有其他需要帮助的地方。TERMINATE</p>
 <hr />
 <p>Critic (to chat_manager):</p>
@@ -753,7 +753,7 @@ Code output: </p>
 <figure style="display: block; margin-left: auto; margin-right: auto;">
   <img alt="app-groupchat" src="../assets/examples/build-next-generation-llm-app-using-autogen/gdp_plot1.png" style="display: block; margin-left: auto; margin-right: auto; width: 80%"/>
 </figure>
-<p>用户提出的改进建议是“折线图的左上角有一个“1e13“的标记，这是因为纵轴的单位为一美元，请将其修改为十亿美元”，于是 Coder 修改得到第二版：</p>
+<p>用户提出的改进建议是“折线图的左上角有一个&quot;1e13&quot;的标记，这是因为纵轴的单位为一美元，请将其修改为十亿美元”，于是 Coder 修改得到第二版：</p>
 <figure style="display: block; margin-left: auto; margin-right: auto;">
   <img alt="app-groupchat" src="../assets/examples/build-next-generation-llm-app-using-autogen/gdp_plot2.png" style="display: block; margin-left: auto; margin-right: auto; width: 80%"/>
 </figure>

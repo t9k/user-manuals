@@ -207,7 +207,7 @@
 <li><a href="#tensorflowtrainingjobspec">TensorFlowTrainingJobSpec</a></li>
 </ul>
 <div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
-<tr><td><code>type</code> <em><a href="#replicatype">ReplicaType</a></em></td><td>ReplicaType is the type of the replica, one of “<code>chief</code>”, “<code>worker</code>”, “<code>ps</code>”, or “<code>evaluator</code>”.</td></tr>
+<tr><td><code>type</code> <em><a href="#replicatype">ReplicaType</a></em></td><td>ReplicaType is the type of the replica, one of &quot;<code>chief</code>&quot;, &quot;<code>worker</code>&quot;, &quot;<code>ps</code>&quot;, or &quot;<code>evaluator</code>&quot;.</td></tr>
 <tr><td><code>replicas</code> <em>integer</em></td><td>The desired number of replicas created for the current replica type. If unspecified, defaults to 1.</td></tr>
 <tr><td><code>template</code> <em><a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#podtemplatespec-v1-core">PodTemplateSpec</a></em></td><td>Describes the pod that will be created for this replica. Note that RestartPolicy in PodTemplateSpec will always be set to <code>Never</code> as the job controller will create new pods if restart is required.</td></tr>
 <tr><td><code>restartPolicy</code> <em><a href="#restartpolicy">RestartPolicy</a></em></td><td>The restart policy for this replica, one of <code>Always</code>, <code>OnFailure</code>, <code>Never</code>, or <code>ExitCode</code>.</td></tr>
@@ -215,7 +215,7 @@
 </div>
 <h4 id="replicatype"><a class="header" href="#replicatype">ReplicaType</a></h4>
 <p><em>Underlying type:</em> <code>string</code></p>
-<p>ReplicaType is the type of the replica, one of “<code>chief</code>”, “<code>worker</code>”, “<code>ps</code>”, or “<code>evaluator</code>”.</p>
+<p>ReplicaType is the type of the replica, one of &quot;<code>chief</code>&quot;, &quot;<code>worker</code>&quot;, &quot;<code>ps</code>&quot;, or &quot;<code>evaluator</code>&quot;.</p>
 <p><em>Appears in:</em></p>
 <ul>
 <li><a href="#replicaspec">ReplicaSpec</a></li>
@@ -270,7 +270,7 @@
 </ul>
 <div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>replicaSpecs</code> <em><a href="#replicaspec">ReplicaSpec</a> array</em></td><td>Describes the spec of the replicas of the job.</td></tr>
-<tr><td><code>runMode</code> <em><a href="#runmode">RunMode</a></em></td><td>Job’s execution behavior. If omitted, defaults to <code>Immediate</code> mode, and tasks are executed immediately upon submission.</td></tr>
+<tr><td><code>runMode</code> <em><a href="#runmode">RunMode</a></em></td><td>Job's execution behavior. If omitted, defaults to <code>Immediate</code> mode, and tasks are executed immediately upon submission.</td></tr>
 <tr><td><code>tensorboardSpec</code> <em>TensorBoardSpec</em></td><td>Describes the Tensorboard to be created for showing training logs.</td></tr>
 <tr><td><code>runPolicy</code> <em><a href="#runpolicy">RunPolicy</a></em></td><td>Execution policy configurations governing the behavior of the TensorFlowTrainingJob.</td></tr>
 <tr><td><code>scheduler</code> <em>SchedulePolicy</em></td><td>Identifies the preferred scheduler for allocating resources to replicas. Defaults to cluster default scheduler.</td></tr>
@@ -287,7 +287,7 @@
 <tr><td><code>tensorboard</code> <em>DependentStatus</em></td><td>The status of tensorboard.</td></tr>
 <tr><td><code>backoffCount</code> <em>integer</em></td><td>The number of restarts being performed.</td></tr>
 <tr><td><code>aggregate</code> <em><a href="#aggregate">Aggregate</a></em></td><td></td></tr>
-<tr><td><code>conditions</code> <em><a href="#jobcondition">JobCondition</a> array</em></td><td>Represents the latest available observations of a TensorFlowTrainingJob’s current state.</td></tr>
+<tr><td><code>conditions</code> <em><a href="#jobcondition">JobCondition</a> array</em></td><td>Represents the latest available observations of a TensorFlowTrainingJob's current state.</td></tr>
 <tr><td><code>phase</code> <em>JobPhase</em></td><td>Phase is the phase-style status of the TensorFlowTrainingJob.</td></tr>
 </tbody></table>
 </div>

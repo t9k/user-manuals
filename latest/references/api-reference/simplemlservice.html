@@ -206,7 +206,7 @@
 <li><a href="#simplemlservicestatus">SimpleMLServiceStatus</a></li>
 </ul>
 <div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
-<tr><td><code>url</code> <em>string</em></td><td>the service’s in-cluster url, e.g. managed-simplemlservice-41309.demo.svc.cluster.local</td></tr>
+<tr><td><code>url</code> <em>string</em></td><td>the service's in-cluster url, e.g. managed-simplemlservice-41309.demo.svc.cluster.local</td></tr>
 <tr><td><code>ports</code> <em><a href="#addressport">AddressPort</a> array</em></td><td>an array of serivce port &amp; protocol</td></tr>
 </tbody></table>
 </div>
@@ -219,7 +219,7 @@
 <div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>port</code> <em>integer</em></td><td>The port that will be exposed by this service.</td></tr>
 <tr><td><code>nodePort</code> <em>integer</em></td><td>The port on each node on which this service is exposed when type=NodePort or LoadBalancer. Usually assigned by the system. If specified, it will be allocated to the service if unused or else creation of the service will fail. Default is to auto-allocate a port if the ServiceType of this Service requires one. More info: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport</td></tr>
-<tr><td><code>protocol</code> <em><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#protocol-v1-core">Protocol</a></em></td><td>The IP protocol for this port. Supports “TCP”, “UDP”, and “SCTP”. Default is TCP.</td></tr>
+<tr><td><code>protocol</code> <em><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#protocol-v1-core">Protocol</a></em></td><td>The IP protocol for this port. Supports &quot;TCP&quot;, &quot;UDP&quot;, and &quot;SCTP&quot;. Default is TCP.</td></tr>
 </tbody></table>
 </div>
 <h4 id="condition"><a class="header" href="#condition">Condition</a></h4>
@@ -266,8 +266,8 @@
 </ul>
 <div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>name</code> <em>string</em></td><td>PVC name</td></tr>
-<tr><td><code>subPath</code> <em>string</em></td><td>Directory path where model is located in PVC. Must be a relative path. e.g. “model/mnist”</td></tr>
-<tr><td><code>mountPath</code> <em>string</em></td><td>Directory path where model locates in container. Must be absolute path, default is “/var/lib/t9k/model”</td></tr>
+<tr><td><code>subPath</code> <em>string</em></td><td>Directory path where model is located in PVC. Must be a relative path. e.g. &quot;model/mnist&quot;</td></tr>
+<tr><td><code>mountPath</code> <em>string</em></td><td>Directory path where model locates in container. Must be absolute path, default is &quot;/var/lib/t9k/model&quot;</td></tr>
 </tbody></table>
 </div>
 <h4 id="pytorchspec"><a class="header" href="#pytorchspec">PyTorchSpec</a></h4>
@@ -277,7 +277,7 @@
 <li><a href="#simplemlservicespec">SimpleMLServiceSpec</a></li>
 </ul>
 <div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
-<tr><td><code>modelsFlag</code> <em>string</em></td><td>Value of torchserve’s flag –models</td></tr>
+<tr><td><code>modelsFlag</code> <em>string</em></td><td>Value of torchserve's flag --models</td></tr>
 <tr><td><code>image</code> <em>string</em></td><td>Image of torchserve</td></tr>
 <tr><td><code>resources</code> <em><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#resourcerequirements-v1-core">ResourceRequirements</a></em></td><td>Compute Resources required by a replica</td></tr>
 </tbody></table>
@@ -291,7 +291,7 @@
 <div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>secretRef</code> <em><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#localobjectreference-v1-core">LocalObjectReference</a></em></td><td>SecretRef is reference to the secret storing s3cmd config</td></tr>
 <tr><td><code>uri</code> <em>string</em></td><td>Directory path where model locates in s3. e.g. <code>&quot;s3://&lt;bucket&gt;/&lt;dir&gt;/&quot;</code></td></tr>
-<tr><td><code>mountPath</code> <em>string</em></td><td>Directory path where model locates in container, default is “/var/lib/t9k/model”</td></tr>
+<tr><td><code>mountPath</code> <em>string</em></td><td>Directory path where model locates in container, default is &quot;/var/lib/t9k/model&quot;</td></tr>
 </tbody></table>
 </div>
 <h4 id="schedulepolicy"><a class="header" href="#schedulepolicy">SchedulePolicy</a></h4>
@@ -312,7 +312,7 @@
 </ul>
 <div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>ports</code> <em><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#serviceport-v1-core">ServicePort</a> array</em></td><td>The list of ports that are exposed by this service. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies</td></tr>
-<tr><td><code>type</code> <em><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#servicetype-v1-core">ServiceType</a></em></td><td>type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. “ExternalName” maps to the specified externalName. “ClusterIP” allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object. If clusterIP is “None”, no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a stable IP. “NodePort” builds on ClusterIP and allocates a port on every node which routes to the clusterIP. “LoadBalancer” builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the clusterIP. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types</td></tr>
+<tr><td><code>type</code> <em><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#servicetype-v1-core">ServiceType</a></em></td><td>type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. &quot;ExternalName&quot; maps to the specified externalName. &quot;ClusterIP&quot; allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object. If clusterIP is &quot;None&quot;, no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a stable IP. &quot;NodePort&quot; builds on ClusterIP and allocates a port on every node which routes to the clusterIP. &quot;LoadBalancer&quot; builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the clusterIP. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types</td></tr>
 </tbody></table>
 </div>
 <h4 id="simplemlservice"><a class="header" href="#simplemlservice">SimpleMLService</a></h4>
@@ -389,7 +389,7 @@
 <li><a href="#schedulepolicy">SchedulePolicy</a></li>
 </ul>
 <div class="table-wrapper"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody>
-<tr><td><code>queue</code> <em>string</em></td><td>Name of queue which SimpleMLService’s pod belongs to</td></tr>
+<tr><td><code>queue</code> <em>string</em></td><td>Name of queue which SimpleMLService's pod belongs to</td></tr>
 </tbody></table>
 </div>
 <h4 id="tensorflowspec"><a class="header" href="#tensorflowspec">TensorflowSpec</a></h4>

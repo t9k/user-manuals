@@ -397,7 +397,7 @@ spec:
 <li>添加 container，containers 数组中不同名的都会被保留。</li>
 </ol>
 <div class="table-wrapper"><table><thead><tr><th>MLServiceRuntime</th><th>MLService</th><th>Result</th></tr></thead><tbody>
-<tr><td>containers:<br>- name: user-container<br>  …</td><td>containers:<br>- name: proxy<br>  …</td><td>containers:<br>- name: user-container<br>  …<br>- name: proxy<br>  …</td></tr>
+<tr><td>containers:<br>- name: user-container<br>  ...</td><td>containers:<br>- name: proxy<br>  ...</td><td>containers:<br>- name: user-container<br>  ...<br>- name: proxy<br>  ...</td></tr>
 </tbody></table>
 </div>
 <ol start="2">
@@ -411,7 +411,7 @@ spec:
 <li>修改 args，相同名称 container 的 args 数组会整个被覆盖。</li>
 </ol>
 <div class="table-wrapper"><table><thead><tr><th>MLServiceRuntime</th><th>MLService</th><th>Result</th></tr></thead><tbody>
-<tr><td>containers:<br>- name: user-container<br>  args: [“–k1=v1”, “–k2=v2”]</td><td>containers:<br>- name: user-container<br>  args: [“–k2=v3”]</td><td>containers:<br>- name: user-container<br>  args: [“–k2=v3”]</td></tr>
+<tr><td>containers:<br>- name: user-container<br>  args: [&quot;--k1=v1&quot;, &quot;--k2=v2&quot;]</td><td>containers:<br>- name: user-container<br>  args: [&quot;--k2=v3&quot;]</td><td>containers:<br>- name: user-container<br>  args: [&quot;--k2=v3&quot;]</td></tr>
 </tbody></table>
 </div></aside>
 <h4 id="计算资源"><a class="header" href="#计算资源">计算资源</a></h4>
