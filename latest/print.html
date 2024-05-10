@@ -8180,7 +8180,7 @@ metadata:
 spec:
   duration: 1h
 </code></pre>
-<p>在该例中，创建一个有效期为 <code>1h</code>（由 <code>spec.duration</code> 字段指定）的 ServiceAccountToken。系统将会生成一个 <code>JSON 网络令牌</code>（JSON Web Token）和一个 <code>kubeconfig</code>，您可以使用它们作为凭证来访问集群。</p>
+<p>在该例中，创建一个有效期为 <code>1h</code>（由 <code>spec.duration</code> 字段指定）的 ServiceAccountToken。系统将会生成一个 <code>JSON 网络令牌</code>（JSON Web Token）和一个 <code>kubeconfig</code>，你可以使用它们作为凭证来访问集群。</p>
 <h2 id="有效期设置"><a class="header" href="#有效期设置">有效期设置</a></h2>
 <p><code>spec.duration</code> 字段定义 ServiceAccountToken 的有效期：</p>
 <ul>
@@ -8201,8 +8201,8 @@ spec:
 </code></pre>
 <p>Secret <code>sat-sample-fced8</code> 存储以下两个键值对：</p>
 <ul>
-<li><code>token</code>：表示一个 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/access-authn-authz/authentication/#service-account-tokens">ServiceAccount token</a>，您可以在 HTTP 请求头中以 <code>Authorization: Bearer &lt;token&gt;</code> 的形式使用。</li>
-<li><code>kubeconfig</code>：表示一个 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/">kubeconfig</a> 文件内容，您可以将该内容保存到本地路径下，并在 <code>kubectl</code> 命令中通过 <code>--kubeconfig</code> 参数指定文件路径使用。</li>
+<li><code>token</code>：表示一个 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/access-authn-authz/authentication/#service-account-tokens">ServiceAccount token</a>，你可以在 HTTP 请求头中以 <code>Authorization: Bearer &lt;token&gt;</code> 的形式使用。</li>
+<li><code>kubeconfig</code>：表示一个 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/">kubeconfig</a> 文件内容，你可以将该内容保存到本地路径下，并在 <code>kubectl</code> 命令中通过 <code>--kubeconfig</code> 参数指定文件路径使用。</li>
 </ul>
 <p>通过如下命令将 kubeconfig 保存到本地并使用：</p>
 <pre><code class="language-bash">kubectl get secret sat-sample-fced8 -o jsonpath='{.data.kubeconfig}' | base64 -d &gt; mykubeconfig
@@ -8260,7 +8260,7 @@ kubectl --kubeconfig mykubeconfig get pod
     status: &quot;False&quot;
     type: Ready
 </code></pre>
-<p>如果需要继续使用，您可以删除该 ServiceAccountToken 并重新创建，然后再使用新创建的 Secret 的 <code>token</code> 或 <code>kubeconfig</code>。</p>
+<p>如果需要继续使用，你可以删除该 ServiceAccountToken 并重新创建，然后再使用新创建的 Secret 的 <code>token</code> 或 <code>kubeconfig</code>。</p>
 </aside>
 <h2 id="参考-11"><a class="header" href="#参考-11">参考</a></h2>
 <ul>
@@ -26900,7 +26900,7 @@ The cat is purring
 </ul>
 <h2 id="使用-92"><a class="header" href="#使用-92">使用</a></h2>
 <h3 id="准备工作-17"><a class="header" href="#准备工作-17">准备工作</a></h3>
-<p>首先，您需要准备好以下几个 kubeconfig（均为 cluster-admin 权限）：</p>
+<p>首先，你需要准备好以下几个 kubeconfig（均为 cluster-admin 权限）：</p>
 <ol>
 <li><code>hub.kubeconfig</code>：主集群的 kubeconfig</li>
 <li><code>spoke.kubeconfig</code>：每个子集群的 kubeconfig</li>
@@ -26909,10 +26909,10 @@ The cat is purring
 </ol>
 <pre><code class="language-bash">$ kubectl --kubeconfig hub.kubeconfig get secret -n karmada-system karmada-kubeconfig -o jsonpath={.data.kubeconfig} | base64 -d &gt; karmada.kubeconfig
 </code></pre>
-<p>然后，您需要在本地安装 kubectl karmada plugin：</p>
+<p>然后，你需要在本地安装 kubectl karmada plugin：</p>
 <pre><code class="language-bash">$ curl -s https://raw.githubusercontent.com/karmada-io/karmada/master/hack/install-cli.sh | sudo bash -s kubectl-karmada
 </code></pre>
-<p>最后，您需要在 Karmada 中注册各个子集群，其中需要为每个子集群选取一个名称 <code>&lt;spoke-cluster-name&gt;</code>：</p>
+<p>最后，你需要在 Karmada 中注册各个子集群，其中需要为每个子集群选取一个名称 <code>&lt;spoke-cluster-name&gt;</code>：</p>
 <pre><code class="language-bash">$ kubectl karmada join &lt;spoke-cluster-name&gt; \
     --kubeconfig=./karmada.kubeconfig \
     --cluster-kubeconfig=./spoke.kubeconfig
@@ -27162,7 +27162,7 @@ spec:
 <li>设置了 url path 为 <code>/t9k/hypermlservices/namespaces/demo/hmls-sample/</code></li>
 <li>设置了两个推理 API 地址的权重为 30 和 70</li>
 </ul>
-<p>因此，您可以通过以下地址访问 HyperMLService：</p>
+<p>因此，你可以通过以下地址访问 HyperMLService：</p>
 <p><code>&lt;ingress-nginx-domain-name&gt;/t9k/hypermlservices/namespaces/demo/hmls-sample/</code></p>
 <p>其中 30% 的请求将转发到第一个子集群，70% 的请求将转发到第二个子集群。</p>
 

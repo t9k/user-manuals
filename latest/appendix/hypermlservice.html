@@ -214,7 +214,7 @@
 </ul>
 <h2 id="使用"><a class="header" href="#使用">使用</a></h2>
 <h3 id="准备工作"><a class="header" href="#准备工作">准备工作</a></h3>
-<p>首先，您需要准备好以下几个 kubeconfig（均为 cluster-admin 权限）：</p>
+<p>首先，你需要准备好以下几个 kubeconfig（均为 cluster-admin 权限）：</p>
 <ol>
 <li><code>hub.kubeconfig</code>：主集群的 kubeconfig</li>
 <li><code>spoke.kubeconfig</code>：每个子集群的 kubeconfig</li>
@@ -223,10 +223,10 @@
 </ol>
 <pre><code class="language-bash">$ kubectl --kubeconfig hub.kubeconfig get secret -n karmada-system karmada-kubeconfig -o jsonpath={.data.kubeconfig} | base64 -d &gt; karmada.kubeconfig
 </code></pre>
-<p>然后，您需要在本地安装 kubectl karmada plugin：</p>
+<p>然后，你需要在本地安装 kubectl karmada plugin：</p>
 <pre><code class="language-bash">$ curl -s https://raw.githubusercontent.com/karmada-io/karmada/master/hack/install-cli.sh | sudo bash -s kubectl-karmada
 </code></pre>
-<p>最后，您需要在 Karmada 中注册各个子集群，其中需要为每个子集群选取一个名称 <code>&lt;spoke-cluster-name&gt;</code>：</p>
+<p>最后，你需要在 Karmada 中注册各个子集群，其中需要为每个子集群选取一个名称 <code>&lt;spoke-cluster-name&gt;</code>：</p>
 <pre><code class="language-bash">$ kubectl karmada join &lt;spoke-cluster-name&gt; \
     --kubeconfig=./karmada.kubeconfig \
     --cluster-kubeconfig=./spoke.kubeconfig
@@ -476,7 +476,7 @@ spec:
 <li>设置了 url path 为 <code>/t9k/hypermlservices/namespaces/demo/hmls-sample/</code></li>
 <li>设置了两个推理 API 地址的权重为 30 和 70</li>
 </ul>
-<p>因此，您可以通过以下地址访问 HyperMLService：</p>
+<p>因此，你可以通过以下地址访问 HyperMLService：</p>
 <p><code>&lt;ingress-nginx-domain-name&gt;/t9k/hypermlservices/namespaces/demo/hmls-sample/</code></p>
 <p>其中 30% 的请求将转发到第一个子集群，70% 的请求将转发到第二个子集群。</p>
 
