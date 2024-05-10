@@ -64,6 +64,7 @@
     * [ImageBuilder](modules/auxiliary/imagebuilder.md)
     * [VirtualServer](modules/auxiliary/virtualserver.md)
     * [DataCube](modules/auxiliary/datacube.md)
+    * [ServiceAccountToken](modules/auxiliary/serviceaccounttoken.md)
 
 * [工作流](modules/workflows/index.md)
     * [WorkflowTemplate](modules/workflows/workflowtemplate.md)
@@ -195,6 +196,7 @@
         * [MLService](references/api-reference/mlservice.md)
         * [VirtualServer](references/api-reference/virtualserver.md)
         * [DataCube](references/api-reference/datacube.md)
+        * [ServiceAccountToken](references/api-reference/serviceaccounttoken.md)
     * [标准镜像](references/standard-images.md)
 
 ---
