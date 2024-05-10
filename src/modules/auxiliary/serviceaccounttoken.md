@@ -1,6 +1,6 @@
 # ServiceAccountToken
 
-平台提供 CRD `ServiceAccountToken`，用于访问集群 API Server。
+平台提供 CRD `ServiceAccountToken`，用于生成一个 kubeconfig，以便用户从本地通过 kubectl 访问集群。
 
 ## 创建 ServiceAccountToken
 
@@ -15,7 +15,7 @@ spec:
   duration: 1h
 ```
 
-在该例中，创建一个有效期为 `1h`（由 `spec.duration` 字段指定）的 ServiceAccountToken。系统将会创建一个 `JSON 网络令牌`（JSON Web Token）和一个 `kubeconfig`，你可以使用它们作为凭证来访问集群。
+在该例中，创建一个有效期为 `1h`（由 `spec.duration` 字段指定）的 ServiceAccountToken。系统将会生成一个 `JSON 网络令牌`（JSON Web Token）和一个 `kubeconfig`，您可以使用它们作为凭证来访问集群。
 
 ## 有效期设置
 
@@ -28,7 +28,7 @@ spec:
 <aside class="note">
 <div class="title">注意</div>
 
-该字段定义的有效期为期望有效期，实际有效期以状态信息的过期时间为准。
+该字段定义的有效期为期望有效期，实际有效期以状态信息中的[过期时间](#过期时间)为准。
 
 </aside>
 
@@ -46,13 +46,20 @@ status:
 
 Secret `sat-sample-fced8` 存储以下两个键值对：
 
-* `token`：表示一个 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/access-authn-authz/authentication/#service-account-tokens">ServiceAccount token</a>，你可以在 HTTP 请求头中以 `Authorization: Bearer <token>` 的形式使用。
-* `kubeconfig`：表示一个 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/">kubeconfig</a> 文件内容，你可以将该内容保存到本地路径下，并在 `kubectl` 命令中通过 `--kubeconfig` 参数指定文件路径使用。
+* `token`：表示一个 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/access-authn-authz/authentication/#service-account-tokens">ServiceAccount token</a>，您可以在 HTTP 请求头中以 `Authorization: Bearer <token>` 的形式使用。
+* `kubeconfig`：表示一个 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/">kubeconfig</a> 文件内容，您可以将该内容保存到本地路径下，并在 `kubectl` 命令中通过 `--kubeconfig` 参数指定文件路径使用。
+
+通过如下命令将 kubeconfig 保存到本地并使用：
+
+```bash
+kubectl get secret sat-sample-fced8 -o jsonpath='{.data.kubeconfig}' | base64 -d > mykubeconfig
+kubectl --kubeconfig mykubeconfig get pod
+```
 
 <aside class="note">
 <div class="title">注意</div>
 
-上述 `token` 和 `kubeconfig` 只具备访问 ServiceAccountToken 所在命名空间的对象的权限。
+上述 `token` 和 `kubeconfig` 只具备访问 ServiceAccountToken 所在命名空间的各类资源的权限。
 
 </aside>
 
@@ -70,7 +77,7 @@ status:
 <aside class="note info">
 <div class="title">信息</div>
 
-如果你希望在过期前将 `token` 置为失效，你可以直接删除该 ServiceAccountToken。
+如果希望在过期前将 `token` 置为失效，直接删除该 ServiceAccountToken 即可。
 
 </aside>
 
@@ -126,7 +133,7 @@ status:
     type: Ready
 ```
 
-如果你需要继续使用，你可以删除该 ServiceAccountToken 并重新创建，然后再使用新创建的 Secret 的 `token` 或 `kubeconfig`。
+如果需要继续使用，您可以删除该 ServiceAccountToken 并重新创建，然后再使用新创建的 Secret 的 `token` 或 `kubeconfig`。
 
 </aside>
 
