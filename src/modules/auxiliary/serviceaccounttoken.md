@@ -15,7 +15,7 @@ spec:
   duration: 1h
 ```
 
-在该例中，创建一个有效期为 `1h`（由 `spec.duration` 字段指定）的 ServiceAccountToken。系统将会生成一个 `JSON 网络令牌`（JSON Web Token）和一个 `kubeconfig`，您可以使用它们作为凭证来访问集群。
+在该例中，创建一个有效期为 `1h`（由 `spec.duration` 字段指定）的 ServiceAccountToken。系统将会生成一个 `JSON 网络令牌`（JSON Web Token）和一个 `kubeconfig`，你可以使用它们作为凭证来访问集群。
 
 ## 有效期设置
 
@@ -46,8 +46,8 @@ status:
 
 Secret `sat-sample-fced8` 存储以下两个键值对：
 
-* `token`：表示一个 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/access-authn-authz/authentication/#service-account-tokens">ServiceAccount token</a>，您可以在 HTTP 请求头中以 `Authorization: Bearer <token>` 的形式使用。
-* `kubeconfig`：表示一个 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/">kubeconfig</a> 文件内容，您可以将该内容保存到本地路径下，并在 `kubectl` 命令中通过 `--kubeconfig` 参数指定文件路径使用。
+* `token`：表示一个 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/access-authn-authz/authentication/#service-account-tokens">ServiceAccount token</a>，你可以在 HTTP 请求头中以 `Authorization: Bearer <token>` 的形式使用。
+* `kubeconfig`：表示一个 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/">kubeconfig</a> 文件内容，你可以将该内容保存到本地路径下，并在 `kubectl` 命令中通过 `--kubeconfig` 参数指定文件路径使用。
 
 通过如下命令将 kubeconfig 保存到本地并使用：
 
@@ -133,7 +133,7 @@ status:
     type: Ready
 ```
 
-如果需要继续使用，您可以删除该 ServiceAccountToken 并重新创建，然后再使用新创建的 Secret 的 `token` 或 `kubeconfig`。
+如果需要继续使用，你可以删除该 ServiceAccountToken 并重新创建，然后再使用新创建的 Secret 的 `token` 或 `kubeconfig`。
 
 </aside>
 

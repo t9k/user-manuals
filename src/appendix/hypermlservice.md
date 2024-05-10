@@ -31,7 +31,7 @@ HyperMLService 用于实现多集群的推理服务自动化部署。
 
 ### 准备工作
 
-首先，您需要准备好以下几个 kubeconfig（均为 cluster-admin 权限）：
+首先，你需要准备好以下几个 kubeconfig（均为 cluster-admin 权限）：
 
 1. `hub.kubeconfig`：主集群的 kubeconfig
 2. `spoke.kubeconfig`：每个子集群的 kubeconfig
@@ -42,13 +42,13 @@ HyperMLService 用于实现多集群的推理服务自动化部署。
 $ kubectl --kubeconfig hub.kubeconfig get secret -n karmada-system karmada-kubeconfig -o jsonpath={.data.kubeconfig} | base64 -d > karmada.kubeconfig
 ```
 
-然后，您需要在本地安装 kubectl karmada plugin：
+然后，你需要在本地安装 kubectl karmada plugin：
 
 ```bash
 $ curl -s https://raw.githubusercontent.com/karmada-io/karmada/master/hack/install-cli.sh | sudo bash -s kubectl-karmada
 ```
 
-最后，您需要在 Karmada 中注册各个子集群，其中需要为每个子集群选取一个名称 `<spoke-cluster-name>`：
+最后，你需要在 Karmada 中注册各个子集群，其中需要为每个子集群选取一个名称 `<spoke-cluster-name>`：
 
 ```bash
 $ kubectl karmada join <spoke-cluster-name> \
@@ -324,7 +324,7 @@ spec:
 * 设置了 url path 为 `/t9k/hypermlservices/namespaces/demo/hmls-sample/`
 * 设置了两个推理 API 地址的权重为 30 和 70
 
-因此，您可以通过以下地址访问 HyperMLService：
+因此，你可以通过以下地址访问 HyperMLService：
 
 `<ingress-nginx-domain-name>/t9k/hypermlservices/namespaces/demo/hmls-sample/`
 
