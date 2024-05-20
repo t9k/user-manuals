@@ -39,6 +39,7 @@
 * [账户和安全](modules/security/index.md)
     * [账户](modules/security/account.md)
     * [项目](modules/security/project.md)
+    * [告警通知](modules/security/alerts.md)
 
 * [计算资源](modules/computing-resources/index.md)
     * [调度器](modules/computing-resources/scheduler/index.md)
@@ -142,6 +143,10 @@
         * [生成 API Key](tasks/generate-api-key.md)
         * [使用 API Key](tasks/use-api-key.md)
         * [添加项目成员](tasks/add-project-member.md)
+
+    * [管理告警信息](tasks/useralerts-managment.md)
+        * [查看告警信息](tasks/useralerts-check.md)
+        * [订阅告警信息](tasks/useralerts-subscription.md)
 
     * [小技巧](tasks/tricks.md)
 
