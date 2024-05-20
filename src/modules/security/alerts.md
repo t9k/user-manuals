@@ -1,6 +1,6 @@
 # 告警通知
 
-当集群出现异常情况时，Tensorstack AI 平台会产生告警信息。通过告警信息，用户可以及时发现、处理问题。
+当集群或者用户的工作负载出现异常情况时，Tensorstack AI 平台会产生告警信息。通过告警信息，用户可以及时发现、处理问题。
 
 有两种查看告警信息的方法：
 * 在 Tensorstack Web UI 查看告警信息
@@ -53,5 +53,5 @@ KubePersistentVolumeFillingUp：PersistentVolume 存储空间已使用 97%。
 
 ## 下一步
 
-* 学习如何[查看告警信息](../../tasks/useralerts-check.md)
-* 学习如何[订阅告警信息](../../tasks/useralerts-subscription.md)
+* 学习如何 [查看告警信息](../../tasks/useralerts-check.md)
+* 学习如何 [订阅告警信息](../../tasks/useralerts-subscription.md)

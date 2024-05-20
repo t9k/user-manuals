@@ -145,8 +145,8 @@
         * [添加项目成员](tasks/add-project-member.md)
 
     * [管理告警信息](tasks/useralerts-managment.md)
-        * [查看告警信息](tasks/useralerts-check.md)
-        * [订阅告警信息](tasks/useralerts-subscription.md)
+        * [查看告警](tasks/useralerts-check.md)
+        * [订阅告警](tasks/useralerts-subscription.md)
 
     * [小技巧](tasks/tricks.md)
 
