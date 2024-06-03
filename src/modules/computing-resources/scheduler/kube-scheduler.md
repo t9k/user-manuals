@@ -1,8 +1,8 @@
 # kube-scheduler
 
-kube-scheduler 是 Kubernetes 集群的默认调度器，也是平台的默认调度器。在不涉及大规模并行计算的场景下，kube-scheduler 是合适的选择。
+kube-scheduler 是 Kubernetes 集群的默认调度器，也是平台的默认调度器。
 
-下面将介绍 kube-scheduler 的一些常见的特性，部分特性对于 T9k Scheduler 也是适用的。如果想要更全面地了解 kube-scheduler，请参阅官方文档<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/">调度、抢占和驱逐</a>。
+下面将介绍 kube-scheduler 的一些常见的特性。如果想要更全面地了解 kube-scheduler，请参阅官方文档 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/"> 调度、抢占和驱逐</a>。
 
 ## 指定调度偏好
 
@@ -12,13 +12,13 @@ kube-scheduler 是 Kubernetes 集群的默认调度器，也是平台的默认�
 <aside class="note">
 <div class="title">注意</div>
 
-在设置调度偏好之前，通常你需要知道集群中存在的节点情况，包括：节点的名称、节点的标签、节点含有哪些扩展资源、节点的污点等等。如果你有查看节点的权限，你可以通过 kubectl 查看相关信息，如果你没有权限查看节点信息，你需要向管理员询问。
+在设置调度偏好之前，通常用户需要知道集群中存在的节点情况，包括：节点的名称、节点的标签、节点含有哪些扩展资源、节点的污点等等。如果用户有查看节点的权限，用户可以通过 kubectl 查看相关信息，如果用户没有权限查看节点信息，用户需要向管理员询问。
 
 </aside>
 
 ### NodeSelector
 
-nodeSelector 用于约束 Pod 只能运行在指定的节点上，用户通过设置 nodeSelector 来表明你希望目标节点所具有的节点标签。Pod 只会被调度到拥有你所指定的每个标签的节点上。
+nodeSelector 用于约束 Pod 只能运行在指定的节点上，用户通过设置 nodeSelector 来表明用户希望目标节点所具有的节点标签。Pod 只会被调度到拥有用户所指定的每个标签的节点上。
 
 设置方式：通过 Pod 的 `spec.nodeSelector` 字段来设置 nodeSelector。字段类型是 map，定义了节点标签。
 
@@ -33,8 +33,8 @@ spec:
 ### 亲和性
 
 亲和性（affinity）用于影响 Pod 可以被调度到哪些节点上，亲和性分为两种类型：
-* 节点亲和性：功能类似于 nodeSelector，但它的表达能力更强，并且允许你指定软规则。
-* Pod 间亲和性与反亲和性：使你可以基于已经在节点上运行的 Pod 的标签来约束 Pod 可以调度到的节点，而不是基于节点上的标签。
+* 节点亲和性：功能类似于 nodeSelector，但它的表达能力更强，并且允许用户指定软规则。
+* Pod 间亲和性与反亲和性：使用户可以基于已经在节点上运行的 Pod 的标签来约束 Pod 可以调度到的节点，而不是基于节点上的标签。
 
 
 <aside class="note">
@@ -52,7 +52,7 @@ spec:
 
 设置方式：
 * 通过 Pod 的 `spec.affinity.nodeAffinity` 字段来设置节点亲和性。
-* 字段 [API 参考 ](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#nodeaffinity-v1-core)
+* 字段 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#nodeaffinity-v1-core">API 参考</a>
 
 
 示例：
@@ -90,7 +90,7 @@ Pod 间亲和性与反亲和性的规则格式为“如果 X 上已经运行了�
 设置方式：
 * 通过 `spec.affinity.podAffinity` 字段来设置 Pod 间亲和性，通过 `spec.affinity.podAntiAffinity` 字段来设置 Pod 间反亲和性。
 * 必须设置 topologyKey 字段，以表达拓扑域（X）
-* 字段 [API 参考](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#affinity-v1-core)
+* 字段 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#affinity-v1-core">API 参考</a>
 
 示例：
 ```yaml
@@ -129,7 +129,7 @@ Pod 含有 spec.nodeName 字段，用于表明 Pod 运行在哪个节点上。�
 <aside class="note warning">
 <div class="title">警告</div>
 
-不推荐使用 nodeName。nodeName 旨在供自定义调度器或需要绕过任何已配置调度器的高级场景使用。 如果已分配的 Node 负载过重，绕过调度器可能会导致 Pod 失败。 你可以使用[节点亲和性](#节点亲和性)或 [nodeselector](#nodeselector) 字段将 Pod 分配给特定 Node，而无需绕过调度器。
+不推荐使用 nodeName。nodeName 旨在供自定义调度器或需要绕过任何已配置调度器的高级场景使用。 如果已分配的 Node 负载过重，绕过调度器可能会导致 Pod 失败。 用户可以使用 [节点亲和性](#节点亲和性) 或 [nodeselector](#nodeselector) 字段将 Pod 分配给特定 Node，而无需绕过调度器。
 
 </aside>
 
@@ -156,7 +156,7 @@ spec:
 
 #### 节点污点示例
 
-如果你有查看节点的权限，你可以使用 `kubectl get node <nodeName> -o yaml` 查看节点的污点。否则你需要向管理员咨询节点的污点信息。
+如果用户有查看节点的权限，用户可以使用 `kubectl get node <nodeName> -o yaml` 查看节点的污点。否则用户需要向管理员咨询节点的污点信息。
 
 下面是一个示例，节点的 `spec.taints` 字段定义了污点信息：
 ```yaml
@@ -169,7 +169,7 @@ spec:
 
 #### 容忍度
 
-创建 Pod 时，通过 `spec.tolerations` ([API 参考](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#toleration-v1-core)) 字段来设置容忍度。
+创建 Pod 时，通过 `spec.tolerations` (<a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#toleration-v1-core">API 参考</a>) 字段来设置容忍度。
 
 下面的容忍度设置可以忍受上述节点污点，从而 Pod 可以被调度到上述节点上：
 ```yaml
@@ -182,7 +182,7 @@ tolerations:
 
 ### Pod 拓扑分布约束
 
-拓扑分布约束（topology spread constraints）用于控制 Pod 在集群内的拓扑分布，通过 Pod 的 spec.topologySpreadConstraints 字段进行设置。详情请见 [Kubernetes 文档](https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)。
+拓扑分布约束（topology spread constraints）用于控制 Pod 在集群内的拓扑分布，通过 Pod 的 spec.`topologySpreadConstraints` 字段进行设置。详情请见 <a target="_blank" rel="noopener noreferrer" href="https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/">Kubernetes 文档</a>。
 
 下面是一个帮助用户理解拓扑分布约束的基本示例：
 
@@ -214,10 +214,10 @@ spec:
 ```
 
 `spec.topologySpreadConstraints` 下的子字段说明：
-* maxSkew：值是 1，表明不同节点区域之间 Pod 数量的最大差值为 1。
-* topologyKey：用于划分节点区域的节点标签的键值。
-* whenUnsatisfiable：值是 DoNotSchedule，表明调度器无法找到满足拓扑约束的方式时，将 Pod 保持在 pending 状态。
-* labelSelector：表明含有标签 `foo: bar` 的 Pod 会被统计，以确定相应拓扑域中 Pod 的数量。
+* `maxSkew`：值是 1，表明不同节点区域之间 Pod 数量的最大差值为 1。
+* `topologyKey`：用于划分节点区域的节点标签的键值。
+* `whenUnsatisfiable`：值是 DoNotSchedule，表明调度器无法找到满足拓扑约束的方式时，将 Pod 保持在 pending 状态。
+* `labelSelector`：表明含有标签 `foo: bar` 的 Pod 会被统计，以确定相应拓扑域中 Pod 的数量。
 
 综上，zoneA 上有 2 个 Pod，zoneB 上有 1 个 Pod，如果 mypod 被分配到 zoneA 上会导致 skew 为 2，违背 maxSkew=1，所以 mypod 会被调度器分配到 zoneB 中的 Node3 或 Node4 上。
 
