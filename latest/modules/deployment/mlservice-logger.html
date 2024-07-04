@@ -331,13 +331,16 @@ spec:
          parameters:
            &quot;MODEL_PATH&quot;: &quot;mnist=model.mar&quot;
          runtime: t9k-torchserve
-         modelUri: pvc://tutorial/tutorial-examples/deployment/mlservice/torch-pvc/
        containersResources:
        - name: user-container
          resources:
            limits:
              cpu: &quot;500m&quot;
              memory: 1Gi
+        storage:
+          pvc:
+            name: tutorial
+            subPath: tutorial-examples/deployment/mlservice/torch-pvc
 </code></pre>
 </details>
 <p>然后按照 <a href="https://github.com/t9k/tutorial-examples/blob/master/deployment/mlservice/torch-pvc/README.md#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4">README 文档</a>的操作步骤进行操作。</p>
