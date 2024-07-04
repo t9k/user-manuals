@@ -141,8 +141,8 @@ mv .cache/modelscope/hub/AI-ModelScope/Mistral-7B-Instruct-v0___1 ./Mistral-7B-I
 
 ```diff
 $ diff --color -u mlservice.yaml mlservice-mistral.yaml
---- mlservice.yaml
-+++ mlservice-mistral.yaml
+--- mlservice.yaml      2024-07-04 16:04:02
++++ mlservice-mistral.yaml      2024-07-04 16:03:38
 @@ -1,7 +1,7 @@
  apiVersion: tensorstack.dev/v1beta1
  kind: MLService
@@ -152,17 +152,21 @@ $ diff --color -u mlservice.yaml mlservice-mistral.yaml
  spec:
    # scheduler:
    #   t9kScheduler:
-@@ -15,8 +15,8 @@
+@@ -15,7 +15,7 @@
            runtime: vllm-openai
            parameters:
              MODEL_PATH: /var/lib/t9k/model
 -            MODEL_NAME: codellama-7b
--          modelUri: pvc://vllm/CodeLlama-7b-Instruct-hf
 +            MODEL_NAME: mistral-7b
-+          modelUri: pvc://vllm/Mistral-7B-Instruct-v0.1
          containersResources:
          - name: user-container
            resources:
+@@ -26,4 +26,4 @@
+         storage:
+           pvc:
+             name: vllm
+-            subPath: CodeLlama-7b-Instruct-hf
++            subPath: Mistral-7B-Instruct-v0.1
 ```
 
 ```bash
@@ -240,9 +244,9 @@ $ diff --color -u mlservice-runtime.yaml mlservice-runtime-70b.yaml
 +            medium: Memory
 +          name: dshm
 
-$ diff --color -u mlservice.yaml mlservice-70b.yaml  
---- mlservice.yaml
-+++ mlservice-70b.yaml
+$ diff --color -u mlservice.yaml mlservice-70b.yaml
+--- mlservice.yaml      2024-07-04 16:04:02
++++ mlservice-70b.yaml  2024-07-04 16:05:02
 @@ -1,7 +1,7 @@
  apiVersion: tensorstack.dev/v1beta1
  kind: MLService
@@ -252,7 +256,7 @@ $ diff --color -u mlservice.yaml mlservice-70b.yaml
  spec:
    # scheduler:
    #   t9kScheduler:
-@@ -12,15 +12,15 @@
+@@ -12,18 +12,18 @@
        predictor:
          minReplicas: 1
          model:
@@ -261,9 +265,7 @@ $ diff --color -u mlservice.yaml mlservice-70b.yaml
            parameters:
              MODEL_PATH: /var/lib/t9k/model
 -            MODEL_NAME: codellama-7b
--          modelUri: pvc://vllm/CodeLlama-7b-Instruct-hf
 +            MODEL_NAME: codellama-70b
-+          modelUri: pvc://vllm/CodeLlama-70b-Instruct-hf
          containersResources:
          - name: user-container
            resources:
@@ -272,6 +274,11 @@ $ diff --color -u mlservice.yaml mlservice-70b.yaml
                memory: 64Gi
 -              nvidia.com/gpu: 1
 +              nvidia.com/gpu: 2
+         storage:
+           pvc:
+             name: vllm
+-            subPath: CodeLlama-7b-Instruct-hf
++            subPath: CodeLlama-70b-Instruct-hf
 ```
 
 ```bash
