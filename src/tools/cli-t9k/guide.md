@@ -20,7 +20,7 @@ arch=amd64
 
 ``` bash
 tar -zxvf "$HOME/Downloads/t9k-$version-$os-$arch.tar.gz"
-mv t9k-$os-$arch /usr/local/bin/t9k
+mv t9k /usr/local/bin/t9k
 rm -f "$HOME/Downloads/t9k-$version-$os-$arch.tar.gz"
 ```
 

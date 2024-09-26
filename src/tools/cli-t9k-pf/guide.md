@@ -20,7 +20,7 @@ arch=amd64
 
 ``` bash
 tar -zxvf "$HOME/Downloads/t9k-pf-$version-$os-$arch.tar.gz"
-mv t9k-pf-$os-$arch /usr/local/bin/t9k-pf
+mv t9k-pf /usr/local/bin/t9k-pf
 rm -f "$HOME/Downloads/t9k-pf-$version-$os-$arch.tar.gz"
 ```
 
