@@ -6,8 +6,8 @@ MLService 用于在 TensorStack AI 平台上部署 AI 推理服务，其功能�
 
 `MLService` 是推理服务的核心 API，由 `releases` 和 `transformer` 两部分构成：
 
-- `spec.releases` 定义一个或多个 `releases`，以提供多版本模型推理服务的支持。
-- 可选的 `transformer` 定义前处理（pre-processing）和后处理（post-processing）计算。
+- `releases`：定义一个或多个版本的模型推理服务。
+- [可选]`transformer`：定义前处理（pre-processing）和后处理（post-processing）计算。
 
 <figure class="architecture">
   <img alt="mlservice-architecture" src="../../assets/modules/deployment/mlservice-flow.drawio.svg" class="architecture">
@@ -16,7 +16,8 @@ MLService 用于在 TensorStack AI 平台上部署 AI 推理服务，其功能�
 
 `MLService` 的主要特性包括：
 
-- 支持定义多个版本（`release`）的推理服务，每个 `release` 包含一个 `predictor`，其定义了：
+- 支持定义多个版本（`release`）的推理服务，每个 `release` 定义了下列内容：
+    - release 名称：推理服务的版本名称
     - 模型存储（`storage`）
     - 模型规约（`model`），包括 `parameters`，`runtime`（引用 `MLServiceRuntime` 定义运行推理服务 `Pod` 的模板）
     - 计算资源（`containersResources`）
@@ -307,11 +308,106 @@ spec:
 
 ## 模型存储
 
-你可以为 Release 或 Transformer 定义模型存储：
-1. 通过 `spec.releases[*].predictor.storage` 可以设置当前 Release 的模型存储信息。
-2. 通过 `spec.transformer.storage` 可以设置 Transformer 的模型存储信息。
+你可以为 release 和 transformer 定义模型存储：
+1. 通过 `spec.releases[*].predictor.storage` 可以设置当前 release 的模型存储信息。
+2. 通过 `spec.transformer.storage` 可以设置 transformer 的模型存储信息。
 
 详情请见 [模型存储](./storage.md)。
+
+## Transformer
+
+MLService 支持部署含有 `transformer` 模块的前处理（pre-processing）及后处理（post-processing）的推理服务：
+
+* 预处理：用户发向推理服务的原始数据，先经过 transformer 预处理，然后再被发送到推理服务。
+* 后处理：推理服务返回的预测结果，先经过 transformer 后处理，然后再返回给用户。
+
+用户可以使用 [Tensorstack SDK](../../../tools/python-sdk-t9k/index.md) 编写 transformer 代码，制作镜像，并基于该镜像创建含有 transformer 的推理服务。详细示例请参阅[制作并部署含有 Transformer 的模型推理服务](../../tasks/deploy-mlservice-transformer.md)。
+
+下文是一个设置了 transformer 的 MLService 示例：
+
+```yaml
+apiVersion: tensorstack.dev/v1beta1
+kind: MLService
+metadata:
+  name: pic-mnist
+spec:
+  default: origin
+  transformer:
+    minReplicas: 1
+    template:
+      spec:
+        containers:
+        - name: user-container
+          image: t9kpublic/transformer-example:0.1.0
+          resources:
+            limits:
+              cpu: "500m"
+              memory: 500Mi
+  releases:
+    - name: origin
+      predictor:
+        minReplicas: 1
+        model:
+          runtime: t9k-tensorflow-serving
+        containersResources:
+        - name: user-container
+          resources:
+            limits:
+              cpu: "500m"
+              memory: 500Mi
+        storage:
+          pvc:
+            name: tutorial
+            subPath: tutorial-examples/deployment/mlservice/transformer/model
+```
+
+## 全局路由配置
+
+MLService 提供了一个全局的 URL，用户可以通过这个 URL 来访问 MLService 部署的推理服务(详情见[访问推理服务](#访问推理服务))。当用户向这个 URL 发送请求时，MLService 会根据全局路由配置将用户请求转发到对应版本的推理服务。
+
+全局路由配置最多可以设置两个版本（release）的推理服务来处理用户请求，其中一个推理服务版本作为默认版本，另一个推理服务版本作为金丝雀版本：
+1. 默认版本：必需。将 `spec.default` 字段设置为 release 名称来表明将哪个 release 设置为路由的默认版本。
+2. [可选]金丝雀版本：将 `spec.canary` 字段设置为 release 名称来表明将哪个 release 设置为路由的金丝雀版本。设置金丝雀版本的同时，你必须设置 `spec.canaryTrafficPercent` 字段，来配置金丝雀版本的路由权重。
+
+下面是一个 MLService 示例，在这个示例中：
+1. 部署了 3 个版本的推理服务，版本名称分别是：nov-02，nov-05，nov-11。
+2. 全局路由配置：nov-02 设置为路由的默认版本，路由权重是 80%；nov-11 设置为路由的金丝雀版本，路由权重是 20%。
+
+```yaml
+apiVersion: tensorstack.dev/v1beta1
+kind: MLService
+metadata:
+  name: multi-releases
+spec:
+  default: nov-02
+  canary: nov-11
+  canaryTrafficPercent: 20
+  releases:
+  - name: nov-02
+    predictor:
+      model:
+        runtime: torchserve
+      storage:
+        pvc:
+          name: tutorial
+          subPath: model-11-02
+  - name: nov-05
+    predictor:
+      model:
+        runtime: torchserve
+      storage:
+        pvc:
+          name: tutorial
+          subPath: model-11-05
+  - name: nov-11
+    predictor:
+      model:
+        runtime: torchserve
+      storage:
+        pvc:
+          name: tutorial
+          subPath: model-11-11
+```
 
 ## 更多配置
 
@@ -379,38 +475,6 @@ spec:
 
 MLService 支持对预测请求进行日志收集，详情见[2.2.2.1日志收集](./mlservice-logger.md)
 
-### 前处理及后处理
-
-MLService 支持部署含有 `transformer` 模块的前处理（pre-processing）及后处理（post-processing）的推理服务：
-
-* 预处理：用户发向推理服务的原始数据，先经过 transformer 预处理，然后再被发送到推理服务。
-* 后处理：推理服务返回的预测结果，先经过 transformer 后处理，然后再返回给用户。
-
-用户可以使用 [Tensorstack SDK](../../../tools/python-sdk-t9k/index.md) 编写 transformer 代码，制作镜像，并基于该镜像创建含有 transformer 的推理服务。详细示例请参阅[制作并部署含有 Transformer 的模型推理服务](../../tasks/deploy-mlservice-transformer.md)。
-
-下文展示了一个使用 transformer 的推理服务：
-
-```yaml
-apiVersion: tensorstack.dev/v1beta1
-kind: MLService
-metadata:
-  name: pic-mnist
-spec:
-  default: origin
-  transformer:
-    minReplicas: 1
-    minReplicas: 5
-    template:
-      spec:
-        containers:
-        - name: user-container
-          image: t9kpublic/transformer-example:0.1.0
-          resources:
-            limits:
-              cpu: "500m"
-              memory: 500Mi
-```
-
 ### 容量伸缩
 
 MLService 支持自动伸缩服务容量：即根据服务负载的变化，自动调节推理服务的部署规模（副本数量）。具体原理可以查看 <a target="_blank" rel="noopener noreferrer" href="https://knative.dev/docs/serving/autoscaling/">Knative Autoscaling</a>。
@@ -432,9 +496,9 @@ MLService 支持自动伸缩服务容量：即根据服务负载的变化，自�
 spec:
   releases:
     - name: version1
-      minReplicas: 1
-      maxReplicas: 3
       predictor:
+        minReplicas: 1
+        maxReplicas: 3
         template:
           metadata:
             annotations: 
@@ -512,6 +576,12 @@ status:
 
 ## 访问推理服务
 
+有两种访问推理服务的方式：
+1. 通过全局 URL 访问[全局路由配置](#全局路由配置)中设置的推理服务。
+2. 通过某个版本的推理服务对应的 URL 来访问这个版本的推理服务。
+
+### 全局 URL
+
 MLService 部署成功后，通过状态字段 `status.address.url` 可以查询到全局推理服务的 Base URL，再加上部署模型对应的路径即可得到访问推理服务的地址。
 
 以[示例](#示例)中的服务为例，推理服务地址的状态字段如下：
@@ -524,24 +594,68 @@ status:
 ...
 ```
 
-由于服务使用的是 TorchServe 框架，按照其<a target="_blank" rel="noopener noreferrer" href="https://pytorch.org/serve/inference_api.html"> API 规范</a>，用户可以通过下述命令查看服务状态：
+由于服务使用的是 TorchServe 框架，按照其 <a target="_blank" rel="noopener noreferrer" href="https://pytorch.org/serve/inference_api.html">API 规范</a>，用户可以通过下述命令查看服务状态：
 
 ```bash
-$ curl http://torch-mnist.<project-name>.<domain-name>/v1/models/mnist
+$  curl http://torch-mnist.<project>.<domain>/ping
 {
-    "model_version_status": <model-status>
+  "status": "Healthy"
 }
 ```
 
 并调用推理服务：
 
 ```bash
-# 数据在 https://github.com/t9k/tutorial-examples/blob/master/deployment/pvc/mlservice-torch/test_data/0.png
-$ curl -T test_data/0.png http://torch-mnist.<project-name>.<domain-name>/v1/models/mnist:predict
+# 数据在 https://github.com/t9k/tutorial-examples/blob/master/deployment/mlservice/torch-pvc/test_data/0.png
+$ curl -T test_data/0.png http://torch-mnist.<project>.<domain>/v1/models/mnist:predict
 {
     "predictions": <predict-result>
 }
 ```
+
+### 单版本 URL
+
+MLService 部署成功后，通过状态字段 `status.releases` 可以查看每个版本的推理服务对应的 Base URL。
+
+下面的是 `status.releases` 示例，这个 MLService 中部署了 3 个版本的推理服务，版本名称分别是：v1、v2、v3。
+
+```bash
+status:
+  releases:
+  - name: v1
+    ready: true
+    readyReplicas: 1
+    totalReplicas: 1
+    trafficPercent: 50
+    url: http://torch-mnist-s3-predict-v1.<project>.<domain>
+  - name: v2
+    ready: true
+    readyReplicas: 1
+    totalReplicas: 1
+    trafficPercent: 50
+    url: http://torch-mnist-s3-predict-v2.<project>.<domain>
+  - name: v3
+    ready: true
+    readyReplicas: 1
+    totalReplicas: 1
+    trafficPercent: 0
+    url: http://torch-mnist-s3-predict-v3.<project>.<domain>
+```
+
+运行下列命令可以查看 v1 版本的推理服务的运行状态：
+```bash
+$ curl http://torch-mnist-s3-predict-v1.<project>.<domain>/ping
+{
+  "status": "Healthy"
+}
+```
+
+<aside class="note tip">
+<div class="title">注意</div>
+
+当 MLService 设置了 Transformer 时，通过单版本 URL 访问推理服务不会经过 Transformer 的前处理和后处理。
+
+</aside>
 
 ## 下一步
 
